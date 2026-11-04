@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function expandedTime2Test() {
   describe('ReminderTimeExpanded2Test', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_TIME_EXPANDED2_0100
      * @tc.name      testReminderTimeExpanded20001
@@ -27,15 +29,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -47,15 +47,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -67,15 +65,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -87,15 +83,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -107,15 +101,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -127,15 +119,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(1, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -147,15 +137,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -167,15 +155,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -187,15 +173,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -207,15 +191,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -227,15 +209,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -247,15 +227,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(2, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -267,15 +245,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -287,15 +263,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -307,15 +281,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -327,15 +299,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -347,15 +317,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -367,15 +335,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(3, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -387,15 +353,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -407,15 +371,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -427,15 +389,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -447,15 +407,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -467,15 +425,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -487,15 +443,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -507,15 +461,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(4, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -527,15 +479,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -547,15 +497,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -567,15 +515,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -587,15 +533,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -607,15 +551,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -627,15 +569,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20031',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -647,15 +587,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20032',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(5, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -667,15 +605,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20033',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -687,15 +623,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20034',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -707,15 +641,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20035',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -727,15 +659,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20036',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -747,15 +677,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20037',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -767,15 +695,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20038',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -787,15 +713,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20039',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -807,15 +731,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20040',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -827,15 +749,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20041',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -847,15 +767,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20042',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(7, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -867,15 +785,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20043',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -887,15 +803,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20044',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -907,15 +821,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20045',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -927,15 +839,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20046',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -947,15 +857,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20047',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -967,15 +875,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20048',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -987,15 +893,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20049',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(8, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1007,15 +911,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20050',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1027,15 +929,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20051',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1047,15 +947,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20052',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1067,15 +965,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20053',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1087,15 +983,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20054',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1107,15 +1001,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20055',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1127,15 +1019,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20056',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(9, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1147,15 +1037,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20057',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1167,15 +1055,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20058',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1187,15 +1073,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20059',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1207,15 +1091,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20060',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1227,15 +1109,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20061',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1247,15 +1127,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20062',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1267,15 +1145,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20063',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(10, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1287,15 +1163,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20064',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1307,15 +1181,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20065',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1327,15 +1199,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20066',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1347,15 +1217,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20067',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1367,15 +1235,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20068',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1387,15 +1253,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20069',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1407,15 +1271,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20070',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(11, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1427,15 +1289,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20071',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1447,15 +1307,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20072',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1467,15 +1325,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20073',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1487,15 +1343,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20074',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1507,15 +1361,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20075',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1527,15 +1379,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20076',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1547,15 +1397,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20077',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1567,15 +1415,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20078',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1587,15 +1433,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20079',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1607,15 +1451,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20080',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(13, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1627,15 +1469,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20081',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1647,15 +1487,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20082',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1667,15 +1505,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20083',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1687,15 +1523,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20084',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1707,15 +1541,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20085',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1727,15 +1559,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20086',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1747,15 +1577,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20087',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(14, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1767,15 +1595,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20088',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1787,15 +1613,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20089',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1807,15 +1631,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20090',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1827,15 +1649,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20091',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1847,15 +1667,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20092',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1867,15 +1685,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20093',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1887,15 +1703,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20094',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(15, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1907,15 +1721,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20095',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 25);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1927,15 +1739,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20096',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1947,15 +1757,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20097',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 35);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1967,15 +1775,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20098',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1987,15 +1793,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20099',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 45);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -2007,15 +1811,13 @@ export default function expandedTime2Test() {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeExpanded20100',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(16, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
