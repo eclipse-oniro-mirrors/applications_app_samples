@@ -24,6 +24,7 @@ import Constant from '../../../main/ets/common/Constant';
 import AlarmClockReminder from '../../../main/ets/util/AlarmClockReminder';
 import CalendarReminder from '../../../main/ets/util/CalendarReminder';
 import Logger from '../util/Logger';
+import { installCaseIsolation } from './TestRuntime';
 
 const BUNDLE_NAME: string = 'com.example.reminderagentmanager';
 const ABILITY_NAME: string = 'EntryAbility';
@@ -323,6 +324,7 @@ function expectedTimeToMillisecond(targetHour: number, targetMinute: number, at:
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_AGENT_MANAGER_0100
      * @tc.name      testReminderAgentStartAbility0001
@@ -650,7 +652,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentTimeConversion0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         Logger.info(`${TAG} testReminderAgentTimeConversion0011 begin`);
         try {
           const before: Date = new Date();
@@ -692,8 +694,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentTimeConversion0011 failed: ${JSON.stringify(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -706,27 +706,25 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentPreferences0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         Logger.info(`${TAG} testReminderAgentPreferences0012 begin`);
         try {
           const entryContext = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(entryContext, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(entryContext, { name: PREF_NAME });
           const key: string = 'uiTestKey';
           const value: string = 'uiTestValue';
-          await pref.put(key, value);
-          await pref.flush();
-          const readValue: string = String(await pref.get(key, ''));
+          pref.putSync(key, value);
+          pref.flushSync();
+          const readValue: string = String(pref.getSync(key, ''));
           expect(readValue).assertEqual(value);
-          await pref.delete(key);
-          await pref.flush();
-          const afterDelete: string = String(await pref.get(key, ''));
+          pref.deleteSync(key);
+          pref.flushSync();
+          const afterDelete: string = String(pref.getSync(key, ''));
           expect(afterDelete).assertEqual('');
           Logger.info(`${TAG} testReminderAgentPreferences0012 end`);
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentPreferences0012 failed: ${JSON.stringify(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1115,7 +1113,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeBounds0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const values: number[] = [
             TimeConversion.timeToMillisecond(0, 0),
@@ -1130,8 +1128,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixTimeBounds0021 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1144,7 +1140,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeConsistency0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const before: Date = new Date();
           const target: Date = new Date(before.getTime() + 10 * 60 * 1000);
@@ -1162,8 +1158,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixTimeConsistency0022 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1176,7 +1170,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateFuture0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const future: Date = new Date(Date.now() + 2 * 60 * 1000);
           const result: number = TimeConversion.dateToMillisecond(future.getFullYear(),
@@ -1186,8 +1180,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixDateFuture0023 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1200,7 +1192,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDatePast0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const past: Date = new Date(Date.now() - 2 * 60 * 1000);
           const result: number = TimeConversion.dateToMillisecond(past.getFullYear(),
@@ -1211,8 +1203,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixDatePast0024 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1225,7 +1215,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateSameMinute0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const result: number = TimeConversion.dateToMillisecond(now.getFullYear(),
@@ -1235,8 +1225,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixDateSameMinute0025 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1249,7 +1237,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateWrap0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const nextHour: number = (now.getHours() + 1) % 24;
@@ -1264,8 +1252,6 @@ export default function abilityTest() {
         } catch (err) {
           Logger.error(`${TAG} testReminderAgentMatrixDateWrap0026 failed: ${String(err)}`);
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1612,15 +1598,13 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeZero0041',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 0);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1633,15 +1617,13 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeOneMinute0042',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 1);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1654,15 +1636,13 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeNoon0043',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 0);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1675,15 +1655,13 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeLastMinute0044',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 59);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1696,15 +1674,13 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixTimeHalfDay0045',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 30);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1717,7 +1693,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateFiveMinutes0046',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const future: Date = new Date(Date.now() + 5 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(future.getFullYear(),
@@ -1726,8 +1702,6 @@ export default function abilityTest() {
           expect(value <= 301).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1740,7 +1714,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateFiveMinutesPast0047',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const past: Date = new Date(Date.now() - 5 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(past.getFullYear(),
@@ -1749,8 +1723,6 @@ export default function abilityTest() {
           expect(value >= -361).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1763,7 +1735,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateCurrent0048',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const value: number = TimeConversion.dateToMillisecond(now.getFullYear(),
@@ -1773,8 +1745,6 @@ export default function abilityTest() {
           expect(value >= -60).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1787,7 +1757,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateTomorrow0049',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const tomorrow: Date = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -1797,8 +1767,6 @@ export default function abilityTest() {
           expect(value <= 86400).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -1811,7 +1779,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixDateYesterday0050',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const yesterday: Date = new Date(now.getTime() - 24 * 60 * 60 * 1000);
@@ -1821,8 +1789,6 @@ export default function abilityTest() {
           expect(value >= -90000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -2125,7 +2091,7 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentMatrixConstants0060',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.PROMPT_DURATION).assertEqual(300);
           expect(Constant.REMINDER_DURATION).assertEqual(30);
@@ -2134,8 +2100,6 @@ export default function abilityTest() {
           expect(Constant.TIME_COUNTDOWN).assertEqual(59);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
   });
