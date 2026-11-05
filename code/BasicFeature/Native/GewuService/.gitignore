@@ -14,3 +14,5 @@
 *.log
 .cache
 wecode-cpp.db
+# Third-party sources fetched by prepare_opensource_deps.sh
+/entry/src/main/cpp/include/nlohmann/
