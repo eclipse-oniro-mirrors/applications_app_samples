@@ -449,7 +449,6 @@ async function viewAudioCapturerState(updateCallback?: (msg: string, isError: bo
     }
   }
 }
-// [End all_audioCapturer]
 
 async function listenAudioCapturerState(callbackUpdate?: (msg: string) => void): Promise<void> {
   if (audioCapturer !== undefined) {
@@ -466,7 +465,8 @@ async function listenAudioCapturerState(callbackUpdate?: (msg: string) => void):
     // [End listen_AudioCapturerState]
   }
 }
-
+// [EndExclude all_audioCapturer]
+// [End all_audioCapturer]
 
 @Entry
 @Component
