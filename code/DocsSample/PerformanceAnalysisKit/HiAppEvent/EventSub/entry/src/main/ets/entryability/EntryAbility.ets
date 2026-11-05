@@ -21,16 +21,20 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [Start AppEvent_Crash_Click_ArkTS_Header]
 // [Start AppHicollie_ArkTS_Header]
 // [Start MainThreadJank_ArkTS_Header]
+// [Start External_Log_ArkTS_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End AppHicollie_ArkTS_Header]
 // [End AppEvent_Crash_Click_ArkTS_Header]
+// [StartExclude External_Log_ArkTS_Header]
 // [End PssLeakEvent_ArkTS_Header]
 // [StartExclude MainThreadJank_ArkTS_Header]
 import { deviceInfo } from '@kit.BasicServicesKit';
 // [EndExclude MainThreadJank_ArkTS_Header]
 // [End Crash_Click_ArkTS_Header]
 import { buffer, util } from '@kit.ArkTS';
+// [EndExclude External_Log_ArkTS_Header]
 import { fileIo } from '@kit.CoreFileKit';
+// [End External_Log_ArkTS_Header]
 // [End MainThreadJank_ArkTS_Header]
 import { hidebug } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
@@ -55,7 +59,7 @@ export default class EntryAbility extends UIAbility {
     let deleteFiles: (files: string[]) => void = (files: string[]): void => {
       for (const file of files) {
         try {
-          fs.unlinkSync(file);
+          fileIo.unlinkSync(file);
           hilog.info(0x0000, 'testTag', `[MyLogManager] 已删除: ${file}`);
         } catch (e) {
           hilog.info(0x0000, 'testTag', `[MyLogManager] 删除失败: ${file}, error: ${e}`);
