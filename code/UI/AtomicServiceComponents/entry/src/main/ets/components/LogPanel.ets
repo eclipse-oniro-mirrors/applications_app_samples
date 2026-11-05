@@ -72,7 +72,7 @@ export struct LogPanel {
             .backgroundColor(AppColors.SOFT_BG)
             .fontColor(AppColors.TEXT_STRONG)
             .onClick(() => {
-              AlertDialog.show({
+              this.getUIContext().showAlertDialog({
                 title: '清空日志',
                 message: '将清空全部事件记录，且不可恢复，确认继续？',
                 autoCancel: true,

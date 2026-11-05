@@ -101,6 +101,12 @@ export struct DownloadDemo {
   }
 
   private downloadAction(): void {
+    // 选择器打开期间重复点击会覆盖 this.picker，旧实例的定时器无人清理并可能触发过期回调，
+    // 导致重复写沙箱与状态被旧结果覆盖；这里以 this.picker 作为“进行中”判据直接忽略。
+    if (this.picker !== null) {
+      Logger.warn('Download', '下载', '文档选择器已打开，忽略重复点击');
+      return;
+    }
     this.state = DownloadState.PICKING;
     Logger.info('Download', '下载',
       `开始下载，pickerSupported=${this.layout.pickerSupported}，目标=${this.layout.pickerSupported ? '选择器' : '沙箱'}`);
@@ -190,6 +196,7 @@ export struct DownloadDemo {
                   left: AppSpacing.XLARGE,
                   right: AppSpacing.XLARGE
                 })
+                .enabled(this.state !== DownloadState.PICKING)
                 .onClick(() => this.downloadAction())
             }, (key: string) => key)
 

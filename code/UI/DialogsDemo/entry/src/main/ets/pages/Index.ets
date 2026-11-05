@@ -179,8 +179,10 @@ struct Index {
   private interstitial: InterstitialDialogAction | null = null;
   private loadingTimer: number = -1;
   private toastTimer: number = -1;
+  private disposed: boolean = false;
 
   aboutToAppear(): void {
+    this.disposed = false;
     LogUtil.init((line: string) => {
       this.pushLog(line);
     });
@@ -191,6 +193,7 @@ struct Index {
   }
 
   aboutToDisappear(): void {
+    this.disposed = true;
     if (this.loadingTimer !== -1) {
       clearTimeout(this.loadingTimer);
       this.loadingTimer = -1;
@@ -222,7 +225,11 @@ struct Index {
   private showContent(content: ComponentContent<Object>, instant: boolean = false): void {
     const prompt = this.getUIContext().getPromptAction();
     if (this.current !== null) {
-      prompt.closeCustomDialog(this.current);
+      try {
+        prompt.closeCustomDialog(this.current);
+      } catch (err) {
+        LogUtil.error(TAG, `关闭旧弹窗失败：${err instanceof Error ? err.message : '未知错误'}`);
+      }
       this.current = null;
     }
     this.current = content;
@@ -249,11 +256,19 @@ struct Index {
   /** 关闭当前 openCustomDialog 弹窗（场景5 定时关闭与“关闭弹窗”按钮共用） */
   private closeTop(): void {
     if (this.current !== null) {
-      this.getUIContext().getPromptAction().closeCustomDialog(this.current);
+      try {
+        this.getUIContext().getPromptAction().closeCustomDialog(this.current);
+      } catch (err) {
+        LogUtil.error(TAG, `关闭当前弹窗失败：${err instanceof Error ? err.message : '未知错误'}`);
+      }
       this.current = null;
     }
     if (this.interstitial !== null) {
-      this.interstitial.closeDialog();
+      try {
+        this.interstitial.closeDialog();
+      } catch (err) {
+        LogUtil.error(TAG, `关闭插屏失败：${err instanceof Error ? err.message : '未知错误'}`);
+      }
       this.interstitial = null;
     }
   }
@@ -561,19 +576,34 @@ struct Index {
   /** 场景13：Toast 轻提示（openToast + closeToast） */
   private showToast(): void {
     this.activeScene = 13;
+    // 连点会重复进入：先清掉上一轮未触发的关闭定时器，避免遗留定时器关闭到过期的 toastId
+    if (this.toastTimer !== -1) {
+      clearTimeout(this.toastTimer);
+      this.toastTimer = -1;
+    }
     this.logEvent(13, DialogEventLog.formatOpen(13, '轻提示 Toast'));
     this.getUIContext().getPromptAction().openToast({
       message: '已保存到相册',
       duration: 3000,
       bottom: '80vp'
     }).then((toastId: number): void => {
+      // openToast 是异步的，回调可能晚于页面销毁
+      if (this.disposed) {
+        return;
+      }
       this.logEvent(13, `toastId=${toastId}`);
       this.toastTimer = setTimeout((): void => {
         this.toastTimer = -1;
+        if (this.disposed) {
+          return;
+        }
         this.getUIContext().getPromptAction().closeToast(toastId);
         this.logEvent(13, DialogEventLog.formatClose(13, '轻提示'));
       }, 1000);
     }).catch((err: Error): void => {
+      if (this.disposed) {
+        return;
+      }
       this.logEvent(13, DialogEventLog.formatError(13, err.message));
     });
   }

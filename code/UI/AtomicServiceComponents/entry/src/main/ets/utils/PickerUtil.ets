@@ -49,6 +49,8 @@ export class DownloadPicker {
   }
 
   open(callback: (outcome: PickerOutcome) => void): void {
+    // 同一实例重复 open 时先清掉上一轮未触发的超时定时器，避免遗留定时器与新一次尝试并存
+    this.clearTimer();
     this.disposed = false;
     this.settled = false;
     this.callback = callback;

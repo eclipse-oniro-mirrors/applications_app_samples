@@ -37,13 +37,16 @@ export struct PreferencesDemo {
   @State readTimes: number = 0;
   @State status: string = '尚未加载';
   @State failed: boolean = false;
+  private disposed: boolean = false;
 
   aboutToAppear(): void {
+    this.disposed = false;
     Logger.info('Prefs', '生命周期', '进入首选项演示页');
     this.reload('进入页面');
   }
 
   aboutToDisappear(): void {
+    this.disposed = true;
     Logger.info('Prefs', '生命周期', '离开首选项演示页');
   }
 
@@ -77,12 +80,18 @@ export struct PreferencesDemo {
     const text = normalizePrefsText(this.input);
     try {
       PrefsUtil.save(this.hostContext(), text, this.readTimes).then((count: number) => {
+        if (this.disposed) {
+          return;
+        }
         this.savedText = text;
         this.readTimes = count;
         this.failed = false;
         this.status = '已写入并 flush 落盘';
         Logger.info('Prefs', '写入', `写入「${text}」，flush 完成，累计 ${count} 次`);
       }).catch((err: BusinessError) => {
+        if (this.disposed) {
+          return;
+        }
         this.failed = true;
         this.status = `写入失败（${err.code}）`;
         Logger.error('Prefs', '写入', `首选项写入失败（${err.code}）：${err.message}`);
@@ -98,11 +107,17 @@ export struct PreferencesDemo {
   private removeText(): void {
     try {
       PrefsUtil.removeText(this.hostContext()).then(() => {
+        if (this.disposed) {
+          return;
+        }
         this.savedText = '';
         this.failed = false;
         this.status = '已删除文本并 flush';
         Logger.info('Prefs', '删除', '删除 demoText 并 flush 完成');
       }).catch((err: BusinessError) => {
+        if (this.disposed) {
+          return;
+        }
         this.failed = true;
         this.status = `删除失败（${err.code}）`;
         Logger.error('Prefs', '删除', `删除文本失败（${err.code}）：${err.message}`);
@@ -118,12 +133,18 @@ export struct PreferencesDemo {
   private clearAll(): void {
     try {
       PrefsUtil.clearAll(this.hostContext()).then(() => {
+        if (this.disposed) {
+          return;
+        }
         this.savedText = '';
         this.readTimes = 0;
         this.failed = false;
         this.status = '已清空全部首选项';
         Logger.info('Prefs', '清空', 'clearSync + flush 完成');
       }).catch((err: BusinessError) => {
+        if (this.disposed) {
+          return;
+        }
         this.failed = true;
         this.status = `清空失败（${err.code}）`;
         Logger.error('Prefs', '清空', `清空首选项失败（${err.code}）：${err.message}`);

@@ -47,9 +47,9 @@ export struct CrossAbilityDemo {
   }
 
   aboutToDisappear(): void {
-    // 让已发起的 startAbility 回调失效，避免页面销毁后迟到的 Promise 继续写 @State
-    this.activeToken = beginAttempt(this.activeToken);
     this.clearTimer();
+    // 使在途 startAbility 的 token 失效：页面销毁后迟到的 resolve/reject 不再写回 @State
+    this.activeToken = beginAttempt(this.activeToken);
     Logger.info('Jump', '生命周期', `离开应用间跳转演示页，最终状态 ${jumpStateName(this.state)}`);
   }
 
