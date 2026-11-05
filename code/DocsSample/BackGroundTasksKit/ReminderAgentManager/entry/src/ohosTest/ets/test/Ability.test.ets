@@ -14,8 +14,8 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { reminderAgentManager } from '@kit.BackgroundTasksKit';
 import { notificationManager } from '@kit.NotificationKit';
 import { preferences } from '@kit.ArkData';

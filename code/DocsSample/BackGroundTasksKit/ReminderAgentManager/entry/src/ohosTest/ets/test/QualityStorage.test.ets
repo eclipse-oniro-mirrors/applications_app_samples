@@ -14,7 +14,7 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { preferences } from '@kit.ArkData';
 import { installCaseIsolation } from './TestRuntime';
 
