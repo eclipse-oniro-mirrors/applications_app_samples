@@ -30,7 +30,7 @@
 class RecorderAudioStats;
 
 struct CodecUserData {
-    // 由播放器或录制器持有的配置，CodecUserData 仅借用。销毁上下文前必须先停止回调和工作线程。
+    // 由播放器或录制器持有的配置，CodecUserData仅借用。销毁上下文前必须先停止回调和工作线程。
     SampleInfo *sampleInfo = nullptr;
     bool isDecFirstFrame = false;
     bool isEncFirstFrame = false;
@@ -39,7 +39,7 @@ struct CodecUserData {
     int32_t height = 0;
     int32_t widthStride = 0;
     int32_t heightStride = 0;
-    // 解码器实际输出格式可能与 Configure() 请求的格式不同；格式变更回调在 codecMutex 保护下更新这些字段。
+    // 解码器实际输出格式可能与Configure()请求的格式不同；格式变更回调在codecMutex保护下更新这些字段。
     OH_AVPixelFormat outputPixelFormat = AV_PIXEL_FORMAT_NV12;
 
     // 保护编解码器输出格式及尺寸，避免格式变更回调与送显线程同时读写。
@@ -55,7 +55,7 @@ struct CodecUserData {
     std::mutex outputMutex;
     std::condition_variable renderCond;
     CodecBufferQueue outputBufferQueue;
-    // 音频解码线程写入、AudioRenderer 回调读取，两个方向均须持有 outputMutex。
+    // 音频解码线程写入、AudioRenderer回调读取，两个方向均须持有outputMutex。
     std::queue<unsigned char> renderQueue;
 
     int64_t audioFramesWritten = 0;
@@ -64,11 +64,11 @@ struct CodecUserData {
 
     std::atomic<bool> isDestroyed { false };
     std::atomic<bool> hasError { false };
-    // 以下状态均由播放器持有，CodecUserData 只保存非拥有指针。
-    // 注册音频/codec 回调前必须完成赋值，并保证其指向的状态晚于回调注销和工作线程退出才销毁。
+    // 以下状态均由播放器持有，CodecUserData只保存非拥有指针。
+    // 注册音频/codec回调前必须完成赋值，并保证其指向的状态晚于回调注销和工作线程退出才销毁。
     std::atomic<bool> *runningFlag = nullptr;
     std::atomic<bool> *playbackFailure = nullptr;
-    // AudioRenderer 中断回调共享的播放状态。
+    // AudioRenderer中断回调共享的播放状态。
     std::atomic<bool> *pausedFlag = nullptr;
     std::atomic<bool> *audioInterrupted = nullptr;
     std::atomic<bool> *audioResumePending = nullptr;
@@ -81,15 +81,15 @@ struct CodecUserData {
     std::atomic<int64_t> *audioQueueDurationUs = nullptr;
     std::atomic<int64_t> *playbackPositionUs = nullptr;
 
-    // 由会话持有，codec 注销回调后才销毁。
+    // 由会话持有，codec注销回调后才销毁。
     OperationFailure *failureDetails = nullptr;
-    // Recorder 持有；采集回调停止、音频线程退出后才结束统计生命周期。
+    // Recorder持有；采集回调停止、音频线程退出后才结束统计生命周期。
     RecorderAudioStats *recordingAudioStats = nullptr;
 
     void SignalError()
     {
-        // 此方法可由 codec 或 AudioRenderer 回调线程调用，只更新原子状态并唤醒等待线程；
-        // 不在回调中执行 Stop、Destroy 等可能阻塞或再次触发回调的 codec 操作。
+        // 此方法可由codec或AudioRenderer回调线程调用，只更新原子状态并唤醒等待线程；
+        // 不在回调中执行Stop、Destroy等可能阻塞或再次触发回调的codec操作。
         hasError = true;
         if (playbackFailure != nullptr) {
             playbackFailure->store(true);
@@ -109,7 +109,7 @@ struct CodecUserData {
     }
     // [End buffer_clean]
 
-    // 必须在持有 outputMutex 时调用。播放 PCM 已统一为 S16LE，因此可按双字节采样值计算队列时长。
+    // 必须在持有outputMutex时调用。播放PCM已统一为S16LE，因此可按双字节采样值计算队列时长。
     void UpdateAudioQueueDuration()
     {
         constexpr int64_t usPerSecond = 1'000'000;
@@ -140,7 +140,7 @@ struct CodecUserData {
         if (bufferLen + remainlen > cache.size()) {
             cache.resize(remainlen + bufferLen);
         }
-        // 只在本次调用内读取调用方提供的地址，将数据复制到 cache；不保存外部裸指针。
+        // 只在本次调用内读取调用方提供的地址，将数据复制到cache；不保存外部裸指针。
         const auto *source = static_cast<const char *>(buffer);
         std::copy_n(source, bufferLen, cache.data() + remainlen);
         remainlen += bufferLen;
@@ -151,7 +151,7 @@ struct CodecUserData {
         if (buffer == nullptr || bufferLen <= 0 || remainlen < bufferLen) {
             return false;
         }
-        // 目标地址由 AudioRenderer 回调提供，仅在回调期间有效，复制完成后不保留该地址。
+        // 目标地址由AudioRenderer回调提供，仅在回调期间有效，复制完成后不保留该地址。
         auto *destination = static_cast<char *>(buffer);
         std::copy_n(cache.data(), bufferLen, destination);
         remainlen -= bufferLen;
