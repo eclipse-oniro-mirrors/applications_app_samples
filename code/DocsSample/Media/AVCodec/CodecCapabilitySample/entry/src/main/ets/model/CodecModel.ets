@@ -185,7 +185,9 @@ export const SCENARIO_GROUPS: ScenarioGroup[] = [
     title: '时域可分层编码：长期参考帧特性',
     items: [
       { id: 36, name: 'LTR特性与数目校验' },
-      { id: 37, name: '配置最大LTR数目' }
+      { id: 37, name: '配置最大LTR数目' },
+      { id: 38, name: 'LTR随帧回调注册（Buffer模式）' },
+      { id: 39, name: 'LTR随帧回调注册（Surface模式）' }
     ]
   }
 ];

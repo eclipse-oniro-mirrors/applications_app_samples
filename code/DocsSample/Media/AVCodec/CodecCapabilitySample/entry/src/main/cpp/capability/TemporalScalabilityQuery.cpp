@@ -90,10 +90,14 @@ static void OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
 #pragma clang diagnostic pop
 #endif
 
-// 文档参考代码：LTR随帧通路回调注册完整示例（Buffer输入模式）。该示例依赖
-// 完整编码会话上下文（videoEnc与业务队列），作为开发参考保留在源文件中，
-// 不参与编译。
-#if 0
+// 文档示例代码：LTR随帧通路回调注册完整示例（Buffer输入模式）。回调实现与
+// 注册步骤封装于独立命名空间参与编译，随帧参数经OH_AVBuffer参数通路随帧下发，
+// 注册结果由LtrBufferCallbackRegister场景入口验证。
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+namespace LtrBufferDemo {
 // [Start ltr_buffer_callback_register]
 // 2.1 编码输入回调OH_AVCodecOnNeedInputBuffer实现。
 static void OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
@@ -107,13 +111,18 @@ static void OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
     if (format == nullptr) {
         // 异常处理。
+        return;
     }
+    // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, 4);
     OH_AVBuffer_SetParameter(buffer, format);
     OH_AVFormat_Destroy(format);
     // 通知编码器buffer输入完成。
-    OH_VideoEncoder_PushInputBuffer(codec, index);
+    OH_AVErrCode ret = OH_VideoEncoder_PushInputBuffer(codec, index);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
 }
 
 // 2.2 编码输出回调OH_AVCodecOnNewOutputBuffer实现。
@@ -124,26 +133,63 @@ static void OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
     // 数据处理，请参考：
     // - 释放编码帧。
     // - 记录POC和LTR生效情况。
+    // 获取出帧属性，出帧时间戳attr.pts可作为输入/输出轮转参数匹配的键值。
+    struct OH_AVCodecBufferAttr attr;
+    OH_AVErrCode ret = OH_AVBuffer_GetBufferAttr(buffer, &attr);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+        return;
+    }
+    // 记录POC和LTR生效情况：读取完成帧携带的帧POC与LTR标记，结合输入轮转中
+    // 随帧下发的MARK_LTR/USE_LTR记录，核对参考结构是否符合预期。
+    OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+    if (format != nullptr) {
+        int32_t framePoc = -1;
+        int32_t isLtrFrame = 0;
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PER_FRAME_POC, &framePoc);
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PER_FRAME_IS_LTR, &isLtrFrame);
+        OH_AVFormat_Destroy(format);
+    }
+    // 释放编码帧。
+    ret = OH_VideoEncoder_FreeOutputBuffer(codec, index);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
 }
 
 // 2.3 注册数据回调。
-OH_AVCodecCallback cb;
-cb.onNeedInputBuffer = OnNeedInputBuffer;
-cb.onNewOutputBuffer = OnNewOutputBuffer;
-OH_VideoEncoder_RegisterCallback(videoEnc, cb, nullptr);
+static OH_AVErrCode RegisterLtrBufferCallbacks(OH_AVCodec *videoEnc)
+{
+    // 零初始化，未注册的回调成员为空指针，框架触发对应事件时会跳过空回调。
+    OH_AVCodecCallback cb = {};
+    cb.onNeedInputBuffer = OnNeedInputBuffer;
+    cb.onNewOutputBuffer = OnNewOutputBuffer;
+    OH_AVErrCode ret = OH_VideoEncoder_RegisterCallback(videoEnc, cb, nullptr);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
+    return ret;
+}
 // [End ltr_buffer_callback_register]
+} // namespace LtrBufferDemo
+#if defined(__clang__)
+#pragma clang diagnostic pop
 #endif
 
-// 文档参考代码：LTR随帧通路回调注册完整示例（Surface输入模式）。该示例依赖
-// 完整编码会话上下文（videoEnc与业务队列），作为开发参考保留在源文件中，
-// 不参与编译。
-#if 0
+// 文档示例代码：LTR随帧通路回调注册完整示例（Surface输入模式）。随帧参数经
+// 随帧参数回调通路下发，注册结果由LtrSurfaceCallbackRegister场景入口验证。
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+namespace LtrSurfaceDemo {
 // [Start ltr_surface_callback_register]
 // 2.1 编码输入参数回调OH_VideoEncoder_OnNeedInputParameter实现。
 static void OnNeedInputParameter(OH_AVCodec *codec, uint32_t index, OH_AVFormat *parameter, void *userData)
 {
     if (parameter == nullptr) {
         // 异常处理。
+        return;
     }
     // 输入帧buffer对应的index，送入InIndexQueue队列。
     // 输入帧的数据avformat送入InFormatQueue队列。
@@ -151,10 +197,14 @@ static void OnNeedInputParameter(OH_AVCodec *codec, uint32_t index, OH_AVFormat 
     // - 写入编码码流。
     // - 通知编码器码流结束。
     // - 随帧参数写入。
+    // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
     OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
     OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, 4);
     // 通知编码器随帧参数配置输入完成。
-    OH_VideoEncoder_PushInputParameter(codec, index);
+    OH_AVErrCode ret = OH_VideoEncoder_PushInputParameter(codec, index);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
 }
 
 // 2.2 编码输出回调OH_AVCodecOnNewOutputBuffer实现。
@@ -165,16 +215,53 @@ static void OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
     // 数据处理，请参考：
     // - 释放编码帧。
     // - 记录POC和LTR生效情况。
+    // 获取出帧属性，出帧时间戳attr.pts可作为输入/输出轮转参数匹配的键值。
+    struct OH_AVCodecBufferAttr attr;
+    OH_AVErrCode ret = OH_AVBuffer_GetBufferAttr(buffer, &attr);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+        return;
+    }
+    // 记录POC和LTR生效情况：读取完成帧携带的帧POC与LTR标记，结合输入轮转中
+    // 随帧下发的MARK_LTR/USE_LTR记录，核对参考结构是否符合预期。
+    OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+    if (format != nullptr) {
+        int32_t framePoc = -1;
+        int32_t isLtrFrame = 0;
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PER_FRAME_POC, &framePoc);
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PER_FRAME_IS_LTR, &isLtrFrame);
+        OH_AVFormat_Destroy(format);
+    }
+    // 释放编码帧。
+    ret = OH_VideoEncoder_FreeOutputBuffer(codec, index);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
 }
 
 // 2.3 注册数据回调。
-OH_AVCodecCallback cb;
-cb.onNewOutputBuffer = OnNewOutputBuffer;
-OH_VideoEncoder_RegisterCallback(videoEnc, cb, nullptr);
 // 2.4 注册随帧参数回调。
-OH_VideoEncoder_OnNeedInputParameter inParaCb = OnNeedInputParameter;
-OH_VideoEncoder_RegisterParameterCallback(videoEnc, inParaCb, nullptr);
+static OH_AVErrCode RegisterLtrSurfaceCallbacks(OH_AVCodec *videoEnc)
+{
+    // 零初始化，未注册的回调成员为空指针，框架触发对应事件时会跳过空回调。
+    OH_AVCodecCallback cb = {};
+    cb.onNewOutputBuffer = OnNewOutputBuffer;
+    OH_AVErrCode ret = OH_VideoEncoder_RegisterCallback(videoEnc, cb, nullptr);
+    if (ret != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 注册随帧参数回调，Surface输入模式下随帧参数经该通路随帧下发。
+    OH_VideoEncoder_OnNeedInputParameter inParaCb = OnNeedInputParameter;
+    OH_AVErrCode paramRet = OH_VideoEncoder_RegisterParameterCallback(videoEnc, inParaCb, nullptr);
+    if (paramRet != AV_ERR_OK) {
+        // 异常处理。
+    }
+    return ret != AV_ERR_OK ? ret : paramRet;
+}
 // [End ltr_surface_callback_register]
+} // namespace LtrSurfaceDemo
+#if defined(__clang__)
+#pragma clang diagnostic pop
 #endif
 
 std::string TemporalScalabilityQuery::FeatureCheck()
@@ -398,4 +485,40 @@ std::string TemporalScalabilityQuery::LtrConfigCount()
                                : "参数配置失败，错误码: " + std::to_string(ret);
     OH_VideoEncoder_Destroy(videoEnc);
     return result;
+}
+
+std::string TemporalScalabilityQuery::LtrBufferCallbackRegister()
+{
+    SAMPLE_LOGI("Run LtrBufferCallbackRegister.");
+    // 场景示例中的videoEnc为视频编码器实例，此处先创建H.264编码器用于演示。
+    OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
+    std::string result = "LTR随帧通路回调注册（Buffer输入模式）：";
+    if (videoEnc == nullptr) {
+        return result + "H.264编码器创建失败。";
+    }
+    // 回调注册需在编码器Prepare之前完成，随帧参数通过OH_AVBuffer参数通路随帧
+    // 下发，回调实现见ltr_buffer_callback_register片段。
+    OH_AVErrCode ret = LtrBufferDemo::RegisterLtrBufferCallbacks(videoEnc);
+    result += ret == AV_ERR_OK ? "数据回调注册成功，输入/输出回调已就绪。"
+                               : "数据回调注册失败，错误码: " + std::to_string(ret);
+    OH_VideoEncoder_Destroy(videoEnc);
+    return result + "（示例验证后已销毁实例）";
+}
+
+std::string TemporalScalabilityQuery::LtrSurfaceCallbackRegister()
+{
+    SAMPLE_LOGI("Run LtrSurfaceCallbackRegister.");
+    // 场景示例中的videoEnc为视频编码器实例，此处先创建H.264编码器用于演示。
+    OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
+    std::string result = "LTR随帧通路回调注册（Surface输入模式）：";
+    if (videoEnc == nullptr) {
+        return result + "H.264编码器创建失败。";
+    }
+    // 输出数据回调与随帧参数回调均需在编码器Configure/Prepare之前注册，
+    // 随帧参数经OnNeedInputParameter参数通路随帧下发，实现见ltr_surface_callback_register片段。
+    OH_AVErrCode ret = LtrSurfaceDemo::RegisterLtrSurfaceCallbacks(videoEnc);
+    result += ret == AV_ERR_OK ? "输出数据回调与随帧参数回调注册成功。"
+                               : "回调注册失败，错误码: " + std::to_string(ret);
+    OH_VideoEncoder_Destroy(videoEnc);
+    return result + "（示例验证后已销毁实例）";
 }

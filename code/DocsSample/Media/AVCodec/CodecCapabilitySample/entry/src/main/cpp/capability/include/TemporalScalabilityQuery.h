@@ -23,9 +23,9 @@
  * 具有抗弱网丢包能力的时域可分层编码场景执行器。
  *
  * 与《具有抗弱网丢包能力的时域可分层编码》开发指南的场景化示例一一对应，
- * 覆盖全局时域可分层特性与长期参考帧（LTR）特性的校验、配置与动态开关示例，
- * 文档示例代码以[Start xxx]/[End xxx]标记嵌入各场景函数中，供文档通过代码
- * 片段名引用。随帧通路回调注册的完整示例作为参考代码保留在源文件中。
+ * 覆盖全局时域可分层特性与长期参考帧（LTR）特性的校验、配置、随帧通路回调
+ * 注册与动态开关示例，文档示例代码以[Start xxx]/[End xxx]标记嵌入各场景函数
+ * 或独立命名空间中，供文档通过代码片段名引用。
  */
 class TemporalScalabilityQuery {
 public:
@@ -43,6 +43,10 @@ public:
     static std::string LtrFeatureCheck();
     // 场景：配置阶段设置最大LTR数目。
     static std::string LtrConfigCount();
+    // 场景：LTR随帧通路回调注册（Buffer输入模式）。
+    static std::string LtrBufferCallbackRegister();
+    // 场景：LTR随帧通路回调注册（Surface输入模式）。
+    static std::string LtrSurfaceCallbackRegister();
 };
 
 #endif // TEMPORAL_SCALABILITY_QUERY_H

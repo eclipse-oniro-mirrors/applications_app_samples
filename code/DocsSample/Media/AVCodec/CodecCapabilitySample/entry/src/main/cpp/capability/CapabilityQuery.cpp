@@ -151,6 +151,12 @@ std::string CapabilityQuery::RunScenario(int32_t scenarioId)
         case SCENARIO_LTR_CONFIG_COUNT:
             result = TemporalScalabilityQuery::LtrConfigCount();
             break;
+        case SCENARIO_LTR_BUFFER_CALLBACK_REGISTER:
+            result = TemporalScalabilityQuery::LtrBufferCallbackRegister();
+            break;
+        case SCENARIO_LTR_SURFACE_CALLBACK_REGISTER:
+            result = TemporalScalabilityQuery::LtrSurfaceCallbackRegister();
+            break;
         default:
             result = "未知场景编号: " + std::to_string(scenarioId);
             break;

@@ -9,7 +9,7 @@ Main capabilities:
 - Query the full codec list (video/audio, encoder/decoder), showing the name, MIME type, hardware/software category, secure decoder flag, and maximum number of instances.
 - View the detailed capabilities of a codec: width/height alignment and ranges, frame rate range, bitrate/quality/complexity ranges, bitrate mode support, profiles and levels, pixel formats, long-term reference feature, and audio sample rate and channel ranges.
 - Run the scenario examples from the development guide one by one: creating a codec by name, differentiated configuration by category, multi-instance creation, CBR/CQ/SQR/CBRHQ bitrate mode configuration, profile/level checks, size and frame rate checks, and secure decoder filtering.
-- Run the scenario examples from the video encoding configuration guides one by one: base parameter configuration for typical scenarios (low latency, CBRHQ, live streaming, offline transcoding), dynamic IDR frame request, B-frame capability check and maximum B-frame count configuration, temporal scalability feature check/configuration/dynamic enable and disable, temporal layer parsing, and LTR capability check and reference frame count configuration.
+- Run the scenario examples from the video encoding configuration guides one by one: base parameter configuration for typical scenarios (low latency, CBRHQ, live streaming, offline transcoding), dynamic IDR frame request, B-frame capability check and maximum B-frame count configuration, temporal scalability feature check/configuration/dynamic enable and disable, temporal layer parsing, LTR capability check, reference frame count configuration, and per-frame LTR callback registration (buffer and surface input modes).
 
 ## Directory Structure
 
