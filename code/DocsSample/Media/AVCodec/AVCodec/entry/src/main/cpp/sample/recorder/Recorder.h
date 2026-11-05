@@ -81,8 +81,8 @@ private:
     void RefreshStreamStorage(bool primary, bool force = false);
     void CaptureEncoderDescription(bool primary);
     void FinishVideoOutputThread(CodecUserData *context, bool isPrimary);
-    void AudioEncInputThread();
-    void AudioEncOutputThread();
+    void AudioEncInputAsyncThread();
+    void AudioEncOutputAsyncThread();
     void AudioEncInputSyncThread();
     void AudioEncOutputSyncThread();
     bool ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo);
@@ -108,16 +108,23 @@ private:
     int32_t StartVideoOutputThreads();
     int32_t StartAudioPipeline(std::unique_lock<std::mutex> &lock);
     int32_t SendVideoEndOfStream();
-    void VideoEncInputThread();
-    bool SubmitVideoInputImage(OH_ImageNative *image, VideoInputState &state);
+    void StartVideoInputThread();
+    void VideoEncInputSyncThread();
+    void VideoEncInputAsyncThread();
+    OH_ImageNative *ReadVideoInputImage(int64_t lastSubmittedUs);
+    bool SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &info, VideoInputState &state,
+        int64_t receivedAtUs);
     bool ReadVideoInputLayout(int32_t &stride, int32_t &sliceHeight);
-    bool TakeVideoInputBuffer(CodecBufferInfo &info, int32_t timeoutMs);
     int32_t SendBufferVideoEndOfStream();
+    int32_t SendBufferVideoEndOfStreamSync();
+    int32_t SendBufferVideoEndOfStreamAsync();
     int32_t SendAudioEndOfStream();
+    int32_t SendAudioEndOfStreamSync();
+    int32_t SendAudioEndOfStreamAsync();
     void WaitForEncoderEndOfStream();
     int32_t AbortAndWait(int32_t errorCode, const char *reason);
     bool WaitForAudioInputFrame(std::chrono::milliseconds timeout);
-    bool SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *buffer, bool synchronous);
+    bool SubmitAudioInputFrame(CodecBufferInfo &bufferInfo);
     int32_t WaitForDone();
 
     int32_t CreateAudioEncoder();

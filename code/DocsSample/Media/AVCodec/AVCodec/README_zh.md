@@ -1759,9 +1759,14 @@ CameraKit VideoSession
 |---|---|
 | `CameraSessionController.configure()` | Buffer 模式查询 YUV 预览 Profile，检查能否同时添加显示预览和取帧预览；提交相机会话后配置 30fps |
 | `Recorder::CreateVideoEncoder()` / `GetCameraInputSurfaceId()` | 不申请编码输入 Surface；创建 `RecorderFrameReceiver`，将接收 SurfaceId 交给相机 |
-| `Recorder::VideoEncInputThread()` | 获取最新 Image；同步模式调用 `GetInputBuffer()`，异步模式从输入回调队列获取 Buffer；复制后提交 |
+| `Recorder::VideoEncInputSyncThread()` | 获取最新 Image，主动调用 `VideoEncoder::GetInputBuffer()` 查询编码输入 Buffer，再填充并提交 |
+| `Recorder::VideoEncInputAsyncThread()` | 获取最新 Image，从 `inputBufferQueue` 读取 `OnNeedInputBuffer` 回调提供的 Buffer/index，再填充并提交；不调用同步 Query/Get 接口 |
+| `Recorder::SubmitVideoInputImage()` | 只处理已取得的 Buffer：检查输入布局、复制像素、计算 PTS 并 Push，不选择同步或异步模式 |
 | `RecorderFrameReceiver::Copy()` | 读取实际 NativeBuffer 格式及 plane offset、rowStride、pixelStride，转换 NV12／NV21／平面 YUV420 到编码器要求的 NV12，并校验两侧容量 |
 | `Recorder::SendBufferVideoEndOfStream()` | 相机停止后结束并 join 输入线程，再通过输入 Buffer 提交空 EOS；输出线程继续排空 |
+| `Recorder::SendBufferVideoEndOfStreamSync()` / `SendBufferVideoEndOfStreamAsync()` | 分别通过主动查询或输入回调队列取得 EOS Buffer，各自设置空 EOS 属性并提交 |
+
+`StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。两条输入路径共用相机图像读取、像素复制和 PTS 计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
 
 该模式要求 API 23 及以上、8-bit SDR、1280×720 或 1920×1080、30fps。选择 Buffer 时会重置不兼容的草稿选项，并禁用 HDR、平台编码前处理、丢帧目标和一入二出。切回 Surface 后可重新配置这些功能。输入模式会随录制配置持久化，旧配置默认使用 Surface。
 
@@ -1854,7 +1859,14 @@ Muxer 写入音频 track
 - 输入线程从 cache 中读取 `audioMaxInputSize` 大小的 PCM，调用 `OH_AVBuffer_SetBufferAttr()` 后 `OH_AudioCodec_PushInputBuffer()`。
 - 输出线程拿到编码后的 AAC buffer 后调用 `muxer_->WriteSample(muxer_->GetAudioTrackId(), ...)` 写入封装器。
 
-停止录制时，`AudioEncoder::NotifyEndOfStream()` 会获取一个输入 buffer，设置 `AVCODEC_BUFFER_FLAGS_EOS` 后推给编码器，使输出线程能收到 EOS 并退出。单路时 AAC 写入主 Muxer；双路时同一个 AAC 输出先后写入主、副 Muxer，再按原索引归还给 AudioEncoder。
+音频输入、输出同样保留独立的同步和异步入口：
+
+| 模式 | 输入线程 | 输出线程 | EOS 提交 |
+|---|---|---|---|
+| 同步 | `AudioEncInputSyncThread()` 主动调用 `AudioEncoder::GetInputBuffer()` | `AudioEncOutputSyncThread()` 主动调用 `GetOutputBuffer()` | `SendAudioEndOfStreamSync()` 主动取得输入 Buffer |
+| 异步 | `AudioEncInputAsyncThread()` 从 `inputBufferQueue` 取回调 Buffer | `AudioEncOutputAsyncThread()` 从 `outputBufferQueue` 取回调 Buffer | `SendAudioEndOfStreamAsync()` 从输入回调队列取 Buffer |
+
+`SubmitAudioInputFrame()` 只填充已经取得的 Buffer、设置 PCM 属性并提交；不再接收同步／异步标志。停止录制时，`SendAudioEndOfStream()` 先结束并 join 音频输入线程，再选择对应的 EOS 实现。两条实现分别取得 Buffer 后交给 `AudioEncoder::NotifyEndOfStream(bufferInfo)` 设置 `AVCODEC_BUFFER_FLAGS_EOS` 并提交，输出线程继续排空。单路时 AAC 写入主 Muxer；双路时同一个 AAC 输出先后写入主、副 Muxer，再按原索引归还给 AudioEncoder。
 
 <a id="muxing"></a>
 

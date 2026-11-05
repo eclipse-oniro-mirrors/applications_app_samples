@@ -1640,9 +1640,14 @@ Microphone --> Existing PCM / AAC pipeline --------^
 |---|---|
 | `CameraSessionController.configure()` | Selects the YUV preview profile, checks the two-preview output combination, commits the session and configures 30fps |
 | `Recorder::CreateVideoEncoder()` / `GetCameraInputSurfaceId()` | Configures without an encoder Surface, creates `RecorderFrameReceiver`, and supplies its receiving SurfaceId to the camera |
-| `Recorder::VideoEncInputThread()` | Reads the latest Image; acquires input through synchronous `GetInputBuffer()` or the asynchronous callback queue; copies pixels and submits the Buffer |
+| `Recorder::VideoEncInputSyncThread()` | Reads the latest Image, actively queries an encoder input Buffer through `VideoEncoder::GetInputBuffer()`, then fills and submits it |
+| `Recorder::VideoEncInputAsyncThread()` | Reads the latest Image and dequeues the Buffer/index supplied by `OnNeedInputBuffer` from `inputBufferQueue`, then fills and submits it; does not call synchronous Query/Get APIs |
+| `Recorder::SubmitVideoInputImage()` | Validates layout, copies pixels, computes PTS and pushes an already acquired Buffer; does not select a scheduling mode |
 | `RecorderFrameReceiver::Copy()` | Checks actual NativeBuffer format, plane offsets, row/pixel strides and capacities; converts NV12/NV21/planar YUV420 into the encoder NV12 layout |
 | `Recorder::SendBufferVideoEndOfStream()` | Joins the input worker after camera stop, then submits an empty EOS Buffer while output workers continue draining |
+| `Recorder::SendBufferVideoEndOfStreamSync()` / `SendBufferVideoEndOfStreamAsync()` | Acquire the EOS Buffer by active query or input callback queue respectively, then set empty EOS attributes and submit it |
+
+`StartVideoInputThread()` selects one input worker at startup. Buffer acquisition is visible in each worker rather than hidden behind a mode-switching helper. The independent example tags are `recorder_video_buffer_input_sync` and `recorder_video_buffer_input_async`; EOS examples use `recorder_video_buffer_eos_sync` and `recorder_video_buffer_eos_async`. Both workers share camera image retrieval, pixel copying and PTS calculation. Video output acquisition remains separate in `VideoEncOutputSyncThread()` and `VideoEncOutputAsyncThread()`.
 
 Buffer recording requires API 23+, 8-bit SDR, 1280x720 or 1920x1080, and 30fps. Selecting it resets incompatible draft settings and disables HDR, platform encoder preprocessing, target frame dropping and dual output. Switch back to Surface to configure those features. Input mode is persisted with recording settings; older snapshots default to Surface.
 
@@ -1697,6 +1702,15 @@ Muxer::WriteSample(audioTrackId, buffer, attr)
 ```
 
 Audio and video encoder outputs may arrive concurrently. The muxer wrapper serializes sample writes and starts only after the required tracks have been added.
+
+Audio input, output and EOS acquisition also have separate entry points:
+
+| Mode | Input worker | Output worker | EOS submission |
+|---|---|---|---|
+| Synchronous | `AudioEncInputSyncThread()` actively calls `AudioEncoder::GetInputBuffer()` | `AudioEncOutputSyncThread()` actively calls `GetOutputBuffer()` | `SendAudioEndOfStreamSync()` actively acquires an input Buffer |
+| Asynchronous | `AudioEncInputAsyncThread()` dequeues input callback Buffers | `AudioEncOutputAsyncThread()` dequeues output callback Buffers | `SendAudioEndOfStreamAsync()` dequeues an input callback Buffer |
+
+`SubmitAudioInputFrame()` fills and submits an already acquired Buffer without a scheduling flag. At stop, `SendAudioEndOfStream()` joins the audio input worker before dispatching to the matching EOS implementation. Each implementation acquires its own Buffer and passes it to `AudioEncoder::NotifyEndOfStream(bufferInfo)` to set and submit EOS, while output workers continue draining. AAC is written to the primary muxer and, when enabled, the secondary muxer before its original output index is returned.
 
 <a id="muxing"></a>
 

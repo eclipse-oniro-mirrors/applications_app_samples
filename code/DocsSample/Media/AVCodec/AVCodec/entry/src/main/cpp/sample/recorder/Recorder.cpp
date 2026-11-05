@@ -27,7 +27,6 @@
 
 namespace {
 constexpr size_t MAX_STAGE_RESULT_LENGTH = 128;
-using namespace std::chrono_literals;
 constexpr int64_t MICROSECOND = 1000000;
 constexpr int32_t INPUT_FRAME_BYTES = 2 * 1024;
 constexpr int64_t TIMEOUT_US = 5000000;
@@ -35,6 +34,8 @@ constexpr int32_t UNIT_CONVERSION = 1000;
 constexpr int32_t SLEEP_TIME = 310;
 constexpr int32_t WAIT_TIME = 5;
 constexpr int32_t AUDIO_INPUT_STOP_POLL_INTERVAL_MS = 10;
+constexpr auto AUDIO_INPUT_ASYNC_WAIT = std::chrono::seconds(WAIT_TIME);
+constexpr auto AUDIO_INPUT_SYNC_WAIT = std::chrono::milliseconds(100);
 }
 
 Recorder::~Recorder()
@@ -162,9 +163,7 @@ int32_t Recorder::Start()
         ret = StartAudioPipeline(lock);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Start audio pipeline failed");
     }
-    if (frameReceiver_ != nullptr) {
-        videoEncInputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncInputThread, this);
-    }
+    StartVideoInputThread();
     sessionReport_.Event("encoder.started");
     AVCODEC_SAMPLE_LOGI("Succeed");
     return AVCODEC_SAMPLE_ERR_OK;
@@ -197,8 +196,8 @@ int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
         audioEncInputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncInputSyncThread, this);
         audioEncOutputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncOutputSyncThread, this);
     } else {
-        audioEncInputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncInputThread, this);
-        audioEncOutputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncOutputThread, this);
+        audioEncInputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncInputAsyncThread, this);
+        audioEncOutputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncOutputAsyncThread, this);
     }
     if (audioEncInputThread_ == nullptr || audioEncOutputThread_ == nullptr) {
         AVCODEC_SAMPLE_LOGE("Create thread failed");
@@ -641,20 +640,31 @@ int32_t Recorder::SendAudioEndOfStream()
     if (audioEncoder_ == nullptr) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
+    return sampleInfo_.codec.codecSyncMode ? SendAudioEndOfStreamSync() : SendAudioEndOfStreamAsync();
+}
+
+// [Start recorder_audio_eos_sync]
+int32_t Recorder::SendAudioEndOfStreamSync()
+{
     CodecBufferInfo bufferInfo;
-    if (sampleInfo_.codec.codecSyncMode) {
-        CHECK_AND_RETURN_RET_LOG(audioEncoder_->GetInputBuffer(bufferInfo, TIMEOUT_US) != nullptr,
-            AVCODEC_SAMPLE_ERR_ERROR, "Get synchronous audio EOS input buffer failed");
-    } else {
-        CHECK_AND_RETURN_RET_LOG(audioEncContext_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Audio context is null");
-        // 异步模式只能使用输入回调给出的buffer，不能调用同步QueryInputBuffer接口。
-        const auto input = audioEncContext_->inputBufferQueue.Dequeue(WAIT_TIME * UNIT_CONVERSION);
-        CHECK_AND_RETURN_RET_LOG(input != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
-            "Get asynchronous audio EOS input buffer failed");
-        bufferInfo = *input;
-    }
+    CHECK_AND_RETURN_RET_LOG(audioEncoder_->GetInputBuffer(bufferInfo, TIMEOUT_US) != nullptr,
+        AVCODEC_SAMPLE_ERR_ERROR, "Get synchronous audio EOS input buffer failed");
     return audioEncoder_->NotifyEndOfStream(bufferInfo);
 }
+// [End recorder_audio_eos_sync]
+
+// [Start recorder_audio_eos_async]
+int32_t Recorder::SendAudioEndOfStreamAsync()
+{
+    CHECK_AND_RETURN_RET_LOG(audioEncContext_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Audio context is null");
+    // 异步模式只能使用输入回调给出的Buffer，不能调用同步QueryInputBuffer接口。
+    const auto input = audioEncContext_->inputBufferQueue.Dequeue(WAIT_TIME * UNIT_CONVERSION);
+    CHECK_AND_RETURN_RET_LOG(input != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get asynchronous audio EOS input buffer failed");
+    CodecBufferInfo bufferInfo = *input;
+    return audioEncoder_->NotifyEndOfStream(bufferInfo);
+}
+// [End recorder_audio_eos_async]
 
 void Recorder::WaitForEncoderEndOfStream()
 {
@@ -706,8 +716,8 @@ int32_t Recorder::CreateAudioEncoder()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-// [Start Recorder::AudioEncInputThread]
-void Recorder::AudioEncInputThread()
+// [Start Recorder::AudioEncInputAsyncThread]
+void Recorder::AudioEncInputAsyncThread()
 {
     while (true) {
         CHECK_AND_BREAK_LOG(!isEos_, "Work done, thread out");
@@ -716,7 +726,7 @@ void Recorder::AudioEncInputThread()
             std::this_thread::sleep_for(std::chrono::milliseconds(AUDIO_INPUT_STOP_POLL_INTERVAL_MS));
             continue;
         }
-        if (!WaitForAudioInputFrame(5s)) {
+        if (!WaitForAudioInputFrame(AUDIO_INPUT_ASYNC_WAIT)) {
             continue;
         }
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->inputBufferQueue.Dequeue();
@@ -726,12 +736,13 @@ void Recorder::AudioEncInputThread()
             break;
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Audio buffer queue is empty, continue");
-        if (!SubmitAudioInputFrame(*bufferInfo, bufferInfo->buffer, false)) {
+        if (!SubmitAudioInputFrame(*bufferInfo)) {
             break;
         }
+        ++audioEncContext_->inputFrameCount;
     }
 }
-// [End Recorder::AudioEncInputThread]
+// [End Recorder::AudioEncInputAsyncThread]
 
 bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
 {
@@ -744,15 +755,15 @@ bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
         audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize;
 }
 
-bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *buffer, bool synchronous)
+bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
 {
     // buffer地址仅在填充并提交给编码器期间有效，不跨回调或工作线程保存。
+    OH_AVBuffer *buffer = bufferInfo.buffer;
     const int32_t inputSize = sampleInfo_.audio.audioMaxInputSize;
     const int32_t capacity = buffer == nullptr ? -1 : OH_AVBuffer_GetCapacity(buffer);
     uint8_t *inputBufferAddr = buffer == nullptr ? nullptr : OH_AVBuffer_GetAddr(buffer);
     if (inputSize <= 0 || inputBufferAddr == nullptr || capacity < inputSize) {
-        AbortRecording(synchronous ? "Invalid synchronous audio input buffer" :
-            "Invalid asynchronous audio input buffer");
+        AbortRecording("Invalid audio input buffer");
         return false;
     }
 
@@ -763,12 +774,10 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
         audioStats_.Capture(0, audioEncContext_->remainlen);
     }
     if (!readSuccess) {
-        AbortRecording(synchronous ? "Synchronous audio cache read failed" :
-            "Asynchronous audio cache read failed");
+        AbortRecording("Audio cache read failed");
         return false;
     }
 
-    bufferInfo.buffer = buffer;
     bufferInfo.attr.size = inputSize;
     bufferInfo.attr.offset = 0;
     // PCM没有容器时间戳，按已提交的S16LE样本帧生成微秒PTS，避免重复使用零时间戳。
@@ -778,19 +787,15 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
     isAudioEncFirstFrame_ = false;
     const int32_t ret = audioEncoder_->PushInputData(bufferInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AbortRecording(synchronous ? "Synchronous audio input push failed" :
-            "Asynchronous audio input push failed");
+        AbortRecording("Audio input push failed");
         return false;
-    }
-    if (!synchronous) {
-        audioEncContext_->inputFrameCount++;
     }
     audioSubmittedFrames_ += inputSize / sampleInfo_.audio.audioChannelCount / sizeof(int16_t);
     return true;
 }
 
-// [Start Recorder::AudioEncOutputThread]
-void Recorder::AudioEncOutputThread()
+// [Start Recorder::AudioEncOutputAsyncThread]
+void Recorder::AudioEncOutputAsyncThread()
 {
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
@@ -810,7 +815,7 @@ void Recorder::AudioEncOutputThread()
     }
     AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", audioEncContext_->inputFrameCount);
 }
-// [End Recorder::AudioEncOutputThread]
+// [End Recorder::AudioEncOutputAsyncThread]
 
 // [Start Recorder::AudioEncInputSyncThread]
 void Recorder::AudioEncInputSyncThread()
@@ -823,7 +828,7 @@ void Recorder::AudioEncInputSyncThread()
             break;
         }
         // 等待缓存凑满一帧；不完整音频数据会造成时长和时间戳异常。
-        if (!WaitForAudioInputFrame(100ms)) {
+        if (!WaitForAudioInputFrame(AUDIO_INPUT_SYNC_WAIT)) {
             if (!isStarted_ || isEos_.load()) {
                 break;
             }
@@ -842,7 +847,7 @@ void Recorder::AudioEncInputSyncThread()
             AVCODEC_SAMPLE_LOGW("Get input buffer timeout, retry");
             continue;
         }
-        if (!SubmitAudioInputFrame(bufferInfo, buffer, true)) {
+        if (!SubmitAudioInputFrame(bufferInfo)) {
             break;
         }
     }
