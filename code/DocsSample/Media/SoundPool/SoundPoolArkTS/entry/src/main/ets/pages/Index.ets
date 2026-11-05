@@ -56,17 +56,17 @@ struct Index {
 
   async create() {
     try {
-      // [Start SoundPool_Creat]
+      // [Start SoundPool_Create]
       // audioRendererInfo中的参数usage取值为STREAM_USAGE_UNKNOWN，STREAM_USAGE_MUSIC，STREAM_USAGE_MOVIE。
       // STREAM_USAGE_AUDIOBOOK时，SoundPool播放短音时为混音模式，不会打断其他音频播放。
       let audioRendererInfo: audio.AudioRendererInfo = {
         usage: audio.StreamUsage.STREAM_USAGE_MUSIC, // 音频流使用类型：音乐。根据业务场景配置，参考StreamUsage。
         rendererFlags: 1 // 音频渲染器标志。
       }
-      //创建soundPool实例。
-      this.soundPool = await media.createSoundPool(14,audioRendererInfo);
-      // [End SoundPool_Creat]
-      //注册监听。
+      // 创建soundPool实例。
+      this.soundPool = await media.createSoundPool(14, audioRendererInfo);
+      // [End SoundPool_Create]
+      // 注册监听。
       this.loadCallback();
       this.finishPlayCallback();
       this.setErrorCallback();
@@ -95,14 +95,14 @@ struct Index {
 
   //设置播放完成监听。
   async finishPlayCallback() {
-    // [Start SoundPool_onPlayFinshed]
+    // [Start SoundPool_onPlayFinished]
     this.soundPool!.on('playFinished', () => {
       console.info('receive play finished message');
       // 可进行下次播放。
     })
-    // [End SoundPool_onPlayFinshed]
+    // [End SoundPool_onPlayFinished]
   }
-  //设置错误类型监听。
+  // 设置错误类型监听。
   async setErrorCallback() {
     // [Start SoundPool_onError]
     this.soundPool!.on('error', (error: BusinessError) => {
@@ -154,7 +154,7 @@ struct Index {
     // 卸载音频资源。
     await this.soundPool!.unload(this.soundId);
     // [End SoundPool_Unload]
-    //关闭监听。
+    // 关闭监听。
     this.setOffCallback();
     // [Start SoundPool_Release]
     // 释放SoundPool。
