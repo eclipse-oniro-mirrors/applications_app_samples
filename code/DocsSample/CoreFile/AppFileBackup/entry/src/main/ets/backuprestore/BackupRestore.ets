@@ -16,8 +16,7 @@
 // [Start get_local_cap_ability]
 // [Start session_backup]
 // [Start session_restore]
-import { fileIo } from '@kit.CoreFileKit';
-import { backup } from '@kit.CoreFileKit';
+import { fileIo, backup } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude session_restore]
 // [StartExclude session_backup]
