@@ -21,10 +21,14 @@ import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
 // [Start AppEvent_Crash_Click_ArkTS_Header]
+// [Start External_Log_ArkTS_Header]
 import { hiAppEvent } from '@kit.PerformanceAnalysisKit';
+// [StartExclude External_Log_ArkTS_Header]
 import { RecordData } from '@ohos.base';
 // [End AppEvent_Crash_Click_ArkTS_Header]
-
+// [EndExclude External_Log_ArkTS_Header]
+import { fileIo } from '@kit.CoreFileKit';
+// [End External_Log_ArkTS_Header]
 // [Start AppEvent_Declare_C_Function]
 class RegisterC {
   native registerWatcherCrash(): void;
@@ -39,7 +43,7 @@ class MyLogManager extends hiAppEvent.ExternalLogManager {
   deleteFiles (files: string[]): void {
     for (const file of files) {
       try {
-        fs.unlinkSync(file);
+        fileIo.unlinkSync(file);
         hilog.info(0x0000, 'testTag', `[MyLogManager] 已删除: ${file}`);
       } catch (e) {
         hilog.info(0x0000, 'testTag', `[MyLogManager] 删除失败: ${file}, error: ${e}`);
@@ -87,7 +91,7 @@ class MyLogManager extends hiAppEvent.ExternalLogManager {
     // 获取最早生成的3个日志文件，并删除
     files = container.getFirstGeneratedLogFiles(3);
     hilog.info(0x0000, 'testTag', `[MyLogManager] 最早的3个日志: ${Array.from(files)}`);
-    deleteFiles(Array.from(files));
+    this.deleteFiles(Array.from(files));
   }
 }
 // [End ExternalLogManager]

@@ -218,8 +218,8 @@ void OnExternalLogCapacityReached(OH_HiAppEvent_ExternalLog* externalLogArr, uin
     OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] onCapacityReached triggered, log count: %{public}u", arrLen);
     for (uint32_t i = 0; i < arrLen; i++) {
         OH_HiAppEvent_ExternalLog* log = &externalLogArr[i];
-        OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] filePath: %{public}s, %{public}lld, %{public}ld,
-            kb event: %{public}d", log->filePath, log->generationTs, log->fileSize, log->event);
+        OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] filePath: %{public}s, %{public}lld, %{public}ld,"
+            "kb event: %{public}d", log->filePath, log->generationTs, log->fileSize, log->event);
         // 应用自行决定删除故障文件 删除返回的前5个文件
         if (i < 5) {
             remove(log->filePath);
