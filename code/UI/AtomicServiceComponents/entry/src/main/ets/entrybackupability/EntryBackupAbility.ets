@@ -19,12 +19,12 @@ const DOMAIN = 0x0000;
 
 export default class EntryBackupAbility extends BackupExtensionAbility {
   async onBackup(): Promise<void> {
-    hilog.info(DOMAIN, 'testTag', 'onBackup ok');
+    hilog.info(DOMAIN, 'AtomicServiceComponents', 'onBackup ok');
     await Promise.resolve();
   }
 
   async onRestore(bundleVersion: BundleVersion): Promise<void> {
-    hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+    hilog.info(DOMAIN, 'AtomicServiceComponents', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
     await Promise.resolve();
   }
 }

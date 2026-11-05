@@ -56,7 +56,10 @@ export class TlvUtil {
       parts.push(TlvUtil.noiseChunk(3));
     }
     for (let i = 1; i <= recordCount; i++) {
-      const valueText: string = `R${i}-` + 'V'.repeat(Math.max(0, valueSize - 3));
+      // 前缀长度会随记录序号增长（R1- → R10-），按实际前缀长度补齐，保证 value 恰为 valueSize 字节
+      const prefix: string = `R${i}-`;
+      const valueText: string = prefix.length <= valueSize ?
+        prefix + 'V'.repeat(valueSize - prefix.length) : 'V'.repeat(Math.max(0, valueSize));
       const value: fastbuffer.FastBuffer = FastBufferUtil.utf8Encode(valueText);
       const record: fastbuffer.FastBuffer = fastbuffer.alloc(HEADER_SIZE + value.length + CRC_SIZE);
       record.writeUInt32BE(MAGIC, 0);

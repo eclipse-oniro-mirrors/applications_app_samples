@@ -89,4 +89,28 @@ export class PixelMapUtil {
     LogUtil.debug('PixelMapUtil', `生成 ${tag} 图案 ${width}x${height}（${colors.length} 像素）`);
     return pm;
   }
+
+  /**
+   * 用 PixelMap 构造 ImageBitmap 并执行绘制回调，回调结束后统一释放 ImageBitmap 与 PixelMap。
+   * 场景按钮可反复点击，若每次绘制都新建图案却不释放，会持续累积原生图像内存。
+   */
+  static useBitmap(pm: image.PixelMap, draw: (bitmap: ImageBitmap) => void): void {
+    const bitmap: ImageBitmap = new ImageBitmap(pm);
+    try {
+      draw(bitmap);
+    } finally {
+      try {
+        bitmap.close();
+      } catch (err) {
+        LogUtil.warn('PixelMapUtil', `关闭 ImageBitmap 失败：${err instanceof Error ? err.message : '未知错误'}`);
+      }
+      try {
+        Promise.resolve(pm.release()).catch((err: Error) => {
+          LogUtil.warn('PixelMapUtil', `释放 PixelMap 失败：${err.message}`);
+        });
+      } catch (err) {
+        LogUtil.warn('PixelMapUtil', `释放 PixelMap 失败：${err instanceof Error ? err.message : '未知错误'}`);
+      }
+    }
+  }
 }

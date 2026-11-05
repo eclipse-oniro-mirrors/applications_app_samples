@@ -74,6 +74,8 @@ export class FileReadable extends stream.Readable {
   // 不能命名为 buf：基类 stream.Readable 内部的 buf（字节数组）会被本字段覆盖，
   // 框架 push()/read() 随即在 ArrayBuffer 上调 push() 抛 cannot Callspread
   private readBuf: ArrayBuffer = new ArrayBuffer(CHUNK_SIZE);
+  /** 跨分块残留的不完整 UTF-8 字节，留待下一块拼接后再解码 */
+  private pendingBytes: Uint8Array = new Uint8Array(0);
   private chunkIndex: number = 0;
   private eofTimer: number = -1;
   private eofSent: boolean = false;
@@ -94,6 +96,7 @@ export class FileReadable extends stream.Readable {
     }
     if (this.offset >= this.fileSize) {
       this.eofSent = true;
+      this.flushPending();
       this.push(null);
       return;
     }
@@ -122,9 +125,13 @@ export class FileReadable extends stream.Readable {
     try {
       this.notify(this.chunkIndex, bytes, done);
       // 本 ROM 的 stream 实现对 push(Uint8Array) 送达不可靠（data 事件收不到有效数据），
-      // push(string) 为验证过的路径：用 fastbuffer 把字节块解码为 utf8 字符串再入流
-      // 注：分块边界按字节切分，仅适用于分块边界恰好落在字符边界的内容（演示数据均为 ASCII）
-      this.push(fastbuffer.from(this.readBuf.slice(0, bytes)).toString('utf8'));
+      // push(string) 为验证过的路径：按 UTF-8 字符边界解码后入流。
+      // 分块按字节切分，跨块的多字节字符由 pendingBytes 拼接，避免在边界处被截断成乱码。
+      const raw: Uint8Array = new Uint8Array(this.readBuf.slice(0, bytes));
+      const decoded: string = this.decodeUtf8Chunk(raw);
+      if (decoded.length > 0) {
+        this.push(decoded);
+      }
     } catch (err) {
       const e: Error = err instanceof Error ? err : new Error('推送数据失败');
       LogUtil.error('StreamFileUtil', `doRead 推送失败：${e.message}`);
@@ -140,6 +147,63 @@ export class FileReadable extends stream.Readable {
     }
   }
 
+  /** 拼接上一块残留字节后按完整 UTF-8 边界解码；尾部不完整序列留到下一块 */
+  private decodeUtf8Chunk(bytes: Uint8Array): string {
+    const merged: Uint8Array = new Uint8Array(this.pendingBytes.length + bytes.length);
+    merged.set(this.pendingBytes, 0);
+    merged.set(bytes, this.pendingBytes.length);
+    const completeLength: number = FileReadable.completeUtf8Length(merged);
+    const complete: Uint8Array = merged.slice(0, completeLength);
+    this.pendingBytes = merged.slice(completeLength);
+    return fastbuffer.from(complete.buffer as ArrayBuffer).toString('utf8');
+  }
+
+  /** 返回字节数组中最长的、以完整 UTF-8 序列结尾的前缀长度 */
+  private static completeUtf8Length(bytes: Uint8Array): number {
+    const total: number = bytes.length;
+    if (total === 0) {
+      return 0;
+    }
+    let i: number = total - 1;
+    let continuation: number = 0;
+    while (i >= 0 && (bytes[i] & 0xC0) === 0x80 && continuation < 3) {
+      i--;
+      continuation++;
+    }
+    if (i < 0) {
+      // 全是续字节，属于非法输入：整体交给解码器按替换字符处理，不再保留
+      return total;
+    }
+    const lead: number = bytes[i];
+    let need: number = 1;
+    if ((lead & 0x80) === 0x00) {
+      need = 1;
+    } else if ((lead & 0xE0) === 0xC0) {
+      need = 2;
+    } else if ((lead & 0xF0) === 0xE0) {
+      need = 3;
+    } else if ((lead & 0xF8) === 0xF0) {
+      need = 4;
+    } else {
+      // 非法首字节，不阻塞后续数据
+      return total;
+    }
+    const available: number = total - i;
+    return available >= need ? total : i;
+  }
+
+  /** 文件结束时把残留的不完整字节按替换字符输出，避免丢数据 */
+  private flushPending(): void {
+    if (this.pendingBytes.length === 0) {
+      return;
+    }
+    const rest: string = fastbuffer.from(this.pendingBytes.buffer as ArrayBuffer).toString('utf8');
+    this.pendingBytes = new Uint8Array(0);
+    if (rest.length > 0) {
+      this.push(rest);
+    }
+  }
+
   /** 延迟一拍发送 EOF；通过 eofSent/eofTimer 保证只发送一次，避免重复 timer 或重复 push(null) */
   private pushEof(): void {
     if (this.eofSent || this.eofTimer >= 0) {
@@ -151,6 +215,7 @@ export class FileReadable extends stream.Readable {
         return;
       }
       this.eofSent = true;
+      this.flushPending();
       this.push(null);
     }, 0);
   }
@@ -249,10 +314,12 @@ export class StreamFileUtil {
       reader.on('data', (data: emitter.EventData) => {
         const chunk: string = eventDataToText(data);
         chunkIndex++;
-        received += chunk.length;
+        // 用 UTF-8 编码后的长度作为字节数，避免多字节字符按字符数统计导致进度与文件大小不一致
+        const chunkBytes: number = fastbuffer.from(chunk, 'utf8').length;
+        received += chunkBytes;
         const info: ReadProgress = {
           chunkIndex: chunkIndex,
-          chunkBytes: chunk.length,
+          chunkBytes: chunkBytes,
           totalBytes: received,
           fileSize: size
         };
@@ -290,6 +357,8 @@ export class StreamFileUtil {
       const reader = new FileReadable(srcFd, srcSize, (_i: number, _b: number, _d: boolean) => {
       });
       const writer = new FileWritable(destFd, (_n: number, total: number) => {
+        // total 为实际落盘字节数（fs.writeSync 返回值累加），多字节内容也能准确统计
+        copied = total;
         if (onProgress !== undefined) {
           onProgress(total);
         }
@@ -321,7 +390,6 @@ export class StreamFileUtil {
       });
       reader.on('data', (data: emitter.EventData) => {
         const chunk: string = eventDataToText(data);
-        copied += chunk.length;
         writer.write(chunk);
       });
       await finished;

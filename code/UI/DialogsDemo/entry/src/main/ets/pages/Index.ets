@@ -359,6 +359,11 @@ struct Index {
   /** 场景5：LoadingDialogV2 加载中弹窗（2s 后自动关闭） */
   private showLoading(): void {
     this.activeScene = 5;
+    // 连点会重复进入：先清掉上一次还未触发的自动关闭定时器，避免遗留定时器误写日志
+    if (this.loadingTimer !== -1) {
+      clearTimeout(this.loadingTimer);
+      this.loadingTimer = -1;
+    }
     const params: LoadingParams = new LoadingParams();
     params.content = '正在同步数据…';
     this.logEvent(5, DialogEventLog.formatOpen(5, '加载框 LoadingDialogV2'));

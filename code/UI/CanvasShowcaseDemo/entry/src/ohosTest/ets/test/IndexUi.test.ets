@@ -65,11 +65,13 @@ export default function indexUiTest() {
     let driver: Driver;
 
     beforeAll(async () => {
+      // 必须先创建 UiTest Driver 建立 AAMS 连接，再拉起被测应用：
+      // 若先 startAbility，AAMS 会报 RET_ERR_CONNECTION_EXIST（连接已存在）导致 beforeAll 失败
+      driver = Driver.create();
       const delegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
       // 不能用 aa force-stop：测试进程与主应用同 bundle，会被一起杀掉
       await delegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
-      driver = Driver.create();
       await driver.delayMs(3000);
     });
 

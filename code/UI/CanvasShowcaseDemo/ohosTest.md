@@ -99,7 +99,7 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 日志查看：
 
 ```bash
-hdc shell hilog | grep CanvasShowcase
+hdc shell hilog | grep CanvasShowcaseDemo
 ```
 
 ## 验证结果

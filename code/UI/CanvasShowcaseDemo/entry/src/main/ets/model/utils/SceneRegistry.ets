@@ -48,7 +48,9 @@ export class SceneRegistry {
       draw: (ctx: CanvasRenderer, w: number, h: number): void => {
         const pm = PixelMapUtil.createCheckerboard(32, 8,
           PixelMapUtil.rgba(255, 255, 255, 255), PixelMapUtil.rgba(66, 165, 245, 255));
-        CanvasScenes.drawPatternFill(ctx, 0, 0, w, h, new ImageBitmap(pm), 'repeat');
+        PixelMapUtil.useBitmap(pm, (bitmap: ImageBitmap): void => {
+          CanvasScenes.drawPatternFill(ctx, 0, 0, w, h, bitmap, 'repeat');
+        });
       }
     },
     {
@@ -60,8 +62,12 @@ export class SceneRegistry {
           PixelMapUtil.rgba(255, 238, 88, 255), PixelMapUtil.rgba(239, 83, 80, 255));
         const checkerPm = PixelMapUtil.createCheckerboard(32, 8,
           PixelMapUtil.rgba(255, 255, 255, 255), PixelMapUtil.rgba(66, 165, 245, 255));
-        CanvasScenes.drawPatternFill(ctx, 0, 0, w, h / 2, new ImageBitmap(stripePm), 'repeat-x');
-        CanvasScenes.drawPatternFill(ctx, w / 4, h / 2 + 20, w / 2, h / 2 - 40, new ImageBitmap(checkerPm), 'no-repeat');
+        PixelMapUtil.useBitmap(stripePm, (bitmap: ImageBitmap): void => {
+          CanvasScenes.drawPatternFill(ctx, 0, 0, w, h / 2, bitmap, 'repeat-x');
+        });
+        PixelMapUtil.useBitmap(checkerPm, (bitmap: ImageBitmap): void => {
+          CanvasScenes.drawPatternFill(ctx, w / 4, h / 2 + 20, w / 2, h / 2 - 40, bitmap, 'no-repeat');
+        });
       }
     },
     {
@@ -103,7 +109,9 @@ export class SceneRegistry {
       draw: (ctx: CanvasRenderer, w: number, h: number): void => {
         const dotPm = PixelMapUtil.createDots(32, 8,
           PixelMapUtil.rgba(255, 255, 255, 255), PixelMapUtil.rgba(38, 50, 56, 255));
-        CanvasScenes.runCompositeScene(ctx, w, h, new ImageBitmap(dotPm));
+        PixelMapUtil.useBitmap(dotPm, (bitmap: ImageBitmap): void => {
+          CanvasScenes.runCompositeScene(ctx, w, h, bitmap);
+        });
       }
     },
     {
@@ -137,7 +145,9 @@ export class SceneRegistry {
       draw: (ctx: CanvasRenderer, w: number, h: number): void => {
         const pm = PixelMapUtil.createCheckerboard(32, 8,
           PixelMapUtil.rgba(255, 255, 255, 255), PixelMapUtil.rgba(156, 39, 176, 255));
-        CanvasScenes.drawPatternTransform(ctx, w, h, new ImageBitmap(pm));
+        PixelMapUtil.useBitmap(pm, (bitmap: ImageBitmap): void => {
+          CanvasScenes.drawPatternTransform(ctx, w, h, bitmap);
+        });
       }
     },
     {

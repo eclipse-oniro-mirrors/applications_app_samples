@@ -54,10 +54,11 @@ export default function indexUiTest() {
     let driver: Driver;
 
     beforeAll(async () => {
+      // 先创建 Driver 建立 AAMS 连接，再拉起被测应用，避免 AAMS 报 RET_ERR_CONNECTION_EXIST
+      driver = Driver.create();
       const delegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
       await delegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
-      driver = Driver.create();
       await driver.delayMs(2500);
     });
 

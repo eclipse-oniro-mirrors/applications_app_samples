@@ -14,7 +14,7 @@
  */
 {
   "modelVersion": "26.0.0",
-  "description": "FastBuffer and Stream demo for efficient buffering and streaming data.",
+  "description": "Canvas showcase demo for gradients, patterns, Matrix2D transforms and 2D drawing.",
   "dependencies": {
   },
   "devDependencies": {

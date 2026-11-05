@@ -44,10 +44,10 @@ After launch, the page shows, from top to bottom: title and capability descripti
 5. The log panel at the bottom shows the latest 120 events and also writes to hilog:
 
    ```bash
-   hdc shell hilog | grep FastBufferStream
+   hdc shell hilog | grep CanvasShowcaseDemo
    ```
 
-   The log domain is `0x0001`.
+   The page log domain is `0x0001`; ability logs share the same tag.
 
 Build, install, and start from the command line:
 
@@ -208,7 +208,7 @@ Other limitations:
 - **Pattern assets**: `createPattern` returns `null` for invalid assets; the sample checks for null at the call site, and custom assets should keep that check.
 - **Performance timing**: `PerfTimer` uses `Date.now()` and is only for relative single-frame cost comparison, not a strict performance benchmark.
 - **Animation frame rate**: the gradient transition is driven by a 100 ms timer; the actual frame rate depends on device load.
-- **hilog tag**: the log tag keeps the historical value `FastBufferStream`, and the domain is `0x0001`; use that tag when filtering.
+- **hilog tag**: the page log and the ability logs all use the tag `CanvasShowcaseDemo`; the page log domain is `0x0001`, so filter by tag instead of domain.
 - **Rendering differences**: anti-aliasing, shadows, and filters may differ slightly because of device GPU and system version.
 
 ## Download

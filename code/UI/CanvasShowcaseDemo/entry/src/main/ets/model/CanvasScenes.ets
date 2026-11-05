@@ -201,7 +201,12 @@ export class CanvasScenes {
     CanvasScenes.drawOffscreenSource(offCtx, 240, 240, dotBitmap);
     const bitmap: ImageBitmap = offscreen.transferToImageBitmap();
     LogUtil.info(TAG, `transferToImageBitmap：${bitmap.width}x${bitmap.height}`);
-    CanvasScenes.drawComposite(ctx, w, h, bitmap);
+    try {
+      CanvasScenes.drawComposite(ctx, w, h, bitmap);
+    } finally {
+      // 离屏合成结果在贴图后即可释放，避免反复点击场景时累积原生图像内存
+      bitmap.close();
+    }
   }
 
   /** 场景4：主画布合成——渐变背景 + setTransform(Matrix2D) 旋转缩放贴离屏结果 */
@@ -364,11 +369,15 @@ export class CanvasScenes {
     srcCtx.arc(100, 100, 50, 0, Math.PI * 2);
     srcCtx.fill();
     const bitmap: ImageBitmap = src.transferToImageBitmap();
-    // drawImage(bitmap, sx, sy, sw, sh, dx, dy, dw, dh)：源四分块 → 目标四角
-    ctx.drawImage(bitmap, 0, 0, 100, 100, 0, 0, w / 2 - 4, h / 2 - 4);
-    ctx.drawImage(bitmap, 100, 0, 100, 100, w / 2 + 4, 0, w / 2 - 4, h / 2 - 4);
-    ctx.drawImage(bitmap, 0, 100, 100, 100, 0, h / 2 + 4, w / 2 - 4, h / 2 - 4);
-    ctx.drawImage(bitmap, 100, 100, 100, 100, w / 2 + 4, h / 2 + 4, w / 2 - 4, h / 2 - 4);
+    try {
+      // drawImage(bitmap, sx, sy, sw, sh, dx, dy, dw, dh)：源四分块 → 目标四角
+      ctx.drawImage(bitmap, 0, 0, 100, 100, 0, 0, w / 2 - 4, h / 2 - 4);
+      ctx.drawImage(bitmap, 100, 0, 100, 100, w / 2 + 4, 0, w / 2 - 4, h / 2 - 4);
+      ctx.drawImage(bitmap, 0, 100, 100, 100, 0, h / 2 + 4, w / 2 - 4, h / 2 - 4);
+      ctx.drawImage(bitmap, 100, 100, 100, 100, w / 2 + 4, h / 2 + 4, w / 2 - 4, h / 2 - 4);
+    } finally {
+      bitmap.close();
+    }
     LogUtil.info(TAG, `P.4 源图 200x200 四分块裁剪后贴主画布四角（${Math.round(w)}x${Math.round(h)}）`);
     LogUtil.info(TAG, '【补充】完成');
   }

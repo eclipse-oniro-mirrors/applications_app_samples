@@ -44,10 +44,10 @@
 5. 页面底部日志面板显示最近 120 条事件，同时输出到 hilog：
 
    ```bash
-   hdc shell hilog | grep FastBufferStream
+   hdc shell hilog | grep CanvasShowcaseDemo
    ```
 
-   日志 domain 为 `0x0001`。
+   页面日志 domain 为 `0x0001`，Ability 日志使用同一 tag。
 
 命令行编译、安装与启动：
 
@@ -208,7 +208,7 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 - **图案素材**：`createPattern` 在素材无效时返回 `null`，示例已在调用侧判空，接入自定义素材时需保留该判断；
 - **性能计时**：`PerfTimer` 基于 `Date.now()`，仅用于单帧绘制耗时的相对比较，不代表严格的性能基准；
 - **动画帧率**：渐变过渡动画由 100ms 定时器驱动，实际帧率受设备负载影响；
-- **hilog tag**：日志 tag 沿用工程历史值 `FastBufferStream`，domain 为 `0x0001`，过滤时请使用该 tag；
+- **hilog tag**：页面日志与 Ability 日志统一使用 `CanvasShowcaseDemo`；页面日志 domain 为 `0x0001`，建议按 tag 过滤而非按 domain；
 - **渲染差异**：抗锯齿、阴影与滤镜的最终像素效果可能因设备 GPU 与系统版本存在差异。
 
 ## 下载

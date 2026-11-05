@@ -30,7 +30,7 @@ export class LogUtil {
   private static uiSink: LogSink | null = null;
   private static minLevel: LogLevel = LogLevel.DEBUG;
   private static readonly DOMAIN = 0x0001;
-  private static readonly HILOG_TAG = 'FastBufferStream';
+  private static readonly HILOG_TAG = 'CanvasShowcaseDemo';
 
   /** 注入 UI 日志回调（Index 页面 aboutToAppear 调用一次） */
   static init(sink: LogSink, minLevel?: LogLevel): void {

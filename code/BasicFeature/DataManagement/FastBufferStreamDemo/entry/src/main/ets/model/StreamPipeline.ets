@@ -252,7 +252,8 @@ export class StreamPipeline {
         reader.on('data', (data: emitter.EventData) => {
           const chunk: string = eventDataToText(data);
           chunks++;
-          received += chunk.length;
+          // 按 UTF-8 编码后的字节数累加，多字节字符下与文件大小比较才准确
+          received += fastbuffer.from(chunk, 'utf8').length;
         });
         LogUtil.info(TAG, '4.1 doRead 分块 push → data 事件逐块送达消费者');
         await finished;
