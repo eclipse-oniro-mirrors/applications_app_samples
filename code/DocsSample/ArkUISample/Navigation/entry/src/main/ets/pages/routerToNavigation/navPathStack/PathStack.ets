@@ -34,18 +34,18 @@ struct Index {
   Navigation(){
     // [Start nav_stack_two]
     this.pathStack.pop();
-    // push page
+    // 跳转页面
     this.pathStack.pushPath({ name: 'pageOne' });
 
-    // pop page
+    // 返回页面
     this.pathStack.pop();
     this.pathStack.popToIndex(1);
     this.pathStack.popToName('pageOne');
 
-    // replace page
+    // 替换当前页面
     this.pathStack.replacePath({ name: 'pageOne' });
 
-    // clear all page
+    // 清空所有页面
     this.pathStack.clear();
 
     // 获取路由栈大小
