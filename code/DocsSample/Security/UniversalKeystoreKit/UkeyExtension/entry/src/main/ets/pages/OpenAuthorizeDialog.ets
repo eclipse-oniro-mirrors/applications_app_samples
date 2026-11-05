@@ -42,7 +42,9 @@ struct AuthorizeDialogPage {
     ];
     let certPurpose: certificateManager.CertificatePurpose =
       certificateManager.CertificatePurpose.PURPOSE_DEFAULT;
-    let authorizeRequest: certificateManagerDialog.AuthorizeRequest = { certTypes: certTypes, certPurpose: certPurpose };
+    let authorizeRequest: certificateManagerDialog.AuthorizeRequest = {
+      certTypes: certTypes, certPurpose: certPurpose
+    };
     try {
       certificateManagerDialog.openAuthorizeDialog(this.context, authorizeRequest)
         .then((certReference: certificateManagerDialog.CertReference) => {
