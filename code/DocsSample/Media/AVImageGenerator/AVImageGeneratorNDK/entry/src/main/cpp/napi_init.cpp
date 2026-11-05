@@ -145,6 +145,7 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "Create generator failed");
         return nullptr;
     }
+    // [Start OH_AVImageGenerator_SetFDSource]
     // 设置视频资源的文件描述符。
     OH_AVErrCode avErrCode = OH_AVImageGenerator_SetFDSource(generator, fileDescribe, offset, fileSize);
     // 异常处理。
@@ -153,6 +154,7 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "SetFDSource failed");
         return nullptr;
     }
+    // [End OH_AVImageGenerator_SetFDSource]
     // 取指定时间的视频帧。
     OH_PixelmapNative* pixelMap = nullptr;
     avErrCode = OH_AVImageGenerator_FetchFrameByTime(generator, timeUs,
@@ -206,11 +208,9 @@ bool GetGetDurationParams(napi_env env, napi_callback_info info, int64_t &offset
 // [Start OH_AVImageGenerator_GetDuration]
 static napi_value OhAVMetadataExtractorGetDuration(napi_env env, napi_callback_info info)
 {
-    // [Start OH_AVImageGenerator_SetFDSource]
     int64_t offset = 0; // 媒体源在文件描述符中的偏移量。
     int32_t fileDescribe = -1; // 媒体文件描述符。
     int64_t fileSize = 0; // 媒体文件大小。
-    // [StartExclude OH_AVImageGenerator_SetFDSource]
     // 通过辅助函数，获取输入参数，实现见完整示例。
     if (!GetGetDurationParams(env, info, offset, fileDescribe, fileSize)) {
         return nullptr;
@@ -220,7 +220,6 @@ static napi_value OhAVMetadataExtractorGetDuration(napi_env env, napi_callback_i
         napi_throw_error(env, "EFAILED", "Create metadata extractor failed");
         return nullptr;
     }
-    // [EndExclude OH_AVImageGenerator_SetFDSource]
     // 设置视频资源的文件描述符。
     OH_AVErrCode avErrCode = OH_AVMetadataExtractor_SetFDSource(mainExtractor, fileDescribe, offset, fileSize);
     // 异常处理。
@@ -229,7 +228,6 @@ static napi_value OhAVMetadataExtractorGetDuration(napi_env env, napi_callback_i
         napi_throw_error(env, "EFAILED", "SetFDSource for metadata extractor failed");
         return nullptr;
     }
-    // [End OH_AVImageGenerator_SetFDSource]
     OH_AVFormat* avMetadata = OH_AVFormat_Create();
     // 获取资源文件的元数据信息。
     avErrCode = OH_AVMetadataExtractor_FetchMetadata(mainExtractor, avMetadata);
