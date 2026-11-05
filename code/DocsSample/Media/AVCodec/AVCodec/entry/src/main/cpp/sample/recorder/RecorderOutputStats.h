@@ -160,7 +160,7 @@ public:
         snapshot.dumpWrite = dumpTiming_.Snapshot();
         snapshot.bufferHold = holdTiming_.Snapshot();
         snapshot.queueWait = retrievalTiming_.Snapshot();
-        // Recorder 已将 Camera 纳秒 PTS 归一化为微秒；首帧前不凭配置帧率推算实测值。
+        // Recorder已将Camera纳秒PTS归一化为微秒；首帧前不凭配置帧率推算实测值。
         const double seconds = static_cast<double>(lastPtsUs_ - firstPtsUs_) / microsecondsPerSecond;
         if (seconds > 0 && info_.frames > 1) {
             snapshot.framesPerSecond = static_cast<double>(info_.frames - 1) / seconds;

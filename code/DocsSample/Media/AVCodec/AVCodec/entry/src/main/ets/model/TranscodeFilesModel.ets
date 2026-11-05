@@ -29,7 +29,21 @@ export interface TranscodeHistoryEntry {
   hasFile: boolean;
 }
 
+export interface TranscodeStorageSummary {
+  bytes: number;
+  fileCount: number;
+  orphanCount: number;
+}
+
+export interface TranscodeHistoryPage {
+  entries: TranscodeHistoryEntry[];
+  nextOffset: number;
+  hasMore: boolean;
+}
+
 export class TranscodeFilesModel {
+  static readonly HISTORY_PAGE_SIZE: number = 100;
+
   static validId(id: string): boolean { return /^transcoded_[0-9]+$/.test(id); }
 
   static report(entry: TranscodeHistoryEntry): string {
@@ -47,6 +61,7 @@ export class TranscodeFilesModel {
       ' videoBytes=' + status.bytes + ' audioBytes=' + status.audioBytes +
       ' fileBytes=' + status.fileBytes + ' copiedBytes=' + status.copiedBytes,
       'outputValidation=' + (status.outputValidation || 'not recorded') +
+      ' sampleValidation=' + (status.sampleValidation || 'not recorded') +
       ' outputDurationUs=' + (status.outputDurationUs ?? 0) + ' expectedDurationUs=' + (status.expectedDurationUs ?? 0),
       'waitMs: decoder=' + status.decoderWaitMs.toFixed(1) + ' encoderInput=' +
       status.encoderInputWaitMs.toFixed(1) + ' encoderOutput=' + status.encoderOutputWaitMs.toFixed(1),
@@ -72,7 +87,14 @@ export class TranscodeFilesModel {
   }
 
   static async list(directory: string): Promise<TranscodeHistoryEntry[]> {
-    if (!await fileIo.access(directory)) { return []; }
+    return (await TranscodeFilesModel.listPage(directory, 0, TranscodeFilesModel.HISTORY_PAGE_SIZE)).entries;
+  }
+
+  static async listPage(directory: string, offset: number, pageSize: number): Promise<TranscodeHistoryPage> {
+    if (!Number.isInteger(offset) || offset < 0 || !Number.isInteger(pageSize) || pageSize < 1) {
+      throw new Error('Invalid history page');
+    }
+    if (!await fileIo.access(directory)) { return { entries: [], nextOffset: 0, hasMore: false }; }
     const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
     if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe history directory'); }
     const names: string[] = (await fileIo.listFile(directory))
@@ -80,7 +102,8 @@ export class TranscodeFilesModel {
       .sort((a: string, b: string): number => Number(b.split('_')[1].split('.')[0]) -
         Number(a.split('_')[1].split('.')[0]));
     const entries: TranscodeHistoryEntry[] = [];
-    for (const name of names.slice(0, 100)) {
+    const end: number = Math.min(names.length, offset + Math.min(pageSize, TranscodeFilesModel.HISTORY_PAGE_SIZE));
+    for (const name of names.slice(offset, end)) {
       try {
         const path: string = directory + '/' + name;
         const stat: fileIo.Stat = await fileIo.lstat(path);
@@ -101,7 +124,7 @@ export class TranscodeFilesModel {
         entries.push(entry);
       } catch (_error) {}
     }
-    return entries;
+    return { entries: entries, nextOffset: end, hasMore: end < names.length };
   }
 
   static async clear(directory: string): Promise<void> {
@@ -110,6 +133,50 @@ export class TranscodeFilesModel {
     if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe cleanup directory'); }
     for (const name of await fileIo.listFile(directory)) {
       if (!/^transcoded_[0-9]+[.](mp4([.]part)?|json([.]pending)?)$/.test(name)) { continue; }
+      const path: string = directory + '/' + name;
+      const stat: fileIo.Stat = await fileIo.lstat(path);
+      if (stat.isFile() && !stat.isSymbolicLink()) { await fileIo.unlink(path); }
+    }
+  }
+
+  static async storageUsage(directory: string): Promise<TranscodeStorageSummary> {
+    const summary: TranscodeStorageSummary = { bytes: 0, fileCount: 0, orphanCount: 0 };
+    if (!await fileIo.access(directory)) { return summary; }
+    const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
+    if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe output directory'); }
+    for (const name of await fileIo.listFile(directory)) {
+      if (!/^transcoded_[0-9]+[.](mp4([.]part)?|json([.]pending)?)$/.test(name)) { continue; }
+      const stat: fileIo.Stat = await fileIo.lstat(directory + '/' + name);
+      if (!stat.isFile() || stat.isSymbolicLink()) { continue; }
+      summary.bytes += stat.size;
+      summary.fileCount++;
+      if (name.endsWith('.part') || name.endsWith('.json.pending')) { summary.orphanCount++; }
+    }
+    return summary;
+  }
+
+  static async deleteEntry(directory: string, id: string): Promise<void> {
+    if (!TranscodeFilesModel.validId(id)) { throw new Error('Invalid transcode id'); }
+    if (!await fileIo.access(directory)) { return; }
+    const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
+    if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe output directory'); }
+    const paths: string[] = [];
+    for (const suffix of ['.mp4', '.json', '.mp4.part', '.json.pending']) {
+      const path: string = directory + '/' + id + suffix;
+      if (!await fileIo.access(path)) { continue; }
+      const stat: fileIo.Stat = await fileIo.lstat(path);
+      if (stat.isSymbolicLink() || !stat.isFile()) { throw new Error('Unsafe transcode file'); }
+      paths.push(path);
+    }
+    for (const path of paths) { await fileIo.unlink(path); }
+  }
+
+  static async cleanupOrphans(directory: string): Promise<void> {
+    if (!await fileIo.access(directory)) { return; }
+    const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
+    if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe cleanup directory'); }
+    for (const name of await fileIo.listFile(directory)) {
+      if (!/^transcoded_[0-9]+[.](mp4[.]part|json[.]pending)$/.test(name)) { continue; }
       const path: string = directory + '/' + name;
       const stat: fileIo.Stat = await fileIo.lstat(path);
       if (stat.isFile() && !stat.isSymbolicLink()) { await fileIo.unlink(path); }

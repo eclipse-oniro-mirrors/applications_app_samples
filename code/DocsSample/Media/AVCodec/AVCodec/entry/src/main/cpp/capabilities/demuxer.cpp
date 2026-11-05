@@ -40,7 +40,7 @@ int32_t Demuxer::Create(SampleInfo &info)
     audioTrackId_ = -1;
     info.audio.trackIndex = -1;
     /**
-     * // 使用网络 URI 前需先在 module.json 中申请 Internet 权限。
+     * // 使用网络URI前需先在module.json中申请Internet权限。
      * const char *url = "https://hd.ijycnd.com/play/Ddw1W2Ra/index.m3u8";
      * source_ = OH_AVSource_CreateWithURI(const_cast<char *>(url));
      */
@@ -90,12 +90,12 @@ int32_t Demuxer::SelectAudioTrack(int32_t trackIndex, SampleInfo &info)
         "Get audio track format failed, index: %{public}d", trackIndex);
     CHECK_AND_RETURN_RET_LOG(GetTrackType(trackFormat) == MEDIA_TYPE_AUD, AVCODEC_SAMPLE_ERR_ERROR,
         "Selected track is not an audio track, index: %{public}d", trackIndex);
-    // 先解析到临时对象。切换失败时，当前元数据和 Demuxer 已选轨集合必须保持不变。
+    // 先解析到临时对象。切换失败时，当前元数据和Demuxer已选轨集合必须保持不变。
     SampleInfo candidateInfo = info;
     CHECK_AND_RETURN_RET_LOG(PopulateAudioTrackInfo(trackFormat, trackIndex, candidateInfo) == AVCODEC_SAMPLE_ERR_OK,
         AVCODEC_SAMPLE_ERR_ERROR, "Parse audio track failed, index: %{public}d", trackIndex);
 
-    // Seek 和 ReadSample 要求轨道处于选中状态。先取消旧音轨，否则 Demuxer 会继续推进旧流。
+    // Seek和ReadSample要求轨道处于选中状态。先取消旧音轨，否则Demuxer会继续推进旧流。
     const int32_t previousTrackId = audioTrackId_;
     if (previousTrackId >= 0 && previousTrackId != trackIndex) {
         OH_AVDemuxer_UnselectTrackByID(demuxer_, static_cast<uint32_t>(previousTrackId));
@@ -109,7 +109,7 @@ int32_t Demuxer::SelectAudioTrack(int32_t trackIndex, SampleInfo &info)
     }
 
     info.audio = candidateInfo.audio;
-    // 读取音频样本时使用此容器轨道 ID，因此必须和上方选中的元数据同步。
+    // 读取音频样本时使用此容器轨道ID，因此必须和上方选中的元数据同步。
     audioTrackId_ = trackIndex;
     LogAudioConfig(info, info.audio.audioCodecMime.c_str());
     return AVCODEC_SAMPLE_ERR_OK;
@@ -240,7 +240,7 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 
 void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info)
 {
-    // 默认保留第一条音轨；调用方可通过 CodecOptions::audioTrackIndex 显式指定容器轨道索引。
+    // 默认保留第一条音轨；调用方可通过CodecOptions::audioTrackIndex显式指定容器轨道索引。
     if (info.audio.trackIndex >= 0 ||
         (info.codec.audioTrackIndex >= 0 && info.codec.audioTrackIndex != index)) {
         return;
@@ -342,8 +342,8 @@ int32_t Demuxer::Seek(int64_t positionMs, OH_AVSeekMode mode)
     AVCODEC_SAMPLE_LOGW("Demuxer seek failed: position=%{public}lld ms, mode=%{public}d, ret=%{public}d, "
         "video track=%{public}d, audio track=%{public}d", static_cast<long long>(positionMs),
         static_cast<int32_t>(mode), ret, videoTrackId_, audioTrackId_);
-    // 精确定位通常从前一个同步帧开始。部分 MP4 索引无法提供该帧，但仍能提供邻近或后续同步帧。
-    // 仅当前序同步帧请求失败后才重试，常规 Seek 仍优先使用前序同步帧。
+    // 精确定位通常从前一个同步帧开始。部分MP4索引无法提供该帧，但仍能提供邻近或后续同步帧。
+    // 仅当前序同步帧请求失败后才重试，常规Seek仍优先使用前序同步帧。
     if (mode != SEEK_MODE_PREVIOUS_SYNC) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }

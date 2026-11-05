@@ -110,10 +110,12 @@ bool Video(napi_env env, napi_value object, SampleInfo &info)
         Number(env, object, "pixelFormat", pixelFormat) &&
         Number(env, object, "bitrateMode", info.video.bitrateMode) &&
         Number(env, object, "iFrameInterval", info.video.iFrameInterval) &&
-        Boolean(env, object, "hdrVivid", hdr) && Boolean(env, object, "synchronous", sync);
+        Boolean(env, object, "hdrVivid", hdr) && Boolean(env, object, "synchronous", sync) &&
+        Boolean(env, object, "bufferInput", info.video.bufferInput);
     info.video.pixelFormat = pixelFormat == CAMERA_RGBA_FORMAT ? AV_PIXEL_FORMAT_RGBA : AV_PIXEL_FORMAT_NV12;
     info.video.isHDRVivid = hdr ? 1 : 0;
     info.codec.codecSyncMode = sync ? 1 : 0;
+    info.codec.codecRunMode = info.video.bufferInput ? BUFFER : SURFACE;
     return parsed;
 }
 
@@ -157,10 +159,23 @@ bool Dump(napi_env env, napi_value object, SampleInfo &info)
 constexpr int32_t MAX_AUDIO_CHANNELS = 2;
 constexpr int32_t MAX_DUMP_MIB = 1024;
 constexpr int32_t MAX_DUMP_SECONDS = 300;
+constexpr int32_t BUFFER_RECORDING_FRAME_RATE = 30;
+constexpr int32_t HD_VIDEO_WIDTH = 1280;
+constexpr int32_t HD_VIDEO_HEIGHT = 720;
+constexpr int32_t FULL_HD_VIDEO_WIDTH = 1920;
+constexpr int32_t FULL_HD_VIDEO_HEIGHT = 1080;
 
 bool ValidateMediaOptions(const SampleInfo &info)
 {
     const auto &video = info.video;
+    const bool bufferResolution =
+        (video.videoWidth == HD_VIDEO_WIDTH && video.videoHeight == HD_VIDEO_HEIGHT) ||
+        (video.videoWidth == FULL_HD_VIDEO_WIDTH && video.videoHeight == FULL_HD_VIDEO_HEIGHT);
+    if (video.bufferInput && (video.isHDRVivid || video.pixelFormat != AV_PIXEL_FORMAT_NV12 ||
+        video.frameRate != BUFFER_RECORDING_FRAME_RATE || !bufferResolution || video.preprocMode != VIDEO_PREPROC_NONE ||
+        video.dropToFrameRate > 0 || info.output.enableDualOutput)) {
+        return false;
+    }
     return video.videoWidth > 0 && video.videoHeight > 0 && video.frameRate > 0 && video.bitrate > 0 &&
         info.audio.audioSampleRate > 0 && info.audio.audioChannelCount >= 1 &&
         info.audio.audioChannelCount <= MAX_AUDIO_CHANNELS && info.audio.audioBitRate > 0 &&
@@ -183,7 +198,7 @@ bool ValidateOutputOptions(const SampleInfo &info)
 
 bool Validate(napi_env env, const SampleInfo &info)
 {
-    // 不在解析层猜测设备能力；这里只拦截无效值，具体组合仍由编码器能力查询和 Configure 校验。
+    // 不在解析层猜测设备能力；这里只拦截无效值，具体组合仍由编码器能力查询和Configure校验。
     if (!ValidateMediaOptions(info) || !ValidateOutputOptions(info)) {
         napi_throw_range_error(env, nullptr, "Invalid recorder options");
         return false;

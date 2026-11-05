@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
+export enum TranscodeAudioMode {
+  COPY,
+  REENCODE,
+  NONE
+}
+
 export interface TranscodeQualitySnapshot {
   operation: number; filter: number; frameRate: number; bitrateMode: number; keyFrame: number;
   audioRate: number; audioChannels: number; audioBitrate: number;
   codecMode?: number;
   audioResampler?: number;
+  deepValidation?: boolean;
+  remuxAllAudioTracks?: boolean;
 }
 
 @Observed
@@ -32,6 +40,8 @@ export class TranscodeQualityModel {
   public audioBitrate: number = 1;
   public codecMode: number = 0;
   public audioResampler: number = 0;
+  public deepValidation: boolean = false;
+  public remuxAllAudioTracks: boolean = false;
 
   static valid(snapshot: TranscodeQualitySnapshot | undefined): boolean {
     if (snapshot === undefined) { return true; }
@@ -40,6 +50,10 @@ export class TranscodeQualityModel {
       snapshot.audioResampler < 0 || snapshot.audioResampler > 1)) { return false; }
     if (snapshot.codecMode !== undefined &&
       (!Number.isInteger(snapshot.codecMode) || snapshot.codecMode < 0 || snapshot.codecMode > 1)) { return false; }
+    if (snapshot.deepValidation !== undefined && typeof snapshot.deepValidation !== 'boolean') { return false; }
+    if (snapshot.remuxAllAudioTracks !== undefined && typeof snapshot.remuxAllAudioTracks !== 'boolean') {
+      return false;
+    }
     const values: number[] = [snapshot.operation, snapshot.filter, snapshot.frameRate, snapshot.bitrateMode,
       snapshot.keyFrame, snapshot.audioRate, snapshot.audioChannels, snapshot.audioBitrate];
     const limits: number[] = [1, 2, 4, 1, 3, 2, 2, 2];
@@ -51,7 +65,9 @@ export class TranscodeQualityModel {
     return { operation: this.operation, filter: this.filter, frameRate: this.frameRate,
       bitrateMode: this.bitrateMode, keyFrame: this.keyFrame, audioRate: this.audioRate,
       audioChannels: this.audioChannels, audioBitrate: this.audioBitrate, codecMode: this.codecMode,
-      audioResampler: this.audioResampler };
+      audioResampler: this.audioResampler,
+      deepValidation: this.deepValidation,
+      remuxAllAudioTracks: this.remuxAllAudioTracks };
   }
 
   restore(snapshot: TranscodeQualitySnapshot | undefined): void {
@@ -61,5 +77,7 @@ export class TranscodeQualityModel {
     this.audioChannels = snapshot?.audioChannels ?? 0; this.audioBitrate = snapshot?.audioBitrate ?? 1;
     this.codecMode = snapshot?.codecMode ?? 0;
     this.audioResampler = snapshot?.audioResampler ?? 0;
+    this.deepValidation = snapshot?.deepValidation ?? false;
+    this.remuxAllAudioTracks = snapshot?.remuxAllAudioTracks ?? false;
   }
 }

@@ -104,8 +104,9 @@ The sample connects file selection, demuxing, four video output paths, A/V synch
 
 | Feature | Behavior in this sample | Details |
 |---|---|---|
-| Camera preview and page navigation | Initializes the encoder Surface on the home page, passes its SurfaceId to the recording page, and creates preview/recording streams | [Camera capture and recording](#camera-recording) |
-| Video encoding | Camera frames are sent directly to the encoder Surface; H.264/H.265, sync/async output, bitrate, bitrate mode, and key-frame interval are configurable | [Video encoding](#video-encoding) |
+| Camera preview and page navigation | Initializes the encoder or ImageReceiver input Surface, passes its SurfaceId to the recording page, and creates camera output streams | [Camera capture and recording](#camera-recording) |
+| Video encoding | Camera Surface input or YUV copied into encoder Buffers; both support synchronous/asynchronous scheduling, H.264/H.265, bitrate and key-frame settings | [Video encoding](#video-encoding) |
+| Camera Buffer encoding | Native ImageReceiver supplies YUV frames to encoder input Buffers while reusing audio, muxing, Dump and segment recording | [Buffer recording](#recorder-buffer-input) |
 | Encoded video stream dump | Optionally saves the encoder's raw H.264/H.265 output to the app's private files directory; dual-output recording saves each video stream separately | [Video encoding](#video-encoding) |
 | Structured recording options | Groups video, audio, preprocessing, secondary output, Dump, and container parameters into a validated startup snapshot | [Recording options](#recorder-options) |
 | Runtime recording parameters | Requests bitrate changes and key frames independently on the primary or secondary encoder without rebuilding the session | [Runtime recording parameters](#recorder-live-parameters) |
@@ -175,10 +176,11 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 | Encoding quality | Encoder selection, frame-rate cap, CBR/VBR and keyframe interval | [Quality settings](#transcode-quality) |
 | Processing preview | Choose a time and switch between source/processed thumbnails from the same decoded frame | [Preview](#transcode-preview) |
 | Sampling quality | Area downsampling and optional streaming low-pass audio conversion, with fast modes retained | [Sampling quality](#transcode-sampling) |
-| MP4 remux | Copy the full original video and optional audio without creating codecs | [Remux](#transcode-remux) |
+| MP4 remux | Copy original video and one or all audio tracks without codecs; detect but report unsupported subtitle tracks | [Remux](#transcode-remux), [Audio](#transcode-audio) |
+| Output verification | Reopen MP4 for metadata checks; optionally decode samples near the start, middle and end and report failed PTS | [Lifecycle and validation](#transcode-lifecycle) |
 | Preflight and diagnostics | Source/track analysis, codec limits, stage timings and Buffer waits | [Diagnostics](#transcode-diagnostics) |
 | Audio policy | Selected original track, AAC-LC conversion, or no audio | [Audio pipeline](#transcode-audio) |
-| Results and storage | History, playback, report export, storage reserve and private-file cleanup | [Results](#transcode-results) |
+| Results and storage | History, playback, report export, storage reserve, private usage, per-item deletion and orphan-temp cleanup | [Results](#transcode-results) |
 | Implementation walkthrough | Page-to-worker flow, per-frame handoff, EOS, cancellation, remux and preview | [Function-level flow](#transcode-call-flow) |
 
 <a id="transcoding"></a>
@@ -315,9 +317,9 @@ The preview button still uses the CPU processor on the same chosen frame, includ
 
 #### Full-file MP4 remux
 
-**Remux original streams** reads the first video track and an optional selected audio track, adds their original descriptions to the MP4 muxer, then copies compressed samples with their packet attributes and relative timestamps. Both tracks subtract the same source start offset before muxing. It creates no codecs and performs no pixel copy. AddTrack determines MP4 compatibility; there is no hidden re-encoding fallback. Rejected audio requires no-audio mode or normal transcoding with AAC conversion.
+**Remux original streams** reads the first video track and an optional selected audio track; it can also copy all audio tracks. Each source description is added to the MP4 muxer, then compressed samples and packet attributes are copied in per-track order. Audio and video subtract the same source start offset before muxing. It creates no codecs and performs no pixel copy. AddTrack determines MP4 compatibility; there is no hidden re-encoding fallback. Rejected audio requires no-audio mode or normal transcoding with AAC conversion.
 
-Remux covers the whole file. Size changes, crop/padding, grayscale, filtering, frame-rate changes, time cuts and AAC conversion are unavailable; switching operation resets incompatible controls. Codec, bitrate and keyframe controls are hidden because they cannot change copied streams. Other video tracks, subtitles and attachments are not copied. HDR is not rejected merely for being HDR, but compressed copying does not guarantee preservation of every format-specific HDR metadata item through the muxer.
+Remux covers the whole file. Size changes, crop/padding, grayscale, filtering, frame-rate changes, time cuts and AAC conversion are unavailable; switching operation resets incompatible controls. Codec, bitrate and keyframe controls are hidden because they cannot change copied streams. Additional video tracks and attachments are not copied. Source subtitle tracks are reported but not copied: the documented native MP4 muxer API exposes audio/video tracks only, so this sample does not attempt to write an unsupported subtitle track. HDR is not rejected merely for being HDR, but compressed copying does not guarantee preservation of every format-specific HDR metadata item through the muxer.
 
 The worker reuses one 32 MiB video packet buffer and one 1 MiB audio packet buffer; larger packets fail rather than growing an unbounded queue. Cancellation, private `.part` output, storage reserve, finalization, validation and export share the job lifecycle. `TranscodeOperations.cpp` separates remux, preview and PTS frame selection from codec initialization.
 
@@ -325,17 +327,17 @@ The worker reuses one 32 MiB video packet buffer and one 1 MiB audio packet buff
 
 #### Task lifecycle, export, and limits
 
-The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. Original audio uses the selected track's description and compressed samples. If MP4 rejects that format, retry with AAC conversion or no audio. Additional video/audio tracks, subtitles, and attachments are not copied.
+The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. Re-encoding keeps one selected audio track using its source description and compressed samples. If MP4 rejects that format, retry with AAC conversion or no audio. Remux can keep one or all audio tracks. Additional video tracks, subtitles, and attachments are not copied.
 
 Native duplicates the input/output descriptors before queueing its asynchronous work. The job owns those duplicates and closes them after releasing the codecs and muxer. Status polling every 250 ms updates media progress, encoded frame count, video payload bytes, and output dimensions. The byte count excludes audio and MP4 overhead. A 30-second interval with no pipeline progress fails the task; cancellation is checked between codec operations.
 
 `ReadSourceMetadata()` reads `OH_MD_KEY_START_TIME` from the source description. A positive source start becomes the shared timestamp origin; a missing or nonpositive value uses zero. This matters for MPEG-TS files: audio starting at 1,405,333 microseconds and video at 1,440,000 microseconds should become 0 and 34,667 microseconds, keeping their relative offset without adding about 1.4 seconds to MP4 duration. Buffer encoding subtracts the origin before submitting encoder input; Surface encoding and remuxing do so before muxing. AAC conversion also rebases PCM timestamps when processing the full file. Range selection remains relative to the beginning of the file; `ConfigureTimeRange()` adds the source origin when comparing against raw decoder PTS. Sources with a positive origin are decoded from the beginning for range selection: an approximate TS seek can land on a non-keyframe even with `PREVIOUS_SYNC`. This preserves reference frames at the cost of extra decoding. Other sources still seek using file-relative time.
 
-Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. After output EOS, successful muxer finalization and file flush, Native reopens the MP4 and checks positive duration, track count, audio/video MIME and video dimensions. Structural failures prevent publication. It also compares selected duration, rotation, available source color descriptors and requested audio rate/channel count. Duration tolerance is the greater of 250 ms and two output-frame intervals. When both track-start timestamps are available, an audio/video start difference over 100 ms is reported. Validation differences and the source origin, expected duration and actual duration are logged for diagnosis.
+Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. After output EOS, successful muxer finalization and file flush, Native reopens the MP4 and checks positive duration, track count, audio/video MIME and video dimensions. Structural failures prevent publication. It also compares selected duration, rotation, available source color descriptors and requested audio rate/channel count. Duration tolerance is the greater of 250 ms and two output-frame intervals. When the video and an audio track both provide start timestamps, each audio/video start difference over 100 ms is reported with its track ordinal. The optional **Decode-check output samples** setting reopens the output and, near the start, middle and end, seeks to the previous sync frame and decodes through the target PTS. It checks decode success and that decoded PTS is nondecreasing and within the output duration. Sample failures are warnings, not grounds to discard an otherwise valid file; the report records each failed timestamp and reason.
 
-Metadata differences produce a warning rather than deleting a structurally valid file. The result card, TXT and session reports retain the details. Missing source metadata is not invented; unavailable track-start data does not imply synchronization. These checks do not decode the result or establish per-frame integrity or end-to-end A/V synchronization. Cancellation and failure remove incomplete files. Export copies the completed file to a URI authorized by the system dialog without broad media-write permission. Failed export retains the private copy for retry.
+Metadata or sample-decode differences produce a warning rather than deleting a structurally valid file. The result card, TXT and session reports retain the details. Missing source metadata is not invented; unavailable track-start data does not imply synchronization. Sampling checks only three positions; it does not decode the full result, prove every frame is present or establish end-to-end A/V synchronization. Cancellation and failure remove incomplete files. Export copies the completed file to a URI authorized by the system dialog without broad media-write permission. Failed export retains the private copy for retry.
 
-Video re-encoding and processed-frame preview accept SDR input. They reject HDR Vivid, PQ/HLG and HEVC profiles outside Main because HDR transfer, 10-bit processing and dynamic metadata preservation are not implemented. They do not turn HDR into unmarked SDR. Full-file remux has the separate limits described above. Codec availability, dimensions and the selected scheduling/Surface combination depend on the device; native `Configure()` is the final check.
+PQ/HLG, HDR10, HDR Vivid and HEVC Main 10 re-encoding are rejected. The current pipeline cannot verify 10-bit Surface negotiation or guarantee color and HDR metadata preservation; codec profile support alone is not enough to establish a safe path. Preview does not simulate HDR color processing. HEVC profiles that cannot be identified are also rejected rather than treated as SDR. Other SDR inputs are checked against their color description and device capabilities. Full-file remux has the separate limits described above. Codec and Surface support still depends on the device; native `Configure()` is the final check.
 
 `tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `TranscodeCodecCallbacksTest.cpp` checks four isolated channels, format/EOS ordering, borrowed buffers, queue limits, error origin, cancellation and late callbacks. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup, reports, legacy queue compatibility and scheduling restoration. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
 
@@ -366,7 +368,7 @@ The report distinguishes video payload bytes, audio output bytes, actual file si
 
 #### Audio selection and AAC conversion
 
-The default copies the first audio track; a specific track can also be selected. Entries show container track number, MIME, channels and sample rate. No-audio mode selects no audio track, creates no audio codec and adds no audio muxer track.
+Normal re-encoding copies the first audio track by default, or one selected track. Remux can copy the first, one selected or all audio tracks. Entries show container track number, MIME, channels and sample rate. No-audio mode creates no audio codec and adds no audio muxer track. Subtitle tracks are reported when found, but are not written to MP4 because the documented native muxer API accepts audio/video tracks only.
 
 Passthrough remuxes compressed samples. AAC conversion uses separate synchronous audio decoder/encoder instances and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; channels follow the source or use mono/stereo. Bitrate choices are 64, 128 and 192 kbps. Defaults retain the source layout and 128 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM layout fails explicitly.
 
@@ -374,19 +376,19 @@ Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` 
 
 `TranscodeAudioPipeline` retains one borrowed decoded output and one 1024-sample-per-channel AAC-LC assembly frame. Output PTS uses the first retained PCM timestamp and an integer output-sample clock. Source timestamp discontinuities greater than the larger of 2 ms and two source sample intervals fail explicitly instead of silently closing gaps. EOS flushes the fractional resampling tail by holding the last source sample, then zero-pads a short final AAC frame. Tail silence remains shorter than one AAC frame; an empty EOS follows separately and encoded output drains to EOS.
 
-Muxing starts only after video and AAC descriptions are ready; the first audio packet is retained while waiting. Backpressure does not build an unbounded PCM queue. Cancellation/failure releases both audio codecs. Multiple audio tracks, subtitles, loudness processing and gapless tail trimming are not implemented.
+Muxing starts only after video and AAC descriptions are ready; the first audio packet is retained while waiting. Backpressure does not build an unbounded PCM queue. Cancellation/failure releases both audio codecs. Re-encoding does not produce multiple audio tracks. Subtitle muxing, loudness processing and gapless tail trimming are not implemented.
 
 <a id="transcode-results"></a>
 
 #### Results, history and storage protection
 
-Completed results can be played, exported again or saved as a TXT diagnostic report. Recent transcodes are restored from private task reports across application restarts. The list shows the latest 100 reports without automatically deleting older video files. A history card loads that result; successful results offer playback, while failures/cancellations retain final diagnostics. JSON is written to a pending file, flushed and renamed. Exported TXT excludes source URI, source filename and absolute paths; local history retains the title for identification.
+Completed results can be played, exported again or saved as a TXT diagnostic report. Recent transcodes are restored from private task reports across application restarts. The list initially loads the latest 100 reports and can page through older entries; it does not automatically delete older video files. The page displays private transcode storage usage and the count of incomplete files. Each history item can delete its private video and report; a separate action cleans only orphan `.part` and `.json.pending` files. Deletion accepts exact app-managed filenames and does not affect source files or exported copies. A history card loads that result; successful results offer playback, while failures/cancellations retain final diagnostics. JSON is written to a pending file, flushed and renamed. Exported TXT excludes source URI, source filename and absolute paths; local history retains the title for identification.
 
 Before launch, re-encoded size is estimated from duration, target video bitrate and an audio budget, with 15% headroom. The AAC budget covers at least the selected bitrate. Remux uses source file size plus 15% at Native launch; the preflight UI leaves this estimate unknown. These are estimates, not bounds. Native checks free space at startup and every second, keeping a 64 MiB reserve. Low space fails the task and removes the incomplete file. Export checks local space for another complete copy. Provider/cloud destinations may not expose free-space information, so copy can still fail; the private result remains available for retry.
 
 Transcoding requires idle playback/recording and acquires its task marker before asynchronous file operations. New playback, recording and cleanup are blocked while it runs. Paused playback still owns resources and must be stopped first. Cancellation releases the marker only after Native exits, descriptors close and the report is saved. Other user tasks are never forcibly stopped.
 
-Cleanup requires confirmation and scans only generated MP4, part and report filenames in the private transcodes directory. Directory/file types are checked; symlinks and arbitrary external paths are rejected. Source files and exported videos are untouched. Running/exporting tasks block cleanup, while abandoned part files from a forced exit can be removed when idle.
+File management scans only generated MP4, part and report filenames in the private transcodes directory. Per-item deletion and orphan cleanup require confirmation. Directory/file types are checked; symlinks and arbitrary external paths are rejected. Source files and exported videos are untouched. Running/exporting tasks block deletion and cleanup, while abandoned part files from a forced exit can be removed when idle.
 
 ### Preview
 
@@ -911,19 +913,19 @@ playback orchestration independent while preserving the existing NAPI contract.
 Recording also starts from `Index.ets`:
 
 - A separate scrollable settings sheet, sized to 85% of the screen, groups recording options into Container and output, Video encoding, Audio encoding, and Encoding control. Users select MP4 or FLV, video parameters, AAC sample rate/channel count/bitrate, audio capture latency, video stabilization, and sync/async mode there. `RecorderSettingsModel` validates all temporary values and updates `CameraDataModel` only when **Apply** is selected.
-- `checkIsProfileSupport()` queries `camera.getCameraManager()` for the selected video profile. Unsupported settings fall back to 1080p, or to the first device-supported profile if 1080p is unavailable.
+- `checkIsProfileSupport()` queries `camera.getCameraManager()` for the selected profile. Surface input can fall back to 1080p or the first supported video profile. Buffer input requires the selected YUV preview profile and never silently changes the input mode or resolution.
 - `photoAccessHelper.createAsset()` creates the destination media asset and `fileIo.open()` obtains the output fd.
-- `recorder.initNative(...)` creates the encoder and muxer. `OH_NativeWindow_GetSurfaceId()` returns the encoder input SurfaceId.
-- The home page navigates with `getUIContext().getRouter().pushUrl()` and passes `CameraDataModel`, including the encoder SurfaceId, to `recorder/pages/Recorder`.
+- `recorder.initNative(...)` creates the encoder and muxer. Surface input returns the encoder SurfaceId through `OH_NativeWindow_GetSurfaceId()`; Buffer input returns the Native ImageReceiver's receiving SurfaceId.
+- The home page navigates with `getUIContext().getRouter().pushUrl()` and passes `CameraDataModel`, including that input SurfaceId, to `recorder/pages/Recorder`.
 
 The recording page connects the camera to two Surfaces:
 
 - XComponent `.onLoad()` obtains the preview SurfaceId.
-- `createRecorder()` creates CameraManager, CameraInput, VideoSession, preview output, and recording output.
+- `createRecorder()` creates CameraManager, CameraInput, VideoSession, display preview output, and either a VideoOutput or a second YUV PreviewOutput.
 - The preview stream targets the XComponent Surface.
-- The recording stream targets the Native encoder Surface.
-- Starting recording first enables camera video output and then starts the Native muxer, video encoder, AudioCapturer, and audio encoder.
-- Stopping waits for camera output and `frameEnd`, then runs `stopBeginNative()` and `stopEndNative()`. The output fd is closed and the camera is released after encoder EOS and muxer finalization.
+- Surface input targets the Native encoder Surface. Buffer input targets ImageReceiver, which supplies YUV frames to the encoder's input Buffers.
+- Starting recording enables camera video output in Surface mode, then starts the Native recording pipeline. In Buffer mode, both preview outputs already run during preparation; Native start begins copying and submitting frames.
+- Stopping waits for camera video output and `frameEnd` in Surface mode, or stops the camera session directly in Buffer mode, then runs `stopBeginNative()` and `stopEndNative()`. The output fd is closed and the camera is released after encoder EOS and muxer finalization.
 
 <a id="graphics-output"></a>
 
@@ -1311,7 +1313,7 @@ Window resources follow the same release boundary. XComponent and `OHNativeWindo
 
 #### Camera Capture and Recording
 
-The recording pipeline uses a camera preview Surface and an encoder input Surface:
+The default Surface recording pipeline uses a camera preview Surface and an encoder input Surface. [Buffer recording](#recorder-buffer-input) replaces the encoder Surface with ImageReceiver and an explicit YUV copy:
 
 ```text
 CameraInput
@@ -1325,7 +1327,7 @@ Camera     -> VideoEncoder                  ├-> Muxer -> MP4/FLV
 
 The selected camera profile is validated before navigation. The preview page creates a `VideoSession`, attaches preview and recording outputs, and starts the session. The **Encoding control** group exposes disabled/auto video stabilization; auto mode queries `VideoSession` support before it is enabled, and an unsupported device does not block recording. Native recording starts only after the user taps **Start Recording**.
 
-Preview and recording are independent consumers of the same camera input. The recording-page XComponent receives the preview stream, while the encoder Surface receives the recording stream; Native code does not read or release either framework-owned Surface. Before navigation, the selected profile is checked against the active camera. An unsupported combination falls back to the default profile or the first available profile, and that resolved profile is used consistently by CameraKit and the encoder. The sample does not switch resolution between the two outputs after recording starts.
+In Surface mode, preview and recording are independent consumers of the same camera input. The recording-page XComponent receives the preview stream, while the encoder Surface receives the recording stream. Before navigation, the selected profile is checked against the active camera. An unsupported Surface profile falls back to the default profile or the first available profile, and that resolved profile is used consistently by CameraKit and the encoder. Buffer mode checks the selected YUV profile, the two-preview combination, and 30 fps support; a failure is reported without falling back. The sample does not switch resolution after recording starts.
 
 For supported HDR recording configurations, the sample selects P010 output and the required color-space/encoder options. Actual availability is device dependent and must be checked against camera and codec capabilities.
 
@@ -1518,7 +1520,7 @@ Recording workers measure retrieval wait in both synchronous and asynchronous mo
 
 | Group | Fields |
 |---|---|
-| `video` | MIME, codec name, source size/rate, bitrate, pixel format, HDR, and synchronous mode |
+| `video` | MIME, codec name, source size/rate, bitrate, pixel format, HDR, synchronous mode, and `bufferInput` (`false`: Surface; `true`: Buffer) |
 | `audio` | Sample rate, channels, bitrate, and capture latency |
 | `preprocess` | Mode, downsampling dimensions, drop target, and crop coordinates |
 | `secondary` | Enabled flag, output fd, and target dimensions |
@@ -1604,24 +1606,63 @@ For device testing, keep single-output and dual-output results separate. Check t
 
 Stopping recording follows this order:
 
-1. Stop camera video output so no new frame is submitted.
-2. Wait for the camera frame-end signal.
-3. Notify the video encoder of end of stream.
+1. Stop camera video output in Surface mode, or stop the camera session in Buffer mode, so no new frame is submitted.
+2. Wait for the camera frame-end signal in Surface mode; Buffer mode has no VideoOutput frame-end event to wait for.
+3. Notify the Surface encoder of end of stream, or join the Buffer input thread and submit an empty input Buffer with the EOS flag.
 4. Stop audio capture and push audio EOS.
 5. Wait for audio/video encoder output threads to consume EOS.
-6. Stop and release the muxer so container indexes and trailers are written.
+6. Destroy the muxer to finalize and release the container after output has drained.
 7. Release encoders and Native resources.
 8. Close the media-library output fd.
 9. Release camera objects and navigate back to the home page.
 
 
+<a id="recorder-buffer-input"></a>
+
+#### Camera Buffer Input Recording
+
+**Video encoder input** in recording settings selects Surface (the default) or Buffer. Surface connects the camera directly to the encoder window. Buffer demonstrates acquiring raw camera images, filling encoder-owned `OH_AVBuffer` objects and calling `PushInputBuffer()`. Synchronous/asynchronous scheduling is a separate setting.
+
+```text
+CameraKit VideoSession
+    +-- PreviewOutput --> XComponent (display preview)
+    +-- YUV PreviewOutput --> Native ImageReceiver
+                                    | ReadLatestImage
+                              Video input worker
+                                    | Copy planes into encoder NV12 layout
+                              Encoder OH_AVBuffer
+                                    | PushInputBuffer
+                              Encoded video --> Existing Muxer --> MP4 / FLV
+Microphone --> Existing PCM / AAC pipeline --------^
+```
+
+| Entry point | Responsibility |
+|---|---|
+| `CameraSessionController.configure()` | Selects the YUV preview profile, checks the two-preview output combination, commits the session and configures 30fps |
+| `Recorder::CreateVideoEncoder()` / `GetCameraInputSurfaceId()` | Configures without an encoder Surface, creates `RecorderFrameReceiver`, and supplies its receiving SurfaceId to the camera |
+| `Recorder::VideoEncInputThread()` | Reads the latest Image; acquires input through synchronous `GetInputBuffer()` or the asynchronous callback queue; copies pixels and submits the Buffer |
+| `RecorderFrameReceiver::Copy()` | Checks actual NativeBuffer format, plane offsets, row/pixel strides and capacities; converts NV12/NV21/planar YUV420 into the encoder NV12 layout |
+| `Recorder::SendBufferVideoEndOfStream()` | Joins the input worker after camera stop, then submits an empty EOS Buffer while output workers continue draining |
+
+Buffer recording requires API 23+, 8-bit SDR, 1280x720 or 1920x1080, and 30fps. Selecting it resets incompatible draft settings and disables HDR, platform encoder preprocessing, target frame dropping and dual output. Switch back to Surface to configure those features. Input mode is persisted with recording settings; older snapshots default to Surface.
+
+The camera must also support simultaneous display and YUV preview outputs. An encoder capability query cannot confirm that stream combination or CPU-readable camera storage. Unsupported profiles/combinations produce an error. Unreadable images, missing NV12 encoder layout, regressing timestamps or a stalled input terminate the recording; the sample does not silently select Surface or reduce the resolution.
+
+Receiver capacity is three. A receiver worker continuously consumes camera output and keeps only the latest Image, including while the page is ready but encoding has not started; this prevents a full receiver from stalling display preview. The encoder input worker takes that image and releases it when no encoder input is available, rather than building a growing frame queue. Pixel copies remain in Native code. Image objects are released after use and mapped NativeBuffers are unmapped before their Image is released. Input Buffers retain their original encoder indices.
+
+`MapPlanes()` may describe semiplanar YUV as two physical planes or three Y/U/V components. For NV21, the U offset is one byte after V, so the second component is not necessarily the start of the chroma plane. `ResolveYuv420Planes()` uses actual offsets and pixel format to identify U/V. Some devices return row and column strides in the opposite direction to the SDK field descriptions; the sample normalizes them only when pixel-step and capacity checks pass. It rejects layouts that cannot be validated.
+
+Camera timestamps are nanoseconds; codec Buffer timestamps are microseconds. The first video frame keeps its offset from Native recording start and subsequent frames retain camera timestamp intervals. Audio keeps its capture-start offset as well. Buffer output bypasses the Surface path's timestamp division, preventing a second unit conversion. This does not establish hardware-level capture synchronization; verify the resulting audio/video alignment on the target device.
+
+Stopping first stops the camera session and both preview outputs, joins the video input worker, and submits an EOS input Buffer. The existing audio, output, muxer, file-descriptor and segment-finalization paths handle the remainder. Surface-only `NotifyEndOfStream()` is not used for Buffer input. CPU pixel copying makes this an encoding example; Surface remains preferable for high-resolution or high-frame-rate recording.
+
 <a id="video-encoding"></a>
 
 #### Video Encoding
 
-`VideoEncoder` is created from the selected H.264/H.265 MIME and configured with dimensions, frame rate, pixel format, bitrate, CBR/VBR bitrate mode, key-frame interval, and codec mode. The recording settings organize these options under **Video encoding** and provide 10/20/30 Mbps and 100 ms/1 s/2 s presets. Bitrate and bitrate mode are validated through encoder capability query; the encoder validates the key-frame interval when the format is configured. Its input is a Surface returned by `OH_VideoEncoder_GetSurface()`.
+`VideoEncoder` is created from the selected H.264/H.265 MIME and configured with dimensions, frame rate, pixel format, bitrate, CBR/VBR bitrate mode, key-frame interval, and codec mode. The recording settings organize these options under **Video encoding** and provide 10/20/30 Mbps and 100 ms/1 s/2 s presets. Bitrate and bitrate mode are validated through encoder capability query; the encoder validates the key-frame interval when the format is configured. By default, input uses a Surface returned by `OH_VideoEncoder_GetSurface()`. [Buffer input](#recorder-buffer-input) skips GetSurface and lets the application fill and submit encoder input Buffers.
 
-CameraKit produces frames directly into that Surface. Encoder output is handled in either callback-driven async mode or active-query sync mode:
+In Surface mode, CameraKit produces frames directly into that Surface. Encoder output is handled in either callback-driven async mode or active-query sync mode:
 
 ```text
 Camera -> encoder Surface -> OH_VideoEncoder

@@ -51,7 +51,7 @@ export class RecorderDiagnosticsController {
     this.previousBytes = bytes;
     const rate: number = this.rates.length >= 3 && now - this.startedAt >= 3000 ?
       this.rates.reduce((sum: number, sample: number): number => sum + sample, 0) / this.rates.length : -1;
-    // 为正常 EOS / 容器尾部留固定空间，并给高码率录制至少 10 秒的收尾余量。
+    // 为正常EOS / 容器尾部留固定空间，并给高码率录制至少10秒的收尾余量。
     const reserve: number = Math.max(RecorderDiagnosticsController.RESERVE_BYTES, rate > 0 ? rate * 10 : 0);
     const remaining: number = space >= 0 && rate > 0 ? Math.max(0, space - reserve) / rate : -1;
     return { availableBytes: space, bytesPerSecond: rate, remainingSeconds: remaining,

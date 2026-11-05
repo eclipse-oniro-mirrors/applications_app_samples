@@ -20,6 +20,18 @@ import { CommonConstants as Const } from '../CommonConstants';
 
 const TAG: string = 'CAMERA_CHECK';
 
+// Buffer输入使用预览类型的YUV流，不能拿VideoProfile代替PreviewProfile。
+export function bufferProfileCameraCheck(manager: camera.CameraManager,
+  data: CameraDataModel): camera.Profile | undefined {
+  const device: camera.CameraDevice | undefined = manager.getSupportedCameras()[0];
+  if (device === undefined) { return undefined; }
+  const capability: camera.CameraOutputCapability =
+    manager.getSupportedOutputCapability(device, camera.SceneMode.NORMAL_VIDEO);
+  return capability.previewProfiles.find((profile: camera.Profile): boolean =>
+    profile.format === camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP &&
+      profile.size.width === data.cameraWidth && profile.size.height === data.cameraHeight);
+}
+
 function getPreviewProfile(previewProfiles: camera.Profile[], size: camera.Size,
   isHDRVivid: number): undefined | camera.Profile {
   const previewProfile: camera.Profile | undefined = previewProfiles.find((profile: camera.Profile) => {

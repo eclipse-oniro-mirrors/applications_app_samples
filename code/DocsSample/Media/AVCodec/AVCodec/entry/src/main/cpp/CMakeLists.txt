@@ -86,6 +86,8 @@ add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             sample/recorder/RecorderOptionsParser.cpp
                             sample/recorder/Recorder.cpp
                             sample/recorder/RecorderVideoSession.cpp
+                            sample/recorder/RecorderVideoInput.cpp
+                            sample/recorder/RecorderFrameReceiver.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
@@ -104,7 +106,7 @@ if(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID)
 endif()
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
-target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
+target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} libimage_receiver.so libohimage.so)
 
 add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeAudioPipeline.cpp

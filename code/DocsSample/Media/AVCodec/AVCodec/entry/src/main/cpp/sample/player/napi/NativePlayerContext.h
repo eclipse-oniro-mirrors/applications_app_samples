@@ -23,8 +23,8 @@
 
 struct NativePlayerSession {
     Player player;
-    // NAPI 的 JS 线程与跳转工作线程共享该标记。重建 codec 期间，
-    // 它阻止其他控制操作继续访问 Player。
+    // NAPI的JS线程与跳转工作线程共享该标记。重建codec期间，
+    // 它阻止其他控制操作继续访问Player。
     std::atomic<bool> seeking { false };
 };
 

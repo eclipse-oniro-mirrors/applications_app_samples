@@ -25,6 +25,7 @@ export interface RecorderVideoOptions {
   iFrameInterval: number;
   hdrVivid: boolean;
   synchronous: boolean;
+  bufferInput: boolean;
 }
 
 export interface RecorderAudioOptions {
@@ -74,13 +75,13 @@ export interface RecorderOptions {
   output: RecorderOutputOptions;
 }
 
-export const initNative: (options: RecorderOptions) => Promise<Response>
+export const initNative: (options: RecorderOptions) => Promise<Response>;
 
-export const startNative: () => boolean
+export const startNative: () => boolean;
 
-export const stopBeginNative: () => Promise<Response>
+export const stopBeginNative: () => Promise<Response>;
 
-export const stopEndNative: () => Promise<Response>
+export const stopEndNative: () => Promise<Response>;
 
 export interface RecorderStageTiming {
   count: number;
@@ -177,7 +178,7 @@ export const markStage: (sessionId: string, stage: string, result: string) => vo
 
 export const getDiagnostics: () => RecorderDiagnostics
 
-/** bitrate=0 表示仅请求关键帧；primary=false 选择副路。成功表示接受请求，不表示已输出关键帧。 */
+/** bitrate=0表示仅请求关键帧；primary=false选择副路。成功表示接受请求，不表示已输出关键帧。 */
 export const updateParameters: (sessionId: string, primary: boolean, bitrate: number,
   requestKeyFrame: boolean) => Promise<Response>
 

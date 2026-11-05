@@ -37,7 +37,7 @@ export class CommonConstants {
    */
   public static readonly DURATION: number = 2000;
   /**
-   * Toast 距屏幕底部的距离。
+   * Toast距屏幕底部的距离。
    */
   public static readonly BOTTOM: number = 200;
   /**
@@ -57,7 +57,7 @@ export class CommonConstants {
    */
   public static readonly OUTPUT_FORMAT: string[] = ['MP4', 'FLV'];
   /**
-   * 与 C API OH_AVOutputFormat 对应的输出格式枚举值。
+   * 与C API OH_AVOutputFormat对应的输出格式枚举值。
    */
   public static readonly FORMAT_MP4: number = 2;
   public static readonly FORMAT_FLV: number = 14;
@@ -100,7 +100,7 @@ export class CommonConstants {
   /**
    * 视频解码器送显模式。
    */
-  /** 传递给 Native 播放器的内部模式值。 */
+  /** 传递给Native播放器的内部模式值。 */
   public static readonly VIDEO_DECODER_RUN_MODE: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
   public static readonly VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT: number = 0;
   public static readonly VIDEO_DECODER_RUN_MODE_BUFFER: number = 1;
@@ -111,7 +111,7 @@ export class CommonConstants {
    */
   public static readonly VIDEO_DECODER_SYNC_MODE: string[] = ['ASYNC', 'SYNC'];
   /**
-   * 是否在 Buffer 模式导出解码后的视频帧。
+   * 是否在Buffer模式导出解码后的视频帧。
    */
   public static readonly VIDEO_DUMP_MODE: string[] = ['NoDump', 'Dump'];
   public static readonly VIDEO_LAST_FRAME_MODE: string[] = ['RetainLastFrame', 'ClearLastFrame'];
@@ -121,7 +121,7 @@ export class CommonConstants {
    */
   public static readonly AUDIO_RENDERER_LATENCY_MODE: string[] = ['NormalLatency', 'LowLatency'];
   /**
-   * NativeWindow 支持的视频变换类型。
+   * NativeWindow支持的视频变换类型。
    */
   public static getTransformTypes(): string[] {
     return [
@@ -140,7 +140,7 @@ export class CommonConstants {
     ];
   }
   /**
-   * NativeWindow 变换选项数量。
+   * NativeWindow变换选项数量。
    */
   public static readonly TRANSFORM_TYPE_COUNT: number = 12;
   /**
@@ -162,12 +162,15 @@ export class CommonConstants {
     CommonConstants.VIDEO_PREPROC_MODE, CommonConstants.VIDEO_DROP_FRAME_RATE, CommonConstants.DUAL_OUTPUT_MODE
   ];
   public static readonly RECORDER_REQUIRED_SETTING_COUNT: number = 13;
+  /** Buffer录制示例的固定帧率和最低API版本。 */
+  public static readonly RECORDER_BUFFER_FRAME_RATE: number = 30;
+  public static readonly RECORDER_BUFFER_MIN_API: number = 23;
   /**
    * 播放速度。
    */
   public static readonly PLAYBACK_SPEED: string[] = ['X1', 'X2', 'X3'];
   /**
-   * 智能流畅解码的帧保留模式，仅 API 26 及以上版本可用。
+   * 智能流畅解码的帧保留模式，仅API 26及以上版本可用。
    */
   public static readonly FRAME_RETENTION_MODE: Resource[] = [
     $r('app.string.frame_retention_full'), $r('app.string.frame_retention_adaptive'),
@@ -178,35 +181,35 @@ export class CommonConstants {
    */
   public static readonly DEFAULT_VALUE: number = 0;
   /**
-   * AVC 视频 MIME 类型。
+   * AVC视频MIME类型。
    */
   public static readonly MIME_VIDEO_AVC: string = 'video/avc';
   /**
-   * HEVC 视频 MIME 类型。
+   * HEVC视频MIME类型。
    */
   public static readonly MIME_VIDEO_HEVC: string = 'video/hevc';
   /**
-   * 2 Mbps 视频码率。
+   * 2 Mbps视频码率。
    */
   public static readonly BITRATE_VIDEO_2M: number = 2 * 1024 * 1024;
   /**
-   * 10 Mbps 视频码率。
+   * 10 Mbps视频码率。
    */
   public static readonly BITRATE_VIDEO_10M: number = 10 * 1024 * 1024;
   /**
-   * 20 Mbps 视频码率。
+   * 20 Mbps视频码率。
    */
   public static readonly BITRATE_VIDEO_20M: number = 20 * 1024 * 1024;
   /**
-   * 30 Mbps 视频码率。
+   * 30 Mbps视频码率。
    */
   public static readonly BITRATE_VIDEO_30M: number = 30 * 1024 * 1024;
   /**
-   * 固定码率模式，对应 OH_BitrateMode::BITRATE_MODE_CBR。
+   * 固定码率模式，对应OH_BitrateMode::BITRATE_MODE_CBR。
    */
   public static readonly VIDEO_BITRATE_MODE_CBR: number = 0;
   /**
-   * 可变码率模式，对应 OH_BitrateMode::BITRATE_MODE_VBR。
+   * 可变码率模式，对应OH_BitrateMode::BITRATE_MODE_VBR。
    */
   public static readonly VIDEO_BITRATE_MODE_VBR: number = 1;
   /**
@@ -239,43 +242,43 @@ export class CommonConstants {
    */
   public static readonly ROW_SPACE: number = 10;
   /**
-   * Picker 选项默认高度。
+   * Picker选项默认高度。
    */
   public static readonly DEFAULT_PICKER_ITEM_HEIGHT: number = 30;
   /**
-   * Picker 已选文本字号。
+   * Picker已选文本字号。
    */
   public static readonly SELECTED_TEXT_STYLE_FONT_SIZE: number = 9;
   /**
-   * 布尔值 true 对应的数值。
+   * 布尔值true对应的数值。
    */
   public static readonly TRUE: number = 1;
   /**
-   * 布尔值 false 对应的数值。
+   * 布尔值false对应的数值。
    */
   public static readonly FALSE: number = 0;
   /**
-   * 4K 视频宽度。
+   * 4K视频宽度。
    */
   public static readonly VIDEO_WIDTH_4K: number = 3840;
   /**
-   * 1080P 视频宽度。
+   * 1080P视频宽度。
    */
   public static readonly VIDEO_WIDTH_1080P: number = 1920;
   /**
-   * 720P 视频宽度。
+   * 720P视频宽度。
    */
   public static readonly VIDEO_WIDTH_720P: number = 1280;
   /**
-   * 4K 视频高度。
+   * 4K视频高度。
    */
   public static readonly VIDEO_HEIGHT_4K: number = 2160;
   /**
-   * 1080P 视频高度。
+   * 1080P视频高度。
    */
   public static readonly VIDEO_HEIGHT_1080P: number = 1080;
   /**
-   * 720P 视频高度。
+   * 720P视频高度。
    */
   public static readonly VIDEO_HEIGHT_720P: number = 720;
   /**

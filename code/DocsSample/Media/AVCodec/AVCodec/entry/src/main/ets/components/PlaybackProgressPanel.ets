@@ -29,7 +29,7 @@ export struct PlaybackProgressPanel {
   onProgressChange: (value: number, mode: SliderChangeMode) => void = () => {};
 
   private isPortraitPreview(): boolean {
-    // AVImageGenerator 已将容器旋转应用到返回帧；此处仅据此调整预览容器尺寸。
+    // AVImageGenerator已将容器旋转应用到返回帧；此处仅据此调整预览容器尺寸。
     return this.previewRotation === 90 || this.previewRotation === 270;
   }
 

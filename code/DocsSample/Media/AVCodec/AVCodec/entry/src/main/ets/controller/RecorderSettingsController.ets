@@ -17,10 +17,27 @@ import { RecorderSettingsDraft } from '../model/SettingsDraftModels';
 import { RecorderSettingsOption } from '../components/recorder/RecorderSettingsPanel';
 import { CommonConstants as Const } from '../common/CommonConstants';
 import { MediaSettingsLabels } from '../model/MediaSettingsLabels';
+import { LocalizedText } from '../common/LocalizedText';
 
 export class RecorderSettingsController {
   static choose(option: RecorderSettingsOption, draft: RecorderSettingsDraft,
     show: (labels: string[], selected: number, onSelected: (index: number) => void) => void): void {
+    if (option === RecorderSettingsOption.INPUT_MODE) {
+      show([LocalizedText.get($r('app.string.recorder_input_surface')),
+        LocalizedText.get($r('app.string.recorder_input_buffer'))], draft.inputMode,
+        (index: number): void => {
+          draft.inputMode = index;
+          if (index === 1) {
+            if (draft.codec === 0) { draft.codec = 1; }
+            if (draft.resolution === 0) { draft.resolution = 1; }
+            draft.frameRate = 0;
+            draft.preprocMode = 0;
+            draft.dropFrameRate = 0;
+            draft.dualOutput = 0;
+          }
+        });
+      return;
+    }
     if (option === RecorderSettingsOption.CROP_PERCENT) {
       const percentages: number[] = [50, 75, 90, 100];
       show(['50%', '75%', '90%', '100%'], percentages.indexOf(draft.cropPercent),
@@ -45,11 +62,13 @@ export class RecorderSettingsController {
       show(Const.OUTPUT_FORMAT, draft.outputFormat,
         (index: number): void => { draft.outputFormat = index; });
     } else if (option === RecorderSettingsOption.VIDEO_CODEC) {
-      show(MediaSettingsLabels.getRecorderCodecLabels(), draft.codec,
-        (index: number): void => { draft.codec = index; });
+      const offset: number = draft.inputMode === 1 ? 1 : 0;
+      show(MediaSettingsLabels.getRecorderCodecLabels().slice(offset), draft.codec - offset,
+        (index: number): void => { draft.codec = index + offset; });
     } else if (option === RecorderSettingsOption.VIDEO_RESOLUTION) {
-      show(MediaSettingsLabels.getResolutionLabels(), draft.resolution,
-        (index: number): void => { draft.resolution = index; });
+      const offset: number = draft.inputMode === 1 ? 1 : 0;
+      show(MediaSettingsLabels.getResolutionLabels().slice(offset), draft.resolution - offset,
+        (index: number): void => { draft.resolution = index + offset; });
     } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
       show(MediaSettingsLabels.getFrameRateLabels(), draft.frameRate,
         (index: number): void => {
