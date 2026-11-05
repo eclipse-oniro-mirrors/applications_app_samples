@@ -42,7 +42,7 @@ export interface TranscodeHistoryPage {
 }
 
 export class TranscodeFilesModel {
-  static readonly HISTORY_PAGE_SIZE: number = 100;
+  public static readonly HISTORY_PAGE_SIZE: number = 100;
 
   static validId(id: string): boolean { return /^transcoded_[0-9]+$/.test(id); }
 

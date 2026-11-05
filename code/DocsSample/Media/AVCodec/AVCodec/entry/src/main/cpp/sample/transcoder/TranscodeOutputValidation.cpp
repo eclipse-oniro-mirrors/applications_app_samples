@@ -14,14 +14,11 @@
  */
 
 #include "TranscodeJob.h"
+#include "TranscodeSampleValidator.h"
 #include <algorithm>
-#include <chrono>
 #include <cmath>
 #include <utility>
 #include <sys/stat.h>
-#include <thread>
-#include <multimedia/player_framework/native_avcodec_base.h>
-#include <multimedia/player_framework/native_averrors.h>
 #include "av_codec_sample_log.h"
 
 namespace {
@@ -30,9 +27,6 @@ constexpr int64_t MIN_DURATION_TOLERANCE_US = 250000;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int64_t US_PER_MS = 1000;
 constexpr int64_t MIDPOINT_DIVISOR = 2;
-constexpr int64_t SAMPLE_PTS_TOLERANCE_US = 2000000;
-constexpr auto SAMPLE_DECODE_TIMEOUT = std::chrono::seconds(10);
-constexpr auto SAMPLE_IDLE_WAIT = std::chrono::milliseconds(1);
 }
 
 void TranscodeJob::AddValidationNote(const std::string &note)
@@ -45,28 +39,7 @@ void TranscodeJob::AddValidationNote(const std::string &note)
 void TranscodeJob::ValidateOutputMetadata(OH_AVFormat *format, int32_t type, int32_t audioOrdinal)
 {
     if (type == MEDIA_TYPE_AUD) {
-        OH_AVFormat *expectedAudio = audioFormat_.get();
-        if (options_.remuxOnly && options_.remuxAllAudioTracks) {
-            expectedAudio = audioOrdinal >= 0 && static_cast<size_t>(audioOrdinal) < remuxAudioFormats_.size() ?
-                remuxAudioFormats_[audioOrdinal].get() : nullptr;
-        }
-        for (const char *key : {OH_MD_KEY_AUD_SAMPLE_RATE, OH_MD_KEY_AUD_CHANNEL_COUNT}) {
-            int32_t expected = 0;
-            int32_t actual = 0;
-            if (expectedAudio == nullptr || !OH_AVFormat_GetIntValue(expectedAudio, key, &expected)) { continue; }
-            if (options_.audioMode == 1 && !(options_.remuxOnly && options_.remuxAllAudioTracks)) {
-                if (key == OH_MD_KEY_AUD_SAMPLE_RATE && options_.audioSampleRate > 0) {
-                    expected = options_.audioSampleRate;
-                }
-                if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioChannels > 0) {
-                    expected = options_.audioChannels;
-                }
-            }
-            if (!OH_AVFormat_GetIntValue(format, key, &actual) || actual != expected) {
-                AddValidationNote(std::string("Audio metadata differs or is unavailable: ") + key +
-                    " expected=" + std::to_string(expected) + " actual=" + std::to_string(actual));
-            }
-        }
+        ValidateOutputAudioMetadata(format, audioOrdinal);
         return;
     }
     int32_t actualRotation = 0;
@@ -82,6 +55,34 @@ void TranscodeJob::ValidateOutputMetadata(OH_AVFormat *format, int32_t type, int
         if (OH_AVFormat_GetIntValue(videoFormat_.get(), key, &expected) &&
             (!OH_AVFormat_GetIntValue(format, key, &actual) || expected != actual)) {
             AddValidationNote(std::string("Color metadata differs or is unavailable: ") + key);
+        }
+    }
+}
+
+void TranscodeJob::ValidateOutputAudioMetadata(OH_AVFormat *format, int32_t audioOrdinal)
+{
+    OH_AVFormat *expectedAudio = audioFormat_.get();
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) {
+        expectedAudio = audioOrdinal >= 0 && static_cast<size_t>(audioOrdinal) < remuxAudioFormats_.size() ?
+            remuxAudioFormats_[audioOrdinal].get() : nullptr;
+    }
+    for (const char *key : {OH_MD_KEY_AUD_SAMPLE_RATE, OH_MD_KEY_AUD_CHANNEL_COUNT}) {
+        int32_t expected = 0;
+        int32_t actual = 0;
+        if (expectedAudio == nullptr || !OH_AVFormat_GetIntValue(expectedAudio, key, &expected)) {
+            continue;
+        }
+        if (options_.audioMode == 1 && !(options_.remuxOnly && options_.remuxAllAudioTracks)) {
+            if (key == OH_MD_KEY_AUD_SAMPLE_RATE && options_.audioSampleRate > 0) {
+                expected = options_.audioSampleRate;
+            }
+            if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioChannels > 0) {
+                expected = options_.audioChannels;
+            }
+        }
+        if (!OH_AVFormat_GetIntValue(format, key, &actual) || actual != expected) {
+            AddValidationNote(std::string("Audio metadata differs or is unavailable: ") + key +
+                " expected=" + std::to_string(expected) + " actual=" + std::to_string(actual));
         }
     }
 }
@@ -155,6 +156,20 @@ bool TranscodeJob::ValidateOutputTracks(OH_AVSource *source, int32_t count, int3
     return true;
 }
 
+bool TranscodeJob::ReadOutputDescription(OH_AVSource *output, int32_t &count, int64_t &duration)
+{
+    Format description(OH_AVSource_GetSourceFormat(output), OH_AVFormat_Destroy);
+    const int32_t expectedAudioTracks = options_.remuxOnly && options_.remuxAllAudioTracks ?
+        static_cast<int32_t>(remuxAudioFormats_.size()) : (audioTrack_ >= 0 ? 1 : 0);
+    const int32_t expectedTracks = 1 + expectedAudioTracks;
+    if (description == nullptr || !OH_AVFormat_GetIntValue(description.get(), OH_MD_KEY_TRACK_COUNT, &count) ||
+        !OH_AVFormat_GetLongValue(description.get(), OH_MD_KEY_DURATION, &duration) || duration <= 0 ||
+        count != expectedTracks) {
+        return Fail("Validate MP4 duration and track count");
+    }
+    return ValidateOutputTracks(output, count, expectedTracks);
+}
+
 bool TranscodeJob::ValidateOutput()
 {
     {
@@ -171,18 +186,9 @@ bool TranscodeJob::ValidateOutput()
     if (output == nullptr) {
         return Fail("Reopen finalized MP4 for validation");
     }
-    Format description(OH_AVSource_GetSourceFormat(output.get()), OH_AVFormat_Destroy);
     int32_t count = 0;
     int64_t duration = 0;
-    const int32_t expectedAudioTracks = options_.remuxOnly && options_.remuxAllAudioTracks ?
-        static_cast<int32_t>(remuxAudioFormats_.size()) : (audioTrack_ >= 0 ? 1 : 0);
-    const int32_t expectedTracks = 1 + expectedAudioTracks;
-    if (description == nullptr || !OH_AVFormat_GetIntValue(description.get(), OH_MD_KEY_TRACK_COUNT, &count) ||
-        !OH_AVFormat_GetLongValue(description.get(), OH_MD_KEY_DURATION, &duration) || duration <= 0 ||
-        count != expectedTracks) {
-        return Fail("Validate MP4 duration and track count");
-    }
-    if (!ValidateOutputTracks(output.get(), count, expectedTracks)) {
+    if (!ReadOutputDescription(output.get(), count, duration)) {
         return false;
     }
     if (!Snapshot().subtitleTracks.empty()) {
@@ -194,22 +200,8 @@ bool TranscodeJob::ValidateOutput()
         AddValidationNote("Duration differs: expectedUs=" + std::to_string(selectedDurationUs_) +
             " actualUs=" + std::to_string(duration) + " toleranceUs=" + std::to_string(toleranceUs));
     }
-    if (options_.deepValidation) {
-        int32_t outputVideoTrack = -1;
-        for (int32_t index = 0; index < count; ++index) {
-            Format track(OH_AVSource_GetTrackFormat(output.get(), index), OH_AVFormat_Destroy);
-            int32_t type = -1;
-            if (track != nullptr && OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_TRACK_TYPE, &type) &&
-                type == MEDIA_TYPE_VID) {
-                outputVideoTrack = index;
-                break;
-            }
-        }
-        if (outputVideoTrack < 0) { return Fail("Find output video track for decode validation"); }
-        if (!ValidateOutputSamples(outputVideoTrack, duration)) { return false; }
-    } else {
-        std::lock_guard<std::mutex> lock(snapshotMutex_);
-        snapshot_.sampleValidation = "not_requested";
+    if (!ValidateOutputDecodeSamples(output.get(), count, duration)) {
+        return false;
     }
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.outputDurationUs = duration;
@@ -219,6 +211,24 @@ bool TranscodeJob::ValidateOutput()
         ", expectedUs=%{public}" PRId64 ", actualUs=%{public}" PRId64,
         snapshot_.outputValidation.c_str(), sourceStartUs_, selectedDurationUs_, duration);
     return true;
+}
+
+bool TranscodeJob::ValidateOutputDecodeSamples(OH_AVSource *output, int32_t count, int64_t duration)
+{
+    if (!options_.deepValidation) {
+        std::lock_guard<std::mutex> lock(snapshotMutex_);
+        snapshot_.sampleValidation = "not_requested";
+        return true;
+    }
+    for (int32_t index = 0; index < count; ++index) {
+        Format track(OH_AVSource_GetTrackFormat(output, index), OH_AVFormat_Destroy);
+        int32_t type = -1;
+        if (track != nullptr && OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_TRACK_TYPE, &type) &&
+            type == MEDIA_TYPE_VID) {
+            return ValidateOutputSamples(index, duration);
+        }
+    }
+    return Fail("Find output video track for decode validation");
 }
 
 bool TranscodeJob::ValidateOutputSamples(int32_t videoTrack, int64_t durationUs)
@@ -251,109 +261,5 @@ bool TranscodeJob::ValidateOutputSamples(int32_t videoTrack, int64_t durationUs)
 bool TranscodeJob::ValidateOutputSampleAt(int32_t videoTrack, int64_t targetUs, int64_t durationUs,
     std::string &failure)
 {
-    struct stat file {};
-    if (fstat(options_.outputFd, &file) != 0 || file.st_size <= 0) {
-        failure = "output file unavailable";
-        return false;
-    }
-    std::unique_ptr<OH_AVSource, decltype(&OH_AVSource_Destroy)> source(
-        OH_AVSource_CreateWithFD(options_.outputFd, 0, file.st_size), OH_AVSource_Destroy);
-    if (source == nullptr) { failure = "reopen output"; return false; }
-    Format format(OH_AVSource_GetTrackFormat(source.get(), videoTrack), OH_AVFormat_Destroy);
-    const char *mime = nullptr;
-    if (format == nullptr || !OH_AVFormat_GetStringValue(format.get(), OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr) {
-        failure = "read video format";
-        return false;
-    }
-    std::unique_ptr<OH_AVDemuxer, decltype(&OH_AVDemuxer_Destroy)> demuxer(
-        OH_AVDemuxer_CreateWithSource(source.get()), OH_AVDemuxer_Destroy);
-    std::unique_ptr<OH_AVCodec, decltype(&OH_VideoDecoder_Destroy)> decoder(
-        OH_VideoDecoder_CreateByMime(mime), OH_VideoDecoder_Destroy);
-    if (demuxer == nullptr || decoder == nullptr ||
-        OH_AVDemuxer_SelectTrackByID(demuxer.get(), videoTrack) != AV_ERR_OK ||
-        !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
-        !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_PIXEL_FORMAT, AV_PIXEL_FORMAT_NV12) ||
-        !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_ROTATION, 0) ||
-        OH_VideoDecoder_Configure(decoder.get(), format.get()) != AV_ERR_OK ||
-        OH_VideoDecoder_Prepare(decoder.get()) != AV_ERR_OK || OH_VideoDecoder_Start(decoder.get()) != AV_ERR_OK) {
-        failure = "initialize synchronous decoder";
-        return false;
-    }
-    bool decoderStarted = true;
-    const auto stopDecoder = [&decoder, &decoderStarted]() {
-        if (decoderStarted) { (void)OH_VideoDecoder_Stop(decoder.get()); decoderStarted = false; }
-    };
-    if (targetUs > 0 && OH_AVDemuxer_SeekToTime(demuxer.get(), targetUs / US_PER_MS,
-        SEEK_MODE_PREVIOUS_SYNC) != AV_ERR_OK) {
-        stopDecoder();
-        failure = "seek to sample time";
-        return false;
-    }
-    bool inputEos = false;
-    bool outputEos = false;
-    bool reachedTarget = false;
-    int64_t lastPts = -1;
-    const auto deadline = std::chrono::steady_clock::now() + SAMPLE_DECODE_TIMEOUT;
-    while (!cancelled_.load() && !reachedTarget && !outputEos &&
-        std::chrono::steady_clock::now() < deadline) {
-        bool progressed = false;
-        if (!inputEos) {
-            uint32_t index = 0;
-            const int32_t query = OH_VideoDecoder_QueryInputBuffer(decoder.get(), &index, 0);
-            if (query == AV_ERR_OK) {
-                OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder.get(), index);
-                OH_AVCodecBufferAttr attr{};
-                if (buffer == nullptr || OH_AVDemuxer_ReadSampleBuffer(demuxer.get(), videoTrack, buffer) != AV_ERR_OK ||
-                    OH_AVBuffer_GetBufferAttr(buffer, &attr) != AV_ERR_OK ||
-                    OH_VideoDecoder_PushInputBuffer(decoder.get(), index) != AV_ERR_OK) {
-                    stopDecoder(); failure = "feed compressed sample"; return false;
-                }
-                inputEos = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-                progressed = true;
-            } else if (query != AV_ERR_TRY_AGAIN_LATER) {
-                stopDecoder(); failure = "query decoder input"; return false;
-            }
-        }
-        uint32_t outputIndex = 0;
-        const int32_t queryOutput = OH_VideoDecoder_QueryOutputBuffer(decoder.get(), &outputIndex, 0);
-        if (queryOutput == AV_ERR_OK) {
-            OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder.get(), outputIndex);
-            OH_AVCodecBufferAttr attr{};
-            if (buffer == nullptr || OH_AVBuffer_GetBufferAttr(buffer, &attr) != AV_ERR_OK) {
-                stopDecoder(); failure = "read decoded sample"; return false;
-            }
-            if (attr.size > 0) {
-                if (attr.pts < 0 || attr.pts > durationUs + SAMPLE_PTS_TOLERANCE_US ||
-                    (lastPts >= 0 && attr.pts < lastPts)) {
-                    (void)OH_VideoDecoder_FreeOutputBuffer(decoder.get(), outputIndex);
-                    stopDecoder();
-                    failure = "decoded PTS is out of range or regresses: currentUs=" + std::to_string(attr.pts) +
-                        " previousUs=" + std::to_string(lastPts) + " durationUs=" + std::to_string(durationUs);
-                    return false;
-                }
-                lastPts = attr.pts;
-                reachedTarget = reachedTarget || attr.pts >= targetUs;
-            }
-            outputEos = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-            if (OH_VideoDecoder_FreeOutputBuffer(decoder.get(), outputIndex) != AV_ERR_OK) {
-                stopDecoder(); failure = "return decoded output"; return false;
-            }
-            progressed = true;
-        } else if (queryOutput != AV_ERR_TRY_AGAIN_LATER && queryOutput != AV_ERR_STREAM_CHANGED) {
-            stopDecoder(); failure = "query decoder output"; return false;
-        }
-        if (!progressed) { std::this_thread::sleep_for(SAMPLE_IDLE_WAIT); }
-    }
-    stopDecoder();
-    if (cancelled_.load()) { failure = "cancelled"; return false; }
-    if (!reachedTarget && !outputEos && std::chrono::steady_clock::now() >= deadline) {
-        failure = "decode timeout";
-        return false;
-    }
-    if (!reachedTarget) {
-        failure = "no decoded frame reached target PTS; targetUs=" + std::to_string(targetUs) +
-            " lastDecodedPtsUs=" + std::to_string(lastPts);
-        return false;
-    }
-    return true;
+    return ValidateTranscodeOutputSample(options_.outputFd, videoTrack, targetUs, durationUs, cancelled_, failure);
 }

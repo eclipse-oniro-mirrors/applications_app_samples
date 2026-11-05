@@ -60,24 +60,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     sessionReport_.Begin(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, true));
     sessionReport_.Event("initialize.begin");
     AVCODEC_SAMPLE_LOGI("Recording session: %{public}s", sampleInfo_.output.sessionId.c_str());
-    secondarySampleInfo_ = {};
-    primaryStats_.Reset(sampleInfo_.video);
-    secondaryStats_.Reset(secondarySampleInfo_.video);
-    primaryStorageAtUs_ = secondaryStorageAtUs_ = 0;
-    primaryFileBytes_ = secondaryFileBytes_ = -1;
-    failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName,
-        sampleInfo_.video.bufferInput ? BUFFER : SURFACE);
-    isAudioEos_.store(false);
-    audioStats_.Reset(sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
-    primaryEosReceived_ = false;
-    secondaryEosReceived_ = false;
-    audioEosReceived_ = false;
-    isAudioEncFirstFrame_ = true;
-    audioSubmittedFrames_ = 0;
-    videoInputStopping_ = false;
-    captureStartedUs_ = 0;
-    audioCaptureOffsetUs_ = 0;
-    lastVideoInputPtsUs_ = 0;
+    ResetSessionState();
     AVCODEC_SAMPLE_LOGI("Init config: mime=%{public}s, size=%{public}dx%{public}d, fps=%{public}.2f, "
         "bitrate=%{public}" PRId64 ", pixelFormat=%{public}d, sync=%{public}d, outputFormat=%{public}d, "
         "audio=%{public}dHz/%{public}dch/%{public}" PRId64 "bps",
@@ -102,6 +85,30 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     sessionReport_.Event("initialize.end");
     AVCODEC_SAMPLE_LOGI("Succeed");
     return AVCODEC_SAMPLE_ERR_OK;
+}
+
+void Recorder::ResetSessionState()
+{
+    secondarySampleInfo_ = {};
+    primaryStats_.Reset(sampleInfo_.video);
+    secondaryStats_.Reset(secondarySampleInfo_.video);
+    primaryStorageAtUs_ = 0;
+    secondaryStorageAtUs_ = 0;
+    primaryFileBytes_ = -1;
+    secondaryFileBytes_ = -1;
+    failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName,
+        sampleInfo_.video.bufferInput ? BUFFER : SURFACE);
+    isAudioEos_.store(false);
+    audioStats_.Reset(sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
+    primaryEosReceived_ = false;
+    secondaryEosReceived_ = false;
+    audioEosReceived_ = false;
+    isAudioEncFirstFrame_ = true;
+    audioSubmittedFrames_ = 0;
+    videoInputStopping_ = false;
+    captureStartedUs_ = 0;
+    audioCaptureOffsetUs_ = 0;
+    lastVideoInputPtsUs_ = 0;
 }
 
 void Recorder::JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock)

@@ -272,7 +272,8 @@ bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &optio
     options.audioBitrate = audioBitrate;
     if ((options.surface && !options.gpu && options.scalingFilter != 0) ||
         (options.gpu && (!options.surface || options.scalingFilter > 1))) { return false; }
-    return !options.remuxOnly || (!options.deepValidation && !options.surface && options.longEdge == 0 && !options.grayscale &&
+    return !options.remuxOnly || (!options.deepValidation && !options.surface && options.longEdge == 0 &&
+        !options.grayscale &&
         options.resizeMode == 0 && options.frameRateLimit == 0 && options.scalingFilter == 0 &&
         options.startTimeMs == 0 && options.endTimeMs == 0 && options.audioMode != 1);
 }

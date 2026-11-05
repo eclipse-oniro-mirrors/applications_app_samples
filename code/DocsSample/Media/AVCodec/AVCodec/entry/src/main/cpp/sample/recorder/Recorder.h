@@ -67,6 +67,13 @@ public:
     }
 
 private:
+    struct VideoInputState {
+        int32_t stride = 0;
+        int32_t sliceHeight = 0;
+        int64_t firstTimestampNs = -1;
+        int64_t firstOffsetUs = 0;
+        int64_t lastSubmittedUs = 0;
+    };
     void VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
     void VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
     bool ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
@@ -90,6 +97,7 @@ private:
     void CloseVideoDumpFiles();
     void OpenVideoDumpFiles();
     void JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock);
+    void ResetSessionState();
     int32_t InitializeSession(SampleInfo &sampleInfo);
     int32_t InitializeSecondaryMuxer();
     void ReleaseMuxers();
@@ -101,6 +109,7 @@ private:
     int32_t StartAudioPipeline(std::unique_lock<std::mutex> &lock);
     int32_t SendVideoEndOfStream();
     void VideoEncInputThread();
+    bool SubmitVideoInputImage(OH_ImageNative *image, VideoInputState &state);
     bool ReadVideoInputLayout(int32_t &stride, int32_t &sliceHeight);
     bool TakeVideoInputBuffer(CodecBufferInfo &info, int32_t timeoutMs);
     int32_t SendBufferVideoEndOfStream();

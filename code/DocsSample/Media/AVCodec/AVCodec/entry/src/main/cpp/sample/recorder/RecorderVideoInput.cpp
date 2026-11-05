@@ -67,17 +67,14 @@ bool Recorder::TakeVideoInputBuffer(CodecBufferInfo &info, int32_t timeoutMs)
 // [Start recorder_video_buffer_input]
 void Recorder::VideoEncInputThread()
 {
-    int32_t stride = 0;
-    int32_t sliceHeight = 0;
-    int64_t firstTimestampNs = -1;
-    int64_t firstOffsetUs = 0;
-    int64_t lastSubmittedUs = RecorderClockUs();
+    VideoInputState state;
+    state.lastSubmittedUs = RecorderClockUs();
     while (isStarted_.load() && !videoInputStopping_.load()) {
         if (encContext_->hasError.load()) {
             AbortRecording("Video input callback failed");
             break;
         }
-        if (RecorderClockUs() - lastSubmittedUs > INPUT_STALL_US) {
+        if (RecorderClockUs() - state.lastSubmittedUs > INPUT_STALL_US) {
             AbortRecording("Camera Buffer input stalled: check YUV output combination and encoder input");
             break;
         }
@@ -87,47 +84,55 @@ void Recorder::VideoEncInputThread()
             std::this_thread::sleep_for(std::chrono::milliseconds(FRAME_POLL_MS));
             continue;
         }
-        const int64_t receivedAtUs = RecorderClockUs();
-        int64_t timestampNs = 0;
-        if (OH_ImageNative_GetTimestamp(image.get(), &timestampNs) != IMAGE_SUCCESS || timestampNs < 0) {
-            AbortRecording("Read camera image timestamp failed");
+        if (!SubmitVideoInputImage(image.get(), state)) {
             break;
         }
-        CodecBufferInfo info;
-        if (!TakeVideoInputBuffer(info, INPUT_WAIT_MS)) {
-            continue;
-        }
-        if (stride == 0 && !ReadVideoInputLayout(stride, sliceHeight)) {
-            AbortRecording("Encoder did not report a valid NV12 input layout");
-            break;
-        }
-        if (!frameReceiver_->Copy(image.get(), info.buffer, stride, sliceHeight, info.attr.size)) {
-            AbortRecording("Camera YUV image is not CPU-readable or has an unsupported layout");
-            break;
-        }
-        if (firstTimestampNs < 0) {
-            firstTimestampNs = timestampNs;
-            firstOffsetUs = std::max<int64_t>(0, receivedAtUs - captureStartedUs_);
-        }
-        // 相机时间戳为ns，编码Buffer使用us。首帧保留相对录制启动的偏移，与音频共用起点。
-        const int64_t ptsUs = firstOffsetUs + (timestampNs - firstTimestampNs) / NS_PER_US;
-        if (ptsUs < lastVideoInputPtsUs_) {
-            AbortRecording("Camera timestamp moved backwards");
-            break;
-        }
-        info.attr.pts = ptsUs;
-        info.attr.offset = 0;
-        info.attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
-        if (videoEncoder_->PushInputBuffer(info) != AVCODEC_SAMPLE_ERR_OK) {
-            AbortRecording("Submit camera frame to video encoder failed");
-            break;
-        }
-        lastVideoInputPtsUs_ = ptsUs;
-        ++encContext_->inputFrameCount;
-        lastSubmittedUs = RecorderClockUs();
     }
 }
 // [End recorder_video_buffer_input]
+
+bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, VideoInputState &state)
+{
+    const int64_t receivedAtUs = RecorderClockUs();
+    int64_t timestampNs = 0;
+    if (OH_ImageNative_GetTimestamp(image, &timestampNs) != IMAGE_SUCCESS || timestampNs < 0) {
+        AbortRecording("Read camera image timestamp failed");
+        return false;
+    }
+    CodecBufferInfo info;
+    if (!TakeVideoInputBuffer(info, INPUT_WAIT_MS)) {
+        return true;
+    }
+    if (state.stride == 0 && !ReadVideoInputLayout(state.stride, state.sliceHeight)) {
+        AbortRecording("Encoder did not report a valid NV12 input layout");
+        return false;
+    }
+    if (!frameReceiver_->Copy(image, info.buffer, state.stride, state.sliceHeight, info.attr.size)) {
+        AbortRecording("Camera YUV image is not CPU-readable or has an unsupported layout");
+        return false;
+    }
+    if (state.firstTimestampNs < 0) {
+        state.firstTimestampNs = timestampNs;
+        state.firstOffsetUs = std::max<int64_t>(0, receivedAtUs - captureStartedUs_);
+    }
+    // 相机时间戳为ns，编码Buffer使用us。首帧保留相对录制启动的偏移，与音频共用起点。
+    const int64_t ptsUs = state.firstOffsetUs + (timestampNs - state.firstTimestampNs) / NS_PER_US;
+    if (ptsUs < lastVideoInputPtsUs_) {
+        AbortRecording("Camera timestamp moved backwards");
+        return false;
+    }
+    info.attr.pts = ptsUs;
+    info.attr.offset = 0;
+    info.attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+    if (videoEncoder_->PushInputBuffer(info) != AVCODEC_SAMPLE_ERR_OK) {
+        AbortRecording("Submit camera frame to video encoder failed");
+        return false;
+    }
+    lastVideoInputPtsUs_ = ptsUs;
+    ++encContext_->inputFrameCount;
+    state.lastSubmittedUs = RecorderClockUs();
+    return true;
+}
 
 int32_t Recorder::SendBufferVideoEndOfStream()
 {

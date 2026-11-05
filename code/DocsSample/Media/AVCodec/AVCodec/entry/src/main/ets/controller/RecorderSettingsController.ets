@@ -23,7 +23,7 @@ export class RecorderSettingsController {
   static choose(option: RecorderSettingsOption, draft: RecorderSettingsDraft,
     show: (labels: string[], selected: number, onSelected: (index: number) => void) => void): void {
     if (option === RecorderSettingsOption.INPUT_MODE) {
-      show([LocalizedText.get($r('app.string.recorder_input_surface')),
+      show([LocalizedText.get($r('app.string.recorder_input_direct')),
         LocalizedText.get($r('app.string.recorder_input_buffer'))], draft.inputMode,
         (index: number): void => {
           draft.inputMode = index;

@@ -18,7 +18,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
 #include <utility>
 
 namespace RecorderFrames {
@@ -61,92 +60,12 @@ inline bool NormalizePlane(Plane &plane, size_t bytes, int32_t columns, int32_t 
     return plane.pixelStride == pixelStride && Contains(bytes, plane, columns, rows);
 }
 
-inline bool ResolveYuv420Planes(const Plane *mapped, uint32_t count, Yuv420Layout layout, size_t bytes, int32_t width,
-                                int32_t height, Plane &y, Plane &u, Plane &v)
-{
-    if (mapped == nullptr || count < SEMIPLANAR_PLANE_COUNT || count > YUV_COMPONENT_COUNT || width <= 0 ||
-        height <= 0 || width % CHROMA_SUBSAMPLING != 0 || height % CHROMA_SUBSAMPLING != 0) {
-        return false;
-    }
-    y = mapped[0];
-    const bool semiplanar = layout == Yuv420Layout::NV12 || layout == Yuv420Layout::NV21;
-    const uint32_t chromaPixelStride = semiplanar ? CHROMA_COMPONENTS : 1;
-    const int32_t chromaWidth = width / CHROMA_SUBSAMPLING;
-    const int32_t chromaHeight = height / CHROMA_SUBSAMPLING;
-    u = mapped[1];
-    if (!NormalizePlane(y, bytes, width, height, 1) ||
-        !NormalizePlane(u, bytes, chromaWidth, chromaHeight, chromaPixelStride)) {
-        return false;
-    }
-    if (count == SEMIPLANAR_PLANE_COUNT) {
-        if (!semiplanar) {
-            return false;
-        }
-        v = u;
-        ++v.offset;
-        if (!Contains(bytes, v, chromaWidth, chromaHeight)) {
-            return false;
-        }
-    } else {
-        v = mapped[YUV_COMPONENT_COUNT - 1];
-        if (!NormalizePlane(v, bytes, chromaWidth, chromaHeight, chromaPixelStride)) {
-            return false;
-        }
-        if (semiplanar &&
-            (u.rowStride != v.rowStride || (u.offset > v.offset ? u.offset - v.offset : v.offset - u.offset) != 1)) {
-            return false;
-        }
-    }
-    // 三分量NV21可能按Y/U/V返回，其中U的偏移比V大1；不能再从U偏移推导V。
-    const bool uFirst = layout == Yuv420Layout::NV12 || layout == Yuv420Layout::I420;
-    if ((u.offset < v.offset) != uFirst) {
-        std::swap(u, v);
-    }
-    return true;
-}
+bool ResolveYuv420Planes(const Plane *mapped, uint32_t count, Yuv420Layout layout, size_t bytes, int32_t width,
+                        int32_t height, Plane &y, Plane &u, Plane &v);
 
 // U/V的位置由实际NativeBuffer格式和plane描述确定，不把相机YUV420SP一律当作NV12。
-inline bool CopyNv12(const uint8_t *source, size_t bytes, const Plane &y, const Plane &u, const Plane &v,
-                     uint8_t *destination, size_t capacity, int32_t width, int32_t height, int32_t stride,
-                     int32_t sliceHeight)
-{
-    if (source == nullptr || destination == nullptr || width <= 0 || height <= 0 || width > MAX_FRAME_WIDTH ||
-        height > MAX_FRAME_HEIGHT || width % CHROMA_SUBSAMPLING != 0 || height % CHROMA_SUBSAMPLING != 0 ||
-        stride < width || sliceHeight < height || stride > MAX_BUFFER_DIMENSION || sliceHeight > MAX_BUFFER_DIMENSION ||
-        stride % CHROMA_SUBSAMPLING != 0 || sliceHeight % CHROMA_SUBSAMPLING != 0) {
-        return false;
-    }
-    const size_t lumaBytes = static_cast<size_t>(stride) * sliceHeight;
-    const int32_t chromaWidth = width / CHROMA_SUBSAMPLING;
-    const int32_t chromaHeight = height / CHROMA_SUBSAMPLING;
-    if (capacity < lumaBytes + lumaBytes / CHROMA_SUBSAMPLING || !Contains(bytes, y, width, height) ||
-        !Contains(bytes, u, chromaWidth, chromaHeight) || !Contains(bytes, v, chromaWidth, chromaHeight)) {
-        return false;
-    }
-    std::memset(destination, LIMITED_RANGE_BLACK, lumaBytes);
-    std::memset(destination + lumaBytes, NEUTRAL_CHROMA, lumaBytes / CHROMA_SUBSAMPLING);
-    for (int32_t row = 0; row < height; ++row) {
-        const uint8_t *input = source + y.offset + static_cast<size_t>(row) * y.rowStride;
-        uint8_t *output = destination + static_cast<size_t>(row) * stride;
-        if (y.pixelStride == 1) {
-            std::memcpy(output, input, width);
-        } else {
-            for (int32_t col = 0; col < width; ++col) {
-                output[col] = input[static_cast<size_t>(col) * y.pixelStride];
-            }
-        }
-    }
-    for (int32_t row = 0; row < chromaHeight; ++row) {
-        const uint8_t *inputU = source + u.offset + static_cast<size_t>(row) * u.rowStride;
-        const uint8_t *inputV = source + v.offset + static_cast<size_t>(row) * v.rowStride;
-        uint8_t *output = destination + lumaBytes + static_cast<size_t>(row) * stride;
-        for (int32_t col = 0; col < chromaWidth; ++col) {
-            const size_t column = static_cast<size_t>(col);
-            output[column * CHROMA_COMPONENTS] = inputU[column * u.pixelStride];
-            output[column * CHROMA_COMPONENTS + 1] = inputV[column * v.pixelStride];
-        }
-    }
-    return true;
-}
+bool CopyNv12(const uint8_t *source, size_t bytes, const Plane &y, const Plane &u, const Plane &v,
+              uint8_t *destination, size_t capacity, int32_t width, int32_t height, int32_t stride,
+              int32_t sliceHeight);
 } // namespace RecorderFrames
 #endif

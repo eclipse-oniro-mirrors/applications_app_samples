@@ -139,6 +139,7 @@ public:
 private:
     using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
     bool ReadTracks(int32_t trackCount);
+    bool ReadAudioTrack(int32_t index, OH_AVFormat *track);
     bool ValidateSourceColor();
     bool ConnectSurface();
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
@@ -172,17 +173,22 @@ private:
     bool DrainEncoder(bool &advanced);
     bool CopyAudio(bool &advanced);
     bool CopyRemuxAudio(bool &advanced);
+    bool CopyRemuxAudioSample(size_t index);
+    bool InitializeRemuxAudioTracks();
     bool WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr);
     bool ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layout);
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
     bool FinalizeOutput();
     bool ValidateOutput();
+    bool ReadOutputDescription(OH_AVSource *output, int32_t &count, int64_t &duration);
+    bool ValidateOutputDecodeSamples(OH_AVSource *output, int32_t count, int64_t duration);
     bool ValidateOutputSamples(int32_t videoTrack, int64_t durationUs);
     bool ValidateOutputSampleAt(int32_t videoTrack, int64_t targetUs, int64_t durationUs, std::string &failure);
     bool ValidateOutputTrack(OH_AVFormat *format, int32_t type, int32_t audioOrdinal);
     bool ValidateOutputTracks(OH_AVSource *source, int32_t count, int32_t expectedTracks);
     void ValidateOutputMetadata(OH_AVFormat *format, int32_t type, int32_t audioOrdinal);
+    void ValidateOutputAudioMetadata(OH_AVFormat *format, int32_t audioOrdinal);
     void AddValidationNote(const std::string &note);
     bool ConfigureTimeRange();
     bool DiscardOutsideRange(bool &advanced);

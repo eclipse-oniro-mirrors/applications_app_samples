@@ -327,7 +327,7 @@ Buffer 编码在提交编码器输入前换算 PTS，Surface 编码和原码流�
 
 元数据或抽样解码差异记为警告，不删除结构有效的文件；结果卡片、TXT 和会话报告都保留明细。不编造缺失的源元数据，缺少轨道起点也不代表已确认同步。可选抽样只覆盖三个时间点，不重新解码整段码流，不证明逐帧完整性或完整音画同步。失败、取消清理未完成文件。导出时复制到系统对话框授权的 URI，不申请全量图库写权限；导出失败保留应用内副本，可再次重试。
 
-PQ/HLG、HDR10、HDR Vivid 和 HEVC Main 10 重编码均明确拒绝。当前链路无法验证 10-bit Surface 协商，也不能保证色彩及 HDR 元数据完整保留；codec 声明支持某个 profile 并不足以证明转换安全。预览不模拟 HDR 色彩处理。无法确认 HEVC profile 时同样拒绝，不按 SDR 处理。其他 SDR 依据色彩描述和设备能力检查。原码流转封装适用前文单独列出的限制。编解码器及 Surface 组合支持仍以设备和 Native `Configure()` 结果为准。
+PQ/HLG、HDR10、HDR Vivid 和 HEVC Main 10 重编码均明确拒绝。当前链路无法验证 10-bit Surface 协商，也不能保证色彩及 HDR 元数据完整保留；codec 声明支持某个 profile 并不足以证明转换安全。预览不模拟 HDR 色彩处理。无法确认 HEVC profile 时同样拒绝，不按 SDR 处理。SDR 输入依据色彩描述和设备能力检查。原码流转封装适用前文单独列出的限制。编解码器及 Surface 组合支持仍以设备和 Native `Configure()` 结果为准。
 
 `tests/native/TranscodeFrameProcessorTest.cpp` 覆盖横竖尺寸、两侧不同的 stride/sliceHeight、色度顺序、灰度、短 Buffer 校验和同尺寸快路径。`TranscodeDiagnosticsTest.cpp` 检查有界采样和等待计时；`TranscodeAudioPipelineTest.cpp` 用模拟 codec 检查 PCM 拼帧、背压、输出格式事件、首包、尾帧补零、EOS 和失败回收。`tests/host/TranscodeModels.test.cjs` 检查预检请求覆盖、任务互斥、取消、文件清理和报告。上述检查不代替真机 codec 调度、播放观感、文件管理或图库导出验证。
 

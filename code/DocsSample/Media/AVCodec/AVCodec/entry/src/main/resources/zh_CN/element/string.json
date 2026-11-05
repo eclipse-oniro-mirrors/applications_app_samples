@@ -1253,7 +1253,7 @@
     {"name":"transcode_codec_async","value":"异步模式"},
     {"name":"transcode_codec_mode_hint","value":"同时作用于视频解码和编码，支持 Buffer 和 Surface 输入。AAC 转换与画面预览仍用同步模式；原码流转封装不创建编解码器。"},
     {"name":"recorder_input_mode","value":"视频编码输入"},
-    {"name":"recorder_input_surface","value":"Surface（相机直连）"},
+    {"name":"recorder_input_direct","value":"Surface（相机直连）"},
     {"name":"recorder_input_buffer","value":"Buffer（复制相机 YUV）"},
     {"name":"recorder_buffer_requirements","value":"Buffer 输入要求 API 23 及以上、SDR、720P/1080P、30fps。选择后会重置不兼容的草稿选项，并禁用 HDR、编码前处理和一入二出。同步、异步编码均可使用。"},
     {"name":"recorder_buffer_capability_hint","value":"编码尺寸与帧率已通过能力查询。相机双预览输出、YUV 的 CPU 可读性及编码器 NV12 输入布局会在启动录制时继续检查。"},

@@ -60,6 +60,15 @@ bool ReadPlanes(const OH_NativeBuffer_Config &config, const OH_NativeBuffer_Plan
     }
     return RecorderFrames::ResolveYuv420Planes(mapped, planes.planeCount, layout, bytes, width, height, y, u, v);
 }
+
+void LogPlanes(const OH_NativeBuffer_Planes &planes)
+{
+    for (uint32_t index = 0; index < std::min<size_t>(planes.planeCount, std::size(planes.planes)); ++index) {
+        const auto &plane = planes.planes[index];
+        AVCODEC_SAMPLE_LOGE("Camera plane %{public}u: offset=%{public}" PRIu64 ", rowStride=%{public}u, "
+            "columnStride=%{public}u", index, plane.offset, plane.rowStride, plane.columnStride);
+    }
+}
 } // namespace
 
 RecorderFrameReceiver::~RecorderFrameReceiver()
@@ -158,14 +167,9 @@ void RecorderFrameReceiver::ReceiveImages()
     }
 }
 
-bool RecorderFrameReceiver::Copy(OH_ImageNative *image, OH_AVBuffer *destination, int32_t stride, int32_t sliceHeight,
-                                 int32_t &size) const
+bool RecorderFrameReceiver::ReadImageData(OH_ImageNative *image, OH_ImageBufferData &data) const
 {
-    OH_ImageBufferData data{};
     Image_Size imageSize{};
-    if (image == nullptr || destination == nullptr) {
-        return false;
-    }
     const Image_ErrorCode sizeRet = OH_ImageNative_GetImageSize(image, &imageSize);
     if (sizeRet != IMAGE_SUCCESS || imageSize.width != static_cast<uint32_t>(width_) ||
         imageSize.height != static_cast<uint32_t>(height_)) {
@@ -179,6 +183,16 @@ bool RecorderFrameReceiver::Copy(OH_ImageNative *image, OH_AVBuffer *destination
         AVCODEC_SAMPLE_LOGE("Get camera image buffer data failed: ret=%{public}d, bytes=%{public}zu, "
                             "strides=%{public}d",
                             dataRet, data.bufferSize, data.numStride);
+        return false;
+    }
+    return true;
+}
+
+bool RecorderFrameReceiver::Copy(OH_ImageNative *image, OH_AVBuffer *destination, int32_t stride, int32_t sliceHeight,
+                                 int32_t &size) const
+{
+    OH_ImageBufferData data{};
+    if (image == nullptr || destination == nullptr || !ReadImageData(image, data)) {
         return false;
     }
     OH_NativeBuffer_Config config{};
@@ -209,12 +223,7 @@ bool RecorderFrameReceiver::Copy(OH_ImageNative *image, OH_AVBuffer *destination
                             "unmapped=%{public}d",
                             config.format, planes.planeCount, data.bufferSize, capacity, stride, sliceHeight, copied,
                             unmapped);
-        for (uint32_t index = 0; index < std::min<size_t>(planes.planeCount, std::size(planes.planes)); ++index) {
-            const auto &plane = planes.planes[index];
-            AVCODEC_SAMPLE_LOGE("Camera plane %{public}u: offset=%{public}" PRIu64 ", rowStride=%{public}u, "
-                                "columnStride=%{public}u",
-                                index, plane.offset, plane.rowStride, plane.columnStride);
-        }
+        LogPlanes(planes);
         return false;
     }
     const int32_t lumaBytes = stride * sliceHeight;

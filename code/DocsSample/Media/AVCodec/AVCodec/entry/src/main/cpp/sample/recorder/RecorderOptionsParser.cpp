@@ -172,8 +172,8 @@ bool ValidateMediaOptions(const SampleInfo &info)
         (video.videoWidth == HD_VIDEO_WIDTH && video.videoHeight == HD_VIDEO_HEIGHT) ||
         (video.videoWidth == FULL_HD_VIDEO_WIDTH && video.videoHeight == FULL_HD_VIDEO_HEIGHT);
     if (video.bufferInput && (video.isHDRVivid || video.pixelFormat != AV_PIXEL_FORMAT_NV12 ||
-        video.frameRate != BUFFER_RECORDING_FRAME_RATE || !bufferResolution || video.preprocMode != VIDEO_PREPROC_NONE ||
-        video.dropToFrameRate > 0 || info.output.enableDualOutput)) {
+        video.frameRate != BUFFER_RECORDING_FRAME_RATE || !bufferResolution ||
+        video.preprocMode != VIDEO_PREPROC_NONE || video.dropToFrameRate > 0 || info.output.enableDualOutput)) {
         return false;
     }
     return video.videoWidth > 0 && video.videoHeight > 0 && video.frameRate > 0 && video.bitrate > 0 &&

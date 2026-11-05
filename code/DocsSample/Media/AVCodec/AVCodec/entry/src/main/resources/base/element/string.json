@@ -1266,7 +1266,7 @@
     {"name":"transcode_codec_async","value":"Asynchronous"},
     {"name":"transcode_codec_mode_hint","value":"Applies to video decoding and encoding, with Buffer or Surface input. AAC conversion and frame preview remain synchronous; remuxing uses no codecs."},
     {"name":"recorder_input_mode","value":"Video encoder input"},
-    {"name":"recorder_input_surface","value":"Surface (camera direct)"},
+    {"name":"recorder_input_direct","value":"Surface (camera direct)"},
     {"name":"recorder_input_buffer","value":"Buffer (copy camera YUV)"},
     {"name":"recorder_buffer_requirements","value":"Buffer input requires API 23+, SDR, 720p/1080p and 30 fps. Selecting it resets incompatible draft options and disables HDR, preprocessing and dual output. Synchronous and asynchronous encoding are supported."},
     {"name":"recorder_buffer_capability_hint","value":"Encoder size and frame rate passed the capability query. Camera dual-preview output, CPU-readable YUV and encoder NV12 input are checked when recording starts."},

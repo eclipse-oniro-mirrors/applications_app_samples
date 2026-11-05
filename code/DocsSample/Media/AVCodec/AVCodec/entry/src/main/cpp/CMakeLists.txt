@@ -88,6 +88,7 @@ add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             sample/recorder/RecorderVideoSession.cpp
                             sample/recorder/RecorderVideoInput.cpp
                             sample/recorder/RecorderFrameReceiver.cpp
+                            sample/recorder/RecorderFrameCopy.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
@@ -115,6 +116,7 @@ add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeCodecIO.cpp
                               sample/transcoder/TranscodeInspection.cpp
                               sample/transcoder/TranscodeOutputValidation.cpp
+                              sample/transcoder/TranscodeSampleValidator.cpp
                               sample/transcoder/TranscodeTimeRange.cpp
                               sample/transcoder/TranscodeOperations.cpp
                               sample/transcoder/TranscodeGpuProcessor.cpp

@@ -38,6 +38,7 @@ class RecorderFrameReceiver {
 
   private:
     void ReceiveImages();
+    bool ReadImageData(OH_ImageNative *image, OH_ImageBufferData &data) const;
     using GetBufferData = Image_ErrorCode (*)(OH_ImageNative *, OH_ImageBufferData *);
     void *imageLibrary_ = nullptr;
     GetBufferData getBufferData_ = nullptr;

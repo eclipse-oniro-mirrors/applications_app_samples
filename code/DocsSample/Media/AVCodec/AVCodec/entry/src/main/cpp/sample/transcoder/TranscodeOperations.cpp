@@ -210,19 +210,11 @@ bool TranscodeJob::CopyVideoSample()
 bool TranscodeJob::CopyRemuxAudio(bool &advanced)
 {
     for (size_t index = 0; index < remuxAudioSourceTracks_.size(); ++index) {
-        if (remuxAudioDone_[index] != 0) { continue; }
-        OH_AVCodecBufferAttr attr{};
-        const int32_t track = remuxAudioSourceTracks_[index];
-        if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, track, audioBuffer_), "Read remux audio sample") ||
-            !Check(OH_AVBuffer_GetBufferAttr(audioBuffer_, &attr), "Read remux audio attributes")) { return false; }
-        remuxAudioDone_[index] = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0 ? 1 : 0;
-        if (attr.size > 0) {
-            attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
-            if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Set remux audio timestamp") ||
-                !Check(OH_AVMuxer_WriteSampleBuffer(muxer_, remuxAudioMuxTracks_[index], audioBuffer_),
-                    "Write remux audio sample")) { return false; }
-            std::lock_guard<std::mutex> lock(snapshotMutex_);
-            snapshot_.audioBytes += attr.size;
+        if (remuxAudioDone_[index] != 0) {
+            continue;
+        }
+        if (!CopyRemuxAudioSample(index)) {
+            return false;
         }
         advanced = true;
     }
@@ -231,15 +223,31 @@ bool TranscodeJob::CopyRemuxAudio(bool &advanced)
     return true;
 }
 
-bool TranscodeJob::RunRemux()
+bool TranscodeJob::CopyRemuxAudioSample(size_t index)
 {
-    if (!CheckStorage(true) || !InitializeDemuxer()) { return false; }
-    muxer_ = OH_AVMuxer_Create(options_.outputFd, AV_OUTPUT_FORMAT_MPEG_4);
-    videoCopyBuffer_ = OH_AVBuffer_Create(VIDEO_COPY_BUFFER_SIZE);
-    if (muxer_ == nullptr || videoCopyBuffer_ == nullptr ||
-        !Check(OH_AVMuxer_SetRotation(muxer_, rotation_), "Set remux rotation") ||
-        !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, videoFormat_.get()),
-            "Source video is not MP4-compatible")) { return false; }
+    OH_AVCodecBufferAttr attr{};
+    const int32_t track = remuxAudioSourceTracks_[index];
+    if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, track, audioBuffer_), "Read remux audio sample") ||
+        !Check(OH_AVBuffer_GetBufferAttr(audioBuffer_, &attr), "Read remux audio attributes")) {
+        return false;
+    }
+    remuxAudioDone_[index] = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0 ? 1 : 0;
+    if (attr.size <= 0) {
+        return true;
+    }
+    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+    if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Set remux audio timestamp") ||
+        !Check(OH_AVMuxer_WriteSampleBuffer(muxer_, remuxAudioMuxTracks_[index], audioBuffer_),
+            "Write remux audio sample")) {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    snapshot_.audioBytes += attr.size;
+    return true;
+}
+
+bool TranscodeJob::InitializeRemuxAudioTracks()
+{
     if (options_.remuxAllAudioTracks) {
         remuxAudioMuxTracks_.resize(remuxAudioFormats_.size(), -1);
         remuxAudioDone_.resize(remuxAudioFormats_.size(), 0);
@@ -251,9 +259,24 @@ bool TranscodeJob::RunRemux()
         "Source audio is not MP4-compatible; select no audio")) {
         return false;
     }
+    return true;
+}
+
+bool TranscodeJob::RunRemux()
+{
+    if (!CheckStorage(true) || !InitializeDemuxer()) { return false; }
+    muxer_ = OH_AVMuxer_Create(options_.outputFd, AV_OUTPUT_FORMAT_MPEG_4);
+    videoCopyBuffer_ = OH_AVBuffer_Create(VIDEO_COPY_BUFFER_SIZE);
+    if (muxer_ == nullptr || videoCopyBuffer_ == nullptr ||
+        !Check(OH_AVMuxer_SetRotation(muxer_, rotation_), "Set remux rotation") ||
+        !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, videoFormat_.get()),
+            "Source video is not MP4-compatible") || !InitializeRemuxAudioTracks()) {
+        return false;
+    }
     if (!Check(OH_AVMuxer_Start(muxer_), "Start remux container")) { return false; }
     if (!Snapshot().subtitleTracks.empty()) {
-        AddValidationNote("Subtitle tracks were detected but are not copied: the native MP4 muxer API supports audio/video tracks only");
+        AddValidationNote("Subtitle tracks were detected but are not copied: "
+            "the native MP4 muxer API supports audio/video tracks only");
     }
     muxStarted_ = true;
     while (!cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {

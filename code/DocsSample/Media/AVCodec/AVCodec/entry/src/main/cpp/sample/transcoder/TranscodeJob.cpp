@@ -88,24 +88,8 @@ bool TranscodeJob::ReadTracks(int32_t trackCount)
         if (track == nullptr || !OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_TRACK_TYPE, &type)) {
             continue;
         }
-        if (type == MEDIA_TYPE_AUD) {
-            const char *mime = nullptr;
-            int32_t channels = 0;
-            int32_t rate = 0;
-            OH_AVFormat_GetStringValue(track.get(), OH_MD_KEY_CODEC_MIME, &mime);
-            OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &channels);
-            OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &rate);
-            if (options_.remuxOnly && options_.remuxAllAudioTracks) {
-                Format remuxFormat(OH_AVSource_GetTrackFormat(source_, index), OH_AVFormat_Destroy);
-                if (remuxFormat == nullptr) { return Fail("Read remux audio track format"); }
-                remuxAudioSourceTracks_.push_back(index);
-                remuxAudioFormats_.push_back(std::move(remuxFormat));
-            }
-            std::lock_guard<std::mutex> lock(snapshotMutex_);
-            snapshot_.audioTrackIds.push_back(index + 1);
-            snapshot_.audioTracks.push_back(std::to_string(index) + " · " +
-                (mime == nullptr ? "?" : mime) + " · " + std::to_string(channels) + " ch · " +
-                std::to_string(rate) + " Hz");
+        if (type == MEDIA_TYPE_AUD && !ReadAudioTrack(index, track.get())) {
+            return false;
         }
         if (type == MEDIA_TYPE_SUBTITLE) {
             const char *mime = nullptr;
@@ -123,6 +107,29 @@ bool TranscodeJob::ReadTracks(int32_t trackCount)
             audioFormat_ = std::move(track);
         }
     }
+    return true;
+}
+
+bool TranscodeJob::ReadAudioTrack(int32_t index, OH_AVFormat *track)
+{
+    const char *mime = nullptr;
+    int32_t channels = 0;
+    int32_t rate = 0;
+    OH_AVFormat_GetStringValue(track, OH_MD_KEY_CODEC_MIME, &mime);
+    OH_AVFormat_GetIntValue(track, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels);
+    OH_AVFormat_GetIntValue(track, OH_MD_KEY_AUD_SAMPLE_RATE, &rate);
+    if (options_.remuxOnly && options_.remuxAllAudioTracks) {
+        Format remuxFormat(OH_AVSource_GetTrackFormat(source_, index), OH_AVFormat_Destroy);
+        if (remuxFormat == nullptr) {
+            return Fail("Read remux audio track format");
+        }
+        remuxAudioSourceTracks_.push_back(index);
+        remuxAudioFormats_.push_back(std::move(remuxFormat));
+    }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    snapshot_.audioTrackIds.push_back(index + 1);
+    snapshot_.audioTracks.push_back(std::to_string(index) + " · " +
+        (mime == nullptr ? "?" : mime) + " · " + std::to_string(channels) + " ch · " + std::to_string(rate) + " Hz");
     return true;
 }
 
@@ -148,7 +155,8 @@ bool TranscodeJob::ValidateSourceColor()
         return Fail("PQ/HLG or HDR10 input is not transcoded: HDR metadata preservation is unavailable");
     }
     if (hevc && profile != HEVC_PROFILE_MAIN) {
-        return Fail("HEVC Main 10 and other non-Main profiles are not transcoded until 10-bit Surface and color metadata are verified");
+        return Fail("HEVC Main 10 and other non-Main profiles are not transcoded "
+            "until 10-bit Surface and color metadata are verified");
     }
     if (options_.gpu) {
         for (const char *key : {OH_MD_KEY_COLOR_PRIMARIES, OH_MD_KEY_TRANSFER_CHARACTERISTICS,

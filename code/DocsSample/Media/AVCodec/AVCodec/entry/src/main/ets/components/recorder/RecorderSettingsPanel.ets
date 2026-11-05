@@ -182,7 +182,7 @@ export struct RecorderSettingsPanel {
           this.GroupHeader($r('app.string.setting_group_video'))
           this.OptionRow({ title: $r('app.string.recorder_input_mode'),
             selectedText: LocalizedText.get(this.draft.inputMode === 1 ?
-              $r('app.string.recorder_input_buffer') : $r('app.string.recorder_input_surface')),
+              $r('app.string.recorder_input_buffer') : $r('app.string.recorder_input_direct')),
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.INPUT_MODE),
             available: true })
           if (this.draft.inputMode === 1) {
