@@ -500,6 +500,22 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
     // [End SetPCSpecifiedWindowScreenConfigBuffer2]
 }
 
+void virtualExtendedScreenConfig(OH_AVScreenCaptureConfig &config)
+{
+    // [Start screenCapture_virtualExtendedScreen]
+    // 在config中配置待录制的虚拟扩展屏幕的宽度、高度。
+    int32_t width = 1920;
+    int32_t height = 1080;
+    config.videoInfo.videoCapInfo.videoFrameWidth = width;
+    config.videoInfo.videoCapInfo.videoFrameHeight = height;
+ 
+    // 设置录屏模式为虚拟扩展屏幕录制。
+    config.captureMode = OH_CAPTURE_VIRTUAL_EXTENDED_SCREEN;
+    // 创建的虚拟扩展屏幕绑定到displayId为0的屏幕上。
+    config.videoInfo.videoCapInfo.displayId = 0;
+    // [End screenCapture_virtualExtendedScreen]
+}
+
 void SetStrategyForKeepCaptureDuringCall(OH_AVScreenCapture *capture)
 {
     // [Start screenCapture_buffer_strategy_keepCaptureDuringCall]
