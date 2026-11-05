@@ -240,8 +240,8 @@ class User {
 
 let admin: User = User.createAdmin(1);
 let guest: User = User.createGuest();
-console.info(`${admin.getInfo()}`);   // User 1: Admin
-console.info(`${guest.getInfo()}`);   // User 0: Guest
+console.info(`${admin.getInfo()}`);   // 'User 1: Admin'
+console.info(`${guest.getInfo()}`);   // 'User 0: Guest'
 
 // 2. 单例模式
 class Singleton {
@@ -733,7 +733,7 @@ class ExtendLogger {
 }
 
 class DetailedLogger extends ExtendLogger {
-  // 重写方法，改变行为
+  // 覆盖方法，改变行为
   log(message: string): void {
     console.info(`[DETAIL] ${message}`);
     console.info(`Timestamp: ${new Date().toISOString()}`);
@@ -755,11 +755,11 @@ let detailed: DetailedLogger = new DetailedLogger();
 
 detailed.log('test');           // [DETAIL] test, Timestamp: ...
 detailed.logWithParent('test'); // [LOG] test, Additional info...
-detailed.logError('failed');    // [DETAIL] ERROR: failed
+detailed.logError('failed');    // '[DETAIL] ERROR: failed'
 
 // 父类引用
 let logger: ExtendLogger = new DetailedLogger();
-logger.log('test');  // [DETAIL] test（调用子类重写方法）
+logger.log('test');  // [DETAIL] test（调用子类覆盖方法）
 // [End override_and_extend]
 
 // ===== arrow_function_methods =====

@@ -85,7 +85,7 @@ class AccessChildTest extends Parent {
 
   // 无法继承private属性和方法
   testPrivate(): void {
-    this.privateMethod();  // 编译错误
+    // this.privateMethod();  // 编译错误
     this.callPrivate();       // 通过公开方法访问
   }
 }
@@ -294,7 +294,7 @@ console.info(`${processor.convert('10').toString()}`);   // 100
 
 // 父类引用指向子类实例
 let baseProcessor: NumberProcessor = new AdvancedProcessor();
-console.info(`${baseProcessor.process(5).toString()}`);  // 15（调用子类重写方法）
+console.info(`${baseProcessor.process(5).toString()}`);  // 15（调用子类覆盖方法）
 // [End ts_method_signature_match]
 
 // [Start ts_super_usage_limitation]
@@ -318,7 +318,7 @@ class SuperChild extends SuperBase {
     super.method();  // 正确
 
     // super不能直接访问父类实例属性
-    console.info(`${super.value}`);  // 运行时为undefined，应使用this访问
+    console.info(`${super.value}`);  // 编译错误：不能通过super访问父类实例属性，应使用this访问
 
     // 应使用this或父类名访问属性
     console.info(`${this.value}`);          // 20（子类属性）
@@ -474,7 +474,7 @@ class Dog extends Animal {
     console.info(`${this.name} barks`);
   }
 
-  // 重写具体方法
+  // 覆盖具体方法
   move(): void {
     console.info(`${this.name} runs`);
   }
@@ -502,7 +502,7 @@ let dog: Dog = new Dog('Max', 'Labrador');
 let cat: Cat = new Cat('Whiskers', 'Orange');
 
 dog.speak();  // Max barks（实现的方法）
-dog.move();   // Max runs（重写的方法）
+dog.move();   // Max runs（覆盖的方法）
 dog.sleep();  // Max is sleeping（继承的方法）
 
 cat.speak();  // Whiskers meows（实现的方法）
@@ -529,7 +529,7 @@ class InhAppError extends Error {
 }
 
 let inhError: InhAppError = new InhAppError('Not found', 404);
-console.info(`${inhError.getInfo()}`);  // [404] Not found
+console.info(`${inhError.getInfo()}`);  // '[404] Not found'
 console.info(`${(inhError instanceof InhAppError).toString()}`);  // true
 console.info(`${(inhError instanceof Error).toString()}`);  // true
 // [End ts_inherit_builtin_error]
