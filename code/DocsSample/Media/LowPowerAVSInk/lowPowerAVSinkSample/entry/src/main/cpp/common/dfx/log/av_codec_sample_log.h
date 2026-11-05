@@ -15,9 +15,8 @@
 
 #ifndef AVCODEC_SAMPLE_LOG_H
 #define AVCODEC_SAMPLE_LOG_H
-// [Start OH_Include_hilog]
+
 #include <hilog/log.h>
-// [End OH_Include_hilog]
 #include <cinttypes>
 
 #undef LOG_DOMAIN
