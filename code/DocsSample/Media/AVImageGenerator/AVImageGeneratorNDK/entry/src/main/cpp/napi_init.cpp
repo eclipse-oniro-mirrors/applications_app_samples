@@ -82,6 +82,16 @@ bool GetInt64Value(napi_env env, napi_value value, int64_t* result)
     return true;
 }
 
+// [Start OH_AVImageGenerator_FetchFrameByTime]
+// FetchFrameByTime的输入参数。
+struct FetchFrameParams {
+    int64_t timeUs = 0; // 指定的时间（单位us）。
+    int64_t offset = 0; // 媒体源在文件描述符中的偏移量。
+    int32_t fileDescribe = -1; // 媒体文件描述符。
+    int64_t fileSize = 0; // 媒体文件大小。
+    int32_t options = OH_AVIMAGE_GENERATOR_QUERY_CLOSEST; // OH_AVIMAGE_GENERATOR_QUERY_CLOSEST表示选取离传入时间点最近的关键帧。
+};
+// [StartExclude OH_AVImageGenerator_FetchFrameByTime]
 // 辅助函数：获取FetchFrameByTime的输入参数
 bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrameParams &fetchFrameParams)
 {
@@ -113,17 +123,7 @@ bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrame
     }
     return true;
 }
-
-// [Start OH_AVImageGenerator_FetchFrameByTime]
-// FetchFrameByTime的输入参数。
-struct FetchFrameParams {
-    int64_t timeUs = 0; // 指定的时间（单位us）。
-    int64_t offset = 0; // 媒体源在文件描述符中的偏移量。
-    int32_t fileDescribe = -1; // 媒体文件描述符。
-    int64_t fileSize = 0; // 媒体文件大小。
-    int32_t options = OH_AVIMAGE_GENERATOR_QUERY_CLOSEST; // OH_AVIMAGE_GENERATOR_QUERY_CLOSEST表示选取离传入时间点最近的关键帧。
-};
-
+// [EndExclude OH_AVImageGenerator_FetchFrameByTime]
 static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback_info info)
 {
     FetchFrameParams fetchFrameParams;
