@@ -16,6 +16,7 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
+#include <cmath>
 #include "../../entry/src/main/cpp/sample/transcoder/TranscodePcmConverter.h"
 #include "../../entry/src/main/cpp/sample/transcoder/TranscodeFrameProcessor.h"
 
@@ -36,6 +37,22 @@ constexpr uint8_t CHROMA_TEST_STEP = 10;
 constexpr uint8_t CROPPED_U = 20;
 constexpr uint8_t CROPPED_V = 21;
 constexpr int32_t CHROMA_V_COMPONENT_OFFSET = 1;
+constexpr int32_t AREA_SOURCE_EDGE = 16;
+constexpr int32_t AREA_TARGET_EDGE = 2;
+constexpr uint8_t AREA_EXPECTED_LUMA = 32;
+constexpr uint8_t MAX_PIXEL = 255;
+constexpr uint8_t NEUTRAL_UV = 128;
+constexpr int32_t AUDIO_TARGET_RATE = 16000;
+constexpr int32_t AUDIO_TEST_SAMPLES = TEST_SAMPLE_RATE_48000;
+constexpr int32_t AUDIO_AMPLITUDE = 12000;
+constexpr int32_t AUDIO_PASSBAND_HZ = 1000;
+constexpr int32_t AUDIO_STOPBAND_HZ = 12000;
+constexpr int32_t AUDIO_EDGE_SKIP = 100;
+constexpr int32_t AUDIO_EDGE_COUNT = 2;
+constexpr double PI = 3.14159265358979323846;
+constexpr double MAX_ALIAS_RATIO = 0.02;
+constexpr double MIN_PASSBAND_RMS = 8000;
+constexpr int32_t PCM_HIGH_BYTE_SHIFT = 8;
 
 void Require(bool condition, const char *message)
 {
@@ -45,11 +62,12 @@ void Require(bool condition, const char *message)
     }
 }
 
-void TestPcmRate(int32_t sourceRate, int32_t targetRate, int32_t channels)
+void TestPcmRate(int32_t sourceRate, int32_t targetRate, int32_t channels, bool lowPass)
 {
     Require(sourceRate > 0, "Source sample rate must be positive");
     TranscodePcmConverter converter;
-    Require(converter.Configure(sourceRate, targetRate, TEST_STEREO_CHANNELS, channels), "Configure PCM converter");
+    Require(converter.Configure(sourceRate, targetRate, TEST_STEREO_CHANNELS, channels, lowPass),
+        "Configure PCM converter");
     std::vector<uint8_t> output;
     const uint8_t sample[] = {0xFF, 0x7F, 0x01, 0x80};
     for (int32_t index = 0; index < TEST_SOURCE_SAMPLE_COUNT; ++index) {
@@ -78,7 +96,8 @@ void TestPcmRates()
     for (int32_t sourceRate : rates) {
         for (int32_t targetRate : rates) {
             for (int32_t channels : channelCounts) {
-                TestPcmRate(sourceRate, targetRate, channels);
+                TestPcmRate(sourceRate, targetRate, channels, false);
+                TestPcmRate(sourceRate, targetRate, channels, true);
             }
         }
     }
@@ -143,6 +162,73 @@ void TestCenterCropChromaOffset()
         result[outputChromaOffset + output.stride + CHROMA_V_COMPONENT_OFFSET] == CROPPED_V,
         "Center crop applies chroma x offset");
 }
+
+void TestAreaReduction()
+{
+    using namespace TranscodeFrames;
+    const Layout input {AREA_SOURCE_EDGE, AREA_SOURCE_EDGE, AREA_SOURCE_EDGE, AREA_SOURCE_EDGE, Chroma::NV12};
+    const Layout output {AREA_TARGET_EDGE, AREA_TARGET_EDGE, AREA_TARGET_EDGE, AREA_TARGET_EDGE, Chroma::NV12};
+    std::vector<uint8_t> source(RequiredBytes(input), NEUTRAL_UV);
+    for (int32_t y = 0; y < input.height; ++y) {
+        for (int32_t x = 0; x < input.width; ++x) {
+            source[y * input.stride + x] = x % (AREA_SOURCE_EDGE / AREA_TARGET_EDGE) == 0 ? MAX_PIXEL : 0;
+        }
+    }
+    std::vector<uint8_t> pixels(RequiredBytes(output));
+    Require(Process(source.data(), source.size(), input, pixels.data(), pixels.size(), output, false,
+        ResizeMode::FIT, Filter::AREA), "Area downsampling");
+    for (int32_t i = 0; i < output.width * output.height; ++i) {
+        Require(pixels[i] == AREA_EXPECTED_LUMA, "Area retains average of detail lost by point sampling");
+    }
+    Require(pixels.back() == NEUTRAL_UV, "Area preserves neutral chroma");
+}
+
+double ResampleTone(int32_t frequency, bool lowPass)
+{
+    TranscodePcmConverter converter;
+    Require(converter.Configure(TEST_SAMPLE_RATE_48000, AUDIO_TARGET_RATE, 1, 1, lowPass), "Configure tone test");
+    std::vector<uint8_t> output;
+    for (int32_t i = 0; i < AUDIO_TEST_SAMPLES; ++i) {
+        const int16_t value = static_cast<int16_t>(std::lround(AUDIO_AMPLITUDE *
+            std::sin(2 * PI * frequency * i / TEST_SAMPLE_RATE_48000)));
+        const uint8_t sample[] = {static_cast<uint8_t>(value),
+            static_cast<uint8_t>(static_cast<uint16_t>(value) >> PCM_HIGH_BYTE_SHIFT)};
+        converter.Push(sample);
+        while (converter.Pull(output)) {}
+    }
+    converter.Finish();
+    while (converter.Pull(output)) {}
+    Require(converter.Count() == AUDIO_TARGET_RATE, "Low-pass preserves exact one-second sample count");
+    double energy = 0;
+    for (int32_t i = AUDIO_EDGE_SKIP; i < AUDIO_TARGET_RATE - AUDIO_EDGE_SKIP; ++i) {
+        const int16_t value = static_cast<int16_t>(static_cast<uint16_t>(output[i * TEST_PCM_SAMPLE_BYTES]) |
+            static_cast<uint16_t>(output[i * TEST_PCM_SAMPLE_BYTES + 1]) << PCM_HIGH_BYTE_SHIFT);
+        energy += static_cast<double>(value) * value;
+    }
+    return std::sqrt(energy / (AUDIO_TARGET_RATE - AUDIO_EDGE_SKIP * AUDIO_EDGE_COUNT));
+}
+
+void TestLowPass()
+{
+    Require(ResampleTone(AUDIO_STOPBAND_HZ, true) < ResampleTone(AUDIO_STOPBAND_HZ, false) * MAX_ALIAS_RATIO,
+        "Suppress tones above target Nyquist instead of aliasing");
+    Require(ResampleTone(AUDIO_PASSBAND_HZ, true) > MIN_PASSBAND_RMS, "Preserve passband amplitude");
+    const int32_t shortLengths[] = {0, 1, 7, 31};
+    for (int32_t length : shortLengths) {
+        TranscodePcmConverter converter;
+        converter.Configure(TEST_SAMPLE_RATE_48000, AUDIO_TARGET_RATE, 1, 1, true);
+        std::vector<uint8_t> output;
+        const uint8_t sample[] = {0, 0};
+        for (int32_t i = 0; i < length; ++i) {
+            converter.Push(sample);
+            while (converter.Pull(output)) {}
+        }
+        converter.Finish();
+        while (converter.Pull(output)) {}
+        Require(converter.Count() == (length * AUDIO_TARGET_RATE + TEST_SAMPLE_RATE_48000 - 1) /
+            TEST_SAMPLE_RATE_48000, "Flush short filter tails without changing duration");
+    }
+}
 }
 
 int main()
@@ -150,5 +236,7 @@ int main()
     TestPcmRates();
     TestBilinear();
     TestCenterCropChromaOffset();
+    TestAreaReduction();
+    TestLowPass();
     std::cout << "Transcode quality: filters, bounds, sample counts, channel conversion and tails passed\n";
 }

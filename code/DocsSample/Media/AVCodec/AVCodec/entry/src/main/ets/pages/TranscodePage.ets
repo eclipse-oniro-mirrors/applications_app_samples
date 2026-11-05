@@ -63,7 +63,8 @@ export struct TranscodePage {
   }
 
   private modeOptions(): SelectOption[] {
-    return [{ value: 'Buffer' }, { value: $r('app.string.transcode_window_mode') }];
+    return [{ value: 'Buffer' }, { value: $r('app.string.transcode_window_mode') },
+      { value: $r('app.string.transcode_gpu_mode') }];
   }
 
   private codecModeOptions(): SelectOption[] {
@@ -134,7 +135,7 @@ export struct TranscodePage {
           Text($r('app.string.transcode_size')).layoutWeight(1)
           Select(this.sizeOptions()).selected(this.model.sizeIndex)
             .value(this.sizeOptions()[this.model.sizeIndex].value)
-            .enabled(this.model.modeIndex === 0)
+            .enabled(this.model.modeIndex !== 1)
             .onSelect((index: number): void => {
               this.model.sizeIndex = index; void this.model.inspect(this.getUIContext());
             })
@@ -167,7 +168,7 @@ export struct TranscodePage {
         Row() {
           Text($r('app.string.transcode_grayscale')).layoutWeight(1)
           Toggle({ type: ToggleType.Switch, isOn: this.model.grayscale })
-            .enabled(this.model.modeIndex === 0)
+            .enabled(this.model.modeIndex !== 1)
             .onChange((checked: boolean): void => { this.model.grayscale = checked; this.model.clearPreview(); })
         }
         Row() {
@@ -202,6 +203,7 @@ export struct TranscodePage {
       }
       if (this.quality.operation === 0) {
         Text(this.model.modeIndex === 0 ? $r('app.string.transcode_buffer_hint') :
+          this.model.modeIndex === 2 ? $r('app.string.transcode_gpu_hint') :
           $r('app.string.transcode_window_hint')).fontSize(12).fontColor('#667085')
       }
     }
@@ -216,7 +218,7 @@ export struct TranscodePage {
       Row() {
         Text($r('app.string.transcode_range')).layoutWeight(1).fontSize(16).fontWeight(FontWeight.Medium)
         Toggle({ type: ToggleType.Switch, isOn: this.model.rangeEnabled })
-          .enabled(this.model.modeIndex === 0 && (this.model.rangeEnabled || this.model.analysis.durationUs > 0) &&
+          .enabled(this.model.modeIndex !== 1 && (this.model.rangeEnabled || this.model.analysis.durationUs > 0) &&
             !this.model.inspecting)
           .onChange((checked: boolean): void => { this.model.setRangeEnabled(checked); })
       }
@@ -306,6 +308,10 @@ export struct TranscodePage {
           .onClick((): void => { void this.model.start(this.getUIContext()); })
       }
       if (this.model.resultPath.length > 0) {
+        Button($r('app.string.transcode_play_source')).width('100%')
+          .enabled(!this.model.exporting && !this.model.busy && !this.model.queueRunning &&
+            this.model.resultSourceUri.length > 0)
+          .onClick((): void => this.onPlayResult(this.model.resultSourceUri))
         Button($r('app.string.transcode_play_result')).width('100%')
           .enabled(!this.model.exporting && !this.model.busy && !this.model.queueRunning)
           .onClick((): void => this.onPlayResult(fileUri.getUriFromPath(this.model.resultPath)))
@@ -385,23 +391,29 @@ export struct TranscodePage {
         this.sourceCard()
         this.optionsCard()
         if (this.quality.operation === 0) {
-          TranscodeQualityPanel({ quality: this.quality, allowFilter: this.model.modeIndex === 0,
+          TranscodeQualityPanel({ quality: this.quality, allowFilter: this.model.modeIndex !== 1,
+            allowArea: this.model.modeIndex === 0,
             allowAudio: this.model.audioMode === 1,
             allowEditing: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting,
             onChanged: (): void => {
               this.model.clearPreview(); void this.model.inspect(this.getUIContext());
             } })
-          TranscodePreprocessPanel({ model: this.model })
+          TranscodePreprocessPanel({ model: this.model, preview: this.model.previewState })
           this.rangeCard()
         }
         this.analysisCard()
         TranscodeQueuePanel({
           queue: this.model.queue,
+          exports: this.model.exports,
           running: this.model.queueRunning,
+          canBatch: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting &&
+            !this.model.inspecting,
           canAdd: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting &&
             !this.model.inspecting && this.model.analysis.state === 2 && this.model.isRangeValid(),
           onAdd: (): void => { void this.model.enqueue(this.getUIContext()); },
           onRun: (): void => { void this.model.runQueue(this.getUIContext()); },
+          onBatch: (gallery: boolean): void => { void this.model.enqueueMany(this.getUIContext(), gallery); },
+          onExport: (gallery: boolean): void => { void this.model.exportCompleted(this.getUIContext(), gallery); },
           onChanged: (): void => { void this.model.persistQueue(this.getUIContext()); },
           onRelink: (id: string): void => { void this.model.reassociateQueueItem(id, this.getUIContext()); }
         })

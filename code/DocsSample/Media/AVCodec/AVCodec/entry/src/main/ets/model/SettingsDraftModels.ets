@@ -95,6 +95,8 @@ export class RecorderSettingsDraft {
   public dualOutput: number = 0;
   public videoDump: boolean = false;
   public stopOnLowSpace: boolean = false;
+  public segmentSeconds: number = 0;
+  public segmentMiB: number = 0;
 
   load(data: CameraDataModel, advanced: boolean): void {
     this.outputFormat = data.outputFormat === Const.FORMAT_FLV ? 1 : 0;
@@ -127,6 +129,8 @@ export class RecorderSettingsDraft {
     this.dualOutput = advanced && data.enableDualOutput ? 1 : 0;
     this.videoDump = data.enableVideoDump;
     this.stopOnLowSpace = data.stopOnLowSpace;
+    this.segmentSeconds = data.segmentSeconds;
+    this.segmentMiB = data.segmentMiB;
   }
 
   apply(data: CameraDataModel): boolean {
@@ -153,6 +157,8 @@ export class RecorderSettingsDraft {
     }
     data.enableVideoDump = this.videoDump;
     data.stopOnLowSpace = this.stopOnLowSpace;
+    data.segmentSeconds = this.outputFormat === 0 ? this.segmentSeconds : 0;
+    data.segmentMiB = this.outputFormat === 0 ? this.segmentMiB : 0;
     data.cropPercent = this.cropPercent;
     data.downsamplingTargetHeight = this.downsamplingHeight;
     data.secondaryTargetHeight = this.secondaryHeight;

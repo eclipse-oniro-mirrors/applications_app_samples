@@ -51,6 +51,10 @@ export struct RecorderOverview {
       Column({ space: '4vp' }) {
         Text(entry.title).width('100%').fontSize('14fp').fontWeight(FontWeight.Medium)
           .fontColor('#182431').maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
+        if ((entry.segments?.length ?? 0) > 1) {
+          Text(LocalizedText.get($r('app.string.rec_segments_group')) + ' · ' + entry.segments!.length)
+            .fontSize(12).fontColor('#475467')
+        }
         Text(`${this.formatRecordingDate(entry.recordedAt)} · ${this.formatRecordingDuration(entry.durationSeconds)}`)
           .width('100%').fontSize('12fp').fontColor('#66727D')
       }
@@ -63,7 +67,7 @@ export struct RecorderOverview {
               params: {
                 sessionId: entry.sessionId ?? '', recordedAt: entry.recordedAt,
                 durationSeconds: entry.durationSeconds, title: entry.title, primaryUri: entry.uri,
-                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true
+                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true, segments: entry.segments
               } });
           })
       }

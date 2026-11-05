@@ -19,12 +19,20 @@ import { TranscodeQualityModel } from '../../model/TranscodeQualityModel';
 export struct TranscodeQualityPanel {
   @ObjectLink quality: TranscodeQualityModel;
   @Prop allowFilter: boolean = true;
+  @Prop allowArea: boolean = true;
   @Prop allowAudio: boolean = false;
   @Prop allowEditing: boolean = true;
   onChanged: () => void = (): void => {};
 
   private filters(): SelectOption[] {
-    return [{ value: $r('app.string.transcode_filter_fast') }, { value: $r('app.string.transcode_filter_linear') }];
+    const options: SelectOption[] = [{ value: $r('app.string.transcode_filter_fast') },
+      { value: $r('app.string.transcode_filter_linear') }];
+    if (this.allowArea) { options.push({ value: $r('app.string.transcode_filter_area') }); }
+    return options;
+  }
+  private resamplers(): SelectOption[] {
+    return [{ value: $r('app.string.transcode_resampler_fast') },
+      { value: $r('app.string.transcode_resampler_quality') }];
   }
   private rates(): SelectOption[] {
     return [{ value: $r('app.string.transcode_keep_source') }, { value: '24 fps' }, { value: '30 fps' },
@@ -71,6 +79,12 @@ export struct TranscodeQualityPanel {
       }
       Text($r('app.string.transcode_quality_hint')).fontSize(12).fontColor('#667085')
       if (this.allowAudio) {
+        Row() {
+          Text($r('app.string.transcode_resampler')).layoutWeight(1)
+          Select(this.resamplers()).selected(this.quality.audioResampler)
+            .value(this.resamplers()[this.quality.audioResampler].value)
+            .onSelect((index: number): void => { this.quality.audioResampler = index; this.onChanged(); })
+        }
         Row() {
           Text($r('app.string.transcode_audio_rate')).layoutWeight(1)
           Select(this.audioRates()).selected(this.quality.audioRate)

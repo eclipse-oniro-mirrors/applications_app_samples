@@ -26,6 +26,7 @@ export interface TranscodeQueueItem {
 export class TranscodeQueueModel {
   public items: TranscodeQueueItem[] = [];
   public paused: boolean = true;
+  public stopOnFailure: boolean = false;
   public activeId: string = '';
   private sequence: number = 0;
 
@@ -40,9 +41,10 @@ export class TranscodeQueueModel {
         typeof item.resultPath !== 'string' || item.resultPath.length > 8192 ||
         !Array.isArray(item.options) || (item.options.length !== 7 && item.options.length !== 8) ||
         !item.options.every((option: number): boolean => Number.isInteger(option) && option >= 0) ||
-        item.options[0] > 1 || item.options[1] > 1 || item.options[2] > 3 || item.options[3] > 3 ||
+        item.options[0] > 1 || item.options[1] > 2 || item.options[2] > 3 || item.options[3] > 3 ||
         item.options[4] > 2 || item.options[5] > 2 || item.options[6] > 2147483647 ||
         (item.options.length === 8 && item.options[7] > 2) ||
+        (item.options[1] === 2 && (item.quality?.filter ?? 0) > 1) ||
         (item.options[1] === 1 && (item.options[2] !== 0 || item.grayscale || (item.options[7] ?? 0) !== 0 ||
           (item.quality?.filter ?? 0) !== 0)) ||
         !['waiting', 'running', 'completed', 'failed', 'cancelled', 'interrupted'].includes(item.state) ||
@@ -61,7 +63,7 @@ export class TranscodeQueueModel {
     const end: number = item.endTimeMs ?? 0;
     return Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end >= 0 &&
       start <= 2147483647 && end <= 2147483647 && (end === 0 || end > start) &&
-      (item.options[1] === 0 || (start === 0 && end === 0));
+      (item.options[1] !== 1 || (start === 0 && end === 0));
   }
 
   add(uri: string, title: string, options: number[], grayscale: boolean, startTimeMs: number = 0,
@@ -115,6 +117,18 @@ export class TranscodeQueueModel {
   }
   remove(id: string): void {
     if (id !== this.activeId) { this.items = this.items.filter((item: TranscodeQueueItem): boolean => item.id !== id); }
+  }
+  move(id: string, direction: number): void {
+    const index: number = this.items.findIndex((item: TranscodeQueueItem): boolean => item.id === id);
+    if (index < 0 || this.items[index].state !== 'waiting' || (direction !== -1 && direction !== 1)) { return; }
+    let target: number = index + direction;
+    while (target >= 0 && target < this.items.length && this.items[target].state !== 'waiting') { target += direction; }
+    if (target < 0 || target >= this.items.length) { return; }
+    const updated: TranscodeQueueItem[] = this.items.slice();
+    const item: TranscodeQueueItem = updated[index];
+    updated[index] = updated[target];
+    updated[target] = item;
+    this.items = updated;
   }
   totalProgress(): number {
     return this.items.length === 0 ? 0 : this.items.reduce((sum: number, item: TranscodeQueueItem): number =>

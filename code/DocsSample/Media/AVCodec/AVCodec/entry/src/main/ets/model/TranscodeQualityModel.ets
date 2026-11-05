@@ -17,6 +17,7 @@ export interface TranscodeQualitySnapshot {
   operation: number; filter: number; frameRate: number; bitrateMode: number; keyFrame: number;
   audioRate: number; audioChannels: number; audioBitrate: number;
   codecMode?: number;
+  audioResampler?: number;
 }
 
 @Observed
@@ -30,15 +31,18 @@ export class TranscodeQualityModel {
   public audioChannels: number = 0;
   public audioBitrate: number = 1;
   public codecMode: number = 0;
+  public audioResampler: number = 0;
 
   static valid(snapshot: TranscodeQualitySnapshot | undefined): boolean {
     if (snapshot === undefined) { return true; }
     if (snapshot === null || typeof snapshot !== 'object') { return false; }
+    if (snapshot.audioResampler !== undefined && (!Number.isInteger(snapshot.audioResampler) ||
+      snapshot.audioResampler < 0 || snapshot.audioResampler > 1)) { return false; }
     if (snapshot.codecMode !== undefined &&
       (!Number.isInteger(snapshot.codecMode) || snapshot.codecMode < 0 || snapshot.codecMode > 1)) { return false; }
     const values: number[] = [snapshot.operation, snapshot.filter, snapshot.frameRate, snapshot.bitrateMode,
       snapshot.keyFrame, snapshot.audioRate, snapshot.audioChannels, snapshot.audioBitrate];
-    const limits: number[] = [1, 1, 4, 1, 3, 2, 2, 2];
+    const limits: number[] = [1, 2, 4, 1, 3, 2, 2, 2];
     return values.every((value: number, index: number): boolean =>
       Number.isInteger(value) && value >= 0 && value <= limits[index]);
   }
@@ -46,7 +50,8 @@ export class TranscodeQualityModel {
   snapshot(): TranscodeQualitySnapshot {
     return { operation: this.operation, filter: this.filter, frameRate: this.frameRate,
       bitrateMode: this.bitrateMode, keyFrame: this.keyFrame, audioRate: this.audioRate,
-      audioChannels: this.audioChannels, audioBitrate: this.audioBitrate, codecMode: this.codecMode };
+      audioChannels: this.audioChannels, audioBitrate: this.audioBitrate, codecMode: this.codecMode,
+      audioResampler: this.audioResampler };
   }
 
   restore(snapshot: TranscodeQualitySnapshot | undefined): void {
@@ -55,5 +60,6 @@ export class TranscodeQualityModel {
     this.keyFrame = snapshot?.keyFrame ?? 1; this.audioRate = snapshot?.audioRate ?? 0;
     this.audioChannels = snapshot?.audioChannels ?? 0; this.audioBitrate = snapshot?.audioBitrate ?? 1;
     this.codecMode = snapshot?.codecMode ?? 0;
+    this.audioResampler = snapshot?.audioResampler ?? 0;
   }
 }

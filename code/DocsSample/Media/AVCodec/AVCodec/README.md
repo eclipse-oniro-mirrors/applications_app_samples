@@ -111,6 +111,7 @@ The sample connects file selection, demuxing, four video output paths, A/V synch
 | Runtime recording parameters | Requests bitrate changes and key frames independently on the primary or secondary encoder without rebuilding the session | [Runtime recording parameters](#recorder-live-parameters) |
 | Live recording diagnostics | Per-stream recent and session bitrate, output cadence, key frames, retrieval/write timing, file and Dump status, with explicit configuration and measurement sources | [Live recording diagnostics](#recorder-diagnostics) |
 | Recording timeline | Initialization, first output, stop, actual EOS, draining, resource release, and file-close stages | [Timeline and results](#recording-session-results) |
+| Recording segments | Finalize independent MP4s by duration/size and group their history | [Segment recording](#recording-segments) |
 | Recording results and history | Play finalized outputs and inspect basic completion/file metadata; detailed diagnostics remain live during recording | [Results and history](#recording-session-results) |
 | Audio diagnostics and storage protection | PCM backlog, AAC output, relative PTS progress, muxer timing, remaining-time estimates, and optional safe stop | [Audio and storage](#recorder-audio-storage) |
 | Recording page ownership | Uses one lifecycle phase and separates camera-session, diagnostics, result-display and file-management responsibilities | [Recording page ownership](#recorder-controller-ownership) |
@@ -166,12 +167,14 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 
 | Feature | Behavior | Details |
 |---|---|---|
-| Source and destination | Select one video from Files or Gallery; export a completed MP4 to either destination | [Transcoding](#transcoding) |
+| Source and destination | Select one or several videos from Files/Gallery; export completed MP4s individually or in a batch | [Transcoding](#transcoding), [Batch operations](#transcode-batch) |
 | Buffer processing | Decode to YUV, optionally downscale or convert to grayscale, and submit encoder input buffers | [Buffer path](#transcode-buffer) |
 | Surface connection | Decode directly to the encoder input Surface at the original dimensions | [Surface path](#transcode-surface) |
+| GPU processing | SDR NativeImage/OpenGL crop, scale, letterbox and grayscale before encoder Surface input | [OpenGL path](#transcode-gpu) |
 | Synchronous/asynchronous scheduling | Both video codecs support synchronous queries or callback queues, with Buffer or Surface input | [Codec scheduling](#transcode-codec-mode) |
 | Encoding quality | Encoder selection, frame-rate cap, CBR/VBR and keyframe interval | [Quality settings](#transcode-quality) |
-| Processing preview | Decode one frame and display a processed thumbnail alongside the geometry diagram | [Buffer path](#transcode-buffer) |
+| Processing preview | Choose a time and switch between source/processed thumbnails from the same decoded frame | [Preview](#transcode-preview) |
+| Sampling quality | Area downsampling and optional streaming low-pass audio conversion, with fast modes retained | [Sampling quality](#transcode-sampling) |
 | MP4 remux | Copy the full original video and optional audio without creating codecs | [Remux](#transcode-remux) |
 | Preflight and diagnostics | Source/track analysis, codec limits, stage timings and Buffer waits | [Diagnostics](#transcode-diagnostics) |
 | Audio policy | Selected original track, AAC-LC conversion, or no audio | [Audio pipeline](#transcode-audio) |
@@ -184,26 +187,26 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 
 The bottom navigation contains Playback, Library, Recording, Transcode, and Device. In Transcode, select a source with **Files** or **Gallery**, choose output settings, and press **Start transcoding**. On completion, use **Save to Files** or **Save to Gallery**. The source file is opened read-only.
 
-The page uses a separate `libtranscoder.so`; it does not start the Player or Recorder singleton. `TranscodeModel.ets` owns source selection, task state, and export, while `TranscodePage.ets` renders the controls. Index retains the model, so switching tabs preserves the running task and its result. Leaving the main page cancels its task; this sample does not register background transcoding.
+The page uses a separate `libtranscoder.so`; it does not start the Player or Recorder singleton. `TranscodeModel.ets` owns request configuration and task state. `TranscodePreviewController`, `TranscodeQueueRunner` and `TranscodeExportController` handle image lifetime/cancellation, queue progression and file export respectively; `TranscodePage.ets` renders the controls. Index retains the model across Tab changes. Leaving the main page cancels its task; this sample does not register background transcoding.
 
 | Setting | Available values and behavior |
 |---|---|
 | Codec / container | H.264 or H.265 in MP4; the device must provide the requested encoder |
-| Encoder input | Buffer or Surface; both support synchronous queries and asynchronous callbacks |
+| Encoder input | Buffer, direct Surface or OpenGL → Surface; synchronous queries or asynchronous callbacks |
 | Video codec scheduling | Synchronous by default; asynchronous mode applies to both video decoding and encoding, and is saved with queue settings |
-| Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer only |
+| Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer and GPU paths |
 | Target bitrate | 2, 4, 8, or 16 Mbps, with VBR or CBR; measured bitrate can differ |
 | Frame-rate cap | Source rate, 24, 30, 60 or 120 fps; never raises the source rate |
 | Keyframe interval | 1, 2, 3 or 5 seconds; placement remains encoder-dependent |
-| Scaling filter | Nearest-neighbor or bilinear; Buffer only |
-| Grayscale | Buffer only; keeps luma and makes chroma neutral |
+| Scaling filter | Nearest/bilinear; area sampling for Buffer downscaling |
+| Grayscale | Buffer neutral chroma or GPU RGB luma conversion |
 | Encoder selection | Automatic, hardware or software; the checked codec name is also used to create the instance |
 | Audio | Selected original track, configurable AAC-LC conversion or no audio |
-| Time range | Buffer only; enter a start time, with an optional end time that defaults to the source end |
+| Time range | Buffer and GPU paths; start time with an optional end defaulting to source end |
 
 The size limit describes the long edge, not the vertical resolution. A 1920 × 1080 source capped at 720 becomes 720 × 404; portrait video becomes 404 × 720. Dimensions are rounded down to even values for YUV 4:2:0. Smaller sources are not enlarged.
 
-Enter the start and end times in seconds at millisecond precision, for example `1.250`. The selected interval includes the start time and excludes the end time: a decoded video frame is retained only when its presentation timestamp (PTS) satisfies `start <= PTS < end`. The demuxer seeks to a sync frame at or before the start time. Each retained frame's output PTS is its source PTS minus the selected start time. Video decoding continues until the source reports EOS, even after the selected end time, so that B-frame reordering does not omit frames whose PTS falls within the interval. A short selected interval can therefore still require decoding most of the source. Time-range selection is available only with Buffer input; Surface direct input does not support this frame filtering.
+Enter the start and end times in seconds at millisecond precision, for example `1.250`. Retain frames where `start <= PTS < end`; the demuxer seeks to a preceding sync frame and output PTS subtracts the selected start. Decoding continues to true source EOS to preserve reordered B frames, so short selections can still decode much of the source. Buffer and GPU paths support this selection; direct Surface and remux process the full file.
 
 Audio passthrough selects compressed packets by PTS, so cut precision depends on source packet lengths. AAC conversion trims decoded PCM samples before encoding. The last AAC-LC frame is padded to 1024 samples per channel when needed, adding less than one frame of tail silence.
 
@@ -215,6 +218,9 @@ flowchart LR
   Buffer --> Encoder[Video encoder]
   Decoder --> Surface[Encoder input Surface]
   Surface --> Encoder
+  Decoder --> Image[NativeImage external texture]
+  Image --> GPU[OpenGL crop / scale / letterbox / grayscale]
+  GPU --> Surface
   Encoder --> Mux[MP4 muxer]
   Demux --> Audio[Optional selected audio track: copy or AAC conversion]
   Audio --> Mux
@@ -228,13 +234,29 @@ flowchart LR
 
 `TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames through synchronous queries or asynchronous callback queues, according to **Video codec scheduling**. Pixel processing and submission use the same code in both modes. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
 
-The processor accepts 8-bit NV12, NV21, and I420 layouts and writes NV12. Nearest-neighbor is the default; bilinear interpolates luma and chroma at greater CPU cost. Bilinear is not an anti-aliasing filter for large downscales. For grayscale, luma is retained and chroma is filled with 128. This path reads, writes and copies pixels; it demonstrates decoded-pixel processing rather than matching Surface throughput.
+The processor accepts 8-bit NV12, NV21 and I420 layouts and writes NV12. Nearest-neighbor is the default; bilinear and area modes offer different sampling costs and downscale quality (see [sampling](#transcode-sampling)). Grayscale retains luma and fills chroma with 128. This path reads, writes and copies pixels to demonstrate decoded-frame processing.
 
 Layouts are cached after the first frame and read again on a decoder output-format change. Same-size NV12 uses row copies for both Y and UV, with independent source/destination strides. Source padding is not copied. Only destination padding and grayscale UV need initialization, so normal visible pixels are no longer cleared and overwritten. Scaling, NV21 and I420 retain their conversion branches. There is no additional full-frame intermediate allocation, and decoder buffer ownership is not transferred to the encoder.
 
 Only one decoded frame is retained while waiting for encoder input. After the pixels have been submitted, the decoder output index is returned. The next pass drains encoded output before obtaining more input, keeping codec queues bounded. Input EOS stops feeding compressed samples; the worker continues until encoded output EOS. If a decoded frame contains both pixels and EOS, it submits the pixels first and sends an empty encoder EOS separately.
 
-The geometry diagram shows crop bounds, output dimensions and padding; it is not a decoded image. **Preview processed frame** runs a separate cancellable decoder task and displays the first frame within the selected range. It applies the selected geometry, filter and grayscale at a thumbnail long edge capped at 640 pixels, then converts NV12 to RGBA. This is not a full-size encoded frame reduced for display: it does not preview compression, container rotation or HDR conversion. Preview is Buffer-only, uses the same exclusive session lease as transcoding and times out after 15 seconds. Source or processing changes clear the old image.
+<a id="transcode-preview"></a>
+
+#### Same-frame before/after preview
+
+The geometry diagram shows crop bounds, output dimensions and padding. Choose a position within the selected range, then preview. One synchronous decoder captures the frame at or after the requested PTS and generates both original and processed thumbnails, each capped at a 640-pixel long edge. The UI switches between them and shows actual source time, crop/content dimensions, output size and algorithm. `TranscodePreviewController` owns both PixelMaps, request invalidation and disposal. Completion from a cancelled/disposed request releases any images it created.
+
+This is a pixel-processing preview for Buffer and GPU requests, computed at thumbnail dimensions; it does not preview compression, container rotation or HDR conversion. It shares the exclusive task lease and a 15-second timeout. Source/processing changes clear both images. After transcoding, source/result playback shortcuts compare actual files. The source shortcut is tied to the current result and is unavailable for historical results whose source authorization was not retained.
+
+<a id="transcode-sampling"></a>
+
+#### Choosing video and audio sampling quality
+
+Buffer video offers nearest-neighbor, bilinear and area sampling. Nearest is the fast default. Bilinear interpolates nearby luma/chroma samples. Area sampling integrates the source footprint of each output pixel with fractional edge weights, independently for Y and UV. This reduces aliasing when detailed 4K frames are reduced to 1080p or 720p. If an axis grows, area mode uses bilinear instead; equal-size NV12 keeps the exact row-copy path. The implementation respects crop bounds and independent stride/slice-height values and allocates no full-resolution intermediate frame.
+
+AAC conversion has separate **Fast linear** and **Low-pass downsampling** choices. The latter uses a 65-tap Blackman-windowed sinc filter with a cutoff at 94% of the output Nyquist limit. `TranscodeLowPassResampler` retains a bounded 67-frame stereo history and 32 source frames of lookahead across decoder Buffers. It processes already downmixed/upmixed S16LE frames. At EOS, edge extension drains the pending tail to exactly `ceil(inputSamples × targetRate / sourceRate)` samples; it does not append a filter-delay interval. AAC frame padding still applies afterwards. Equal-rate conversion and upsampling use the fast path.
+
+Both choices are saved in each queue item's quality snapshot. Higher quality costs CPU time; neither choice changes bitrate control or adds interpolation frames. The spectral regression check measures high-frequency alias rejection and low-frequency preservation rather than only checking output length.
 
 <a id="transcode-quality"></a>
 
@@ -265,6 +287,29 @@ When idle, the asynchronous worker waits on a condition variable for up to 2 ms,
 After configuring the encoder, the job gets its input Surface before `Prepare()` and passes that window to `OH_VideoDecoder_SetSurface()`. Decoded output is rendered to the encoder Surface; the application does not read or copy its pixels. Decoder output EOS triggers `OH_VideoEncoder_NotifyEndOfStream()`, and encoded output is still drained before finalization.
 
 This path keeps the original dimensions. Selecting Surface resets size and filter, turns off grayscale and the time range, and disables CPU processing, processed-frame preview and range controls. Frame-rate limiting remains available because frames can be returned without rendering. Container rotation is preserved while decoder rotation is zero, avoiding double rotation. Cleanup destroys the decoder first, then the encoder and its window reference.
+
+<a id="transcode-gpu"></a>
+
+#### SDR processing with OpenGL
+
+Select **OpenGL processing → Surface** to use this independent path:
+
+```text
+decoder Surface → NativeImage external texture → OpenGL crop/scale/letterbox/grayscale
+    → encoder input Surface → encoded output → MP4
+```
+
+`ConnectSurface()` first obtains the configured encoder's input window. `TranscodeGpuProcessor` creates an EGL context/window surface, shader program, external texture and NativeImage on the transcode worker. The decoder receives the NativeImage producer window before Prepare/Start. The processor shares small EGL/shader utilities under `common/graphics`; it has no dependency on the player VideoSink or its lifecycle.
+
+For each retained frame, `SubmitGpuFrame()` saves the rebased PTS and renders the decoder index to NativeImage. At most one rendered frame waits for processing. While the frame-available notification is pending, the job keeps draining encoder output and advancing audio. The callback only increments an atomic counter. The worker calls `UpdateSurfaceImage()`, applies the NativeImage texture matrix and the shared `PlanGeometry()` crop, clears letterbox bars, draws the content viewport, sets the presentation timestamp in nanoseconds and swaps to the encoder. It uses nearest or bilinear texture filtering; area sampling remains a Buffer option.
+
+A data-bearing EOS frame is drawn before encoder EOS is sent. Empty EOS is returned without drawing. GPU output PTS is already rebased and is not shifted a second time during muxing. Stop/Destroy ends decoder use first; then GPU work completes, the listener is removed, NativeImage and GL/EGL resources are released, and finally the encoder and window reference are destroyed.
+
+The source color checks reject HDR Vivid, PQ/HLG and unsupported HEVC profiles. GPU processing also rejects explicit non-BT.709 SDR primaries, transfer functions or matrix coefficients; missing/unspecified descriptors use the BT.709 working-space assumption. The encoder input window is RGBA8888 tagged BT.709 full-range and retains its existing allocation usage plus GPU rendering. NativeImage performs input YUV-to-RGB sampling; this implementation adds no general color-space conversion. It does not implement tone mapping or preserve dynamic HDR metadata. A mid-stream dimension change fails rather than reusing stale crop geometry.
+
+EGL/NativeImage/Surface initialization and frame-processing failures fail the task; selecting another path requires a new request. Window-buffer dequeue waits use a 100 ms timeout. The usual stall detector covers a missing frame notification. These bounds do not measure GPU execution latency. A zero CPU-copy byte count means that the application does not read/copy YUV pixels, not that processing is free.
+
+The preview button still uses the CPU processor on the same chosen frame, including in GPU mode. It verifies the requested geometry and basic effect, while the generated file is needed to judge GPU color conversion, codec behavior and compression.
 
 <a id="transcode-remux"></a>
 
@@ -298,7 +343,7 @@ Video re-encoding and processed-frame preview accept SDR input. They reject HDR 
 
 #### Media analysis, codec checks and stage diagnostics
 
-`TranscodeQualityTest.cpp` checks bilinear luma/chroma, exact same-size copying, buffer bounds and PCM sample counts across 32 rate/channel combinations. Audio pipeline tests also cover selected output layouts, output-sample PTS, fractional tails and timestamp gaps. Model tests cover quality snapshots, incompatible restored settings and preview cancellation. These host checks do not establish device-specific remux compatibility, encoded picture quality or real A/V synchronization.
+`TranscodeQualityTest.cpp` checks bilinear luma/chroma, area downsampling, exact same-size copying, buffer bounds and PCM counts across 64 rate/channel/filter combinations. Spectral tests check alias suppression, passband amplitude and short low-pass tails. Audio pipeline tests cover selected output layouts, output-sample PTS, fractional tails and timestamp gaps. Model tests cover quality snapshots, incompatible restored settings, preview cancellation during PixelMap creation, queue pause/failure policy and partial batch export. These host checks do not establish device-specific remux compatibility, encoded picture quality or real A/V synchronization.
 
 Source selection and output-setting changes trigger an asynchronous Native inspection. It reports source MIME, dimensions, frame rate, duration, audio tracks and target dimensions. Checks cover decoder and encoder size/frame-rate combinations, encoder bitrate limits and NV12 Buffer input. A hardware/software choice does not silently fall back to another category. The capability name is also used to create the codec. Inspection starts no codecs; checks run again at launch, and Configure, Prepare and Start remain the final authority.
 
@@ -325,7 +370,7 @@ The default copies the first audio track; a specific track can also be selected.
 
 Passthrough remuxes compressed samples. AAC conversion uses separate synchronous audio decoder/encoder instances and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; channels follow the source or use mono/stereo. Bitrate choices are 64, 128 and 192 kbps. Defaults retain the source layout and 128 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM layout fails explicitly.
 
-Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` performs streaming linear interpolation using two source sample frames. Stereo-to-mono averages both channels; mono-to-stereo duplicates samples. This bounded S16LE converter is not a studio-quality resampler or a multichannel mixer.
+Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` supports fast linear interpolation and optional [low-pass downsampling](#transcode-sampling), retaining state across Buffers. Stereo-to-mono averages channels; mono-to-stereo duplicates samples. The converter accepts interleaved mono/stereo S16LE and does not mix arbitrary multichannel layouts.
 
 `TranscodeAudioPipeline` retains one borrowed decoded output and one 1024-sample-per-channel AAC-LC assembly frame. Output PTS uses the first retained PCM timestamp and an integer output-sample clock. Source timestamp discontinuities greater than the larger of 2 ms and two source sample intervals fail explicitly instead of silently closing gaps. EOS flushes the fractional resampling tail by holding the last source sample, then zero-pads a short final AAC frame. Tail silence remains shorter than one AAC frame; an empty EOS follows separately and encoded output drains to EOS.
 
@@ -604,7 +649,7 @@ AVCodec/
     │   │   │   │   ├── TranscodeJob.cpp/.h  # Main loop, Buffer/Surface handoff and cleanup
     │   │   │   │   ├── TranscodeCodecIO.cpp # Sync queries or async callback consumption
     │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # Bounded callback queues and shutdown
-    │   │   │   │   ├── TranscodeOperations.cpp # Rate cap, first-frame preview and remux
+    │   │   │   │   ├── TranscodeOperations.cpp # Rate cap, selected-frame preview and remux
     │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV layout, resizing, crop and grayscale
     │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # Audio decoding, AAC framing and encoding
     │   │   │   │   ├── TranscodePcmConverter.h # Streaming resampling and mono/stereo conversion
@@ -671,6 +716,9 @@ The following source entries complement the directory tree for transcoding and s
 | Source | Responsibility |
 |---|---|
 | [TranscodePage.ets](entry/src/main/ets/pages/TranscodePage.ets), [TranscodeModel.ets](entry/src/main/ets/model/TranscodeModel.ets) | UI, request construction, job execution, file completion and queue orchestration |
+| [TranscodePreviewController.ets](entry/src/main/ets/controller/TranscodePreviewController.ets), [TranscodeQueueRunner.ets](entry/src/main/ets/controller/TranscodeQueueRunner.ets), [TranscodeExportController.ets](entry/src/main/ets/controller/TranscodeExportController.ets) | Paired-image lifetime, sequential queue dispatch/failure policy and per-file export outcomes |
+| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/TranscodeGpuProcessor.cpp), [EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | Worker-owned NativeImage/OpenGL processing and encoder-window submission, independent of playback |
+| [RecorderSegmentController.ets](entry/src/main/ets/controller/RecorderSegmentController.ets), [RecorderOutputController.ets](entry/src/main/ets/controller/RecorderOutputController.ets), [RecorderSettingsController.ets](entry/src/main/ets/controller/RecorderSettingsController.ets) | Segment thresholds/results, asset and descriptor initialization, settings selection outside Index |
 | [TranscodeQualityModel.ets](entry/src/main/ets/model/TranscodeQualityModel.ets), [TranscodeQueueModel.ets](entry/src/main/ets/model/TranscodeQueueModel.ets) | Quality snapshots, queue state and restore validation |
 | [TranscodeSourcePicker.ets](entry/src/main/ets/model/TranscodeSourcePicker.ets), [TranscodeFilesModel.ets](entry/src/main/ets/model/TranscodeFilesModel.ets) | Source selection, export, history and private files |
 | [MediaTaskCoordinator.ets](entry/src/main/ets/model/MediaTaskCoordinator.ets), [MediaFileActivity.ets](entry/src/main/ets/model/MediaFileActivity.ets) | Task leases and compatible launch/cleanup entry points |
@@ -1389,6 +1437,18 @@ The timeline and diagnostics are for the active recording view only. Recording c
 
 The result page reopens finalized files with independent read-only descriptors to obtain dimensions, duration, container MIME, track count, and audio sample rate. The metadata extractor is released before its descriptor is closed. It does not reuse a descriptor owned by a muxer or player, and missing fields remain unavailable rather than falling back to requested settings. Container metadata does not prove valid HDR Vivid dynamic metadata. API 26 metadata retrieval uses a three-second timeout; a metadata read failure does not affect the recording or its history entry.
 
+<a id="recording-segments"></a>
+
+#### Duration and size based recording segments
+
+Recording settings can limit a segment to 60/180/300 seconds, 256/512/1024 MiB, or leave either limit unlimited. The feature is available for MP4. Reaching either enabled limit starts a switch; dual-output recording checks the larger file and switches both outputs together. File size is checked once per second, so the threshold is a trigger rather than a hard byte ceiling.
+
+`RecorderSegmentController` decides when to switch and groups results. The page first stops camera delivery, requests codec EOS, drains encoded audio/video, finishes the muxers and waits for Native release. Only then are descriptors closed and a fresh recording session created through `RecorderLaunchController`/`RecorderOutputController`. The new codecs begin a separate MP4; compressed packets are not split at an arbitrary boundary or appended into an old file. Camera/codec reinitialization leaves a short gap between segments.
+
+Each completed segment is persisted immediately under the recording group ID in `RecordingHistoryModel`. History shows one recording entry; its result page lists and plays individual primary/secondary files. Duration totals exclude the switching gaps. A later initialization/storage failure keeps prior segments and marks the visible result incomplete. Back navigation, page hiding and manual completion set the ending flag and wait for an in-flight switch, preventing another segment from starting after exit.
+
+Completed segments are independent MP4 files. A process kill can still leave the active segment unfinished; this implementation does not repair that file or provide seamless splitting. Live bitrate changes belong to the active Native session; a new segment uses the applied recording configuration. One recording stops normally after 1000 segments so restored history can retain every segment reference.
+
 <a id="recorder-audio-storage"></a>
 
 #### Audio diagnostics and storage protection
@@ -1931,7 +1991,7 @@ SubmitDecodedFrame() -> SubmitBufferFrame()
   -> OH_VideoDecoder_FreeOutputBuffer(): return source decoded frame
 ```
 
-Pixel reads and writes occur in `TranscodeFrames::Process()` in `TranscodeFrameProcessor.cpp`. Equal-size processing copies visible pixels. Resizing uses aspect-fit, center crop or letterboxing, with optional grayscale and nearest-neighbor/bilinear filtering. `ProcessBufferFrame()` checks source offset/capacity and both actual layouts. Encoder input size comes from the destination layout, not the source sample size. A format change invalidates cached layouts so the next processed frame reads them again.
+Pixel reads and writes occur in `TranscodeFrames::Process()` in `TranscodeFrameProcessor.cpp`. Equal-size NV12 copies visible rows; resizing uses aspect-fit, center crop or letterboxing with optional grayscale and nearest/bilinear/area sampling. `ProcessBufferFrame()` checks source offset/capacity and both actual layouts. Encoder input size comes from the destination layout; a format change invalidates cached layouts.
 
 The processor reads I420, NV12 or NV21 and writes NV12 for encoder input. `RequiredBytes()` validates capacity from stride and slice height; dimensions, stride and slice height require even alignment for YUV420. `PlanGeometry()` aligns crop/content coordinates to chroma samples. Letterboxing fills black luma and neutral chroma; grayscale preserves luma and writes neutral chroma. Equal-size NV12 can copy visible rows; I420/NV21 require UV rearrangement rather than a whole-buffer memcpy across different layouts.
 
@@ -1945,7 +2005,7 @@ The page edits seconds, the request carries milliseconds, and Native compares PT
 
 `ConnectSurface()` obtains the encoder input Surface and passes it to the decoder with `OH_VideoDecoder_SetSurface()`. `SubmitSurfaceFrame()` calls `OH_VideoDecoder_RenderOutputBuffer()` for an output carrying a picture, sending it to the encoder Surface. Empty EOS output is freed, and `OH_VideoEncoder_NotifyEndOfStream()` ends Surface input. This video path does not read or copy pixels on the application CPU.
 
-Surface mode retains source dimensions and does not offer CPU resizing, grayscale or range trimming. Buffer mode demonstrates pixel processing; direct Surface input demonstrates avoiding that application pixel copy. Both still drain encoded output, write it to MP4 and return the encoded output index.
+Direct Surface mode retains source dimensions and does not offer pixel resizing, grayscale or range trimming. The separate OpenGL Surface mode adds SDR processing through NativeImage. All three modes drain encoded output, write MP4 and return encoded indices.
 
 #### Input EOS, cancellation and a completed file
 
@@ -1953,13 +2013,13 @@ Input EOS only sets `decoderInputDone_`. Processing continues until both encoded
 
 Normal completion calls `FinalizeOutput()`: require video samples, stop the muxer, `fsync` the file and reopen the MP4 for validation. Invalid MIME/dimensions, track count or nonpositive duration fail the job. Color, rotation, audio-layout or duration differences can produce `validationNotes` and a warning result. This validates container metadata, not frame-by-frame decoded picture quality. ArkTS renames the partial file only after Native succeeds; a rename failure remains a file-operation failure.
 
-Cancellation and failure skip normal finalization and enter `Cleanup()`. Cleanup destroys the audio pipeline, stops/destroys the video decoder and encoder, releases the encoder Surface reference, muxer, application-owned temporary Buffers and demuxer/source, then closes Native's fd duplicates. The decoder borrows the encoder Surface, so its use ends first. Playback, export and history treat the final file as the successful result, not the `.part` file.
+Cancellation and failure skip normal finalization and enter `Cleanup()`. Cleanup destroys the audio pipeline and stops/destroys the video decoder. GPU mode then unregisters the frame callback, finishes GL work and destroys NativeImage and EGL before releasing the encoder. Finally it releases the encoder Surface reference, muxer, application-owned temporary Buffers and demuxer/source, then closes Native's fd duplicates. Direct Surface mode also ends the decoder's use of the encoder Surface before releasing that Surface. Playback, export and history treat the final file as the successful result, not the `.part` file.
 
 #### Remuxing and preprocessing preview
 
 `RunRemux()` builds MP4 tracks from source descriptions. `CopyVideoSample()` writes compressed demuxer samples to the muxer; audio is copied or omitted. No video codec is created, but compressed bytes still pass through application Buffers. The current operation covers the full file, without range trimming, resizing, grayscale or AAC conversion. An MP4-incompatible source track fails explicitly.
 
-`RunPreview()` creates only a synchronous video decoder and obtains the first retained frame in the selected range. `CapturePreview()` reuses `TranscodeFrames::Process()`, limits the processed image's long edge to 640, and converts it to RGBA for the page. Preview is cancellable and has a 15-second timeout; it creates neither a video encoder nor an output MP4. It checks composition and grayscale, not encoded quality, full-job duration or compatibility of every frame.
+`RunPreview()` creates only a synchronous video decoder and obtains the first retained frame at or after the chosen preview time within the selected range. `CapturePreview()` reuses that decoded Buffer to build original and processed thumbnails, caps each long edge at 640 and converts both to RGBA. `TranscodePreviewController` owns the paired PixelMaps and releases late results. Preview is cancellable and has a 15-second timeout; it creates neither a video encoder nor an output MP4. It checks composition and basic effects, not GPU color conversion, encoded quality, full-job duration or compatibility of every frame.
 
 <a id="task-recovery"></a>
 
@@ -1977,6 +2037,18 @@ Cancellation and failure skip normal finalization and enter `Cleanup()`. Cleanup
 `MediaFileActivity` also counts launches to block cleanup between starting a launch and publishing its active state. Entry points check actual player/recorder state too. A Tab change is not task completion. Controller disposal must stop or cancel its task through the owning flow rather than merely clearing UI busy state.
 
 Cancelling a transcode sets `cancelRequested`, pauses the queue, marks the lease cancelling and calls Native `cancel()`. The worker observes cancellation and cleans up before returning. ArkTS then closes its files, records the result and releases the lease. Another media task cannot start during this interval.
+
+<a id="transcode-batch"></a>
+
+#### Batch selection, ordering and export
+
+The queue can select several Files or Gallery videos at once, up to its remaining capacity of 30 tasks. Every selected URI gets a separate settings/quality/range snapshot. Source dimensions, audio-track availability and codec compatibility are checked again when that task executes; an option suitable for one file is not assumed to work on all files.
+
+Move up/down swaps only waiting tasks. Running and finished tasks keep their positions. Each card shows codec, input path, output limit, bitrate, scheduling, filter, geometry and time range. **Pause on failure** stops before the next task; turning it off lets failed tasks remain visible while the queue continues. Cancel always pauses. “Pause after the current task” lets the active Native job finish and finalizes its MP4 before stopping queue progression.
+
+`TranscodeQueueRunner` owns dispatch and pause/failure policy, while the model supplies typed callbacks for task execution, persistence and resource checks. Queue contents and the failure policy are saved separately in `transcode_queue.json` and `transcode_queue_policy.json`. Restore keeps the queue paused; it does not automatically restart codecs.
+
+Batch export passes completed private files to one system save/asset-creation dialog. `TranscodeExportController` copies each authorized destination and records saved/failed/cancelled outcomes. A copy or close failure affects that file; later entries are still attempted. Private completed files remain available, so export can be retried. An exported MP4 is separate from its local diagnostic report.
 
 #### What recovery restores
 
@@ -2017,11 +2089,11 @@ Playback/recording sheets edit drafts and apply them to their models. Transcodin
 | Option | Model to request | Applied in Native | Actual result and limits |
 |---|---|---|---|
 | Video codec | `codecIndex` → `mime`: `video/avc` or `video/hevc` | `InspectCodecs()` selects instances; `ConfigureEncoderFormat()` builds Format | `StartMuxer()` reads actual encoder output; file validation checks MIME again |
-| Size and filtering | `sizeIndex` → `longEdge`, `resizeMode`, `quality.filter` → `scalingFilter` | Size calculation and `TranscodeFrames::Process()` | Buffer supports pixel processing; Surface retains source size and rejects CPU filters |
+| Size and filtering | `sizeIndex` → `longEdge`, `resizeMode`, `quality.filter` → `scalingFilter` | Size calculation and `TranscodeFrames::Process()` or GPU `PlanGeometry()` | Buffer nearest/bilinear/area; GPU nearest/bilinear; direct Surface retains source size |
 | Frame-rate cap | `quality.frameRate` → `frameRateLimit`: 0/24/30/60/120 | PTS buckets in `DropFrame()`; encoder request uses `OutputFrameRate()` | 0 follows source; no interpolation; distinguish requested rate from output counts |
 | Bitrate and keyframes | `bitrateIndex` → bit/s, `bitrateMode` → VBR/CBR, keyframe choice → ms | `OH_MD_KEY_BITRATE`, `OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE`, `OH_MD_KEY_I_FRAME_INTERVAL` | Inspection and Configure are checked; a target bitrate is not a promise for each short window |
 | AAC output layout | `quality.audioRate/audioChannels/audioBitrate` → Hz, channels and bit/s | `TranscodeAudioPipeline::Configure()` and streaming PCM conversion | AAC conversion only; rate/channel 0 follows source; conversion currently supports mono/stereo S16LE |
-| Selected range | Seconds in page fields → `startTimeMs/endTimeMs` → Native microseconds | Previous-sync seek, out-of-range filtering, real EOS drain and rebased Buffer PTS | Buffer video transcoding only; original-stream remuxing covers the full file |
+| Selected range | Page seconds → `startTimeMs/endTimeMs` → Native microseconds | Previous-sync seek, decoded-frame filtering, true EOS draining and PTS rebasing | Buffer/GPU only; remux processes the full file |
 
 <a id="diagnostic-definitions"></a>
 

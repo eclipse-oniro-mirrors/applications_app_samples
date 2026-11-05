@@ -14,6 +14,7 @@
  */
 
 import { LocalizedText } from '../common/LocalizedText';
+import { RecorderSettingsController } from '../controller/RecorderSettingsController';
 import { MediaSettingsLabels } from '../model/MediaSettingsLabels';
 import { fileIo, picker } from '@kit.CoreFileKit'
 import { PiPWindow, window } from '@kit.ArkUI'
@@ -1886,81 +1887,9 @@ export struct Player {
   }
 
   private chooseRecorderOption(option: RecorderSettingsOption): void {
-    if (option === RecorderSettingsOption.CROP_PERCENT) {
-      const percentages: number[] = [50, 75, 90, 100];
-      this.showSettingPicker(['50%', '75%', '90%', '100%'], percentages.indexOf(this.recorderDraft.cropPercent),
-        (index: number): void => { this.recorderDraft.cropPercent = percentages[index]; });
-      return;
-    }
-    if (option === RecorderSettingsOption.DOWNSAMPLING_TARGET || option === RecorderSettingsOption.SECONDARY_TARGET) {
-      const heights: number[] = [360, 480, 720, 1080];
-      const selected: number = option === RecorderSettingsOption.DOWNSAMPLING_TARGET ?
-        this.recorderDraft.downsamplingHeight : this.recorderDraft.secondaryHeight;
-      this.showSettingPicker(['360P', '480P', '720P', '1080P'], heights.indexOf(selected),
-        (index: number): void => {
-          if (option === RecorderSettingsOption.DOWNSAMPLING_TARGET) {
-            this.recorderDraft.downsamplingHeight = heights[index];
-          } else {
-            this.recorderDraft.secondaryHeight = heights[index];
-          }
-        });
-      return;
-    }
-    if (option === RecorderSettingsOption.OUTPUT_FORMAT) {
-      this.showSettingPicker(Const.OUTPUT_FORMAT, this.recorderDraft.outputFormat,
-        (index: number): void => { this.recorderDraft.outputFormat = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_CODEC) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderCodecLabels(), this.recorderDraft.codec,
-        (index: number): void => { this.recorderDraft.codec = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_RESOLUTION) {
-      this.showSettingPicker(MediaSettingsLabels.getResolutionLabels(), this.recorderDraft.resolution,
-        (index: number): void => { this.recorderDraft.resolution = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
-      this.showSettingPicker(MediaSettingsLabels.getFrameRateLabels(), this.recorderDraft.frameRate,
-        (index: number): void => {
-          this.recorderDraft.frameRate = index;
-          if (index === 0) {
-            this.recorderDraft.dropFrameRate = 0;
-          }
-        });
-    } else if (option === RecorderSettingsOption.SYNC_MODE) {
-      this.showSettingPicker(MediaSettingsLabels.getSyncModeLabels(), this.recorderDraft.syncMode,
-        (index: number): void => { this.recorderDraft.syncMode = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_BITRATE) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderBitrateLabels(), this.recorderDraft.bitrate,
-        (index: number): void => { this.recorderDraft.bitrate = index; });
-    } else if (option === RecorderSettingsOption.BITRATE_MODE) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderBitrateModeLabels(), this.recorderDraft.bitrateMode,
-        (index: number): void => { this.recorderDraft.bitrateMode = index; });
-    } else if (option === RecorderSettingsOption.I_FRAME_INTERVAL) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderIFrameIntervalLabels(), this.recorderDraft.iFrameInterval,
-        (index: number): void => { this.recorderDraft.iFrameInterval = index; });
-    } else if (option === RecorderSettingsOption.AUDIO_SAMPLE_RATE) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioSampleRateLabels(), this.recorderDraft.audioSampleRate,
-        (index: number): void => { this.recorderDraft.audioSampleRate = index; });
-    } else if (option === RecorderSettingsOption.AUDIO_CHANNEL_COUNT) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioChannelCountLabels(),
-        this.recorderDraft.audioChannelCount,
-        (index: number): void => { this.recorderDraft.audioChannelCount = index; });
-    } else if (option === RecorderSettingsOption.AUDIO_BITRATE) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioBitrateLabels(), this.recorderDraft.audioBitrate,
-        (index: number): void => { this.recorderDraft.audioBitrate = index; });
-    } else if (option === RecorderSettingsOption.AUDIO_CAPTURE_LATENCY) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioLatencyLabels(), this.recorderDraft.audioLatency,
-        (index: number): void => { this.recorderDraft.audioLatency = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_STABILIZATION) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderStabilizationLabels(), this.recorderDraft.stabilization,
-        (index: number): void => { this.recorderDraft.stabilization = index; });
-    } else if (option === RecorderSettingsOption.VIDEO_PREPROCESSING) {
-      this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.recorderDraft.preprocMode,
-        (index: number): void => { this.recorderDraft.preprocMode = index; });
-    } else if (option === RecorderSettingsOption.DROP_FRAME_RATE) {
-      this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.recorderDraft.dropFrameRate,
-        (index: number): void => { this.recorderDraft.dropFrameRate = index; });
-    } else if (option === RecorderSettingsOption.DUAL_OUTPUT) {
-      this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.recorderDraft.dualOutput,
-        (index: number): void => { this.recorderDraft.dualOutput = index; });
-    }
+    RecorderSettingsController.choose(option, this.recorderDraft,
+      (labels: string[], selected: number, onSelected: (index: number) => void): void =>
+        this.showSettingPicker(labels, selected, onSelected));
   }
 
   @Builder
@@ -2009,6 +1938,7 @@ export struct Player {
   @Builder
   RecorderSettingsSheet() {
     RecorderSettingsPanel({
+      draft: this.recorderDraft,
       capabilityHint: this.recorderCapabilityHint,
       onCheckCapabilities: (): void => this.checkRecorderDraftCapabilities(),
       videoDumpEnabled: this.recorderDraft.videoDump,

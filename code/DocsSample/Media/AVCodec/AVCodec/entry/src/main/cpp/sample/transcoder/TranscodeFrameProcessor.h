@@ -22,7 +22,7 @@
 namespace TranscodeFrames {
 enum class Chroma { NV12, NV21, I420 };
 enum class ResizeMode { FIT, CENTER_CROP, LETTERBOX };
-enum class Filter { NEAREST, BILINEAR };
+enum class Filter { NEAREST, BILINEAR, AREA };
 struct Geometry {
     int32_t cropLeft = 0;
     int32_t cropTop = 0;

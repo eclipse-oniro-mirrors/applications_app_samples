@@ -110,6 +110,7 @@
 | 录制中调整参数 | 主、副路可分别请求调整码率或产生关键帧，无需重建录制会话 | [动态录制参数](#recorder-live-parameters) |
 | 录制实时诊断 | 分路显示短时和全程码率、输出节奏、关键帧、取输出等待与写入耗时、文件和 Dump 状态，并区分配置与实测来源 | [录制实时诊断](#recorder-diagnostics) |
 | 录制时间线 | 记录初始化、首帧、停止、实际 EOS、排空、资源释放和文件关闭阶段 | [时间线与结果](#recording-session-results) |
+| 录制分段 | 按时长或大小生成独立 MP4，历史按同次录制归组 | [分段保存](#recording-segments) |
 | 录制结果与历史 | 播放已完成的文件并查看基础收尾状态和成品信息；详细诊断只在录制过程中显示 | [录制结果与历史](#recording-session-results) |
 | 音频诊断与存储保护 | 查看 PCM 积压、AAC 输出、相对 PTS 进度和写入耗时，估算剩余时间，可选低空间安全停止 | [音频与存储](#recorder-audio-storage) |
 | 录制页面职责 | 用统一阶段管理准备、录制与收尾，划分相机会话、诊断、结果展示和文件管理的职责 | [录制页面职责](#recorder-controller-ownership) |
@@ -164,12 +165,14 @@
 
 | 功能 | 示例中的行为 | 实现说明 |
 |---|---|---|
-| 输入与输出 | 从文件管理或图库选择一个视频，将完成的 MP4 导出到任一位置 | [视频转码](#transcoding) |
+| 输入与输出 | 从文件管理或图库选择一个或多个视频，逐项或批量导出完成的 MP4 | [视频转码](#transcoding)、[批量操作](#transcode-batch) |
 | Buffer 处理 | 解码得到 YUV，按需缩小或转为灰度，再填入编码器输入 Buffer | [Buffer 链路](#transcode-buffer) |
 | Surface 对接 | 解码器直接输出到编码器输入 Surface，保留原始尺寸 | [Surface 链路](#transcode-surface) |
+| GPU 处理 | SDR 画面经 NativeImage/OpenGL 裁剪、缩放、补边和灰度后送编码 Surface | [OpenGL 链路](#transcode-gpu) |
 | 同步与异步调度 | 视频解码和编码均支持同步查询或异步回调队列，可搭配 Buffer 或 Surface 输入 | [编解码调度](#transcode-codec-mode) |
 | 编码参数 | 编码器选择、帧率上限、CBR/VBR 和关键帧间隔 | [编码质量](#transcode-quality) |
-| 处理预览 | 解码一帧，显示处理后的缩略图；保留裁剪与留边示意图 | [Buffer 链路](#transcode-buffer) |
+| 处理预览 | 选择时间，同一解码帧的原图／处理图切换，显示实际几何和算法 | [处理前后预览](#transcode-preview) |
+| 采样质量 | 面积缩小与流式低通音频降采样，同时保留快速档 | [采样质量](#transcode-sampling) |
 | MP4 转封装 | 不创建 codec，复制整段原视频和可选音轨 | [原码流转封装](#transcode-remux) |
 | 能力检查与诊断 | 读取媒体描述，检查尺寸/帧率、码率、输入布局，统计分阶段耗时与 Buffer 等待 | [转码诊断](#transcode-diagnostics) |
 | 音频策略 | 保留选定音轨、转 AAC-LC 或无音频 | [音频处理](#transcode-audio) |
@@ -182,26 +185,26 @@
 
 底部页面顺序为播放、媒体库、录制、转码、设备。进入转码页后，先从文件管理或图库选择视频，设置输出参数，再点击“开始转码”。完成后可选择“保存到文件”或“保存到图库”。输入文件始终以只读方式打开。
 
-转码使用独立的 `libtranscoder.so`，不借用 Player、Recorder 单例。`TranscodeModel.ets` 管理选源、任务状态和导出，`TranscodePage.ets` 负责展示；模型由 Index 持有，切换底部页面后，任务和结果仍保留。离开主页面会取消它持有的转码任务；本示例没有注册后台转码任务。
+转码使用独立的 `libtranscoder.so`，不借用 Player、Recorder 单例。`TranscodeModel.ets` 管理请求配置和任务状态；`TranscodePreviewController` 管预览请求、取消和图片生命周期，`TranscodeQueueRunner` 管队列推进，`TranscodeExportController` 管文件导出。`TranscodePage.ets` 负责展示；Index 持有模型，切换 Tab 后任务和结果仍保留。离开主页面会取消其转码任务，本示例没有注册后台转码任务。
 
 | 参数 | 选项与行为 |
 |---|---|
 | 编码与封装 | H.264 或 H.265，统一封装为 MP4，设备须提供对应编码器 |
-| 编码输入 | Buffer 或 Surface，两条路径都支持同步查询和异步回调 |
+| 编码输入 | Buffer、Surface 直连或 OpenGL → Surface，均可选择同步查询与异步回调 |
 | 视频编解码调度 | 默认同步；异步同时作用于视频解码和编码，随队列任务保存 |
-| 输出尺寸 | 原始尺寸，或限制长边为 1920、1080、720 像素，仅 Buffer 可选 |
+| 输出尺寸 | 原始尺寸，或限制长边为 1920、1080、720 像素，Buffer 与 GPU 可选 |
 | 目标码率 | 2、4、8、16 Mbps，可选 VBR 或 CBR，实际码率可能有波动 |
 | 帧率上限 | 跟随源视频，或限制为 24、30、60、120 fps；不提高源帧率 |
 | 关键帧间隔 | 1、2、3、5 秒，实际落点由编码器决定 |
-| 缩放滤镜 | 最近邻或双线性，仅 Buffer 可选 |
-| 灰度处理 | 仅 Buffer 可选，保留亮度，将色度置为中性值 |
+| 缩放滤镜 | 最近邻、双线性；Buffer 额外支持面积采样缩小 |
+| 灰度处理 | Buffer 保留 Y 并中和 UV；GPU 在 RGB 纹理上计算亮度 |
 | 编码器 | 自动、硬件、软件；检查所选类别对应的 codec name，按同一个名称创建实例 |
 | 音轨 | 首条或指定音轨：保留压缩码流、配置 AAC-LC 输出参数，或无音频 |
-| 时间段 | 仅 Buffer 模式可用；开始时间必填，结束时间可留空表示源文件结尾 |
+| 时间段 | Buffer 与 GPU 可用；开始时间必填，结束时间可留空表示源文件结尾 |
 
 尺寸选项限制的是长边。1920 × 1080 的视频选长边 720 后，输出为 720 × 404；竖屏对应为 404 × 720。YUV 4:2:0 的宽高需为偶数，所以计算结果会向下对齐。源视频比限制值小时保持原尺寸，不放大。
 
-可选时间段使用秒为单位，最多三位小数，结束点不包含在输出中。Native 从不晚于开始点的关键帧处解码，再按解码帧 PTS 丢弃区间外画面并把输出时间戳归零。为了处理 B 帧重排，解码仍会运行到源文件真正的 EOS；片段较短时，处理时间不一定与片段长度成比例。此选项仅用于 Buffer 模式，Surface 直连不支持按帧筛选。
+可选时间段使用秒为单位，最多三位小数，结束点不包含在输出中。Native 从不晚于开始点的关键帧处解码，按 PTS 丢弃区间外画面并把输出时间戳归零。为保留 B 帧重排结果，解码仍运行到源文件真正的 EOS；短片段也可能需要较长处理时间。Buffer 与 GPU 支持此筛选，Surface 直连和原码流转封装处理完整文件。
 
 复制音轨时按压缩包的 PTS 边界取样，边界精度受源编码包长限制。选择 AAC 转码时，会裁切解码后的 PCM 样本，再编码 AAC-LC；最后一帧不足 1024 个样本时补零，输出尾部可能多出不足一帧 AAC 的静音。
 
@@ -213,6 +216,9 @@ flowchart LR
   Buffer --> Encoder[视频编码器]
   Decoder --> Surface[编码器输入 Surface]
   Surface --> Encoder
+  Decoder --> Image[NativeImage 外部纹理]
+  Image --> GPU[OpenGL 裁剪 / 缩放 / 留边 / 灰度]
+  GPU --> Surface
   Encoder --> Mux[MP4 封装器]
   Demux --> Audio[可选音轨：原码流透传或转 AAC]
   Audio --> Mux
@@ -226,13 +232,29 @@ flowchart LR
 
 `TranscodeJob` 选择首条视频轨，将解码输出配置为 NV12，并创建接收 NV12 Buffer 的编码器。工作线程按“视频编解码调度”选项同步查询解码输出，或从异步回调队列取帧，两种模式共用像素处理和提交代码。`TranscodeFrameProcessor.h` 分别读取解码侧和编码侧的实际宽高、stride、sliceHeight，两块 Buffer 的行跨距和填充行数不必一致。
 
-支持 8 bit NV12、NV21、I420 输入布局，处理后写成 NV12。默认使用最近邻；双线性对亮度和色度分别插值，边缘通常更平滑，但 CPU 开销更高，也不等于大比例缩小时的抗混叠滤波。灰度处理保留 Y，把 UV 填成 128。这条链路会读写和拷贝像素，用来展示解码后的图像处理，不以 Surface 的吞吐率为目标。
+支持 8 bit NV12、NV21、I420 输入布局，处理后写成 NV12。默认最近邻，另有双线性和面积采样，计算代价和缩小效果见[采样质量](#transcode-sampling)。灰度保留 Y，把 UV 填成 128。这条链路会读写和拷贝像素，用来展示解码后的图像处理。
 
 布局只在首帧读取，解码输出格式变化后重新读取，避免每帧重复申请和销毁 Format。同尺寸 NV12 按行复制 Y、UV，两边 stride 不同时分别计算行地址，不复制源填充区。只有目标 padding 和灰度 UV 需要额外填充，正常彩色像素不再先清空再覆盖。缩放、NV21 和 I420 仍走各自分支。没有增加整帧中间副本，也不将解码 Buffer 的所有权转给编码器。
 
 等待编码器输入时，最多持有一帧解码输出。处理后的图像提交给编码器后，再归还原解码输出索引。每轮先尝试取走编码输出，避免输入、输出队列互相堵住。输入遇到 EOS 只结束投喂，仍要等编码输出 EOS 才能结束。最后一帧同时带有像素和 EOS 时，先送像素，再单独送一个空 EOS，避免漏掉尾帧。
 
-几何示意图只展示裁剪范围、输出尺寸和留边，不是实际画面。“预览处理后画面”会启动一个可取消的独立解码任务，取所选时间段内的第一帧，按当前几何、滤镜和灰度设置生成长边不超过 640 像素的缩略图，再把 NV12 转为 RGBA。处理发生在缩略图尺寸，不是把完整编码结果缩小；不预览压缩损失、容器旋转或 HDR 转换。预览仅用于 Buffer，与转码共用会话互斥，15 秒超时；源文件或处理参数变化后清除旧图。
+<a id="transcode-preview"></a>
+
+#### 同一帧的处理前后对比
+
+几何示意图展示裁剪范围、输出尺寸与留边。选择所选时间段内的位置后，预览任务用一个同步解码器取到请求 PTS 或其后的画面，从同一个解码输出生成原图与处理图，两张图的长边均不超过 640 像素。界面可切换原图／处理后，显示实际取帧时间、裁剪与内容区域、输出尺寸和算法。`TranscodePreviewController` 负责两个 PixelMap、请求失效与释放，取消或退出后晚到的图片也会释放。
+
+Buffer 与 GPU 的预览都在 CPU 上按缩略图尺寸处理，不包含压缩损失、容器旋转或 HDR 转换。预览共用任务互斥，15 秒超时；源文件或处理配置变化时清除两张旧图。完成转码后，可用原文件／结果文件入口比较实际编码效果。原文件入口绑定当前结果；从历史打开结果时，未保留源授权便不提供该入口。
+
+<a id="transcode-sampling"></a>
+
+#### 视频与音频的采样质量
+
+Buffer 视频提供最近邻、双线性和面积采样。最近邻是默认快速模式；双线性分别对亮度与色度做邻域插值。面积采样按每个目标像素覆盖的源区域累加权重，区域边缘保留小数覆盖率，Y 与 UV 分别处理，适合细节较多的 4K 画面缩到 1080p、720p。任一方向放大时改用双线性；同尺寸 NV12 仍走逐行精确复制。算法沿用裁剪范围和两侧独立的 stride/sliceHeight，不增加完整分辨率的中间图像。
+
+AAC 转换另有“快速线性”和“低通滤波降采样”两档。后者使用 65 抽头的 Blackman 窗 sinc 滤波器，截止频率为输出奈奎斯特频率的 94%。`TranscodeLowPassResampler` 跨解码 Buffer 保存 67 个双声道采样帧的有界历史，并保留 32 个源采样帧的前瞻；混音后的 S16LE 数据进入滤波器。EOS 时用边缘延拓排空尾部，输出数量严格为 `ceil(输入采样数 × 目标采样率 / 源采样率)`，不额外追加一段滤波延迟。之后仍按 AAC 帧长补零。同采样率与升采样继续用快速路径。
+
+这两项设置保存在每个队列任务的质量快照中。高质量档会增加 CPU 计算，不改变码率控制，也不做视频插帧。频谱检查同时验证高频混叠抑制和低频保留，采样数量检查则覆盖跨 Buffer 与 EOS 尾部。
 
 <a id="transcode-quality"></a>
 
@@ -251,6 +273,29 @@ flowchart LR
 编码器 `Configure()` 后、`Prepare()` 前取得输入 Surface，再通过 `OH_VideoDecoder_SetSurface()` 交给解码器。应用将解码输出渲染到这块 Surface，不读取或拷贝帧像素。解码输出 EOS 后，调用 `OH_VideoEncoder_NotifyEndOfStream()`，继续取编码输出，直至编码器也返回 EOS。
 
 这条链路保留原始尺寸。切换到 Surface 时恢复原尺寸和默认滤镜，关闭灰度及时间段，禁用 CPU 处理、实际画面预览和时间段选项。帧率限制仍可用，因为可以直接归还不需要渲染的帧。容器旋转写入输出 MP4，解码器旋转设为零，避免两次旋转。释放时先销毁借用窗口的解码器，再销毁编码器和窗口引用。
+
+<a id="transcode-gpu"></a>
+
+#### OpenGL 处理链路
+
+选择“OpenGL 处理 → Surface”后，转码走独立的 GPU 路径：
+
+```text
+解码 Surface → NativeImage 外部纹理 → OpenGL 裁剪 / 缩放 / 补边 / 灰度
+    → 编码器输入 Surface → 编码输出 → MP4
+```
+
+`ConnectSurface()` 先取得已配置编码器的输入窗口。`TranscodeGpuProcessor` 在转码工作线程创建 EGL 上下文、窗口 Surface、着色器、外部纹理和 NativeImage，解码器在 Prepare/Start 前接入 NativeImage 的生产者窗口。EGL 和 shader 工具放在 `common/graphics`；处理器不依赖播放器的 VideoSink，也不共用播放器的生命周期。
+
+每帧先经过时间段与帧率筛选。`SubmitGpuFrame()` 保存归零后的 PTS，再 Render 解码输出索引，最多保留一帧等待 NativeImage 通知。等待期间，工作线程仍可取走编码输出、处理音轨。帧可用回调只增加原子计数，不操作 GL。工作线程执行 `UpdateSurfaceImage()`，叠加 NativeImage 纹理矩阵与共用的 `PlanGeometry()` 裁剪范围，清空黑边、按内容区域绘制，然后用纳秒单位的展示时间戳提交编码 Surface。纹理采样支持最近邻与双线性；面积采样保留在 Buffer 路径。
+
+带画面的 EOS 要等绘制提交后才通知编码器结束；空 EOS 直接归还。GPU 提交的 PTS 已经归零，封装时不会再减一次起点。释放时先停止并销毁解码器，再完成 GPU 在途工作、注销监听、释放 NativeImage 与 GL/EGL 对象，最后销毁编码器和窗口引用。
+
+源文件检查会拒绝 HDR Vivid、PQ/HLG 和不支持的 HEVC Profile。GPU 路径也拒绝明确标为非 BT.709 的 SDR 色域、传递函数或矩阵；缺少或未指定这些描述时，按 BT.709 工作空间处理。编码输入窗口使用 RGBA8888、BT.709 全范围标签，保留原有分配用途并增加 GPU 绘制用途。输入 YUV 到 RGB 的采样由 NativeImage 处理，这里没有通用色彩空间转换、色调映射或动态 HDR 元数据保留。流中分辨率变化会明确失败，不沿用旧裁剪坐标。
+
+EGL、NativeImage、编码 Surface 初始化或帧处理失败时结束当前任务，不自动切换到缺少处理效果的路径。NativeWindow 申请 Buffer 的等待设为 100 ms，帧通知长期不到则由任务停滞检查报错；这些限制不代表测量了 GPU 执行延迟。CPU 拷贝字节数为零，只说明应用没有读写 YUV 像素。
+
+GPU 模式的预览仍使用 CPU 处理同一张源画面，用来确认几何和基本效果。GPU 的颜色转换、编码器处理和压缩损失需要播放生成文件确认。
 
 <a id="transcode-remux"></a>
 
@@ -288,7 +333,7 @@ Buffer 编码在提交编码器输入前换算 PTS，Surface 编码和原码流�
 
 #### 媒体分析、能力检查与分阶段诊断
 
-`TranscodeQualityTest.cpp` 检查双线性亮度/色度、同尺寸精确复制、Buffer 边界和 32 种采样率/声道组合的采样数。音频管线测试还覆盖目标布局、输出采样时钟、尾部和时间戳跳变；`TranscodeCodecCallbacksTest.cpp` 检查四路回调隔离、格式与 EOS 顺序、缓冲借用、队列上限、错误来源，以及取消和晚到回调。模型测试覆盖质量快照、旧队列兼容、同步/异步选项恢复、不兼容配置和预览取消。这些 Host 检查不代表已确认真机回调时序、转封装兼容性、编码画质或实际音画同步。
+`TranscodeQualityTest.cpp` 检查双线性亮度/色度、面积缩小、同尺寸精确复制、Buffer 边界和 64 种采样率/声道/滤波组合的采样数；频谱测试检查混叠抑制、通带幅度及短音频的低通尾部。音频管线测试还覆盖目标布局、输出采样时钟、尾部和时间戳跳变；`TranscodeCodecCallbacksTest.cpp` 检查四路回调隔离、格式与 EOS 顺序、缓冲借用、队列上限、错误来源，以及取消和晚到回调。模型测试覆盖质量快照、旧队列兼容、同步/异步选项恢复、PixelMap 创建中取消预览、队列暂停与失败策略，以及批量导出的部分失败。这些 Host 检查不代表已确认真机回调时序、转封装兼容性、编码画质或实际音画同步。
 
 选源和修改输出配置后，Native 异步读取媒体描述，显示源 MIME、宽高、帧率、时长、可选音轨和预计输出尺寸。检查覆盖解码和编码的尺寸/帧率组合、编码码率范围，以及 Buffer 输入所需的 NV12 布局。指定硬件或软件时不静默换类别，查询到的名称也用于创建实例。预检不启动 codec；启动时重新检查，最终以 Configure、Prepare、Start 结果为准。
 
@@ -315,7 +360,7 @@ Buffer 编码在提交编码器输入前换算 PTS，Surface 编码和原码流�
 
 保留原轨直接转封装压缩样本。转 AAC 使用独立的同步音频解码器和编码器，解码输出为交错 S16LE PCM。输出采样率可跟随源或选择 44.1/48 kHz，声道可跟随源或选择单/双声道，码率可选 64、128、192 kbps。默认保留源布局和 128 kbps；能力检查使用选定的输出参数。设备不支持，或解码实际布局与请求不符时明确失败，不隐式改参数。
 
-解码器每次输出的 PCM 长度不必等于 AAC 帧长。`TranscodePcmConverter.h` 用两个源采样帧完成流式线性插值，双声道转单声道取均值，单声道转双声道复制采样。这是有界的 S16LE 单/双声道转换，不是专业重采样器，也不支持多声道混音。
+解码器每次输出的 PCM 长度不必等于 AAC 帧长。`TranscodePcmConverter.h` 可选快速线性插值或[低通降采样](#transcode-sampling)，转换状态跨 Buffer 保留。双声道转单声道取均值，单声道转双声道复制采样；只支持交错 S16LE 的单／双声道，不处理任意多声道混音。
 
 `TranscodeAudioPipeline` 最多借用一个解码输出，并保留一帧每声道 1024 采样点的 AAC-LC 拼帧区。输出 PTS 从第一个保留的 PCM 时间戳和整数输出采样时钟计算，避免逐包取整累积误差。源 PCM 时间戳跳变超过 2 ms 与两个源采样间隔中的较大值时明确失败，不悄悄压缩间隙。EOS 用末采样保持补齐重采样的小数尾部，再为不足一帧的 AAC 输入补零；额外静音仍小于一帧，随后单独送空 EOS，继续排空编码输出。
 
@@ -608,7 +653,7 @@ AVCodec/
     │   │   │   │   ├── TranscodeJob.cpp/.h   # 主循环、Buffer/Surface 交接和收尾
     │   │   │   │   ├── TranscodeCodecIO.cpp # 同步查询或异步回调消费
     │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # 有界回调队列与退出通知
-    │   │   │   │   ├── TranscodeOperations.cpp # 帧率限制、首帧预览和转封装
+    │   │   │   │   ├── TranscodeOperations.cpp # 帧率限制、选时预览和转封装
     │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV 布局、缩放、裁剪、灰度
     │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # 音轨解码、AAC 拼帧和编码
     │   │   │   │   ├── TranscodePcmConverter.h # 流式采样率和单/双声道转换
@@ -695,6 +740,9 @@ AVCodec/
 | 文件入口 | 负责的实现 |
 |---|---|
 | [TranscodePage.ets](entry/src/main/ets/pages/TranscodePage.ets)、[TranscodeModel.ets](entry/src/main/ets/model/TranscodeModel.ets) | 转码界面、请求生成、任务执行、文件收尾和队列编排 |
+| [TranscodePreviewController.ets](entry/src/main/ets/controller/TranscodePreviewController.ets)、[TranscodeQueueRunner.ets](entry/src/main/ets/controller/TranscodeQueueRunner.ets)、[TranscodeExportController.ets](entry/src/main/ets/controller/TranscodeExportController.ets) | 原图与处理图生命周期、队列串行推进与失败策略、逐文件导出结果 |
+| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/TranscodeGpuProcessor.cpp)、[EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | 独立于播放器的 NativeImage/OpenGL 处理，工作线程持有图形资源并提交编码窗口 |
+| [RecorderSegmentController.ets](entry/src/main/ets/controller/RecorderSegmentController.ets)、[RecorderOutputController.ets](entry/src/main/ets/controller/RecorderOutputController.ets)、[RecorderSettingsController.ets](entry/src/main/ets/controller/RecorderSettingsController.ets) | 切段条件与结果汇总、输出资产和 fd 初始化、从 Index 拆出的设置选择 |
 | [TranscodeQualityModel.ets](entry/src/main/ets/model/TranscodeQualityModel.ets)、[TranscodeQueueModel.ets](entry/src/main/ets/model/TranscodeQueueModel.ets) | 质量快照、队列状态和恢复校验 |
 | [TranscodeSourcePicker.ets](entry/src/main/ets/model/TranscodeSourcePicker.ets)、[TranscodeFilesModel.ets](entry/src/main/ets/model/TranscodeFilesModel.ets) | 源选择、导出、历史与私有文件管理 |
 | [MediaTaskCoordinator.ets](entry/src/main/ets/model/MediaTaskCoordinator.ets)、[MediaFileActivity.ets](entry/src/main/ets/model/MediaFileActivity.ets) | 任务租约和启动、清理兼容入口 |
@@ -1533,6 +1581,18 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 
 结果页使用单独打开的只读 fd 查询成品尺寸、时长、容器类型、轨道数和音频采样率。查询完成后先释放元数据提取器，再关闭 fd，不借用已经交给编码器或播放器的句柄。没有查询到的字段显示未提供，也不会拿请求尺寸来补齐。容器元数据不证明视频带有有效的 HDR Vivid 动态元数据。API 26 的元数据查询有 3 秒超时；设备不提供提取能力或查询失败时，不影响录像和历史记录。
 
+<a id="recording-segments"></a>
+
+#### 按时长或大小分段录制
+
+录制设置可以把每段限制为 60／180／300 秒、256／512／1024 MiB，也可以分别选择“不限”。该功能仅对 MP4 开放。任一已启用的限制达到后触发切段；双路录制按较大的文件检查，并同时切换两路。文件大小每秒检查一次，因此这是切段触发值，不是精确的字节上限。
+
+`RecorderSegmentController` 判断切段条件并汇总结果。录制页先停止相机投喂，再请求 codec EOS、排空音视频输出、结束封装，等待 Native 释放后才关闭 fd。下一段由 `RecorderLaunchController` 与 `RecorderOutputController` 创建相机、codec 和文件。每段都由独立编码会话生成 MP4，不在任意压缩包处切断，也不向上一段追加内容。重新初始化期间会有短暂录制间隔。
+
+每段完成后，`RecordingHistoryModel` 立即按录制组 ID 保存文件关联。历史列表显示为同一次录制，结果页列出各段的主路／辅路播放入口；总时长不计段间间隔。后续初始化或空间不足时，已经完成的段继续保留，当前结果提示不完整。手动结束、返回或页面隐藏都会先设置结束标记，并等待在途切换，避免退出后又启动一段。
+
+已经完成的 MP4 可独立打开。进程被杀仍可能损坏正在写入的那一段；这里没有修复残段或无缝分段。录制中动态调整的码率属于当前 Native 会话，下一段使用已应用的录制配置。单次录制达到 1000 段后正常结束，避免历史恢复时截断文件关联。
+
 <a id="recorder-audio-storage"></a>
 
 #### 音频诊断与存储保护
@@ -2332,7 +2392,7 @@ SubmitDecodedFrame() -> SubmitBufferFrame()
   -> OH_VideoDecoder_FreeOutputBuffer(): 归还源解码帧
 ```
 
-真正的像素读写在 `TranscodeFrameProcessor.cpp` 的 `TranscodeFrames::Process()` 内。同尺寸路径复制有效像素；尺寸变化时按所选等比适应、中心裁剪或留边方式采样，可叠加灰度处理和最近邻/双线性过滤。`ProcessBufferFrame()` 使用源 `offset` 和剩余 capacity，按两侧实际布局检查边界；编码输入的 `size` 按目标布局计算，不能直接使用源帧大小。格式变化会使布局缓存失效，下次处理重新读取描述。
+真正的像素读写在 `TranscodeFrameProcessor.cpp` 的 `TranscodeFrames::Process()` 内。同尺寸路径复制有效像素；尺寸变化时按所选等比适应、中心裁剪或留边方式采样，可叠加灰度处理及最近邻、双线性或面积采样。`ProcessBufferFrame()` 使用源 `offset` 和剩余 capacity，按两侧实际布局检查边界；编码输入的 `size` 按目标布局计算，不能直接使用源帧大小。格式变化会使布局缓存失效，下次处理重新读取描述。
 
 处理器可读 I420、NV12、NV21，目标编码输入统一为 NV12。`RequiredBytes()` 按 stride 和 slice height 验证 YUV420 所需容量；宽高、stride 和 slice height 都要满足偶数对齐。`PlanGeometry()` 把裁剪坐标和有效内容区域按色度采样对齐，留边模式先填黑色亮度和中性色度，灰度模式保留亮度、把色度写成中性值。同尺寸 NV12 可按行复制，I420/NV21 需要重新组织 UV，不能把不同布局当成整块连续内存直接 memcpy。
 
@@ -2346,7 +2406,7 @@ SubmitDecodedFrame() -> SubmitBufferFrame()
 
 `ConnectSurface()` 先取得 encoder 输入 Surface，再通过 `OH_VideoDecoder_SetSurface()` 交给 decoder。`SubmitSurfaceFrame()` 对有画面的输出调用 `OH_VideoDecoder_RenderOutputBuffer()`，使画面进入编码器的 Surface；空 EOS 输出直接 Free，然后通过 `OH_VideoEncoder_NotifyEndOfStream()` 通知编码器结束输入。应用没有在这条视频路径上读取和复制像素。
 
-Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切。Buffer 模式适合演示像素处理；直连适合观察减少应用像素拷贝后的行为。两者最终都要继续读取编码输出，写入 MP4 并归还编码输出 index。
+Surface 直连保留原始尺寸，不开放像素缩放、灰度和区间裁切。另一个 OpenGL Surface 模式通过 NativeImage 增加 SDR 处理，不改变 Buffer 编码示例。三种路径最终都继续读取编码输出，写入 MP4 并归还编码输出 index。GPU 的逐帧衔接与时间戳处理见 [OpenGL 处理链路](#transcode-gpu)。
 
 #### EOS、取消和文件完成是不同阶段
 
@@ -2354,13 +2414,13 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 
 正常完成进入 `FinalizeOutput()`：确认已产生视频样本，Stop 封装器、`fsync` 输出文件，再重新建源检查 MP4。视频 MIME/尺寸、轨道数和有效时长等检查失败会使任务失败；色彩、旋转、音频布局或时长偏差可形成 `validationNotes`，结果标记为 warning。这里检查的是容器和元数据，没有逐帧重解码验证画质。只有 Native 成功返回后，ArkTS 才把 `.part` 改名为最终文件；改名失败仍按文件操作失败处理。
 
-取消或失败跳过正常完成步骤，进入 `Cleanup()`。清理先销毁音频管线，再停止并销毁 decoder、encoder，释放 encoder Surface 引用、muxer、应用创建的临时 Buffer、demuxer/source，最后关闭 Native 的 fd 副本。decoder 借用 encoder Surface，所以必须先结束 decoder 对它的使用。播放、导出和历史查询只把已有最终文件视为成功结果，不把 `.part` 当成已完成视频。
+取消或失败跳过正常完成步骤，进入 `Cleanup()`。清理先销毁音频管线，再停止并销毁 decoder。GPU 模式随后注销帧回调，等待 GL 工作结束，销毁 NativeImage 和 EGL，再释放 encoder。最后释放 encoder Surface 引用、muxer、应用创建的临时 Buffer、demuxer/source，并关闭 Native 的 fd 副本。直连 Surface 模式也先结束 decoder 对 encoder Surface 的使用，再释放 Surface。播放、导出和历史查询只把已有最终文件视为成功结果，不把 `.part` 当成已完成视频。
 
 #### 原码流转封装与前处理预览
 
 `RunRemux()` 直接使用源轨道描述建立 MP4，`CopyVideoSample()` 将 demuxer 读出的压缩样本写入 muxer，音频按直通或不保留处理。它不创建视频 decoder/encoder，但仍会在 demuxer 和应用 Buffer 之间读写压缩字节。当前只处理整段文件，不做区间裁切、缩放、灰度或 AAC 转换；容器不接受源轨道时明确失败。
 
-`RunPreview()` 只创建同步 decoder，取选定范围内的第一帧；`CapturePreview()` 复用 `TranscodeFrames::Process()`，生成长边不超过 640 的处理后图像，再转换为 RGBA 交给页面。预览最多等待 15 秒，可取消，不创建视频 encoder 或目标 MP4。它用于检查画面构图和灰度效果，不能预测编码画质、完整任务耗时或全部帧的兼容性。
+`RunPreview()` 只创建同步 decoder，在所选范围内读取请求预览时间对应的画面；该时间不可用时，读取之后可用的画面。`CapturePreview()` 从同一个解码 Buffer 分别生成原图和处理图，两者长边均不超过 640，再转换为 RGBA。`TranscodePreviewController` 管理成对 PixelMap 并释放晚到结果。预览最多等待 15 秒，可取消，不创建视频 encoder 或目标 MP4。它用于检查画面构图和基本效果，不能预测 GPU 色彩转换、编码画质、完整任务耗时或全部帧的兼容性。
 
 <a id="task-recovery"></a>
 
@@ -2378,6 +2438,18 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 `MediaFileActivity` 还保留启动计数，挡住“启动已发起、活动状态尚未发布”时的清理操作。页面入口同时检查实际播放器和录制器状态。切换 Tab 本身不能当作任务完成；退出控制器需要按所属流程停止或取消，不能只清掉 UI 的 busy 状态。
 
 收到转码取消请求后，应用暂停队列，将租约标记为 cancelling，并调用 Native `cancel()`。Native 工作线程检查取消标记并清理资源后返回；ArkTS 随后关闭文件、保存最终记录并释放租约。清理完成前，播放、录制和下一项转码均不能启动。
+
+<a id="transcode-batch"></a>
+
+#### 批量选源、调序与导出
+
+队列可以一次选择多个文件或图库视频，最多加入剩余容量允许的 30 项。每个 URI 独立保存当前配置、质量参数和时间段快照。执行到该项时，再检查源尺寸、音轨和 codec 能力；同一套参数不保证适合所有文件。
+
+上移、下移只交换等待项，运行中与已结束的项保留位置。卡片展示编码格式、输入链路、尺寸限制、码率、调度、采样算法、几何方式和时间段。“任务失败后暂停队列”控制失败后的推进；关闭时保留失败项并继续后续任务。取消操作始终暂停队列。“当前任务完成后暂停”会等 Native 任务完成并正常结束 MP4，再停止推进。
+
+`TranscodeQueueRunner` 负责推进和暂停／失败策略，模型通过明确的回调提供执行、保存和资源检查。任务列表与失败策略分别写入 `transcode_queue.json`、`transcode_queue_policy.json`；恢复后保持暂停，不自动创建 codec。
+
+批量导出把已完成的私有文件交给一次系统保存或图库创建对话框。`TranscodeExportController` 逐项拷贝到授权目标，并列出成功、失败和取消结果。单项拷贝或关闭失败不会阻止后续项；应用内原结果仍保留，可重新导出。MP4 导出和本地诊断报告是两个独立操作。
 
 #### 恢复的是记录和待执行任务
 
@@ -2418,11 +2490,11 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 | 选项 | 模型到请求 | Native 生效位置 | 实际结果和限制 |
 |---|---|---|---|
 | 转码编码格式 | `codecIndex` → `mime`：`video/avc` 或 `video/hevc` | `InspectCodecs()` 选实例，`ConfigureEncoderFormat()` 建 Format | `StartMuxer()` 读取编码输出描述；结果校验再检查文件 MIME |
-| 转码尺寸与过滤 | `sizeIndex` → `longEdge`，`resizeMode`，`quality.filter` → `scalingFilter` | 尺寸计算与 `TranscodeFrames::Process()` | Buffer 可处理像素；Surface 保留原尺寸且不接受 CPU 过滤 |
+| 转码尺寸与过滤 | `sizeIndex` → `longEdge`，`resizeMode`，`quality.filter` → `scalingFilter` | 尺寸计算、`TranscodeFrames::Process()` 或 GPU `PlanGeometry()` | Buffer 支持最近邻／双线性／面积；GPU 支持最近邻／双线性；直连保留原尺寸 |
 | 帧率上限 | `quality.frameRate` → `frameRateLimit`：0/24/30/60/120 | `DropFrame()` 按 PTS 分桶，`OutputFrameRate()` 限制编码请求帧率 | 0 跟随源，不做插帧；编码设置和实际输出计数分开观察 |
 | 码率与关键帧 | `bitrateIndex` → bit/s，`bitrateMode` → VBR/CBR，关键帧选项 → ms | `OH_MD_KEY_BITRATE`、`OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE`、`OH_MD_KEY_I_FRAME_INTERVAL` | 能力预检和 Configure 都检查；目标码率不保证每个短窗口都相同 |
 | AAC 输出布局 | `quality.audioRate/audioChannels/audioBitrate` → 请求中的 Hz、声道数、bit/s | `TranscodeAudioPipeline::Configure()` 与流式 PCM 转换 | 仅 AAC 转换使用；采样率 0、声道 0 跟随源，当前转换限单/双声道 S16LE |
-| 选定区间 | 页面秒数字符串 → `startTimeMs/endTimeMs` → Native 微秒 | Seek 到前一同步帧、过滤范围外输出、排空真实 EOS 和重排 Buffer PTS | 当前只用于 Buffer 视频转码；原码流转封装处理整段 |
+| 选定区间 | 页面秒数字符串 → `startTimeMs/endTimeMs` → Native 微秒 | Seek 到前一同步帧、过滤范围外画面、排空真实 EOS、重排 PTS | Buffer／GPU 支持，原码流转封装处理整段 |
 
 <a id="diagnostic-definitions"></a>
 

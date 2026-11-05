@@ -48,6 +48,7 @@ constexpr int64_t DIAGNOSTIC_INTERVAL_MS = 250;
 constexpr int32_t YUV420_COMPONENTS = 3;
 constexpr int32_t YUV420_SUBSAMPLING = 2;
 constexpr int32_t BITRATE_MODE_VARIABLE = 0;
+constexpr int32_t COLOR_COMPONENT_UNSPECIFIED = 2;
 using TranscodeMetrics::WaitChannel;
 } // namespace
 
@@ -127,20 +128,38 @@ bool TranscodeJob::ValidateSourceColor()
         (hevc && profile != HEVC_PROFILE_MAIN)) {
         return Fail("HDR input requires tone mapping or metadata preservation; this transcode path supports SDR");
     }
+    if (options_.gpu) {
+        for (const char *key : {OH_MD_KEY_COLOR_PRIMARIES, OH_MD_KEY_TRANSFER_CHARACTERISTICS,
+            OH_MD_KEY_MATRIX_COEFFICIENTS}) {
+            int32_t component = 0;
+            if (OH_AVFormat_GetIntValue(videoFormat_.get(), key, &component) && component != 0 &&
+                component != COLOR_COMPONENT_UNSPECIFIED && component != COLOR_PRIMARY_BT709) {
+                return Fail("OpenGL processing supports BT.709 SDR; use Buffer for other SDR color descriptions");
+            }
+        }
+    }
     return true;
 }
 
 bool TranscodeJob::ConnectSurface()
 {
     if (options_.surface) {
-        if (targetWidth_ != sourceWidth_ || targetHeight_ != sourceHeight_ || options_.grayscale ||
-            options_.longEdge != 0) {
+        if (!options_.gpu && (targetWidth_ != sourceWidth_ || targetHeight_ != sourceHeight_ || options_.grayscale ||
+            options_.longEdge != 0)) {
             return Fail("Surface transcode requires original dimensions and no CPU filter");
         }
-        if (!Check(OH_VideoEncoder_GetSurface(encoder_, &encoderWindow_), "Get encoder input Surface") ||
-            !Check(OH_VideoDecoder_SetSurface(decoder_, encoderWindow_), "Connect decoder to encoder Surface")) {
+        if (!Check(OH_VideoEncoder_GetSurface(encoder_, &encoderWindow_), "Get encoder input Surface")) {
             return false;
         }
+        if (options_.gpu) {
+            gpu_ = std::make_unique<TranscodeGpuProcessor>();
+            if (!gpu_->Initialize(encoderWindow_, sourceWidth_, sourceHeight_, targetWidth_, targetHeight_,
+                options_.resizeMode, options_.grayscale, options_.scalingFilter)) {
+                return Fail("Initialize SDR OpenGL transcode processing");
+            }
+        }
+        return Check(OH_VideoDecoder_SetSurface(decoder_, gpu_ ? gpu_->DecoderWindow() : encoderWindow_),
+            "Connect decoder output Surface");
     }
     return true;
 }
@@ -179,7 +198,8 @@ bool TranscodeJob::ReadVideoProperties()
 {
     if (videoFormat_ == nullptr || !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_WIDTH, &sourceWidth_) ||
         !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_HEIGHT, &sourceHeight_) ||
-        !TranscodeFrames::OutputSize(sourceWidth_, sourceHeight_, options_.surface ? 0 : options_.longEdge,
+        !TranscodeFrames::OutputSize(sourceWidth_, sourceHeight_,
+            options_.surface && !options_.gpu ? 0 : options_.longEdge,
             static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode), targetWidth_, targetHeight_)) {
         return Fail("No supported video track or invalid video dimensions");
     }
@@ -234,7 +254,8 @@ bool TranscodeJob::InitializeDemuxer()
             audioPipeline_ = std::make_unique<TranscodeAudioPipeline>(
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
             if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_,
-                options_.audioSampleRate, options_.audioChannels, options_.audioBitrate)) {
+                options_.audioSampleRate, options_.audioChannels, options_.audioBitrate,
+                options_.audioResampler == 1)) {
                 return false;
             }
         } else {
@@ -420,7 +441,7 @@ bool TranscodeJob::ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layo
 
 bool TranscodeJob::DrainDecoder(bool &advanced)
 {
-    if (decoderOutputDone_ || pendingDecoded_ != nullptr) {
+    if (decoderOutputDone_ || pendingDecoded_ != nullptr || gpuPending_) {
         return true;
     }
     TranscodeCodecBuffer available;
@@ -430,6 +451,9 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
         return true;
     }
     if (result == AV_ERR_STREAM_CHANGED) {
+        if (options_.gpu && !ValidateGpuOutputResolution()) {
+            return false;
+        }
         layoutsValid_ = false;
         advanced = true;
         return true;
@@ -451,6 +475,24 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
     return true;
 }
 
+bool TranscodeJob::ValidateGpuOutputResolution()
+{
+    Format format(OH_VideoDecoder_GetOutputDescription(decoder_), OH_AVFormat_Destroy);
+    if (format == nullptr) {
+        return Fail("Read OpenGL decoder output description");
+    }
+    int32_t width = 0;
+    int32_t height = 0;
+    const bool hasWidth = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_WIDTH, &width) ||
+        OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_WIDTH, &width);
+    const bool hasHeight = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_HEIGHT, &height) ||
+        OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_HEIGHT, &height);
+    if (!hasWidth || !hasHeight || width != sourceWidth_ || height != sourceHeight_) {
+        return Fail("OpenGL processing does not support a mid-stream resolution change");
+    }
+    return true;
+}
+
 bool TranscodeJob::SubmitSurfaceFrame(bool eos, bool &advanced)
 {
     const bool hasFrame = !eos || pendingDecodedAttr_.size > 0;
@@ -469,6 +511,67 @@ bool TranscodeJob::SubmitSurfaceFrame(bool eos, bool &advanced)
     decoderOutputDone_ = eos;
     advanced = true;
     return true;
+}
+
+bool TranscodeJob::SubmitGpuFrame(bool &advanced)
+{
+    if (gpuPending_) {
+        return SubmitPendingGpuFrame(advanced);
+    }
+    if (pendingDecoded_ != nullptr) {
+        return QueueGpuFrame(advanced);
+    }
+    return NotifyGpuRangeEnd(advanced);
+}
+
+bool TranscodeJob::SubmitPendingGpuFrame(bool &advanced)
+{
+    if (!gpu_->Available()) {
+        return true;
+    }
+    const bool drawn = diagnostics_.Measure(TranscodeMetrics::Stage::PROCESS,
+        [this] { return gpu_->Draw(gpuPts_); });
+    if (!drawn) {
+        return Fail("Process/swap OpenGL transcode frame");
+    }
+    gpuPending_ = false;
+    decoderOutputDone_ = gpuEos_;
+    if (gpuEos_) {
+        if (!Check(OH_VideoEncoder_NotifyEndOfStream(encoder_), "Notify OpenGL encoder EOS")) {
+            return false;
+        }
+        encoderEosSent_ = true;
+    }
+    advanced = true;
+    return true;
+}
+
+bool TranscodeJob::QueueGpuFrame(bool &advanced)
+{
+    const bool eos = (pendingDecodedAttr_.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (eos && pendingDecodedAttr_.size == 0) {
+        return SubmitSurfaceFrame(true, advanced);
+    }
+    gpuPts_ = std::max<int64_t>(0, pendingDecodedAttr_.pts - rangeStartUs_);
+    gpuEos_ = eos;
+    if (!Check(OH_VideoDecoder_RenderOutputBuffer(decoder_, pendingDecodedIndex_),
+        "Render decoded frame to NativeImage")) {
+        return false;
+    }
+    pendingDecoded_ = nullptr;
+    gpuPending_ = true;
+    advanced = true;
+    return true;
+}
+
+bool TranscodeJob::NotifyGpuRangeEnd(bool &advanced)
+{
+    if (!decoderOutputDone_ || encoderEosSent_) {
+        return true;
+    }
+    encoderEosSent_ = Check(OH_VideoEncoder_NotifyEndOfStream(encoder_), "Notify OpenGL range EOS");
+    advanced = encoderEosSent_;
+    return encoderEosSent_;
 }
 
 bool TranscodeJob::ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr)
@@ -505,6 +608,7 @@ bool TranscodeJob::ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &
 
 bool TranscodeJob::SubmitDecodedFrame(bool &advanced)
 {
+    if (options_.gpu) { return SubmitGpuFrame(advanced); }
     const bool sendEmptyEos = decoderOutputDone_ && !encoderEosSent_ && !options_.surface;
     if (pendingDecoded_ == nullptr && !sendEmptyEos) {
         return true;
@@ -591,7 +695,7 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
         return Fail("Get encoded output Buffer");
     }
     bool success = StartMuxer();
-    if (success && options_.surface && attr.size > 0) {
+    if (success && options_.surface && !options_.gpu && attr.size > 0) {
         // Surface carries the decoder's original PTS; Buffer input was already rebased before encoding.
         attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
         success = Check(OH_AVBuffer_SetBufferAttr(buffer, &attr), "Rebase Surface video timestamps");
@@ -802,6 +906,7 @@ void TranscodeJob::ReleaseCodecs()
         decoder_ = nullptr;
         pendingDecoded_ = nullptr;
     }
+    gpu_.reset();
     if (encoder_ != nullptr) {
         if (encoderStarted_) {
             (void)OH_VideoEncoder_Stop(encoder_);

@@ -16,6 +16,11 @@
 import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 
+export interface RecordingSegmentInfo {
+  sessionId: string; uri: string; title: string; secondaryUri: string;
+  recordedAt: number; durationSeconds: number; complete: boolean;
+}
+
 export interface RecordingHistoryEntry {
   sessionId?: string;
   uri: string;
@@ -24,6 +29,7 @@ export interface RecordingHistoryEntry {
   recordedAt: number;
   durationSeconds: number;
   complete?: boolean;
+  segments?: RecordingSegmentInfo[];
 }
 
 const RECORDING_PREFERENCES: string = 'recording_history';
@@ -45,7 +51,8 @@ export class RecordingHistoryModel {
             uri: entry.uri, title: entry.title, secondaryUri: entry.secondaryUri, recordedAt: entry.recordedAt,
             durationSeconds: entry.durationSeconds,
             sessionId: typeof entry.sessionId === 'string' ? entry.sessionId : '',
-            complete: typeof entry.complete === 'boolean' ? entry.complete : undefined
+            complete: typeof entry.complete === 'boolean' ? entry.complete : undefined,
+            segments: this.validSegments(entry.segments)
           }))
           .slice(0, MAX_RECORDING_ENTRIES);
       }
@@ -58,9 +65,22 @@ export class RecordingHistoryModel {
     return this.entries.slice();
   }
 
+  async markIncomplete(groupId: string): Promise<void> {
+    const entry: RecordingHistoryEntry | undefined = this.entries.find((item: RecordingHistoryEntry): boolean =>
+      item.sessionId === groupId);
+    if (entry === undefined) { return; }
+    entry.complete = false;
+    await this.save();
+  }
+
   async add(uri: string, title: string, secondaryUri: string, recordedAt: number,
-    durationSeconds: number, sessionId: string = '', complete?: boolean): Promise<void> {
+    durationSeconds: number, sessionId: string = '', complete?: boolean, groupId: string = ''): Promise<void> {
     if ((uri.length === 0 && sessionId.length === 0) || title.length === 0 || recordedAt <= 0 || durationSeconds < 0) {
+      return;
+    }
+    if (groupId.length > 0) {
+      await this.addSegment({ sessionId: sessionId, uri: uri, title: title, secondaryUri: secondaryUri,
+        recordedAt: recordedAt, durationSeconds: durationSeconds, complete: complete ?? false }, groupId);
       return;
     }
     const existingIndex: number = this.entries.findIndex((entry: RecordingHistoryEntry): boolean =>
@@ -72,6 +92,31 @@ export class RecordingHistoryModel {
     if (this.entries.length > MAX_RECORDING_ENTRIES) {
       this.entries.splice(MAX_RECORDING_ENTRIES);
     }
+    await this.save();
+  }
+
+  private validSegments(segments: RecordingSegmentInfo[] | undefined): RecordingSegmentInfo[] | undefined {
+    if (!Array.isArray(segments)) { return undefined; }
+    return segments.filter((segment: RecordingSegmentInfo): boolean => segment !== null &&
+      typeof segment === 'object' && typeof segment.uri === 'string' && typeof segment.title === 'string' &&
+      typeof segment.secondaryUri === 'string' && typeof segment.sessionId === 'string' &&
+      typeof segment.complete === 'boolean' && Number.isFinite(segment.recordedAt) && segment.recordedAt > 0 &&
+      Number.isFinite(segment.durationSeconds) && segment.durationSeconds >= 0).slice(0, 1000);
+  }
+
+  private async addSegment(segment: RecordingSegmentInfo, groupId: string): Promise<void> {
+    const previous: RecordingHistoryEntry | undefined = this.entries.find((entry: RecordingHistoryEntry): boolean =>
+      entry.sessionId === groupId);
+    const segments: RecordingSegmentInfo[] = (previous?.segments ?? []).filter((item: RecordingSegmentInfo): boolean =>
+      item.sessionId !== segment.sessionId).concat([segment]);
+    const first: RecordingSegmentInfo = segments[0];
+    this.entries = this.entries.filter((entry: RecordingHistoryEntry): boolean => entry.sessionId !== groupId);
+    this.entries.unshift({ sessionId: groupId, uri: first.uri, title: first.title, secondaryUri: first.secondaryUri,
+      recordedAt: first.recordedAt,
+      durationSeconds: segments.reduce((sum: number, item: RecordingSegmentInfo): number =>
+        sum + item.durationSeconds, 0),
+      complete: segments.every((item: RecordingSegmentInfo): boolean => item.complete), segments: segments });
+    this.entries = this.entries.slice(0, MAX_RECORDING_ENTRIES);
     await this.save();
   }
 
