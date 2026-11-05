@@ -265,11 +265,11 @@ hdc shell "${ability_command} test -b com.samples.chipandcounterdemo -m entry_te
 
 ## 下载
 
-本工程当前以独立目录维护，直接复制 `ChipAndCounterDemo` 目录即可使用。合入应用示例仓后，工程位于 `UI/ChipAndCounterDemo`，可通过以下命令单独获取：
+本工程当前以独立目录维护，直接复制 `ChipAndCounterDemo` 目录即可使用。合入应用示例仓后，工程位于 `code/UI/ChipAndCounterDemo`，可通过以下命令单独获取：
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/UI/ChipAndCounterDemo .
+cp -r applications_app_samples/code/UI/ChipAndCounterDemo .
 ```
 
 获取后在 DevEco Studio 中打开 `ChipAndCounterDemo` 根目录运行。

@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // ErrorUtil 单测：ErrorInfo 的 code/message 归一化、describe 拼接、formatError 输出与 picker 错误码提示表。
 // 页面上用户可读的错误文案全部来自这里，因此已知错误码必须逐一覆盖，未知码必须回落到沙箱降级提示。
 

@@ -212,11 +212,11 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 
 ## 下载
 
-本工程当前以独立目录维护，直接复制 `CanvasShowcaseDemo` 目录即可使用。合入应用示例仓后，工程位于 `UI/CanvasShowcaseDemo`，可通过以下命令单独获取：
+本工程当前以独立目录维护，直接复制 `CanvasShowcaseDemo` 目录即可使用。合入应用示例仓后，工程位于 `code/UI/CanvasShowcaseDemo`，可通过以下命令单独获取：
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/UI/CanvasShowcaseDemo .
+cp -r applications_app_samples/code/UI/CanvasShowcaseDemo .
 ```
 
 获取后在 DevEco Studio 中打开 `CanvasShowcaseDemo` 根目录运行。

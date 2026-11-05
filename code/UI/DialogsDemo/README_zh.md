@@ -183,3 +183,14 @@ hdc shell "${ability_command} test -b com.samples.dialogsdemo -m entry_test \
 6. **弹窗不叠加**：连续点按场景按钮不会叠加多个弹窗——场景 1–7 在打开新弹窗前会关闭已存在的弹窗（`showContent` 预关闭），场景 8 在插屏已打开时忽略重复点击并记录日志；点击插屏本体或应用从后台回到前台时会清空插屏打开状态，因此可随时再次点击场景 8 重新弹出。
 7. 加载框 2 秒自动关闭，README 截图为出现瞬间画面。
 8. **系统弹窗样式由系统提供**：场景 9–14 使用 `showActionSheet` / 选择器 / `showDialog` / `openToast`，其外观、按钮文案与主题跟随系统，不同 ROM 可能略有差异；样例只保证数据组织与回调/日志时序。
+
+## 下载
+
+本工程当前以独立目录维护，直接复制 `DialogsDemo` 目录即可使用。合入应用示例仓后，工程位于 `code/UI/DialogsDemo`，可通过以下命令单独获取：
+
+```bash
+git clone https://gitcode.com/openharmony/applications_app_samples.git
+cp -r applications_app_samples/code/UI/DialogsDemo .
+```
+
+获取后在 DevEco Studio 中打开 `DialogsDemo` 根目录运行。

@@ -217,11 +217,11 @@ hdc shell "${ability_command} test -b com.samples.composelistandtitledemo -m ent
 
 ## 下载
 
-本工程当前以独立目录维护，直接复制 `ComposeListAndTitleDemo` 目录即可使用。合入应用示例仓后，工程位于 `UI/ComposeListAndTitleDemo`，可通过以下命令单独获取：
+本工程当前以独立目录维护，直接复制 `ComposeListAndTitleDemo` 目录即可使用。合入应用示例仓后，工程位于 `code/UI/ComposeListAndTitleDemo`，可通过以下命令单独获取：
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/UI/ComposeListAndTitleDemo .
+cp -r applications_app_samples/code/UI/ComposeListAndTitleDemo .
 ```
 
 获取后在 DevEco Studio 中打开 `ComposeListAndTitleDemo` 根目录运行。

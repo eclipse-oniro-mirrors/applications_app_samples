@@ -21,3 +21,14 @@ Zero permissions, no network. Demo files live in the app sandbox and are removed
 Verified on RK3568 (dayu200, OpenHarmony 7.0.0.46 Beta1 / API 26). The device-side hypium suite has **16 suites / 248 cases**, all passing on device (`Tests run: 248, Failure: 0, Error: 0`); every case is written explicitly with full @tc annotations.
 
 See [README_zh.md](README_zh.md) for the full guide: scene table, project layout, ROM-specific adaptation notes (stream/fastbuffer behavioral quirks on API 26), build/install/test commands, and real-device screenshots under [screenshots/](screenshots/).
+
+## Download
+
+The project is currently maintained as a standalone directory; copy the `FastBufferStreamDemo` directory to use it. After it is merged into the application samples repository, the project is located at `code/BasicFeature/DataManagement/FastBufferStreamDemo` and can be fetched separately with:
+
+```bash
+git clone https://gitcode.com/openharmony/applications_app_samples.git
+cp -r applications_app_samples/code/BasicFeature/DataManagement/FastBufferStreamDemo .
+```
+
+Open the `FastBufferStreamDemo` root directory in DevEco Studio after fetching.

@@ -83,3 +83,14 @@ hdc shell "${ability_command} test -b com.samples.dialogsdemo -m entry_test \
 Note: `ability_command` resolves to the Ability Assistant tool name shipped with the OpenHarmony SDK toolchains (encoded to avoid an ambiguous two-letter abbreviation in the documentation). It is used to start applications and run on-device tests, and is not a project-defined command, script, or credential.
 
 Without a signing config the output is an unsigned HAP: it can be used for compile verification but not installed on a device.
+
+## Download
+
+The project is currently maintained as a standalone directory; copy the `DialogsDemo` directory to use it. After it is merged into the application samples repository, the project is located at `code/UI/DialogsDemo` and can be fetched separately with:
+
+```bash
+git clone https://gitcode.com/openharmony/applications_app_samples.git
+cp -r applications_app_samples/code/UI/DialogsDemo .
+```
+
+Open the `DialogsDemo` root directory in DevEco Studio after fetching.

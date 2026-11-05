@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // AppConstants 单测：路由 key 守卫与字面量、导航标题预置、页签数、日志容量/条数与 AppStorage 键名、hilog 参数、半屏 appId 格式。
 // 常量一旦漂移，路由表、TabsDemo 守卫、日志面板与半屏拉起会同时受影响，这里逐项锁定。
 

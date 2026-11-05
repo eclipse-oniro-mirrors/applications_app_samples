@@ -215,3 +215,14 @@ hdc shell "${ability_command} start -b com.samples.fastbufferstreamdemo -a Entry
 * [README.md](README.md)：English overview
 * [screenshots/](screenshots/)：真机截图
 * 系统 API 参考：`@ohos.fastbuffer`、`@ohos.buffer`、`@ohos.util.stream`（SDK 内置 d.ts 与官方文档）
+
+## 下载
+
+本工程当前以独立目录维护，直接复制 `FastBufferStreamDemo` 目录即可使用。合入应用示例仓后，工程位于 `code/BasicFeature/DataManagement/FastBufferStreamDemo`，可通过以下命令单独获取：
+
+```bash
+git clone https://gitcode.com/openharmony/applications_app_samples.git
+cp -r applications_app_samples/code/BasicFeature/DataManagement/FastBufferStreamDemo .
+```
+
+获取后在 DevEco Studio 中打开 `FastBufferStreamDemo` 根目录运行。

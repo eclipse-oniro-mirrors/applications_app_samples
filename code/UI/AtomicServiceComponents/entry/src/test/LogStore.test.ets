@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // LogStore 单测：LogItem 字段/默认值与自增 id、appendLog 前插/容量截断/不可变语义、queryLogs 多条件过滤、计数与清空。
 // 中央日志（AppStorage 'appLogs'）的读写约定都建立在这些纯函数之上：数组必须整体替换、新日志插在最前。
 
