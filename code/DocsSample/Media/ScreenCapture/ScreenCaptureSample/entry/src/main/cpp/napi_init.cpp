@@ -174,7 +174,7 @@ void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
         return;
     }
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
-    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
+    size_t written = fwrite(buf, 1, bufferLen, file);
     if (written != bufferLen) {
         OH_LOG_ERROR(LOG_APP, "fwrite failed");
     }
