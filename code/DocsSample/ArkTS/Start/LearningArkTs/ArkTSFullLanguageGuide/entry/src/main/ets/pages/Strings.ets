@@ -76,7 +76,7 @@ for (let char of iterText) {
 }
 
 // 使用for循环遍历
-for (let i: number = 0; i < iterText.length; i++) {
+for (let i = 0; i < iterText.length; i++) {
   let char: string = iterText[i];
   console.info(`${char}`);
 }
@@ -110,14 +110,17 @@ let firstName: string = 'John';
 let lastName: string = 'Doe';
 
 // 使用 + 运算符
-let fullName: string = firstName + ' ' + lastName;  // "John Doe"
+let fullName: string = firstName + ' ' + lastName;  // 'John Doe'
+
+// 使用模板字符串
+let templateName: string = `${firstName} ${lastName}`;  // 'John Doe'
 
 // 使用concat方法
-let combined: string = firstName.concat(' ', lastName);  // "John Doe"
+let combined: string = firstName.concat(' ', lastName);  // 'John Doe'
 
 // 使用join方法
 let parts: string[] = [firstName, lastName];
-let joined: string = parts.join(' ');  // "John Doe"
+let joined: string = parts.join(' ');  // 'John Doe'
 // [End string_concatenation]
 
 // ===== string_append =====
@@ -125,11 +128,11 @@ let joined: string = parts.join(' ');  // "John Doe"
 let appendText: string = 'Hello';
 let char: string = '!';
 
-let result: string = appendText + char;  // "Hello!"
+let result: string = appendText + char;  // 'Hello!'
 
 // 多字符拼接
 let appendChars: string[] = ['a', 'b', 'c'];
-let combinedChars: string = appendChars.join('');  // "abc"
+let combinedChars: string = appendChars.join('');  // 'abc'
 // [End string_append]
 
 // ===== compound_assignment_concat =====
@@ -140,11 +143,11 @@ let compoundMessage: string = '';
 compoundMessage += 'Hello';
 compoundMessage += ' ';
 compoundMessage += 'World';
-console.info(`${compoundMessage}`);  // "Hello World"
+console.info(`${compoundMessage}`);  // 'Hello World'
 
 // 使用复合赋值
 let compoundText: string = 'Part 1';
-compoundText += ' Part 2';  // "Part 1 Part 2"
+compoundText += ' Part 2';  // 'Part 1 Part 2'
 // [End compound_assignment_concat]
 
 // ===== template_interpolation =====
@@ -154,7 +157,7 @@ let age: number = 25;
 
 // 变量插值
 let interpMessage: string = `Hello, ${name}`;
-console.info(`${interpMessage}`);  // "Hello, Alice"
+console.info(`${interpMessage}`);  // 'Hello, Alice'
 
 // 表达式插值
 let info: string = `Name: ${name}, Age: ${age}`;
@@ -178,7 +181,7 @@ let unicode2: string = '\u0041';          // Unicode转义（'A'）
 let unicode3: string = '\x41';            // ASCII转义（'A'）
 
 // Unicode码点
-let emoji: string = '\u{1F600}';          // 😀（emoji）
+let emoji: string = '\u{1F600}';          // '😀'（emoji）
 let chinese: string = '\u{4E2D}';         // 中
 
 // 获取字符的Unicode码点
@@ -206,7 +209,7 @@ let reconstructed: string = '';
 for (let code of codePoints) {
   reconstructed += String.fromCodePoint(code);
 }
-console.info(`${reconstructed}`);  // "Hello"
+console.info(`${reconstructed}`);  // 'Hello'
 
 // Unicode转义形式
 let unicodeEscaped: string = '';
@@ -214,7 +217,7 @@ for (let char of unicodeText) {
   let code: number = char.codePointAt(0) ?? 0;
   unicodeEscaped += `\\u${code.toString(16).padStart(4, '0')}`;
 }
-console.info(`${unicodeEscaped}`);  // "\u0048\u0065\u006c\u006c\u006f"
+console.info(`${unicodeEscaped}`);  // '\u0048\u0065\u006c\u006c\u006f'
 // [End unicode_codepoint_conversion]
 
 // ===== string_length =====
@@ -236,23 +239,15 @@ let multiLength: number = lengthMultiLine.length;  // 11（含 \n）
 
 // ===== multibyte_length =====
 // [Start multibyte_length]
-// 普通ASCII字符
-let ascii: string = 'Hello';
-console.info(`${ascii.length.toString()}`);  // 5
-
-// 中文字符（每个字符长度为1）
+// 中文字符：每个字符占1个代码单元，length与字符数一致
 let multibyteChinese: string = '你好世界';
 console.info(`${multibyteChinese.length.toString()}`);  // 4
 
-// Emoji字符（部分multibyteEmoji长度可能为2）
+// Emoji字符：由代理项对编码，1个字符占2个代码单元
 let multibyteEmoji: string = '😀';
-console.info(`${multibyteEmoji.length.toString()}`);  // 2（surrogate pair）
+console.info(`${multibyteEmoji.length.toString()}`);  // 2
 
-// 组合字符
-let multibyteCombined: string = 'é';  // e + combining accent
-console.info(`${multibyteCombined.length.toString()}`);  // 可能为2
-
-// 正确统计字符数（使用迭代）
+// 使用for...of按码点迭代，正确统计字符数
 function countCharacters(text: string): number {
   let count: number = 0;
   for (let char of text) {
@@ -261,7 +256,8 @@ function countCharacters(text: string): number {
   return count;
 }
 
-console.info(`${countCharacters('😀').toString()}`);  // 1（正确统计）
+console.info(`${countCharacters('你好世界').toString()}`);  // 4
+console.info(`${countCharacters('😀').toString()}`);  // 1（length为2，字符数为1）
 // [End multibyte_length]
 
 // ===== string_indexing =====
@@ -306,20 +302,20 @@ let prevIndex: number = indexOfO - 1;          // 3
 let extractText: string = 'Hello World';
 
 // substring方法
-let sub1: string = extractText.substring(0, 5);    // "Hello"
-let sub2: string = extractText.substring(6);       // "World"
-let sub3: string = extractText.substring(6, 11);   // "World"
+let sub1: string = extractText.substring(0, 5);    // 'Hello'
+let sub2: string = extractText.substring(6);       // 'World'
+let sub3: string = extractText.substring(6, 11);   // 'World'
 
 // slice方法
-let slice1: string = extractText.slice(0, 5);      // "Hello"
-let slice2: string = extractText.slice(-5);        // "World"（负索引）
-let slice3: string = extractText.slice(6, -1);     // "Worl"
+let slice1: string = extractText.slice(0, 5);      // 'Hello'
+let slice2: string = extractText.slice(-5);        // 'World'（负索引）
+let slice3: string = extractText.slice(6, -1);     // 'Worl'
 
 // substring vs slice
 // substring自动调整参数顺序，负数视为0；slice不调整参数顺序，支持负索引
-let subNeg: string = extractText.substring(-2, 3);  // "Hel"（-2被视为0）
-let reversed: string = extractText.substring(5, 0);  // "Hello"（自动调整）
-let reversedSlice: string = extractText.slice(5, 0);  // ""（不调整）
+let subNeg: string = extractText.substring(-2, 3);  // 'Hel'（-2被视为0）
+let reversed: string = extractText.substring(5, 0);  // 'Hello'（自动调整）
+let reversedSlice: string = extractText.slice(5, 0);  // ''（不调整）
 // [End substring_extraction]
 
 // ===== substring_operations =====
@@ -329,17 +325,17 @@ let original: string = 'Hello World';
 // 子字符串是新字符串，独立存在
 let sub: string = original.substring(0, 5);
 sub = sub.toUpperCase();  // 修改子字符串不影响原字符串
-console.info(`${original}`);  // "Hello World"
+console.info(`${original}`);  // 'Hello World'
 
 // 子字符串转数组
 let substrParts: string[] = sub.split('');
-console.info(`[${substrParts.join(', ')}]`);  // H, e, l, l, o
+console.info(`[${substrParts.join(', ')}]`);  // '[H, E, L, L, O]'
 
 // 子字符串拼接
-let newString: string = sub + ' ArkTS';  // "Hello ArkTS"
+let newString: string = sub + ' ArkTS';  // 'HELLO ArkTS'
 
 // 子字符串替换
-let replaced: string = original.replace(sub, 'Hi');  // "Hi World"
+let replaced: string = original.replace('Hello', 'Hi');  // 'Hi World'
 // [End substring_operations]
 
 // ===== string_comparison =====
@@ -399,12 +395,12 @@ function hasSuffix(text: string, suffix: string): boolean {
 
 // ===== to_uppercase =====
 // [Start to_uppercase]
-let upperText: string = 'Hello World';
+let upperText: string = 'hello world';
 
-let upperUpper: string = upperText.toUpperCase();  // "HELLO WORLD"
+let upperUpper: string = upperText.toUpperCase();  // 'HELLO WORLD'
 
 // 部分大写
-let firstUpper: string = upperText[0].toUpperCase() + upperText.substring(1);  // "Hello World"
+let firstUpper: string = upperText[0].toUpperCase() + upperText.substring(1);  // 'Hello world'
 
 // 每个单词首字母大写
 function capitalizeWords(upperText: string): string {
@@ -415,17 +411,17 @@ function capitalizeWords(upperText: string): string {
   return capitalized.join(' ');
 }
 
-let upperResult: string = capitalizeWords('hello world');  // "Hello World"
+let upperResult: string = capitalizeWords('hello world');  // 'Hello World'
 // [End to_uppercase]
 
 // ===== to_lowercase =====
 // [Start to_lowercase]
 let lowerText: string = 'Hello World';
 
-let lower: string = lowerText.toLowerCase();  // "hello world"
+let lower: string = lowerText.toLowerCase();  // 'hello world'
 
 // 部分小写
-let lowerMixed: string = lowerText[0] + lowerText.substring(1).toLowerCase();  // "Hello world"
+let lowerMixed: string = lowerText[0] + lowerText.substring(1).toLowerCase();  // 'Hello world'
 
 // 判断是否为小写
 function isLowerCase(lowerText: string): boolean {
@@ -459,16 +455,16 @@ let endsWorld: boolean = searchText2.endsWith('World'); // true
 let sliceText: string = 'Hello World';
 
 // slice：截取
-let slice: string = sliceText.slice(0, 5);        // "Hello"
+let slice: string = sliceText.slice(0, 5);        // 'Hello'
 
 // substring：截取
-let substring: string = sliceText.substring(7);    // "World"
+let substring: string = sliceText.substring(7);    // 'World'
 
 // split：分割为数组
 let split: string[] = sliceText.split(' ');
-console.info(`[${split.join(', ')}]`);  // Hello, World
+console.info(`[${split.join(', ')}]`);  // '[Hello, World]'
 let splitAll: string[] = sliceText.split('');
-console.info(`[${splitAll.join(', ')}]`);  // H, e, l, l, o,  , W, o, r, l, d
+console.info(`[${splitAll.join(', ')}]`);  // '[H, e, l, l, o,  , W, o, r, l, d]'
 // [End string_slice_split]
 
 // ===== string_common_methods =====
@@ -476,72 +472,55 @@ console.info(`[${splitAll.join(', ')}]`);  // H, e, l, l, o,  , W, o, r, l, d
 let commonMethodsText: string = 'Hello World';
 
 // replace：替换
-let commonMethodsReplaced: string = commonMethodsText.replace('World', 'ArkTS');  // "Hello ArkTS"
+let commonMethodsReplaced: string = commonMethodsText.replace('World', 'ArkTS');  // 'Hello ArkTS'
 
 // replaceAll：替换所有（ES2021，ArkTS支持）
 let multiple: string = 'aa bb aa';
-let allReplaced: string = multiple.replaceAll('aa', 'xx');  // "xx bb xx"
+let allReplaced: string = multiple.replaceAll('aa', 'xx');  // 'xx bb xx'
 
 // trim：去除首尾空格
-let trimmed: string = '  Hello ArkTS  '.trim();  // "Hello ArkTS"
+let trimmed: string = '  Hello ArkTS  '.trim();  // 'Hello ArkTS'
 
 // trimStart：去除开头空格
-let trimStart: string = '  Hello ArkTS  '.trimStart();  // "Hello ArkTS  "
+let trimStart: string = '  Hello ArkTS  '.trimStart();  // 'Hello ArkTS  '
 
 // trimEnd：去除结尾空格
-let trimEnd: string = '  Hello ArkTS  '.trimEnd();  // "  Hello ArkTS"
+let trimEnd: string = '  Hello ArkTS  '.trimEnd();  // '  Hello ArkTS'
 
 // padStart：左侧填充
-let padded: string = '5'.padStart(3, '0');  // "005"
+let padded: string = '5'.padStart(3, '0');  // '005'
 
 // padEnd：右侧填充
-let paddedEnd: string = '5'.padEnd(3, '0'); // "500"
+let paddedEnd: string = '5'.padEnd(3, '0'); // '500'
 
 // repeat：重复
-let repeated: string = 'ab'.repeat(3);      // "ababab"
+let repeated: string = 'ab'.repeat(3);      // 'ababab'
 // [End string_common_methods]
 
 // ===== string_utility_methods =====
 // [Start string_utility_methods]
-let utilityText: string = 'Hello';
-
-// charAt：获取指定位置字符
-let utilityChar: string = utilityText.charAt(0);  // 'H'
-
-// charCodeAt：获取字符编码
-let utilityCode: number = utilityText.charCodeAt(0);  // 72
-
-// concat：连接字符串
-let concatenated: string = 'Hello'.concat(' ', 'World');  // "Hello World"
-
-// localeCompare：本地化比较
-let comparison: number = 'a'.localeCompare('b');  // -1（a < b）
-
-// toString：转为字符串
-let numStr: string = (42).toString();  // "42"
-let boolStr: string = (true).toString();  // "true"
-
-// valueOf：获取原始值
-let value: string = 'test'.valueOf();  // "test"
+// localeCompare：按本地化规则比较两个字符串，返回负数、0或正数
+let comparison: number = 'a'.localeCompare('b');     // -1（a < b）
+let sameComparison: number = 'a'.localeCompare('a');  // 0（相等）
 // [End string_utility_methods]
 
 // ===== string_regex =====
 // [Start string_regex]
-// match：匹配正则
+// match：匹配正则（/quick/表示匹配子串'quick'）
 let regexText: string = 'The quick brown fox';
 let matches: RegExpMatchArray | null = regexText.match(/quick/);
 
-// search：查找匹配位置
+// search：查找匹配位置（/brown/表示查找子串'brown'首次出现的位置）
 let regexPos: number = regexText.search(/brown/);  // 10
 
-// replace：正则替换
-let regexReplaced: string = regexText.replace(/fox/, 'cat');  // "The quick brown cat"
+// replace：正则替换（/fox/表示将被替换的子串'fox'）
+let regexReplaced: string = regexText.replace(/fox/, 'cat');  // 'The quick brown cat'
 
-// split：正则分割
-let regexParts: string[] = 'a1b2c3'.split(/\d/);
-console.info(`[${regexParts.join(', ')}]`);  // a, b, c, 
+// split：正则分割（/\d/表示以单个数字为分隔符）
+let regexParts: string[] = 'a1b2c3d'.split(/\d/);
+console.info(`${regexParts}`);  // 'a,b,c,d'
 
-// matchAll：全局匹配（ES2020，ArkTS支持）
+// matchAll：全局匹配（ES2020，ArkTS支持；/\w+/g表示全局匹配由单词字符组成的连续片段）
 let allMatches: IterableIterator<RegExpMatchArray> = regexText.matchAll(/\w+/g);
 // [End string_regex]
 
@@ -585,7 +564,7 @@ for (let char of text) {
 }
 
 // 反例：可能无法正确处理emoji
-for (let i: number = 0; i < text.length; i++) {
+for (let i = 0; i < text.length; i++) {
   console.info(text[i]);
 }
 // [End prefer_for_of_unicode]
@@ -594,11 +573,11 @@ for (let i: number = 0; i < text.length; i++) {
 let unicodeEmoji: string = '🎉';
 let unicodeCode: number | undefined = unicodeEmoji.codePointAt(0);
 if (unicodeCode !== undefined) {
-  console.info(`${unicodeCode.toString()}`);  // 129395
+  console.info(`${unicodeCode.toString()}`);  // 127881
 }
 
 let unicodeChar: string = String.fromCodePoint(128516);
-console.info(`${unicodeChar}`);  // 😄
+console.info(`${unicodeChar}`);  // '😄'
 
 // 按Unicode码点遍历（而非UTF-16编码单元）
 let unicodeText2: string = 'a🎉b';
@@ -610,29 +589,19 @@ for (let uc of unicodeText2) {
 // [Start string_pad_repeat]
 // padStart：在开头填充
 let prS1: string = '5'.padStart(3, '0');
-console.info(`${prS1}`);  // 005
+console.info(`${prS1}`);  // '005'
 
 let prS2: string = 'hi'.padStart(5, '-');
-console.info(`${prS2}`);  // ---hi
+console.info(`${prS2}`);  // '---hi'
 
 // padEnd：在末尾填充
 let prS3: string = 'hi'.padEnd(5, '-');
-console.info(`${prS3}`);  // hi---
+console.info(`${prS3}`);  // 'hi---'
 
 // repeat：重复字符串
 let prS4: string = 'ab'.repeat(3);
-console.info(`${prS4}`);  // ababab
+console.info(`${prS4}`);  // 'ababab'
 // [End string_pad_repeat]
-
-
-
-// ===== at_method_alternative =====
-// [Start at_method_alternative]
-let atWord: string = 'hello';
-console.info(`${atWord.charAt(0)}`);              // h
-console.info(`${atWord.charAt(atWord.length - 1)}`);  // o
-console.info(`${atWord.charAt(10)}`);             // （空字符串，越界）
-// [End at_method_alternative]
 
 // ===== template_literal_alternative =====
 // [Start template_literal_alternative]

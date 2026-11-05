@@ -55,10 +55,10 @@ function nestedErrorHandling(): void {
     } catch (innerError) {
       console.info(`内层 catch: ${(innerError as Error).message}`);
       // 决定是否向上层抛出错误
-      throw innerError; // 将错误传递到外层
+      throw innerError as Error; // 将错误传递到外层
     }
 
-    console.info(`外层 try 继续`);
+    console.info(`外层 try 继续`); // 不会执行：内层catch重新抛出错误后，控制流直接进入外层catch
   } catch (outerError) {
     console.info(`外层 catch: ${(outerError as Error).message}`);
   }
@@ -66,10 +66,10 @@ function nestedErrorHandling(): void {
 
 nestedErrorHandling();
 // 输出:
-// 外层try
-// 内层try
-// 内层catch: 内层错误
-// 外层try继续
+// 外层 try
+// 内层 try
+// 内层 catch: 内层错误
+// 外层 catch: 内层错误
 // [End ts_nested_try_catch]
 
 // [Start ts_throw_best_practices]

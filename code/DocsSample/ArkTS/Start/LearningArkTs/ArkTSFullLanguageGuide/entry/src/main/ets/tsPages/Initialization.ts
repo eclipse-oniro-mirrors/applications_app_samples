@@ -171,12 +171,12 @@ class ImmutableConfig {
 // [Start ts_required_properties_initialization]
 class StrictInitialization {
   // 必需属性：必须初始化
-  public name: string;  // 编译警告：未初始化
-  public age: number;   // 编译警告：未初始化
+  public name: string;  // 编译错误：未初始化
+  public age: number;   // 编译错误：未初始化
   
   constructor() {
     // 未初始化name和age
-    // TypeScript会提示警告
+    // TypeScript会报编译错误（TS2564）
   }
   
   // 正确做法：初始化所有属性
