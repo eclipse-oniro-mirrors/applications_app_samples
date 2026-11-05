@@ -17,6 +17,11 @@
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
+interface AbilityInfo {
+  abilityName: string;
+  index: string;
+}
+
 function stringToUint8Array(str: string) {
   let arr: number[] = [];
   for (let i = 0, j = str.length; i < j; ++i) {
@@ -30,9 +35,11 @@ async function registerProvider(): Promise<void> {
     /* 1.构造注册参数 ability name */
     const providerName = 'testProvider';
     /* 2.构造 ability info */
-    const abilityInfo = '[' +
-      '{'abilityName':'UiAbility1','index':''},' +
-      '{'abilityName':'UiAbility2','index':'string2'}]';
+    const abilityInfoList: AbilityInfo[] = [
+      { abilityName: 'UiAbility1', index: '' },
+      { abilityName: 'UiAbility2', index: 'string2' },
+    ];
+    const abilityInfo = JSON.stringify(abilityInfoList);
     const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [
       {
         tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_ABILITY_NAME,

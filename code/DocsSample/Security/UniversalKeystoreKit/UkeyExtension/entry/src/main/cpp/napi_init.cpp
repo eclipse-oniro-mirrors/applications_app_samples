@@ -268,6 +268,69 @@ static napi_value GetUkeyPinAuthState(napi_env env, napi_callback_info info)
 }
 // [query_auth_state_cpp]
 
+// [get_property_cpp]
+static napi_value GetProperty(napi_env env, napi_callback_info info)
+{
+    /* 1.假设已经打开了resourceId */
+    const char *resourceIdStr = "{\"providerName\":\"testProviderName\",\"abilityName\":\"CryptoExtension\","
+                              "\"bundleName\":\"com.example.cryptoapplication\",\"index\":{\"key\":\"testKey\"}}";
+    const char *propertyIdStr = "SKF_GetDevInfo";
+
+    struct OH_Huks_Blob resourceId = {
+        (uint32_t)strlen(resourceIdStr),
+        (uint8_t *)resourceIdStr
+    };
+    struct OH_Huks_Blob propertyId = {
+        (uint32_t)strlen(propertyIdStr),
+        (uint8_t *)propertyIdStr
+    };
+
+    /* 2.构造输入参数 */
+    OH_Huks_ExternalCryptoParam params[] = {};
+    OH_Huks_ExternalCryptoParamSet *paramSetIn = nullptr;
+    OH_Huks_ExternalCryptoParamSet *paramSetOut = nullptr;
+    OH_Huks_Result ohResult;
+
+    do {
+        /* 3.初始化并构建输入参数集 */
+        ohResult = InitParamSet(&paramSetIn, params,
+            sizeof(params) / sizeof(OH_Huks_ExternalCryptoParam));
+        if (ohResult.errorCode != OH_HUKS_SUCCESS) {
+            break;
+        }
+
+        /* 4.调用OH_Huks_GetProperty获取属性 */
+        ohResult = OH_Huks_GetProperty(&resourceId, &propertyId, paramSetIn, &paramSetOut);
+        if (ohResult.errorCode != OH_HUKS_SUCCESS) {
+            break;
+        }
+
+        /* 5.从输出参数集中提取结果 */
+        if (paramSetOut != nullptr && paramSetOut->paramsCnt > 0) {
+            for (uint32_t i = 0; i < paramSetOut->paramsCnt; i++) {
+                OH_Huks_ExternalCryptoParam *param = &paramSetOut->params[i];
+                if (param->tag == OH_HUKS_EXT_CRYPTO_TAG_EXTRA_DATA) {
+                    char *outStr = (char *)malloc(param->blob.size + 1);
+                    if (outStr != NULL) {
+                        memcpy(outStr, param->blob.data, param->blob.size);
+                        outStr[param->blob.size] = '\0';
+                        free(outStr);
+                    }
+                }
+            }
+        }
+    } while (0);
+
+    /* 6.释放资源 */
+    OH_Huks_FreeExternalCryptoParamSet(&paramSetIn);
+    OH_Huks_FreeExternalCryptoParamSet(&paramSetOut);
+
+    napi_value ret;
+    napi_create_int32(env, ohResult.errorCode, &ret);
+    return ret;
+}
+// [get_property_cpp]
+
 // [ukey_best_practice_cpp]
 /* 1. 调用证书管理接口解析用户选择的证书，获取对应的证书数据 */
 static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
@@ -427,7 +490,7 @@ static napi_module demoModule = {
     .nm_flags = 0,
     .nm_filename = nullptr,
     .nm_register_func = Init,
-    .nm_modname = "hello",
+    .nm_modname = "entry",
     .nm_priv = ((void*)0),
     .reserved = { 0 },
 };

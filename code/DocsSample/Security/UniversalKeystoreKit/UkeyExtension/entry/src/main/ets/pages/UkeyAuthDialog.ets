@@ -27,7 +27,7 @@ struct UkeyAuthDialogPage {
 
   build() {
     Column() {
-      Button('拉起PIN认证弹窗')
+      Button($r('app.string.open_ukey_auth_dialog'))
         .onClick(() => {
           this.openUkeyAuthDialog();
         })

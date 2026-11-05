@@ -25,7 +25,7 @@ struct AuthorizeDialogPage {
 
   build() {
     Column() {
-      Button('打开证书选择弹窗')
+      Button($r('app.string.open_authorize_dialog'))
         .onClick(() => {
           this.openAuthorizeDialog();
         })

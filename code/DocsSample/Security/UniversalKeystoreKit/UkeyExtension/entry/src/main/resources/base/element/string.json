@@ -87,6 +87,14 @@
     {
       "name": "register_ukey_auth_extension",
       "value": "注册UkeyAuthExtensionAbility"
+    },
+    {
+      "name": "open_authorize_dialog",
+      "value": "打开证书选择弹窗"
+    },
+    {
+      "name": "open_ukey_auth_dialog",
+      "value": "拉起PIN认证弹窗"
     }
   ]
 }

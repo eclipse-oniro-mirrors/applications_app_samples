@@ -36,7 +36,7 @@ async function exportPublicKey(keyAlias: string): Promise<Uint8Array> {
     const exportProperties: huks.HuksParam[] = [
       {
         tag: huks.HuksTag.HUKS_TAG_KEY_CLASS,
-        value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION
+        value: huks.HuksKeyClassType.HUKS_KEY_CLASS_EXTENSION
       }
     ];
     const exportOptions: huks.HuksOptions = {
