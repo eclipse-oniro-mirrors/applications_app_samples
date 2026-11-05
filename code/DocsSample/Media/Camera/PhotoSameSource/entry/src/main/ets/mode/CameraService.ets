@@ -48,7 +48,7 @@ class CameraService {
   private avRecorder: media.AVRecorder | undefined = undefined;
   private session: camera.PhotoSession | camera.VideoSession | undefined = undefined;
   private context: Context | undefined = undefined;
-  private surfaceId: string = "";
+  private surfaceId: string = '';
   private cameraDeviceIndex: number = 0;
   private curCameraDevice: camera.CameraDevice | undefined = undefined;
   private isRecording: boolean = false;
@@ -396,7 +396,7 @@ class CameraService {
     }
     let settings: camera.PhotoCaptureSetting = {
       quality: camera.QualityLevel.QUALITY_LEVEL_HIGH,  // 设置图片质量高。
-      rotation: camera.ImageRotation.ROTATION_0,  // 设置图片旋转角度的camera.ImageRotation.ROTATION_0是通过说明中获取拍照角度的getPhotoRotation方法获取的值进行设置。
+      rotation: camera.ImageRotation.ROTATION_0,  // 设置图片旋转角度。
       location: captureLocation,  // 设置图片地理位置。
       mirror: false  // 设置镜像使能开关(默认关)。
     };
