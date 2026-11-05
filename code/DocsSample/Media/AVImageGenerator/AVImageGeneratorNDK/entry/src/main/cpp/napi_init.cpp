@@ -114,8 +114,6 @@ bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrame
     return true;
 }
 
-
-
 // [Start OH_AVImageGenerator_FetchFrameByTime]
 // FetchFrameByTime的输入参数。
 struct FetchFrameParams {
