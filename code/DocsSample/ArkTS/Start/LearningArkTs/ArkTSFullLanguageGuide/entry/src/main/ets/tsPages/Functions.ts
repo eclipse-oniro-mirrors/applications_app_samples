@@ -176,7 +176,7 @@ function createSomeInstance(ctor: SomeConstructor, s: string): SomeObject {
 }
 
 let someObj: SomeObject = createSomeInstance(SomeObject, 'hello');
-console.info(`${someObj.value}`); // hello
+console.info(`${someObj.value}`); // 'hello'
 // [End ts_construct_signature]
 
 // [Start construct_signature_alternative]

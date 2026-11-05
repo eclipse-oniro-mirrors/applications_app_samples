@@ -31,7 +31,7 @@ let user: User = {
   email: 'alice@example.com'
 };
 
-console.info(user.name); // Alice
+console.info(user.name); // 'Alice'
 // [End simple_interface_definition]
 
 // ===== interface_as_protocol =====
@@ -143,48 +143,39 @@ let point: Point = {
 console.info(`Point: (${point.x}, ${point.y})`);
 // [End basic_interface_declaration]
 
-// ===== interface_method_declaration =====
-// [Start interface_method_declaration]
-interface Calculator {
-    // 方法声明（无参数）
-  reset(): void;
-  
-  // 方法声明（带参数）
-  add(a: number, b: number): number;
-  subtract(a: number, b: number): number;
-  
-  // 可选方法
-  logResult?(): void;
+// ===== interface_accessors =====
+// [Start interface_accessors]
+interface PersonInfo {
+  get fullName(): string;
+  set fullName(name: string);
 }
 
-class BasicCalculator implements Calculator {
-  private result: number = 0;
-  
-  public reset(): void {
-    this.result = 0;
-    console.info('Calculator reset');
+class Person implements PersonInfo {
+  private firstName: string;
+  private lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
-  
-  public add(a: number, b: number): number {
-    this.result = a + b;
-    return this.result;
+
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
-  
-  public subtract(a: number, b: number): number {
-    this.result = a - b;
-    return this.result;
-  }
-  
-  // 可选方法可以不实现
-  public logResult(): void {
-    console.info(`Result: ${this.result}`);
+
+  set fullName(name: string) {
+    let parts: string[] = name.split(' ');
+    this.firstName = parts[0];
+    this.lastName = parts[1];
   }
 }
 
-let calculator: BasicCalculator = new BasicCalculator();
-let sum: number = calculator.add(10, 5);
-console.info(`${sum}`); // 15
-// [End interface_method_declaration]
+let person: PersonInfo = new Person('John', 'Smith');
+console.info(`${person.fullName}`); // 'John Smith'
+
+person.fullName = 'Bob Brown';
+console.info(`${person.fullName}`); // 'Bob Brown'
+// [End interface_accessors]
 
 // ===== class_implements_interface =====
 // [Start class_implements_interface]
@@ -275,7 +266,7 @@ class DemoDog implements Dog {
 
 let myDog: Dog = new DemoDog('Buddy', 3, 'Alice', 'Golden Retriever');
 
-myDog.bark(); // Buddy barks: Woof! Woof!
+myDog.bark(); // 'Buddy barks: Woof! Woof!'
 // [End interface_multi_level_inheritance]
 
 // ===== interface_inheritance_object_literal =====
@@ -345,7 +336,7 @@ let numContainer = new NumberContainer(42);
 let strContainer = new StringContainer('Hello');
 
 console.info(`${numContainer.getValue().toString()}`); // 42
-console.info(`${strContainer.getValue()}`); // Hello
+console.info(`${strContainer.getValue()}`); // 'Hello'
 // [End generic_interface]
 
 // ===== generic_constraint_interface =====
@@ -474,35 +465,27 @@ interface AsyncCallback<T> {
 interface Configuration {
   // 必选属性
   apiUrl: string;
-  
+
   // 可选属性（使用 ?）
   timeout?: number;
-  retries?: number;
-  debugMode?: boolean;
-  
+
   // 可选方法
   logError?: (error: Error) => void;
-  validateResponse?: (response: HttpResponse) => boolean;
 }
 
-interface HttpResponse {
-  status: number;
-  body: string;
-}
-
+// 只提供必选成员
 let config1: Configuration = {
   apiUrl: 'EXAMPLE_API_URL'
 };
 
+// 可选成员可按需提供
 let config2: Configuration = {
   apiUrl: 'EXAMPLE_API_URL',
-  timeout: 5000,
-  retries: 3,
-  debugMode: true
+  timeout: 5000
 };
 
-// 使用可选成员
-if (config2.timeout) {
+// 使用可选成员前需要检查是否存在
+if (config2.timeout !== undefined) {
   console.info(`Timeout: ${config2.timeout}ms`);
 }
 
@@ -795,8 +778,8 @@ class InterfaceUser extends BaseEntity implements Named, Active {
 }
 
 let interfaceUser = new InterfaceUser(1, 'Alice');
-console.info(`${interfaceUser.getInfo()}`);  // ID: 1, Created: ...
-console.info(`${interfaceUser.getName()}`);  // Alice
+console.info(`${interfaceUser.getInfo()}`);  // 'ID: 1, Created: ...'
+console.info(`${interfaceUser.getName()}`);  // 'Alice'
 interfaceUser.activate();
 interfaceUser.deactivate();
 // [End class_inheritance_with_interface]
@@ -879,13 +862,7 @@ console.info(`Color: RGB(${color.red}, ${color.green}, ${color.blue})`);
 
 // ===== interface_function_types =====
 // [Start interface_function_types]
-interface TypesUser {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface CreateUserRequest {
+interface UserRequest {
   name: string;
   email: string;
 }
@@ -897,39 +874,23 @@ interface ApiResponse<T> {
 }
 
 // 接口作为参数类型
-function createUser(request: CreateUserRequest): TypesUser {
-  return {
-    id: Math.floor(Math.random() * 1000),
-    name: request.name,
-    email: request.email
-  };
+function validateRequest(request: UserRequest): boolean {
+  return request.name.length > 0 && request.email.includes('@');
 }
 
 // 接口作为返回值类型
-function getUser(id: number): ApiResponse<TypesUser> {
+function getUserName(id: number): ApiResponse<string> {
   if (id > 0) {
-    return {
-      success: true,
-      data: {
-        id: id,
-        name: 'Alice',
-        email: 'alice@example.com'
-      }
-    };
-  } else {
-    return {
-      success: false,
-      error: 'Invalid user ID'
-    };
+    return { success: true, data: 'Alice' };
   }
+  return { success: false, error: 'Invalid user ID' };
 }
 
-let newUser: TypesUser = createUser({ name: 'Bob', email: 'bob@example.com' });
-console.info(`${newUser}`);
+console.info(`${validateRequest({ name: 'Alice', email: 'alice@example.com' })}`); // true
 
-let response: ApiResponse<TypesUser> = getUser(1);
+let response: ApiResponse<string> = getUserName(1);
 if (response.success && response.data !== undefined) {
-    console.info(`${response.data.name}`);
+  console.info(`${response.data}`); // 'Alice'
 }
 // [End interface_function_types]
 
@@ -985,9 +946,9 @@ let dog = new PolyDog('Buddy');
 let cat = new Cat('Whiskers');
 let cow = new Cow('Daisy');
 
-makeAnimalSpeak(dog); // Buddy barks: Woof! Woof!
-makeAnimalSpeak(cat); // Whiskers meows: Meow!
-makeAnimalSpeak(cow); // Daisy moos: Moo!
+makeAnimalSpeak(dog); // 'Buddy barks: Woof! Woof!'
+makeAnimalSpeak(cat); // 'Whiskers meows: Meow!'
+makeAnimalSpeak(cow); // 'Daisy moos: Moo!'
 
 // 使用接口类型的数组
 let animals: PolyAnimal[] = [dog, cat, cow];
@@ -1008,55 +969,32 @@ class CastingCar implements CastingVehicle {
   public brand: string;
   public model: string;
   public doors: number;
-  
+
   constructor(brand: string, model: string, doors: number) {
     this.brand = brand;
     this.model = model;
     this.doors = doors;
   }
-  
+
   public drive(): void {
     console.info(`Driving ${this.brand} ${this.model}`);
   }
 }
 
-class Motorcycle implements CastingVehicle {
-  public brand: string;
-  public model: string;
-  public type: string;
-  
-  constructor(brand: string, model: string, type: string) {
-    this.brand = brand;
-    this.model = model;
-    this.type = type;
-  }
-  
-  public ride(): void {
-    console.info(`Riding ${this.brand} ${this.model} (${this.type})`);
-  }
-}
-
 // 接口类型转换为具体类型（需要类型检查）
 function processVehicle(vehicle: CastingVehicle): void {
-  console.info(`${vehicle.brand} ${vehicle.model}`);
-  
-  // 使用instanceof检查类型
   if (vehicle instanceof CastingCar) {
-    let car = vehicle as CastingCar;
+    let car: CastingCar = vehicle as CastingCar;
     console.info(`Doors: ${car.doors}`);
     car.drive();
-  } else if (vehicle instanceof Motorcycle) {
-    let motorcycle = vehicle as Motorcycle;
-    console.info(`Type: ${motorcycle.type}`);
-    motorcycle.ride();
   }
 }
 
-let car: CastingCar = new CastingCar('Toyota', 'Camry', 4);
-let motorcycle: Motorcycle = new Motorcycle('Harley-Davidson', 'Street 750', 'Cruiser');
+let car: CastingVehicle = new CastingCar('Toyota', 'Camry', 4);
 
 processVehicle(car);
-processVehicle(motorcycle);
+// Doors: 4
+// Driving Toyota Camry
 // [End interface_type_casting]
 
 // ===== interface_default_implementation =====
@@ -1178,7 +1116,8 @@ interface ImplCheckable {
 }
 
 class ImplNameChecker implements ImplCheckable {
-  // 参数类型不会从接口自动推断，需显式标注
+  // implements不会把接口的类型信息传递到类体中，
+  // 参数类型需显式标注，不能依赖接口推断
   check(s: string): boolean {
     return s.toLowerCase() === 'ok';
   }
@@ -1191,14 +1130,34 @@ interface ImplConfigA {
 
 class ImplC implements ImplConfigA {
   public x: number = 0;
-  // y不是必须实现的，但实例上不存在y属性
+  // y是可选成员，可以不声明；不声明时实例上不存在y属性
 }
 
 let implC: ImplC = new ImplC();
-console.info(`${implC.x.toString()}`);  // 0
+console.info(`${implC.x.toString()}`); // 0
+
+// console.info(`${implC.y}`); // 编译错误：ImplC上不存在y属性
 // [End implements_cautions]
 
+// ===== implements_static_members =====
+// [Start implements_static_members]
+interface ImplLoggable {
+  log(message: string): void;
+}
 
+class ImplStaticCounter implements ImplLoggable {
+  // 静态成员不参与implements检查
+  private static count: number = 0;
+
+  log(message: string): void {
+    ImplStaticCounter.count++;
+    console.info(`[${ImplStaticCounter.count}] ${message}`);
+  }
+}
+
+let staticCounter = new ImplStaticCounter();
+staticCounter.log('hello'); // '[1] hello'
+// [End implements_static_members]
 
 // ===== interface_multiple_inheritance =====
 // [Start interface_multiple_inheritance]
@@ -1206,42 +1165,23 @@ interface MiSerializable {
   serialize(): string;
 }
 
-interface MiCloneable {
-  clone(): Object;
-}
-
 interface MiComparable {
   compareTo(other: Object): number;
 }
 
-interface MiEntity extends MiSerializable, MiCloneable, MiComparable {
+interface MiEntity extends MiSerializable, MiComparable {
   id: number;
-  createdAt: Date;
 }
 
 class MiUserEntity implements MiEntity {
   public id: number;
-  public createdAt: Date;
-  public name: string;
 
-  constructor(id: number, name: string) {
+  constructor(id: number) {
     this.id = id;
-    this.name = name;
-    this.createdAt = new Date();
   }
 
   public serialize(): string {
-    return JSON.stringify({
-      id: this.id,
-      name: this.name,
-      createdAt: this.createdAt
-    });
-  }
-
-  public clone(): Object {
-    let cloned: MiUserEntity = new MiUserEntity(this.id, this.name);
-    cloned.createdAt = new Date(this.createdAt);
-    return cloned;
+    return `User#${this.id}`;
   }
 
   public compareTo(other: Object): number {
@@ -1250,14 +1190,11 @@ class MiUserEntity implements MiEntity {
   }
 }
 
-let miUser1: MiUserEntity = new MiUserEntity(1, 'Alice');
-let miUser2: MiUserEntity = new MiUserEntity(2, 'Bob');
+let miUser1: MiUserEntity = new MiUserEntity(1);
+let miUser2: MiUserEntity = new MiUserEntity(2);
 
-console.info(`${miUser1.serialize()}`);
+console.info(`${miUser1.serialize()}`);        // 'User#1'
 console.info(`${miUser1.compareTo(miUser2)}`); // -1
-let miCloned: Object = miUser1.clone();
-let miClonedUser: MiUserEntity = miCloned as MiUserEntity;
-console.info(`${miClonedUser.name}`); // Alice
 // [End interface_multiple_inheritance]
 
 // ===== bird_multiple_interface =====
@@ -1299,9 +1236,9 @@ class AcBird extends AcAnimal implements AcCanFly, AcCanSwim {
 }
 
 let acBird: AcBird = new AcBird('Sparrow');
-acBird.makeSound(); // Sparrow chirps
-acBird.fly();       // Sparrow flies
-acBird.swim();      // Sparrow swims
+acBird.makeSound(); // 'Sparrow chirps'
+acBird.fly();       // 'Sparrow flies'
+acBird.swim();      // 'Sparrow swims'
 // [End bird_multiple_interface]
 
 // ===== interface_extends_multiple =====

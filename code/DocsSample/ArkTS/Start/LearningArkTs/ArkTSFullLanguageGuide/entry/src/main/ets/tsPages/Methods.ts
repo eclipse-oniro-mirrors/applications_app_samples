@@ -207,7 +207,7 @@ class Base {
     console.info(`Base protected`);
   }
 
-  // private方法（不能重写）
+  // private方法（不能覆盖）
   private privateMethod(): void {
     console.info(`Base private`);
   }
@@ -216,21 +216,21 @@ class Base {
 }
 
 class Derived extends Base {
-  // 重写public方法：保持public
+  // 覆盖public方法：保持public
   public publicMethod(): void {
     console.info(`Derived public`);
   }
 
-  // 重写protected方法：可保持protected或改为public
+  // 覆盖protected方法：可保持protected或改为public
   public protectedMethod(): void {
     console.info(`Derived public (was protected)`);
   }
 
-  // 不能重写private方法
-  private privateMethod(): void {}  // 编译错误
+  // 不能覆盖private方法
+  // private privateMethod(): void {}  // 编译错误
 
   // 不能降低访问权限
-  private loweredPublicMethod(): void {}  // 编译错误：不能从protected改为private
+  // private loweredPublicMethod(): void {}  // 编译错误：不能从protected改为private
 
   callProtected(): void {
     this.protectedMethod();  // 可访问父类protected
@@ -240,7 +240,7 @@ class Derived extends Base {
 let derived: Derived = new Derived();
 derived.publicMethod();        // 'Derived public'
 derived.protectedMethod();     // 'Derived public (was protected)'
-derived.callProtected();       // 'Base protected'
+derived.callProtected();       // 'Derived public (was protected)'
 // [End ts_override_access_modifiers]
 
 // [Start ts_static_method_usage_patterns]

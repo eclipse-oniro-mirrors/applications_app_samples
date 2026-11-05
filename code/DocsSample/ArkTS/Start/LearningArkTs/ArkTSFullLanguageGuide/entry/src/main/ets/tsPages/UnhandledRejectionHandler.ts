@@ -12,21 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 // ===== unhandled_rejection_handler =====
 // [Start unhandled_rejection_handler]
-import errorManager from '@ohos.app.ability.errorManager';
+import { errorManager } from '@kit.AbilityKit';
 
-// 监听未处理的Promise拒绝
-errorManager.on('unhandledRejection', (reason: Error, promise: Promise<Object>) => {
+// 将监听回调保存为observer，便于后续精确注销
+let observer: errorManager.UnhandledRejectionObserver = (reason: Error, promise: Promise<void>) => {
   console.error(`未处理的 Promise 拒绝: ${reason.message}`);
-});
+};
 
-// 示例：触发全局错误处理
+// 注册监听（只能在主线程注册）
+errorManager.on('unhandledRejection', observer);
+
+// 示例：触发未处理的Promise rejection
 async function triggerUnhandledRejection(): Promise<void> {
   // 这个错误没有try-catch或.catch() 处理
   await Promise.reject(new Error('未捕获的 Promise 错误'));
 }
 
-triggerUnhandledRejection(); // 运行时报错，将触发全局错误监听器
+triggerUnhandledRejection(); // 该rejection未被处理，将触发上方注册的监听器
+
+// 在合适的时机（如页面销毁时）注销监听：
+errorManager.off('unhandledRejection', observer);
 // [End unhandled_rejection_handler]

@@ -217,11 +217,11 @@ try {
 // ===== try_catch_finally_syntax =====
 // [Start try_catch_finally_syntax]
 try {
-  // 可能抛出异常的代码
+  // 可能抛出错误的代码
 } catch (error) {
-  // 异常处理代码
+  // 错误处理代码
 } finally {
-  // 无论是否发生异常都会执行的代码（可选）
+  // 无论是否发生错误都会执行的代码（可选）
 }
 // [End try_catch_finally_syntax]
 
@@ -976,10 +976,10 @@ function safeParseJSON(jsonStr: string, defaultValue: FallbackData | null = null
 }
 
 let fbData1: FallbackData | null = safeParseJSON('{"name": "Alice"}', { name: 'Unknown' });
-console.info(`${JSON.stringify(fbData1)}`);  // {"name":"Alice"}
+console.info(`${JSON.stringify(fbData1)}`);  // '{"name":"Alice"}'
 
 let fbData2: FallbackData | null = safeParseJSON('invalid json', { name: 'Unknown' });
-console.info(`${JSON.stringify(fbData2)}`);  // {"name":"Unknown"}
+console.info(`${JSON.stringify(fbData2)}`);  // '{"name":"Unknown"}'
 
 function safeArrayAccess<T>(arr: T[], index: number, defaultValue: T): T {
   try {
@@ -1019,7 +1019,7 @@ class ApiClient {
     let url: string = `${this.baseUrl}${endpoint}`;
     let lastError: Error | null = null;
 
-    for (let attempt: number = 0; attempt <= this.maxRetries; attempt++) {
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         let result: string = await this.mockRequest(url);
         return result;
