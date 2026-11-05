@@ -82,15 +82,6 @@ bool GetInt64Value(napi_env env, napi_value value, int64_t* result)
     return true;
 }
 
-// FetchFrameByTime的输入参数
-struct FetchFrameParams {
-    int64_t timeUs = 0;
-    int64_t offset = 0;
-    int32_t fileDescribe = -1;
-    int64_t fileSize = 0;
-    int32_t options = OH_AVIMAGE_GENERATOR_QUERY_CLOSEST;
-};
-
 // 辅助函数：获取FetchFrameByTime的输入参数
 bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrameParams &fetchFrameParams)
 {
@@ -123,15 +114,18 @@ bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrame
     return true;
 }
 
-/**
- * 需要在index.d.ts文件内描述映射的OhAvImageGeneratorFetchFrameByTime方法。
- * export const OhAvImageGeneratorFetchFrameByTime: (fdsrc : number, size : number, timeus : number,
- * options : number, offset : number) => image.PixelMap;
- * 需要传入媒体文件描述符fdsrc、媒体文件大小size、指定的时间timeus（单位us）、
- * 指定时间点与视频帧的对应关系options、媒体源在文件描述符中的偏移量offset。
- * 返回PixelMap对象。
- */
+
+
 // [Start OH_AVImageGenerator_FetchFrameByTime]
+// FetchFrameByTime的输入参数。
+struct FetchFrameParams {
+    int64_t timeUs = 0; // 指定的时间（单位us）。
+    int64_t offset = 0; // 媒体源在文件描述符中的偏移量。
+    int32_t fileDescribe = -1; // 媒体文件描述符。
+    int64_t fileSize = 0; // 媒体文件大小。
+    int32_t options = OH_AVIMAGE_GENERATOR_QUERY_CLOSEST; // OH_AVIMAGE_GENERATOR_QUERY_CLOSEST表示选取离传入时间点最近的关键帧。
+};
+
 static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback_info info)
 {
     FetchFrameParams fetchFrameParams;

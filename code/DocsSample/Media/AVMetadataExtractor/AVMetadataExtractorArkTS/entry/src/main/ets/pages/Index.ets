@@ -158,11 +158,9 @@ struct Index {
   // 获取音频专辑封面并通过Image控件显示在屏幕上。
   async testFetchMetadataFromFdSrc() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
-      // [Start AVMetadataExtractor_SetOpenSync]
       let file: fileIo.File | undefined = undefined;
-      // [StartExclude AVMetadataExtractor_SetOpenSync]
       try {
-        // [EndExclude AVMetadataExtractor_SetOpenSync]
+        // [Start AVMetadataExtractor_SetOpenSync]
         // 创建AVMetadataExtractor对象。
         let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
         // 使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置fdSrc属性。
@@ -211,9 +209,7 @@ struct Index {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
       // [Start AVMetadataExtractor_SetDataSrc]
       let fd: number = -1;
-      // [StartExclude AVMetadataExtractor_SetDataSrc]
       try {
-        // [EndExclude AVMetadataExtractor_SetDataSrc]
         // 创建AVMetadataExtractor对象。
         let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
         let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -258,21 +254,21 @@ struct Index {
         avMetadataExtractor.release();
 
         console.info(TAG, `release data source success.`);
+        // [EndExclude AVMetadataExtractor_SetDataSrc]
       } catch (e) {
         console.error(TAG + `FetchMetadataFromDataSrc, code is ${e.code}, message is ${e.message}`);
       } finally {
         // 确保文件流关闭
         if (fd >= 0) {
           try {
-            // [EndExclude AVMetadataExtractor_SetDataSrc]
             // 在执行完后续获取元数据或者抽帧操作后，需要关闭fd。
             fileIo.closeSync(fd);
-            // [End AVMetadataExtractor_SetDataSrc]
           } catch (e) {
             console.error(TAG + `closeSync failed, code is ${e.code}, message is ${e.message}`);
           }
         }
       }
+      // [End AVMetadataExtractor_SetDataSrc]
     }
   }
 
