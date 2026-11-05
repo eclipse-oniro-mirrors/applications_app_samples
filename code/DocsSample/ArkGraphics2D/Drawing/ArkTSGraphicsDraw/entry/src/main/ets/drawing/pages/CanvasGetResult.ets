@@ -20,6 +20,7 @@ import { UIContext, NodeController, FrameNode, RenderNode, DrawContext} from '@k
 // [End arkts_graphics_draw_import_ui]
 import { image } from '@kit.ImageKit';
 import { taskpool } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [Start arkts_graphics_draw_import_graphics2d]
 import { drawing } from '@kit.ArkGraphics2D';
 // [End arkts_graphics_draw_import_graphics2d]
@@ -123,6 +124,8 @@ export class MyNodeControllerIndirectDisplay extends NodeController {
     taskpool.execute(task).then((pixel:Object)=>{
       this.myRenderNode.setPixelMap(pixel as image.PixelMap);
       this.myRenderNode.invalidate();
+    }).catch((err:BusinessError)=>{
+      console.error(`Failed to create pixelMap. Code is ${err.code}, message is ${err.message}`);
     })
   }
 
