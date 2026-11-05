@@ -50,6 +50,7 @@ constexpr uint32_t TEXT_DECORATION_COLOR = 0xFF00FFFF;
 #define VALUE_3 3
 #define VALUE_4 4
 #define VALUE_5 5
+#define VALUE_7 7
 #define VALUE_8 8
 #define VALUE_10 10
 #define VALUE_11 11
@@ -523,9 +524,11 @@ void setText1(ArkUI_NodeHandle &text)
                 {.f32 = 5.0f},       // 左上角半径
                 {.f32 = 5.0f},       // 右上角半径
                 {.f32 = 5.0f},       // 左下角半径
-                {.f32 = 5.0f}        // 右下角半径
+                {.f32 = 5.0f},       // 右下角半径
+                {.f32 = 2.0f},       // 边框宽度
+                {.u32 = COLOR_RED}   // 边框颜色
             };
-            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_5};
+            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_7};
             Manager::nodeAPI_->setAttribute(span, NODE_SPAN_TEXT_BACKGROUND_STYLE, &spanBackgroundItem);
 
             // 文本基线的偏移量属性
