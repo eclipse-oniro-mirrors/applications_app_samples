@@ -32,7 +32,7 @@ export default function deviceUtilTest() {
     it('deviceType_nonEmpty', 0, () => {
       const t = DeviceUtil.getDeviceType();
       expect(t.length > 0).assertTrue();
-      // DAYU200 上报 'default'；手机/平板/2in1 形态设备按各自字面量上报
+      // 开发板上报 'default'；手机/平板/2in1 形态设备按各自字面量上报
       expect(t === 'default' || t === 'phone' || t === 'tablet' || t === '2in1').assertTrue();
     });
 
@@ -48,11 +48,11 @@ export default function deviceUtilTest() {
       const flags: number = (DeviceUtil.isPhone() ? 1 : 0)
         + (DeviceUtil.isTablet() ? 1 : 0)
         + (DeviceUtil.is2in1() ? 1 : 0);
-      // 三个形态标志互斥，任一设备最多命中 1 个；'default' 形态（DAYU200）三个全为 false
+      // 三个形态标志互斥，任一设备最多命中 1 个；'default' 形态三个全为 false
       expect(flags === 0 || flags === 1).assertTrue();
       if (DeviceUtil.getDeviceType() === 'default') {
         expect(flags).assertEqual(0);
-        // 'default' 不算宽屏形态，双栏由断点决定（DAYU200 480vp 落 sm，仍单栏）
+        // 'default' 不算宽屏形态，双栏由断点决定（480vp 落 sm，仍单栏）
         expect(DeviceUtil.isWideScreen()).assertFalse();
       } else {
         expect(flags).assertEqual(1);

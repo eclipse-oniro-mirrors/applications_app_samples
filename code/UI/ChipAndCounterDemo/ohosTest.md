@@ -2,7 +2,7 @@
 
 ## 测试环境
 
-- 设备：RK3568 开发板（DAYU200），OpenHarmony-7.1.0.22(Canary1) / API 26
+- 设备：RK3568 开发板，OpenHarmony-7.1.0.22(Canary1) / API 26
 - 应用：`com.samples.chipandcounterdemo`
 - 测试框架：Hypium，测试模块 `entry_test`，执行器 `OpenHarmonyTestRunner`
 - 开发环境：DevEco Studio 6.1.1，编译 SDK API 26，`compatibleSdkVersion 26.0.0`，`runtimeOS` 为 OpenHarmony

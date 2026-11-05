@@ -42,7 +42,7 @@
 
 ### 使用说明
 
-1. 用 DevEco Studio 打开工程，使用 SDK 自带的 OpenHarmony 默认调试签名（或 DevEco Studio 自动签名），运行到 RK3568 / DAYU200（API 26 镜像）；
+1. 用 DevEco Studio 打开工程，使用 SDK 自带的 OpenHarmony 默认调试签名（或 DevEco Studio 自动签名），运行到 RK3568 开发板（API 26 镜像）；
 2. 在分区 1 / 2 中点击标签切换激活态，点击后缀图标触发 `suffixIcon.action`，点击“可关闭”标签右侧的 × 移除后可通过“＋ 恢复可关闭标签”恢复；
 3. 分区 3 中分别操作单选组、多选组和自定义样式组，观察状态行与日志中的“替换 / 新增 / 取消”动作；
 4. 分区 4 / 5 可点击顶部“跳到计数与分段 ↓”快速定位；计数器四种类型分别调整数值或日期，分段按钮演示三种形态；
@@ -216,10 +216,10 @@ ChipAndCounterDemo
 | `LogUtil.test.ets` | 11 | 未初始化安全性、回调投递、行格式与时间戳、级别过滤与标记、时间格式补零、错误级别投递、重复 init 替换回调、多条日志顺序、未知级别标记 |
 | `DeviceUtil.test.ets` | 10 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840 / 精确阈值 / 负数与小数宽度）、档位类型安全、档案字段、宽屏与双栏阈值一致性 |
 | `Ability.test.ets` | 1 | Ability 冒烟用例 |
-| `TagStoreMatrix.test.ets` | 31 | id 连续与不复用、空串 / 中文 / 重复 / 空白文本、首中尾删除与非法 / 零 / 小数 id、多标签激活独立、禁用与激活互不影响、findById 引用与 getAll 快照一致性、全删与增删循环、50 条批量压测、小数 id 全接口拒绝、禁用+激活+删除组合流 |
+| `TagStoreMatrix.test.ets` | 31 | id 连续与不复用、空串 / CJK / 重复 / 空白文本、首中尾删除与非法 / 零 / 小数 id、多标签激活独立、禁用与激活互不影响、findById 引用与 getAll 快照一致性、全删与增删循环、50 条批量压测、小数 id 全接口拒绝、禁用+激活+删除组合流 |
 | `CounterLogicMatrix.test.ets` | 23 | clamp 边界 / 退化区间 / 负数区间 / 无穷大边界、构造截断、step=0 与小数步进、跨上下限、连续步进到达边界、setValue 越界、atMax / atMin 迁移、实例隔离 |
-| `ChipConfigFactoryMatrix.test.ets` | 42 | 标签空串 / 中文 / 可选激活色、前缀图标来源、分组条目顺序与 allowClose 语义、分段条目顺序与重复项、Symbol 引用一致性、关闭图标字号 12 / 24、样式与间距、重复调用独立；后缀 Symbol action 与三态图标、ChipV2 / 分组 LocalizedPadding 精确值与零值、分组尾部图标组组合与索引分发、点亮标记重建、长短标记表、无 Symbol 列表、纯 Symbol 分段条目（含空数组）、指定索引禁用（首 / 中 / 尾 / 无） |
-| `LogUtilMatrix.test.ets` | 22 | init 不写面板与沿用 / 显式级别、级别调高调低与中途切换、固定时刻与两位数时刻格式化、时间令牌形状、四级行格式、标签与消息保真（空格 / 中文 / 括号 / 空消息 / 多行消息）、DEBUG 标记 |
+| `ChipConfigFactoryMatrix.test.ets` | 42 | 标签空串 / CJK / 可选激活色、前缀图标来源、分组条目顺序与 allowClose 语义、分段条目顺序与重复项、Symbol 引用一致性、关闭图标字号 12 / 24、样式与间距、重复调用独立；后缀 Symbol action 与三态图标、ChipV2 / 分组 LocalizedPadding 精确值与零值、分组尾部图标组组合与索引分发、点亮标记重建、长短标记表、无 Symbol 列表、纯 Symbol 分段条目（含空数组）、指定索引禁用（首 / 中 / 尾 / 无） |
+| `LogUtilMatrix.test.ets` | 22 | init 不写面板与沿用 / 显式级别、级别调高调低与中途切换、固定时刻与两位数时刻格式化、时间令牌形状、四级行格式、标签与消息保真（空格 / CJK / 括号 / 空消息 / 多行消息）、DEBUG 标记 |
 | `DeviceUtilMatrix.test.ets` | 17 | 分数宽度断点、档位单调、双栏结论一致、形态标志一致、档案字段类型、logDeviceProfile 不抛异常且写入档案行 |
 
 组合用例逐条显式书写并带完整 `@tc` 头（number / name / desc / size / type / level），只调用 `ChipModels.ets`、`LogUtil.ets`、`DeviceUtil.ets` 中的真实实现，测试内不复制业务逻辑；期望值来自 API 语义（`[min, max]` 截断、id 不复用、600 / 840vp 断点、日志行格式）。
@@ -252,7 +252,7 @@ hdc shell "${ability_command} test -b com.samples.chipandcounterdemo -m entry_te
 | 开发环境 | DevEco Studio 6.1.1 |
 | SDK | 编译 SDK API 26（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `26.0.0`），`runtimeOS` 为 OpenHarmony |
 | 系统版本 | **API 26 及以上**：ChipV2、ChipGroupV2、CounterV2 为 API 26 组件，低于 API 26 的设备上这些分区不可用 |
-| 验证设备 | RK3568 / DAYU200（API 26）；`module.json5` 声明 `default / tablet` |
+| 验证设备 | RK3568 开发板（API 26）；`module.json5` 声明 `default / tablet` |
 | 签名 | 本地开发使用 SDK 自带的 OpenHarmony 默认调试签名；仓库内不保存任何证书、密钥或口令 |
 
 其它限制：

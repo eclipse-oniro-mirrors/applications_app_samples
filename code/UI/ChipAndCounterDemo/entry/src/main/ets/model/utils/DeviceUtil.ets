@@ -78,7 +78,7 @@ export class DeviceUtil {
     return DeviceUtil.getBreakpoint(widthVp) !== 'sm';
   }
 
-  /** 输出设备档案日志（Index 启动时调用，便于在 DAYU200 上确认运行环境） */
+  /** 输出设备档案日志（Index 启动时调用，便于在开发板上确认运行环境） */
   static logDeviceProfile(): void {
     LogUtil.info('Device', `设备类型=${DeviceUtil.getDeviceType()}` +
       `，产品型号=${DeviceUtil.getProductModel()}` +

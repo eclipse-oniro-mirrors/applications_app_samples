@@ -26,10 +26,10 @@ All components are imported from `@kit.ArkUI`. The project also uses the followi
 Main features:
 
 - **Nine demo sections**: five base sections (Chip V1, ChipV2, ChipGroupV2, CounterV2, SegmentButtonV2) plus four advanced sections (Chip advanced V1/V2, ChipGroupV2 advanced, CounterV2 advanced, SegmentButtonV2 advanced), comparing V1 and V2 on the same screen.
-- **Full tag coverage**: activated state, Image / Symbol prefix and suffix icons, independent suffix Symbol click callback, accessibility description, dynamic enable/disable, custom style, size switching, closable and restore, and disabled.
+- **Full tag coverage**: activated state, Image / Symbol prefix and suffix icons, independent suffix Symbol click callback, accessibility description, dynamic enabling, custom style, size switching, closable and restore, and the `enabled: false` state.
 - **Group selection**: ChipGroupV2 single-select, multi-select, and custom-style groups, supporting `itemStyle`, `chipGroupSpace`, `chipGroupPadding`, `suffix` (including tail icon group), and `onChange`.
 - **Four counter types**: list, compact, numeric inline (min / max / step / textWidth / label), and date inline (`onDateChange` with initial year / month / day), plus `onFocus` / `onBlur` / `onHover` business callbacks.
-- **Three segment button forms**: tab-style single-select, capsule-style mixed icon+text single-select, and capsule-style multi-select; advanced sections add pure-Symbol capsules (`onItemClicked`, icon size / padding / background / min height) and disabled items (`enabled=false`).
+- **Three segment button forms**: tab-style single-select, capsule-style mixed icon+text single-select, and capsule-style multi-select; advanced sections add pure-Symbol capsules (`onItemClicked`, icon size / padding / background / min height) and `enabled: false` items.
 - **Readable interaction**: each section has a live status line, logs have increasing sequence numbers and state the result, and the activated state uses a dark blue background, white text, and a check mark for clear distinction.
 - **Breakpoint adaptation**: sm (<600vp) uses a single column, md / lg use two columns, and the top provides a "jump to counter and segment" shortcut.
 - **Data/UI separation**: `TagStore`, `CounterLogic`, and `ChipConfigFactory` are pure logic / config-building layers, backed by 202 device-side cases.
@@ -42,11 +42,11 @@ After launch, the page shows, from top to bottom: title and description, device 
 
 ### Usage
 
-1. Open the project in DevEco Studio, use the OpenHarmony default debug signing shipped with the SDK (or DevEco Studio automatic signing), and run it on RK3568 / DAYU200 (API 26 image).
+1. Open the project in DevEco Studio, use the OpenHarmony default debug signing shipped with the SDK (or DevEco Studio automatic signing), and run it on an RK3568 development board (API 26 image).
 2. In sections 1 / 2, tap a tag to toggle its activated state, tap the suffix icon to trigger `suffixIcon.action`, and tap the x on the "closable" tag to remove it; use "+ Restore closable tag" to bring it back.
 3. In section 3, operate the single-select, multi-select, and custom-style groups and observe the "replace / add / remove" actions in the status line and log.
 4. In sections 4 / 5, use the top "jump to counter and segment" shortcut to locate them quickly; the counter demonstrates four types and the segment button demonstrates three forms.
-5. Section 6 demonstrates independent suffix Symbol clicks (V1 `suffixSymbolOptions.action` and V2 `ChipV2SuffixSymbolIcon.action`), accessibility description tags, and dynamic enable/disable. Section 7 demonstrates group top/bottom padding and the tail icon group (Image + like/favorite Symbols that toggle gray/orange without changing group selection). Section 8 demonstrates label / step / textWidth / focus / blur / hover and the initial date. Section 9 demonstrates pure-Symbol capsules and disabled items.
+5. Section 6 demonstrates independent suffix Symbol clicks (V1 `suffixSymbolOptions.action` and V2 `ChipV2SuffixSymbolIcon.action`), accessibility description tags, and dynamic enabling. Section 7 demonstrates group top/bottom padding and the tail icon group (Image + like/favorite Symbols that toggle gray/orange without changing group selection). Section 8 demonstrates label / step / textWidth / focus / blur / hover and the initial date. Section 9 demonstrates pure-Symbol capsules and `enabled: false` items.
 6. The log panel on the right (or at the bottom) shows the latest 120 events, newest first, prefixed with `#sequence`; it also writes to hilog:
 
    ```bash
@@ -112,15 +112,15 @@ The layout reads the window width with `onAreaChange` and calls `DeviceUtil.getB
 
 | Section | Content | Key APIs |
 | --- | --- | --- |
-| 1. Chip (V1) | Basic activation, Image prefix / suffix icons, Symbol icon, custom style, SMALL / NORMAL size, closable and restore, disabled tag | `Chip` / `ChipOptions` / `LabelOptions` / `PrefixIconOptions` / `SuffixIconOptions` / `ChipSymbolGlyphOptions` / `CloseOptions` / `ChipSize` / `onClicked` |
-| 2. ChipV2 | NORMAL / SMALL size, Image / Symbol icons, ColorMetrics background + LengthMetrics radius, custom closeIcon, close / restore, disabled | `ChipV2` / `ChipV2Options` / `ChipV2Label` / `ChipV2Size` / `ChipV2PrefixSymbolIcon` / `ChipV2CloseIcon` / `ColorMetrics` / `LengthMetrics` |
+| 1. Chip (V1) | Basic activation, Image prefix / suffix icons, Symbol icon, custom style, SMALL / NORMAL size, closable and restore, `enabled: false` tag | `Chip` / `ChipOptions` / `LabelOptions` / `PrefixIconOptions` / `SuffixIconOptions` / `ChipSymbolGlyphOptions` / `CloseOptions` / `ChipSize` / `onClicked` |
+| 2. ChipV2 | NORMAL / SMALL size, Image / Symbol icons, ColorMetrics background + LengthMetrics radius, custom closeIcon, close / restore, `enabled: false` state | `ChipV2` / `ChipV2Options` / `ChipV2Label` / `ChipV2Size` / `ChipV2PrefixSymbolIcon` / `ChipV2CloseIcon` / `ColorMetrics` / `LengthMetrics` |
 | 3. ChipGroupV2 | Single-select, multi-select, custom-style group (itemStyle, spacing, suffix, onChange) | `ChipGroupV2` / `ChipGroupV2Items` / `ChipGroupV2ItemStyle` / `ChipGroupV2Space` / `onChange` / `suffix` |
 | 4. CounterV2 | LIST / COMPACT / INLINE (min / max / step) / INLINE_DATE | `CounterV2Component` / `CounterV2Options` / `CounterV2Type` |
 | 5. SegmentButtonV2 | Tab-style single-select, capsule-style mixed single-select, capsule-style multi-select | `TabSegmentButtonV2` / `CapsuleSegmentButtonV2` / `MultiCapsuleSegmentButtonV2` / `SegmentButtonV2Items` |
-| 6. Chip advanced (V1/V2) | V1 suffix Symbol appearance + `suffixSymbolOptions.action`, accessibility description, dynamic enable/disable; ChipV2 suffix Symbol icon (`ChipV2SuffixSymbolIcon`), custom fontSize and padding, `accessibilityDescription` | `ChipSuffixSymbolGlyphOptions` / `ChipV2SuffixSymbolIcon` / `LocalizedPadding` / `LengthMetrics` / `accessibilityDescription` |
+| 6. Chip advanced (V1/V2) | V1 suffix Symbol appearance + `suffixSymbolOptions.action`, accessibility description, dynamic enabling; ChipV2 suffix Symbol icon (`ChipV2SuffixSymbolIcon`), custom fontSize and padding, `accessibilityDescription` | `ChipSuffixSymbolGlyphOptions` / `ChipV2SuffixSymbolIcon` / `LocalizedPadding` / `LengthMetrics` / `accessibilityDescription` |
 | 7. ChipGroupV2 advanced | `chipGroupPadding` top/bottom spacing, `suffix` with `ChipGroupV2IconGroupSuffix` tail icon group (Image + like/favorite Symbols that toggle without changing selection) | `ChipGroupV2Padding` / `ChipGroupV2IconGroupSuffix` / `ChipGroupV2IconItemConfig` / `ChipGroupV2SymbolItemConfig` |
 | 8. CounterV2 advanced | LIST with label and step=2, INLINE step=5 with `textWidth`, `onFocus` / `onBlur` / `onHover`, date inline with initial year / month / day and `onDateChange` | `CounterV2NumberStyleOptions` / `CounterV2DateStyleOptions` / `textWidth` / `label` / `onDateChange` |
-| 9. SegmentButtonV2 advanced | Pure-Symbol capsule single-select (`onItemClicked`, `itemSymbolFontSize`, `itemPadding`, `buttonBackgroundColor`, `itemMinHeight`), disabled item (`enabled=false` ignores taps) | `SegmentButtonV2ItemOptions` / `onItemClicked` / `itemSymbolFontSize` / `itemPadding` / `buttonBackgroundColor` / `itemMinHeight` / `enabled` |
+| 9. SegmentButtonV2 advanced | Pure-Symbol capsule single-select (`onItemClicked`, `itemSymbolFontSize`, `itemPadding`, `buttonBackgroundColor`, `itemMinHeight`), `enabled: false` item (ignores taps) | `SegmentButtonV2ItemOptions` / `onItemClicked` / `itemSymbolFontSize` / `itemPadding` / `buttonBackgroundColor` / `itemMinHeight` / `enabled` |
 
 ### 3. Chip and ChipV2
 
@@ -128,13 +128,13 @@ The layout reads the window width with `onAreaChange` and calls `DeviceUtil.getB
 - **Two icon types**: V1 uses `prefixSymbol` (`ChipSymbolGlyphOptions.normal / activated`), V2 uses `ChipV2PrefixSymbolIcon`; Image and Symbol icons are compared on the same screen, with Symbol colors set through `SymbolGlyphModifier` (dark gray normal, white activated).
 - **Customizable close button**: V1 uses `closeOptions` with `accessibilityText` and `fontSize: 20`; V2 uses `ChipV2CloseIcon` with accessible text and `LengthMetrics.vp(20)`; clicking runs `onClose` to remove the tag and show the restore entry.
 - **`allowClose` defaults to `true`**: display tags must explicitly set `allowClose: false`; only the closable tag binds `onClose`.
-- **Disabled tag on its own row**: on this ROM, when a disabled tag and a closable tag are on the same row, tapping the disabled tag may pass through and trigger the adjacent `onClose`, so the disabled example occupies its own row.
+- **Tag with `enabled: false` on its own row**: on the verified API 26 image, when a tag with `enabled: false` and a closable tag are on the same row, tapping the `enabled: false` tag may pass through and trigger the adjacent `onClose`, so this example occupies its own row.
 
 Section 6 adds advanced usage:
 
 - **Independent suffix Symbol click**: V1 uses `suffixSymbol` (appearance) + `suffixSymbolOptions.action` (click); V2 uses `ChipV2SuffixSymbolIcon({ normal, activated, action })`. Click counts are shown side by side as "V1 N / V2 N" in the status line.
 - **Accessibility description**: both V1 and V2 support `accessibilityDescription`; the sample provides one described tag for each version.
-- **Dynamic enable/disable**: a button toggles the tag `enabled`; when disabled, taps have no effect and the status line updates.
+- **Dynamic enabling**: a button toggles the tag `enabled`; when it is `false`, taps have no effect and the status line updates.
 - **ChipV2 font size and padding**: `fontSize` uses `LengthMetrics.fp(15)` and `padding` uses `LocalizedPadding` (16vp start / end), showing V2 fine-grained styling.
 
 ### 4. ChipGroupV2
@@ -180,15 +180,15 @@ Section 5 shows three forms:
 Section 9 adds segment button advanced usage:
 
 - **Pure-Symbol capsule**: items contain only `symbol` (heart / star / checkmark_circle, no text); `onItemClicked` records the tapped item. It also sets `itemSymbolFontSize: fp(18)`, `itemPadding` (`LocalizedPadding`), `buttonBackgroundColor`, and `itemMinHeight: 34`.
-- **Disabled item**: an item with `SegmentButtonV2ItemOptions.enabled = false` is grayed out and ignores taps, compared in the same group with two available items.
+- **`enabled: false` item**: an item with `SegmentButtonV2ItemOptions.enabled = false` is shown in a muted style and ignores taps, compared in the same group with two selectable items.
 
 ### 7. Data model and config factory
 
 [`ChipModels.ets`](entry/src/main/ets/model/ChipModels.ets) provides three pure-logic layers:
 
-- `TagStore`: tag add/remove, activation / disable toggling, `getAll()` returns a copy, ids are not reused, order is preserved, activated count, and clear.
+- `TagStore`: tag add/remove, activation and `enabled` toggling, `getAll()` returns a copy, ids are not reused, order is preserved, activated count, and clear.
 - `CounterLogic`: clamps the initial value on construction; `increase` / `decrease` / `setValue` all clamp to `[min, max]`; provides `atMax` / `atMin`.
-- `ChipConfigFactory`: builds `ChipV2LabelConfig`, `ChipGroupV2ItemConfig`, `ChipGroupV2ItemStyle`, `ChipGroupV2Space`, `ChipV2CloseIcon`, `SymbolGlyphModifier`, and `SegmentButtonV2ItemOptions`, and covers advanced configs: `buildSuffixSymbolOptions` (V1 suffix Symbol + action), `buildSuffixSymbolIcon` (V2 suffix Symbol states), `buildChipV2Padding` / `buildGroupPadding` (LocalizedPadding / ChipGroupV2Padding), `buildGroupSuffixItems` (tail icon group items with lit flags), and `buildSymbolSegmentItems` / `buildSegmentItemsWithDisabled` (pure-Symbol segment items and disabled index). Tests can assert field mappings directly.
+- `ChipConfigFactory`: builds `ChipV2LabelConfig`, `ChipGroupV2ItemConfig`, `ChipGroupV2ItemStyle`, `ChipGroupV2Space`, `ChipV2CloseIcon`, `SymbolGlyphModifier`, and `SegmentButtonV2ItemOptions`, and covers advanced configs: `buildSuffixSymbolOptions` (V1 suffix Symbol + action), `buildSuffixSymbolIcon` (V2 suffix Symbol states), `buildChipV2Padding` / `buildGroupPadding` (LocalizedPadding / ChipGroupV2Padding), `buildGroupSuffixItems` (tail icon group items with lit flags), and `buildSymbolSegmentItems` / `buildSegmentItemsWithDisabled` (pure-Symbol segment items and `enabled: false` index). Tests can assert field mappings directly.
 
 The group item objects, `itemStyle`, and `chipGroupSpace` are initialized once on the page and passed as stable references, avoiding remount flicker of the same group when logging triggers a re-render.
 
@@ -212,14 +212,14 @@ Device tests are under `entry/src/ohosTest/ets/test/`, with 9 suites and 202 cas
 
 | Suite | Cases | Coverage |
 | --- | --- | --- |
-| `ChipModels.test.ets` | 45 | TagStore add/remove / missing remove / activation toggle / disable / copy and shallow-copy semantics / clear / id non-reuse / order / activated count / blank text / log linkage; CounterLogic clamping / initial value / stepping / boundaries / out-of-range / negative step / degenerate range; config factory field mapping, empty arrays, and advanced builders |
+| `ChipModels.test.ets` | 45 | TagStore add/remove / missing remove / activation toggle / `enabled` toggle / copy and shallow-copy semantics / clear / id non-reuse / order / activated count / blank text / log linkage; CounterLogic clamping / initial value / stepping / boundaries / out-of-range / negative step / degenerate range; config factory field mapping, empty arrays, and advanced builders |
 | `LogUtil.test.ets` | 11 | Uninitialized safety, callback delivery, line format and timestamp, level filtering and marks, time padding, error level delivery, repeated init replaces callback, multiple log order, unknown level mark |
 | `DeviceUtil.test.ets` | 10 | Non-empty device type, mutually exclusive forms, breakpoint boundaries (599 / 600 / 839 / 840 / exact thresholds / negative and fractional widths), bucket type safety, profile fields, wide-screen and two-column threshold consistency |
 | `Ability.test.ets` | 1 | Ability smoke case |
-| `TagStoreMatrix.test.ets` | 31 | Consecutive and non-reused ids, empty / Chinese / duplicate / whitespace text, first/middle/last remove and invalid / zero / fractional ids, independent activation, disable and activation independence, findById reference and getAll snapshot consistency, delete all and add/remove loops, 50-item batch stress, fractional id rejection across APIs, disable+activate+remove flow |
+| `TagStoreMatrix.test.ets` | 31 | Consecutive and non-reused ids, empty / CJK / duplicate / whitespace text, first/middle/last remove and invalid / zero / fractional ids, independent activation, `enabled` and activation independence, findById reference and getAll snapshot consistency, delete all and add/remove loops, 50-item batch stress, fractional id rejection across APIs, `enabled`+activate+remove flow |
 | `CounterLogicMatrix.test.ets` | 23 | clamp boundaries / degenerate range / negative range / infinity, construction clamping, step=0 and fractional step, crossing limits, consecutive steps to boundary, setValue out of range, atMax / atMin transitions, instance isolation |
-| `ChipConfigFactoryMatrix.test.ets` | 42 | Tag empty string / Chinese / optional activated color, prefix icon source, group item order and allowClose semantics, segment item order and duplicates, Symbol reference consistency, close icon sizes 12 / 24, style and spacing, independent repeated builds; suffix Symbol action and state icons, ChipV2 / group LocalizedPadding exact and zero values, tail icon group composition and index dispatch, lit flag rebuild, long/short flag lists, no-Symbol list, pure-Symbol segment items (including empty arrays), disabled index (first / middle / last / none) |
-| `LogUtilMatrix.test.ets` | 22 | init not writing panel and threshold handling / explicit level, level up/down and mid-switch, fixed and two-digit time formatting, time token shape, four-level line format, tag and message fidelity (spaces / Chinese / brackets / empty / multiline), DEBUG mark |
+| `ChipConfigFactoryMatrix.test.ets` | 42 | Tag empty string / CJK / optional activated color, prefix icon source, group item order and allowClose semantics, segment item order and duplicates, Symbol reference consistency, close icon sizes 12 / 24, style and spacing, independent repeated builds; suffix Symbol action and state icons, ChipV2 / group LocalizedPadding exact and zero values, tail icon group composition and index dispatch, lit flag rebuild, long/short flag lists, no-Symbol list, pure-Symbol segment items (including empty arrays), `enabled: false` index (first / middle / last / none) |
+| `LogUtilMatrix.test.ets` | 22 | init not writing panel and threshold handling / explicit level, level up/down and mid-switch, fixed and two-digit time formatting, time token shape, four-level line format, tag and message fidelity (spaces / CJK / brackets / empty / multiline), DEBUG mark |
 | `DeviceUtilMatrix.test.ets` | 17 | Fractional-width breakpoints, bucket monotonicity, two-column conclusion consistency, form flag consistency, profile field types, logDeviceProfile does not throw and writes a profile line |
 
 Combination cases are written explicitly with full `@tc` headers (number / name / desc / size / type / level) and call only the real implementations in `ChipModels.ets`, `LogUtil.ets`, and `DeviceUtil.ets`; tests do not copy business logic. Expected values come from API semantics (`[min, max]` clamping, id non-reuse, 600 / 840vp breakpoints, log line format).
@@ -252,14 +252,14 @@ No third-party runtime dependencies and no dependency on other samples. `oh-pack
 | Development environment | DevEco Studio 6.1.1 |
 | SDK | Compile SDK API 26 (`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` are all `26.0.0`), `runtimeOS` is OpenHarmony |
 | System version | **API 26 or later**: ChipV2, ChipGroupV2, and CounterV2 are API 26 components; sections using them are unavailable below API 26 |
-| Verified device | RK3568 / DAYU200 (API 26); `module.json5` declares `default / tablet` |
+| Verified device | RK3568 development board (API 26); `module.json5` declares `default / tablet` |
 | Signing | Local development uses the OpenHarmony default debug signing shipped with the SDK; the repository stores no certificate, key, or password |
 
 Other limitations:
 
 - **Screenshots**: the repository does not currently include runtime screenshots; use actual device output as the reference.
 - **`allowClose` default**: Chip / ChipV2 default to `true` and render a close icon when not explicitly set; display tags should set `allowClose: false`.
-- **Disabled tag tap-through**: on this ROM, when a disabled tag and a closable tag share a row, the adjacent `onClose` may be triggered; the sample places the disabled tag on its own row.
+- **Tap-through of a tag with `enabled: false`**: on the verified API 26 image, when a tag with `enabled: false` and a closable tag share a row, the adjacent `onClose` may be triggered; the sample keeps such a tag on its own row.
 - **Item rebuild flicker**: group items and style objects must be created once outside `build()`; otherwise logging-triggered re-renders remount the same group and cause flicker.
 - **Activated style**: default activated colors may be hard to distinguish under different system themes; the sample explicitly sets dark blue background, white text, and a check mark.
 - **V2 icon resources**: Symbol icons use system resources `sys.symbol.heart` / `sys.symbol.star` / `sys.symbol.checkmark_circle` / `sys.symbol.chevron_right`, and the device must support HM Symbol.
