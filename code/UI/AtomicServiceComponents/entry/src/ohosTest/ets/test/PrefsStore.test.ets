@@ -180,5 +180,21 @@ export default function prefsStoreTest() {
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
       expect(keys.includes(RouteKey.PREFS)).assertTrue();
     });
+
+    /**
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_PREFSSTORE_1100
+     * @tc.name normalizePrefsTextExactLimit011
+     * @tc.desc Verify content at the limit is kept whole, an extra character is trimmed and edges trim before truncation
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('normalizePrefsText_exactLimitBoundary', 0, () => {
+      const exact = new Array<string>(PREFS_MAX_LENGTH).fill('B').join('');
+      expect(normalizePrefsText(exact)).assertEqual(exact);
+      const over = new Array<string>(PREFS_MAX_LENGTH + 1).fill('B').join('');
+      expect(normalizePrefsText(over)).assertEqual(exact);
+      expect(normalizePrefsText(`  ${exact}  `)).assertEqual(exact);
+    });
   });
 }

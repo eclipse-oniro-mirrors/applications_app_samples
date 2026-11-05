@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { window } from '@kit.ArkUI';
 import { Logger } from '../utils/Logger';
 
@@ -28,8 +29,8 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info('Ability', '生命周期', 'onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
+    windowStage.loadContent('pages/Index', (err: BusinessError) => {
+      if (err?.code) {
         Logger.error('Ability', '生命周期', `加载 pages/Index 失败：${err.code} ${err.message}`);
         return;
       }

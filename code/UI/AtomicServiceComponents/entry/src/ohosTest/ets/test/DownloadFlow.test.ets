@@ -183,5 +183,18 @@ export default function downloadFlowTest() {
       expect(shouldFallbackOnTimeout(true, second, second)).assertFalse();
       expect(nextDownloadState(DownloadState.PICKING, true)).assertEqual(DownloadState.SUCCESS);
     });
+
+    /**
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_DOWNLOADFLOW_1100
+     * @tc.name stateNameUnknownFallsBackToIdle011
+     * @tc.desc Verify an out-of-range state renders the idle label instead of throwing
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('stateName_unknownFallsBackToIdle', 0, () => {
+      expect(downloadStateName(99 as DownloadState)).assertEqual('待下载');
+      expect(downloadStateName(-1 as DownloadState)).assertEqual('待下载');
+    });
   });
 }

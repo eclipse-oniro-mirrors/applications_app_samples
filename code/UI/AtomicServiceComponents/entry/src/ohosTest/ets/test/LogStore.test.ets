@@ -242,5 +242,24 @@ export default function logStoreTest() {
       expect(clearLogs().length).assertEqual(0);
       expect(clearLogs().length).assertEqual(0);
     });
+
+    /**
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_LOGSTORE_1300
+     * @tc.name queryLogsDefaultLimitTruncates013
+     * @tc.desc Verify omitting the limit keeps only the newest 20 matching entries in input order
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('queryLogs_defaultLimitTruncates', 0, () => {
+      const logs: LogItem[] = [];
+      for (let i = 0; i < 30; i++) {
+        logs.push(new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME));
+      }
+      const limited = queryLogs(logs, '');
+      expect(limited.length).assertEqual(20);
+      expect(limited[0].detail).assertEqual('条目0');
+      expect(limited[19].detail).assertEqual('条目19');
+    });
   });
 }

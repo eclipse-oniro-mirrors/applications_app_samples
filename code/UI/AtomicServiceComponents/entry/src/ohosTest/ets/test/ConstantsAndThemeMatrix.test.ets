@@ -238,7 +238,7 @@ export default function constantsAndThemeMatrixTest() {
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_CONSTANTSTHEMEMATRIX_1100
      * @tc.name runtimeConstants110
-     * @tc.desc Verify the tab count, picker timeout and hilog tag keep their contract values
+     * @tc.desc Verify the tab count, picker timeout and hilog tag keep their documented values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

@@ -29,7 +29,9 @@ import { LogItem, LogLevel, appendLog } from '../../../main/ets/model/LogStore';
 import {
   Breakpoint,
   DisplaySnapshot,
-  resolveBreakpoint
+  resolveBreakpoint,
+  resolveDeviceForm,
+  resolvePageMaxWidth
 } from '../../../main/ets/model/DeviceProfile';
 import { readDeviceSnapshot } from '../../../main/ets/utils/DeviceUtil';
 import { buildDownloadFileName, formatBytes, formatPercent, progressBucket } from '../../../main/ets/utils/FormatUtil';
@@ -346,6 +348,24 @@ export default function atomicServiceComponentsTest() {
       expect(canPopNavStack(0)).assertFalse();
       expect(canPopNavStack(-1)).assertFalse();
       expect(canPopNavStack(2)).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_1700
+     * @tc.name deviceSnapshotProfileFieldsConsistent017
+     * @tc.desc Verify the real device snapshot derives every layout field from the same display metrics
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('deviceSnapshot_profileFieldsConsistent', 0, () => {
+      const snapshot = readDeviceSnapshot();
+      expect(snapshot.profile.form).assertEqual(resolveDeviceForm(snapshot.deviceType));
+      expect(snapshot.profile.widthVp).assertEqual(snapshot.display.widthVp);
+      expect(snapshot.profile.heightVp).assertEqual(snapshot.display.heightVp);
+      expect(snapshot.profile.density).assertEqual(snapshot.display.density);
+      expect(snapshot.profile.pageMaxWidth).assertEqual(resolvePageMaxWidth(snapshot.profile.form));
+      expect(snapshot.profile.breakpoint).assertEqual(resolveBreakpoint(snapshot.display.widthVp));
     });
   });
 }

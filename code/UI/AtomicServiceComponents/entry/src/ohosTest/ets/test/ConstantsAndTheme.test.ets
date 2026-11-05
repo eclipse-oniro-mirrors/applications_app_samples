@@ -98,7 +98,7 @@ export default function constantsAndThemeTest() {
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_CONSTANTSTHEME_0400
      * @tc.name capacityAndLimitConstants004
-     * @tc.desc Verify the tab count, picker timeout and log limits keep their contract values
+     * @tc.desc Verify the tab count, picker timeout and log limits keep their documented values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

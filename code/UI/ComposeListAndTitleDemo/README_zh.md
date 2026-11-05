@@ -91,6 +91,7 @@ ComposeListAndTitleDemo
 ├── entry/src/test                            本地单测（1 条冒烟用例）
 ├── entry/src/ohosTest                        设备侧测试（8 个套件，158 条用例）
 ├── ohosTest.md                               设备侧测试用例归档
+├── README.md
 └── README_zh.md
 ```
 

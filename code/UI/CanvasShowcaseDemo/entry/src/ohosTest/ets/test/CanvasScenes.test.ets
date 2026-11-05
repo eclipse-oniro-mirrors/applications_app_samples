@@ -156,10 +156,11 @@ export default function canvasScenesTest() {
      * @tc.level Level 1
      */
     it('drawPatternFill_nullSafe', 0, () => {
-      // createPattern 判空路径：无效素材时函数内部告警并返回，不崩溃
+      // 空素材：函数内部告警并直接返回，不调用 createPattern、不产生绘制
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
-      CanvasScenes.drawPatternFill(ctx, 0, 0, W, H, checkerBitmap as ImageBitmap, 'repeat');
+      CanvasScenes.drawPatternFill(ctx, 0, 0, W, H, null, 'repeat');
+      expect(ctx.getImageData(0, 0, 1, 1).data[3]).assertEqual(0);
     });
 
     /**

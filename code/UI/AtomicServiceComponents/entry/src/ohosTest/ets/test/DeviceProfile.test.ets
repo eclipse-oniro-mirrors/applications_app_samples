@@ -292,5 +292,38 @@ export default function deviceProfileTest() {
       expect(DEFAULT_LAYOUT_PROFILE.navSplitDefault).assertFalse();
       expect(DEFAULT_LAYOUT_PROFILE.pickerSupported).assertFalse();
     });
+
+    /**
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_DEVICEPROFILE_1600
+     * @tc.name layoutProfileThresholdIntegration016
+     * @tc.desc Verify breakpoint, columns, split default and derived heights stay consistent at the exact 600 and 840 vp thresholds
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('layoutProfile_thresholdIntegration', 0, () => {
+      const tabletMd = buildLayoutProfile(DeviceForm.TABLET, new DisplaySnapshot(600, 800, 2));
+      expect(tabletMd.breakpoint).assertEqual(Breakpoint.MD);
+      expect(tabletMd.columns).assertEqual(2);
+      expect(tabletMd.navSplitDefault).assertTrue();
+      expect(tabletMd.webHeight).assertEqual(440);
+      expect(tabletMd.tabsHeight).assertEqual(400);
+      const twoInOneLg = buildLayoutProfile(DeviceForm.TWO_IN_ONE, new DisplaySnapshot(840, 900, 1));
+      expect(twoInOneLg.breakpoint).assertEqual(Breakpoint.LG);
+      expect(twoInOneLg.columns).assertEqual(3);
+      expect(twoInOneLg.navSplitDefault).assertTrue();
+      expect(twoInOneLg.pageMaxWidth).assertEqual(1200);
+      expect(twoInOneLg.webHeight).assertEqual(495);
+      const phoneLg = buildLayoutProfile(DeviceForm.PHONE, new DisplaySnapshot(840, 600, 1));
+      expect(phoneLg.breakpoint).assertEqual(Breakpoint.LG);
+      expect(phoneLg.columns).assertEqual(1);
+      expect(phoneLg.navSplitDefault).assertFalse();
+      expect(phoneLg.pageMaxWidth).assertEqual(640);
+      const defaultMd = buildLayoutProfile(DeviceForm.DEFAULT, new DisplaySnapshot(600, 600, 1));
+      expect(defaultMd.breakpoint).assertEqual(Breakpoint.MD);
+      expect(defaultMd.columns).assertEqual(2);
+      expect(defaultMd.navSplitDefault).assertFalse();
+      expect(defaultMd.pickerSupported).assertFalse();
+    });
   });
 }

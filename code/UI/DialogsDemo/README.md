@@ -3,9 +3,9 @@
 An ArkUI advanced-components sample project corresponding to the samples catalog entry `UI/AdvancedComponents/Dialogs`: it demonstrates the **DialogV2** family (API 18+) of standard dialogs and the **InterstitialDialogAction** (API 12+) interstitial dialog. Dialogs are modal surfaces that show information or pending actions while keeping the current context.
 
 - Runs as a normal application (verified on RK3568 / OpenHarmony 7.0.0.46 Beta1 and 7.1.0.22 Canary1, including the interstitial dialog).
-- All 8 scenes open instantly on tap; every callback is written to the on-screen event log at the bottom.
-- Dialogs never stack: scenes 1–7 close any open dialog before showing a new one, and scene 8 ignores repeated taps while the interstitial is open.
-- 125 on-device tests: 43 baseline tests pass on device (`Tests run: 43, Failure: 0, Error: 0`); 82 matrix tests are compile-verified with `entry@ohosTest` and pending an on-device rerun.
+- All 14 scenes open on tap; every callback is written to the on-screen event log at the bottom.
+- Scenes 1–7 share one `ComponentContent` slot, so opening a new one closes the previous dialog; scene 8 ignores repeated taps while the interstitial is open.
+- 144 on-device tests, all passing on RK3568 (API 26): `Tests run: 144, Failure: 0, Error: 0, Pass: 144`.
 
 ## Scenes
 
@@ -19,6 +19,12 @@ An ArkUI advanced-components sample project corresponding to the samples catalog
 | 6 | Custom content dialog | `CustomContentDialogV2` | `contentBuilder` custom content area, `buttons: AdvancedDialogV2Button[]` |
 | 7 | Popover | `PopoverDialogV2` | `visible`/`$visible` show/hide, `targetBuilder` anchor, `popover.builder` bubble content (embedded in the tree, non-modal) |
 | 8 | Interstitial | `InterstitialDialogAction` | `title`/`subtitle`, `titlePosition(BOTTOM)`, `iconStyle`, foreground image, `onDialogClick`/`onDialogClose` logged, closed via top-right X |
+| 9 | Action sheet | `UIContext.showActionSheet` | `title`/`subtitle`/`message`, `sheets` (rename/share/delete), `confirm` cancel, `cancel` mask dismiss |
+| 10 | Date picker | `UIContext.showDatePickerDialog` | `start`/`end`/`selected`, `onDateAccept`/`onCancel`, result logged as `YYYY-MM-DD` |
+| 11 | Time picker | `UIContext.showTimePickerDialog` | `selected`, `useMilitaryTime`, `onAccept`/`onCancel`, result logged as `HH:mm` |
+| 12 | Text picker | `UIContext.showTextPickerDialog` | `range` array, `selected`, `onAccept`/`onCancel`, result logged as `index=n value=xxx` |
+| 13 | Toast | `PromptAction.openToast` / `closeToast` | `message`/`duration`/`bottom`, closed after 1 s, `toastId` logged |
+| 14 | System button dialog | `PromptAction.showDialog` | multiple buttons (not saving / save), Promise returns pressed `index` |
 
 ## Preview
 

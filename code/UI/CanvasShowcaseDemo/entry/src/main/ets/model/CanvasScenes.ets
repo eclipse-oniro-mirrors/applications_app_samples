@@ -71,12 +71,16 @@ export class CanvasScenes {
 
   /**
    * 场景2：CanvasPattern 图案填充（支持指定区域，便于一屏展示多种重复方式）
-   * @param bitmap 图案素材（PixelMap 转换的 ImageBitmap）
+   * @param bitmap 图案素材（PixelMap 转换的 ImageBitmap；null 表示素材缺失，直接跳过）
    * @param repetition 重复方式：repeat / repeat-x / repeat-y / no-repeat
    */
   static drawPatternFill(ctx: CanvasRenderer, x: number, y: number, rw: number, rh: number,
-    bitmap: ImageBitmap, repetition: string): void {
+    bitmap: ImageBitmap | null, repetition: string): void {
     LogUtil.info(TAG, `【场景2】CanvasPattern：createPattern(${repetition}) 开始`);
+    if (bitmap === null) {
+      LogUtil.error(TAG, '2.1 图案素材为空：跳过绘制');
+      return;
+    }
     // createPattern 可能返回 null（素材无效时），必须判空
     const pattern: CanvasPattern | null = ctx.createPattern(bitmap, repetition);
     if (pattern === null) {

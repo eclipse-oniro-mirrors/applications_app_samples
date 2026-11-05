@@ -88,6 +88,7 @@ CanvasShowcaseDemo
 │   └── resources                             字符串、颜色、图标等资源
 ├── entry/src/test                            本地单测（1 条冒烟用例）
 ├── entry/src/ohosTest                        设备侧测试（19 个套件，247 条用例）
+├── README.md
 └── README_zh.md
 ```
 

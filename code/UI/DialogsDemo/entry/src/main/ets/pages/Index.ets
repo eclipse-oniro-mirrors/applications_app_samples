@@ -177,6 +177,8 @@ struct Index {
   private dialogLog: DialogEventLog = new DialogEventLog();
   private current: ComponentContent<Object> | null = null;
   private interstitial: InterstitialDialogAction | null = null;
+  private loadingTimer: number = -1;
+  private toastTimer: number = -1;
 
   aboutToAppear(): void {
     LogUtil.init((line: string) => {
@@ -186,6 +188,17 @@ struct Index {
     this.osName = DeviceUtil.getOsFullName();
     this.apiVersion = DeviceUtil.getSdkApiVersion();
     DeviceUtil.logDeviceProfile();
+  }
+
+  aboutToDisappear(): void {
+    if (this.loadingTimer !== -1) {
+      clearTimeout(this.loadingTimer);
+      this.loadingTimer = -1;
+    }
+    if (this.toastTimer !== -1) {
+      clearTimeout(this.toastTimer);
+      this.toastTimer = -1;
+    }
   }
 
   onPageShow(): void {
@@ -352,9 +365,13 @@ struct Index {
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(loadingBuilder), params);
     this.showContent(content);
-    setTimeout(() => {
+    this.loadingTimer = setTimeout(() => {
+      this.loadingTimer = -1;
       this.logEvent(5, DialogEventLog.formatClose(5, '加载框（2s 自动关闭）'));
-      this.closeTop();
+      // 只关闭本次 loading 弹窗；期间若已打开其它弹窗，不能误关
+      if (this.current === content) {
+        this.closeTop();
+      }
     }, 2000);
   }
 
@@ -413,7 +430,7 @@ struct Index {
             try {
               dlg.closeDialog();
             } catch (err) {
-              LogUtil.error(TAG, `插屏关闭失败：${(err as Error).message}`);
+              LogUtil.error(TAG, `插屏关闭失败：${err instanceof Error ? err.message : '未知错误'}`);
             }
           }
         },
@@ -427,7 +444,7 @@ struct Index {
       this.logEvent(8, DialogEventLog.formatOpen(8, '插屏 InterstitialDialogAction'));
     } catch (err) {
       this.interstitial = null;
-      const e = err as Error;
+      const e: Error = err instanceof Error ? err : new Error('插屏打开失败');
       this.logEvent(8, DialogEventLog.formatError(8, e.message));
     }
   }
@@ -546,7 +563,8 @@ struct Index {
       bottom: '80vp'
     }).then((toastId: number): void => {
       this.logEvent(13, `toastId=${toastId}`);
-      setTimeout((): void => {
+      this.toastTimer = setTimeout((): void => {
+        this.toastTimer = -1;
         this.getUIContext().getPromptAction().closeToast(toastId);
         this.logEvent(13, DialogEventLog.formatClose(13, '轻提示'));
       }, 1000);
