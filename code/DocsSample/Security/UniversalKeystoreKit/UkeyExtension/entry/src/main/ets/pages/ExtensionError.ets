@@ -33,8 +33,8 @@ async function testExtensionError(): Promise<void> {
   });
 
   /* 2.构造参数 */
-  const pin = "123456";
-  const params: Array<huksExternalCrypto.HuksExternalCryptoParam> = [
+  const pin = '123456';
+  const params: huksExternalCrypto.HuksExternalCryptoParam[] = [
     {
       tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_UKEY_PIN,
       value: stringToUint8Array(pin)

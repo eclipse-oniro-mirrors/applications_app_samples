@@ -19,6 +19,7 @@
 #include "huks/native_huks_param.h"
 #include "huks/native_huks_external_crypto_api.h"
 #include <string.h>
+#include <securec.h>
 #include <cstdint>
 #include <device_certificate/certmanager/cm_native_api.h>
 #include <device_certificate/certmanager/cm_native_type.h>
@@ -269,6 +270,27 @@ static napi_value GetUkeyPinAuthState(napi_env env, napi_callback_info info)
 // [query_auth_state_cpp]
 
 // [get_property_cpp]
+static void ExtractPropertyResult(OH_Huks_ExternalCryptoParamSet *paramSetOut)
+{
+    if (paramSetOut == nullptr || paramSetOut->paramsCnt == 0) {
+        return;
+    }
+    for (uint32_t i = 0; i < paramSetOut->paramsCnt; i++) {
+        OH_Huks_ExternalCryptoParam *param = &paramSetOut->params[i];
+        if (param->tag != OH_HUKS_EXT_CRYPTO_TAG_EXTRA_DATA) {
+            continue;
+        }
+        char *outStr = static_cast<char *>(malloc(param->blob.size + 1));
+        if (outStr == nullptr) {
+            continue;
+        }
+        if (memcpy_s(outStr, param->blob.size + 1, param->blob.data, param->blob.size) == EOK) {
+            outStr[param->blob.size] = '\0';
+        }
+        free(outStr);
+    }
+}
+
 static napi_value GetProperty(napi_env env, napi_callback_info info)
 {
     /* 1.假设已经打开了resourceId */
@@ -306,19 +328,7 @@ static napi_value GetProperty(napi_env env, napi_callback_info info)
         }
 
         /* 5.从输出参数集中提取结果 */
-        if (paramSetOut != nullptr && paramSetOut->paramsCnt > 0) {
-            for (uint32_t i = 0; i < paramSetOut->paramsCnt; i++) {
-                OH_Huks_ExternalCryptoParam *param = &paramSetOut->params[i];
-                if (param->tag == OH_HUKS_EXT_CRYPTO_TAG_EXTRA_DATA) {
-                    char *outStr = (char *)malloc(param->blob.size + 1);
-                    if (outStr != NULL) {
-                        memcpy(outStr, param->blob.data, param->blob.size);
-                        outStr[param->blob.size] = '\0';
-                        free(outStr);
-                    }
-                }
-            }
-        }
+        ExtractPropertyResult(paramSetOut);
     } while (0);
 
     /* 6.释放资源 */

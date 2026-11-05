@@ -30,7 +30,7 @@ async function getDeviceInfo(): Promise<void> {
 
   // 设置propertyId
   const propertyId = 'SKF_GetDevInfo';
-  const extProperties: Array<huksExternalCrypto.HuksExternalCryptoParam> = [];
+  const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [];
 
   // 调用getProperty获取属性信息
   try {

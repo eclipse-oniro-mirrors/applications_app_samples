@@ -86,10 +86,10 @@ async function verify(keyAlias: string) {
 
 async function signAndVerify() {
   const keyAlias = JSON.stringify({
-    providerName: "testProviderName",
-    bundleName: "com.example.cryptoapplication",
-    abilityName: "CryptoExtension",
-    index: { key: "testKey" } as ESObject
+    providerName: 'testProviderName',
+    bundleName: 'com.example.cryptoapplication',
+    abilityName: 'CryptoExtension',
+    index: { key: 'testKey' } as ESObject
   });
   try {
     // 签名流程
