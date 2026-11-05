@@ -43,7 +43,6 @@ public:
 
     void Join()
     {
-        assert(future.valid());
         std::string stopReasonStr = future.get();
         DEMO_LOGI("stopReasonStr=%s", stopReasonStr.c_str());
     }
@@ -99,9 +98,8 @@ void OnChatResponse(void *context, const char *response)
     }
 }
 
-int Demo(void)
+static int CreateDemoSession(OH_QoS_GewuSession &session)
 {
-    DEMO_LOGI("Demo starts");
     json attrJson = {
         /* 模型文件位置，根据实际情况修改 */
         {"model", "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4"},
@@ -112,16 +110,17 @@ int Demo(void)
     };
     std::string attrStr = attrJson.dump(4);
 
-    /* 创建会话 */
     OH_QoS_GewuCreateSessionResult createResult = OH_QoS_GewuCreateSession(attrStr.c_str());
     if (createResult.error != OH_QOS_GEWU_OK) {
         DEMO_LOGE("failed to create session, error=%d", (int)createResult.error);
         return -1;
     }
-    OH_QoS_GewuSession session = createResult.session;
+    session = createResult.session;
+    return 0;
+}
 
-    /* 创建并提交请求 */
-    ChatContext context;
+static int SubmitDemoRequest(OH_QoS_GewuSession session, ChatContext &context, OH_QoS_GewuRequest &request)
+{
     json requestJson = {
         {"type", "chat"},
         {"messages", json::array({
@@ -135,20 +134,49 @@ int Demo(void)
                                                                            OnChatResponse, &context);
     if (submitResult.error != OH_QOS_GEWU_OK) {
         DEMO_LOGE("failed to submit request, error=%d", (int)submitResult.error);
+        return -1;
+    }
+    request = submitResult.request;
+    return 0;
+}
+
+/* 自定义停止后主动中止请求 */
+static int AbortDemoRequest(OH_QoS_GewuSession session, OH_QoS_GewuRequest request, ChatContext &context)
+{
+    if (!context.earlyAbort) {
+        return 0;
+    }
+    OH_QoS_GewuErrorCode error = OH_QoS_GewuAbortRequest(session, request);
+    if (error != OH_QOS_GEWU_OK) {
+        DEMO_LOGE("failed to abort request, error=%d", (int)error);
+        return -1;
+    }
+    return 0;
+}
+
+int Demo(void)
+{
+    DEMO_LOGI("Demo starts");
+
+    /* 创建会话 */
+    OH_QoS_GewuSession session = OH_QOS_GEWU_INVALID_SESSION_ID;
+    if (CreateDemoSession(session) != 0) {
+        return -1;
+    }
+
+    /* 创建并提交请求 */
+    ChatContext context;
+    OH_QoS_GewuRequest request = OH_QOS_GEWU_INVALID_REQUEST_ID;
+    if (SubmitDemoRequest(session, context, request) != 0) {
         OH_QoS_GewuDestroySession(session);
         return -1;
     }
-    OH_QoS_GewuRequest request = submitResult.request;
     context.Join();
 
     /* 提前中止请求 */
-    if (context.earlyAbort) {
-        OH_QoS_GewuErrorCode error = OH_QoS_GewuAbortRequest(session, request);
-        if (error != OH_QOS_GEWU_OK) {
-            DEMO_LOGE("failed to abort request, error=%d", (int)error);
-            OH_QoS_GewuDestroySession(session);
-            return -1;
-        }
+    if (AbortDemoRequest(session, request, context) != 0) {
+        OH_QoS_GewuDestroySession(session);
+        return -1;
     }
 
     /* 打印结果 */
@@ -191,6 +219,8 @@ static OH_QoS_GewuRequest g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
 static std::unique_ptr<ChatContext> g_chatContext;
 /* 用户点击"停止"触发 abortRequest 成功后置位，工作线程据此提前结束等待 */
 static std::atomic<bool> g_abortRequested { false };
+/* 轮询推理结果是否就绪的间隔（毫秒） */
+static constexpr int WAIT_INTERVAL_MS = 100;
 
 /* 创建会话的异步任务上下文 */
 struct CreateWork {
@@ -299,7 +329,8 @@ static void SubmitExecute(napi_env env, void *data)
 {
     SubmitWork *work = static_cast<SubmitWork *>(data);
     while (true) {
-        if (g_chatContext->future.wait_for(std::chrono::milliseconds(100)) == std::future_status::ready) {
+        if (g_chatContext->future.wait_for(std::chrono::milliseconds(WAIT_INTERVAL_MS)) ==
+            std::future_status::ready) {
             g_chatContext->Join();
             break;
         }
@@ -331,6 +362,52 @@ static void SubmitComplete(napi_env env, napi_status status, void *data)
     delete work;
 }
 
+/* 解析入参中的 messages JSON，失败时返回对应错误码 */
+static OH_QoS_GewuErrorCode ParseMessagesJson(napi_env env, size_t argc, napi_value *args, json &messagesArr)
+{
+    std::string messagesJson;
+    if (argc >= 1 && args[0] != nullptr) {
+        messagesJson = GetModelPath(env, args[0]);
+    }
+    if (messagesJson.empty()) {
+        messagesJson = "[{\"role\":\"user\",\"content\":\"What is LLM?\"}]";
+    }
+
+    try {
+        messagesArr = json::parse(messagesJson);
+    } catch (json::exception &e) {
+        DEMO_LOGE("failed to parse messages json: %s", e.what());
+        return OH_QOS_GEWU_INVAL;
+    }
+    return OH_QOS_GEWU_OK;
+}
+
+static std::string BuildRequestJson(const json &messagesArr)
+{
+    json requestJson = {
+        {"type", "chat"},
+        {"messages", messagesArr},
+        {"stream", false},
+    };
+    return requestJson.dump();
+}
+
+/* 创建并启动提交请求的异步任务，返回对应的 Promise */
+static napi_value StartSubmitWork(napi_env env, OH_QoS_GewuSession session, OH_QoS_GewuRequest request)
+{
+    SubmitWork *work = new SubmitWork();
+    work->session = session;
+    work->request = request;
+    napi_value promise = nullptr;
+    napi_create_promise(env, &work->deferred, &promise);
+
+    napi_value resourceName = nullptr;
+    napi_create_string_utf8(env, "GewuSubmitRequest", NAPI_AUTO_LENGTH, &resourceName);
+    napi_create_async_work(env, nullptr, resourceName, SubmitExecute, SubmitComplete, work, &work->work);
+    napi_queue_async_work(env, work->work);
+    return promise;
+}
+
 static napi_value SubmitRequest(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -342,29 +419,13 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
         return ResolveInt(env, OH_QOS_GEWU_NOENT);
     }
 
-    std::string messagesJson;
-    if (argc >= 1 && args[0] != nullptr) {
-        messagesJson = GetModelPath(env, args[0]);
-    }
-    if (messagesJson.empty()) {
-        messagesJson = "[{\"role\":\"user\",\"content\":\"What is LLM?\"}]";
-    }
-
     json messagesArr;
-    try {
-        messagesArr = json::parse(messagesJson);
-    } catch (json::exception &e) {
-        DEMO_LOGE("failed to parse messages json: %s", e.what());
-        return ResolveInt(env, OH_QOS_GEWU_INVAL);
+    OH_QoS_GewuErrorCode parseError = ParseMessagesJson(env, argc, args, messagesArr);
+    if (parseError != OH_QOS_GEWU_OK) {
+        return ResolveInt(env, parseError);
     }
 
-    json requestJson = {
-        {"type", "chat"},
-        {"messages", messagesArr},
-        {"stream", false},
-    };
-    std::string requestStr = requestJson.dump();
-
+    std::string requestStr = BuildRequestJson(messagesArr);
     g_abortRequested.store(false);
     g_chatContext = std::make_unique<ChatContext>();
     OH_QoS_GewuSubmitRequestResult submitResult = OH_QoS_GewuSubmitRequest(g_session, requestStr.c_str(),
@@ -377,18 +438,7 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
     g_request = submitResult.request;
     DEMO_LOGI("submit request success, request=%u", g_request);
     DEMO_LOGI("request: %s", requestStr.c_str());
-
-    SubmitWork *work = new SubmitWork();
-    work->session = g_session;
-    work->request = submitResult.request;
-    napi_value promise = nullptr;
-    napi_create_promise(env, &work->deferred, &promise);
-
-    napi_value resourceName = nullptr;
-    napi_create_string_utf8(env, "GewuSubmitRequest", NAPI_AUTO_LENGTH, &resourceName);
-    napi_create_async_work(env, nullptr, resourceName, SubmitExecute, SubmitComplete, work, &work->work);
-    napi_queue_async_work(env, work->work);
-    return promise;
+    return StartSubmitWork(env, g_session, submitResult.request);
 }
 
 static napi_value AbortRequest(napi_env env, napi_callback_info info)
