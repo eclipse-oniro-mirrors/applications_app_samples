@@ -100,8 +100,8 @@ struct Index {
   async aboutToAppear() {
     await this.requestPermissionsFn();
     let mDisplay = display.getDefaultDisplaySync();
-    this.screenWidth = px2vp(mDisplay.width);
-    this.screenHeight = px2vp(mDisplay.height);
+    this.screenWidth = this.getUIContext().px2vp(mDisplay.width);
+    this.screenHeight = this.getUIContext().px2vp(mDisplay.height);
     this.initXComponentSize();
   }
 
@@ -160,7 +160,7 @@ struct Index {
         // general appearance of a picture
         XComponent({
           id: 'componentId',
-          type: 'surface',
+          type: XComponentType.SURFACE,
           controller: this.mXComponentController
         })
           .onLoad(async () => {

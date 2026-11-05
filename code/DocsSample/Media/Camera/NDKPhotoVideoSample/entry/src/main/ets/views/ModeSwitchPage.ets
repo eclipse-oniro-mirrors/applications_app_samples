@@ -25,6 +25,7 @@ import { Constants, SettingDataObj } from '../common/Constants';
 import common from '@ohos.app.ability.common';
 import { Decimal } from '@kit.ArkTS';
 import { sensor } from '@kit.SensorServiceKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = 'CameraSample';
 
@@ -314,13 +315,13 @@ export struct modeSwitchPage {
               .objectFit(ImageFit.Auto)
               .width('170px')
               .height('170px')
-              .clip(new Circle({ width: '170px', height: '170px' }))
+              .clip(true)
           } else {
             Image($r('app.media.camera_thumbnail_4x'))
               .objectFit(ImageFit.Auto)
               .width('170px')
               .height('170px')
-              .clip(new Circle({ width: '170px', height: '170px' }))
+              .clip(true)
           }
         }.onClick(() => {
           if (deviceInfo.deviceType == 'default') {
