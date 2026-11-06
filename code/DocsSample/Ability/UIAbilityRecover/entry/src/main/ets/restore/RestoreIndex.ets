@@ -14,9 +14,12 @@
  */
 
 import { router } from '@kit.ArkUI';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ReaderPage } from './ReaderPage';
 import { DeepPage } from './DeepPage';
 
+const DOMAIN = 0x0010;
+const TAG = 'RestoreIndex';
 const KEY_NAV_SNAPSHOT = 'reader.navSnapshot';
 const KEY_RESTORE_NAV_PATH = 'restore.navPath';
 
@@ -60,8 +63,9 @@ struct RestoreIndex {
       for (let i = current.length; i < names.length; i++) {
         this.pathStack.pushPathByName(names[i], {} as Record<string, Object>);
       }
-    } catch (e) {
-      // 快照损坏则跳过补推
+    } catch (_) {
+      // 快照损坏则跳过补推，停在已恢复页不白屏；打日志便于排障
+      hilog.warn(DOMAIN, TAG, 'replayDeepStack skipped: broken snapshot');
     }
   }
   // [End deep_stack_replay]

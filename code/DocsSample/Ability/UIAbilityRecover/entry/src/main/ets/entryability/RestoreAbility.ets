@@ -18,7 +18,7 @@ import { window } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { cleanupBlob, isRestoreLaunch, loadBlob, saveBlob } from '../common/RestoreUtil';
 
-const DOMAIN = 0x0000;
+const DOMAIN = 0x0010; // 0x0000 为系统保留域值，应用日志使用非零值
 const TAG = 'RestoreAbility';
 
 // 数据通道键：页面平时把状态发布到 AppStorage，onSaveState 同步读取

@@ -16,7 +16,10 @@
 import { AbilityConstant, Want, common } from '@kit.AbilityKit';
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
+const DOMAIN = 0x0010;
+const TAG = 'RestoreUtil';
 const BLOB_FILE_PREFIX = 'restore_blob_';
 const BLOB_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天过期时间对齐
 
@@ -62,7 +65,9 @@ export function loadBlob(context: common.Context, fileName: string): string | nu
       return null;
     }
     return fs.readTextSync(file);
-  } catch (e) {
+  } catch (_) {
+    // 读取异常（如文件损坏）同样按空数据降级；打日志便于排障时与文件不存在区分
+    hilog.warn(DOMAIN, TAG, 'loadBlob read failed: %{public}s', fileName);
     return null;
   }
 }
@@ -83,7 +88,8 @@ export function cleanupBlob(context: common.Context): void {
         }
       }
     }
-  } catch (e) {
+  } catch (_) {
     // 清理失败不影响启动
+    hilog.warn(DOMAIN, TAG, 'cleanupBlob failed');
   }
 }
