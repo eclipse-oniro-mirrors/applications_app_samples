@@ -176,7 +176,7 @@ struct Index {
     this.disabledSegmentItems = new SegmentButtonV2Items(
       ChipConfigFactory.buildSegmentItemsWithDisabled(this.stringsOf(SEG_DISABLED_LABELS), 1));
     // 初始标签数据：搜索历史场景
-    this.store.add('HarmonyOS');
+    this.store.add('OpenSource');
     this.store.add('ArkTS');
     this.store.add('RK3568');
     LogUtil.info('Index', `页面加载完成：已创建 ${this.store.count()} 个示例标签`);
