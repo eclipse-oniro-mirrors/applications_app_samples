@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { SceneRegistry, SceneInfo } from '../../../main/ets/model/utils/SceneRegistry';
 import { PixelMapUtil } from '../../../main/ets/model/utils/PixelMapUtil';
 
@@ -38,7 +38,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('registry_notEmpty', 0, () => {
+    it('registry_notEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(scenes.length > 0).assertTrue();
       expect(SceneRegistry.count()).assertEqual(scenes.length);
     });
@@ -51,7 +51,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('registry_idsUnique', 0, () => {
+    it('registry_idsUnique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const seen: Set<number> = new Set();
       for (const s of scenes) {
         expect(seen.has(s.id)).assertFalse();
@@ -67,7 +67,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('registry_metadataComplete', 0, () => {
+    it('registry_metadataComplete', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const s of scenes) {
         expect(s.button.length > 0).assertTrue();
         expect(s.title.length > 0).assertTrue();
@@ -83,7 +83,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_hit', 0, () => {
+    it('getById_hit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: SceneInfo | null = SceneRegistry.getById(scenes[0].id);
       expect(first !== null).assertTrue();
       if (first !== null) {
@@ -100,7 +100,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_miss_returnsNull', 0, () => {
+    it('getById_miss_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(SceneRegistry.getById(-1) === null).assertTrue();
       expect(SceneRegistry.getById(99999) === null).assertTrue();
     });
@@ -113,7 +113,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('registry_coversAllScenes', 0, () => {
+    it('registry_coversAllScenes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 四大场景 + 扩展场景全覆盖：至少包含渐变/图案/矩阵/离屏/倾斜/ImageData/圆环
       expect(scenes.length >= 12).assertTrue();
     });
@@ -126,7 +126,7 @@ export default function sceneRegistryTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('registry_smokeTest_allScenesDraw', 0, () => {
+    it('registry_smokeTest_allScenesDraw', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 冒烟测试：注册表全部场景用 OffscreenCanvas 无头逐个执行，
       // 保证注册表与场景实现同步（新增场景漏测时此处必然暴露）
       const W = 200;

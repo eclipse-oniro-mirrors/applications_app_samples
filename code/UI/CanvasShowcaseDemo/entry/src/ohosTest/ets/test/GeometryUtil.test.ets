@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { GeometryUtil, Point } from '../../../main/ets/model/utils/GeometryUtil';
 
 /**
@@ -36,7 +36,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('degRad_roundtrip', 0, () => {
+    it('degRad_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.degToRad(180)).assertEqual(Math.PI);
       expect(GeometryUtil.degToRad(90)).assertEqual(Math.PI / 2);
       expect(GeometryUtil.radToDeg(Math.PI)).assertEqual(180);
@@ -53,7 +53,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_quadrants', 0, () => {
+    it('pointOnCircle_quadrants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 0° → (cx+r, cy)；90° → (cx, cy+r)（屏幕坐标系 y 向下顺时针）
       const p0: Point = GeometryUtil.pointOnCircle(100, 100, 50, 0);
       expect(Math.abs(p0.x - 150) < EPS).assertTrue();
@@ -78,7 +78,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircleDeg_matchesRad', 0, () => {
+    it('pointOnCircleDeg_matchesRad', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pDeg: Point = GeometryUtil.pointOnCircleDeg(0, 0, 10, 60);
       const pRad: Point = GeometryUtil.pointOnCircle(0, 0, 10, Math.PI / 3);
       expect(Math.abs(pDeg.x - pRad.x) < EPS).assertTrue();
@@ -93,7 +93,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains', 0, () => {
+    it('rectContains', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 内部/外部/边界
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 5, 5)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 15, 5)).assertFalse();
@@ -111,7 +111,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clamp', 0, () => {
+    it('clamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.clamp(5, 0, 10)).assertEqual(5);
       expect(GeometryUtil.clamp(-5, 0, 10)).assertEqual(0);
       expect(GeometryUtil.clamp(15, 0, 10)).assertEqual(10);
@@ -125,7 +125,7 @@ export default function geometryUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance', 0, () => {
+    it('distance', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.distance(0, 0, 3, 4)).assertEqual(5);
       expect(GeometryUtil.distance(1, 1, 1, 1)).assertEqual(0);
     });

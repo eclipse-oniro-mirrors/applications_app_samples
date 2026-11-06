@@ -13,33 +13,41 @@
  * limitations under the License.
  */
  
+import { describe, expect, it, TestType, Size, Level } from '@ohos/hypium';
+import { abilityDelegatorRegistry, Driver } from '@kit.TestKit';
+import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+
+const TAG = '[Sample_ComposeListAndTitleDemo]';
+const DOMAIN = 0xF811;
+const ABILITY_NAME = 'EntryAbility';
 
 export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    beforeAll(() => {
-    })
-    beforeEach(() => {
-    })
-    afterEach(() => {
-    })
-    afterAll(() => {
-    })
+  describe('ComposeListAndTitleDemoAbilityTest', () => {
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_ABILITY_0100
-     * @tc.name assertContain
-     * @tc.desc Verify the Hypium assertion framework is reachable on device
-     * @tc.size MediumTest
+     * @tc.number SUB_COMPOSE_LIST_AND_TITLE_DEMO_ABILITY_0100
+     * @tc.name ComposeListAndTitleDemoAbility0001
+     * @tc.desc Verify that the EntryAbility starts and stays at the top of the ability stack
      * @tc.type Function
-     * @tc.level Level 1
+     * @tc.size MediumTest
+     * @tc.level LEVEL0
      */
-    it('assertContain', 0, () => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
+    it('ComposeListAndTitleDemoAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, 'SUB_COMPOSE_LIST_AND_TITLE_DEMO_ABILITY_0100 begin');
+        const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+        const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
+        const want: Want = {
+          bundleName: bundleName,
+          abilityName: ABILITY_NAME
+        };
+        await delegator.startAbility(want);
+        const driver: Driver = Driver.create();
+        await driver.delayMs(1000);
+        const ability: UIAbility = await delegator.getCurrentTopAbility();
+        expect(ability.context.abilityInfo.name).assertEqual(ABILITY_NAME);
+        hilog.info(DOMAIN, TAG, 'SUB_COMPOSE_LIST_AND_TITLE_DEMO_ABILITY_0100 end');
+        done();
+      })
   })
 }

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { GeometryUtil, Point } from '../../../main/ets/model/utils/GeometryUtil';
 
 /**
@@ -37,7 +37,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('degToRad_knownAngles', 0, () => {
+    it('degToRad_knownAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.degToRad(0)).assertEqual(0);
       expect(Math.abs(GeometryUtil.degToRad(90) - Math.PI / 2) < EPS).assertTrue();
       expect(Math.abs(GeometryUtil.degToRad(180) - Math.PI) < EPS).assertTrue();
@@ -52,7 +52,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('degToRad_negativeAngles', 0, () => {
+    it('degToRad_negativeAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(Math.abs(GeometryUtil.degToRad(-90) + Math.PI / 2) < EPS).assertTrue();
       expect(Math.abs(GeometryUtil.degToRad(-180) + Math.PI) < EPS).assertTrue();
     });
@@ -65,7 +65,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('radToDeg_knownAngles', 0, () => {
+    it('radToDeg_knownAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.radToDeg(0)).assertEqual(0);
       expect(Math.abs(GeometryUtil.radToDeg(Math.PI / 2) - 90) < EPS).assertTrue();
       expect(Math.abs(GeometryUtil.radToDeg(Math.PI) - 180) < EPS).assertTrue();
@@ -80,7 +80,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('radToDeg_negativeAngles', 0, () => {
+    it('radToDeg_negativeAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(Math.abs(GeometryUtil.radToDeg(-Math.PI / 2) + 90) < EPS).assertTrue();
       expect(Math.abs(GeometryUtil.radToDeg(-Math.PI) + 180) < EPS).assertTrue();
     });
@@ -93,7 +93,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('degRad_roundtripNineAngles', 0, () => {
+    it('degRad_roundtripNineAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const angles: number[] = [0, 30, 45, 60, 90, 120, 180, 270, 360];
       for (const deg of angles) {
         const back: number = GeometryUtil.radToDeg(GeometryUtil.degToRad(deg));
@@ -109,7 +109,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_fourQuadrantsOffset', 0, () => {
+    it('pointOnCircle_fourQuadrantsOffset', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p0: Point = GeometryUtil.pointOnCircle(10, 20, 5, 0);
       expect(Math.abs(p0.x - 15) < EPS).assertTrue();
       expect(Math.abs(p0.y - 20) < EPS).assertTrue();
@@ -130,7 +130,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_zeroRadius', 0, () => {
+    it('pointOnCircle_zeroRadius', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const a: Point = GeometryUtil.pointOnCircle(7, 9, 0, 0);
       expect(a.x).assertEqual(7);
       expect(a.y).assertEqual(9);
@@ -147,7 +147,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_negativeRadius', 0, () => {
+    it('pointOnCircle_negativeRadius', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p: Point = GeometryUtil.pointOnCircle(100, 100, -10, 0);
       expect(Math.abs(p.x - 90) < EPS).assertTrue();
       expect(Math.abs(p.y - 100) < EPS).assertTrue();
@@ -161,7 +161,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_fullTurnPlusQuarter', 0, () => {
+    it('pointOnCircle_fullTurnPlusQuarter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const wrapped: Point = GeometryUtil.pointOnCircle(0, 0, 10, 2 * Math.PI + Math.PI / 2);
       expect(Math.abs(wrapped.x) < EPS).assertTrue();
       expect(Math.abs(wrapped.y - 10) < EPS).assertTrue();
@@ -175,7 +175,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircle_allPointsAtRadius', 0, () => {
+    it('pointOnCircle_allPointsAtRadius', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cx = 30;
       const cy = 40;
       const r = 25;
@@ -195,7 +195,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircleDeg_180And270', 0, () => {
+    it('pointOnCircleDeg_180And270', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p180: Point = GeometryUtil.pointOnCircleDeg(100, 100, 50, 180);
       expect(Math.abs(p180.x - 50) < EPS).assertTrue();
       expect(Math.abs(p180.y - 100) < EPS).assertTrue();
@@ -212,7 +212,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircleDeg_negativeAngles', 0, () => {
+    it('pointOnCircleDeg_negativeAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p: Point = GeometryUtil.pointOnCircleDeg(0, 0, 10, -90);
       expect(Math.abs(p.x) < EPS).assertTrue();
       expect(Math.abs(p.y + 10) < EPS).assertTrue();
@@ -229,7 +229,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pointOnCircleDeg_matchesRadAngles', 0, () => {
+    it('pointOnCircleDeg_matchesRadAngles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const degrees: number[] = [0, 45, 90, 135, 180, 225, 270, 315];
       for (const deg of degrees) {
         const pDeg: Point = GeometryUtil.pointOnCircleDeg(20, 30, 12, deg);
@@ -247,7 +247,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_leftAndRightEdges', 0, () => {
+    it('rectContains_leftAndRightEdges', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 0, 5)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 10, 5)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, -0.001, 5)).assertFalse();
@@ -262,7 +262,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_topAndBottomEdges', 0, () => {
+    it('rectContains_topAndBottomEdges', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 5, 0)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 5, 10)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 5, -0.001)).assertFalse();
@@ -277,7 +277,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_zeroSizeRect', 0, () => {
+    it('rectContains_zeroSizeRect', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.rectContains(5, 5, 0, 0, 5, 5)).assertTrue();
       expect(GeometryUtil.rectContains(5, 5, 0, 0, 5.001, 5)).assertFalse();
       expect(GeometryUtil.rectContains(5, 5, 0, 0, 4.999, 5)).assertFalse();
@@ -291,7 +291,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_negativeOriginRect', 0, () => {
+    it('rectContains_negativeOriginRect', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 矩形 (-10,-10) 尺寸 5 → 覆盖 [-10,-5]×[-10,-5]
       expect(GeometryUtil.rectContains(-10, -10, 5, 5, -7, -7)).assertTrue();
       expect(GeometryUtil.rectContains(-10, -10, 5, 5, -5, -5)).assertTrue();
@@ -307,7 +307,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_outsideEachEdge', 0, () => {
+    it('rectContains_outsideEachEdge', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.rectContains(0, 0, 10, 10, -1, 5)).assertFalse();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 11, 5)).assertFalse();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 5, -1)).assertFalse();
@@ -322,7 +322,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rectContains_insideFarCorner', 0, () => {
+    it('rectContains_insideFarCorner', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 9.999, 9.999)).assertTrue();
       expect(GeometryUtil.rectContains(0, 0, 10, 10, 10.001, 9.999)).assertFalse();
     });
@@ -335,7 +335,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clamp_negativeRange', 0, () => {
+    it('clamp_negativeRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.clamp(-5, -10, 0)).assertEqual(-5);
       expect(GeometryUtil.clamp(-15, -10, 0)).assertEqual(-10);
       expect(GeometryUtil.clamp(5, -10, 0)).assertEqual(0);
@@ -349,7 +349,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clamp_degenerateRange', 0, () => {
+    it('clamp_degenerateRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.clamp(5, 5, 5)).assertEqual(5);
       expect(GeometryUtil.clamp(4, 5, 5)).assertEqual(5);
       expect(GeometryUtil.clamp(6, 5, 5)).assertEqual(5);
@@ -363,7 +363,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance_horizontalAndVertical', 0, () => {
+    it('distance_horizontalAndVertical', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.distance(0, 0, 0, 7)).assertEqual(7);
       expect(GeometryUtil.distance(0, 0, 9, 0)).assertEqual(9);
     });
@@ -376,7 +376,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance_negativeCoordinates', 0, () => {
+    it('distance_negativeCoordinates', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.distance(-3, -4, 0, 0)).assertEqual(5);
       expect(GeometryUtil.distance(-3, -4, -6, -8)).assertEqual(5);
     });
@@ -389,7 +389,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance_symmetric', 0, () => {
+    it('distance_symmetric', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const d1: number = GeometryUtil.distance(1, 2, 4, 6);
       const d2: number = GeometryUtil.distance(4, 6, 1, 2);
       expect(d1).assertEqual(5);
@@ -404,7 +404,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance_unitDiagonal', 0, () => {
+    it('distance_unitDiagonal', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(Math.abs(GeometryUtil.distance(0, 0, 1, 1) - Math.SQRT2) < EPS).assertTrue();
     });
 
@@ -416,7 +416,7 @@ export default function geometryUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('distance_largeScale', 0, () => {
+    it('distance_largeScale', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GeometryUtil.distance(0, 0, 3000, 4000)).assertEqual(5000);
     });
   });

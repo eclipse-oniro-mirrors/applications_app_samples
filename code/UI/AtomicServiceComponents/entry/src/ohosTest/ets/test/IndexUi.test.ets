@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 
 const BUNDLE_NAME = 'com.samples.atomicservicecomponents';
@@ -70,7 +70,7 @@ export default function indexUiTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ui_catalogCount', 0, async () => {
+    it('ui_catalogCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const header: Component | null = await driver.findComponent(ON.text(CATALOG_TITLE));
       expect(header !== null).assertTrue();
     });
@@ -83,7 +83,7 @@ export default function indexUiTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ui_openJumpPage', 0, async () => {
+    it('ui_openJumpPage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const card: Component | null = await revealText(driver, [JUMP_TITLE], 4);
       expect(card !== null).assertTrue();
       if (card === null) {
@@ -107,7 +107,7 @@ export default function indexUiTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ui_openAndCloseSheet', 0, async () => {
+    it('ui_openAndCloseSheet', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const card: Component | null = await revealText(driver, [SHEET_TITLE], 4);
       expect(card !== null).assertTrue();
       if (card === null) {
@@ -141,7 +141,7 @@ export default function indexUiTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ui_openPrefsPage', 0, async () => {
+    it('ui_openPrefsPage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const card: Component | null = await revealText(driver, [PREFS_TITLE], 4);
       expect(card !== null).assertTrue();
       if (card === null) {

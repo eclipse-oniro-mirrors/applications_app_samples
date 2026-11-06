@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   ErrorInfo,
   errorInfo,
@@ -32,7 +32,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900001', 0, () => {
+    it('hint_13900001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900001))
         .assertEqual('Operation not allowed; user authorization may be missing');
     });
@@ -45,7 +45,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900002', 0, () => {
+    it('hint_13900002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900002)).assertEqual('Target file or directory does not exist');
     });
 
@@ -57,7 +57,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900012', 0, () => {
+    it('hint_13900012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900012)).assertEqual('Permission denied; check the visibility configuration');
     });
 
@@ -69,7 +69,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900015', 0, () => {
+    it('hint_13900015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900015)).assertEqual('Target file already exists');
     });
 
@@ -81,7 +81,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900020', 0, () => {
+    it('hint_13900020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900020)).assertEqual('Invalid parameters; check the save options');
     });
 
@@ -93,7 +93,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_13900042', 0, () => {
+    it('hint_13900042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900042))
         .assertEqual('File service is temporarily unavailable; try again later');
     });
@@ -106,7 +106,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_zero', 0, () => {
+    it('hint_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(0))
         .assertEqual('Falls back to the app sandbox when the picker is unavailable');
     });
@@ -119,7 +119,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_negative', 0, () => {
+    it('hint_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(-1))
         .assertEqual('Falls back to the app sandbox when the picker is unavailable');
     });
@@ -132,7 +132,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hint_unknownLarge', 0, () => {
+    it('hint_unknownLarge', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(999999))
         .assertEqual('Falls back to the app sandbox when the picker is unavailable');
     });
@@ -145,7 +145,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('describe_positiveCode', 0, () => {
+    it('describe_positiveCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new ErrorInfo(13900001, 'missing authorization', 'hint').describe())
         .assertEqual('[13900001] missing authorization');
     });
@@ -158,7 +158,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('describe_zeroCode', 0, () => {
+    it('describe_zeroCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new ErrorInfo(0, 'Unknown error', 'hint').describe()).assertEqual('Unknown error');
     });
 
@@ -170,7 +170,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('describe_negativeCode', 0, () => {
+    it('describe_negativeCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new ErrorInfo(-1, 'cancel failed', 'hint').describe()).assertEqual('cancel failed');
     });
 
@@ -182,7 +182,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('describe_emptyMessage', 0, () => {
+    it('describe_emptyMessage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new ErrorInfo(0, '', 'hint').describe()).assertEqual('Unknown error');
     });
 
@@ -194,7 +194,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatError_positive', 0, () => {
+    it('formatError_positive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('save', 13900015, 'target file already exists'))
         .assertEqual('save failed (13900015): target file already exists');
     });
@@ -207,7 +207,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatError_zeroEmpty', 0, () => {
+    it('formatError_zeroEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('download', 0, '')).assertEqual('download failed: Unknown error');
     });
 
@@ -219,7 +219,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatError_negative', 0, () => {
+    it('formatError_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('download', -1, 'cancelled')).assertEqual('download failed: cancelled');
     });
 
@@ -231,7 +231,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_knownHint', 0, () => {
+    it('factory_knownHint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = errorInfo(13900012, 'permission denied');
       expect(info.code).assertEqual(13900012);
       expect(info.hint).assertEqual('Permission denied; check the visibility configuration');
@@ -245,7 +245,7 @@ export default function errorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_unknownHint', 0, () => {
+    it('factory_unknownHint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = errorInfo(0, '');
       expect(info.message).assertEqual('Unknown error');
       expect(info.hint).assertEqual('Falls back to the app sandbox when the picker is unavailable');

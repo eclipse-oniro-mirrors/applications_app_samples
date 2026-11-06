@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 import { FastBufferUtil } from '../../../main/ets/model/utils/FastBufferUtil';
 
@@ -36,7 +36,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_byteLength_empty', 0, () => {
+    it('utf8_byteLength_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.utf8Encode('');
       expect(buf.length).assertEqual(0);
       expect(FastBufferUtil.utf8Decode(buf)).assertEqual('');
@@ -50,7 +50,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_byteLength_ascii_single', 0, () => {
+    it('utf8_byteLength_ascii_single', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.utf8Encode('A');
       expect(buf.length).assertEqual(1);
       expect(FastBufferUtil.utf8Decode(buf)).assertEqual('A');
@@ -64,7 +64,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_byteLength_ascii_word', 0, () => {
+    it('utf8_byteLength_ascii_word', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.utf8Encode('OpenHarmony');
       expect(buf.length).assertEqual(11);
       expect(FastBufferUtil.utf8Decode(buf)).assertEqual('OpenHarmony');
@@ -78,7 +78,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_byteLength_cjk', 0, () => {
+    it('utf8_byteLength_cjk', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = '你好，世界';
       const buf = FastBufferUtil.utf8Encode(text);
       expect(buf.length).assertEqual(15);
@@ -93,7 +93,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_byteLength_mixed', 0, () => {
+    it('utf8_byteLength_mixed', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = 'hello 123 !@#';
       const buf = FastBufferUtil.utf8Encode(text);
       expect(buf.length).assertEqual(13);
@@ -108,7 +108,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8View_decode_from_zero', 0, () => {
+    it('utf8View_decode_from_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       expect(FastBufferUtil.utf8ViewDecode(buf.subarray(0, 4))).assertEqual('abcd');
     });
@@ -121,7 +121,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8View_decode_middle', 0, () => {
+    it('utf8View_decode_middle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       expect(FastBufferUtil.utf8ViewDecode(buf.subarray(2, 6))).assertEqual('cdef');
     });
@@ -134,7 +134,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8View_decode_tail', 0, () => {
+    it('utf8View_decode_tail', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       expect(FastBufferUtil.utf8ViewDecode(buf.subarray(4, 8))).assertEqual('efgh');
     });
@@ -147,7 +147,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8View_decode_empty', 0, () => {
+    it('utf8View_decode_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       expect(FastBufferUtil.utf8ViewDecode(buf.subarray(0, 0))).assertEqual('');
     });
@@ -160,7 +160,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_accepts_lowercase_input', 0, () => {
+    it('fromHex_accepts_lowercase_input', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.fromHex('4142');
       expect(FastBufferUtil.toHex(buf)).assertEqual('4142');
     });
@@ -173,7 +173,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_accepts_uppercase_input', 0, () => {
+    it('fromHex_accepts_uppercase_input', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.fromHex('ABCD');
       expect(FastBufferUtil.toHex(buf)).assertEqual('abcd');
     });
@@ -186,7 +186,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_accepts_mixed_case_input', 0, () => {
+    it('fromHex_accepts_mixed_case_input', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.fromHex('aBcD');
       expect(FastBufferUtil.toHex(buf)).assertEqual('abcd');
     });
@@ -199,7 +199,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_accepts_zero_padded', 0, () => {
+    it('fromHex_accepts_zero_padded', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.fromHex('00ff');
       expect(FastBufferUtil.toHex(buf)).assertEqual('00ff');
     });
@@ -212,7 +212,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toHex_known_word', 0, () => {
+    it('toHex_known_word', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toHex(FastBufferUtil.utf8Encode('OpenHarmony')))
         .assertEqual('4f70656e4861726d6f6e79');
     });
@@ -225,7 +225,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_empty_string', 0, () => {
+    it('fromHex_empty_string', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.fromHex('').length).assertEqual(0);
     });
 
@@ -237,7 +237,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_rejects_odd_length_one', 0, () => {
+    it('fromHex_rejects_odd_length_one', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('4');
@@ -255,7 +255,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_rejects_odd_length_three', 0, () => {
+    it('fromHex_rejects_odd_length_three', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('414');
@@ -273,7 +273,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_rejects_letter_g', 0, () => {
+    it('fromHex_rejects_letter_g', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('gg');
@@ -291,7 +291,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_rejects_digit_then_letter', 0, () => {
+    it('fromHex_rejects_digit_then_letter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('0g');
@@ -309,7 +309,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_rejects_embedded_space', 0, () => {
+    it('fromHex_rejects_embedded_space', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         // 偶数长度，确保进入字符校验而不是奇数长度分支
@@ -328,7 +328,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_empty', 0, () => {
+    it('base64_rfc_vector_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode(''))).assertEqual('');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64(''))).assertEqual('');
     });
@@ -341,7 +341,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_one_byte', 0, () => {
+    it('base64_rfc_vector_one_byte', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('f'))).assertEqual('Zg==');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zg=='))).assertEqual('f');
     });
@@ -354,7 +354,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_two_bytes', 0, () => {
+    it('base64_rfc_vector_two_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('fo'))).assertEqual('Zm8=');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zm8='))).assertEqual('fo');
     });
@@ -367,7 +367,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_three_bytes', 0, () => {
+    it('base64_rfc_vector_three_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('foo'))).assertEqual('Zm9v');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zm9v'))).assertEqual('foo');
     });
@@ -380,7 +380,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_four_bytes', 0, () => {
+    it('base64_rfc_vector_four_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('foob'))).assertEqual('Zm9vYg==');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zm9vYg=='))).assertEqual('foob');
     });
@@ -393,7 +393,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_five_bytes', 0, () => {
+    it('base64_rfc_vector_five_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('fooba'))).assertEqual('Zm9vYmE=');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zm9vYmE='))).assertEqual('fooba');
     });
@@ -406,7 +406,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_rfc_vector_six_bytes', 0, () => {
+    it('base64_rfc_vector_six_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode('foobar'))).assertEqual('Zm9vYmFy');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('Zm9vYmFy'))).assertEqual('foobar');
     });
@@ -419,7 +419,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_roundtrip_cjk', 0, () => {
+    it('base64_roundtrip_cjk', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = '你好';
       expect(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode(text))).assertEqual('5L2g5aW9');
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64('5L2g5aW9'))).assertEqual(text);
@@ -433,7 +433,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_roundtrip_long_text', 0, () => {
+    it('base64_roundtrip_long_text', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = 'FastBufferUtil base64 matrix payload 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const restored = FastBufferUtil.utf8Decode(
         FastBufferUtil.fromBase64(FastBufferUtil.toBase64(FastBufferUtil.utf8Encode(text))));
@@ -448,7 +448,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_zero_be', 0, () => {
+    it('util_uint32_zero_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0, 0, false);
       expect(buf.toString('hex')).assertEqual('00000000');
@@ -463,7 +463,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_zero_le', 0, () => {
+    it('util_uint32_zero_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0, 0, true);
       expect(buf.toString('hex')).assertEqual('00000000');
@@ -478,7 +478,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_one_be', 0, () => {
+    it('util_uint32_one_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 1, 0, false);
       expect(buf.toString('hex')).assertEqual('00000001');
@@ -493,7 +493,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_one_le', 0, () => {
+    it('util_uint32_one_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 1, 0, true);
       expect(buf.toString('hex')).assertEqual('01000000');
@@ -508,7 +508,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_word_be', 0, () => {
+    it('util_uint32_word_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0x12345678, 0, false);
       expect(buf.toString('hex')).assertEqual('12345678');
@@ -523,7 +523,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_word_le', 0, () => {
+    it('util_uint32_word_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0x12345678, 0, true);
       expect(buf.toString('hex')).assertEqual('78563412');
@@ -538,7 +538,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_max_be', 0, () => {
+    it('util_uint32_max_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0x7FFFFFFF, 0, false);
       expect(buf.toString('hex')).assertEqual('7fffffff');
@@ -553,7 +553,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_max_le', 0, () => {
+    it('util_uint32_max_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       FastBufferUtil.writeUint32(buf, 0x7FFFFFFF, 0, true);
       expect(buf.toString('hex')).assertEqual('ffffff7f');
@@ -568,7 +568,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('util_uint32_at_nonzero_offset', 0, () => {
+    it('util_uint32_at_nonzero_offset', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(8);
       FastBufferUtil.writeUint32(buf, 0x01020304, 4, false);
       expect(buf.toString('hex')).assertEqual('0000000001020304');
@@ -583,7 +583,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concatAll_empty_list', 0, () => {
+    it('concatAll_empty_list', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.concatAll([]).length).assertEqual(0);
     });
 
@@ -595,7 +595,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concatAll_single_buffer', 0, () => {
+    it('concatAll_single_buffer', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const joined = FastBufferUtil.concatAll([FastBufferUtil.utf8Encode('only')]);
       expect(joined.length).assertEqual(4);
       expect(FastBufferUtil.utf8Decode(joined)).assertEqual('only');
@@ -609,7 +609,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concatAll_skips_empty_parts', 0, () => {
+    it('concatAll_skips_empty_parts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const joined = FastBufferUtil.concatAll([
         fastbuffer.alloc(0),
         FastBufferUtil.utf8Encode('AB'),
@@ -628,7 +628,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concatAll_twenty_parts', 0, () => {
+    it('concatAll_twenty_parts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const parts: fastbuffer.FastBuffer[] = [];
       for (let i = 0; i < 20; i++) {
         parts.push(FastBufferUtil.utf8Encode('x'.repeat(100)));
@@ -646,7 +646,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_eight_bytes_per_line', 0, () => {
+    it('hexDump_eight_bytes_per_line', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('a'.repeat(25)), 8);
       expect(dump.split('\n').length).assertEqual(4);
     });
@@ -659,7 +659,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_thirty_two_bytes_per_line', 0, () => {
+    it('hexDump_thirty_two_bytes_per_line', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('b'.repeat(32)), 32);
       expect(dump.split('\n').length).assertEqual(1);
     });
@@ -672,7 +672,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_second_line_address', 0, () => {
+    it('hexDump_second_line_address', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('c'.repeat(17)));
       const rows = dump.split('\n');
       expect(rows.length).assertEqual(2);
@@ -687,7 +687,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_four_bytes_per_line_addresses', 0, () => {
+    it('hexDump_four_bytes_per_line_addresses', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('d'.repeat(9)), 4);
       const rows = dump.split('\n');
       expect(rows.length).assertEqual(3);
@@ -703,7 +703,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_printable_boundaries', 0, () => {
+    it('hexDump_printable_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt8(0x1F, 0);
       buf.writeUInt8(0x20, 1);
@@ -720,7 +720,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_hex_column_alignment', 0, () => {
+    it('hexDump_hex_column_alignment', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('AB')).includes('41 42')).assertTrue();
     });
 
@@ -732,7 +732,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_vector_single_char', 0, () => {
+    it('crc32_vector_single_char', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.crc32(FastBufferUtil.utf8Encode('a'))).assertEqual(0xE8B7BE43);
     });
 
@@ -744,7 +744,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_vector_three_chars', 0, () => {
+    it('crc32_vector_three_chars', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.crc32(FastBufferUtil.utf8Encode('abc'))).assertEqual(0x352441C2);
     });
 
@@ -756,7 +756,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_vector_sentence', 0, () => {
+    it('crc32_vector_sentence', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = 'The quick brown fox jumps over the lazy dog';
       expect(FastBufferUtil.crc32(FastBufferUtil.utf8Encode(text))).assertEqual(0x414FA339);
     });
@@ -769,7 +769,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_is_case_sensitive', 0, () => {
+    it('crc32_is_case_sensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const upperCrc = FastBufferUtil.crc32(FastBufferUtil.utf8Encode('A'));
       const lowerCrc = FastBufferUtil.crc32(FastBufferUtil.utf8Encode('a'));
       expect(upperCrc).assertEqual(0xD3D99E8B);
@@ -784,7 +784,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_changes_on_byte_append', 0, () => {
+    it('crc32_changes_on_byte_append', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const base = FastBufferUtil.crc32(FastBufferUtil.utf8Encode('payload'));
       const extended = FastBufferUtil.crc32(FastBufferUtil.utf8Encode('payload!'));
       expect(base === extended).assertFalse();
@@ -798,7 +798,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32Hex_zero_padded', 0, () => {
+    it('crc32Hex_zero_padded', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.crc32Hex(fastbuffer.alloc(0))).assertEqual('00000000');
     });
 
@@ -810,7 +810,7 @@ export default function fastBufferUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32Hex_uppercase_eight_digits', 0, () => {
+    it('crc32Hex_uppercase_eight_digits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const hex = FastBufferUtil.crc32Hex(FastBufferUtil.utf8Encode('a'));
       expect(hex).assertEqual('E8B7BE43');
       expect(hex.length).assertEqual(8);

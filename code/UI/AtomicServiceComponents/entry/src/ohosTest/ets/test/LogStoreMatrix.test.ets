@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   LogItem,
   LogLevel,
@@ -46,7 +46,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_capacityOne', 0, () => {
+    it('append_capacityOne', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       logs = appendLog(logs, new LogItem('设备', 'A', '第一条', LogLevel.INFO, FIXED_TIME), 1);
       logs = appendLog(logs, new LogItem('设备', 'A', '第二条', LogLevel.INFO, FIXED_TIME), 1);
@@ -62,7 +62,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_capacityTwo', 0, () => {
+    it('append_capacityTwo', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 3; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 2);
@@ -80,7 +80,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_capacityThree', 0, () => {
+    it('append_capacityThree', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 5; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 3);
@@ -98,7 +98,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_capacityTen', 0, () => {
+    it('append_capacityTen', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 12; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 10);
@@ -116,7 +116,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_zeroCapacity', 0, () => {
+    it('append_zeroCapacity', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 3; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 0);
@@ -132,7 +132,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_negativeCapacity', 0, () => {
+    it('append_negativeCapacity', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 3; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), -5);
@@ -149,7 +149,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('append_orderTen', 0, () => {
+    it('append_orderTen', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 10; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 20);
@@ -167,7 +167,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_minDebug', 0, () => {
+    it('query_minDebug', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG).length).assertEqual(4);
     });
 
@@ -179,7 +179,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_minInfo', 0, () => {
+    it('query_minInfo', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = queryLogs(buildFourLevels(), '', LogLevel.INFO);
       expect(result.length).assertEqual(3);
       expect(result[2].level).assertEqual(LogLevel.ERROR);
@@ -193,7 +193,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_minWarn', 0, () => {
+    it('query_minWarn', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = queryLogs(buildFourLevels(), '', LogLevel.WARN);
       expect(result.length).assertEqual(2);
       expect(result[0].level).assertEqual(LogLevel.WARN);
@@ -208,7 +208,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_minError', 0, () => {
+    it('query_minError', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.ERROR).length).assertEqual(1);
     });
 
@@ -220,7 +220,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_sourceDevice', 0, () => {
+    it('query_sourceDevice', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '设备').length).assertEqual(2);
     });
 
@@ -232,7 +232,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_sourcePage', 0, () => {
+    it('query_sourcePage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '页面').length).assertEqual(2);
     });
 
@@ -244,7 +244,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_sourceEmpty', 0, () => {
+    it('query_sourceEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '').length).assertEqual(4);
     });
 
@@ -256,7 +256,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_sourceUnknown', 0, () => {
+    it('query_sourceUnknown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '服务').length).assertEqual(0);
     });
 
@@ -268,7 +268,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_keywordCaseInsensitive', 0, () => {
+    it('query_keywordCaseInsensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, 'ALPHA').length).assertEqual(1);
     });
 
@@ -280,7 +280,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_keywordTagMatch', 0, () => {
+    it('query_keywordTagMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, '下载').length).assertEqual(2);
     });
 
@@ -292,7 +292,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_keywordTrimmed', 0, () => {
+    it('query_keywordTrimmed', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, ' beta ').length).assertEqual(1);
     });
 
@@ -304,7 +304,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_keywordNoMatch', 0, () => {
+    it('query_keywordNoMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, 'zzz').length).assertEqual(0);
     });
 
@@ -316,7 +316,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_limitTwo', 0, () => {
+    it('query_limitTwo', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, '', 2).length).assertEqual(2);
     });
 
@@ -328,7 +328,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_limitZero', 0, () => {
+    it('query_limitZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, '', 0).length).assertEqual(4);
     });
 
@@ -340,7 +340,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('query_limitAboveCount', 0, () => {
+    it('query_limitAboveCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(queryLogs(buildFourLevels(), '', LogLevel.DEBUG, '', 100).length).assertEqual(4);
     });
 
@@ -352,7 +352,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('countByTag_download', 0, () => {
+    it('countByTag_download', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs = buildFourLevels();
       expect(countByTag(logs, '下载')).assertEqual(2);
       expect(countByTag(logs, '搜索')).assertEqual(1);
@@ -367,7 +367,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logLevelName_allLevels', 0, () => {
+    it('logLevelName_allLevels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(logLevelName(LogLevel.DEBUG)).assertEqual('DEBUG');
       expect(logLevelName(LogLevel.INFO)).assertEqual('INFO');
       expect(logLevelName(LogLevel.WARN)).assertEqual('WARN');
@@ -382,7 +382,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logItem_idMonotonic', 0, () => {
+    it('logItem_idMonotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = new LogItem('设备', 'A', '第一条', LogLevel.INFO, FIXED_TIME);
       const second = new LogItem('设备', 'A', '第二条', LogLevel.INFO, FIXED_TIME);
       const third = new LogItem('设备', 'A', '第三条', LogLevel.INFO, FIXED_TIME);
@@ -398,7 +398,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logItem_defaultLevel', 0, () => {
+    it('logItem_defaultLevel', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = new LogItem('设备', 'A', '默认级别');
       expect(item.level).assertEqual(LogLevel.INFO);
       expect(item.time.length).assertEqual(8);
@@ -414,7 +414,7 @@ export default function logStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearLogs_empty', 0, () => {
+    it('clearLogs_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(clearLogs().length).assertEqual(0);
     });
   });

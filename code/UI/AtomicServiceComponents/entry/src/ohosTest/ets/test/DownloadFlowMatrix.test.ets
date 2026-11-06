@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   DownloadState,
   DownloadTarget,
@@ -37,7 +37,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_phone', 0, () => {
+    it('picker_phone', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('phone')).assertTrue();
     });
 
@@ -49,7 +49,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_tablet', 0, () => {
+    it('picker_tablet', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('tablet')).assertTrue();
     });
 
@@ -61,7 +61,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_twoInOne', 0, () => {
+    it('picker_twoInOne', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('2in1')).assertTrue();
     });
 
@@ -73,7 +73,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_default', 0, () => {
+    it('picker_default', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('default')).assertFalse();
     });
 
@@ -85,7 +85,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_watch', 0, () => {
+    it('picker_watch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('watch')).assertFalse();
     });
 
@@ -97,7 +97,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('picker_caseSensitive', 0, () => {
+    it('picker_caseSensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('Phone')).assertFalse();
       expect(supportsDocumentPicker('')).assertFalse();
     });
@@ -110,7 +110,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('target_phone', 0, () => {
+    it('target_phone', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveDownloadTarget('phone')).assertEqual(DownloadTarget.PICKER);
     });
 
@@ -122,7 +122,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('target_default', 0, () => {
+    it('target_default', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveDownloadTarget('default')).assertEqual(DownloadTarget.SANDBOX);
     });
 
@@ -134,7 +134,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('target_unknown', 0, () => {
+    it('target_unknown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveDownloadTarget('unknown')).assertEqual(DownloadTarget.SANDBOX);
     });
 
@@ -146,7 +146,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('attempt_fromZero', 0, () => {
+    it('attempt_fromZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(beginAttempt(0)).assertEqual(1);
     });
 
@@ -158,7 +158,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('attempt_fromFortyOne', 0, () => {
+    it('attempt_fromFortyOne', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(beginAttempt(41)).assertEqual(42);
     });
 
@@ -170,7 +170,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('attempt_chain', 0, () => {
+    it('attempt_chain', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = beginAttempt(0);
       const second = beginAttempt(first);
       const third = beginAttempt(second);
@@ -187,7 +187,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stale_sameToken', 0, () => {
+    it('stale_sameToken', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isStaleAttempt(5, 5)).assertFalse();
     });
 
@@ -199,7 +199,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stale_olderToken', 0, () => {
+    it('stale_olderToken', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isStaleAttempt(5, 6)).assertTrue();
       expect(isStaleAttempt(6, 5)).assertTrue();
     });
@@ -212,7 +212,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stale_zeroToken', 0, () => {
+    it('stale_zeroToken', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isStaleAttempt(0, 0)).assertFalse();
     });
 
@@ -224,7 +224,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fallback_unsettledCurrent', 0, () => {
+    it('fallback_unsettledCurrent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(shouldFallbackOnTimeout(false, 5, 5)).assertTrue();
     });
 
@@ -236,7 +236,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fallback_settledCurrent', 0, () => {
+    it('fallback_settledCurrent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(shouldFallbackOnTimeout(true, 5, 5)).assertFalse();
     });
 
@@ -248,7 +248,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fallback_unsettledStale', 0, () => {
+    it('fallback_unsettledStale', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(shouldFallbackOnTimeout(false, 4, 5)).assertFalse();
     });
 
@@ -260,7 +260,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fallback_settledStale', 0, () => {
+    it('fallback_settledStale', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(shouldFallbackOnTimeout(true, 4, 5)).assertFalse();
     });
 
@@ -272,7 +272,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('nextState_success', 0, () => {
+    it('nextState_success', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(nextDownloadState(DownloadState.PICKING, true)).assertEqual(DownloadState.SUCCESS);
     });
 
@@ -284,7 +284,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('nextState_fallback', 0, () => {
+    it('nextState_fallback', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(nextDownloadState(DownloadState.PICKING, false)).assertEqual(DownloadState.FALLBACK);
       expect(nextDownloadState(DownloadState.FAILED, true)).assertEqual(DownloadState.SUCCESS);
     });
@@ -297,7 +297,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_idle', 0, () => {
+    it('stateName_idle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(downloadStateName(DownloadState.IDLE).id > 0).assertTrue();
     });
 
@@ -309,7 +309,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_picking', 0, () => {
+    it('stateName_picking', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(downloadStateName(DownloadState.PICKING).id > 0).assertTrue();
     });
 
@@ -321,7 +321,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_success', 0, () => {
+    it('stateName_success', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(downloadStateName(DownloadState.SUCCESS).id > 0).assertTrue();
     });
 
@@ -333,7 +333,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_fallback', 0, () => {
+    it('stateName_fallback', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(downloadStateName(DownloadState.FALLBACK).id > 0).assertTrue();
     });
 
@@ -345,7 +345,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_failed', 0, () => {
+    it('stateName_failed', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(downloadStateName(DownloadState.FAILED).id > 0).assertTrue();
     });
 
@@ -357,7 +357,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('timeoutThenSuccess_flow', 0, () => {
+    it('timeoutThenSuccess_flow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = beginAttempt(0);
       const second = beginAttempt(first);
       expect(isStaleAttempt(first, second)).assertTrue();

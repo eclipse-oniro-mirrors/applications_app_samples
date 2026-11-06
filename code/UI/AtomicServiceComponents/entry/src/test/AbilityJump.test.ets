@@ -15,7 +15,7 @@
 // AbilityJump 单测：目标清单、状态文案、错误码提示、attempt token 与结果描述。
 // 这三个分支分别对应 startAbility 成功、拒绝（16000001 等）与 3 秒超时，纯函数保证文案与判定可测。
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   JUMP_TARGETS,
   JumpState,
@@ -32,7 +32,7 @@ import {
 export default function abilityJumpTest() {
   describe('AbilityJumpTest', () => {
     // 目标清单：三个目标、key 唯一、字段非空，本应用目标使用自身 bundleName
-    it('jumpTargets_shape', 0, () => {
+    it('jumpTargets_shape', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(JUMP_TARGETS.length).assertEqual(3);
       const keys: string[] = JUMP_TARGETS.map((target: JumpTarget) => target.key);
       for (const key of keys) {
@@ -48,7 +48,7 @@ export default function abilityJumpTest() {
     });
 
     // 目标查找：命中返回同一实例，未知 key 返回 null
-    it('jumpTargetByKey_knownAndUnknown', 0, () => {
+    it('jumpTargetByKey_knownAndUnknown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpTargetByKey('settings') === JUMP_TARGETS[0]).assertTrue();
       expect(jumpTargetByKey('missing')?.abilityName).assertEqual('EntryAbility');
       expect(jumpTargetByKey('unknown')).assertNull();
@@ -56,12 +56,12 @@ export default function abilityJumpTest() {
     });
 
     // describe 拼接 bundleName/abilityName
-    it('jumpTarget_describe', 0, () => {
+    it('jumpTarget_describe', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(JUMP_TARGETS[2].describe()).assertEqual('com.samples.not.installed/EntryAbility');
     });
 
     // 状态文案：五种状态各有中文描述
-    it('jumpStateName_all', 0, () => {
+    it('jumpStateName_all', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpStateName(JumpState.IDLE)).assertEqual('Idle');
       expect(jumpStateName(JumpState.WAITING)).assertEqual('Waiting for target');
       expect(jumpStateName(JumpState.SUCCESS)).assertEqual('Launched');
@@ -70,7 +70,7 @@ export default function abilityJumpTest() {
     });
 
     // 错误码提示：已覆盖 16000001 / 16000004 / 16000019 / 201，未知码给出兜底
-    it('jumpErrorHint_knownCodes', 0, () => {
+    it('jumpErrorHint_knownCodes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpErrorHint(16000001).includes('not found')).assertTrue();
       expect(jumpErrorHint(16000004).includes('not visible')).assertTrue();
       expect(jumpErrorHint(16000019).includes('No matching')).assertTrue();
@@ -80,14 +80,14 @@ export default function abilityJumpTest() {
     });
 
     // 结果描述：有错误码带方括号，无错误码只保留消息，空消息回落未知错误
-    it('describeJumpResult_formats', 0, () => {
+    it('describeJumpResult_formats', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(describeJumpResult(16000001, 'ability not exist')).assertEqual('[16000001] ability not exist');
       expect(describeJumpResult(0, 'timed out')).assertEqual('timed out');
       expect(describeJumpResult(0, '')).assertEqual('Unknown error');
     });
 
     // attempt token 单调递增，只有当前 token 的结果会被采纳
-    it('attemptToken_guards', 0, () => {
+    it('attemptToken_guards', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(beginAttempt(0)).assertEqual(1);
       expect(beginAttempt(7)).assertEqual(8);
       expect(isActiveAttempt(3, 3)).assertTrue();

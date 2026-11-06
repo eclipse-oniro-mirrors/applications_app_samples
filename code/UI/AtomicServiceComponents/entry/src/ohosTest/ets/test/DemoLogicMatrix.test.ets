@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { CATEGORIES, DEMO_ITEMS, DemoItem, canPopNavStack, canSwitchTab, filterDemos } from '../../../main/ets/model/DemoLogic';
 import { isRouteKey } from '../../../main/ets/common/AppConstants';
 
@@ -28,7 +28,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_web', 0, () => {
+    it('filter_web', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
     });
 
@@ -40,7 +40,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_webUppercase', 0, () => {
+    it('filter_webUppercase', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'WEB', 'All').length).assertEqual(1);
     });
 
@@ -52,7 +52,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_trimmedKeyword', 0, () => {
+    it('filter_trimmedKeyword', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '  web  ', 'All').length).assertEqual(1);
     });
 
@@ -64,7 +64,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_tabsSubtitle', 0, () => {
+    it('filter_tabsSubtitle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
     });
 
@@ -76,7 +76,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_navDestination', 0, () => {
+    it('filter_navDestination', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'NavDestination', 'All').length).assertEqual(1);
     });
 
@@ -88,7 +88,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_emptyKeywordContainer', 0, () => {
+    it('filter_emptyKeywordContainer', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', 'Container').length).assertEqual(1);
     });
 
@@ -100,7 +100,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_emptyKeywordInteraction', 0, () => {
+    it('filter_emptyKeywordInteraction', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
     });
 
@@ -112,7 +112,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_emptyKeywordCapability', 0, () => {
+    it('filter_emptyKeywordCapability', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', 'Capability').length).assertEqual(5);
     });
 
@@ -124,7 +124,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_allCategory', 0, () => {
+    it('filter_allCategory', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', 'All').length).assertEqual(9);
     });
 
@@ -136,7 +136,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_unknownCategory', 0, () => {
+    it('filter_unknownCategory', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', 'Unknown').length).assertEqual(0);
     });
 
@@ -148,7 +148,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_combinedMatch', 0, () => {
+    it('filter_combinedMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'search', 'Interaction').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'download', 'Capability').length).assertEqual(1);
     });
@@ -161,7 +161,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_combinedMismatch', 0, () => {
+    it('filter_combinedMismatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'download', 'Container').length).assertEqual(0);
     });
 
@@ -173,7 +173,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_unlockedValid', 0, () => {
+    it('tab_unlockedValid', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 1, false, 3)).assertTrue();
     });
 
@@ -185,7 +185,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_lockedSame', 0, () => {
+    it('tab_lockedSame', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(1, 1, true, 3)).assertTrue();
     });
 
@@ -197,7 +197,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_lockedOther', 0, () => {
+    it('tab_lockedOther', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 1, true, 3)).assertFalse();
     });
 
@@ -209,7 +209,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_zeroCount', 0, () => {
+    it('tab_zeroCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 0, false, 0)).assertFalse();
       expect(canSwitchTab(0, 0, false, -1)).assertFalse();
     });
@@ -222,7 +222,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_indexEqualsCount', 0, () => {
+    it('tab_indexEqualsCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 3, false, 3)).assertFalse();
     });
 
@@ -234,7 +234,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tab_negativeIndex', 0, () => {
+    it('tab_negativeIndex', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, -1, false, 3)).assertFalse();
     });
 
@@ -246,7 +246,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('navStack_empty', 0, () => {
+    it('navStack_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canPopNavStack(0)).assertFalse();
       expect(canPopNavStack(-1)).assertFalse();
     });
@@ -259,7 +259,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('navStack_nonEmpty', 0, () => {
+    it('navStack_nonEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canPopNavStack(1)).assertTrue();
       expect(canPopNavStack(5)).assertTrue();
     });
@@ -272,7 +272,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('catalog_keysAreRoutes', 0, () => {
+    it('catalog_keysAreRoutes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const item of DEMO_ITEMS) {
         expect(isRouteKey(item.key)).assertTrue();
       }
@@ -286,7 +286,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('catalog_titlesMatchComponents', 0, () => {
+    it('catalog_titlesMatchComponents', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DEMO_ITEMS[0].title).assertEqual('AtomicServiceNavigation');
       expect(DEMO_ITEMS[1].title).assertEqual('AtomicServiceSearch');
       expect(DEMO_ITEMS[2].title).assertEqual('AtomicServiceTabs');
@@ -306,7 +306,7 @@ export default function demoLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('catalog_keysUnique', 0, () => {
+    it('catalog_keysUnique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const keys: string[] = DEMO_ITEMS.map((item: DemoItem) => item.key);
       expect(keys.length).assertEqual(9);
       for (const key of keys) {

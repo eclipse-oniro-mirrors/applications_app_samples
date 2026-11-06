@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { CATEGORIES, DEMO_ITEMS, DemoItem, canPopNavStack, canSwitchTab, filterDemos } from '../../../main/ets/model/DemoLogic';
 
 export default function demoLogicTest() {
@@ -27,7 +27,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('demoItems_catalogShape', 0, () => {
+    it('demoItems_catalogShape', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DEMO_ITEMS.length).assertEqual(9);
       const keys: string[] = DEMO_ITEMS.map((item: DemoItem) => item.key);
       for (const key of keys) {
@@ -48,7 +48,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filterDemos_keywordNormalization', 0, () => {
+    it('filterDemos_keywordNormalization', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'WEB', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, '  web  ', 'All').length).assertEqual(1);
@@ -64,7 +64,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filterDemos_subtitleMatch', 0, () => {
+    it('filterDemos_subtitleMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'NavDestination', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'Half-screen', 'All').length).assertEqual(1);
@@ -78,7 +78,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filterDemos_categoryBuckets', 0, () => {
+    it('filterDemos_categoryBuckets', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, '', '').length).assertEqual(9);
       expect(filterDemos(DEMO_ITEMS, '', 'Container').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
@@ -94,7 +94,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filterDemos_combinedConditions', 0, () => {
+    it('filterDemos_combinedConditions', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'search', 'Interaction').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'button', 'Capability').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'download', 'Container').length).assertEqual(0);
@@ -108,7 +108,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filterDemos_doesNotMutateInput', 0, () => {
+    it('filterDemos_doesNotMutateInput', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = filterDemos(DEMO_ITEMS, '', 'Interaction');
       expect(result.length).assertEqual(3);
       result.pop();
@@ -124,7 +124,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('canSwitchTab_lockRules', 0, () => {
+    it('canSwitchTab_lockRules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 0, false, 0)).assertFalse();
       expect(canSwitchTab(0, 0, false, -1)).assertFalse();
       expect(canSwitchTab(0, 1, true, 3)).assertFalse();
@@ -140,7 +140,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('canSwitchTab_indexBounds', 0, () => {
+    it('canSwitchTab_indexBounds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSwitchTab(0, 3, false, 3)).assertFalse();
       expect(canSwitchTab(0, -1, false, 3)).assertFalse();
       expect(canSwitchTab(-5, 0, false, 3)).assertTrue();
@@ -154,7 +154,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('canPopNavStack_values', 0, () => {
+    it('canPopNavStack_values', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canPopNavStack(0)).assertFalse();
       expect(canPopNavStack(-1)).assertFalse();
       expect(canPopNavStack(1)).assertTrue();
@@ -169,7 +169,7 @@ export default function demoLogicTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('categoriesOrder_and_DemoItem', 0, () => {
+    it('categoriesOrder_and_DemoItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CATEGORIES.length).assertEqual(4);
       expect(CATEGORIES[0]).assertEqual('All');
       expect(CATEGORIES[1]).assertEqual('Container');

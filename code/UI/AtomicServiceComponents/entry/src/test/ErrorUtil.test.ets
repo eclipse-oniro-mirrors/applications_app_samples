@@ -16,13 +16,13 @@
 // and the picker error-code hint table. All user-readable error text comes from here, so every known code
 // must be covered and unknown codes must fall back to the sandbox degradation hint.
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { errorInfo, formatError, pickerErrorHint } from '../main/ets/utils/ErrorUtil';
 
 export default function errorUtilTest() {
   describe('ErrorUtilTest', () => {
     // errorInfo: a valid code keeps code and message; describe prefixes [code]; hint matches the mapping
-    it('errorInfo_codedError', 0, () => {
+    it('errorInfo_codedError', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = errorInfo(13900012, 'permission denied');
       expect(info.code).assertEqual(13900012);
       expect(info.message).assertEqual('permission denied');
@@ -31,7 +31,7 @@ export default function errorUtilTest() {
     });
 
     // errorInfo: code=0 with an empty message is treated as unknown error; hint is still non-empty
-    it('errorInfo_emptyMessage', 0, () => {
+    it('errorInfo_emptyMessage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = errorInfo(0, '');
       expect(info.message).assertEqual('Unknown error');
       expect(info.describe()).assertEqual('Unknown error');
@@ -39,7 +39,7 @@ export default function errorUtilTest() {
     });
 
     // formatError: code>0 yields "<action> failed (<code>): <message>"
-    it('formatError_withCode', 0, () => {
+    it('formatError_withCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('save', 13900001, 'not allowed'))
         .assertEqual('save failed (13900001): not allowed');
       expect(formatError('download', 13900020, 'bad option'))
@@ -47,14 +47,14 @@ export default function errorUtilTest() {
     });
 
     // formatError: code=0 and negative codes omit the code; empty message falls back to unknown error
-    it('formatError_withoutCode', 0, () => {
+    it('formatError_withoutCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('save', 0, '')).assertEqual('save failed: Unknown error');
       expect(formatError('continue', 0, 'disk full')).assertEqual('continue failed: disk full');
       expect(formatError('launch', -1, 'busy')).assertEqual('launch failed: busy');
     });
 
     // pickerErrorHint: known codes hit dedicated hints that are distinguishable from the sandbox fallback
-    it('pickerErrorHint_knownAndUnknown', 0, () => {
+    it('pickerErrorHint_knownAndUnknown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900002).includes('does not exist')).assertTrue();
       expect(pickerErrorHint(13900012).includes('Permission denied')).assertTrue();
       expect(pickerErrorHint(13900020).includes('Invalid parameters')).assertTrue();
@@ -65,7 +65,7 @@ export default function errorUtilTest() {
     });
 
     // pickerErrorHint: full known-code coverage; 0 and negative codes fall back to the sandbox hint
-    it('pickerErrorHint_coversAllKnownCodes', 0, () => {
+    it('pickerErrorHint_coversAllKnownCodes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900001).includes('Operation not allowed')).assertTrue();
       expect(pickerErrorHint(13900015).includes('already exists')).assertTrue();
       expect(pickerErrorHint(13900042).includes('try again later')).assertTrue();
@@ -77,7 +77,7 @@ export default function errorUtilTest() {
     });
 
     // errorInfo: negative code has no bracket prefix; describe returns message; empty message normalizes
-    it('errorInfo_negativeCodeAndHint', 0, () => {
+    it('errorInfo_negativeCodeAndHint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = errorInfo(-1, 'custom error');
       expect(info.describe()).assertEqual('custom error');
       expect(info.hint).assertEqual(pickerErrorHint(-1));

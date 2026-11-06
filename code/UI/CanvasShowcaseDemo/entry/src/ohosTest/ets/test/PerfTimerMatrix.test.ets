@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { PerfTimer } from '../../../main/ets/model/utils/PerfTimer';
 
 /**
@@ -35,7 +35,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_returnsBoolean', 0, () => {
+    it('time_returnsBoolean', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const r: boolean = PerfTimer.time('Matrix', '布尔', (): boolean => true);
       expect(r).assertTrue();
     });
@@ -48,7 +48,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_returnsNull', 0, () => {
+    it('time_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const r: string | null = PerfTimer.time('Matrix', '空值', (): string | null => null);
       expect(r === null).assertTrue();
     });
@@ -61,7 +61,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_returnsArray', 0, () => {
+    it('time_returnsArray', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const r: string[] = PerfTimer.time('Matrix', '数组', (): string[] => ['a', 'b']);
       expect(r.length).assertEqual(2);
       expect(r[1]).assertEqual('b');
@@ -75,7 +75,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_invokesFnOnce', 0, () => {
+    it('time_invokesFnOnce', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let calls = 0;
       const r: number = PerfTimer.time('Matrix', '一次', (): number => {
         calls += 1;
@@ -93,7 +93,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_propagatesException', 0, () => {
+    it('time_propagatesException', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let caught = false;
       try {
         PerfTimer.time('Matrix', '异常', (): number => {
@@ -113,7 +113,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('instance_stopNonNegative', 0, () => {
+    it('instance_stopNonNegative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       const cost: number = t.stop();
@@ -129,7 +129,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('count_incrementsPerStop', 0, () => {
+    it('count_incrementsPerStop', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       expect(t.count()).assertEqual(0);
       t.start();
@@ -148,7 +148,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('statistics_invariants', 0, () => {
+    it('statistics_invariants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -169,7 +169,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('avg_roundedToTwoDecimals', 0, () => {
+    it('avg_roundedToTwoDecimals', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -187,7 +187,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('reset_thenRestart', 0, () => {
+    it('reset_thenRestart', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -207,7 +207,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('reset_clearsStatistics', 0, () => {
+    it('reset_clearsStatistics', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -227,7 +227,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('report_emptyExactFormat', 0, () => {
+    it('report_emptyExactFormat', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       expect(t.report('空场景')).assertEqual('空场景: 0 samples, avg 0ms, min 0ms, max 0ms');
     });
@@ -240,7 +240,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('independent_timers', 0, () => {
+    it('independent_timers', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t1: PerfTimer = new PerfTimer();
       const t2: PerfTimer = new PerfTimer();
       t1.start();
@@ -261,7 +261,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('report_doesNotClearSamples', 0, () => {
+    it('report_doesNotClearSamples', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -277,7 +277,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('report_includesSampleCount', 0, () => {
+    it('report_includesSampleCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -293,7 +293,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('start_resetsStartPoint', 0, () => {
+    it('start_resetsStartPoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.start();

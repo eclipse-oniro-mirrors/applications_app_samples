@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   listScenarios, getScenario, formatDateValue, formatTimeValue, formatTextValue, DialogEventLog, ScenarioInfo
 } from '../../../main/ets/model/DialogModels';
@@ -33,7 +33,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupCountsAreStable', 0, () => {
+    it('groupCountsAreStable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let dialogV2: number = 0;
       let interstitial: number = 0;
       let systemPrompt: number = 0;
@@ -63,7 +63,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('titlesAndApisAreUnique', 0, () => {
+    it('titlesAndApisAreUnique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const titles: Set<string> = new Set<string>();
       const apis: Set<string> = new Set<string>();
       for (const item of listScenarios()) {
@@ -82,7 +82,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('listScenariosReturnsIndependentCopies', 0, () => {
+    it('listScenariosReturnsIndependentCopies', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: ScenarioInfo[] = listScenarios();
       const second: ScenarioInfo[] = listScenarios();
       first[0] = new ScenarioInfo(99, '临时', 'temp', 'Temp');
@@ -98,7 +98,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('catalogEntriesMatchLookup', 0, () => {
+    it('catalogEntriesMatchLookup', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const all: ScenarioInfo[] = listScenarios();
       for (const item of all) {
         const found: ScenarioInfo | null = getScenario(item.id);
@@ -117,7 +117,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupBoundaryScenarios', 0, () => {
+    it('groupBoundaryScenarios', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getScenario(1)!.group).assertEqual('DialogV2');
       expect(getScenario(7)!.group).assertEqual('DialogV2');
       expect(getScenario(8)!.group).assertEqual('Interstitial');
@@ -135,7 +135,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateYearBoundaries', 0, () => {
+    it('formatDateYearBoundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateValue(new Date(1970, 0, 1))).assertEqual('1970-01-01');
       expect(formatDateValue(new Date(2000, 11, 31))).assertEqual('2000-12-31');
       expect(formatDateValue(new Date(2099, 5, 15))).assertEqual('2099-06-15');
@@ -149,7 +149,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateIgnoresTimePart', 0, () => {
+    it('formatDateIgnoresTimePart', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateValue(new Date(2026, 5, 15, 23, 59, 59))).assertEqual('2026-06-15');
     });
 
@@ -161,7 +161,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateSingleDigitMonthDay', 0, () => {
+    it('formatDateSingleDigitMonthDay', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateValue(new Date(2026, 0, 9))).assertEqual('2026-01-09');
       expect(formatDateValue(new Date(2026, 8, 1))).assertEqual('2026-09-01');
     });
@@ -174,7 +174,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeBoundaries', 0, () => {
+    it('formatTimeBoundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTimeValue(0, 0)).assertEqual('00:00');
       expect(formatTimeValue(0, 59)).assertEqual('00:59');
       expect(formatTimeValue(23, 0)).assertEqual('23:00');
@@ -189,7 +189,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTextUnicodeAndSpaces', 0, () => {
+    it('formatTextUnicodeAndSpaces', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTextValue('上海 浦东', 1)).assertEqual('index=1 value=上海 浦东');
       expect(formatTextValue('🙂', 0)).assertEqual('index=0 value=🙂');
     });
@@ -202,7 +202,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTextOutOfRangeIndex', 0, () => {
+    it('formatTextOutOfRangeIndex', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTextValue('x', -1)).assertEqual('index=-1 value=x');
       expect(formatTextValue('x', 9999)).assertEqual('index=9999 value=x');
     });
@@ -215,7 +215,7 @@ export default function dialogScenariosMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dialogLogTwoDigitSceneIds', 0, () => {
+    it('dialogLogTwoDigitSceneIds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatOpen(10, '日期')).assertEqual('open#10 日期');
       expect(DialogEventLog.formatClose(14, '弹窗')).assertEqual('close#14 弹窗');
       expect(DialogEventLog.formatClick(12)).assertEqual('click#12');

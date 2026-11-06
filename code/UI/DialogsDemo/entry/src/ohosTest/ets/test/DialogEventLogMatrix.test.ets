@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DialogEventLog } from '../../../main/ets/model/DialogModels';
 
 /**
@@ -43,7 +43,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_sceneZero', 0, () => {
+    it('format_sceneZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatOpen(0, '兜底')).assertEqual('open#0 兜底');
       expect(DialogEventLog.formatClose(0, '兜底')).assertEqual('close#0 兜底');
       expect(DialogEventLog.formatClick(0)).assertEqual('click#0');
@@ -57,7 +57,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_negativeScene', 0, () => {
+    it('format_negativeScene', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatOpen(-1, '非法')).assertEqual('open#-1 非法');
       expect(DialogEventLog.formatSelect(-3, 0)).assertEqual('select#-3 index=0');
     });
@@ -70,7 +70,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_largeSceneId', 0, () => {
+    it('format_largeSceneId', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatError(1000000, '溢出')).assertEqual('error#1000000 溢出');
       expect(DialogEventLog.formatCheck(2147483647, true)).assertEqual('check#2147483647 checked=true');
     });
@@ -83,7 +83,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_emptyName', 0, () => {
+    it('format_emptyName', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const line: string = DialogEventLog.formatOpen(1, '');
       expect(line).assertEqual('open#1 ');
       expect(line.charAt(line.length - 1)).assertEqual(' ');
@@ -97,7 +97,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_unicodeName', 0, () => {
+    it('format_unicodeName', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatOpen(2, '密码框🔐')).assertEqual('open#2 密码框🔐');
       expect(DialogEventLog.formatClose(2, '插屏（底部横幅）')).assertEqual('close#2 插屏（底部横幅）');
     });
@@ -110,7 +110,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_selectZeroIndex', 0, () => {
+    it('format_selectZeroIndex', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DialogEventLog.formatSelect(3, 0)).assertEqual('select#3 index=0');
       expect(DialogEventLog.formatSelect(3, -1)).assertEqual('select#3 index=-1');
     });
@@ -123,7 +123,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('format_clickHasNoPayload', 0, () => {
+    it('format_clickHasNoPayload', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const line: string = DialogEventLog.formatClick(6);
       expect(line).assertEqual('click#6');
       expect(line.includes(' ')).assertFalse();
@@ -137,7 +137,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_emptyLine', 0, () => {
+    it('record_emptyLine', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('');
       expect(log.count()).assertEqual(1);
@@ -154,7 +154,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_duplicateLinesKept', 0, () => {
+    it('record_duplicateLinesKept', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('open#1 确认框');
       log.record('open#1 确认框');
@@ -172,7 +172,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_evictionOrder', 0, () => {
+    it('record_evictionOrder', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       for (let i = 1; i <= 70; i++) {
         log.record(`e${i}`);
@@ -191,7 +191,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hasPrefix_afterEviction', 0, () => {
+    it('hasPrefix_afterEviction', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('open#1 最早一条');
       for (let i = 1; i <= 60; i++) {
@@ -211,7 +211,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('last_afterEviction', 0, () => {
+    it('last_afterEviction', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       for (let i = 1; i <= 61; i++) {
         log.record(`e${i}`);
@@ -228,7 +228,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hasPrefix_empty', 0, () => {
+    it('hasPrefix_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       expect(log.hasPrefix('')).assertFalse();
       log.record('任意行');
@@ -243,7 +243,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hasPrefix_wholeLine', 0, () => {
+    it('hasPrefix_wholeLine', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('check#1 checked=true');
       expect(log.hasPrefix('check#1 checked=true')).assertTrue();
@@ -258,7 +258,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hasPrefix_caseSensitive', 0, () => {
+    it('hasPrefix_caseSensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('open#4 提示框');
       expect(log.hasPrefix('open#4')).assertTrue();
@@ -274,7 +274,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clear_allowsReuse', 0, () => {
+    it('clear_allowsReuse', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('a');
       log.record('b');
@@ -293,7 +293,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clear_twiceIdempotent', 0, () => {
+    it('clear_twiceIdempotent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('x');
       log.clear();
@@ -311,7 +311,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toLines_emptyInitially', 0, () => {
+    it('toLines_emptyInitially', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       expect(log.count()).assertEqual(0);
       expect(log.toLines().length).assertEqual(0);
@@ -327,7 +327,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toLines_orderPreserved', 0, () => {
+    it('toLines_orderPreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record(DialogEventLog.formatOpen(1, '确认框'));
       log.record(DialogEventLog.formatCheck(1, true));
@@ -348,7 +348,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('instances_isolated', 0, () => {
+    it('instances_isolated', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: DialogEventLog = new DialogEventLog();
       const second: DialogEventLog = new DialogEventLog();
       first.record('open#1 确认框');
@@ -367,7 +367,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_newlineKeptAsSingleLine', 0, () => {
+    it('record_newlineKeptAsSingleLine', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('a\nb');
       expect(log.count()).assertEqual(1);
@@ -382,7 +382,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_longLinePreserved', 0, () => {
+    it('record_longLinePreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       const long: string = repeatChar('x', 1000);
       log.record(long);
@@ -398,7 +398,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_interleavedScenes', 0, () => {
+    it('record_interleavedScenes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record(DialogEventLog.formatOpen(1, '确认框'));
       log.record(DialogEventLog.formatOpen(2, '警告框'));
@@ -417,7 +417,7 @@ export default function dialogEventLogMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('snapshot_unaffectedByClear', 0, () => {
+    it('snapshot_unaffectedByClear', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const log: DialogEventLog = new DialogEventLog();
       log.record('a');
       log.record('b');

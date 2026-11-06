@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { PerfTimer, PerfRecord } from '../../../main/ets/model/utils/PerfTimer';
 
 /**
@@ -42,7 +42,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('labels_are_independent', 0, () => {
+    it('labels_are_independent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.start('alpha');
       PerfTimer.start('beta');
@@ -61,7 +61,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('restart_overwrites_previous_mark', 0, () => {
+    it('restart_overwrites_previous_mark', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.start('same');
       PerfTimer.start('same');
@@ -79,7 +79,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stop_twice_returns_minus_one', 0, () => {
+    it('stop_twice_returns_minus_one', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.start('once');
       expect(PerfTimer.stop('once') >= 0).assertTrue();
@@ -94,7 +94,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_returns_number', 0, () => {
+    it('measure_returns_number', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = PerfTimer.measure<number>('num', (): number => {
         return 7;
       });
@@ -109,7 +109,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_returns_string', 0, () => {
+    it('measure_returns_string', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = PerfTimer.measure<string>('str', (): string => {
         return 'value';
       });
@@ -124,7 +124,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_returns_boolean', 0, () => {
+    it('measure_returns_boolean', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = PerfTimer.measure<boolean>('bool', (): boolean => {
         return true;
       });
@@ -139,7 +139,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_returns_array', 0, () => {
+    it('measure_returns_array', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = PerfTimer.measure<number[]>('arr', (): number[] => {
         return [1, 2, 3];
       });
@@ -155,7 +155,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('summary_joins_multiple_records', 0, () => {
+    it('summary_joins_multiple_records', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.measure<number>('first', (): number => {
         return 1;
@@ -177,7 +177,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('summary_after_clear_is_placeholder', 0, () => {
+    it('summary_after_clear_is_placeholder', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       expect(PerfTimer.summary()).assertEqual('No timing records');
     });
@@ -190,7 +190,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clear_drops_pending_mark', 0, () => {
+    it('clear_drops_pending_mark', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.start('pending');
       PerfTimer.clear();
@@ -205,7 +205,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('records_keep_insertion_order', 0, () => {
+    it('records_keep_insertion_order', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.measure<number>('one', (): number => {
         return 1;
@@ -226,7 +226,7 @@ export default function perfTimerMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('busy_loop_cost_is_non_negative', 0, () => {
+    it('busy_loop_cost_is_non_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.clear();
       PerfTimer.start('busy');
       let sum = 0;

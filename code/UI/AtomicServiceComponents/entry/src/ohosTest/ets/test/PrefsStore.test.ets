@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   PREFS_COUNT_KEY,
   PREFS_MAX_LENGTH,
@@ -40,7 +40,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('normalizePrefsText_trimsEdges', 0, () => {
+    it('normalizePrefsText_trimsEdges', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(normalizePrefsText('  hello  ')).assertEqual('hello');
       expect(normalizePrefsText('\t首选项\n')).assertEqual('首选项');
       expect(normalizePrefsText('  中间 空格  ')).assertEqual('中间 空格');
@@ -55,7 +55,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('normalizePrefsText_truncates', 0, () => {
+    it('normalizePrefsText_truncates', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const long = new Array<string>(PREFS_MAX_LENGTH + 20).fill('A').join('');
       expect(normalizePrefsText(long).length).assertEqual(PREFS_MAX_LENGTH);
       expect(normalizePrefsText(long).endsWith('A')).assertTrue();
@@ -69,7 +69,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('normalizePrefsText_keepsChinese', 0, () => {
+    it('normalizePrefsText_keepsChinese', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(normalizePrefsText('  原子化服务  ')).assertEqual('原子化服务');
       const chinese = new Array<string>(PREFS_MAX_LENGTH).fill('字').join('');
       expect(normalizePrefsText(chinese).length).assertEqual(PREFS_MAX_LENGTH);
@@ -85,7 +85,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('canSaveText_blankRules', 0, () => {
+    it('canSaveText_blankRules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canSaveText('')).assertFalse();
       expect(canSaveText('   ')).assertFalse();
       expect(canSaveText('\n\t')).assertFalse();
@@ -100,7 +100,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('nextCount_progression', 0, () => {
+    it('nextCount_progression', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(nextCount(0)).assertEqual(1);
       expect(nextCount(5)).assertEqual(6);
       expect(nextCount(-3)).assertEqual(1);
@@ -114,7 +114,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readCount_typeGuards', 0, () => {
+    it('readCount_typeGuards', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(readCount(3)).assertEqual(3);
       expect(readCount(3.9)).assertEqual(3);
       expect(readCount(0)).assertEqual(0);
@@ -131,7 +131,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readText_typeGuards', 0, () => {
+    it('readText_typeGuards', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(readText('内容')).assertEqual('内容');
       expect(readText('')).assertEqual('');
       expect(readText(12)).assertEqual('');
@@ -146,7 +146,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('prefsSummary_variants', 0, () => {
+    it('prefsSummary_variants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(buildPrefsSummary('Atomic service', 3)).assertEqual('Saved "Atomic service", read 3 times');
       expect(buildPrefsSummary('', 0)).assertEqual('No content yet, read 0 times');
     });
@@ -159,7 +159,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('prefsConstants_shape', 0, () => {
+    it('prefsConstants_shape', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(PREFS_NAME).assertEqual('atomic_service_demo_store');
       expect(PREFS_TEXT_KEY).assertEqual('demoText');
       expect(PREFS_COUNT_KEY).assertEqual('demoCount');
@@ -174,7 +174,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('prefsRoute_registered', 0, () => {
+    it('prefsRoute_registered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(RouteKey.PREFS).assertEqual('prefs');
       expect(isRouteKey(RouteKey.PREFS)).assertTrue();
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
@@ -189,7 +189,7 @@ export default function prefsStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('normalizePrefsText_exactLimitBoundary', 0, () => {
+    it('normalizePrefsText_exactLimitBoundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const exact = new Array<string>(PREFS_MAX_LENGTH).fill('B').join('');
       expect(normalizePrefsText(exact)).assertEqual(exact);
       const over = new Array<string>(PREFS_MAX_LENGTH + 1).fill('B').join('');

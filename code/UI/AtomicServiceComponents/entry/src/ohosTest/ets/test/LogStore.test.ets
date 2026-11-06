@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { LOG_STORE_CAPACITY } from '../../../main/ets/common/AppConstants';
 import {
   LogItem,
@@ -38,7 +38,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logItem_defaultsAndIds', 0, () => {
+    it('logItem_defaultsAndIds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = new LogItem('设备', '用例', '默认级别', LogLevel.INFO, FIXED_TIME);
       const second = new LogItem('设备', '用例', '第二条', LogLevel.WARN, FIXED_TIME);
       expect(first.level).assertEqual(LogLevel.INFO);
@@ -55,7 +55,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logItem_customFields', 0, () => {
+    it('logItem_customFields', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = new LogItem('页面', '下载', '文件已保存', LogLevel.ERROR, FIXED_TIME);
       expect(item.source).assertEqual('页面');
       expect(item.tag).assertEqual('下载');
@@ -72,7 +72,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logLevelName_mapping', 0, () => {
+    it('logLevelName_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(logLevelName(LogLevel.DEBUG)).assertEqual('DEBUG');
       expect(logLevelName(LogLevel.INFO)).assertEqual('INFO');
       expect(logLevelName(LogLevel.WARN)).assertEqual('WARN');
@@ -87,7 +87,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('appendLog_prependsNewest', 0, () => {
+    it('appendLog_prependsNewest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       logs = appendLog(logs, new LogItem('设备', 'A', '第一条', LogLevel.INFO, FIXED_TIME), 10);
       logs = appendLog(logs, new LogItem('设备', 'A', '第二条', LogLevel.INFO, FIXED_TIME), 10);
@@ -104,7 +104,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('appendLog_truncatesToCapacity', 0, () => {
+    it('appendLog_truncatesToCapacity', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 5; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME), 3);
@@ -122,7 +122,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('appendLog_zeroCapacityFallsBack', 0, () => {
+    it('appendLog_zeroCapacityFallsBack', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LOG_STORE_CAPACITY).assertEqual(200);
       let logs: LogItem[] = [];
       for (let i = 0; i < 3; i++) {
@@ -139,7 +139,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('appendLog_defaultCapacity', 0, () => {
+    it('appendLog_defaultCapacity', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let logs: LogItem[] = [];
       for (let i = 0; i < 205; i++) {
         logs = appendLog(logs, new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME));
@@ -157,7 +157,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('queryLogs_sourceFilter', 0, () => {
+    it('queryLogs_sourceFilter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs: LogItem[] = [
         new LogItem('设备', 'A', 'alpha', LogLevel.INFO, FIXED_TIME),
         new LogItem('页面', 'B', 'beta', LogLevel.WARN, FIXED_TIME),
@@ -177,7 +177,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('queryLogs_minLevel', 0, () => {
+    it('queryLogs_minLevel', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs: LogItem[] = [
         new LogItem('设备', 'A', 'debug', LogLevel.DEBUG, FIXED_TIME),
         new LogItem('设备', 'B', 'info', LogLevel.INFO, FIXED_TIME),
@@ -197,7 +197,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('queryLogs_keywordAndLimit', 0, () => {
+    it('queryLogs_keywordAndLimit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs: LogItem[] = [
         new LogItem('设备', '下载', '下载完成 alpha', LogLevel.INFO, FIXED_TIME),
         new LogItem('设备', '搜索', '搜索 beta', LogLevel.INFO, FIXED_TIME),
@@ -219,7 +219,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('countByTag_exactMatch', 0, () => {
+    it('countByTag_exactMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs: LogItem[] = [
         new LogItem('设备', '下载', 'a', LogLevel.INFO, FIXED_TIME),
         new LogItem('页面', '下载', 'b', LogLevel.INFO, FIXED_TIME),
@@ -238,7 +238,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearLogs_returnsEmpty', 0, () => {
+    it('clearLogs_returnsEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(clearLogs().length).assertEqual(0);
       expect(clearLogs().length).assertEqual(0);
     });
@@ -251,7 +251,7 @@ export default function logStoreTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('queryLogs_defaultLimitTruncates', 0, () => {
+    it('queryLogs_defaultLimitTruncates', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const logs: LogItem[] = [];
       for (let i = 0; i < 30; i++) {
         logs.push(new LogItem('设备', 'A', `条目${i}`, LogLevel.INFO, FIXED_TIME));

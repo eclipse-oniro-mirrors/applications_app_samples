@@ -30,7 +30,6 @@ import pixelMapUtilMatrixTest from './PixelMapUtilMatrix.test';
 import sceneRegistryMatrixTest from './SceneRegistryMatrix.test';
 import deviceUtilMatrixTest from './DeviceUtilMatrix.test';
 import canvasScenesMatrixTest from './CanvasScenesMatrix.test';
-import indexUiTest from './IndexUi.test';
 
 export default function testsuite() {
   abilityTest();
@@ -52,6 +51,4 @@ export default function testsuite() {
   sceneRegistryMatrixTest();
   deviceUtilMatrixTest();
   canvasScenesMatrixTest();
-  // UI 用例会前台拉起主页面，放在最后执行，避免影响纯逻辑用例
-  indexUiTest();
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   buildDownloadContent,
   buildDownloadFileName,
@@ -38,7 +38,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pad2_zero', 0, () => {
+    it('pad2_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pad2(0)).assertEqual('00');
     });
 
@@ -50,7 +50,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pad2_singleDigit', 0, () => {
+    it('pad2_singleDigit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pad2(5)).assertEqual('05');
       expect(pad2(9)).assertEqual('09');
     });
@@ -63,7 +63,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pad2_twoDigits', 0, () => {
+    it('pad2_twoDigits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pad2(10)).assertEqual('10');
       expect(pad2(42)).assertEqual('42');
     });
@@ -76,7 +76,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pad2_wideValue', 0, () => {
+    it('pad2_wideValue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pad2(100)).assertEqual('100');
     });
 
@@ -88,7 +88,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_midnight', 0, () => {
+    it('formatTime_midnight', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTime(new Date(2026, 0, 2, 0, 0, 0))).assertEqual('00:00:00');
     });
 
@@ -100,7 +100,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_morning', 0, () => {
+    it('formatTime_morning', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTime(new Date(2026, 0, 2, 9, 8, 7))).assertEqual('09:08:07');
     });
 
@@ -112,7 +112,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_lateNight', 0, () => {
+    it('formatTime_lateNight', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTime(new Date(2026, 0, 2, 23, 59, 59))).assertEqual('23:59:59');
     });
 
@@ -124,7 +124,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateTime_january', 0, () => {
+    it('formatDateTime_january', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateTime(new Date(2026, 0, 2, 3, 4, 5))).assertEqual('2026-01-02 03:04:05');
     });
 
@@ -136,7 +136,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateTime_december', 0, () => {
+    it('formatDateTime_december', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateTime(new Date(2026, 11, 31, 23, 59, 59))).assertEqual('2026-12-31 23:59:59');
     });
 
@@ -148,7 +148,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateTime_leapDay', 0, () => {
+    it('formatDateTime_leapDay', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateTime(new Date(2024, 1, 29, 12, 34, 56))).assertEqual('2024-02-29 12:34:56');
     });
 
@@ -160,7 +160,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_negative', 0, () => {
+    it('formatDuration_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(-100)).assertEqual('0 ms');
     });
 
@@ -172,7 +172,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_zero', 0, () => {
+    it('formatDuration_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(0)).assertEqual('0 ms');
     });
 
@@ -184,7 +184,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_subSecond', 0, () => {
+    it('formatDuration_subSecond', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(999)).assertEqual('999 ms');
     });
 
@@ -196,7 +196,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_oneSecond', 0, () => {
+    it('formatDuration_oneSecond', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(1000)).assertEqual('1.0 s');
     });
 
@@ -208,7 +208,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_fraction', 0, () => {
+    it('formatDuration_fraction', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(1500)).assertEqual('1.5 s');
     });
 
@@ -220,7 +220,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_roundUp', 0, () => {
+    it('formatDuration_roundUp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(59999)).assertEqual('60.0 s');
     });
 
@@ -232,7 +232,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_oneMinute', 0, () => {
+    it('formatDuration_oneMinute', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(60000)).assertEqual('1 min 0 s');
     });
 
@@ -244,7 +244,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_ninetySeconds', 0, () => {
+    it('formatDuration_ninetySeconds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(90000)).assertEqual('1 min 30 s');
     });
 
@@ -256,7 +256,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_oneHour', 0, () => {
+    it('formatDuration_oneHour', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(3600000)).assertEqual('60 min 0 s');
     });
 
@@ -268,7 +268,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_zero', 0, () => {
+    it('formatBytes_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(0)).assertEqual('0 B');
     });
 
@@ -280,7 +280,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_belowKb', 0, () => {
+    it('formatBytes_belowKb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1023)).assertEqual('1023 B');
     });
 
@@ -292,7 +292,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_oneKb', 0, () => {
+    it('formatBytes_oneKb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1024)).assertEqual('1.0 KB');
     });
 
@@ -304,7 +304,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_fractionalKb', 0, () => {
+    it('formatBytes_fractionalKb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1536)).assertEqual('1.5 KB');
     });
 
@@ -316,7 +316,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_belowMb', 0, () => {
+    it('formatBytes_belowMb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1024 * 1024 - 1)).assertEqual('1024.0 KB');
     });
 
@@ -328,7 +328,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_oneMb', 0, () => {
+    it('formatBytes_oneMb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1024 * 1024)).assertEqual('1.0 MB');
     });
 
@@ -340,7 +340,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_fractionalMb', 0, () => {
+    it('formatBytes_fractionalMb', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(1024 * 1024 * 3 / 2)).assertEqual('1.5 MB');
     });
 
@@ -352,7 +352,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_zeroTotal', 0, () => {
+    it('formatPercent_zeroTotal', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(0, 0)).assertEqual('0%');
       expect(formatPercent(50, 0)).assertEqual('0%');
     });
@@ -365,7 +365,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_quarter', 0, () => {
+    it('formatPercent_quarter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(50, 200)).assertEqual('25%');
     });
 
@@ -377,7 +377,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_rounds', 0, () => {
+    it('formatPercent_rounds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(1, 3)).assertEqual('33%');
       expect(formatPercent(3, 8)).assertEqual('38%');
     });
@@ -390,7 +390,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_clampLow', 0, () => {
+    it('formatPercent_clampLow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(-10, 100)).assertEqual('0%');
     });
 
@@ -402,7 +402,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_clampHigh', 0, () => {
+    it('formatPercent_clampHigh', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(200, 100)).assertEqual('100%');
     });
 
@@ -414,7 +414,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_negativeTotal', 0, () => {
+    it('formatPercent_negativeTotal', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(10, -5)).assertEqual('0%');
     });
 
@@ -426,7 +426,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_negative', 0, () => {
+    it('progressBucket_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(-1)).assertEqual(0);
     });
 
@@ -438,7 +438,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_zero', 0, () => {
+    it('progressBucket_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(0)).assertEqual(0);
     });
 
@@ -450,7 +450,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_belowFirst', 0, () => {
+    it('progressBucket_belowFirst', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(24.9)).assertEqual(0);
     });
 
@@ -462,7 +462,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_firstBoundary', 0, () => {
+    it('progressBucket_firstBoundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(25)).assertEqual(1);
     });
 
@@ -474,7 +474,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_thirdBoundary', 0, () => {
+    it('progressBucket_thirdBoundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(75)).assertEqual(3);
     });
 
@@ -486,7 +486,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_full', 0, () => {
+    it('progressBucket_full', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(100)).assertEqual(4);
     });
 
@@ -498,7 +498,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_overflow', 0, () => {
+    it('progressBucket_overflow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(250)).assertEqual(4);
     });
 
@@ -510,7 +510,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_nan', 0, () => {
+    it('progressBucket_nan', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(Number.NaN)).assertEqual(0);
     });
 
@@ -522,7 +522,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_tenToSix', 0, () => {
+    it('truncateMiddle_tenToSix', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdefghij', 6)).assertEqual('abc…ij');
     });
 
@@ -534,7 +534,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_eightToSeven', 0, () => {
+    it('truncateMiddle_eightToSeven', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdefgh', 7)).assertEqual('abc…fgh');
     });
 
@@ -546,7 +546,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_eightToFive', 0, () => {
+    it('truncateMiddle_eightToFive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdefgh', 5)).assertEqual('ab…gh');
     });
 
@@ -558,7 +558,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_oddKeep', 0, () => {
+    it('truncateMiddle_oddKeep', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdefgh', 4)).assertEqual('ab…h');
     });
 
@@ -570,7 +570,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_tinyLimit', 0, () => {
+    it('truncateMiddle_tinyLimit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdef', 3)).assertEqual('abcdef');
     });
 
@@ -582,7 +582,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadFileName_march', 0, () => {
+    it('downloadFileName_march', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(buildDownloadFileName(new Date(2026, 2, 4, 5, 6, 7)))
         .assertEqual('atomic-service-demo-20260304-050607.txt');
     });
@@ -595,7 +595,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadFileName_lateNight', 0, () => {
+    it('downloadFileName_lateNight', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(buildDownloadFileName(new Date(2026, 9, 27, 23, 59, 9)))
         .assertEqual('atomic-service-demo-20261027-235909.txt');
     });
@@ -608,7 +608,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadContent_lineCount', 0, () => {
+    it('downloadContent_lineCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5)).split('\n');
       expect(lines.length).assertEqual(4);
       expect(lines[0]).assertEqual('AtomicServiceComponents sample download file');
@@ -622,7 +622,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadContent_timestamp', 0, () => {
+    it('downloadContent_timestamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const content = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5));
       expect(content.includes('Generated at: 2026-01-02 03:04:05')).assertTrue();
     });
@@ -635,7 +635,7 @@ export default function formatUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadContent_notes', 0, () => {
+    it('downloadContent_notes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const content = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5));
       expect(content.includes('DownloadFileButton')).assertTrue();
       expect(content.includes('sandbox')).assertTrue();

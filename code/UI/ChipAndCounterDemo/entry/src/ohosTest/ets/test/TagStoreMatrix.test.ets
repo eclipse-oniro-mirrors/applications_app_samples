@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { TagStore, TagItem } from '../../../main/ets/model/ChipModels';
 
 /** 构建含 A/B/C 三条（id 1/2/3）的全新仓库 */
@@ -38,7 +38,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagIdsSequentialFromOne0001', 0, () => {
+    it('tagIdsSequentialFromOne0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const all: TagItem[] = store.getAll();
       expect(all[0].id).assertEqual(1);
@@ -54,7 +54,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addEmptyTextKeepsEntry0002', 0, () => {
+    it('addEmptyTextKeepsEntry0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('');
       expect(store.count()).assertEqual(4);
@@ -70,7 +70,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addUnicodeTextPreserved0003', 0, () => {
+    it('addUnicodeTextPreserved0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('中文✓标签😀');
       expect(item.text).assertEqual('中文✓标签😀');
@@ -86,7 +86,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addDuplicateTextsGetDistinctIds0004', 0, () => {
+    it('addDuplicateTextsGetDistinctIds0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const a: TagItem = store.add('重复');
       const b: TagItem = store.add('重复');
@@ -103,7 +103,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addDefaultsInactiveEnabled0005', 0, () => {
+    it('addDefaultsInactiveEnabled0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = new TagStore();
       const item: TagItem = store.add('X');
       expect(item.id).assertEqual(1);
@@ -120,7 +120,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeMiddleKeepsRemainingOrder0006', 0, () => {
+    it('removeMiddleKeepsRemainingOrder0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(2)).assertTrue();
       const texts: string[] = store.getAll().map((t: TagItem): string => t.text);
@@ -135,7 +135,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeLastByIdSucceeds0007', 0, () => {
+    it('removeLastByIdSucceeds0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(3)).assertTrue();
       expect(store.count()).assertEqual(2);
@@ -150,7 +150,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeTwiceSecondReturnsFalse0008', 0, () => {
+    it('removeTwiceSecondReturnsFalse0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(1)).assertTrue();
       expect(store.remove(1)).assertFalse();
@@ -165,7 +165,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeNegativeIdReturnsFalse0009', 0, () => {
+    it('removeNegativeIdReturnsFalse0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(-1)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -179,7 +179,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeZeroIdReturnsFalse0010', 0, () => {
+    it('removeZeroIdReturnsFalse0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(0)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -193,7 +193,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleMultipleIndependentStates0011', 0, () => {
+    it('toggleMultipleIndependentStates0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(1)).assertTrue();
       expect(store.toggleActivated(3)).assertTrue();
@@ -212,7 +212,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleTwiceRestoresState0012', 0, () => {
+    it('toggleTwiceRestoresState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(1)).assertTrue();
       expect(store.toggleActivated(1)).assertFalse();
@@ -228,7 +228,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleNegativeIdReturnsNull0013', 0, () => {
+    it('toggleNegativeIdReturnsNull0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(-5) === null).assertTrue();
       expect(store.activatedCount()).assertEqual(0);
@@ -242,7 +242,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleFractionalIdReturnsNull0014', 0, () => {
+    it('toggleFractionalIdReturnsNull0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(2.5) === null).assertTrue();
     });
@@ -255,7 +255,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledReEnable0015', 0, () => {
+    it('setEnabledReEnable0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(1, false)).assertTrue();
       expect(store.setEnabled(1, true)).assertTrue();
@@ -271,7 +271,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledMissingNegative0016', 0, () => {
+    it('setEnabledMissingNegative0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(-1, true)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -285,7 +285,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledDoesNotChangeActivated0017', 0, () => {
+    it('setEnabledDoesNotChangeActivated0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       store.setEnabled(1, false);
       store.setEnabled(1, true);
@@ -302,7 +302,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdFields0018', 0, () => {
+    it('findByIdFields0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const t: TagItem | null = store.findById(2);
       expect(t !== null).assertTrue();
@@ -322,7 +322,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdSharesReferenceWithGetAll0019', 0, () => {
+    it('findByIdSharesReferenceWithGetAll0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const snapshot: TagItem[] = store.getAll();
       expect(store.findById(1) === snapshot[0]).assertTrue();
@@ -338,7 +338,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearThenAddContinuesIdSequence0020', 0, () => {
+    it('clearThenAddContinuesIdSequence0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       store.clear();
       const item: TagItem = store.add('D');
@@ -354,7 +354,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearTwiceStaysEmpty0021', 0, () => {
+    it('clearTwiceStaysEmpty0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       store.clear();
       store.clear();
@@ -370,7 +370,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAllLengthMatchesCount0022', 0, () => {
+    it('getAllLengthMatchesCount0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.getAll().length).assertEqual(store.count());
       store.remove(2);
@@ -385,7 +385,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAllElementsMatchFindById0023', 0, () => {
+    it('getAllElementsMatchFindById0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       let matched: number = 0;
       for (const t of store.getAll()) {
@@ -405,7 +405,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('activatedCountZeroAfterClear0024', 0, () => {
+    it('activatedCountZeroAfterClear0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       store.toggleActivated(1);
       store.toggleActivated(2);
@@ -422,7 +422,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeAllLeavesEmptyStore0025', 0, () => {
+    it('removeAllLeavesEmptyStore0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(1)).assertTrue();
       expect(store.remove(2)).assertTrue();
@@ -439,7 +439,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addRemoveCycleKeepsCountConsistent0026', 0, () => {
+    it('addRemoveCycleKeepsCountConsistent0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('D');
       expect(store.count()).assertEqual(4);
@@ -457,7 +457,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('disabledTagStillToggleable0027', 0, () => {
+    it('disabledTagStillToggleable0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(1, false)).assertTrue();
       expect(store.toggleActivated(1)).assertTrue();
@@ -473,7 +473,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeKeepsOtherTagEnabledState0028', 0, () => {
+    it('removeKeepsOtherTagEnabledState0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       store.setEnabled(2, false);
       expect(store.remove(1)).assertTrue();
@@ -490,7 +490,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractionalIdRejectedEverywhere0029', 0, () => {
+    it('fractionalIdRejectedEverywhere0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.findById(1.5) === null).assertTrue();
       expect(store.toggleActivated(1.5) === null).assertTrue();
@@ -508,7 +508,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addFiftyIdsAndCounts0030', 0, () => {
+    it('addFiftyIdsAndCounts0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = new TagStore();
       for (let i = 1; i <= 50; i++) {
         store.add(`标签${i}`);
@@ -531,7 +531,7 @@ export default function tagStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('disableToggleRemoveFlow0031', 0, () => {
+    it('disableToggleRemoveFlow0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(2, false)).assertTrue();
       expect(store.toggleActivated(2)).assertTrue();

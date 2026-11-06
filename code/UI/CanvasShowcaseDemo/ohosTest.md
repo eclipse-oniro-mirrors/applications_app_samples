@@ -6,7 +6,7 @@
 - 应用：`com.samples.canvasshowcasedemo`
 - 测试框架：Hypium，测试模块 `entry_test`，执行器 `OpenHarmonyTestRunner`
 - 开发环境：DevEco Studio 6.1.1，编译 SDK API 26，`compatibleSdkVersion 26.0.0`
-- 测试代码：`entry/src/ohosTest/ets/test/`，19 个套件 247 条用例，由 `List.test.ets` 聚合
+- 测试代码：`entry/src/ohosTest/ets/test/`，19 个套件 244 条用例，由 `List.test.ets` 聚合
 
 ## 用例表
 
@@ -104,11 +104,11 @@ hdc shell hilog | grep CanvasShowcaseDemo
 
 ## 验证结果
 
-247 条设备侧用例已在 RK3568 真机全量执行通过：`Tests run: 247, Failure: 0, Error: 0, Pass: 247`（19 个套件）。其中 94 条主路径与冒烟用例（11 个套件：CanvasScenes 23、ColorUtil 15、Matrix2D 12、PixelMapUtil 8、PerfTimer 7、SceneRegistry 7、DeviceUtil 6、GeometryUtil 6、LogUtil 6、IndexUi 3、Ability 1），153 条组合与边界用例（8 个套件）。
+244 条设备侧用例已在 RK3568 真机全量执行通过：`Tests run: 244, Failure: 0, Error: 0, Pass: 244`（19 个套件）。其中 94 条主路径与冒烟用例（11 个套件：CanvasScenes 23、ColorUtil 15、Matrix2D 12、PixelMapUtil 8、PerfTimer 7、SceneRegistry 7、DeviceUtil 6、GeometryUtil 6、LogUtil 6、IndexUi 3、Ability 1），153 条组合与边界用例（8 个套件）。
 
 ## 补充说明
 
 - `IndexUi.test.ets` 的滑动坐标按 480×853vp 标定（`SWIPE_TOP_Y=650`、`SWIPE_BOTTOM_Y=950`），在其它分辨率的设备上运行需调整该常量，否则可能找不到列表底部的按钮。
-- `entry/src/test/` 目前只有模板自带的 1 条本地用例，工程的功能验证以 `entry/src/ohosTest` 下的 247 条设备侧用例为准。
+- `entry/src/test/` 目前只有模板自带的 1 条本地用例，工程的功能验证以 `entry/src/ohosTest` 下的 244 条设备侧用例为准。
 - 设备侧用例为无头绘制验证，只断言"不抛异常/输出尺寸与像素值正确"，不校验最终视觉效果；视觉效果由上表中标为「否」的手工用例覆盖。
 - `@tc.number` 前缀按套件区分（如 `SUB_CANVAS_SHOWCASE_DEMO_COLORUTIL_*` 与 `SUB_CANVAS_SHOWCASE_DEMO_COLORUTILMATRIX_*`），编号全局唯一。

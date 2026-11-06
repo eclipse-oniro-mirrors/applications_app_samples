@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   buildDownloadContent,
   buildDownloadFileName,
@@ -40,7 +40,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pad2_roundsTwoDigits', 0, () => {
+    it('pad2_roundsTwoDigits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pad2(0)).assertEqual('00');
       expect(pad2(5)).assertEqual('05');
       expect(pad2(9)).assertEqual('09');
@@ -56,7 +56,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_padsFields', 0, () => {
+    it('formatTime_padsFields', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTime(FIXED_TIME)).assertEqual('03:04:05');
       expect(formatTime(new Date(2026, 0, 2, 0, 0, 0))).assertEqual('00:00:00');
       expect(formatTime(new Date(2026, 0, 2, 23, 59, 59))).assertEqual('23:59:59');
@@ -70,7 +70,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDateTime_fullStamp', 0, () => {
+    it('formatDateTime_fullStamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateTime(FIXED_TIME)).assertEqual('2026-01-02 03:04:05');
       expect(formatDateTime(new Date(2026, 11, 31, 12, 0, 0))).assertEqual('2026-12-31 12:00:00');
     });
@@ -83,7 +83,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDuration_boundaries', 0, () => {
+    it('formatDuration_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDuration(-1)).assertEqual('0 ms');
       expect(formatDuration(0)).assertEqual('0 ms');
       expect(formatDuration(999)).assertEqual('999 ms');
@@ -102,7 +102,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatBytes_boundaries', 0, () => {
+    it('formatBytes_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatBytes(0)).assertEqual('0 B');
       expect(formatBytes(1023)).assertEqual('1023 B');
       expect(formatBytes(1024)).assertEqual('1.0 KB');
@@ -119,7 +119,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatPercent_clamps', 0, () => {
+    it('formatPercent_clamps', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(0, 0)).assertEqual('0%');
       expect(formatPercent(50, 200)).assertEqual('25%');
       expect(formatPercent(1, 3)).assertEqual('33%');
@@ -136,7 +136,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_boundaries', 0, () => {
+    it('progressBucket_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(0)).assertEqual(0);
       expect(progressBucket(-5)).assertEqual(0);
       expect(progressBucket(0.5)).assertEqual(0);
@@ -157,7 +157,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_keepsEnds', 0, () => {
+    it('truncateMiddle_keepsEnds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abcdefghij', 6)).assertEqual('abc…ij');
       expect(truncateMiddle('abcdefgh', 7)).assertEqual('abc…fgh');
       expect(truncateMiddle('abcdefgh', 5)).assertEqual('ab…gh');
@@ -171,7 +171,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncateMiddle_shortInput', 0, () => {
+    it('truncateMiddle_shortInput', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(truncateMiddle('abc', 3)).assertEqual('abc');
       expect(truncateMiddle('abcdef', 3)).assertEqual('abcdef');
       expect(truncateMiddle('', 10)).assertEqual('');
@@ -185,7 +185,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('buildDownloadFileName_stampsDate', 0, () => {
+    it('buildDownloadFileName_stampsDate', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(buildDownloadFileName(FIXED_TIME)).assertEqual('atomic-service-demo-20260102-030405.txt');
       expect(buildDownloadFileName(new Date(2026, 9, 27, 23, 59, 9)))
         .assertEqual('atomic-service-demo-20261027-235909.txt');
@@ -199,7 +199,7 @@ export default function formatUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('buildDownloadContent_sections', 0, () => {
+    it('buildDownloadContent_sections', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const content = buildDownloadContent(FIXED_TIME);
       const lines = content.split('\n');
       expect(lines.length).assertEqual(4);

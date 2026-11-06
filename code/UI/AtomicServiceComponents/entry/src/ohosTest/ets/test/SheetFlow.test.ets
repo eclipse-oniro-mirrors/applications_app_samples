@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   SheetStyle,
   canOpenSheet,
@@ -37,7 +37,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetMode_names', 0, () => {
+    it('sheetMode_names', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER centered style');
       expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP popup style');
     });
@@ -50,7 +50,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleSheetStyle_roundTrip', 0, () => {
+    it('toggleSheetStyle_roundTrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(toggleSheetStyle(SheetStyle.CENTER)).assertEqual(SheetStyle.POPUP);
       expect(toggleSheetStyle(SheetStyle.POPUP)).assertEqual(SheetStyle.CENTER);
       expect(toggleSheetStyle(toggleSheetStyle(SheetStyle.POPUP))).assertEqual(SheetStyle.POPUP);
@@ -64,7 +64,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('canOpenSheet_guard', 0, () => {
+    it('canOpenSheet_guard', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canOpenSheet(false)).assertTrue();
       expect(canOpenSheet(true)).assertFalse();
     });
@@ -77,7 +77,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('heightBucket_boundaries', 0, () => {
+    it('heightBucket_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(heightBucket(0)).assertEqual(0);
       expect(heightBucket(1)).assertEqual(1);
       expect(heightBucket(299.9)).assertEqual(1);
@@ -95,7 +95,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('heightBucket_nonPositive', 0, () => {
+    it('heightBucket_nonPositive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(heightBucket(0)).assertEqual(0);
       expect(heightBucket(-1)).assertEqual(0);
       expect(heightBucket(-320)).assertEqual(0);
@@ -110,7 +110,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('heightBucket_labels', 0, () => {
+    it('heightBucket_labels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(heightBucketLabel(1)).assertEqual('Low (< 300vp)');
       expect(heightBucketLabel(2)).assertEqual('Medium (300-600vp)');
       expect(heightBucketLabel(3)).assertEqual('High (>= 600vp)');
@@ -125,7 +125,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetStatusText_combinations', 0, () => {
+    it('sheetStatusText_combinations', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(sheetStatusText(false, SheetStyle.CENTER, 0))
         .assertEqual('Closed · CENTER centered style · Not opened');
       expect(sheetStatusText(true, SheetStyle.POPUP, 350))
@@ -142,7 +142,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('heightBucket_monotonic', 0, () => {
+    it('heightBucket_monotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let previous = 0;
       for (let height = 0; height <= 900; height += 50) {
         const bucket = heightBucket(height);
@@ -159,7 +159,7 @@ export default function sheetFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetRoute_registered', 0, () => {
+    it('sheetRoute_registered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(RouteKey.SHEET).assertEqual('sheet');
       expect(isRouteKey(RouteKey.SHEET)).assertTrue();
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);

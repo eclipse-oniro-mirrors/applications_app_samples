@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 import { TlvUtil, TlvParseResult, TlvRecord } from '../../../main/ets/model/utils/TlvUtil';
 import { FastBufferUtil } from '../../../main/ets/model/utils/FastBufferUtil';
@@ -48,7 +48,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('roundtrip_single_min_value', 0, () => {
+    it('roundtrip_single_min_value', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(1, 3, false);
       expect(stream.length).assertEqual(16);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
@@ -69,7 +69,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('roundtrip_three_records', 0, () => {
+    it('roundtrip_three_records', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(3, 16, false);
       expect(stream.length).assertEqual(87);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
@@ -92,7 +92,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('roundtrip_five_records_with_noise', 0, () => {
+    it('roundtrip_five_records_with_noise', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(5, 48, true);
       expect(stream.length).assertEqual(324);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
@@ -115,7 +115,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('roundtrip_eight_records', 0, () => {
+    it('roundtrip_eight_records', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(8, 64, false);
       expect(stream.length).assertEqual(616);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
@@ -138,7 +138,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_one_byte', 0, () => {
+    it('truncate_one_byte', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(2, 16, false);
       const cut = full.subarray(0, full.length - 1);
       const result: TlvParseResult = TlvUtil.parseTlvStream(cut);
@@ -156,7 +156,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_four_bytes_crc', 0, () => {
+    it('truncate_four_bytes_crc', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(2, 16, false);
       const cut = full.subarray(0, full.length - 4);
       const result: TlvParseResult = TlvUtil.parseTlvStream(cut);
@@ -174,7 +174,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_nine_bytes_header', 0, () => {
+    it('truncate_nine_bytes_header', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(2, 16, false);
       const cut = full.subarray(0, full.length - 9);
       const result: TlvParseResult = TlvUtil.parseTlvStream(cut);
@@ -192,7 +192,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_twenty_one_bytes_header_only', 0, () => {
+    it('truncate_twenty_one_bytes_header_only', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(2, 16, false);
       const cut = full.subarray(0, full.length - 21);
       const result: TlvParseResult = TlvUtil.parseTlvStream(cut);
@@ -210,7 +210,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_drop_whole_last_record_is_clean', 0, () => {
+    it('truncate_drop_whole_last_record_is_clean', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(3, 16, false);
       const recordSize = HEADER_SIZE + 16 + CRC_SIZE;
       const cut = full.subarray(0, full.length - recordSize);
@@ -228,7 +228,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncate_error_index_points_to_record_start', 0, () => {
+    it('truncate_error_index_points_to_record_start', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(3, 16, false);
       const cut = full.subarray(0, full.length - 6);
       const result: TlvParseResult = TlvUtil.parseTlvStream(cut);
@@ -243,7 +243,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('bad_crc_second_record_of_five', 0, () => {
+    it('bad_crc_second_record_of_five', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.makeBadCrcStream(5, 32);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
       expect(result.ok).assertTrue();
@@ -261,7 +261,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('bad_crc_keeps_stream_length', 0, () => {
+    it('bad_crc_keeps_stream_length', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const clean = TlvUtil.buildTlvStream(3, 48, false);
       const bad = TlvUtil.makeBadCrcStream(3, 48);
       expect(bad.length).assertEqual(clean.length);
@@ -275,7 +275,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('bad_crc_last_record', 0, () => {
+    it('bad_crc_last_record', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(3, 48, false);
       const last = stream.length - 1;
       stream.writeUInt8(stream.readUInt8(last) ^ 0xFF, last);
@@ -293,7 +293,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tampered_value_detected', 0, () => {
+    it('tampered_value_detected', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(2, 16, false);
       const valueStart = HEADER_SIZE;
       stream.writeUInt8(stream.readUInt8(valueStart) ^ 0xFF, valueStart);
@@ -311,7 +311,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('length_field_encodes_three_bytes', 0, () => {
+    it('length_field_encodes_three_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(1, 3, false);
       expect(FastBufferUtil.readUint32(stream, 5, false)).assertEqual(3);
       expect(stream.readUInt8(5)).assertEqual(0);
@@ -328,7 +328,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('length_field_encodes_two_hundred_fifty_six', 0, () => {
+    it('length_field_encodes_two_hundred_fifty_six', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(1, 256, false);
       expect(stream.length).assertEqual(HEADER_SIZE + 256 + CRC_SIZE);
       expect(FastBufferUtil.readUint32(stream, 5, false)).assertEqual(256);
@@ -346,7 +346,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('value_prefix_matches_record_index', 0, () => {
+    it('value_prefix_matches_record_index', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: TlvParseResult = TlvUtil.parseTlvStream(TlvUtil.buildTlvStream(3, 8, false));
       const prefixes: string[] = ['R1-', 'R2-', 'R3-'];
       for (let i = 0; i < result.records.length; i++) {
@@ -363,7 +363,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('noise_between_records_counted', 0, () => {
+    it('noise_between_records_counted', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: TlvParseResult = TlvUtil.parseTlvStream(TlvUtil.buildTlvStream(4, 32, true));
       expect(result.records.length).assertEqual(4);
       expect(result.noiseBytes).assertEqual(3 + 4 * 3);
@@ -377,7 +377,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('trailing_noise_counted', 0, () => {
+    it('trailing_noise_counted', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const base = TlvUtil.buildTlvStream(1, 32, false);
       const tail = buildNoiseOnly([0xA5, 0x5A, 0xA5, 0x5A, 0xA5]);
       const result: TlvParseResult = TlvUtil.parseTlvStream(FastBufferUtil.concatAll([base, tail]));
@@ -394,7 +394,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('partial_magic_prefix_is_noise', 0, () => {
+    it('partial_magic_prefix_is_noise', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: TlvParseResult = TlvUtil.parseTlvStream(buildNoiseOnly([0x4F, 0x48, 0x4F]));
       expect(result.ok).assertTrue();
       expect(result.records.length).assertEqual(0);
@@ -409,7 +409,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('empty_buffer_parses_clean', 0, () => {
+    it('empty_buffer_parses_clean', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: TlvParseResult = TlvUtil.parseTlvStream(fastbuffer.alloc(0));
       expect(result.ok).assertTrue();
       expect(result.records.length).assertEqual(0);
@@ -425,7 +425,7 @@ export default function tlvMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('record_object_defaults_are_zeroed', 0, () => {
+    it('record_object_defaults_are_zeroed', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const record: TlvRecord = new TlvRecord();
       expect(record.tag).assertEqual(0);
       expect(record.length).assertEqual(0);

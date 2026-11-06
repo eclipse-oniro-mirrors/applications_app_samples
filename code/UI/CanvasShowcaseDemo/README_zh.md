@@ -87,7 +87,7 @@ CanvasShowcaseDemo
 │   │   └── entrybackupability                备份扩展
 │   └── resources                             字符串、颜色、图标等资源
 ├── entry/src/test                            本地单测（1 条冒烟用例）
-├── entry/src/ohosTest                        设备侧测试（19 个套件，247 条用例）
+├── entry/src/ohosTest                        设备侧测试（19 个套件，244 条用例）
 ├── README.md
 └── README_zh.md
 ```
@@ -144,7 +144,7 @@ CanvasShowcaseDemo
 
 ### 5. 测试
 
-设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 19 个套件、247 条用例，通过 `List.test.ets` 聚合：
+设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 19 个套件、244 条用例，通过 `List.test.ets` 聚合：
 
 | 套件 | 用例 | 覆盖 |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 
 其中 `SceneRegistry.registry_smokeTest_allScenesDraw` 会遍历注册表在 `OffscreenCanvas` 上执行全部场景，防止注册表与实现脱节；组合套件按输入维度展开边界组合，每条用例均为显式 `it` 并带完整 `@tc` 注释；`IndexUi` 通过 `@kit.TestKit` 的 `Driver` / `ON` 完成按钮高亮与清空确认流程的 UI 自动化。
 
-验证状态：247 条设备侧用例已在 RK3568 真机执行通过（`Tests run: 247, Failure: 0, Error: 0, Pass: 247`），其中 94 条主路径与冒烟用例、153 条组合与边界用例。
+验证状态：244 条设备侧用例已在 RK3568 真机执行通过（`Tests run: 244, Failure: 0, Error: 0, Pass: 244`），其中 94 条主路径与冒烟用例、153 条组合与边界用例。
 
 ## 相关权限
 

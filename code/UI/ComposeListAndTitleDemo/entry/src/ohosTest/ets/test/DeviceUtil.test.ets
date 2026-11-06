@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DeviceUtil, Breakpoint } from '../../../main/ets/model/utils/DeviceUtil';
 
 /**
@@ -35,7 +35,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('deviceType_nonEmpty', 0, () => {
+    it('deviceType_nonEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t = DeviceUtil.getDeviceType();
       expect(t.length > 0).assertTrue();
       // DAYU200 上报 'default'；手机/平板/2in1 形态设备按各自字面量上报
@@ -50,7 +50,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('isXxx_mutuallyExclusive', 0, () => {
+    it('isXxx_mutuallyExclusive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const flags: number = (DeviceUtil.isPhone() ? 1 : 0)
         + (DeviceUtil.isTablet() ? 1 : 0)
         + (DeviceUtil.is2in1() ? 1 : 0);
@@ -73,7 +73,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_boundaries', 0, () => {
+    it('breakpoint_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 标准断点：sm <600，md [600,840)，lg >=840
       expect(DeviceUtil.getBreakpoint(599)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(600)).assertEqual('md');
@@ -89,7 +89,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_typeSafe', 0, () => {
+    it('breakpoint_typeSafe', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const bp: Breakpoint = DeviceUtil.getBreakpoint(720);
       expect(bp === 'sm' || bp === 'md' || bp === 'lg').assertTrue();
     });
@@ -102,7 +102,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('profileFields_nonEmpty', 0, () => {
+    it('profileFields_nonEmpty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getOsFullName().length > 0).assertTrue();
       expect(DeviceUtil.getProductModel().length > 0).assertTrue();
       // API 26 设备
@@ -117,7 +117,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('wideScreen_consistentWithBreakpoint', 0, () => {
+    it('wideScreen_consistentWithBreakpoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 宽屏形态判断与断点判断独立成立（tablet/2in1 为宽屏）
       const isWide = DeviceUtil.isWideScreen();
       expect(typeof isWide === 'boolean').assertTrue();
@@ -131,7 +131,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_thresholds', 0, () => {
+    it('preferTwoColumn_thresholds', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(599)).assertFalse();
       expect(DeviceUtil.preferTwoColumn(600)).assertTrue();
       expect(DeviceUtil.preferTwoColumn(839)).assertTrue();
@@ -146,7 +146,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_extremes', 0, () => {
+    it('breakpoint_extremes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(0)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(1)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(2000)).assertEqual('lg');
@@ -160,7 +160,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('isWideScreen_matchesFormFlags', 0, () => {
+    it('isWideScreen_matchesFormFlags', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.isWideScreen()).assertEqual(DeviceUtil.isTablet() || DeviceUtil.is2in1());
     });
 
@@ -172,7 +172,7 @@ export default function deviceUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_fractionalAndNegative', 0, () => {
+    it('breakpoint_fractionalAndNegative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(-1)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(0.5)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(599.5)).assertEqual('sm');

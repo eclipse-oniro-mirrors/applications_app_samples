@@ -15,7 +15,7 @@
 // SheetFlow 单测：样式文案与切换、重复打开拦截、拖拽高度分档、状态摘要。
 // 半模态页面把 onHeightDidChange 的高度按低/中/高三档归档，这些纯函数保证分档边界稳定。
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   SheetStyle,
   canOpenSheet,
@@ -29,26 +29,26 @@ import {
 export default function sheetFlowTest() {
   describe('SheetFlowTest', () => {
     // 样式文案：CENTER / POPUP 各有可读名称
-    it('sheetModeName_values', 0, () => {
+    it('sheetModeName_values', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER centered style');
       expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP popup style');
     });
 
     // 样式切换：两次切换回到原值
-    it('toggleSheetStyle_roundTrip', 0, () => {
+    it('toggleSheetStyle_roundTrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(toggleSheetStyle(SheetStyle.CENTER)).assertEqual(SheetStyle.POPUP);
       expect(toggleSheetStyle(SheetStyle.POPUP)).assertEqual(SheetStyle.CENTER);
       expect(toggleSheetStyle(toggleSheetStyle(SheetStyle.CENTER))).assertEqual(SheetStyle.CENTER);
     });
 
     // 重复打开拦截：已打开时拒绝，关闭后可再次打开
-    it('canOpenSheet_guard', 0, () => {
+    it('canOpenSheet_guard', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(canOpenSheet(false)).assertTrue();
       expect(canOpenSheet(true)).assertFalse();
     });
 
     // 高度分档边界：0、299.9、300、599.9、600 分别落入预期档位
-    it('heightBucket_boundaries', 0, () => {
+    it('heightBucket_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(heightBucket(0)).assertEqual(0);
       expect(heightBucket(-10)).assertEqual(0);
       expect(heightBucket(1)).assertEqual(1);
@@ -60,7 +60,7 @@ export default function sheetFlowTest() {
     });
 
     // 档位文案：三档 + 兜底
-    it('heightBucketLabel_all', 0, () => {
+    it('heightBucketLabel_all', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(heightBucketLabel(0)).assertEqual('Not opened');
       expect(heightBucketLabel(1).includes('Low')).assertTrue();
       expect(heightBucketLabel(2).includes('Medium')).assertTrue();
@@ -69,7 +69,7 @@ export default function sheetFlowTest() {
     });
 
     // 状态摘要：打开/关闭、样式与档位组合
-    it('sheetStatusText_combinations', 0, () => {
+    it('sheetStatusText_combinations', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(sheetStatusText(false, SheetStyle.CENTER, 0))
         .assertEqual('Closed · CENTER centered style · Not opened');
       expect(sheetStatusText(true, SheetStyle.POPUP, 350))

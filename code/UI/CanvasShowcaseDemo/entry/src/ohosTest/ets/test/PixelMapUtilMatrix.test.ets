@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { image } from '@kit.ImageKit';
 import { PixelMapUtil } from '../../../main/ets/model/utils/PixelMapUtil';
 
@@ -55,7 +55,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_cell2Blocks', 0, () => {
+    it('checkerboard_cell2Blocks', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createCheckerboard(6, 2, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 6, 6);
       // (0,0) A 红
@@ -78,7 +78,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_parityOddSize', 0, () => {
+    it('checkerboard_parityOddSize', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createCheckerboard(5, 1, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 5, 5);
       // 同奇偶 (1,1) A，(0,1) B
@@ -95,7 +95,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_alphaPreserved', 0, () => {
+    it('checkerboard_alphaPreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const translucentA = PixelMapUtil.rgba(255, 0, 0, 128);
       const pm = PixelMapUtil.createCheckerboard(4, 1, translucentA, BLUE);
       const b: Uint8Array = readBytes(pm, 4, 4);
@@ -111,7 +111,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_size1', 0, () => {
+    it('checkerboard_size1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createCheckerboard(1, 1, RED, BLUE);
       const info = pm.getImageInfoSync();
       expect(info.size.width).assertEqual(1);
@@ -129,7 +129,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stripes_diagonalConstantSum', 0, () => {
+    it('stripes_diagonalConstantSum', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createStripes(8, 4, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 8, 8);
       // x+y=0/3 落在第 0 带（A），x+y=4 无论坐标如何都落在第 1 带（B）
@@ -148,7 +148,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stripes_periodTwo', 0, () => {
+    it('stripes_periodTwo', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createStripes(8, 2, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 8, 8);
       // (0,0)→带0 A，(2,0)→带1 B，(4,0)→带2 A，(0,2)→带1 B
@@ -166,7 +166,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stripes_customColors', 0, () => {
+    it('stripes_customColors', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createStripes(4, 2, GREEN, BLACK);
       const b: Uint8Array = readBytes(pm, 4, 4);
       // (0,0) 绿：R=0 G=255
@@ -186,7 +186,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_radiusBoundary', 0, () => {
+    it('dots_radiusBoundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createDots(9, 2, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 9, 9);
       // 圆心 (4,4)；(4,2) 距离恰为 2 → A；(4,1) 距离 3 → B
@@ -203,7 +203,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_radiusZeroOnlyCenter', 0, () => {
+    it('dots_radiusZeroOnlyCenter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createDots(5, 0, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 5, 5);
       expect(b[pixelIndex(2, 2, 5)]).assertEqual(255);
@@ -219,7 +219,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_radiusCoversAll', 0, () => {
+    it('dots_radiusCoversAll', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createDots(9, 10, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 9, 9);
       expect(b[pixelIndex(0, 0, 9)]).assertEqual(255);
@@ -235,7 +235,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_evenSizeCenter', 0, () => {
+    it('dots_evenSizeCenter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createDots(8, 2, RED, BLUE);
       const b: Uint8Array = readBytes(pm, 8, 8);
       // 圆心 (3.5,3.5)：(3,3) 与 (3,5) 在半径内，(0,0) 在外
@@ -252,7 +252,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('generate_receivesRowMajorCoordinates', 0, () => {
+    it('generate_receivesRowMajorCoordinates', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const xs: number[] = [];
       const ys: number[] = [];
       const pm = PixelMapUtil.generate(3, (x: number, y: number): number => {
@@ -281,7 +281,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('generate_pixelValueRoundtrip', 0, () => {
+    it('generate_pixelValueRoundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.generate(3, (x: number, y: number): number => {
         return PixelMapUtil.rgba(x * 80, y * 80, 0, 255);
       }, 'grad');
@@ -300,7 +300,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_masksHighBits', 0, () => {
+    it('rgba_masksHighBits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 300→44，-1→255，0x1FF→255
       expect(PixelMapUtil.rgba(300, -1, 0x1FF, 0)).assertEqual(0x2CFFFF00);
     });
@@ -313,7 +313,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_zeroAndOpaque', 0, () => {
+    it('rgba_zeroAndOpaque', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(PixelMapUtil.rgba(0, 0, 0, 0)).assertEqual(0);
       expect(PixelMapUtil.rgba(255, 255, 255, 255)).assertEqual(0xFFFFFFFF);
     });
@@ -326,7 +326,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('create_nonSquareDimensions', 0, () => {
+    it('create_nonSquareDimensions', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const colors: number[] = [RED, GREEN, BLUE, BLACK, WHITE, 0x123456FF];
       const pm = PixelMapUtil.create(3, 2, colors, 'rect');
       const info = pm.getImageInfoSync();
@@ -342,7 +342,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('create_rowMajorMapping', 0, () => {
+    it('create_rowMajorMapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const colors: number[] = [RED, GREEN, BLUE, BLACK, WHITE, 0x123456FF];
       const pm = PixelMapUtil.create(3, 2, colors, 'rect');
       const b: Uint8Array = readBytes(pm, 3, 2);
@@ -364,7 +364,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('create_pixelFormatRgba8888', 0, () => {
+    it('create_pixelFormatRgba8888', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stripes = PixelMapUtil.createStripes(4, 2, RED, BLUE);
       const dots = PixelMapUtil.createDots(4, 1, RED, BLUE);
       const gen = PixelMapUtil.generate(4, (x: number, y: number): number => RED, 'fmt');
@@ -381,7 +381,7 @@ export default function pixelMapUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('create_alphaChannelRoundtrip', 0, () => {
+    it('create_alphaChannelRoundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const colors: number[] = [PixelMapUtil.rgba(0, 0, 0, 0), PixelMapUtil.rgba(0, 0, 0, 127)];
       const pm = PixelMapUtil.create(2, 1, colors, 'alpha');
       const b: Uint8Array = readBytes(pm, 2, 1);

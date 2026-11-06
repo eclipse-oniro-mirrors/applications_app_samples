@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { CounterLogic } from '../../../main/ets/model/ChipModels';
 
 export default function counterLogicMatrixTest() {
@@ -29,7 +29,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clampLowerBoundaryExact0001', 0, () => {
+    it('clampLowerBoundaryExact0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(0, 0, 10)).assertEqual(0);
       expect(CounterLogic.clamp(-20, -20, 0)).assertEqual(-20);
     });
@@ -42,7 +42,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clampUpperBoundaryExact0002', 0, () => {
+    it('clampUpperBoundaryExact0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(10, 0, 10)).assertEqual(10);
       expect(CounterLogic.clamp(100, 0, 100)).assertEqual(100);
     });
@@ -55,7 +55,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clampInsideRange0003', 0, () => {
+    it('clampInsideRange0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(5, 0, 10)).assertEqual(5);
       expect(CounterLogic.clamp(3, 1, 9)).assertEqual(3);
       expect(CounterLogic.clamp(50, 10, 90)).assertEqual(50);
@@ -69,7 +69,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clampDegenerateRange0004', 0, () => {
+    it('clampDegenerateRange0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(5, 5, 5)).assertEqual(5);
       expect(CounterLogic.clamp(0, 5, 5)).assertEqual(5);
       expect(CounterLogic.clamp(9, 5, 5)).assertEqual(5);
@@ -83,7 +83,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clampNegativeRange0005', 0, () => {
+    it('clampNegativeRange0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(-15, -20, -10)).assertEqual(-15);
       expect(CounterLogic.clamp(-30, -20, -10)).assertEqual(-20);
       expect(CounterLogic.clamp(-1, -20, -10)).assertEqual(-10);
@@ -97,7 +97,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('initialInsideRange0006', 0, () => {
+    it('initialInsideRange0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(c.getValue()).assertEqual(5);
       expect(c.atMin()).assertFalse();
@@ -112,7 +112,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('initialAtBounds0007', 0, () => {
+    it('initialAtBounds0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new CounterLogic(0, 0, 10, 1).getValue()).assertEqual(0);
       expect(new CounterLogic(10, 0, 10, 1).getValue()).assertEqual(10);
       expect(new CounterLogic(11, 0, 10, 1).getValue()).assertEqual(10);
@@ -127,7 +127,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stepZeroKeepsValue0008', 0, () => {
+    it('stepZeroKeepsValue0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 0);
       expect(c.increase()).assertEqual(5);
       expect(c.decrease()).assertEqual(5);
@@ -142,7 +142,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stepFractional0009', 0, () => {
+    it('stepFractional0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 0.5);
       expect(c.increase()).assertEqual(5.5);
       expect(c.decrease()).assertEqual(5);
@@ -157,7 +157,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('increaseRepeatedToMax0010', 0, () => {
+    it('increaseRepeatedToMax0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(8, 0, 10, 1);
       expect(c.increase()).assertEqual(9);
       expect(c.increase()).assertEqual(10);
@@ -173,7 +173,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('decreaseRepeatedToMin0011', 0, () => {
+    it('decreaseRepeatedToMin0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(2, 0, 10, 1);
       expect(c.decrease()).assertEqual(1);
       expect(c.decrease()).assertEqual(0);
@@ -189,7 +189,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('increaseCrossMaxClamps0012', 0, () => {
+    it('increaseCrossMaxClamps0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(9, 0, 10, 2);
       expect(c.increase()).assertEqual(10);
       expect(c.increase()).assertEqual(10);
@@ -203,7 +203,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('decreaseCrossMinClamps0013', 0, () => {
+    it('decreaseCrossMinClamps0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(1, 0, 10, 2);
       expect(c.decrease()).assertEqual(0);
       expect(c.decrease()).assertEqual(0);
@@ -217,7 +217,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setValueInside0014', 0, () => {
+    it('setValueInside0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(c.setValue(8)).assertEqual(8);
       expect(c.getValue()).assertEqual(8);
@@ -231,7 +231,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setValueBoundaries0015', 0, () => {
+    it('setValueBoundaries0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(c.setValue(99)).assertEqual(10);
       expect(c.setValue(-3)).assertEqual(0);
@@ -246,7 +246,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setValueFractional0016', 0, () => {
+    it('setValueFractional0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(c.setValue(2.5)).assertEqual(2.5);
       expect(c.getValue()).assertEqual(2.5);
@@ -260,7 +260,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('atMaxTransitions0017', 0, () => {
+    it('atMaxTransitions0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(9, 0, 10, 1);
       expect(c.atMax()).assertFalse();
       c.increase();
@@ -279,7 +279,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('atMinTransitions0018', 0, () => {
+    it('atMinTransitions0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(1, 0, 10, 1);
       expect(c.atMin()).assertFalse();
       c.decrease();
@@ -298,7 +298,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('negativeRangeStepping0019', 0, () => {
+    it('negativeRangeStepping0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(-5, -10, -1, 1);
       expect(c.increase()).assertEqual(-4);
       expect(c.decrease()).assertEqual(-5);
@@ -317,7 +317,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('largeRangeStepping0020', 0, () => {
+    it('largeRangeStepping0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5000, 0, 10000, 2500);
       expect(c.increase()).assertEqual(7500);
       expect(c.increase()).assertEqual(10000);
@@ -334,7 +334,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('returnsMatchGetValue0021', 0, () => {
+    it('returnsMatchGetValue0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(3, 0, 10, 2);
       expect(c.increase() === c.getValue()).assertTrue();
       expect(c.decrease() === c.getValue()).assertTrue();
@@ -350,7 +350,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('independentInstances0022', 0, () => {
+    it('independentInstances0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const a: CounterLogic = new CounterLogic(5, 0, 10, 1);
       const b: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(a.increase()).assertEqual(6);
@@ -367,7 +367,7 @@ export default function counterLogicMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('infinityBounds0023', 0, () => {
+    it('infinityBounds0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(Number.POSITIVE_INFINITY, 0, 10)).assertEqual(10);
       expect(CounterLogic.clamp(Number.NEGATIVE_INFINITY, 0, 10)).assertEqual(0);
       const upper: CounterLogic = new CounterLogic(Number.POSITIVE_INFINITY, 0, 10, 1);

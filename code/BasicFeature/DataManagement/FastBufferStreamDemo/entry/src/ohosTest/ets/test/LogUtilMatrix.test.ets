@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, afterAll, afterEach, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, afterEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUtil';
 
 /**
@@ -60,7 +60,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_min_debug', 0, () => {
+    it('filter_min_debug', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       emitAllLevels();
@@ -76,7 +76,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_min_info', 0, () => {
+    it('filter_min_info', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.INFO);
       emitAllLevels();
@@ -92,7 +92,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_min_warn', 0, () => {
+    it('filter_min_warn', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.WARN);
       emitAllLevels();
@@ -108,7 +108,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_min_error', 0, () => {
+    it('filter_min_error', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.ERROR);
       emitAllLevels();
@@ -124,7 +124,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('filter_marks_match_level', 0, () => {
+    it('filter_marks_match_level', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       emitAllLevels();
@@ -142,7 +142,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setMinLevel_applies_immediately', 0, () => {
+    it('setMinLevel_applies_immediately', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       LogUtil.setMinLevel(LogLevel.ERROR);
@@ -161,7 +161,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('init_replaces_previous_sink', 0, () => {
+    it('init_replaces_previous_sink', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: string[] = [];
       const second: string[] = [];
       LogUtil.init(collectSink(first), LogLevel.DEBUG);
@@ -180,7 +180,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_midnight_pad', 0, () => {
+    it('formatTime_midnight_pad', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2026, 0, 1, 0, 0, 5))).assertEqual('00:00:05');
     });
 
@@ -192,7 +192,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_last_second', 0, () => {
+    it('formatTime_last_second', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2026, 0, 1, 23, 59, 59))).assertEqual('23:59:59');
     });
 
@@ -204,7 +204,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_single_digits', 0, () => {
+    it('formatTime_single_digits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2026, 0, 1, 9, 8, 7))).assertEqual('09:08:07');
     });
 
@@ -216,7 +216,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_two_digits', 0, () => {
+    it('formatTime_two_digits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2026, 0, 1, 10, 10, 10))).assertEqual('10:10:10');
     });
 
@@ -228,7 +228,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('line_has_timestamp_level_and_tag', 0, () => {
+    it('line_has_timestamp_level_and_tag', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       LogUtil.warn('Format', '行格式');
@@ -248,7 +248,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('line_accepts_empty_tag_and_message', 0, () => {
+    it('line_accepts_empty_tag_and_message', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       LogUtil.info('', '');
@@ -264,7 +264,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('line_keeps_brackets_in_message', 0, () => {
+    it('line_keeps_brackets_in_message', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init(collectSink(lines), LogLevel.DEBUG);
       LogUtil.info('Bracket', '值=[1,2,3]');

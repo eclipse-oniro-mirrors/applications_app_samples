@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   listScenarios, getScenario, formatDateValue, formatTimeValue, formatTextValue, ScenarioInfo
 } from '../../../main/ets/model/DialogModels';
@@ -32,7 +32,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('scenarioCountIsFourteen', 0, () => {
+    it('scenarioCountIsFourteen', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(listScenarios().length).assertEqual(14);
     });
 
@@ -44,7 +44,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('scenarioIdsAreSequential', 0, () => {
+    it('scenarioIdsAreSequential', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const all: ScenarioInfo[] = listScenarios();
       for (let i = 0; i < all.length; i++) {
         expect(all[i].id).assertEqual(i + 1);
@@ -62,7 +62,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('systemScenarioApisAreMapped', 0, () => {
+    it('systemScenarioApisAreMapped', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getScenario(9)!.api).assertEqual('showActionSheet');
       expect(getScenario(10)!.api).assertEqual('showDatePickerDialog');
       expect(getScenario(11)!.api).assertEqual('showTimePickerDialog');
@@ -79,7 +79,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('scenarioLookupBoundary', 0, () => {
+    it('scenarioLookupBoundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getScenario(0)).assertNull();
       expect(getScenario(15)).assertNull();
       expect(getScenario(-1)).assertNull();
@@ -93,7 +93,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatDatePadsMonthAndDay', 0, () => {
+    it('formatDatePadsMonthAndDay', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatDateValue(new Date(2026, 0, 5))).assertEqual('2026-01-05');
       expect(formatDateValue(new Date(2026, 11, 31))).assertEqual('2026-12-31');
     });
@@ -106,7 +106,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimePadsHourAndMinute', 0, () => {
+    it('formatTimePadsHourAndMinute', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTimeValue(9, 5)).assertEqual('09:05');
       expect(formatTimeValue(0, 0)).assertEqual('00:00');
       expect(formatTimeValue(23, 59)).assertEqual('23:59');
@@ -120,7 +120,7 @@ export default function dialogScenariosTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTextIncludesIndexAndValue', 0, () => {
+    it('formatTextIncludesIndexAndValue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatTextValue('北京', 2)).assertEqual('index=2 value=北京');
       expect(formatTextValue('', 0)).assertEqual('index=0 value=');
     });

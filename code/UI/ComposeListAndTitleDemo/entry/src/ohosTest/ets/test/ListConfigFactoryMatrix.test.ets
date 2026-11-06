@@ -14,7 +14,7 @@
  */
  
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ListConfigFactory } from '../../../main/ets/model/ListModels';
 import { IconType, IconTypeV2, ContentItem, OperateItem } from '@kit.ArkUI';
 
@@ -31,7 +31,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1ContentItemIconStyleVariants001', 0, () => {
+    it('v1ContentItemIconStyleVariants001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: ContentItem = ListConfigFactory.buildV1ContentItem('a.png', IconType.NORMAL_ICON, 'A', 'a');
       const system: ContentItem = ListConfigFactory.buildV1ContentItem('b.png', IconType.SYSTEM_ICON, 'B', 'b');
       const preview: ContentItem = ListConfigFactory.buildV1ContentItem('c.png', IconType.PREVIEW, 'C', 'c');
@@ -48,7 +48,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1ContentItemWithDescAllTexts002', 0, () => {
+    it('v1ContentItemWithDescAllTexts002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item: ContentItem = ListConfigFactory.buildV1ContentItemWithDesc(
         'icon.png', IconType.SYSTEM_ICON, '主标题', '副标题', '描述文本');
       expect(item.primaryText).assertEqual('主标题');
@@ -64,7 +64,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1ContentItemResourceIcon003', 0, () => {
+    it('v1ContentItemResourceIcon003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item: ContentItem = ListConfigFactory.buildV1ContentItem(
         $r('app.media.startIcon'), IconType.APP_ICON, '资源图标', 'Resource');
       expect(item.icon !== undefined).assertTrue();
@@ -78,7 +78,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateSwitchInitialFalse004', 0, () => {
+    it('v1OperateSwitchInitialFalse004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateSwitch(false, (v: boolean): void => {
         changed = v;
@@ -96,7 +96,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateButtonEmptyText005', 0, () => {
+    it('v1OperateButtonEmptyText005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateButton('');
       expect(op.button !== undefined).assertTrue();
       expect(op.button?.text).assertEqual('');
@@ -110,7 +110,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateCheckboxInitialFalse006', 0, () => {
+    it('v1OperateCheckboxInitialFalse006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateCheckbox(false, (v: boolean): void => {
         changed = v;
@@ -128,7 +128,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateRadioInitialTrue007', 0, () => {
+    it('v1OperateRadioInitialTrue007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = true;
       const op: OperateItem = ListConfigFactory.buildV1OperateRadio(true, (v: boolean): void => {
         changed = v;
@@ -146,7 +146,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateImageResource008', 0, () => {
+    it('v1OperateImageResource008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateImage($r('app.media.startIcon'));
       expect(op.image !== undefined).assertTrue();
     });
@@ -159,7 +159,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateTextEmpty009', 0, () => {
+    it('v1OperateTextEmpty009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateText('');
       expect(op.text).assertEqual('');
     });
@@ -172,7 +172,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateDoubleIconIndependent010', 0, () => {
+    it('v1OperateDoubleIconIndependent010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit1: boolean = false;
       let hit2: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateDoubleIcon((): void => {
@@ -195,7 +195,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateArrowValueDefined011', 0, () => {
+    it('v1OperateArrowValueDefined011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateArrow((): void => {
         hit = true;
@@ -215,7 +215,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1MenuItemEmptyValue012', 0, () => {
+    it('v1MenuItemEmptyValue012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let clicked: boolean = false;
       const mi = ListConfigFactory.buildV1MenuItem('', (): void => {
         clicked = true;
@@ -233,7 +233,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateButtonFieldIsolation013', 0, () => {
+    it('v1OperateButtonFieldIsolation013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateButton('按钮');
       expect(op.button !== undefined).assertTrue();
       expect(op.arrow === undefined).assertTrue();
@@ -253,7 +253,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2ContentItemIconStyleVariants014', 0, () => {
+    it('v2ContentItemIconStyleVariants014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal = ListConfigFactory.buildV2ContentItem('a.png', IconTypeV2.NORMAL_ICON, 'A', 'a');
       const system = ListConfigFactory.buildV2ContentItem('b.png', IconTypeV2.SYSTEM_ICON, 'B', 'b');
       const preview = ListConfigFactory.buildV2ContentItem('c.png', IconTypeV2.PREVIEW, 'C', 'c');
@@ -270,7 +270,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2ContentItemWithDescAllTexts015', 0, () => {
+    it('v2ContentItemWithDescAllTexts015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = ListConfigFactory.buildV2ContentItemWithDesc(
         'icon.png', IconTypeV2.SYSTEM_ICON, '主标题', '副标题', '描述文本');
       expect(item.primaryText).assertEqual('主标题');
@@ -286,7 +286,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2ContentItemResourceIcon016', 0, () => {
+    it('v2ContentItemResourceIcon016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = ListConfigFactory.buildV2ContentItem(
         $r('app.media.startIcon'), IconTypeV2.APP_ICON, '资源图标', 'Resource');
       expect(item.icon !== undefined).assertTrue();
@@ -300,7 +300,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateToggleInitialFalse017', 0, () => {
+    it('v2OperateToggleInitialFalse017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op = ListConfigFactory.buildV2OperateToggle(false, (v: boolean): void => {
         changed = v;
@@ -318,7 +318,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateButtonEmptyText018', 0, () => {
+    it('v2OperateButtonEmptyText018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateButton('');
       expect(op.button !== undefined).assertTrue();
       expect(op.button?.text).assertEqual('');
@@ -332,7 +332,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateCheckboxInitialTrue019', 0, () => {
+    it('v2OperateCheckboxInitialTrue019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = true;
       const op = ListConfigFactory.buildV2OperateCheckbox(true, (v: boolean): void => {
         changed = v;
@@ -350,7 +350,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateRadioInitialFalse020', 0, () => {
+    it('v2OperateRadioInitialFalse020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op = ListConfigFactory.buildV2OperateRadio(false, (v: boolean): void => {
         changed = v;
@@ -368,7 +368,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateImageResource021', 0, () => {
+    it('v2OperateImageResource021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateImage($r('app.media.startIcon'));
       expect(op.image !== undefined).assertTrue();
     });
@@ -381,7 +381,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateTextEmpty022', 0, () => {
+    it('v2OperateTextEmpty022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateText('');
       expect(op.text).assertEqual('');
     });
@@ -394,7 +394,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateDoubleIconIndependent023', 0, () => {
+    it('v2OperateDoubleIconIndependent023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit1: boolean = false;
       let hit2: boolean = false;
       const op = ListConfigFactory.buildV2OperateDoubleIcon((): void => {
@@ -417,7 +417,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2MenuItemEmptyValue024', 0, () => {
+    it('v2MenuItemEmptyValue024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let clicked: boolean = false;
       const mi = ListConfigFactory.buildV2MenuItem('', (): void => {
         clicked = true;
@@ -435,7 +435,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateButtonFieldIsolation025', 0, () => {
+    it('v2OperateButtonFieldIsolation025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateButton('按钮');
       expect(op.button !== undefined).assertTrue();
       expect(op.toggle === undefined).assertTrue();
@@ -455,7 +455,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2OperateImageFieldIsolation026', 0, () => {
+    it('v2OperateImageFieldIsolation026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateImage('img_v2.png');
       expect(op.image).assertEqual('img_v2.png');
       expect(op.text === undefined).assertTrue();
@@ -471,7 +471,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v2BuildersReturnFreshInstances027', 0, () => {
+    it('v2BuildersReturnFreshInstances027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // V2 配置为 class 构造：两次相同入参应得到互不共享的实例
       const a = ListConfigFactory.buildV2ContentItem('x.png', IconTypeV2.NORMAL_ICON, '甲', '副甲');
       const b = ListConfigFactory.buildV2ContentItem('x.png', IconTypeV2.NORMAL_ICON, '甲', '副甲');
@@ -493,7 +493,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contentItemBasicNoDescription028', 0, () => {
+    it('contentItemBasicNoDescription028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const v1: ContentItem = ListConfigFactory.buildV1ContentItem('n.png', IconType.NORMAL_ICON, '主', '副');
       expect(v1.description === undefined).assertTrue();
       const v2 = ListConfigFactory.buildV2ContentItem('n.png', IconTypeV2.NORMAL_ICON, '主', '副');
@@ -508,7 +508,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('menuItemUnicodeValue029', 0, () => {
+    it('menuItemUnicodeValue029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit1: boolean = false;
       const mi1 = ListConfigFactory.buildV1MenuItem('菜单 📋', (): void => {
         hit1 = true;
@@ -533,7 +533,7 @@ export default function listConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1OperateSwitchFieldIsolation030', 0, () => {
+    it('v1OperateSwitchFieldIsolation030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateSwitch(true, (v: boolean): void => {
       });
       expect(op.switch !== undefined).assertTrue();

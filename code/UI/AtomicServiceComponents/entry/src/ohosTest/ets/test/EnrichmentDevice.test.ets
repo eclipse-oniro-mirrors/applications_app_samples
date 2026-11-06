@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { preferences } from '@kit.ArkData';
 import { bundleManager, common } from '@kit.AbilityKit';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
@@ -40,7 +40,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferences_writeFlushReopen', 0, async () => {
+    it('preferences_writeFlushReopen', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = moduleContext();
       const store = preferences.getPreferencesSync(context, { name: TEST_STORE });
       store.clearSync();
@@ -60,7 +60,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferences_deleteKeepsCount', 0, async () => {
+    it('preferences_deleteKeepsCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = moduleContext();
       const store = preferences.getPreferencesSync(context, { name: TEST_STORE });
       store.deleteSync(TEST_TEXT_KEY);
@@ -78,7 +78,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferences_clearAll', 0, async () => {
+    it('preferences_clearAll', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = moduleContext();
       const store = preferences.getPreferencesSync(context, { name: TEST_STORE });
       store.clearSync();
@@ -96,7 +96,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferences_storeIsolation', 0, async () => {
+    it('preferences_storeIsolation', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = moduleContext();
       const first = preferences.getPreferencesSync(context, { name: TEST_STORE });
       const second = preferences.getPreferencesSync(context, { name: 'atomic_service_ohos_test_store_b' });
@@ -120,7 +120,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('installedBundle_matchesSelfTarget', 0, async () => {
+    it('installedBundle_matchesSelfTarget', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const info = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT);
       const target = jumpTargetByKey('self');
       expect(target !== null).assertTrue();
@@ -138,7 +138,7 @@ export default function enrichmentDeviceTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferences_demoStoreNameUnique', 0, () => {
+    it('preferences_demoStoreNameUnique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(PREFS_TEXT_KEY === TEST_TEXT_KEY).assertFalse();
       expect(PREFS_COUNT_KEY === TEST_COUNT_KEY).assertFalse();
       expect(TEST_STORE.includes('ohos_test')).assertTrue();

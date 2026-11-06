@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DeviceUtil, Breakpoint } from '../../../main/ets/model/utils/DeviceUtil';
 
 /**
@@ -47,7 +47,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_widthZero', 0, () => {
+    it('breakpoint_widthZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(0)).assertEqual('sm');
     });
 
@@ -59,7 +59,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_width320', 0, () => {
+    it('breakpoint_width320', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(320)).assertEqual('sm');
     });
 
@@ -71,7 +71,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_fractional599_9', 0, () => {
+    it('breakpoint_fractional599_9', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(599.9)).assertEqual('sm');
     });
 
@@ -83,7 +83,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_fractional600_1', 0, () => {
+    it('breakpoint_fractional600_1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(600.1)).assertEqual('md');
     });
 
@@ -95,7 +95,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_fractional839_9', 0, () => {
+    it('breakpoint_fractional839_9', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(839.9)).assertEqual('md');
     });
 
@@ -107,7 +107,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_fractional840_1', 0, () => {
+    it('breakpoint_fractional840_1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(840.1)).assertEqual('lg');
     });
 
@@ -119,7 +119,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_width1280', 0, () => {
+    it('breakpoint_width1280', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(1280)).assertEqual('lg');
     });
 
@@ -131,7 +131,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_monotonic', 0, () => {
+    it('breakpoint_monotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const widths: number[] = [0, 320, 599, 600, 839, 840, 1280];
       const expected: number[] = [0, 0, 0, 1, 1, 2, 2];
       for (let i = 0; i < widths.length; i++) {
@@ -147,7 +147,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_sm_false', 0, () => {
+    it('preferTwoColumn_sm_false', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(0)).assertFalse();
       expect(DeviceUtil.preferTwoColumn(320)).assertFalse();
       expect(DeviceUtil.preferTwoColumn(599)).assertFalse();
@@ -161,7 +161,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_md_true', 0, () => {
+    it('preferTwoColumn_md_true', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(600)).assertTrue();
       expect(DeviceUtil.preferTwoColumn(839)).assertTrue();
     });
@@ -174,7 +174,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_lg_true', 0, () => {
+    it('preferTwoColumn_lg_true', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(840)).assertTrue();
       expect(DeviceUtil.preferTwoColumn(1280)).assertTrue();
     });
@@ -187,7 +187,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_matchesBreakpoint', 0, () => {
+    it('preferTwoColumn_matchesBreakpoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const widths: number[] = [0, 320, 599, 600, 720, 839, 840, 1280];
       for (const w of widths) {
         const expected: boolean = DeviceUtil.getBreakpoint(w) !== 'sm';
@@ -203,7 +203,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('wideScreen_equalsTabletOr2in1', 0, () => {
+    it('wideScreen_equalsTabletOr2in1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const expected: boolean = DeviceUtil.isTablet() || DeviceUtil.is2in1();
       expect(DeviceUtil.isWideScreen()).assertEqual(expected);
     });
@@ -216,7 +216,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('deviceType_flagConsistency', 0, () => {
+    it('deviceType_flagConsistency', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: string = DeviceUtil.getDeviceType();
       if (t === 'phone') {
         expect(DeviceUtil.isPhone()).assertTrue();
@@ -244,7 +244,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('marketName_isString', 0, () => {
+    it('marketName_isString', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(typeof DeviceUtil.getMarketName() === 'string').assertTrue();
     });
 
@@ -256,7 +256,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sdkVersion_positiveInteger', 0, () => {
+    it('sdkVersion_positiveInteger', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const api: number = DeviceUtil.getSdkApiVersion();
       expect(api > 0).assertTrue();
       expect(Math.floor(api)).assertEqual(api);
@@ -270,7 +270,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logDeviceProfile_noThrow', 0, () => {
+    it('logDeviceProfile_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       DeviceUtil.logDeviceProfile();
     });
   });

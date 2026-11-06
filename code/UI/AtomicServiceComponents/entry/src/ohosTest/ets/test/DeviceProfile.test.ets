@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   BREAKPOINT_LG_VP,
   BREAKPOINT_MD_VP,
@@ -41,7 +41,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('resolveDeviceForm_mapping', 0, () => {
+    it('resolveDeviceForm_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveDeviceForm('phone')).assertEqual(DeviceForm.PHONE);
       expect(resolveDeviceForm('tablet')).assertEqual(DeviceForm.TABLET);
       expect(resolveDeviceForm('2in1')).assertEqual(DeviceForm.TWO_IN_ONE);
@@ -59,7 +59,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_boundaries', 0, () => {
+    it('breakpoint_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveBreakpoint(-100)).assertEqual(Breakpoint.SM);
       expect(resolveBreakpoint(0)).assertEqual(Breakpoint.SM);
       expect(resolveBreakpoint(599)).assertEqual(Breakpoint.SM);
@@ -77,7 +77,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_constants', 0, () => {
+    it('breakpoint_constants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(BREAKPOINT_MD_VP).assertEqual(600);
       expect(BREAKPOINT_LG_VP).assertEqual(840);
       expect(Breakpoint.SM).assertEqual('sm');
@@ -93,7 +93,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pxToVp_conversion', 0, () => {
+    it('pxToVp_conversion', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pxToVp(1080, 3)).assertEqual(360);
       expect(pxToVp(720, 2)).assertEqual(360);
       expect(pxToVp(3, 2)).assertEqual(1.5);
@@ -110,7 +110,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('columns_phoneAlwaysSingle', 0, () => {
+    it('columns_phoneAlwaysSingle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveColumns(DeviceForm.PHONE, Breakpoint.SM)).assertEqual(1);
       expect(resolveColumns(DeviceForm.PHONE, Breakpoint.MD)).assertEqual(1);
       expect(resolveColumns(DeviceForm.PHONE, Breakpoint.LG)).assertEqual(1);
@@ -124,7 +124,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('columns_tabletRules', 0, () => {
+    it('columns_tabletRules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveColumns(DeviceForm.TABLET, Breakpoint.SM)).assertEqual(1);
       expect(resolveColumns(DeviceForm.TABLET, Breakpoint.MD)).assertEqual(2);
       expect(resolveColumns(DeviceForm.TABLET, Breakpoint.LG)).assertEqual(2);
@@ -138,7 +138,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('columns_twoInOneRules', 0, () => {
+    it('columns_twoInOneRules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveColumns(DeviceForm.TWO_IN_ONE, Breakpoint.SM)).assertEqual(2);
       expect(resolveColumns(DeviceForm.TWO_IN_ONE, Breakpoint.MD)).assertEqual(2);
       expect(resolveColumns(DeviceForm.TWO_IN_ONE, Breakpoint.LG)).assertEqual(3);
@@ -152,7 +152,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('columns_defaultRules', 0, () => {
+    it('columns_defaultRules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveColumns(DeviceForm.DEFAULT, Breakpoint.SM)).assertEqual(1);
       expect(resolveColumns(DeviceForm.DEFAULT, Breakpoint.MD)).assertEqual(2);
       expect(resolveColumns(DeviceForm.DEFAULT, Breakpoint.LG)).assertEqual(2);
@@ -166,7 +166,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pageMaxWidth_byForm', 0, () => {
+    it('pageMaxWidth_byForm', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolvePageMaxWidth(DeviceForm.PHONE)).assertEqual(640);
       expect(resolvePageMaxWidth(DeviceForm.TABLET)).assertEqual(840);
       expect(resolvePageMaxWidth(DeviceForm.TWO_IN_ONE)).assertEqual(1200);
@@ -181,7 +181,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('displaySnapshot_fallback', 0, () => {
+    it('displaySnapshot_fallback', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const valid = new DisplaySnapshot(400, 900, 2.5);
       expect(valid.widthVp).assertEqual(400);
       expect(valid.heightVp).assertEqual(900);
@@ -204,7 +204,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('layoutHeights_clamped', 0, () => {
+    it('layoutHeights_clamped', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const tiny = buildLayoutProfile(DeviceForm.DEFAULT, new DisplaySnapshot(360, 100, 1));
       expect(tiny.webHeight).assertEqual(320);
       expect(tiny.tabsHeight).assertEqual(300);
@@ -224,7 +224,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('navSplitDefault_rules', 0, () => {
+    it('navSplitDefault_rules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(buildLayoutProfile(DeviceForm.TABLET, new DisplaySnapshot(360, 780, 1)).navSplitDefault)
         .assertFalse();
       expect(buildLayoutProfile(DeviceForm.TABLET, new DisplaySnapshot(600, 900, 1)).navSplitDefault)
@@ -245,7 +245,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pickerSupported_byForm', 0, () => {
+    it('pickerSupported_byForm', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = new DisplaySnapshot(360, 780, 1);
       expect(buildLayoutProfile(DeviceForm.PHONE, snapshot).pickerSupported).assertTrue();
       expect(buildLayoutProfile(DeviceForm.TABLET, snapshot).pickerSupported).assertTrue();
@@ -261,7 +261,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('layoutProfile_describe', 0, () => {
+    it('layoutProfile_describe', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const profile: LayoutProfile =
         buildLayoutProfile(DeviceForm.DEFAULT, new DisplaySnapshot(360, 780, 1));
       expect(profile.widthVp).assertEqual(360);
@@ -282,7 +282,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('defaultLayoutProfile_baseline', 0, () => {
+    it('defaultLayoutProfile_baseline', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DEFAULT_LAYOUT_PROFILE.form).assertEqual(DeviceForm.DEFAULT);
       expect(DEFAULT_LAYOUT_PROFILE.breakpoint).assertEqual(Breakpoint.SM);
       expect(DEFAULT_LAYOUT_PROFILE.columns).assertEqual(1);
@@ -301,7 +301,7 @@ export default function deviceProfileTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('layoutProfile_thresholdIntegration', 0, () => {
+    it('layoutProfile_thresholdIntegration', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const tabletMd = buildLayoutProfile(DeviceForm.TABLET, new DisplaySnapshot(600, 800, 2));
       expect(tabletMd.breakpoint).assertEqual(Breakpoint.MD);
       expect(tabletMd.columns).assertEqual(2);

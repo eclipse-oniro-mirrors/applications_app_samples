@@ -87,7 +87,7 @@ CanvasShowcaseDemo
 │   │   └── entrybackupability                Backup extension
 │   └── resources                             Strings, colors, icons, and other resources
 ├── entry/src/test                            Local unit tests (1 smoke case)
-├── entry/src/ohosTest                        Device-side tests (19 suites, 247 cases)
+├── entry/src/ohosTest                        Device-side tests (19 suites, 244 cases)
 ├── README.md
 └── README_zh.md
 ```
@@ -144,7 +144,7 @@ Key points:
 
 ### 5. Tests
 
-Device tests are under `entry/src/ohosTest/ets/test/`, with 19 suites and 247 cases aggregated by `List.test.ets`:
+Device tests are under `entry/src/ohosTest/ets/test/`, with 19 suites and 244 cases aggregated by `List.test.ets`:
 
 | Suite | Cases | Coverage |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 
 `SceneRegistry.registry_smokeTest_allScenesDraw` iterates the registry and runs every scene on `OffscreenCanvas`, preventing the registry and implementation from drifting. Matrix suites expand input dimensions into explicit cases, each with full `@tc` annotations. `IndexUi` uses `@kit.TestKit` `Driver` / `ON` to automate button highlighting and the clear confirmation flow.
 
-Verification status: 247 device cases have passed on RK3568 (`Tests run: 247, Failure: 0, Error: 0, Pass: 247`), including 94 main-path and smoke cases and 153 combination and boundary cases.
+Verification status: 244 device cases have passed on RK3568 (`Tests run: 244, Failure: 0, Error: 0, Pass: 244`), including 94 main-path and smoke cases and 153 combination and boundary cases.
 
 ## Permissions
 

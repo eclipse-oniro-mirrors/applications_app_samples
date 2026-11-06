@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   DownloadState,
   DownloadTarget,
@@ -37,7 +37,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadState_enumValues', 0, () => {
+    it('downloadState_enumValues', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DownloadState.IDLE).assertEqual(0);
       expect(DownloadState.PICKING).assertEqual(1);
       expect(DownloadState.SUCCESS).assertEqual(2);
@@ -53,7 +53,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadTarget_enumValues', 0, () => {
+    it('downloadTarget_enumValues', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DownloadTarget.PICKER).assertEqual('picker');
       expect(DownloadTarget.SANDBOX).assertEqual('sandbox');
     });
@@ -66,7 +66,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pickerSupport_matrix', 0, () => {
+    it('pickerSupport_matrix', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(supportsDocumentPicker('phone')).assertTrue();
       expect(supportsDocumentPicker('tablet')).assertTrue();
       expect(supportsDocumentPicker('2in1')).assertTrue();
@@ -84,7 +84,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('resolveTarget_followsSupport', 0, () => {
+    it('resolveTarget_followsSupport', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(resolveDownloadTarget('phone')).assertEqual(DownloadTarget.PICKER);
       expect(resolveDownloadTarget('default')).assertEqual(DownloadTarget.SANDBOX);
       expect(resolveDownloadTarget('unknown')).assertEqual(DownloadTarget.SANDBOX);
@@ -98,7 +98,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('beginAttempt_increments', 0, () => {
+    it('beginAttempt_increments', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(beginAttempt(0)).assertEqual(1);
       expect(beginAttempt(41)).assertEqual(42);
       expect(beginAttempt(-1)).assertEqual(0);
@@ -112,7 +112,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('staleAttempt_detection', 0, () => {
+    it('staleAttempt_detection', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isStaleAttempt(5, 5)).assertFalse();
       expect(isStaleAttempt(5, 6)).assertTrue();
       expect(isStaleAttempt(0, 0)).assertFalse();
@@ -126,7 +126,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fallbackOnTimeout_rules', 0, () => {
+    it('fallbackOnTimeout_rules', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(shouldFallbackOnTimeout(false, 5, 5)).assertTrue();
       expect(shouldFallbackOnTimeout(true, 5, 5)).assertFalse();
       expect(shouldFallbackOnTimeout(false, 4, 5)).assertFalse();
@@ -140,7 +140,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('nextState_mapping', 0, () => {
+    it('nextState_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(nextDownloadState(DownloadState.PICKING, true)).assertEqual(DownloadState.SUCCESS);
       expect(nextDownloadState(DownloadState.PICKING, false)).assertEqual(DownloadState.FALLBACK);
       expect(nextDownloadState(DownloadState.FAILED, true)).assertEqual(DownloadState.SUCCESS);
@@ -155,7 +155,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_allStates', 0, () => {
+    it('stateName_allStates', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const idleId: number = downloadStateName(DownloadState.IDLE).id;
       expect(idleId > 0).assertTrue();
       expect(downloadStateName(DownloadState.PICKING).id !== idleId).assertTrue();
@@ -172,7 +172,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('attemptFlow_endToEnd', 0, () => {
+    it('attemptFlow_endToEnd', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = beginAttempt(0);
       const second = beginAttempt(first);
       expect(second).assertEqual(first + 1);
@@ -193,7 +193,7 @@ export default function downloadFlowTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stateName_unknownFallsBackToIdle', 0, () => {
+    it('stateName_unknownFallsBackToIdle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const idleId: number = downloadStateName(DownloadState.IDLE).id;
       expect(downloadStateName(99 as DownloadState).id).assertEqual(idleId);
       expect(downloadStateName(-1 as DownloadState).id).assertEqual(idleId);

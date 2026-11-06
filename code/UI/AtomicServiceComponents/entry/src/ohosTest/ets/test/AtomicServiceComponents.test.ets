@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
@@ -50,7 +50,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('demoCatalog_complete', 0, () => {
+    it('demoCatalog_complete', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DEMO_ITEMS.length).assertEqual(9);
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
       expect(keys.includes('navigation')).assertTrue();
@@ -77,7 +77,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchArea_filterWorks', 0, () => {
+    it('searchArea_filterWorks', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
@@ -92,7 +92,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tabGuard_usesTabCount', 0, () => {
+    it('tabGuard_usesTabCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(TAB_COUNT).assertEqual(3);
       expect(canSwitchTab(0, 1, true, TAB_COUNT)).assertFalse();
       expect(canSwitchTab(2, 2, true, TAB_COUNT)).assertTrue();
@@ -109,7 +109,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('downloadFlow_boardUsesSandbox', 0, () => {
+    it('downloadFlow_boardUsesSandbox', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = readDeviceSnapshot();
       expect(resolveDownloadTarget(snapshot.deviceType))
         .assertEqual(supportsDocumentPicker(snapshot.deviceType) ? DownloadTarget.PICKER : DownloadTarget.SANDBOX);
@@ -127,7 +127,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logStore_fieldsAndCapacity', 0, () => {
+    it('logStore_fieldsAndCapacity', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const fixedDate = new Date(2026, 9, 27, 1, 2, 3);
       const head = new LogItem('设备', '测试', '设备侧日志', LogLevel.WARN, fixedDate);
       expect(head.time).assertEqual('01:02:03');
@@ -151,7 +151,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('deviceProfile_realDisplay', 0, () => {
+    it('deviceProfile_realDisplay', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = readDeviceSnapshot();
       const profile = snapshot.profile;
       expect(profile.widthVp > 0).assertTrue();
@@ -170,7 +170,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('deviceProfile_pickerCapability', 0, () => {
+    it('deviceProfile_pickerCapability', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = readDeviceSnapshot();
       if (snapshot.deviceType === 'default') {
         expect(snapshot.profile.pickerSupported).assertFalse();
@@ -188,7 +188,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('routeKeys_catalogCoverage', 0, () => {
+    it('routeKeys_catalogCoverage', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const item of DEMO_ITEMS) {
         expect(isRouteKey(item.key)).assertTrue();
       }
@@ -205,7 +205,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatUtil_device', 0, () => {
+    it('formatUtil_device', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatPercent(1, 4)).assertEqual('25%');
       expect(formatPercent(3, 4)).assertEqual('75%');
       expect(formatPercent(0, 0)).assertEqual('0%');
@@ -222,7 +222,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorUtil_device', 0, () => {
+    it('errorUtil_device', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900012).includes('Permission denied')).assertTrue();
       expect(pickerErrorHint(13900042).includes('try again later')).assertTrue();
       expect(formatError('download', 13900001, 'denied')).assertEqual('download failed (13900001): denied');
@@ -237,7 +237,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('displaySnapshot_fallbackValues', 0, () => {
+    it('displaySnapshot_fallbackValues', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = new DisplaySnapshot(0, -1, 0);
       expect(snapshot.widthVp).assertEqual(360);
       expect(snapshot.heightVp).assertEqual(780);
@@ -257,7 +257,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fileUtil_writeReadBack', 0, () => {
+    it('fileUtil_writeReadBack', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       const fileName = `ohostest-fileutil-${Date.now()}.txt`;
       const content = 'FileUtil roundtrip 内容校验 123';
@@ -281,7 +281,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logger_storeRoundTrip', 0, () => {
+    it('logger_storeRoundTrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       Logger.clear();
       const marker = '设备侧Logger往返写入';
       Logger.warn('测试', '用例', marker);
@@ -303,7 +303,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('webRawfile_indexHtmlPresent', 0, async () => {
+    it('webRawfile_indexHtmlPresent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       const bytes = await context.resourceManager.getRawFileContent('index.html');
       expect(bytes.byteLength > 500).assertTrue();
@@ -320,7 +320,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('webRawfile_page2Linked', 0, async () => {
+    it('webRawfile_page2Linked', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       const decoder = util.TextDecoder.create('utf-8');
       const indexHtml = decoder.decodeToString(await context.resourceManager.getRawFileContent('index.html'));
@@ -340,7 +340,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('progressBucket_andNavStack_device', 0, () => {
+    it('progressBucket_andNavStack_device', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(progressBucket(25)).assertEqual(1);
       expect(progressBucket(100)).assertEqual(4);
       expect(progressBucket(-1)).assertEqual(0);
@@ -358,7 +358,7 @@ export default function atomicServiceComponentsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('deviceSnapshot_profileFieldsConsistent', 0, () => {
+    it('deviceSnapshot_profileFieldsConsistent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const snapshot = readDeviceSnapshot();
       expect(snapshot.profile.form).assertEqual(resolveDeviceForm(snapshot.deviceType));
       expect(snapshot.profile.widthVp).assertEqual(snapshot.display.widthVp);

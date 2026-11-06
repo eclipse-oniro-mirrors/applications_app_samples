@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { TagStore, CounterLogic, ChipConfigFactory, TagItem } from '../../../main/ets/model/ChipModels';
 import { LogUtil, LogSink, LogLevel } from '../../../main/ets/model/utils/LogUtil';
 import {
@@ -44,7 +44,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_add', 0, () => {
+    it('tagStore_add', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.count()).assertEqual(3);
       const item: TagItem = store.add('D');
@@ -63,7 +63,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_remove', 0, () => {
+    it('tagStore_remove', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const first: TagItem | null = store.findById(1);
       expect(first !== null).assertTrue();
@@ -80,7 +80,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_removeMissing', 0, () => {
+    it('tagStore_removeMissing', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       // 删不存在 id：返回 false 且不影响现有数据
       expect(store.remove(999)).assertFalse();
@@ -95,7 +95,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_toggleActivated', 0, () => {
+    it('tagStore_toggleActivated', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.toggleActivated(2)).assertTrue();
       const t: TagItem | null = store.findById(2);
@@ -112,7 +112,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_toggleMissing_returnsNull', 0, () => {
+    it('tagStore_toggleMissing_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.toggleActivated(999) === null).assertTrue();
     });
@@ -125,7 +125,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_setEnabled', 0, () => {
+    it('tagStore_setEnabled', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.setEnabled(3, false)).assertTrue();
       const t: TagItem | null = store.findById(3);
@@ -141,7 +141,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_getAllIsCopy', 0, () => {
+    it('tagStore_getAllIsCopy', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const all: TagItem[] = store.getAll();
       all.pop();
@@ -157,7 +157,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_clear', 0, () => {
+    it('tagStore_clear', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       store.clear();
       expect(store.count()).assertEqual(0);
@@ -172,7 +172,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_clamp', 0, () => {
+    it('counterLogic_clamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(CounterLogic.clamp(5, 0, 10)).assertEqual(5);
       expect(CounterLogic.clamp(-1, 0, 10)).assertEqual(0);
       expect(CounterLogic.clamp(11, 0, 10)).assertEqual(10);
@@ -186,7 +186,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_initialClamped', 0, () => {
+    it('counterLogic_initialClamped', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 初始值越界自动截断
       const c: CounterLogic = new CounterLogic(50, 0, 10, 1);
       expect(c.getValue()).assertEqual(10);
@@ -202,7 +202,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_step', 0, () => {
+    it('counterLogic_step', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 2);
       expect(c.increase()).assertEqual(7);
       expect(c.decrease()).assertEqual(5);
@@ -217,7 +217,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_boundary', 0, () => {
+    it('counterLogic_boundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(9, 0, 10, 1);
       c.increase();
       expect(c.atMax()).assertTrue();
@@ -236,7 +236,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_setValue', 0, () => {
+    it('counterLogic_setValue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 1);
       expect(c.setValue(8)).assertEqual(8);
       expect(c.setValue(99)).assertEqual(10);
@@ -251,7 +251,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildLabelConfig', 0, () => {
+    it('factory_buildLabelConfig', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('标签');
       expect(cfg.text).assertEqual('标签');
     });
@@ -264,7 +264,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupItemConfigs', 0, () => {
+    it('factory_buildGroupItemConfigs', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs = ChipConfigFactory.buildGroupItemConfigs(['X', 'Y'], 'icon.png');
       expect(configs.length).assertEqual(2);
       expect(configs[0].label.text).assertEqual('X');
@@ -283,7 +283,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSegmentItems', 0, () => {
+    it('factory_buildSegmentItems', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items = ChipConfigFactory.buildSegmentItems(['日', '周', '月']);
       expect(items.length).assertEqual(3);
       expect(items[0].text).assertEqual('日');
@@ -298,7 +298,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_emptyArrays', 0, () => {
+    it('factory_emptyArrays', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ChipConfigFactory.buildGroupItemConfigs([], 'icon.png').length).assertEqual(0);
       expect(ChipConfigFactory.buildSegmentItems([]).length).assertEqual(0);
     });
@@ -311,7 +311,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSymbolModifier', 0, () => {
+    it('factory_buildSymbolModifier', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#FF0000');
       expect(m instanceof SymbolGlyphModifier).assertTrue();
     });
@@ -324,7 +324,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildV1SymbolOptions', 0, () => {
+    it('factory_buildV1SymbolOptions', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#424242');
       const activated: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#FFFFFF');
       const onlyNormal = ChipConfigFactory.buildV1SymbolOptions(normal);
@@ -342,7 +342,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildPrefixSymbolIcon', 0, () => {
+    it('factory_buildPrefixSymbolIcon', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.star'), '#424242');
       const activated: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.star'), '#FFFFFF');
       const icon = ChipConfigFactory.buildPrefixSymbolIcon(normal, activated);
@@ -358,7 +358,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildCloseIcon', 0, () => {
+    it('factory_buildCloseIcon', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const icon = ChipConfigFactory.buildCloseIcon('删除测试标签', 20);
       expect(icon.accessibilityText).assertEqual('删除测试标签');
       expect(icon.fontSize !== undefined).assertTrue();
@@ -372,7 +372,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupItemStyle', 0, () => {
+    it('factory_buildGroupItemStyle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const style = ChipConfigFactory.buildGroupItemStyle();
       expect(style.size).assertEqual(ChipV2Size.SMALL);
       expect(style.backgroundColor !== undefined).assertTrue();
@@ -388,7 +388,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupSpace', 0, () => {
+    it('factory_buildGroupSpace', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const space = ChipConfigFactory.buildGroupSpace();
       expect(space.itemSpace).assertEqual(12);
       expect(space.startSpace).assertEqual(8);
@@ -403,7 +403,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildHybridSegmentItems', 0, () => {
+    it('factory_buildHybridSegmentItems', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items = ChipConfigFactory.buildHybridSegmentItems(
         'icon.png', $r('sys.symbol.heart'), $r('sys.symbol.star'));
       expect(items.length).assertEqual(3);
@@ -422,7 +422,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_nextIdNotReused', 0, () => {
+    it('tagStore_nextIdNotReused', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.remove(2)).assertTrue();
       const item: TagItem = store.add('D');
@@ -438,7 +438,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_getAllOrderPreserved', 0, () => {
+    it('tagStore_getAllOrderPreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const texts: string[] = store.getAll().map((t: TagItem): string => t.text);
       expect(texts.join('-')).assertEqual('A-B-C');
@@ -452,7 +452,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_activatedCountWithRemove', 0, () => {
+    it('tagStore_activatedCountWithRemove', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       store.toggleActivated(1);
       store.toggleActivated(3);
@@ -470,7 +470,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_stepExceedsRange', 0, () => {
+    it('counterLogic_stepExceedsRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: CounterLogic = new CounterLogic(5, 0, 10, 20);
       expect(c.increase()).assertEqual(10);
       expect(c.decrease()).assertEqual(0);
@@ -484,7 +484,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildLabelConfigWithActivatedColor', 0, () => {
+    it('factory_buildLabelConfigWithActivatedColor', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('标签', ColorMetrics.resourceColor('#FF0000'));
       expect(cfg.text).assertEqual('标签');
       expect(cfg.activatedFontColor !== undefined).assertTrue();
@@ -498,7 +498,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildPrefixIconSrc', 0, () => {
+    it('factory_buildPrefixIconSrc', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildPrefixIcon('icon.png');
       expect(cfg.src).assertEqual('icon.png');
     });
@@ -511,7 +511,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_closeIconFontSizeValue', 0, () => {
+    it('factory_closeIconFontSizeValue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const icon = ChipConfigFactory.buildCloseIcon('删除测试标签', 20);
       const fontSize = icon.fontSize;
       expect(fontSize !== undefined).assertTrue();
@@ -528,7 +528,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_hybridFieldsIsolated', 0, () => {
+    it('factory_hybridFieldsIsolated', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items = ChipConfigFactory.buildHybridSegmentItems(
         'icon.png', $r('sys.symbol.heart'), $r('sys.symbol.star'));
       expect(items[0].icon !== undefined).assertTrue();
@@ -547,7 +547,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSuffixSymbolOptions', 0, () => {
+    it('factory_buildSuffixSymbolOptions', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hits: number = 0;
       const options: ChipSuffixSymbolGlyphOptions = ChipConfigFactory.buildSuffixSymbolOptions((): void => {
         hits += 1;
@@ -566,7 +566,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSuffixSymbolIcon', 0, () => {
+    it('factory_buildSuffixSymbolIcon', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#424242');
       const activated: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#FFFFFF');
       const icon: ChipV2SuffixSymbolIcon = ChipConfigFactory.buildSuffixSymbolIcon(normal, activated, (): void => {
@@ -584,7 +584,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildChipV2Padding', 0, () => {
+    it('factory_buildChipV2Padding', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: LocalizedPadding = ChipConfigFactory.buildChipV2Padding(16, 16);
       expect(padding.start !== undefined && padding.start.value).assertEqual(16);
       expect(padding.end !== undefined && padding.end.value).assertEqual(16);
@@ -600,7 +600,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupPadding', 0, () => {
+    it('factory_buildGroupPadding', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: ChipGroupV2Padding = ChipConfigFactory.buildGroupPadding(10, 12);
       expect(padding instanceof ChipGroupV2Padding).assertTrue();
       expect(padding.top).assertEqual(10);
@@ -615,7 +615,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupSuffixItems', 0, () => {
+    it('factory_buildGroupSuffixItems', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let iconHits: number = 0;
       const seen: number[] = [];
       const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
@@ -642,7 +642,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSymbolSegmentItems', 0, () => {
+    it('factory_buildSymbolSegmentItems', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSymbolSegmentItems(
         [$r('sys.symbol.heart'), $r('sys.symbol.star')]);
       expect(items.length).assertEqual(2);
@@ -659,7 +659,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildSegmentItemsWithDisabled', 0, () => {
+    it('factory_buildSegmentItemsWithDisabled', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItemsWithDisabled(
         ['可用 A', '已禁用', '可用 B'], 1);
       expect(items[1].enabled).assertFalse();
@@ -677,7 +677,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_buildGroupSuffixItemsLitFlags', 0, () => {
+    it('factory_buildGroupSuffixItemsLitFlags', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const iconHits: number[] = [];
       const seen: number[] = [];
       const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
@@ -705,7 +705,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_getAllShallowCopySemantics', 0, () => {
+    it('tagStore_getAllShallowCopySemantics', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const copy: TagItem[] = store.getAll();
       copy.pop();
@@ -724,7 +724,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_whitespaceTextPreserved', 0, () => {
+    it('tagStore_whitespaceTextPreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const fresh: TagStore = new TagStore();
       fresh.add('  ');
       fresh.add(' A ');
@@ -742,7 +742,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_negativeStep', 0, () => {
+    it('counterLogic_negativeStep', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const counter: CounterLogic = new CounterLogic(9, 0, 9, -3);
       expect(counter.getValue()).assertEqual(9);
       expect(counter.increase()).assertEqual(6);
@@ -765,7 +765,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('counterLogic_degenerateRangeFlags', 0, () => {
+    it('counterLogic_degenerateRangeFlags', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const counter: CounterLogic = new CounterLogic(7, 7, 7, 2);
       expect(counter.atMax()).assertTrue();
       expect(counter.atMin()).assertTrue();
@@ -784,7 +784,7 @@ export default function chipModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagStore_addWritesLogLine', 0, () => {
+    it('tagStore_addWritesLogLine', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       const sink: LogSink = (line: string) => {
         lines.push(line);

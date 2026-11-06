@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { CanvasScenes } from '../../../main/ets/model/CanvasScenes';
 
 /**
@@ -42,7 +42,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tinyCanvas_40x20', 0, () => {
+    it('tinyCanvas_40x20', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 极小画布：半径、像素区域都会被夹到下限，验证不产生非法参数
       const off = new OffscreenCanvas(40, 20);
       const ctx = off.getContext('2d');
@@ -60,7 +60,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('wideCanvas_640x180', 0, () => {
+    it('wideCanvas_640x180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(640, 180);
       const ctx = off.getContext('2d');
       drawExtendedScenes(ctx, 640, 180);
@@ -77,7 +77,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tallCanvas_120x480', 0, () => {
+    it('tallCanvas_120x480', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(120, 480);
       const ctx = off.getContext('2d');
       drawExtendedScenes(ctx, 120, 480);
@@ -94,7 +94,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('repeatedRuns_sameContext', 0, () => {
+    it('repeatedRuns_sameContext', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 同一上下文连续三轮绘制：状态复位不完整时此处会暴露
       const off = new OffscreenCanvas(200, 100);
       const ctx = off.getContext('2d');
@@ -114,7 +114,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lineDash_arrayReset', 0, () => {
+    it('lineDash_arrayReset', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(200, 100);
       const ctx = off.getContext('2d');
       CanvasScenes.drawLineDash(ctx, 200, 100);
@@ -129,7 +129,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('text_measureUsableAfterScene', 0, () => {
+    it('text_measureUsableAfterScene', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 文字状态为只写属性，绘制后通过 measureText 验证字号与状态可用
       const off = new OffscreenCanvas(200, 100);
       const ctx = off.getContext('2d');
@@ -145,7 +145,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clip_regionPixels', 0, () => {
+    it('clip_regionPixels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 圆形裁剪中心不透明；远离裁剪区的角落保持透明
       const off = new OffscreenCanvas(200, 100);
       const ctx = off.getContext('2d');
@@ -164,7 +164,7 @@ export default function canvasScenesMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readback_centerOpaque', 0, () => {
+    it('readback_centerOpaque', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const sizes: number[][] = [[40, 20], [200, 100], [320, 240]];
       for (const size of sizes) {
         const w: number = size[0];

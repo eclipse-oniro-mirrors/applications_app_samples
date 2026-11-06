@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   DEFAULT_NAV_TITLE,
   HALF_SCREEN_APP_ID,
@@ -62,7 +62,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('routeKey_allKnown', 0, () => {
+    it('routeKey_allKnown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isRouteKey(RouteKey.NAVIGATION)).assertTrue();
       expect(isRouteKey(RouteKey.SEARCH)).assertTrue();
       expect(isRouteKey(RouteKey.TABS)).assertTrue();
@@ -79,7 +79,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('routeKey_rejectsUnknown', 0, () => {
+    it('routeKey_rejectsUnknown', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isRouteKey('unknown')).assertFalse();
       expect(isRouteKey('')).assertFalse();
       expect(isRouteKey('halfscreen')).assertFalse();
@@ -95,7 +95,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('routeKey_distinctValues', 0, () => {
+    it('routeKey_distinctValues', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const keys: string[] = [
         RouteKey.NAVIGATION, RouteKey.SEARCH, RouteKey.TABS,
         RouteKey.WEB, RouteKey.DOWNLOAD, RouteKey.HALF_SCREEN
@@ -116,7 +116,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('storageKeys_unique', 0, () => {
+    it('storageKeys_unique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const keys: string[] = [
         StorageKeys.NAV_TITLE, StorageKeys.NAV_GRADIENT, StorageKeys.NAV_HIDE_TITLE,
         StorageKeys.NAV_SPLIT, StorageKeys.APP_LOGS, StorageKeys.LAYOUT_PROFILE
@@ -137,7 +137,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('spacing_ordered', 0, () => {
+    it('spacing_ordered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppSpacing.XS < AppSpacing.SM).assertTrue();
       expect(AppSpacing.SM < AppSpacing.MD).assertTrue();
       expect(AppSpacing.MD < AppSpacing.LG).assertTrue();
@@ -156,7 +156,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('radius_ordered', 0, () => {
+    it('radius_ordered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppRadius.TAG < AppRadius.SMALL).assertTrue();
       expect(AppRadius.SMALL < AppRadius.CARD).assertTrue();
       expect(AppRadius.CARD < AppRadius.LARGE).assertTrue();
@@ -171,7 +171,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('textScale_ordered', 0, () => {
+    it('textScale_ordered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppText.CAPTION < AppText.SMALL).assertTrue();
       expect(AppText.SMALL < AppText.BODY).assertTrue();
       expect(AppText.BODY < AppText.LABEL).assertTrue();
@@ -190,7 +190,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('size_relations', 0, () => {
+    it('size_relations', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppSize.BUTTON_SM < AppSize.BUTTON).assertTrue();
       expect(AppSize.BUTTON < AppSize.BUTTON_MD).assertTrue();
       expect(AppSize.PROGRESS < AppSize.LOGO).assertTrue();
@@ -205,7 +205,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('colors_hexFormat', 0, () => {
+    it('colors_hexFormat', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const colors: string[] = [
         AppColors.PAGE_BG, AppColors.CARD_BG, AppColors.PRIMARY, AppColors.PRIMARY_SOFT,
         AppColors.HIGHLIGHT_BG, AppColors.SUBTLE_BG, AppColors.SOFT_BG, AppColors.TEXT_PRIMARY,
@@ -227,7 +227,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logLimits_ordered', 0, () => {
+    it('logLimits_ordered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LOG_STORE_CAPACITY).assertEqual(200);
       expect(LOG_STORE_CAPACITY > HOME_LOG_LIMIT).assertTrue();
       expect(HOME_LOG_LIMIT).assertEqual(30);
@@ -243,7 +243,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('runtime_constants', 0, () => {
+    it('runtime_constants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(TAB_COUNT).assertEqual(3);
       expect(PICKER_TIMEOUT_MS).assertEqual(3000);
       expect(HILOG_DOMAIN).assertEqual(0xF811);
@@ -258,7 +258,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('halfScreenId_digits', 0, () => {
+    it('halfScreenId_digits', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(HALF_SCREEN_APP_ID.length).assertEqual(18);
       expect(HALF_SCREEN_APP_ID.startsWith('576')).assertTrue();
       expect(Number.parseInt(HALF_SCREEN_APP_ID, 10) > 0).assertTrue();
@@ -272,7 +272,7 @@ export default function constantsAndThemeMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('navPresets_defaultFirst', 0, () => {
+    it('navPresets_defaultFirst', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(NAV_TITLE_PRESETS.length).assertEqual(2);
       expect(NAV_TITLE_PRESETS[0]).assertEqual(DEFAULT_NAV_TITLE);
       expect(NAV_TITLE_PRESETS.indexOf(DEFAULT_NAV_TITLE)).assertEqual(0);

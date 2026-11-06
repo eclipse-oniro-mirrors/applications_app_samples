@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ChipConfigFactory } from '../../../main/ets/model/ChipModels';
 import {
   SymbolGlyphModifier, ChipV2Size, ColorMetrics, SegmentButtonV2ItemOptions, ChipGroupV2ItemConfig,
@@ -33,7 +33,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('labelEmptyText0001', 0, () => {
+    it('labelEmptyText0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('');
       expect(cfg.text).assertEqual('');
     });
@@ -46,7 +46,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('labelUnicodeTextPreserved0002', 0, () => {
+    it('labelUnicodeTextPreserved0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('全部邮件文档标签');
       expect(cfg.text).assertEqual('全部邮件文档标签');
       expect(cfg.text.length).assertEqual(8);
@@ -60,7 +60,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('labelWithoutActivatedColor0003', 0, () => {
+    it('labelWithoutActivatedColor0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('普通');
       expect(cfg.activatedFontColor === undefined).assertTrue();
     });
@@ -73,7 +73,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('labelWithActivatedColor0004', 0, () => {
+    it('labelWithActivatedColor0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildLabelConfig('激活', ColorMetrics.resourceColor('#FF0000'));
       expect(cfg.text).assertEqual('激活');
       expect(cfg.activatedFontColor !== undefined).assertTrue();
@@ -87,7 +87,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('prefixIconResourceSource0005', 0, () => {
+    it('prefixIconResourceSource0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg = ChipConfigFactory.buildPrefixIcon($r('app.media.startIcon'));
       expect(cfg.src !== undefined).assertTrue();
     });
@@ -100,7 +100,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsOrderPreserved0006', 0, () => {
+    it('groupConfigsOrderPreserved0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B', 'C'], 'icon.png');
       expect(configs[0].label.text).assertEqual('A');
       expect(configs[1].label.text).assertEqual('B');
@@ -115,7 +115,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsIconAppliedToEach0007', 0, () => {
+    it('groupConfigsIconAppliedToEach0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B'], 'icon.png');
       let withIcon: number = 0;
       for (const c of configs) {
@@ -134,7 +134,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsDefaultAllowCloseFalse0008', 0, () => {
+    it('groupConfigsDefaultAllowCloseFalse0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B', 'C'], 'icon.png');
       let removable: number = 0;
       for (const c of configs) {
@@ -153,7 +153,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsAllowCloseAppliesToAll0009', 0, () => {
+    it('groupConfigsAllowCloseAppliesToAll0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['X', 'Y'], 'icon.png', true);
       expect(configs[0].allowClose).assertTrue();
       expect(configs[1].allowClose).assertTrue();
@@ -167,7 +167,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsSingleItem0010', 0, () => {
+    it('groupConfigsSingleItem0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['Solo'], 'icon.png');
       expect(configs.length).assertEqual(1);
       expect(configs[0].label.text).assertEqual('Solo');
@@ -181,7 +181,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsChineseTexts0011', 0, () => {
+    it('groupConfigsChineseTexts0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['全部', '邮件', '文档'], 'icon.png');
       expect(configs.length).assertEqual(3);
       expect(configs[0].label.text).assertEqual('全部');
@@ -197,7 +197,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsOrderPreserved0012', 0, () => {
+    it('segmentItemsOrderPreserved0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItems(['日', '周', '月']);
       expect(items[0].text).assertEqual('日');
       expect(items[1].text).assertEqual('周');
@@ -212,7 +212,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsDuplicatesKept0013', 0, () => {
+    it('segmentItemsDuplicatesKept0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItems(['A', 'A']);
       expect(items.length).assertEqual(2);
       expect(items[0].text).assertEqual('A');
@@ -227,7 +227,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsTextOnlyFields0014', 0, () => {
+    it('segmentItemsTextOnlyFields0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItems(['A', 'B']);
       expect(items[0].icon === undefined).assertTrue();
       expect(items[0].symbol === undefined).assertTrue();
@@ -243,7 +243,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('symbolModifiersDistinctInstances0015', 0, () => {
+    it('symbolModifiersDistinctInstances0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m1: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#424242');
       const m2: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#FFFFFF');
       expect(m1 instanceof SymbolGlyphModifier).assertTrue();
@@ -259,7 +259,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('v1SymbolNormalIdentity0016', 0, () => {
+    it('v1SymbolNormalIdentity0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.heart'), '#424242');
       const opts = ChipConfigFactory.buildV1SymbolOptions(normal);
       expect(opts.normal === normal).assertTrue();
@@ -274,7 +274,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('prefixSymbolIconIdentity0017', 0, () => {
+    it('prefixSymbolIconIdentity0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.star'), '#424242');
       const activated: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.star'), '#FFFFFF');
       const icon = ChipConfigFactory.buildPrefixSymbolIcon(normal, activated);
@@ -290,7 +290,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('closeIconFontSizeTwelve0018', 0, () => {
+    it('closeIconFontSizeTwelve0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const icon = ChipConfigFactory.buildCloseIcon('关闭', 12);
       const fontSize = icon.fontSize;
       expect(fontSize !== undefined).assertTrue();
@@ -307,7 +307,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('closeIconFontSizeTwentyFour0019', 0, () => {
+    it('closeIconFontSizeTwentyFour0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const icon = ChipConfigFactory.buildCloseIcon('关闭', 24);
       const fontSize = icon.fontSize;
       expect(fontSize !== undefined).assertTrue();
@@ -324,7 +324,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('closeIconEmptyHint0020', 0, () => {
+    it('closeIconEmptyHint0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const icon = ChipConfigFactory.buildCloseIcon('', 20);
       expect(icon.accessibilityText).assertEqual('');
     });
@@ -337,7 +337,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupStyleSizeAndColors0021', 0, () => {
+    it('groupStyleSizeAndColors0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const style = ChipConfigFactory.buildGroupItemStyle();
       expect(style.size).assertEqual(ChipV2Size.SMALL);
       expect(style.backgroundColor !== undefined).assertTrue();
@@ -354,7 +354,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSpaceFreshInstance0022', 0, () => {
+    it('groupSpaceFreshInstance0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const s1 = ChipConfigFactory.buildGroupSpace();
       const s2 = ChipConfigFactory.buildGroupSpace();
       expect(s1 !== s2).assertTrue();
@@ -372,7 +372,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hybridSegmentTexts0023', 0, () => {
+    it('hybridSegmentTexts0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildHybridSegmentItems(
         $r('app.media.startIcon'), $r('sys.symbol.heart'), $r('sys.symbol.star'));
       expect(items[0].text).assertEqual('Images');
@@ -388,7 +388,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hybridRepeatedCallsIndependent0024', 0, () => {
+    it('hybridRepeatedCallsIndependent0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildHybridSegmentItems(
         $r('app.media.startIcon'), $r('sys.symbol.heart'), $r('sys.symbol.star'));
       first.pop();
@@ -405,7 +405,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupConfigsRepeatedCallsIndependent0025', 0, () => {
+    it('groupConfigsRepeatedCallsIndependent0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B', 'C'], 'icon.png');
       first.pop();
       const second: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B', 'C'], 'icon.png');
@@ -420,7 +420,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('suffixSymbolOptionsAction0026', 0, () => {
+    it('suffixSymbolOptionsAction0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hits: number = 0;
       const options: ChipSuffixSymbolGlyphOptions = ChipConfigFactory.buildSuffixSymbolOptions((): void => {
         hits += 1;
@@ -440,7 +440,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('suffixSymbolIconFields0027', 0, () => {
+    it('suffixSymbolIconFields0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hits: number = 0;
       const normal: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#424242');
       const activated: SymbolGlyphModifier = ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#FFFFFF');
@@ -464,7 +464,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('chipV2PaddingExactValues0028', 0, () => {
+    it('chipV2PaddingExactValues0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: LocalizedPadding = ChipConfigFactory.buildChipV2Padding(16, 14);
       expect(padding.start !== undefined && padding.start.value).assertEqual(16);
       expect(padding.end !== undefined && padding.end.value).assertEqual(14);
@@ -480,7 +480,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('chipV2PaddingZeroKept0029', 0, () => {
+    it('chipV2PaddingZeroKept0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: LocalizedPadding = ChipConfigFactory.buildChipV2Padding(0, 0);
       expect(padding.start !== undefined && padding.start.value).assertEqual(0);
       expect(padding.end !== undefined && padding.end.value).assertEqual(0);
@@ -494,7 +494,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupPaddingValues0030', 0, () => {
+    it('groupPaddingValues0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: ChipGroupV2Padding = ChipConfigFactory.buildGroupPadding(10, 12);
       expect(padding.top).assertEqual(10);
       expect(padding.bottom).assertEqual(12);
@@ -510,7 +510,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSuffixItemsComposition0031', 0, () => {
+    it('groupSuffixItemsComposition0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let iconHits: number = 0;
       const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [$r('sys.symbol.heart'), $r('sys.symbol.star')],
@@ -536,7 +536,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSuffixSymbolIndexDispatch0032', 0, () => {
+    it('groupSuffixSymbolIndexDispatch0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const seen: number[] = [];
       const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [$r('sys.symbol.heart'), $r('sys.symbol.star')],
@@ -561,7 +561,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('symbolSegmentItemsShape0033', 0, () => {
+    it('symbolSegmentItemsShape0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSymbolSegmentItems(
         [$r('sys.symbol.heart'), $r('sys.symbol.star'), $r('sys.symbol.checkmark_circle')]);
       expect(items.length).assertEqual(3);
@@ -579,7 +579,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsDisabledMiddle0034', 0, () => {
+    it('segmentItemsDisabledMiddle0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItemsWithDisabled(
         ['可用 A', '已禁用', '可用 B'], 1);
       expect(items.length).assertEqual(3);
@@ -599,7 +599,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsDisabledNone0035', 0, () => {
+    it('segmentItemsDisabledNone0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const negative: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSegmentItemsWithDisabled(['X', 'Y'], -1);
       expect(negative[0].enabled).assertTrue();
       expect(negative[1].enabled).assertTrue();
@@ -616,7 +616,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSuffixItemsLitFlags0036', 0, () => {
+    it('groupSuffixItemsLitFlags0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const iconHits: number[] = [];
       const seen: number[] = [];
       const build = (): (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =>
@@ -648,7 +648,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSuffixItemsNoSymbols0037', 0, () => {
+    it('groupSuffixItemsNoSymbols0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let iconHits: number = 0;
       const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [],
@@ -671,7 +671,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupSuffixItemsShortLongFlags0038', 0, () => {
+    it('groupSuffixItemsShortLongFlags0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const seen: number[] = [];
       const shortFlags: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [$r('sys.symbol.heart'), $r('sys.symbol.star')],
@@ -706,7 +706,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('groupPaddingZeroKept0039', 0, () => {
+    it('groupPaddingZeroKept0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const padding: ChipGroupV2Padding = ChipConfigFactory.buildGroupPadding(0, 0);
       expect(padding.top).assertEqual(0);
       expect(padding.bottom).assertEqual(0);
@@ -720,7 +720,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('segmentItemsDisabledFirstAndLast0040', 0, () => {
+    it('segmentItemsDisabledFirstAndLast0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const firstOff: SegmentButtonV2ItemOptions[] =
         ChipConfigFactory.buildSegmentItemsWithDisabled(['禁用', '可用'], 0);
       expect(firstOff.length).assertEqual(2);
@@ -742,7 +742,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hybridSegmentIconFields0041', 0, () => {
+    it('hybridSegmentIconFields0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildHybridSegmentItems(
         $r('app.media.startIcon'), $r('sys.symbol.heart'), $r('sys.symbol.star'));
       expect(items[0].icon !== undefined).assertTrue();
@@ -761,7 +761,7 @@ export default function chipConfigFactoryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('symbolSegmentItemsEmpty0042', 0, () => {
+    it('symbolSegmentItemsEmpty0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildSymbolSegmentItems([]);
       expect(items.length).assertEqual(0);
     });

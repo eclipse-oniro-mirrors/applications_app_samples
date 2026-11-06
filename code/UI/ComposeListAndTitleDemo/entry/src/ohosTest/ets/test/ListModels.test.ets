@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ContactStore, ContactItem, ListConfigFactory } from '../../../main/ets/model/ListModels';
 import { LogUtil, LogLevel } from '../../../main/ets/model/utils/LogUtil';
 import { IconType, IconTypeV2, ContentItem, OperateItem } from '@kit.ArkUI';
@@ -48,7 +48,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_add', 0, () => {
+    it('contactStore_add', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.count()).assertEqual(4);
       const c: ContactItem = store.add('新联系人', '13900000000', '设计部');
@@ -66,7 +66,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_remove', 0, () => {
+    it('contactStore_remove', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.remove(1)).assertTrue();
       expect(store.count()).assertEqual(3);
@@ -81,7 +81,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_removeMissing', 0, () => {
+    it('contactStore_removeMissing', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.remove(999)).assertFalse();
       expect(store.count()).assertEqual(4);
@@ -95,7 +95,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_toggleOnline', 0, () => {
+    it('contactStore_toggleOnline', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.toggleOnline(2)).assertTrue();
       const c: ContactItem | null = store.findById(2);
@@ -112,7 +112,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_toggleMissing_returnsNull', 0, () => {
+    it('contactStore_toggleMissing_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.toggleOnline(999) === null).assertTrue();
     });
@@ -125,7 +125,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_search', 0, () => {
+    it('contactStore_search', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       // 按姓名
       expect(store.search('张三').length).assertEqual(1);
@@ -148,7 +148,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_getAllIsCopy', 0, () => {
+    it('contactStore_getAllIsCopy', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const all: ContactItem[] = store.getAll();
       all.pop();
@@ -163,7 +163,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_clear', 0, () => {
+    it('contactStore_clear', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       store.clear();
       expect(store.count()).assertEqual(0);
@@ -178,7 +178,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1ContentItem', 0, () => {
+    it('factory_v1ContentItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item: ContentItem = ListConfigFactory.buildV1ContentItem(
         'icon.png', IconType.HEAD_SCULPTURE, '张三', '研发部');
       expect(item.iconStyle).assertEqual(IconType.HEAD_SCULPTURE);
@@ -194,7 +194,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateSwitch', 0, () => {
+    it('factory_v1OperateSwitch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateSwitch(true, (v: boolean): void => {
         changed = v;
@@ -216,7 +216,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateButton', 0, () => {
+    it('factory_v1OperateButton', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op: OperateItem = ListConfigFactory.buildV1OperateButton('安装');
       expect(op.button !== undefined).assertTrue();
       expect(op.button?.text).assertEqual('安装');
@@ -230,7 +230,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2ContentItem', 0, () => {
+    it('factory_v2ContentItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = ListConfigFactory.buildV2ContentItem('icon.png', IconTypeV2.HEAD_SCULPTURE, '李四', '产品部');
       expect(item.iconStyle).assertEqual(IconTypeV2.HEAD_SCULPTURE);
       expect(item.primaryText).assertEqual('李四');
@@ -245,7 +245,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateToggle', 0, () => {
+    it('factory_v2OperateToggle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op = ListConfigFactory.buildV2OperateToggle(true, (v: boolean): void => {
         changed = v;
@@ -267,7 +267,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateButton', 0, () => {
+    it('factory_v2OperateButton', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const op = ListConfigFactory.buildV2OperateButton('检查');
       expect(op.button !== undefined).assertTrue();
       expect(op.button?.text).assertEqual('检查');
@@ -281,7 +281,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_searchSpecialChars', 0, () => {
+    it('contactStore_searchSpecialChars', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       // 正则特殊字符不崩溃、按字面匹配
       store.add('a.b*c', '13900000002', 'RD');
@@ -298,7 +298,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_duplicateName', 0, () => {
+    it('contactStore_duplicateName', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       // 同名联系人允许存在，id 不同
       const a: ContactItem = store.add('张三', '13900000003', '研发部');
@@ -315,7 +315,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_onlineCountTracking', 0, () => {
+    it('contactStore_onlineCountTracking', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.onlineCount()).assertEqual(2);
       store.toggleOnline(2);
@@ -334,7 +334,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1ContentItemWithDesc', 0, () => {
+    it('factory_v1ContentItemWithDesc', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item: ContentItem = ListConfigFactory.buildV1ContentItemWithDesc(
         'icon.png', IconType.BADGE, '未读消息', '含 3 条置顶', '长按可标记全部已读');
       expect(item.iconStyle).assertEqual(IconType.BADGE);
@@ -349,7 +349,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateCheckbox', 0, () => {
+    it('factory_v1OperateCheckbox', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateCheckbox(true, (v: boolean): void => {
         changed = v;
@@ -367,7 +367,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateRadio', 0, () => {
+    it('factory_v1OperateRadio', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateRadio(false, (v: boolean): void => {
         changed = v;
@@ -385,7 +385,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateImageAndText', 0, () => {
+    it('factory_v1OperateImageAndText', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const img: OperateItem = ListConfigFactory.buildV1OperateImage('img.png');
       expect(img.image).assertEqual('img.png');
       const txt: OperateItem = ListConfigFactory.buildV1OperateText('3 条');
@@ -400,7 +400,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateDoubleIcon', 0, () => {
+    it('factory_v1OperateDoubleIcon', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit1: boolean = false;
       let hit2: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateDoubleIcon((): void => {
@@ -422,7 +422,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2ContentItemWithDesc', 0, () => {
+    it('factory_v2ContentItemWithDesc', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const item = ListConfigFactory.buildV2ContentItemWithDesc(
         'icon.png', IconTypeV2.PREVIEW, '图片预览', 'PREVIEW 档位', 'V2 版三行文本');
       expect(item.iconStyle).assertEqual(IconTypeV2.PREVIEW);
@@ -437,7 +437,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateCheckboxRadio', 0, () => {
+    it('factory_v2OperateCheckboxRadio', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let changed: boolean = false;
       const cb = ListConfigFactory.buildV2OperateCheckbox(false, (v: boolean): void => {
         changed = v;
@@ -459,7 +459,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateImageAndText', 0, () => {
+    it('factory_v2OperateImageAndText', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const img = ListConfigFactory.buildV2OperateImage('img.png');
       expect(img.image).assertEqual('img.png');
       const txt = ListConfigFactory.buildV2OperateText('预览');
@@ -474,7 +474,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateDoubleIcon', 0, () => {
+    it('factory_v2OperateDoubleIcon', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit1: boolean = false;
       let hit2: boolean = false;
       const op = ListConfigFactory.buildV2OperateDoubleIcon((): void => {
@@ -496,7 +496,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1MenuItem', 0, () => {
+    it('factory_v1MenuItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let clicked: boolean = false;
       const mi = ListConfigFactory.buildV1MenuItem('刷新', (): void => {
         clicked = true;
@@ -514,7 +514,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2MenuItem', 0, () => {
+    it('factory_v2MenuItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let clicked: boolean = false;
       const mi = ListConfigFactory.buildV2MenuItem('搜索', (): void => {
         clicked = true;
@@ -532,7 +532,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_findById', 0, () => {
+    it('contactStore_findById', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const hit: ContactItem | null = store.findById(3);
       expect(hit !== null).assertTrue();
@@ -552,7 +552,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_idNotReusedAfterRemove', 0, () => {
+    it('contactStore_idNotReusedAfterRemove', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const removedId: number = 3;
       expect(store.remove(removedId)).assertTrue();
@@ -571,7 +571,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_idsMonotonicAfterClear', 0, () => {
+    it('contactStore_idsMonotonicAfterClear', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       const maxBefore: number = store.getAll()[store.count() - 1].id;
       store.clear();
@@ -589,7 +589,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v1OperateArrow', 0, () => {
+    it('factory_v1OperateArrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit: boolean = false;
       const op: OperateItem = ListConfigFactory.buildV1OperateArrow((): void => {
         hit = true;
@@ -608,7 +608,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_v2OperateArrow', 0, () => {
+    it('factory_v2OperateArrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let hit: boolean = false;
       const op = ListConfigFactory.buildV2OperateArrow((): void => {
         hit = true;
@@ -627,7 +627,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('factory_contentItemIconPassthrough', 0, () => {
+    it('factory_contentItemIconPassthrough', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const v1: ContentItem = ListConfigFactory.buildV1ContentItem(
         'list.png', IconType.APP_ICON, '主标题', '副标题');
       expect(v1.icon).assertEqual('list.png');
@@ -644,7 +644,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_searchPartialKeyword', 0, () => {
+    it('contactStore_searchPartialKeyword', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       store = freshStore();
       expect(store.search('研发').length).assertEqual(2);
       expect(store.search('三').length).assertEqual(1);
@@ -658,7 +658,7 @@ export default function listModelsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('contactStore_addWritesLogLine', 0, () => {
+    it('contactStore_addWritesLogLine', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);

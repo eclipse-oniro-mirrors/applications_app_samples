@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUtil';
 
 /**
@@ -51,7 +51,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('init_withoutMinLevel_keepsLevel', 0, () => {
+    it('init_withoutMinLevel_keepsLevel', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       const sink: LogSink = (line: string) => {
         lines.push(line);
@@ -74,7 +74,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setMinLevel_debugShowsAll', 0, () => {
+    it('setMinLevel_debugShowsAll', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -94,7 +94,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('minLevel_info_filtersDebug', 0, () => {
+    it('minLevel_info_filtersDebug', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -115,7 +115,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('minLevel_error_filtersLower', 0, () => {
+    it('minLevel_error_filtersLower', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -138,7 +138,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('levelMark_allAndEnumOrder', 0, () => {
+    it('levelMark_allAndEnumOrder', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.levelMark(LogLevel.DEBUG)).assertEqual('D');
       expect(LogUtil.levelMark(LogLevel.INFO)).assertEqual('I');
       expect(LogUtil.levelMark(LogLevel.WARN)).assertEqual('W');
@@ -157,7 +157,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_fixedMorning', 0, () => {
+    it('formatTime_fixedMorning', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2024, 0, 2, 3, 4, 5))).assertEqual('03:04:05');
     });
 
@@ -169,7 +169,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_fixedEvening', 0, () => {
+    it('formatTime_fixedEvening', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2024, 0, 2, 23, 59, 58))).assertEqual('23:59:58');
     });
 
@@ -181,7 +181,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_midnight', 0, () => {
+    it('formatTime_midnight', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.formatTime(new Date(2024, 0, 1, 0, 0, 0))).assertEqual('00:00:00');
       expect(LogUtil.formatTime(new Date(2024, 0, 1, 5, 6, 7))).assertEqual('05:06:07');
     });
@@ -194,7 +194,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('line_timestampMatchesPattern', 0, () => {
+    it('line_timestampMatchesPattern', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -214,7 +214,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('line_formatsAllLevels', 0, () => {
+    it('line_formatsAllLevels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -238,7 +238,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sink_replacedBySecondInit', 0, () => {
+    it('sink_replacedBySecondInit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: string[] = [];
       const second: string[] = [];
       LogUtil.init((line: string) => {
@@ -263,7 +263,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tag_withSpaces_preserved', 0, () => {
+    it('tag_withSpaces_preserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -281,7 +281,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('message_withChinese_preserved', 0, () => {
+    it('message_withChinese_preserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -299,7 +299,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('debug_lineCarriesDMarker', 0, () => {
+    it('debug_lineCarriesDMarker', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -317,7 +317,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setMinLevel_lowerMidStream', 0, () => {
+    it('setMinLevel_lowerMidStream', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -340,7 +340,7 @@ export default function logUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('error_deliveredAtDebugLevel', 0, () => {
+    it('error_deliveredAtDebugLevel', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);

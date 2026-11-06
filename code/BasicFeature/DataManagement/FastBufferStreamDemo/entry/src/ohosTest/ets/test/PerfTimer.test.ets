@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { PerfTimer, PerfRecord } from '../../../main/ets/model/utils/PerfTimer';
 
 /**
@@ -34,7 +34,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('startStop_nonNegative', 0, () => {
+    it('startStop_nonNegative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.start('case1');
       const cost = PerfTimer.stop('case1');
       expect(cost >= 0).assertTrue();
@@ -48,7 +48,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stopWithoutStart_returnsNegative', 0, () => {
+    it('stopWithoutStart_returnsNegative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(PerfTimer.stop('never_started')).assertEqual(-1);
     });
 
@@ -60,7 +60,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_returnsValue', 0, () => {
+    it('measure_returnsValue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result = PerfTimer.measure<number>('measure_case', (): number => {
         return 42;
       });
@@ -75,7 +75,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('measure_records', 0, () => {
+    it('measure_records', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const before = PerfTimer.getRecords().length;
       PerfTimer.measure<number>('record_case', (): number => {
         return 1;
@@ -93,7 +93,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('summary_format', 0, () => {
+    it('summary_format', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text = PerfTimer.summary();
       expect(text.includes('=')).assertTrue();
       expect(text.includes('ms')).assertTrue();
@@ -107,7 +107,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clear_empties', 0, () => {
+    it('clear_empties', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       PerfTimer.start('to_clear');
       PerfTimer.stop('to_clear');
       expect(PerfTimer.getRecords().length > 0).assertTrue();

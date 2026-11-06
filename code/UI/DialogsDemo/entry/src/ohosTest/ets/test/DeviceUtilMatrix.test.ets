@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DeviceUtil, Breakpoint } from '../../../main/ets/model/utils/DeviceUtil';
 
 /**
@@ -45,7 +45,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('portrait_480', 0, () => {
+    it('portrait_480', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(480)).assertEqual('sm');
     });
 
@@ -57,7 +57,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tablet_1024', 0, () => {
+    it('tablet_1024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(1024)).assertEqual('lg');
     });
 
@@ -69,7 +69,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('desktop_1366', 0, () => {
+    it('desktop_1366', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(1366)).assertEqual('lg');
     });
 
@@ -81,7 +81,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractional_599_9', 0, () => {
+    it('fractional_599_9', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(599.9)).assertEqual('sm');
     });
 
@@ -93,7 +93,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractional_600_1', 0, () => {
+    it('fractional_600_1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(600.1)).assertEqual('md');
     });
 
@@ -105,7 +105,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractional_839_9', 0, () => {
+    it('fractional_839_9', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(839.9)).assertEqual('md');
     });
 
@@ -117,7 +117,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractional_840_1', 0, () => {
+    it('fractional_840_1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(840.1)).assertEqual('lg');
     });
 
@@ -129,7 +129,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_ranksMonotonic', 0, () => {
+    it('breakpoint_ranksMonotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const widths: number[] = [320, 480, 599, 600, 720, 839, 840, 1024, 1366];
       let last: number = -1;
       let monotonic: boolean = true;
@@ -153,7 +153,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_smFalse', 0, () => {
+    it('preferTwoColumn_smFalse', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(480)).assertFalse();
     });
 
@@ -165,7 +165,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_mdTrue', 0, () => {
+    it('preferTwoColumn_mdTrue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(700)).assertTrue();
     });
 
@@ -177,7 +177,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preferTwoColumn_lgTrue', 0, () => {
+    it('preferTwoColumn_lgTrue', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(1024)).assertTrue();
     });
 
@@ -189,7 +189,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('twoColumn_matchesBreakpoint', 0, () => {
+    it('twoColumn_matchesBreakpoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const widths: number[] = [320, 599, 600, 839, 840, 1366];
       for (let i = 0; i < widths.length; i++) {
         const expected: boolean = DeviceUtil.getBreakpoint(widths[i]) !== 'sm';
@@ -205,7 +205,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formFlags_matchDeviceType', 0, () => {
+    it('formFlags_matchDeviceType', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: string = DeviceUtil.getDeviceType();
       expect(DeviceUtil.isPhone()).assertEqual(t === 'phone');
       expect(DeviceUtil.isTablet()).assertEqual(t === 'tablet');
@@ -220,7 +220,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sdkApiVersion_positiveInteger', 0, () => {
+    it('sdkApiVersion_positiveInteger', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const v: number = DeviceUtil.getSdkApiVersion();
       expect(v > 0).assertTrue();
       expect(Math.floor(v) === v).assertTrue();
@@ -234,7 +234,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('logDeviceProfile_noThrow', 0, () => {
+    it('logDeviceProfile_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let threw: boolean = false;
       try {
         DeviceUtil.logDeviceProfile();
@@ -252,7 +252,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('repeatedQueries_stable', 0, () => {
+    it('repeatedQueries_stable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const firstBp: Breakpoint = DeviceUtil.getBreakpoint(720);
       const secondBp: Breakpoint = DeviceUtil.getBreakpoint(720);
       expect(firstBp).assertEqual(secondBp);

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { IconStyle, TitlePosition, BottomOffset } from '@kit.ArkUI';
 import {
   InterstitialConfig, buildPrimaryButton, buildSecondaryButton, buildSheetInfos,
@@ -39,7 +39,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('primary_contentUnicode', 0, () => {
+    it('primary_contentUnicode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const btn = buildPrimaryButton('立即开启🔔');
       expect(btn.content).assertEqual('立即开启🔔');
       expect(btn.buttonStyle).assertEqual(ButtonStyleMode.EMPHASIZED);
@@ -53,7 +53,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('primary_emptyContent', 0, () => {
+    it('primary_emptyContent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const btn = buildPrimaryButton('');
       expect(btn.content).assertEqual('');
       expect(btn.buttonStyle).assertEqual(ButtonStyleMode.EMPHASIZED);
@@ -67,7 +67,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('primary_actionCalledTwice', 0, () => {
+    it('primary_actionCalledTwice', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let calls: number = 0;
       const btn = buildPrimaryButton('重试', () => {
         calls++;
@@ -85,7 +85,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('button_instancesDistinct', 0, () => {
+    it('button_instancesDistinct', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first = buildPrimaryButton('确定');
       const second = buildPrimaryButton('确定');
       expect(first === second).assertFalse();
@@ -100,7 +100,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('primary_secondaryActionsIndependent', 0, () => {
+    it('primary_secondaryActionsIndependent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let primaryCalls: number = 0;
       let secondaryCalls: number = 0;
       const primary = buildPrimaryButton('主', () => {
@@ -125,7 +125,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('button_contentsIndependent', 0, () => {
+    it('button_contentsIndependent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const primary = buildPrimaryButton('保存并退出');
       const secondary = buildSecondaryButton('稍后');
       expect(primary.content).assertEqual('保存并退出');
@@ -141,7 +141,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_singleItem', 0, () => {
+    it('sheetInfos_singleItem', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let picked: number = -1;
       const sheets: SheetInfo[] = buildSheetInfos(['仅一项'], (index: number) => {
         picked = index;
@@ -160,7 +160,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_unicodeLabels', 0, () => {
+    it('sheetInfos_unicodeLabels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const sheets: SheetInfo[] = buildSheetInfos(['只看标题', '包含内容'], (index: number) => {
       });
       expect(sheets[0].title).assertEqual('只看标题');
@@ -175,7 +175,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_emptyStringLabel', 0, () => {
+    it('sheetInfos_emptyStringLabel', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let picked: number = -1;
       const sheets: SheetInfo[] = buildSheetInfos(['', 'B'], (index: number) => {
         picked = index;
@@ -194,7 +194,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_actionRepeatable', 0, () => {
+    it('sheetInfos_actionRepeatable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let picked: number = -1;
       const sheets: SheetInfo[] = buildSheetInfos(['A', 'B'], (index: number) => {
         picked = index;
@@ -214,7 +214,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_hundredItems', 0, () => {
+    it('sheetInfos_hundredItems', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const labels: string[] = [];
       for (let i = 0; i < 100; i++) {
         labels.push(`项${i}`);
@@ -239,7 +239,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_callbacksIsolated', 0, () => {
+    it('sheetInfos_callbacksIsolated', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let pickFirst: number = -1;
       let pickSecond: number = -1;
       const first: SheetInfo[] = buildSheetInfos(['A'], (index: number) => {
@@ -263,7 +263,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sheetInfos_orderPreserved', 0, () => {
+    it('sheetInfos_orderPreserved', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const sheets: SheetInfo[] = buildSheetInfos(['Z', 'Y', 'X'], (index: number) => {
       });
       expect(sheets[0].title).assertEqual('Z');
@@ -279,7 +279,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('interstitial_topDarkBar', 0, () => {
+    it('interstitial_topDarkBar', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg: InterstitialConfig = new InterstitialConfig('活动', '限时',
         TitlePosition.TOP, IconStyle.DARK, BottomOffset.OFFSET_FOR_BAR);
       expect(cfg.titlePosition).assertEqual(TitlePosition.TOP);
@@ -295,7 +295,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('interstitial_unicodeTexts', 0, () => {
+    it('interstitial_unicodeTexts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg: InterstitialConfig = new InterstitialConfig('版本更新提示', '立即体验新功能',
         TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
       expect(cfg.title).assertEqual('版本更新提示');
@@ -311,7 +311,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('interstitial_emptyTexts', 0, () => {
+    it('interstitial_emptyTexts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg: InterstitialConfig = new InterstitialConfig('', '',
         TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
       expect(cfg.title).assertEqual('');
@@ -327,7 +327,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('interstitial_fieldsMutable', 0, () => {
+    it('interstitial_fieldsMutable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const cfg: InterstitialConfig = new InterstitialConfig('旧标题', '旧副标题',
         TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
       cfg.title = '新标题';
@@ -350,7 +350,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('interstitial_instancesIsolated', 0, () => {
+    it('interstitial_instancesIsolated', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: InterstitialConfig = new InterstitialConfig('A', 'a',
         TitlePosition.TOP, IconStyle.DARK, BottomOffset.OFFSET_FOR_BAR);
       const second: InterstitialConfig = new InterstitialConfig('B', 'b',
@@ -370,7 +370,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('confirmParams_defaults', 0, () => {
+    it('confirmParams_defaults', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new ConfirmParams();
       expect(p.sceneId).assertEqual(1);
       expect(p.title).assertEqual('');
@@ -388,7 +388,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('alertParams_defaults', 0, () => {
+    it('alertParams_defaults', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new AlertParams();
       expect(p.sceneId).assertEqual(2);
       expect(p.primaryTitle).assertEqual('');
@@ -406,7 +406,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('selectParams_defaults', 0, () => {
+    it('selectParams_defaults', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new SelectParams();
       expect(p.sceneId).assertEqual(3);
       expect(p.title).assertEqual('');
@@ -424,7 +424,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tipsParams_defaults', 0, () => {
+    it('tipsParams_defaults', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new TipsParams();
       expect(p.sceneId).assertEqual(4);
       expect(p.title).assertEqual('');
@@ -444,7 +444,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('loadingParams_defaults', 0, () => {
+    it('loadingParams_defaults', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new LoadingParams();
       expect(p.sceneId).assertEqual(5);
       expect(p.content).assertEqual('');
@@ -459,7 +459,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('params_sceneIdsDistinct', 0, () => {
+    it('params_sceneIdsDistinct', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const ids: number[] = [
         new ConfirmParams().sceneId,
         new AlertParams().sceneId,
@@ -491,7 +491,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('customParams_buttonOrder', 0, () => {
+    it('customParams_buttonOrder', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new CustomParams();
       p.buttons.push(buildPrimaryButton('重置'));
       p.buttons.push(buildSecondaryButton('保存'));
@@ -510,7 +510,7 @@ export default function dialogModelsMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('customParams_buttonsAppendable', 0, () => {
+    it('customParams_buttonsAppendable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const p = new CustomParams();
       for (let i = 1; i <= 5; i++) {
         p.buttons.push(buildSecondaryButton(`按钮${i}`));

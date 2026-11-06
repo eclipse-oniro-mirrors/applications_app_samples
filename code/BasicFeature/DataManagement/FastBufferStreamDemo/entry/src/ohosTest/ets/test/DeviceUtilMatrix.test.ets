@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DeviceUtil } from '../../../main/ets/model/utils/DeviceUtil';
 
 /**
@@ -33,7 +33,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_zero', 0, () => {
+    it('breakpoint_zero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(0)).assertEqual('sm');
       expect(DeviceUtil.preferTwoColumn(0)).assertFalse();
     });
@@ -46,7 +46,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_phone_320', 0, () => {
+    it('breakpoint_phone_320', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(320)).assertEqual('sm');
       expect(DeviceUtil.preferTwoColumn(320)).assertFalse();
     });
@@ -59,7 +59,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_below_md', 0, () => {
+    it('breakpoint_below_md', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(599)).assertEqual('sm');
       expect(DeviceUtil.preferTwoColumn(599)).assertFalse();
     });
@@ -72,7 +72,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_md_lower_bound', 0, () => {
+    it('breakpoint_md_lower_bound', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(600)).assertEqual('md');
       expect(DeviceUtil.preferTwoColumn(600)).assertTrue();
     });
@@ -85,7 +85,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_tablet_720', 0, () => {
+    it('breakpoint_tablet_720', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(720)).assertEqual('md');
       expect(DeviceUtil.preferTwoColumn(720)).assertTrue();
     });
@@ -98,7 +98,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_below_lg', 0, () => {
+    it('breakpoint_below_lg', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(839)).assertEqual('md');
       expect(DeviceUtil.preferTwoColumn(839)).assertTrue();
     });
@@ -111,7 +111,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_lg_lower_bound', 0, () => {
+    it('breakpoint_lg_lower_bound', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(840)).assertEqual('lg');
       expect(DeviceUtil.preferTwoColumn(840)).assertTrue();
     });
@@ -124,7 +124,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_desktop_1280', 0, () => {
+    it('breakpoint_desktop_1280', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(1280)).assertEqual('lg');
       expect(DeviceUtil.preferTwoColumn(1280)).assertTrue();
     });
@@ -137,7 +137,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('two_column_turns_on_between_599_and_600', 0, () => {
+    it('two_column_turns_on_between_599_and_600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.preferTwoColumn(599)).assertFalse();
       expect(DeviceUtil.preferTwoColumn(600)).assertTrue();
     });
@@ -150,7 +150,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('breakpoint_is_monotonic', 0, () => {
+    it('breakpoint_is_monotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DeviceUtil.getBreakpoint(100)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(700)).assertEqual('md');
       expect(DeviceUtil.getBreakpoint(900)).assertEqual('lg');
@@ -164,7 +164,7 @@ export default function deviceUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('wide_screen_flag_is_boolean', 0, () => {
+    it('wide_screen_flag_is_boolean', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(typeof DeviceUtil.isWideScreen() === 'boolean').assertTrue();
     });
   });

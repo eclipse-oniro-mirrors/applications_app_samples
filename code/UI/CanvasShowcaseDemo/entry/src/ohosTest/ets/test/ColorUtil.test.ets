@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ColorUtil, ColorRgba, GradientPreset } from '../../../main/ets/model/utils/ColorUtil';
 
 /**
@@ -34,7 +34,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_packing', 0, () => {
+    it('rgba_packing', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.rgba(255, 0, 0, 255)).assertEqual(0xFF0000FF);
       expect(ColorUtil.rgba(0, 0, 255, 255)).assertEqual(0x0000FFFF);
       expect(ColorUtil.rgba(1, 2, 3, 4)).assertEqual(0x01020304);
@@ -48,7 +48,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_rgb6', 0, () => {
+    it('parseHex_rgb6', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#FF8000');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -67,7 +67,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_argb8', 0, () => {
+    it('parseHex_argb8', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#80FF0000');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -86,7 +86,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_invalid_returnsNull', 0, () => {
+    it('parseHex_invalid_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.parseHex('') === null).assertTrue();
       expect(ColorUtil.parseHex('#FFF') === null).assertTrue();
       expect(ColorUtil.parseHex('FF8000') === null).assertTrue();
@@ -101,7 +101,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toHex_roundtrip', 0, () => {
+    it('toHex_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toHex(255, 128, 0)).assertEqual('#FF8000');
       expect(ColorUtil.toHex(0, 0, 0)).assertEqual('#000000');
       expect(ColorUtil.toHex(15, 15, 15)).assertEqual('#0F0F0F');
@@ -115,7 +115,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toRgbaString', 0, () => {
+    it('toRgbaString', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toRgbaString(255, 0, 0, 255)).assertEqual('rgba(255,0,0,1)');
       expect(ColorUtil.toRgbaString(0, 128, 255, 128)).assertEqual('rgba(0,128,255,0.5)');
       expect(ColorUtil.toRgbaString(0, 0, 0, 0)).assertEqual('rgba(0,0,0,0)');
@@ -129,7 +129,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_endpoints', 0, () => {
+    it('lerp_endpoints', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c1: ColorRgba = { r: 0, g: 0, b: 0, a: 255 } as ColorRgba;
       const c2: ColorRgba = { r: 100, g: 200, b: 50, a: 0 } as ColorRgba;
       const at0: ColorRgba = ColorUtil.lerp(c1, c2, 0);
@@ -149,7 +149,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_midpoint', 0, () => {
+    it('lerp_midpoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c1: ColorRgba = { r: 0, g: 0, b: 0, a: 255 } as ColorRgba;
       const c2: ColorRgba = { r: 100, g: 100, b: 100, a: 255 } as ColorRgba;
       const mid: ColorRgba = ColorUtil.lerp(c1, c2, 0.5);
@@ -166,7 +166,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_outOfRange_clamped', 0, () => {
+    it('lerp_outOfRange_clamped', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c1: ColorRgba = { r: 0, g: 0, b: 0, a: 255 } as ColorRgba;
       const c2: ColorRgba = { r: 100, g: 0, b: 0, a: 255 } as ColorRgba;
       // t 越界自动截断到 [0,1]
@@ -182,7 +182,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_segments', 0, () => {
+    it('lerpHexStops_segments', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stops: string[] = ['#000000', '#FFFFFF'];
       // t=0 → 第一色，t=1 → 最后一色，t=0.5 → 中点灰
       expect(ColorUtil.lerpHexStops(stops, 0)).assertEqual('rgba(0,0,0,1)');
@@ -198,7 +198,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_multiSegment', 0, () => {
+    it('lerpHexStops_multiSegment', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 3 色 2 段：t=0.25 落在第一段中点
       const stops: string[] = ['#000000', '#FFFFFF', '#000000'];
       expect(ColorUtil.lerpHexStops(stops, 0.25)).assertEqual('rgba(128,128,128,1)');
@@ -213,7 +213,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clamp', 0, () => {
+    it('clamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.clamp(5, 0, 10)).assertEqual(5);
       expect(ColorUtil.clamp(-1, 0, 10)).assertEqual(0);
       expect(ColorUtil.clamp(11, 0, 10)).assertEqual(10);
@@ -227,7 +227,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_countAndNames', 0, () => {
+    it('preset_countAndNames', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 预设库：4 组，名称唯一
       expect(GradientPreset.count()).assertEqual(4);
       const names: string[] = GradientPreset.getNames();
@@ -247,7 +247,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_get_stopsValid', 0, () => {
+    it('preset_get_stopsValid', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 每组预设至少 2 色，且均为合法 hex（parseHex 可解析）
       for (const nm of GradientPreset.getNames()) {
         const stops: string[] | null = GradientPreset.get(nm);
@@ -269,7 +269,7 @@ export default function colorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_get_miss_returnsNull', 0, () => {
+    it('preset_get_miss_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GradientPreset.get('no_such') === null).assertTrue();
     });
   });

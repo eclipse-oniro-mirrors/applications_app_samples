@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { StreamFileUtil, ReadProgress } from '../../../main/ets/model/utils/StreamFileUtil';
@@ -52,7 +52,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writeFileStreaming_size', 0, async () => {
+    it('writeFileStreaming_size', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const chunk = 'x'.repeat(1024);
       const written = await StreamFileUtil.writeFileStreaming(writeFile, [chunk, chunk, chunk]);
       expect(written).assertEqual(3072);
@@ -67,7 +67,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readFileStreaming_totalAndProgress', 0, async () => {
+    it('readFileStreaming_totalAndProgress', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const infos: ReadProgress[] = [];
       const received = await StreamFileUtil.readFileStreaming(writeFile, (info: ReadProgress, _chunk: string) => {
         infos.push(info);
@@ -88,7 +88,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readFileStreaming_contentRestored', 0, async () => {
+    it('readFileStreaming_contentRestored', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 多块内容还原：写 5 块 × 1KB（含块号前缀），读回拼接比对
       const chunks: string[] = [];
       for (let i = 0; i < 5; i++) {
@@ -114,7 +114,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copyFileStreaming_size', 0, async () => {
+    it('copyFileStreaming_size', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const chunk = 'z'.repeat(1024);
       await StreamFileUtil.writeFileStreaming(copySrc, [chunk, chunk]);
       const copied = await StreamFileUtil.copyFileStreaming(copySrc, copyDest);
@@ -130,7 +130,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copyFileStreaming_contentIdentical', 0, async () => {
+    it('copyFileStreaming_contentIdentical', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 拷贝后内容逐块一致
       let srcData = '';
       let destData = '';
@@ -151,7 +151,7 @@ export default function streamFileUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getFileSize_missing', 0, () => {
+    it('getFileSize_missing', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(StreamFileUtil.getFileSize(`${filesDir}/no_such_file_${Date.now()}.txt`)).assertEqual(-1);
     });
   });

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 
 /**
@@ -34,7 +34,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('from_string_length', 0, () => {
+    it('from_string_length', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('OpenHarmony FastBuffer');
       expect(buf.length).assertEqual(22);
       expect(buf.toString('utf8')).assertEqual('OpenHarmony FastBuffer');
@@ -48,7 +48,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('alloc_zeroFill', 0, () => {
+    it('alloc_zeroFill', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(8);
       expect(buf.length).assertEqual(8);
       // 默认填充 0x00
@@ -63,7 +63,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('alloc_fillChar', 0, () => {
+    it('alloc_fillChar', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(5, 'a');
       expect(buf.toString('utf8')).assertEqual('aaaaa');
     });
@@ -76,7 +76,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('alloc_zeroSize_and_emptyString', 0, () => {
+    it('alloc_zeroSize_and_emptyString', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 边界：长度 0 不抛异常
       const empty = fastbuffer.alloc(0);
       expect(empty.length).assertEqual(0);
@@ -93,7 +93,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writeRead_uint32BE_roundtrip', 0, () => {
+    it('writeRead_uint32BE_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(8);
       buf.writeUInt32BE(0x4F484F53, 0);
       buf.writeUInt32BE(20, 4);
@@ -110,7 +110,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writeRead_uint32LE_roundtrip', 0, () => {
+    it('writeRead_uint32LE_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x12345678, 0);
       expect(buf.readUInt32LE(0)).assertEqual(0x12345678);
@@ -126,7 +126,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writeRead_int8_negative', 0, () => {
+    it('writeRead_int8_negative', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeInt8(-2, 0);
       buf.writeInt8(5, 1);
@@ -144,7 +144,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toString_hex', 0, () => {
+    it('toString_hex', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.from('AB').toString('hex')).assertEqual('4142');
     });
 
@@ -156,7 +156,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_roundtrip', 0, () => {
+    it('base64_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const origin = 'OpenHarmony FastBuffer';
       const b64 = fastbuffer.from(origin).toString('base64');
       const restored = fastbuffer.from(b64, 'base64').toString('utf8');
@@ -171,7 +171,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('from_hex_decode', 0, () => {
+    it('from_hex_decode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.from('74686973', 'hex').toString('utf8')).assertEqual('this');
     });
 
@@ -183,7 +183,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concat_lengthAndContent', 0, () => {
+    it('concat_lengthAndContent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const b1 = fastbuffer.from('AB');
       const b2 = fastbuffer.from('CD');
       const joined = fastbuffer.concat([b1, b2]);
@@ -203,7 +203,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_tailBytes', 0, () => {
+    it('copy_tailBytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const src = fastbuffer.from('0123456789');
       const dst = fastbuffer.alloc(4);
       const n = src.copy(dst, 0, 6, 10);
@@ -219,7 +219,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_sharedMemory', 0, () => {
+    it('subarray_sharedMemory', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdef');
       const view = buf.subarray(0, 3);
       expect(view.toString('utf8')).assertEqual('abc');
@@ -236,7 +236,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('equals_and_compare', 0, () => {
+    it('equals_and_compare', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const b1 = fastbuffer.from('ABC');
       const b2 = fastbuffer.from('414243', 'hex');
       const b3 = fastbuffer.from('ABCD');
@@ -254,7 +254,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('byteLength_multibyte', 0, () => {
+    it('byteLength_multibyte', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.byteLength('hello world', 'utf-8')).assertEqual(11);
       // 多字节字符：9 个字符占 12 字节（docs 官方示例）
       expect(fastbuffer.byteLength('\u00bd + \u00bc = \u00be', 'utf-8')).assertEqual(12);
@@ -268,7 +268,7 @@ export default function fastBufferBasicsTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('isBuffer_and_fill', 0, () => {
+    it('isBuffer_and_fill', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.isBuffer(fastbuffer.alloc(4))).assertTrue();
       expect(fastbuffer.isBuffer('string')).assertFalse();
       expect(fastbuffer.isBuffer(new Uint8Array(4))).assertFalse();

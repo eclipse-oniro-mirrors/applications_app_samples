@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, afterAll, it, expect } from '@ohos/hypium';
+import { describe, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { StreamFileUtil, ReadProgress } from '../../../main/ets/model/utils/StreamFileUtil';
@@ -80,7 +80,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('write_single_chunk', 0, async () => {
+    it('write_single_chunk', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const written = await StreamFileUtil.writeFileStreaming(singleFile, ['abc']);
       expect(written).assertEqual(3);
       expect(StreamFileUtil.getFileSize(singleFile)).assertEqual(3);
@@ -99,7 +99,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('write_exact_chunk_boundary', 0, async () => {
+    it('write_exact_chunk_boundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const chunks = buildChunks(4, 1024, 'e');
       const written = await StreamFileUtil.writeFileStreaming(exactFile, chunks);
       expect(written).assertEqual(CHUNK_SIZE);
@@ -119,7 +119,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('write_cross_chunk_boundary', 0, async () => {
+    it('write_cross_chunk_boundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const text = 'x'.repeat(5000);
       const written = await StreamFileUtil.writeFileStreaming(crossFile, [text]);
       expect(written).assertEqual(5000);
@@ -134,7 +134,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('read_three_full_chunks_with_progress', 0, async () => {
+    it('read_three_full_chunks_with_progress', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const chunks = buildChunks(3, CHUNK_SIZE, 'p');
       await StreamFileUtil.writeFileStreaming(progressFile, chunks);
       const infos: ReadProgress[] = [];
@@ -160,7 +160,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('read_one_byte_is_one_chunk', 0, async () => {
+    it('read_one_byte_is_one_chunk', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       await StreamFileUtil.writeFileStreaming(oneByteFile, ['z']);
       const infos: ReadProgress[] = [];
       const received = await StreamFileUtil.readFileStreaming(oneByteFile,
@@ -180,7 +180,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('read_4097_bytes_is_two_chunks', 0, async () => {
+    it('read_4097_bytes_is_two_chunks', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       await StreamFileUtil.writeFileStreaming(overFile, ['o'.repeat(CHUNK_SIZE + 1)]);
       const infos: ReadProgress[] = [];
       const received = await StreamFileUtil.readFileStreaming(overFile,
@@ -202,7 +202,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('read_content_matches_multi_chunk_write', 0, async () => {
+    it('read_content_matches_multi_chunk_write', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const chunks = buildChunks(5, 1000, 'q');
       await StreamFileUtil.writeFileStreaming(overFile, chunks);
       let restored = '';
@@ -221,7 +221,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_one_byte', 0, async () => {
+    it('copy_one_byte', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       await StreamFileUtil.writeFileStreaming(copySmallSrc, ['m']);
       const copied = await StreamFileUtil.copyFileStreaming(copySmallSrc, copySmallDest);
       expect(copied).assertEqual(1);
@@ -241,7 +241,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_small_less_than_chunk', 0, async () => {
+    it('copy_small_less_than_chunk', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const text = 'k'.repeat(100);
       await StreamFileUtil.writeFileStreaming(copySmallSrc, [text]);
       const copied = await StreamFileUtil.copyFileStreaming(copySmallSrc, copySmallDest);
@@ -261,7 +261,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_across_chunk_boundary', 0, async () => {
+    it('copy_across_chunk_boundary', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const text = 'b'.repeat(2 * CHUNK_SIZE + 1);
       await StreamFileUtil.writeFileStreaming(copyBigSrc, [text]);
       const copied = await StreamFileUtil.copyFileStreaming(copyBigSrc, copyBigDest);
@@ -282,7 +282,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getFileSize_after_write_matches', 0, async () => {
+    it('getFileSize_after_write_matches', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const written = await StreamFileUtil.writeFileStreaming(singleFile, ['1234567890']);
       expect(written).assertEqual(10);
       expect(StreamFileUtil.getFileSize(singleFile)).assertEqual(written);
@@ -296,7 +296,7 @@ export default function streamFileMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('read_missing_file_rejects', 0, async () => {
+    it('read_missing_file_rejects', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       let rejected = false;
       try {
         await StreamFileUtil.readFileStreaming(`${filesDir}/matrix_missing_${Date.now()}.txt`,

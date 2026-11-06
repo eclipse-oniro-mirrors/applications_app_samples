@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   ErrorInfo,
   errorInfo,
@@ -32,7 +32,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorInfo_emptyMessageFallback', 0, () => {
+    it('errorInfo_emptyMessageFallback', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const info = new ErrorInfo(0, '', 'hint');
       expect(info.message).assertEqual('Unknown error');
       expect(info.hint).assertEqual('hint');
@@ -46,7 +46,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorInfo_describePrefixesCode', 0, () => {
+    it('errorInfo_describePrefixesCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(new ErrorInfo(13900001, 'missing authorization', 'x').describe())
         .assertEqual('[13900001] missing authorization');
       expect(new ErrorInfo(0, 'Unknown error', 'x').describe()).assertEqual('Unknown error');
@@ -61,7 +61,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorInfo_factoryWiresHint', 0, () => {
+    it('errorInfo_factoryWiresHint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const known = errorInfo(13900012, 'permission denied');
       expect(known.code).assertEqual(13900012);
       expect(known.message).assertEqual('permission denied');
@@ -80,7 +80,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatError_withCode', 0, () => {
+    it('formatError_withCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('save', 13900015, 'target file already exists'))
         .assertEqual('save failed (13900015): target file already exists');
     });
@@ -93,7 +93,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatError_withoutCode', 0, () => {
+    it('formatError_withoutCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(formatError('download', 0, '')).assertEqual('download failed: Unknown error');
       expect(formatError('download', -1, 'cancelled')).assertEqual('download failed: cancelled');
     });
@@ -106,7 +106,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pickerErrorHint_knownCodes', 0, () => {
+    it('pickerErrorHint_knownCodes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(13900001))
         .assertEqual('Operation not allowed; user authorization may be missing');
       expect(pickerErrorHint(13900002)).assertEqual('Target file or directory does not exist');
@@ -124,7 +124,7 @@ export default function errorUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pickerErrorHint_unknownCode', 0, () => {
+    it('pickerErrorHint_unknownCode', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(pickerErrorHint(0))
         .assertEqual('Falls back to the app sandbox when the picker is unavailable');
       expect(pickerErrorHint(123456))

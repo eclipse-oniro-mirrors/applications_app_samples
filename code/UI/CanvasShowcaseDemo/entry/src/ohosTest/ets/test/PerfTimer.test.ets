@@ -14,7 +14,7 @@
  */
  
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { PerfTimer } from '../../../main/ets/model/utils/PerfTimer';
 
 /**
@@ -35,7 +35,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_returnsFnResult', 0, () => {
+    it('time_returnsFnResult', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: number = PerfTimer.time('Test', '加法', (): number => {
         return 1 + 2;
       });
@@ -50,7 +50,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('time_worksForObject', 0, () => {
+    it('time_worksForObject', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const result: string = PerfTimer.time('Test', '字符串', (): string => {
         return 'ok';
       });
@@ -65,7 +65,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('instance_samples', 0, () => {
+    it('instance_samples', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       const cost: number = t.stop();
@@ -82,7 +82,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('instance_statistics', 0, () => {
+    it('instance_statistics', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       // 模拟 3 次采样（start/stop 间隔极短，统计逻辑正确性为主）
       t.start();
@@ -105,7 +105,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('empty_statistics_returnZero', 0, () => {
+    it('empty_statistics_returnZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       expect(t.count()).assertEqual(0);
       expect(t.avg()).assertEqual(0);
@@ -121,7 +121,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('reset_clearsSamples', 0, () => {
+    it('reset_clearsSamples', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
@@ -138,7 +138,7 @@ export default function perfTimerTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('report_containsKeywords', 0, () => {
+    it('report_containsKeywords', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();

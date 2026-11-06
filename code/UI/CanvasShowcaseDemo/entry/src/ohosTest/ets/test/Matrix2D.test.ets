@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 /**
  * Matrix2D 矩阵变换设备侧测试（纯逻辑，不依赖画布）
@@ -41,7 +41,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('identity_isUnitMatrix', 0, () => {
+    it('identity_isUnitMatrix', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m = new Matrix2D().identity();
       expect(n(m.scaleX)).assertEqual(1);
       expect(n(m.scaleY)).assertEqual(1);
@@ -59,7 +59,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('translate_properties', 0, () => {
+    it('translate_properties', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m = new Matrix2D().identity().translate(50, 30);
       expect(n(m.translateX)).assertEqual(50);
       expect(n(m.translateY)).assertEqual(30);
@@ -76,7 +76,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('scale_properties', 0, () => {
+    it('scale_properties', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m = new Matrix2D().identity().scale(2, 3);
       expect(n(m.scaleX)).assertEqual(2);
       expect(n(m.scaleY)).assertEqual(3);
@@ -90,7 +90,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rotate_properties_cosSin', 0, () => {
+    it('rotate_properties_cosSin', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // rotate(θ)：scaleX=cosθ，rotateY=sinθ，rotateX=-sinθ，scaleY=cosθ
       const rad = Math.PI / 3; // 60°
       const m = new Matrix2D().identity().rotate(rad);
@@ -108,7 +108,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rotate_zeroAndFullTurn', 0, () => {
+    it('rotate_zeroAndFullTurn', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 0° 与 360° 均为单位旋转
       const m0 = new Matrix2D().identity().rotate(0);
       expect(Math.abs(n(m0.scaleX) - 1) < EPS).assertTrue();
@@ -124,7 +124,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('chain_translateThenScale_keepsTranslate', 0, () => {
+    it('chain_translateThenScale_keepsTranslate', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 左乘叠加：translate 后 scale，平移分量不被缩放修改
       const m = new Matrix2D().identity().translate(10, 20).scale(2, 2);
       expect(n(m.translateX)).assertEqual(10);
@@ -140,7 +140,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('chain_scaleThenTranslate_scalesTranslate', 0, () => {
+    it('chain_scaleThenTranslate_scalesTranslate', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 系统 Matrix2D 的 translate 为属性赋值，不随已有 scale 累计；
       // 因此两种调用顺序下平移量都等于入参，缩放因子保持 2
       const m = new Matrix2D().identity().scale(2, 2).translate(10, 20);
@@ -158,7 +158,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('invert_scale', 0, () => {
+    it('invert_scale', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const inv = new Matrix2D().identity().scale(2, 2).invert();
       expect(Math.abs(n(inv.scaleX) - 0.5) < EPS).assertTrue();
       expect(Math.abs(n(inv.scaleY) - 0.5) < EPS).assertTrue();
@@ -172,7 +172,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('invert_translate', 0, () => {
+    it('invert_translate', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const inv = new Matrix2D().identity().translate(100, 50).invert();
       expect(n(inv.translateX)).assertEqual(-100);
       expect(n(inv.translateY)).assertEqual(-50);
@@ -186,7 +186,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('identity_resetsAfterTransform', 0, () => {
+    it('identity_resetsAfterTransform', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const m = new Matrix2D().identity().scale(5, 5).translate(9, 9).identity();
       expect(n(m.scaleX)).assertEqual(1);
       expect(n(m.translateX)).assertEqual(0);
@@ -200,7 +200,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('propertyMode_skewRotateX', 0, () => {
+    it('propertyMode_skewRotateX', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 属性方式：identity 后直接赋值 rotateX（水平倾斜），其余系数保持单位矩阵
       const m = new Matrix2D().identity();
       m.rotateX = 0.35;
@@ -218,7 +218,7 @@ export default function matrix2dTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('propertyMode_skewWithTranslate', 0, () => {
+    it('propertyMode_skewWithTranslate', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 属性方式构造完整仿射矩阵：倾斜 + 平移并存
       const m = new Matrix2D().identity();
       m.rotateX = 0.35;

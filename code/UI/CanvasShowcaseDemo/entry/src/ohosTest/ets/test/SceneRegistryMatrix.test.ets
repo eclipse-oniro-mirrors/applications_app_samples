@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { SceneRegistry, SceneInfo } from '../../../main/ets/model/utils/SceneRegistry';
 
 /**
@@ -39,7 +39,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ids_contiguousFromOne', 0, () => {
+    it('ids_contiguousFromOne', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let i = 0; i < scenes.length; i++) {
         expect(scenes[i].id).assertEqual(i + 1);
       }
@@ -53,7 +53,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('ids_positiveIntegers', 0, () => {
+    it('ids_positiveIntegers', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const s of scenes) {
         expect(s.id > 0).assertTrue();
         expect(Math.floor(s.id)).assertEqual(s.id);
@@ -68,7 +68,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('firstScene_mapping', 0, () => {
+    it('firstScene_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: SceneInfo | null = SceneRegistry.getById(1);
       expect(first !== null).assertTrue();
       if (first !== null) {
@@ -85,7 +85,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lastScene_mapping', 0, () => {
+    it('lastScene_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const last: SceneInfo | null = SceneRegistry.getById(23);
       expect(last !== null).assertTrue();
       if (last !== null) {
@@ -102,7 +102,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('supplement_buttonTitleDiffer', 0, () => {
+    it('supplement_buttonTitleDiffer', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const s13: SceneInfo | null = SceneRegistry.getById(13);
       const s14: SceneInfo | null = SceneRegistry.getById(14);
       expect(s13 !== null).assertTrue();
@@ -125,7 +125,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('buttons_unique', 0, () => {
+    it('buttons_unique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const seen: Set<string> = new Set();
       for (const s of scenes) {
         expect(seen.has(s.button)).assertFalse();
@@ -141,7 +141,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('titles_unique', 0, () => {
+    it('titles_unique', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const seen: Set<string> = new Set();
       for (const s of scenes) {
         expect(seen.has(s.title)).assertFalse();
@@ -157,7 +157,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_zero_returnsNull', 0, () => {
+    it('getById_zero_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(SceneRegistry.getById(0) === null).assertTrue();
     });
 
@@ -169,7 +169,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_fraction_returnsNull', 0, () => {
+    it('getById_fraction_returnsNull', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(SceneRegistry.getById(1.5) === null).assertTrue();
       expect(SceneRegistry.getById(2.5) === null).assertTrue();
     });
@@ -182,7 +182,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_returnsRegistryReference', 0, () => {
+    it('getById_returnsRegistryReference', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const fromGet: SceneInfo | null = SceneRegistry.getById(5);
       expect(fromGet !== null).assertTrue();
       expect(fromGet === scenes[4]).assertTrue();
@@ -196,7 +196,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAll_stableAcrossCalls', 0, () => {
+    it('getAll_stableAcrossCalls', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const again: SceneInfo[] = SceneRegistry.getAll();
       expect(again.length).assertEqual(scenes.length);
       expect(again === scenes).assertTrue();
@@ -211,7 +211,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('draw_isFunctionForAll', 0, () => {
+    it('draw_isFunctionForAll', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const s of scenes) {
         expect(typeof s.draw === 'function').assertTrue();
       }
@@ -225,7 +225,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('eachScene_drawsOnFreshCanvas', 0, () => {
+    it('eachScene_drawsOnFreshCanvas', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 每个场景独立画布，避免前序场景状态污染；输出尺寸必须保持
       for (const s of scenes) {
         const off = new OffscreenCanvas(80, 40);
@@ -245,7 +245,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('buttonTitles_trimmed', 0, () => {
+    it('buttonTitles_trimmed', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (const s of scenes) {
         expect(s.button === s.button.trim()).assertTrue();
         expect(s.title === s.title.trim()).assertTrue();
@@ -260,7 +260,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('firstTwelve_titlesMatchButtons', 0, () => {
+    it('firstTwelve_titlesMatchButtons', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let i = 0; i < 12; i++) {
         expect(scenes[i].button).assertEqual(scenes[i].title);
       }
@@ -274,7 +274,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('scene_groupPrefixes', 0, () => {
+    it('scene_groupPrefixes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(scenes[0].button.startsWith('Scene 1')).assertTrue();
       expect(scenes[1].button.startsWith('Scene 1')).assertTrue();
       expect(scenes[2].button.startsWith('Scene 2')).assertTrue();
@@ -295,7 +295,7 @@ export default function sceneRegistryMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getById_everyId_hitsReference', 0, () => {
+    it('getById_everyId_hitsReference', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let i = 0; i < scenes.length; i++) {
         const found: SceneInfo | null = SceneRegistry.getById(i + 1);
         expect(found !== null).assertTrue();

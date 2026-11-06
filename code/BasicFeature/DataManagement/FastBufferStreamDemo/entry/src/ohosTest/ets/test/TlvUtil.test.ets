@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 import { TlvUtil, TlvParseResult } from '../../../main/ets/model/utils/TlvUtil';
 import { FastBufferUtil } from '../../../main/ets/model/utils/FastBufferUtil';
@@ -37,7 +37,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('buildParseRoundtrip', 0, () => {
+    it('buildParseRoundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(5, 48, false);
       // 单条记录 = 9B 头 + 48B value + 4B CRC = 61B，5 条共 305B
       expect(stream.length).assertEqual(305);
@@ -64,7 +64,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('magicSearchWithNoise', 0, () => {
+    it('magicSearchWithNoise', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(5, 32, true);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
       // 噪声不干扰定位：5 条记录全部解析出，噪声字节数 = 首部 3B + 记录间 4B×4 = 19B
@@ -82,7 +82,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('bigEndianLengthField', 0, () => {
+    it('bigEndianLengthField', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.buildTlvStream(2, 48, false);
       // 长度字段在魔数（4B）+ tag（1B）之后：偏移 5 起 4B 大端
       expect(FastBufferUtil.readUint32(stream, 5, false)).assertEqual(48);
@@ -101,7 +101,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('badCrcDetected', 0, () => {
+    it('badCrcDetected', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stream = TlvUtil.makeBadCrcStream(3, 48);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
       // 篡改 CRC 不影响结构完整性，但第 2 条记录（tag=2）应标记 crcOk=false
@@ -121,7 +121,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('truncatedRecord', 0, () => {
+    it('truncatedRecord', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const full = TlvUtil.buildTlvStream(3, 48, false);
       const stream = full.subarray(0, full.length - 6);
       const result: TlvParseResult = TlvUtil.parseTlvStream(stream);
@@ -140,7 +140,7 @@ export default function tlvUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('emptyStream', 0, () => {
+    it('emptyStream', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 无魔数的纯噪声流：结构完整、0 条记录，全部字节计入噪声
       const noise: fastbuffer.FastBuffer = fastbuffer.from('\x01\x02\x03\x04');
       const result: TlvParseResult = TlvUtil.parseTlvStream(noise);

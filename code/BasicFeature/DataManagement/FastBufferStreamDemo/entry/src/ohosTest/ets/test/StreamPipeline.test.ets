@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import fastbuffer from '@ohos.fastbuffer';
@@ -78,7 +78,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writable_finish_fileSize', 0, async () => {
+    it('writable_finish_fileSize', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const sp = new StreamPipeline();
       const done = await runAndWait(sp, () => {
         sp.runWritableDemo(filesDir);
@@ -96,7 +96,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writable_backpressure_logged', 0, async () => {
+    it('writable_backpressure_logged', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const sp = new StreamPipeline();
       const logs: string[] = [];
       LogUtil.init((line: string) => {
@@ -134,7 +134,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('readable_end_totalMatch', 0, async () => {
+    it('readable_end_totalMatch', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const sp = new StreamPipeline();
       const logs: string[] = [];
       LogUtil.init((line: string) => {
@@ -168,7 +168,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipeline_finish_fileSize', 0, async () => {
+    it('pipeline_finish_fileSize', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const sp = new StreamPipeline();
       const done = await runAndWait(sp, () => {
         sp.runPipelineDemo(filesDir);
@@ -187,7 +187,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipeline_content_uppercase', 0, () => {
+    it('pipeline_content_uppercase', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 用 FastBuffer 读回文件头 64B，校验 Transform 大写加工生效
       const fd: number = fs.openSync(pipelineFile, fs.OpenMode.READ_ONLY).fd;
       const head: ArrayBuffer = new ArrayBuffer(64);
@@ -206,7 +206,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipeline_flush_tail', 0, () => {
+    it('pipeline_flush_tail', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 读文件尾部 32B，校验 doFlush 追加的尾块标记
       const size: number = fs.statSync(pipelineFile).size;
       const fd: number = fs.openSync(pipelineFile, fs.OpenMode.READ_ONLY).fd;
@@ -225,7 +225,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipeline_readable_reuse', 0, async () => {
+    it('pipeline_readable_reuse', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 复用场景3 的文件做读取源（场景4 优先复用的路径），验证文件存在且可读
       const sp = new StreamPipeline();
       const done = await runAndWait(sp, () => {
@@ -248,7 +248,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipe_finish_fileSize', 0, async () => {
+    it('pipe_finish_fileSize', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 场景8：pipe 两跳接线 → finish 落盘 10 块 × 256B + doFlush 尾块 21B = 2581B
       const sp = new StreamPipeline();
       const done = await runAndWait(sp, () => {
@@ -267,7 +267,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('pipe_content_uppercase', 0, () => {
+    it('pipe_content_uppercase', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 读回文件头 32B：块前缀 [BLOCK-001] 原样保留，填充字符 d 经 Transform 全部大写
       const fd: number = fs.openSync(pipeFile, fs.OpenMode.READ_ONLY).fd;
       const head: ArrayBuffer = new ArrayBuffer(32);
@@ -286,7 +286,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('duplex_roundtrip_logs', 0, async () => {
+    it('duplex_roundtrip_logs', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 场景9：Duplex 写侧 hello/stream 转大写入队 → 读侧回送 HELLO STREAM
       const sp = new StreamPipeline();
       const logs: string[] = [];
@@ -324,7 +324,7 @@ export default function streamPipelineTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('duplex_eof_logged', 0, async () => {
+    it('duplex_eof_logged', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       // 写侧 end → 队列排空 → 读侧收到 EOF 触发 end 事件
       const sp = new StreamPipeline();
       const logs: string[] = [];

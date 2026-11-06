@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 import { FastBufferUtil } from '../../../main/ets/model/utils/FastBufferUtil';
 
@@ -35,7 +35,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('utf8_roundtrip', 0, () => {
+    it('utf8_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const origin = 'OpenHarmony FastBufferUtil';
       const decoded = FastBufferUtil.utf8Decode(FastBufferUtil.utf8Encode(origin));
       expect(decoded).assertEqual(origin);
@@ -49,7 +49,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toHex_known', 0, () => {
+    it('toHex_known', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.toHex(FastBufferUtil.utf8Encode('AB'))).assertEqual('4142');
     });
 
@@ -61,7 +61,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_valid', 0, () => {
+    it('fromHex_valid', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.utf8Decode(FastBufferUtil.fromHex('4142'))).assertEqual('AB');
       expect(FastBufferUtil.fromHex('74686973').toString('utf8')).assertEqual('this');
     });
@@ -74,7 +74,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_oddLength_throws', 0, () => {
+    it('fromHex_oddLength_throws', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('414');
@@ -92,7 +92,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fromHex_invalidChar_throws', 0, () => {
+    it('fromHex_invalidChar_throws', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       let thrown = false;
       try {
         FastBufferUtil.fromHex('zz');
@@ -110,7 +110,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('base64_roundtrip', 0, () => {
+    it('base64_roundtrip', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const origin = 'FastBufferUtil base64 roundtrip';
       const b64 = FastBufferUtil.toBase64(FastBufferUtil.utf8Encode(origin));
       const decoded = FastBufferUtil.utf8Decode(FastBufferUtil.fromBase64(b64));
@@ -125,7 +125,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('writeRead_uint32_endian', 0, () => {
+    it('writeRead_uint32_endian', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(8);
       FastBufferUtil.writeUint32(buf, 0x4F484F53, 0, false);
       FastBufferUtil.writeUint32(buf, 0x4F484F53, 4, true);
@@ -142,7 +142,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concatAll_lengthAndContent', 0, () => {
+    it('concatAll_lengthAndContent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const joined = FastBufferUtil.concatAll([
         FastBufferUtil.utf8Encode('AA'),
         FastBufferUtil.utf8Encode('BB'),
@@ -160,7 +160,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_empty', 0, () => {
+    it('hexDump_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.hexDump(fastbuffer.alloc(0))).assertEqual('Empty buffer');
     });
 
@@ -172,7 +172,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_lineCount', 0, () => {
+    it('hexDump_lineCount', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 25 字节按每行 16 字节 → 2 行
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('a'.repeat(25)));
       expect(dump.split('\n').length).assertEqual(2);
@@ -186,7 +186,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_asciiColumn', 0, () => {
+    it('hexDump_asciiColumn', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const dump = FastBufferUtil.hexDump(FastBufferUtil.utf8Encode('AB'));
       // 地址列 + ASCII 列
       expect(dump.startsWith('00000000')).assertTrue();
@@ -201,7 +201,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hexDump_unprintable', 0, () => {
+    it('hexDump_unprintable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt8(0x01, 0);
       buf.writeUInt8(0x7e, 1);
@@ -218,7 +218,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_knownVector', 0, () => {
+    it('crc32_knownVector', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 标准校验值：CRC32("123456789") = 0xCBF43926
       expect(FastBufferUtil.crc32(FastBufferUtil.utf8Encode('123456789'))).assertEqual(0xCBF43926);
     });
@@ -231,7 +231,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_empty', 0, () => {
+    it('crc32_empty', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(FastBufferUtil.crc32(fastbuffer.alloc(0))).assertEqual(0);
     });
 
@@ -243,7 +243,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32_tamperDetected', 0, () => {
+    it('crc32_tamperDetected', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = FastBufferUtil.utf8Encode('integrity check payload');
       const before = FastBufferUtil.crc32(buf);
       buf.writeUInt8(buf.readUInt8(0) ^ 0xFF, 0);
@@ -259,7 +259,7 @@ export default function fastBufferUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('crc32Hex_format', 0, () => {
+    it('crc32Hex_format', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const hex = FastBufferUtil.crc32Hex(FastBufferUtil.utf8Encode('123456789'));
       expect(hex).assertEqual('CBF43926');
     });

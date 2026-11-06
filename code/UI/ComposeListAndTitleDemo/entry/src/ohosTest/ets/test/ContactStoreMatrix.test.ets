@@ -14,7 +14,7 @@
  */
  
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ContactStore, ContactItem } from '../../../main/ets/model/ListModels';
 
 /** 构建含 4 人的全新仓库（张三/李四/王五/赵六，在线 1、3） */
@@ -40,7 +40,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('idsSequentialFromOne001', 0, () => {
+    it('idsSequentialFromOne001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const all: ContactItem[] = store.getAll();
       expect(all[0].id).assertEqual(1);
@@ -57,7 +57,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addEmptyNameAllowed002', 0, () => {
+    it('addEmptyNameAllowed002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const c: ContactItem = store.add('', '13900000001', '临时');
       expect(store.count()).assertEqual(5);
@@ -73,7 +73,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addUnicodeName003', 0, () => {
+    it('addUnicodeName003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const c: ContactItem = store.add('小明🙂', '13900000002', '国际部');
       expect(c.name).assertEqual('小明🙂');
@@ -88,7 +88,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addDefaultOffline004', 0, () => {
+    it('addDefaultOffline004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const offline: ContactItem = store.add('钱七', '13900000003', '运营部');
       expect(offline.online).assertFalse();
@@ -105,7 +105,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addPreservesFields005', 0, () => {
+    it('addPreservesFields005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const c: ContactItem = store.add('周九', '13700001234', '法务部');
       expect(c.name).assertEqual('周九');
@@ -122,7 +122,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeMiddleKeepsOrder006', 0, () => {
+    it('removeMiddleKeepsOrder006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.remove(2)).assertTrue();
       const names: string[] = store.getAll().map((c: ContactItem): string => c.name);
@@ -137,7 +137,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeLastByIdSucceeds007', 0, () => {
+    it('removeLastByIdSucceeds007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.remove(4)).assertTrue();
       expect(store.count()).assertEqual(3);
@@ -152,7 +152,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeTwiceSecondReturnsFalse008', 0, () => {
+    it('removeTwiceSecondReturnsFalse008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.remove(2)).assertTrue();
       expect(store.remove(2)).assertFalse();
@@ -167,7 +167,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeNegativeAndZeroFalse009', 0, () => {
+    it('removeNegativeAndZeroFalse009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.remove(-1)).assertFalse();
       expect(store.remove(0)).assertFalse();
@@ -182,7 +182,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleOnlineMultipleIndependent010', 0, () => {
+    it('toggleOnlineMultipleIndependent010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.onlineCount()).assertEqual(2);
       expect(store.toggleOnline(2)).assertTrue();
@@ -202,7 +202,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleOnlineTwiceRestores011', 0, () => {
+    it('toggleOnlineTwiceRestores011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.toggleOnline(2)).assertTrue();
       expect(store.onlineCount()).assertEqual(3);
@@ -218,7 +218,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleOnlineNegativeNull012', 0, () => {
+    it('toggleOnlineNegativeNull012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.toggleOnline(-5) === null).assertTrue();
       expect(store.onlineCount()).assertEqual(2);
@@ -232,7 +232,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleOnlineFractionalNull013', 0, () => {
+    it('toggleOnlineFractionalNull013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.toggleOnline(2.5) === null).assertTrue();
     });
@@ -245,7 +245,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchCaseInsensitive014', 0, () => {
+    it('searchCaseInsensitive014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       store.add('Tom', '13900000005', 'RD');
       expect(store.search('tom').length).assertEqual(1);
@@ -261,7 +261,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchChinesePartial015', 0, () => {
+    it('searchChinesePartial015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.search('三').length).assertEqual(1);
       expect(store.search('研发').length).assertEqual(2);
@@ -276,7 +276,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchEmptyReturnsAll016', 0, () => {
+    it('searchEmptyReturnsAll016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.search('').length).assertEqual(store.count());
       expect(store.search('').length).assertEqual(4);
@@ -290,7 +290,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchNoMatch017', 0, () => {
+    it('searchNoMatch017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.search('不存在的人').length).assertEqual(0);
       expect(store.search('zzz').length).assertEqual(0);
@@ -304,7 +304,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchMatchesNameOrDept018', 0, () => {
+    it('searchMatchesNameOrDept018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       // 四个部门名都含“部”，按部门匹配应命中全部
       expect(store.search('部').length).assertEqual(4);
@@ -318,7 +318,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAllLengthMatchesCount019', 0, () => {
+    it('getAllLengthMatchesCount019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.getAll().length).assertEqual(store.count());
       store.remove(3);
@@ -333,7 +333,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdSharesReferenceWithGetAll020', 0, () => {
+    it('findByIdSharesReferenceWithGetAll020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const snapshot: ContactItem[] = store.getAll();
       expect(store.findById(1) === snapshot[0]).assertTrue();
@@ -349,7 +349,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearThenAddContinuesIdSequence021', 0, () => {
+    it('clearThenAddContinuesIdSequence021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       store.clear();
       const c: ContactItem = store.add('重新开始', '13900000006', '综合部');
@@ -365,7 +365,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearTwiceStaysEmpty022', 0, () => {
+    it('clearTwiceStaysEmpty022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       store.clear();
       store.clear();
@@ -381,7 +381,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('onlineCountZeroAfterClear023', 0, () => {
+    it('onlineCountZeroAfterClear023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       store.toggleOnline(2);
       store.toggleOnline(4);
@@ -398,7 +398,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeAllLeavesEmptyStore024', 0, () => {
+    it('removeAllLeavesEmptyStore024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.remove(1)).assertTrue();
       expect(store.remove(2)).assertTrue();
@@ -416,7 +416,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addRemoveCycleKeepsOrder025', 0, () => {
+    it('addRemoveCycleKeepsOrder025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       const c: ContactItem = store.add('钱七', '13900000007', '运营部');
       expect(store.count()).assertEqual(5);
@@ -434,7 +434,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('searchAfterRemove026', 0, () => {
+    it('searchAfterRemove026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.search('研发部').length).assertEqual(2);
       store.remove(3);
@@ -450,7 +450,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdAfterClearNull027', 0, () => {
+    it('findByIdAfterClearNull027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       store.clear();
       expect(store.findById(1) === null).assertTrue();
@@ -465,7 +465,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('onlineAddedContactCounted028', 0, () => {
+    it('onlineAddedContactCounted028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.onlineCount()).assertEqual(2);
       const c: ContactItem = store.add('孙八', '13900000008', '客服部', true);
@@ -482,7 +482,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractionalIdRejectedEverywhere029', 0, () => {
+    it('fractionalIdRejectedEverywhere029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       expect(store.findById(2.5) === null).assertTrue();
       expect(store.remove(2.5)).assertFalse();
@@ -499,7 +499,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addFiftyIdsAndCounts030', 0, () => {
+    it('addFiftyIdsAndCounts030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       for (let i = 1; i <= 50; i++) {
         store.add(`批量${i}`, `139${i}`, '压测部');
@@ -520,7 +520,7 @@ export default function contactStoreMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('whitespaceNameAndSpacesKeyword031', 0, () => {
+    it('whitespaceNameAndSpacesKeyword031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const store: ContactStore = freshContacts();
       // 原始数据不含空白字符，空白关键字不应命中
       expect(store.search('   ').length).assertEqual(0);

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   DEFAULT_NAV_TITLE,
   HALF_SCREEN_APP_ID,
@@ -48,7 +48,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('routeKey_values', 0, () => {
+    it('routeKey_values', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(RouteKey.NAVIGATION).assertEqual('navigation');
       expect(RouteKey.SEARCH).assertEqual('search');
       expect(RouteKey.TABS).assertEqual('tabs');
@@ -65,7 +65,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('isRouteKey_guards', 0, () => {
+    it('isRouteKey_guards', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(isRouteKey(RouteKey.NAVIGATION)).assertTrue();
       expect(isRouteKey(RouteKey.SEARCH)).assertTrue();
       expect(isRouteKey(RouteKey.TABS)).assertTrue();
@@ -85,7 +85,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('storageKey_values', 0, () => {
+    it('storageKey_values', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(StorageKeys.NAV_TITLE).assertEqual('navTitle');
       expect(StorageKeys.NAV_GRADIENT).assertEqual('navGradient');
       expect(StorageKeys.NAV_HIDE_TITLE).assertEqual('navHideTitle');
@@ -102,7 +102,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('capacityAndLimit_constants', 0, () => {
+    it('capacityAndLimit_constants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(TAB_COUNT).assertEqual(3);
       expect(PICKER_TIMEOUT_MS).assertEqual(3000);
       expect(LOG_STORE_CAPACITY).assertEqual(200);
@@ -119,7 +119,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('navTitle_presets', 0, () => {
+    it('navTitle_presets', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(DEFAULT_NAV_TITLE).assertEqual('nav_title_default');
       expect(NAV_TITLE_PRESETS.length).assertEqual(2);
       expect(NAV_TITLE_PRESETS[0]).assertEqual(DEFAULT_NAV_TITLE);
@@ -134,7 +134,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('hilogAndHalfScreen_constants', 0, () => {
+    it('hilogAndHalfScreen_constants', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(HILOG_DOMAIN).assertEqual(0xF811);
       expect(HILOG_TAG).assertEqual('[Sample_AtomicServiceComponents]');
       expect(HALF_SCREEN_APP_ID.length > 0).assertTrue();
@@ -149,7 +149,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('theme_colorPalette', 0, () => {
+    it('theme_colorPalette', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppColors.PAGE_BG).assertEqual('#F2F3F5');
       expect(AppColors.CARD_BG).assertEqual('#FFFFFF');
       expect(AppColors.PRIMARY).assertEqual('#0A59F7');
@@ -167,7 +167,7 @@ export default function constantsAndThemeTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('theme_scalesAndSizes', 0, () => {
+    it('theme_scalesAndSizes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(AppSpacing.XS < AppSpacing.SM).assertTrue();
       expect(AppSpacing.SM < AppSpacing.MD).assertTrue();
       expect(AppSpacing.PAGE < AppSpacing.LARGE).assertTrue();

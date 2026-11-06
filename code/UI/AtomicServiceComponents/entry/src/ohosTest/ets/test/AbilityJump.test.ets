@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   JUMP_TARGETS,
   JumpState,
@@ -40,7 +40,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpTargets_shape', 0, () => {
+    it('jumpTargets_shape', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(JUMP_TARGETS.length).assertEqual(3);
       const keys: string[] = JUMP_TARGETS.map((target: JumpTarget) => target.key);
       for (const key of keys) {
@@ -61,7 +61,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpTarget_selfBundle', 0, () => {
+    it('jumpTarget_selfBundle', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(SELF_BUNDLE_NAME).assertEqual('com.samples.atomicservicecomponents');
       expect(jumpTargetByKey('self')?.bundleName).assertEqual(SELF_BUNDLE_NAME);
       expect(jumpTargetByKey('missing')?.bundleName).assertEqual('com.samples.not.installed');
@@ -76,7 +76,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpState_names', 0, () => {
+    it('jumpState_names', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpStateName(JumpState.IDLE)).assertEqual('Idle');
       expect(jumpStateName(JumpState.WAITING)).assertEqual('Waiting for target');
       expect(jumpStateName(JumpState.SUCCESS)).assertEqual('Launched');
@@ -92,7 +92,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpErrorHint_missingAbility', 0, () => {
+    it('jumpErrorHint_missingAbility', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpErrorHint(16000001).includes('not found')).assertTrue();
       expect(jumpErrorHint(16000001).includes('installed')).assertTrue();
     });
@@ -105,7 +105,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpErrorHint_otherCodes', 0, () => {
+    it('jumpErrorHint_otherCodes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(jumpErrorHint(16000004).includes('not visible')).assertTrue();
       expect(jumpErrorHint(16000011).includes('Invalid')).assertTrue();
       expect(jumpErrorHint(16000019).includes('No matching')).assertTrue();
@@ -122,7 +122,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('describeJumpResult_formats', 0, () => {
+    it('describeJumpResult_formats', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(describeJumpResult(16000050, 'internal error')).assertEqual('[16000050] internal error');
       expect(describeJumpResult(0, 'timed out')).assertEqual('timed out');
       expect(describeJumpResult(0, '')).assertEqual('Unknown error');
@@ -137,7 +137,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('attemptToken_guards', 0, () => {
+    it('attemptToken_guards', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(beginAttempt(0)).assertEqual(1);
       expect(beginAttempt(9)).assertEqual(10);
       expect(isActiveAttempt(4, 4)).assertTrue();
@@ -152,7 +152,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpTimeout_constant', 0, () => {
+    it('jumpTimeout_constant', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(JUMP_TIMEOUT_MS).assertEqual(3000);
       expect(JUMP_TIMEOUT_MS / 1000).assertEqual(3);
     });
@@ -165,7 +165,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpRoute_registered', 0, () => {
+    it('jumpRoute_registered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(RouteKey.JUMP).assertEqual('jump');
       expect(isRouteKey(RouteKey.JUMP)).assertTrue();
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
@@ -180,7 +180,7 @@ export default function abilityJumpTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('jumpTargets_distinct', 0, () => {
+    it('jumpTargets_distinct', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const describes: string[] = JUMP_TARGETS.map((target: JumpTarget) => target.describe());
       for (const value of describes) {
         expect(describes.indexOf(value)).assertEqual(describes.lastIndexOf(value));

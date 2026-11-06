@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import fastbuffer from '@ohos.fastbuffer';
 
 /**
@@ -37,7 +37,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_zero_be', 0, () => {
+    it('uint32_roundtrip_zero_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32BE(0x00000000, 0);
       expect(buf.toString('hex')).assertEqual('00000000');
@@ -52,7 +52,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_zero_le', 0, () => {
+    it('uint32_roundtrip_zero_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x00000000, 0);
       expect(buf.toString('hex')).assertEqual('00000000');
@@ -67,7 +67,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_one_be', 0, () => {
+    it('uint32_roundtrip_one_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32BE(0x00000001, 0);
       expect(buf.toString('hex')).assertEqual('00000001');
@@ -82,7 +82,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_one_le', 0, () => {
+    it('uint32_roundtrip_one_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x00000001, 0);
       expect(buf.toString('hex')).assertEqual('01000000');
@@ -97,7 +97,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_ffff_be', 0, () => {
+    it('uint32_roundtrip_ffff_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32BE(0x0000FFFF, 0);
       expect(buf.toString('hex')).assertEqual('0000ffff');
@@ -112,7 +112,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_ffff_le', 0, () => {
+    it('uint32_roundtrip_ffff_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x0000FFFF, 0);
       expect(buf.toString('hex')).assertEqual('ffff0000');
@@ -127,7 +127,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_magic_be', 0, () => {
+    it('uint32_roundtrip_magic_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32BE(0x4F484F53, 0);
       expect(buf.toString('hex')).assertEqual('4f484f53');
@@ -142,7 +142,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_magic_le', 0, () => {
+    it('uint32_roundtrip_magic_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x4F484F53, 0);
       expect(buf.toString('hex')).assertEqual('534f484f');
@@ -157,7 +157,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_max_signed_be', 0, () => {
+    it('uint32_roundtrip_max_signed_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32BE(0x7FFFFFFF, 0);
       expect(buf.toString('hex')).assertEqual('7fffffff');
@@ -172,7 +172,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint32_roundtrip_max_signed_le', 0, () => {
+    it('uint32_roundtrip_max_signed_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeUInt32LE(0x7FFFFFFF, 0);
       expect(buf.toString('hex')).assertEqual('ffffff7f');
@@ -187,7 +187,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_zero_be', 0, () => {
+    it('uint16_roundtrip_zero_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16BE(0x0000, 0);
       expect(buf.toString('hex')).assertEqual('0000');
@@ -202,7 +202,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_zero_le', 0, () => {
+    it('uint16_roundtrip_zero_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16LE(0x0000, 0);
       expect(buf.toString('hex')).assertEqual('0000');
@@ -217,7 +217,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_ff_be', 0, () => {
+    it('uint16_roundtrip_ff_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16BE(0x00FF, 0);
       expect(buf.toString('hex')).assertEqual('00ff');
@@ -232,7 +232,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_ff_le', 0, () => {
+    it('uint16_roundtrip_ff_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16LE(0x00FF, 0);
       expect(buf.toString('hex')).assertEqual('ff00');
@@ -247,7 +247,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_abcd_be', 0, () => {
+    it('uint16_roundtrip_abcd_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16BE(0xABCD, 0);
       expect(buf.toString('hex')).assertEqual('abcd');
@@ -262,7 +262,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint16_roundtrip_abcd_le', 0, () => {
+    it('uint16_roundtrip_abcd_le', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeUInt16LE(0xABCD, 0);
       expect(buf.toString('hex')).assertEqual('cdab');
@@ -277,7 +277,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int16_negative_be', 0, () => {
+    it('int16_negative_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeInt16BE(-1, 0);
       expect(buf.toString('hex')).assertEqual('ffff');
@@ -292,7 +292,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int16_min_be', 0, () => {
+    it('int16_min_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeInt16BE(-32768, 0);
       expect(buf.toString('hex')).assertEqual('8000');
@@ -308,7 +308,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int16_max_be', 0, () => {
+    it('int16_max_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(2);
       buf.writeInt16BE(32767, 0);
       expect(buf.toString('hex')).assertEqual('7fff');
@@ -323,7 +323,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int32_negative_be', 0, () => {
+    it('int32_negative_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeInt32BE(-2, 0);
       expect(buf.toString('hex')).assertEqual('fffffffe');
@@ -338,7 +338,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int32_min_be', 0, () => {
+    it('int32_min_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeInt32BE(-2147483648, 0);
       expect(buf.toString('hex')).assertEqual('80000000');
@@ -353,7 +353,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('int32_max_be', 0, () => {
+    it('int32_max_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4);
       buf.writeInt32BE(2147483647, 0);
       expect(buf.toString('hex')).assertEqual('7fffffff');
@@ -368,7 +368,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint_be_general_three_bytes', 0, () => {
+    it('uint_be_general_three_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(3);
       buf.writeUIntBE(0x123456, 0, 3);
       expect(buf.toString('hex')).assertEqual('123456');
@@ -383,7 +383,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('uint_le_general_three_bytes', 0, () => {
+    it('uint_le_general_three_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(3);
       buf.writeUIntLE(0x123456, 0, 3);
       expect(buf.toString('hex')).assertEqual('563412');
@@ -398,7 +398,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('multi_field_offsets_be', 0, () => {
+    it('multi_field_offsets_be', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(12);
       buf.writeUInt32BE(0x01020304, 0);
       buf.writeUInt32BE(0x05060708, 4);
@@ -417,7 +417,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_zero_offset_content', 0, () => {
+    it('subarray_zero_offset_content', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       const view = buf.subarray(0, 4);
       expect(view.length).assertEqual(4);
@@ -432,7 +432,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_full_buffer', 0, () => {
+    it('subarray_full_buffer', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       expect(buf.subarray().toString('utf8')).assertEqual('abcdefgh');
       expect(buf.subarray(0).length).assertEqual(8);
@@ -446,7 +446,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_empty_view', 0, () => {
+    it('subarray_empty_view', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       const view = buf.subarray(0, 0);
       expect(view.length).assertEqual(0);
@@ -461,7 +461,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_offset_reads_parent_bytes', 0, () => {
+    it('subarray_offset_reads_parent_bytes', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       const view = buf.subarray(2, 6);
       expect(view.length).assertEqual(4);
@@ -478,7 +478,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('subarray_mutation_visible_in_parent', 0, () => {
+    it('subarray_mutation_visible_in_parent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('abcdefgh');
       const view = buf.subarray(2, 4);
       view.writeUInt8(0x58, 0);
@@ -493,7 +493,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_whole_buffer', 0, () => {
+    it('copy_whole_buffer', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const src = fastbuffer.from('0123456789');
       const dst = fastbuffer.alloc(10);
       const copied: number = src.copy(dst, 0, 0, 10);
@@ -509,7 +509,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_middle_range', 0, () => {
+    it('copy_middle_range', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const src = fastbuffer.from('0123456789');
       const dst = fastbuffer.alloc(4);
       const copied: number = src.copy(dst, 0, 3, 7);
@@ -525,7 +525,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_with_target_offset', 0, () => {
+    it('copy_with_target_offset', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const src = fastbuffer.from('0123456789');
       const dst = fastbuffer.alloc(6);
       const copied: number = src.copy(dst, 2, 0, 4);
@@ -541,7 +541,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('copy_tail_clamped', 0, () => {
+    it('copy_tail_clamped', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const src = fastbuffer.from('0123456789');
       const dst = fastbuffer.alloc(2);
       const copied: number = src.copy(dst, 0, 8, 10);
@@ -557,7 +557,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concat_three_parts', 0, () => {
+    it('concat_three_parts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const joined = fastbuffer.concat([fastbuffer.from('AA'), fastbuffer.from('BB'), fastbuffer.from('CC')]);
       expect(joined.length).assertEqual(6);
       expect(joined.toString('utf8')).assertEqual('AABBCC');
@@ -571,7 +571,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concat_with_empty_parts', 0, () => {
+    it('concat_with_empty_parts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const joined = fastbuffer.concat([fastbuffer.alloc(0), fastbuffer.from('AB'), fastbuffer.alloc(0)]);
       expect(joined.length).assertEqual(2);
       expect(joined.toString('utf8')).assertEqual('AB');
@@ -585,7 +585,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('concat_ten_small_parts', 0, () => {
+    it('concat_ten_small_parts', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const parts: fastbuffer.FastBuffer[] = [];
       for (let i = 0; i < 10; i++) {
         parts.push(fastbuffer.from('0123'));
@@ -603,7 +603,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fill_numeric_value', 0, () => {
+    it('fill_numeric_value', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(4).fill(0x41);
       expect(buf.toString('hex')).assertEqual('41414141');
     });
@@ -616,7 +616,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fill_range_with_char', 0, () => {
+    it('fill_range_with_char', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.alloc(6).fill('z', 2, 4);
       expect(buf.toString('hex')).assertEqual('00007a7a0000');
     });
@@ -629,7 +629,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fill_repeats_single_char', 0, () => {
+    it('fill_repeats_single_char', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.alloc(3, '0').toString('utf8')).assertEqual('000');
     });
 
@@ -641,7 +641,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('equals_same_content_different_origin', 0, () => {
+    it('equals_same_content_different_origin', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const b1 = fastbuffer.from('ABC');
       const b2 = fastbuffer.from('414243', 'hex');
       expect(b1.equals(b2)).assertTrue();
@@ -656,7 +656,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('compare_prefix_is_ordered', 0, () => {
+    it('compare_prefix_is_ordered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const shortBuf = fastbuffer.from('ABC');
       const longBuf = fastbuffer.from('ABCD');
       expect(shortBuf.equals(longBuf)).assertFalse();
@@ -672,7 +672,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('compare_lexicographic_order', 0, () => {
+    it('compare_lexicographic_order', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const a = fastbuffer.from('A');
       const b = fastbuffer.from('B');
       expect(a.compare(b)).assertEqual(-1);
@@ -687,7 +687,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('equals_empty_buffers', 0, () => {
+    it('equals_empty_buffers', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.alloc(0).equals(fastbuffer.from(''))).assertTrue();
     });
 
@@ -699,7 +699,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('indexOf_string_hits_and_misses', 0, () => {
+    it('indexOf_string_hits_and_misses', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('hello world');
       expect(buf.indexOf('world')).assertEqual(6);
       expect(buf.indexOf('o', 5)).assertEqual(7);
@@ -714,7 +714,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('includes_string_case_sensitive', 0, () => {
+    it('includes_string_case_sensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const buf = fastbuffer.from('hello world');
       expect(buf.includes('hello')).assertTrue();
       expect(buf.includes('HELLO')).assertFalse();
@@ -728,7 +728,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('byteLength_utf8_matrix', 0, () => {
+    it('byteLength_utf8_matrix', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.byteLength('')).assertEqual(0);
       expect(fastbuffer.byteLength('abc')).assertEqual(3);
       expect(fastbuffer.byteLength('你好')).assertEqual(6);
@@ -743,7 +743,7 @@ export default function fastBufferMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('isBuffer_classification', 0, () => {
+    it('isBuffer_classification', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(fastbuffer.isBuffer(fastbuffer.alloc(1))).assertTrue();
       expect(fastbuffer.isBuffer(fastbuffer.from('x'))).assertTrue();
       expect(fastbuffer.isBuffer('x')).assertFalse();

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 /**
  * 本地单元测试占位：本工程被测逻辑均依赖系统 API（fastbuffer/stream/fs），
@@ -21,7 +21,7 @@ import { describe, it, expect } from '@ohos/hypium';
  */
 export default function localUnitTest() {
   describe('localUnitTest', () => {
-    it('assertEqual', 0, () => {
+    it('assertEqual', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(1 + 1).assertEqual(2);
     });
   });

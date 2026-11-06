@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUtil';
 
 /**
@@ -34,7 +34,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('init_deliversToSink', 0, () => {
+    it('init_deliversToSink', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       const sink: LogSink = (line: string) => {
         lines.push(line);
@@ -54,7 +54,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lineFormat_timestamp', 0, () => {
+    it('lineFormat_timestamp', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -79,7 +79,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('levelFilter', 0, () => {
+    it('levelFilter', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -102,7 +102,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('levelMark_mapping', 0, () => {
+    it('levelMark_mapping', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(LogUtil.levelMark(LogLevel.DEBUG)).assertEqual('D');
       expect(LogUtil.levelMark(LogLevel.INFO)).assertEqual('I');
       expect(LogUtil.levelMark(LogLevel.WARN)).assertEqual('W');
@@ -117,7 +117,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTime_format', 0, () => {
+    it('formatTime_format', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const t = LogUtil.formatTime(new Date());
       expect(t.length).assertEqual(8);
       expect(t.charAt(2)).assertEqual(':');
@@ -132,7 +132,7 @@ export default function logUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorLevel_delivered', 0, () => {
+    it('errorLevel_delivered', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);

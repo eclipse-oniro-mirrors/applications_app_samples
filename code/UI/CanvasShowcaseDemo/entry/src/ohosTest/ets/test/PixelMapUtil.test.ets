@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { image } from '@kit.ImageKit';
 import { PixelMapUtil } from '../../../main/ets/model/utils/PixelMapUtil';
 
@@ -38,7 +38,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_packing', 0, () => {
+    it('rgba_packing', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(PixelMapUtil.rgba(255, 0, 0, 255)).assertEqual(0xFF0000FF);
       expect(PixelMapUtil.rgba(0, 0, 255, 255)).assertEqual(0x0000FFFF);
       expect(PixelMapUtil.rgba(1, 2, 3, 4)).assertEqual(0x01020304);
@@ -52,7 +52,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_size', 0, () => {
+    it('checkerboard_size', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createCheckerboard(4, 1, RED, BLUE);
       const info = pm.getImageInfoSync();
       expect(info.size.width).assertEqual(4);
@@ -68,7 +68,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('checkerboard_pixelColors', 0, () => {
+    it('checkerboard_pixelColors', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 4x4 棋盘格 cell=1：(0,0) 为 A 色（红），(1,0) 为 B 色（蓝）
       const pm = PixelMapUtil.createCheckerboard(4, 1, RED, BLUE);
       const buffer = new ArrayBuffer(4 * 4 * 4);
@@ -93,7 +93,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('stripes_size', 0, () => {
+    it('stripes_size', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const pm = PixelMapUtil.createStripes(8, 4, RED, BLUE);
       const info = pm.getImageInfoSync();
       expect(info.size.width).assertEqual(8);
@@ -108,7 +108,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_centerIsColorA', 0, () => {
+    it('dots_centerIsColorA', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 圆点阵中心像素应为 A 色
       const pm = PixelMapUtil.createDots(9, 2, RED, BLUE);
       const buffer = new ArrayBuffer(9 * 9 * 4);
@@ -127,7 +127,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('dots_cornerIsColorB', 0, () => {
+    it('dots_cornerIsColorB', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 圆点阵角落像素应为 B 色
       const pm = PixelMapUtil.createDots(9, 2, RED, BLUE);
       const buffer = new ArrayBuffer(9 * 9 * 4);
@@ -145,7 +145,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('generate_sizeAndPixels', 0, () => {
+    it('generate_sizeAndPixels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 通用像素生成器：左半红右半蓝
       const pm = PixelMapUtil.generate(4, (x: number, y: number): number => {
         return x < 2 ? RED : BLUE;
@@ -172,7 +172,7 @@ export default function pixelMapUtilTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('generate_diagonalGradient', 0, () => {
+    it('generate_diagonalGradient', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 对角渐变：R 通道随 x 线性递增
       const pm = PixelMapUtil.generate(4, (x: number, y: number): number => {
         return PixelMapUtil.rgba(x * 60, 0, 0, 255);

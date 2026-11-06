@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ColorUtil, ColorRgba, GradientPreset } from '../../../main/ets/model/utils/ColorUtil';
 
 /**
@@ -45,7 +45,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_zeroAndMax', 0, () => {
+    it('rgba_zeroAndMax', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.rgba(0, 0, 0, 0)).assertEqual(0);
       expect(ColorUtil.rgba(255, 255, 255, 255)).assertEqual(0xFFFFFFFF);
     });
@@ -58,7 +58,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_masksChannelsToByte', 0, () => {
+    it('rgba_masksChannelsToByte', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 256→0，-1→255，0x1FF→255 → 0x00FFFF00
       expect(ColorUtil.rgba(256, -1, 0x1FF, 256)).assertEqual(0x00FFFF00);
     });
@@ -71,7 +71,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('rgba_unsigned32Bit', 0, () => {
+    it('rgba_unsigned32Bit', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 最高位为 1 时仍为无符号正数（>>>0 生效）
       expect(ColorUtil.rgba(255, 0, 0, 0)).assertEqual(0xFF000000);
       expect(ColorUtil.rgba(255, 0, 0, 0) > 0).assertTrue();
@@ -85,7 +85,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_trimsWhitespace', 0, () => {
+    it('parseHex_trimsWhitespace', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const a: ColorRgba | null = ColorUtil.parseHex('  #FF8000  ');
       expect(a !== null).assertTrue();
       if (a !== null) {
@@ -107,7 +107,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_acceptsLowercase', 0, () => {
+    it('parseHex_acceptsLowercase', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#ff8000');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -126,7 +126,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_argbAlphaZero', 0, () => {
+    it('parseHex_argbAlphaZero', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#00FFFFFF');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -145,7 +145,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_argbUppercaseChannels', 0, () => {
+    it('parseHex_argbUppercaseChannels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#AABBCCDD');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -164,7 +164,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_rejectsOffByOneLengths', 0, () => {
+    it('parseHex_rejectsOffByOneLengths', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.parseHex('#FF80000') === null).assertTrue();
       expect(ColorUtil.parseHex('#FFFFFFF') === null).assertTrue();
       expect(ColorUtil.parseHex('#FF8000000') === null).assertTrue();
@@ -178,7 +178,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_rejectsNonHexCharacters', 0, () => {
+    it('parseHex_rejectsNonHexCharacters', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.parseHex('#FF80G0') === null).assertTrue();
       expect(ColorUtil.parseHex('#ZZZZZZ') === null).assertTrue();
       expect(ColorUtil.parseHex('#12345G') === null).assertTrue();
@@ -192,7 +192,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('parseHex_roundtripToHex', 0, () => {
+    it('parseHex_roundtripToHex', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba | null = ColorUtil.parseHex('#123456');
       expect(c !== null).assertTrue();
       if (c !== null) {
@@ -213,7 +213,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toHex_padsNibbles', 0, () => {
+    it('toHex_padsNibbles', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toHex(1, 2, 3)).assertEqual('#010203');
       expect(ColorUtil.toHex(10, 11, 12)).assertEqual('#0A0B0C');
     });
@@ -226,7 +226,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toHex_masksOutOfRange', 0, () => {
+    it('toHex_masksOutOfRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toHex(256, 257, 258)).assertEqual('#000102');
       expect(ColorUtil.toHex(-1, -2, -3)).assertEqual('#FFFEFD');
     });
@@ -239,7 +239,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toRgbaString_alphaRoundsToHundredths', 0, () => {
+    it('toRgbaString_alphaRoundsToHundredths', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toRgbaString(0, 0, 0, 64)).assertEqual('rgba(0,0,0,0.25)');
       expect(ColorUtil.toRgbaString(0, 0, 0, 127)).assertEqual('rgba(0,0,0,0.5)');
       expect(ColorUtil.toRgbaString(0, 0, 0, 192)).assertEqual('rgba(0,0,0,0.75)');
@@ -253,7 +253,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toRgbaString_masksRgbChannels', 0, () => {
+    it('toRgbaString_masksRgbChannels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 300→44，-1→255
       expect(ColorUtil.toRgbaString(300, -1, 0, 255)).assertEqual('rgba(44,255,0,1)');
     });
@@ -266,7 +266,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toRgbaString_clampsAlpha', 0, () => {
+    it('toRgbaString_clampsAlpha', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.toRgbaString(0, 0, 0, -10)).assertEqual('rgba(0,0,0,0)');
       expect(ColorUtil.toRgbaString(0, 0, 0, 300)).assertEqual('rgba(0,0,0,1)');
     });
@@ -279,7 +279,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toRgbaStringOf_matchesChannels', 0, () => {
+    it('toRgbaStringOf_matchesChannels', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba = { r: 255, g: 0, b: 0, a: 128 } as ColorRgba;
       expect(ColorUtil.toRgbaStringOf(c)).assertEqual('rgba(255,0,0,0.5)');
     });
@@ -292,7 +292,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_quarterPoint', 0, () => {
+    it('lerp_quarterPoint', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c1: ColorRgba = { r: 0, g: 0, b: 0, a: 0 } as ColorRgba;
       const c2: ColorRgba = { r: 200, g: 100, b: 40, a: 255 } as ColorRgba;
       const q: ColorRgba = ColorUtil.lerp(c1, c2, 0.25);
@@ -310,7 +310,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_descendingDirection', 0, () => {
+    it('lerp_descendingDirection', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c1: ColorRgba = { r: 100, g: 100, b: 100, a: 255 } as ColorRgba;
       const c2: ColorRgba = { r: 0, g: 0, b: 0, a: 0 } as ColorRgba;
       const mid: ColorRgba = ColorUtil.lerp(c1, c2, 0.5);
@@ -328,7 +328,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerp_identicalColorsStable', 0, () => {
+    it('lerp_identicalColorsStable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const c: ColorRgba = { r: 12, g: 34, b: 56, a: 78 } as ColorRgba;
       const out: ColorRgba = ColorUtil.lerp(c, c, 0.3);
       expect(out.r).assertEqual(12);
@@ -345,7 +345,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_emptyReturnsBlack', 0, () => {
+    it('lerpHexStops_emptyReturnsBlack', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const empty: string[] = [];
       expect(ColorUtil.lerpHexStops(empty, 0.5)).assertEqual('#000000');
     });
@@ -358,7 +358,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_singleValidColor', 0, () => {
+    it('lerpHexStops_singleValidColor', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const one: string[] = ['#FF0000'];
       expect(ColorUtil.lerpHexStops(one, 0)).assertEqual('rgba(255,0,0,1)');
       expect(ColorUtil.lerpHexStops(one, 0.7)).assertEqual('rgba(255,0,0,1)');
@@ -372,7 +372,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_singleInvalidColor', 0, () => {
+    it('lerpHexStops_singleInvalidColor', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const bad: string[] = ['#GG0000'];
       expect(ColorUtil.lerpHexStops(bad, 0.5)).assertEqual('#000000');
       const shortBad: string[] = ['#FFF'];
@@ -387,7 +387,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_multiInvalidStop', 0, () => {
+    it('lerpHexStops_multiInvalidStop', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stops: string[] = ['#000000', '#XYZXYZ'];
       expect(ColorUtil.lerpHexStops(stops, 0.5)).assertEqual('#000000');
       expect(ColorUtil.lerpHexStops(stops, 0.9)).assertEqual('#000000');
@@ -401,7 +401,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_fourStopsQuarterPoints', 0, () => {
+    it('lerpHexStops_fourStopsQuarterPoints', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 4 色 3 段：#00 → #33 → #66 → #99
       const stops: string[] = ['#000000', '#333333', '#666666', '#999999'];
       expect(ColorUtil.lerpHexStops(stops, 0.25)).assertEqual('rgba(38,38,38,1)');
@@ -418,7 +418,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_clampsOutOfRange', 0, () => {
+    it('lerpHexStops_clampsOutOfRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stops: string[] = ['#112233', '#445566', '#778899'];
       expect(ColorUtil.lerpHexStops(stops, -1)).assertEqual('rgba(17,34,51,1)');
       expect(ColorUtil.lerpHexStops(stops, 2)).assertEqual('rgba(119,136,153,1)');
@@ -432,7 +432,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_endsOnLastStop', 0, () => {
+    it('lerpHexStops_endsOnLastStop', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const stops: string[] = ['#000000', '#FFFFFF', '#FF0000'];
       expect(ColorUtil.lerpHexStops(stops, 1)).assertEqual('rgba(255,0,0,1)');
     });
@@ -445,7 +445,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('lerpHexStops_preservesAlpha', 0, () => {
+    it('lerpHexStops_preservesAlpha', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 两端 alpha 均为 0x80=128 → 0.5
       const stops: string[] = ['#80000000', '#80FFFFFF'];
       expect(ColorUtil.lerpHexStops(stops, 0)).assertEqual('rgba(0,0,0,0.5)');
@@ -461,7 +461,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clamp_boundaries', 0, () => {
+    it('clamp_boundaries', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(ColorUtil.clamp(0, 0, 10)).assertEqual(0);
       expect(ColorUtil.clamp(10, 0, 10)).assertEqual(10);
       expect(ColorUtil.clamp(0.5, 0, 10)).assertEqual(0.5);
@@ -476,7 +476,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_skyStopsExact', 0, () => {
+    it('preset_skyStopsExact', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const sky: string[] = GradientPreset.SKY;
       expect(sky.length).assertEqual(4);
       expect(sky[0]).assertEqual('#0D47A1');
@@ -494,7 +494,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_sunsetStopsExact', 0, () => {
+    it('preset_sunsetStopsExact', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const sunset: string[] = GradientPreset.SUNSET;
       expect(sunset.length).assertEqual(4);
       expect(sunset[0]).assertEqual('#FF1744');
@@ -512,7 +512,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_oceanStopsExact', 0, () => {
+    it('preset_oceanStopsExact', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const ocean: string[] = GradientPreset.OCEAN;
       expect(ocean.length).assertEqual(4);
       expect(ocean[0]).assertEqual('#004D40');
@@ -530,7 +530,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_forestStopsExact', 0, () => {
+    it('preset_forestStopsExact', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const forest: string[] = GradientPreset.FOREST;
       expect(forest.length).assertEqual(4);
       expect(forest[0]).assertEqual('#1B5E20');
@@ -548,7 +548,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_getCaseSensitive', 0, () => {
+    it('preset_getCaseSensitive', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(GradientPreset.get('SKY') === null).assertTrue();
       expect(GradientPreset.get('Sky') === null).assertTrue();
       expect(GradientPreset.get(' sky') === null).assertTrue();
@@ -562,7 +562,7 @@ export default function colorUtilMatrixTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('preset_darkToLight', 0, () => {
+    it('preset_darkToLight', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 文档约定“深→浅排列”：首色亮度必须低于末色
       for (const nm of GradientPreset.getNames()) {
         const stops: string[] | null = GradientPreset.get(nm);

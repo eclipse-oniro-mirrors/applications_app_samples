@@ -13,7 +13,7 @@
  * limitations under the License.
  */
  
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { CanvasScenes } from '../../../main/ets/model/CanvasScenes';
 import { PixelMapUtil } from '../../../main/ets/model/utils/PixelMapUtil';
 
@@ -43,7 +43,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('offscreen_getContext', 0, () => {
+    it('offscreen_getContext', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
       expect(ctx !== null && ctx !== undefined).assertTrue();
@@ -57,7 +57,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawLinearGradient_noThrow', 0, () => {
+    it('drawLinearGradient_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
       CanvasScenes.drawLinearGradient(ctx, W, H);
@@ -72,7 +72,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawPatternFill_repeat', 0, () => {
+    it('drawPatternFill_repeat', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(checkerBitmap !== null).assertTrue();
       if (checkerBitmap === null) {
         return;
@@ -92,7 +92,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawMatrixScenes_noThrow', 0, () => {
+    it('drawMatrixScenes_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
       CanvasScenes.drawMatrixTranslate(ctx, W, H);
@@ -109,7 +109,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('transferToImageBitmap_validSize', 0, () => {
+    it('transferToImageBitmap_validSize', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
       CanvasScenes.drawLinearGradient(ctx, W, H);
@@ -126,7 +126,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('composite_pipeline', 0, () => {
+    it('composite_pipeline', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 完整流水线：离屏源绘制 → transfer → 主离屏画布 Matrix2D 变换贴图
       expect(checkerBitmap !== null).assertTrue();
       if (checkerBitmap === null) {
@@ -155,7 +155,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawPatternFill_nullSafe', 0, () => {
+    it('drawPatternFill_nullSafe', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 空素材：函数内部告警并直接返回，不调用 createPattern、不产生绘制
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -171,7 +171,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawMatrixSkew_noThrow', 0, () => {
+    it('drawMatrixSkew_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 属性方式倾斜（rotateX/rotateY 直接赋值）
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -186,7 +186,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawImageData_noThrow', 0, () => {
+    it('drawImageData_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // ImageData 像素级写入 + putImageData
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -201,7 +201,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawGradientFrame_allPhases', 0, () => {
+    it('drawGradientFrame_allPhases', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 渐变动画帧：t 起点/中段/终点均正常绘制
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -218,7 +218,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawDotRing_noThrow', 0, () => {
+    it('drawDotRing_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // GeometryUtil 圆环阵（3 圈极坐标圆点）
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -233,7 +233,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('runCompositeScene_pipeline', 0, () => {
+    it('runCompositeScene_pipeline', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 注册表场景4 入口：离屏绘制 → transfer → 主画布变换贴图（完整流水线）
       if (checkerBitmap === null) {
         expect(checkerBitmap !== null).assertTrue();
@@ -256,7 +256,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawPatternTransform_noThrow', 0, () => {
+    it('drawPatternTransform_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // CanvasPattern.setTransform：同一图案三种矩阵（旋转/缩放/平移）
       if (checkerBitmap === null) {
         expect(checkerBitmap !== null).assertTrue();
@@ -275,7 +275,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawImageCrop_noThrow', 0, () => {
+    it('drawImageCrop_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // drawImage 9 参数源矩形裁剪（内部自建离屏源图）
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -290,7 +290,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawShadowGradient_noThrow', 0, () => {
+    it('drawShadowGradient_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 阴影开启/关闭 + 渐变叠加
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -305,7 +305,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawFilterBlur_noThrow', 0, () => {
+    it('drawFilterBlur_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // filter blur 与 none 对比
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -320,7 +320,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawColorMetricsGradient_noThrow', 0, () => {
+    it('drawColorMetricsGradient_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // addColorStop 的 ColorMetrics 重载（API 12+）
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -335,7 +335,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawConicGradient_noThrow', 0, () => {
+    it('drawConicGradient_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // createConicGradient（API 12+）：六段色环 + 中心圆
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -350,7 +350,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawPathCurves_noThrow', 0, () => {
+    it('drawPathCurves_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 三次贝塞尔波形 + 二次贝塞尔心形 + arcTo 圆角矩形
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -365,7 +365,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawClipComposite_noThrow', 0, () => {
+    it('drawClipComposite_noThrow', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 圆形/矩形裁剪 + source-over / multiply / screen 三种合成模式
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -380,7 +380,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawTextStyles_measure', 0, () => {
+    it('drawTextStyles_measure', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // fillText / strokeText / 渐变文字 + measureText
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -396,7 +396,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawLineDash_resetsDashArray', 0, () => {
+    it('drawLineDash_resetsDashArray', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // setLineDash / lineDashOffset / lineCap / lineJoin，结束后虚线复位
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
@@ -412,7 +412,7 @@ export default function canvasScenesTest() {
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('drawImageDataReadback_opaque', 0, () => {
+    it('drawImageDataReadback_opaque', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       // 回读中心区域反相后写回，中心像素 alpha 保持不透明
       const off = new OffscreenCanvas(W, H);
       const ctx = off.getContext('2d');
