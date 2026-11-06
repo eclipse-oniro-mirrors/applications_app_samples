@@ -22,7 +22,7 @@ function stringToUint8Array(str: string): Uint8Array {
 }
 
 async function testExtensionError(): Promise<void> {
-  /* 1.鍋囪宸叉墦寮€鐨勮祫婧愬涓?*/
+  /* 1.假设已打开的资源如下 */
   const testResourceId = JSON.stringify({
     providerName: 'testProviderName',
     bundleName: 'com.example.cryptoapplication',
@@ -32,7 +32,7 @@ async function testExtensionError(): Promise<void> {
     } as ESObject
   });
 
-  /* 2.鏋勯€犲弬鏁?*/
+  /* 2.构造参数 */
   const pin = '123456';
   const params: huksExternalCrypto.HuksExternalCryptoParam[] = [
     {
@@ -40,8 +40,8 @@ async function testExtensionError(): Promise<void> {
       value: stringToUint8Array(pin)
     }
   ];
-
-  /* 3.楠岃瘉PIN鐮佸け璐ュ悗鑾峰彇閿欒淇℃伅 */
+  
+  /* 3.验证PIN码失败后获取错误信息 */
   try {
     await huksExternalCrypto.getUkeyPinAuthState(testResourceId, params);
   } catch (error) {

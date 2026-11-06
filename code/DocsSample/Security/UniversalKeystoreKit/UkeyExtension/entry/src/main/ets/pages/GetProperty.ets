@@ -18,7 +18,7 @@ import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 async function getDeviceInfo(): Promise<void> {
-  // 鍋囪宸查€氳繃openResource鎵撳紑resourceId
+  // 假设已通过openResource打开resourceId
   const testResourceId = JSON.stringify({
     providerName: 'testProviderName',
     bundleName: 'com.example.cryptoapplication',
@@ -28,11 +28,11 @@ async function getDeviceInfo(): Promise<void> {
     } as ESObject
   });
 
-  // 璁剧疆propertyId
+  // 设置propertyId
   const propertyId = 'SKF_GetDevInfo';
   const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [];
 
-  // 璋冪敤getProperty鑾峰彇灞炴€т俊鎭?
+  // 调用getProperty获取属性信息
   try {
     await huksExternalCrypto.getProperty(testResourceId, propertyId, extProperties)
       .then((data) => {

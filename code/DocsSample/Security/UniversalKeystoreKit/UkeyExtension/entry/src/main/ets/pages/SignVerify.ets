@@ -14,6 +14,9 @@
  */
 
 // [Start ukey_sign_verify_arkts]
+/*
+ * 密钥算法为RSA，摘要算法为SHA256，填充模式为PSS
+ */
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -92,13 +95,13 @@ async function signAndVerify() {
     index: { key: 'testKey' } as ESObject
   });
   try {
-    // 绛惧悕娴佺▼
+    // 签名流程
     await huksExternalCrypto.openResource(keyAlias);
-    // 杩涜PIN璁よ瘉
+    // 进行PIN认证
     await sign(keyAlias);
     await huksExternalCrypto.closeResource(keyAlias);
 
-    // 楠岀娴佺▼锛堜笉闇€瑕丳IN璁よ瘉锛?
+    // 验签流程（不需要PIN认证）
     await huksExternalCrypto.openResource(keyAlias);
     await verify(keyAlias);
     await huksExternalCrypto.closeResource(keyAlias);
