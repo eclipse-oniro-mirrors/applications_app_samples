@@ -26,7 +26,7 @@ All components are imported from `@kit.ArkUI`. The project also uses the followi
 Main features:
 
 - **Nine demo sections**: five base sections (Chip V1, ChipV2, ChipGroupV2, CounterV2, SegmentButtonV2) plus four advanced sections (Chip advanced V1/V2, ChipGroupV2 advanced, CounterV2 advanced, SegmentButtonV2 advanced), comparing V1 and V2 on the same screen.
-- **Full tag coverage**: activated state, Image / Symbol prefix and suffix icons, independent suffix Symbol click callback, accessibility description, dynamic enabling, custom style, size switching, closable and restore, and the `enabled: false` state.
+- **Full tag coverage**: activated state, Image / Symbol prefix and suffix icons, independent suffix Symbol click callback, accessibility description, dynamic enabling, custom style, size switching, removal and restore, and the `enabled: false` state.
 - **Group selection**: ChipGroupV2 single-select, multi-select, and custom-style groups, supporting `itemStyle`, `chipGroupSpace`, `chipGroupPadding`, `suffix` (including tail icon group), and `onChange`.
 - **Four counter types**: list, compact, numeric inline (min / max / step / textWidth / label), and date inline (`onDateChange` with initial year / month / day), plus `onFocus` / `onBlur` / `onHover` business callbacks.
 - **Three segment button forms**: tab-style single-select, capsule-style mixed icon+text single-select, and capsule-style multi-select; advanced sections add pure-Symbol capsules (`onItemClicked`, icon size / padding / background / min height) and `enabled: false` items.
@@ -43,7 +43,7 @@ After launch, the page shows, from top to bottom: title and description, device 
 ### Usage
 
 1. Open the project in DevEco Studio, use the OpenHarmony default debug signing shipped with the SDK (or DevEco Studio automatic signing), and run it on an RK3568 development board (API 26 image).
-2. In sections 1 / 2, tap a tag to toggle its activated state, tap the suffix icon to trigger `suffixIcon.action`, and tap the x on the "closable" tag to remove it; use "+ Restore closable tag" to bring it back.
+2. In sections 1 / 2, tap a tag to toggle its activated state, tap the suffix icon to trigger `suffixIcon.action`, and tap the x on the removable tag to remove it; use the restore entry to bring it back.
 3. In section 3, operate the single-select, multi-select, and custom-style groups and observe the "replace / add / remove" actions in the status line and log.
 4. In sections 4 / 5, use the top "jump to counter and segment" shortcut to locate them quickly; the counter demonstrates four types and the segment button demonstrates three forms.
 5. Section 6 demonstrates independent suffix Symbol clicks (V1 `suffixSymbolOptions.action` and V2 `ChipV2SuffixSymbolIcon.action`), accessibility description tags, and dynamic enabling. Section 7 demonstrates group top/bottom padding and the tail icon group (Image + like/favorite Symbols that toggle gray/orange without changing group selection). Section 8 demonstrates label / step / textWidth / focus / blur / hover and the initial date. Section 9 demonstrates pure-Symbol capsules and `enabled: false` items.
@@ -112,7 +112,7 @@ The layout reads the window width with `onAreaChange` and calls `DeviceUtil.getB
 
 | Section | Content | Key APIs |
 | --- | --- | --- |
-| 1. Chip (V1) | Basic activation, Image prefix / suffix icons, Symbol icon, custom style, SMALL / NORMAL size, closable and restore, `enabled: false` tag | `Chip` / `ChipOptions` / `LabelOptions` / `PrefixIconOptions` / `SuffixIconOptions` / `ChipSymbolGlyphOptions` / `CloseOptions` / `ChipSize` / `onClicked` |
+| 1. Chip (V1) | Basic activation, Image prefix / suffix icons, Symbol icon, custom style, SMALL / NORMAL size, removal and restore, `enabled: false` tag | `Chip` / `ChipOptions` / `LabelOptions` / `PrefixIconOptions` / `SuffixIconOptions` / `ChipSymbolGlyphOptions` / `CloseOptions` / `ChipSize` / `onClicked` |
 | 2. ChipV2 | NORMAL / SMALL size, Image / Symbol icons, ColorMetrics background + LengthMetrics radius, custom closeIcon, close / restore, `enabled: false` state | `ChipV2` / `ChipV2Options` / `ChipV2Label` / `ChipV2Size` / `ChipV2PrefixSymbolIcon` / `ChipV2CloseIcon` / `ColorMetrics` / `LengthMetrics` |
 | 3. ChipGroupV2 | Single-select, multi-select, custom-style group (itemStyle, spacing, suffix, onChange) | `ChipGroupV2` / `ChipGroupV2Items` / `ChipGroupV2ItemStyle` / `ChipGroupV2Space` / `onChange` / `suffix` |
 | 4. CounterV2 | LIST / COMPACT / INLINE (min / max / step) / INLINE_DATE | `CounterV2Component` / `CounterV2Options` / `CounterV2Type` |
@@ -127,8 +127,8 @@ The layout reads the window width with `onAreaChange` and calls `DeviceUtil.getB
 - **Distinct activated state**: activation explicitly sets dark blue `#1565C0`, white text, and a check mark after the text. In V1 `activatedFontColor` is in `LabelOptions` and `activatedBackgroundColor` is in `ChipOptions`; in V2 they are in `ChipV2LabelConfig` and `ChipV2Options`.
 - **Two icon types**: V1 uses `prefixSymbol` (`ChipSymbolGlyphOptions.normal / activated`), V2 uses `ChipV2PrefixSymbolIcon`; Image and Symbol icons are compared on the same screen, with Symbol colors set through `SymbolGlyphModifier` (dark gray normal, white activated).
 - **Customizable close button**: V1 uses `closeOptions` with `accessibilityText` and `fontSize: 20`; V2 uses `ChipV2CloseIcon` with accessible text and `LengthMetrics.vp(20)`; clicking runs `onClose` to remove the tag and show the restore entry.
-- **`allowClose` defaults to `true`**: display tags must explicitly set `allowClose: false`; only the closable tag binds `onClose`.
-- **Tag with `enabled: false` on its own row**: on the verified API 26 image, when a tag with `enabled: false` and a closable tag are on the same row, tapping the `enabled: false` tag may pass through and trigger the adjacent `onClose`, so this example occupies its own row.
+- **`allowClose` defaults to `true`**: display tags must explicitly set `allowClose: false`; only the removable tag binds `onClose`.
+- **Tag with `enabled: false` on its own row**: on the verified API 26 image, when a tag with `enabled: false` and a removable tag are on the same row, tapping the `enabled: false` tag may pass through and trigger the adjacent `onClose`, so this example occupies its own row.
 
 Section 6 adds advanced usage:
 
@@ -259,7 +259,7 @@ Other limitations:
 
 - **Screenshots**: the repository does not currently include runtime screenshots; use actual device output as the reference.
 - **`allowClose` default**: Chip / ChipV2 default to `true` and render a close icon when not explicitly set; display tags should set `allowClose: false`.
-- **Tap-through of a tag with `enabled: false`**: on the verified API 26 image, when a tag with `enabled: false` and a closable tag share a row, the adjacent `onClose` may be triggered; the sample keeps such a tag on its own row.
+- **Tap-through of a tag with `enabled: false`**: on the verified API 26 image, when a tag with `enabled: false` and a removable tag share a row, the adjacent `onClose` may be triggered; the sample keeps such a tag on its own row.
 - **Item rebuild flicker**: group items and style objects must be created once outside `build()`; otherwise logging-triggered re-renders remount the same group and cause flicker.
 - **Activated style**: default activated colors may be hard to distinguish under different system themes; the sample explicitly sets dark blue background, white text, and a check mark.
 - **V2 icon resources**: Symbol icons use system resources `sys.symbol.heart` / `sys.symbol.star` / `sys.symbol.checkmark_circle` / `sys.symbol.chevron_right`, and the device must support HM Symbol.

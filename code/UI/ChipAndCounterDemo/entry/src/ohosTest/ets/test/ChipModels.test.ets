@@ -271,8 +271,8 @@ export default function chipModelsTest() {
       expect(configs[1].label.text).assertEqual('Y');
       // 默认不显示关闭按钮，避免与组内“选择”交互混淆
       expect(configs[0].allowClose).assertFalse();
-      const closable = ChipConfigFactory.buildGroupItemConfigs(['Z'], 'icon.png', true);
-      expect(closable[0].allowClose).assertTrue();
+      const removable = ChipConfigFactory.buildGroupItemConfigs(['Z'], 'icon.png', true);
+      expect(removable[0].allowClose).assertTrue();
     });
 
     /**

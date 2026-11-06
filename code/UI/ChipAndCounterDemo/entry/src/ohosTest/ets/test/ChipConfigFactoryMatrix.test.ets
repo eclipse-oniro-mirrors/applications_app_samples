@@ -136,13 +136,13 @@ export default function chipConfigFactoryMatrixTest() {
      */
     it('groupConfigsDefaultAllowCloseFalse0008', 0, () => {
       const configs: ChipGroupV2ItemConfig[] = ChipConfigFactory.buildGroupItemConfigs(['A', 'B', 'C'], 'icon.png');
-      let closable: number = 0;
+      let removable: number = 0;
       for (const c of configs) {
         if (c.allowClose) {
-          closable++;
+          removable++;
         }
       }
-      expect(closable).assertEqual(0);
+      expect(removable).assertEqual(0);
     });
 
     /**
