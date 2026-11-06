@@ -43,7 +43,7 @@ struct RestoreIndex {
   onPageShow(): void {
     // 深栈补推时机：此时系统栈恢复已完成、页面已渲染；禁止提前到 loadContent 回调
     // （系统恢复尚未执行，会互相冲突）。恢复启动时首页的自动跳转（如广告页）必须跳过，
-    // 否则会把恢复出来的栈顶页挤掉。
+    // 否则会覆盖系统恢复出的栈顶页。
     this.replayDeepStack();
   }
   // [End deep_stack_replay_timing]
@@ -71,7 +71,16 @@ struct RestoreIndex {
   // [End deep_stack_replay]
 
   // [Start nav_snapshot_report]
-  /** 每次导航后把路径快照发布到 AppStorage，onSaveState 同步读取。 */
+  aboutToAppear(): void {
+    // 栈变化统一监听：进入、返回、替换后都更新快照，避免只覆盖进入场景
+    this.pathStack.setInterception({
+      didShow: () => {
+        this.reportNavSnapshot();
+      }
+    });
+  }
+
+  /** 栈变化后把路径快照发布到 AppStorage，onSaveState 同步读取。 */
   private reportNavSnapshot(): void {
     AppStorage.setOrCreate(KEY_NAV_SNAPSHOT, JSON.stringify(this.pathStack.getAllPathName()));
   }

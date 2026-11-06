@@ -77,7 +77,7 @@ export default class RestoreAbility extends UIAbility {
     if (st !== undefined) {
       wantParam[KEY_RESTORE_READER] = st;
     }
-    // 超过 2048 字节的草稿走落盘引用，want.parameters 只放文件名
+    // 草稿超过分流阈值（示例取 2048 字节，可按业务调整）走落盘引用，want.parameters 只放文件名
     const draft = AppStorage.get<string>(KEY_READER_DRAFT) ?? '';
     if (draft.length > 2048) {
       wantParam[KEY_RESTORE_DRAFT_FILE] = saveBlob(this.context, 'reader', draft);

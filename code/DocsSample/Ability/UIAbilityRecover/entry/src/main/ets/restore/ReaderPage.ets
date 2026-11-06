@@ -33,13 +33,11 @@ export struct ReaderPage {
       this.bookId = (restored['bookId'] as string) ?? '';
       this.chapterIndex = (restored['chapterIndex'] as number) ?? 1;
       this.progress = (restored['progress'] as number) ?? 0;
-      // 落盘草稿优先于随数据带回的短草稿
-      const draftFromBlob = AppStorage.get<string>('restore.reader.draft');
-      if (draftFromBlob !== undefined) {
+      // 草稿统一经独立恢复键中转（短草稿随数据带回、长草稿按文件名读回），不在状态对象里
+      const draft = AppStorage.get<string>('restore.reader.draft');
+      if (draft !== undefined) {
         AppStorage.delete('restore.reader.draft');
-        this.draft = draftFromBlob;
-      } else {
-        this.draft = (restored['draft'] as string) ?? '';
+        this.draft = draft;
       }
       this.source = '恢复启动';
       this.reportState();
@@ -131,7 +129,12 @@ export struct ReaderPage {
       this.bookId = (restored['bookId'] as string) ?? '';
       this.chapterIndex = (restored['chapterIndex'] as number) ?? 1;
       this.progress = (restored['progress'] as number) ?? 0;
-      this.draft = (restored['draft'] as string) ?? '';
+      // 草稿经独立恢复键中转，不在状态对象里
+      const draft = AppStorage.get<string>('restore.reader.draft');
+      if (draft !== undefined) {
+        AppStorage.delete('restore.reader.draft');
+        this.draft = draft;
+      }
       this.source = '恢复启动';
       this.reportState();
       return;
