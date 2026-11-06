@@ -15,4 +15,4 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 #set_target_properties(libparse_point PROPERTIES IMPORTED_LOCATION ${LIB_DIR}/${OHOS_ARCH}/libparse_point.so)
 
 add_library(entry SHARED hello.cpp data_parser.cpp)
-target_link_libraries(entry PUBLIC libace_napi.z.so libhid.z.so libhilog_ndk.z.so -lpthread)
+target_link_libraries(entry PUBLIC libace_napi.z.so libhid.z.so libhilog_ndk.z.so libusb_ndk.z.so -lpthread)
