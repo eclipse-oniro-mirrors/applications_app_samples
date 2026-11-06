@@ -1,10 +1,10 @@
-# 开发用户文件管理器（仅对系统应用开放）
+# 开发用户文件管理器
 
 ### 介绍
 
-本示例主要展示了自行开发文件管理器与开发设备上下线，使用[@ohos.file.fileAccess](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md)等，实现了查询设备列表、浏览目录、操作文件或目录、监听设备上下线的功能。该工程中展示的代码详细描述可查如下链接。
+本示例主要展示了自行开发文件管理器与开发文件监听，使用[@ohos.file.fs](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-fs.md)（fileIo）等，实现了在应用沙箱目录下创建文件、监听目录文件变化的功能。该工程中展示的代码详细描述可查如下链接。
 
-- [开发用户文件管理器](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/file-management/dev-user-file-manager.md)
+- [开发用户文件管理器](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/dev-user-file-manager.md)
 
 ### 效果预览
 
@@ -23,8 +23,8 @@
 使用说明:
 
 1. 在主界面，可以选择点击DevelopingFileManagerApplication按钮切换到开发用户文件管理器页面，点击ListeningForDeviceOnline/OfflineStatus按钮切换到监听设备上下线页面。
-2. 在开发用户文件管理器页面，点击CreateFile按钮，将在指定目录创建一个文件，在日志中打印文件的uri，在页面文本框输出创建成功消息。
-3. 在监听用户上下线页面，点击RegisterToMonitorTheDevice按钮，此时开发板将监听外置存储设备的上下线，将U盘插入到开发板，日志将输出“NotifyType: ”与“NotifyUri:”，并将监听成功的结果输出到页面文本框。点击CancelMonitoringTheDevice按钮将取消监听。
+2. 在开发用户文件管理器页面，点击CreateFile按钮，将在应用沙箱目录下创建一个文件并写入内容，在日志中打印文件路径，在页面文本框输出创建成功消息。
+3. 在监听页面，点击RegisterToMonitorTheDevice按钮，应用将监听沙箱目录的文件变化，并自动创建一个演示文件触发监听回调，日志将输出“NotifyType: ”与“NotifyFile:”，并将监听成功的结果输出到页面文本框。点击CancelMonitoringTheDevice按钮将取消监听。
 
 ### 工程目录
 
@@ -73,11 +73,11 @@
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例已适配API16版本SDK，版本号：5.1.0.47，镜像版本号：OpenHarmony5.1.0.47。
+2.本示例已适配API 26版本SDK，SDK版本号（API Version 26 Release）。
 
-3.本示例需要使用DevEco Studio （5.0.3.910）及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio （26.0.0 Release）及以上版本才可编译运行。
 
-4.本示例相关权限为system_basic级别，需要配置高权限签名，可参考[申请使用受控权限](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)。
+4.本示例使用应用沙箱目录进行文件操作与监听，无需申请特殊权限。
 
 ### 下载
 
