@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [register_provider_arkts]
+// [Start register_provider_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -51,4 +51,4 @@ async function registerProvider(): Promise<void> {
 async function testRegisterProvider() {
   await registerProvider();
 }
-// [register_provider_arkts]
+// [End register_provider_arkts]

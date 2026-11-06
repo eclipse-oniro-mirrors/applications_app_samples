@@ -68,7 +68,7 @@ static OH_Huks_Result InitHuksParamSet(
     return ret;
 }
 
-// [register_provider_cpp]
+// [Start register_provider_cpp]
 static struct OH_Huks_Blob g_abilityName = {
     (uint32_t)strlen("testAbility"),
     (uint8_t *)"testAbility"
@@ -107,9 +107,9 @@ static napi_value registerProvider(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [register_provider_cpp]
+// [End register_provider_cpp]
 
-// [unregister_single_cpp]
+// [Start unregister_single_cpp]
 static napi_value unregisterSingleProvider(napi_env env, napi_callback_info info)
 {
     struct OH_Huks_ExternalCryptoParamSet *providerParamSet = nullptr;
@@ -131,9 +131,9 @@ static napi_value unregisterSingleProvider(napi_env env, napi_callback_info info
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [unregister_single_cpp]
+// [End unregister_single_cpp]
 
-// [unregister_all_cpp]
+// [Start unregister_all_cpp]
 static struct OH_Huks_ExternalCryptoParam g_emptyAbilityParams[] = {};
 
 static napi_value unregisterAllProvider(napi_env env, napi_callback_info info)
@@ -157,9 +157,9 @@ static napi_value unregisterAllProvider(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [unregister_all_cpp]
+// [End unregister_all_cpp]
 
-// [open_resource_cpp]
+// [Start open_resource_cpp]
 static const char *OPEN_RESOURCE_ID =
     "{\"providerName\":\"testProviderName\","
     "\"abilityName\":\"CryptoExtension\","
@@ -193,9 +193,9 @@ static napi_value OpenResource(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [open_resource_cpp]
+// [End open_resource_cpp]
 
-// [close_resource_cpp]
+// [Start close_resource_cpp]
 static const char *CLOSE_RESOURCE_ID =
     "{\"providerName\":\"testProviderName\","
     "\"abilityName\":\"CryptoExtension\","
@@ -230,9 +230,9 @@ static napi_value CloseResource(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [close_resource_cpp]
+// [End close_resource_cpp]
 
-// [query_auth_state_cpp]
+// [Start query_auth_state_cpp]
 static const char *QUERY_RESOURCE_ID =
     "{\"providerName\":\"testProviderName\","
     "\"abilityName\":\"CryptoExtension\","
@@ -267,9 +267,9 @@ static napi_value GetUkeyPinAuthState(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [query_auth_state_cpp]
+// [End query_auth_state_cpp]
 
-// [get_property_cpp]
+// [Start get_property_cpp]
 static void ExtractPropertyResult(OH_Huks_ExternalCryptoParamSet *paramSetOut)
 {
     if (paramSetOut == nullptr || paramSetOut->paramsCnt == 0) {
@@ -339,9 +339,9 @@ static napi_value GetProperty(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [get_property_cpp]
+// [End get_property_cpp]
 
-// [ukey_best_practice_cpp]
+// [Start ukey_best_practice_cpp]
 /* 1. 调用证书管理接口解析用户选择的证书，获取对应的证书数据 */
 static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
 {
@@ -508,9 +508,9 @@ extern "C" __attribute__((constructor)) void RegisterHelloModule(void)
 {
     napi_module_register(&demoModule);
 }
-// [ukey_best_practice_cpp]
+// [End ukey_best_practice_cpp]
 
-// [ukey_sign_cpp]
+// [Start ukey_sign_cpp]
 /* 调用huks三段式接口获取签名后的数据 */
 static struct OH_Huks_Param g_signParamsTest[] = {
     {
@@ -575,4 +575,4 @@ static napi_value Sign(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [ukey_sign_cpp]
+// [End ukey_sign_cpp]
