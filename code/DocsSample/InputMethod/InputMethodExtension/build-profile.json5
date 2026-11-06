@@ -1,0 +1,56 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\mfwangs\\.ohos\\config\\default_InputMethodExtension_bUWw0QS4xvJYKZCqOvuglx1Notvzuy88lm8G3N7ZY14=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001ADC942FE0CE83EFBF20FA151149F6071DD08FC3BD0F71CE046EEDF25DB2E77347D2BAF6543B7C",
+          "profile": "C:\\Users\\mfwangs\\.ohos\\config\\default_InputMethodExtension_bUWw0QS4xvJYKZCqOvuglx1Notvzuy88lm8G3N7ZY14=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\mfwangs\\.ohos\\config\\default_InputMethodExtension_bUWw0QS4xvJYKZCqOvuglx1Notvzuy88lm8G3N7ZY14=.p12",
+          "storePassword": "0000001AE75BD460947325A0781E2E6F28CB4DC32AC2AB2C6E00ACA6030EAEF145366E723ED5F2318247"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

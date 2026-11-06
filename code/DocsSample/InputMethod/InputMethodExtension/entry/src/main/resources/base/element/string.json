@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "IME Kit 输入法扩展示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "IME Kit 输入法扩展示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "输入法扩展"
+    },
+    {
+      "name": "extension_desc",
+      "value": "输入法扩展面板服务"
+    },
+    {
+      "name": "extension_label",
+      "value": "输入法扩展"
+    }
+  ]
+}
