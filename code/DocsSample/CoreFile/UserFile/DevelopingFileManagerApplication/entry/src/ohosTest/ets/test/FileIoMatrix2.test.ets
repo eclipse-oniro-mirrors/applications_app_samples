@@ -1050,5 +1050,1919 @@ export default function fileIoMatrix2Test(): void {
         }
       });
 
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_20800
+     * @tc.name      testDfmaFileIo0208
+     * @tc.desc      Verify sandbox file lifecycle case 208.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0208',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0208.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0208');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0208');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_20900
+     * @tc.name      testDfmaFileIo0209
+     * @tc.desc      Verify sandbox file lifecycle case 209.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0209',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0209.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0209');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0209');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21000
+     * @tc.name      testDfmaFileIo0210
+     * @tc.desc      Verify sandbox file lifecycle case 210.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0210',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0210.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0210');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0210');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21100
+     * @tc.name      testDfmaFileIo0211
+     * @tc.desc      Verify sandbox file lifecycle case 211.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0211',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0211.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0211');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0211');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21200
+     * @tc.name      testDfmaFileIo0212
+     * @tc.desc      Verify sandbox file lifecycle case 212.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0212',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0212.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0212');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0212');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21300
+     * @tc.name      testDfmaFileIo0213
+     * @tc.desc      Verify sandbox file lifecycle case 213.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0213',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0213.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0213');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0213');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21400
+     * @tc.name      testDfmaFileIo0214
+     * @tc.desc      Verify sandbox file lifecycle case 214.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0214',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0214.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0214');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0214');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21500
+     * @tc.name      testDfmaFileIo0215
+     * @tc.desc      Verify sandbox file lifecycle case 215.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0215',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0215.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0215');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0215');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21600
+     * @tc.name      testDfmaFileIo0216
+     * @tc.desc      Verify sandbox file lifecycle case 216.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0216',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0216.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0216');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0216');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21700
+     * @tc.name      testDfmaFileIo0217
+     * @tc.desc      Verify sandbox file lifecycle case 217.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0217',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0217.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0217');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0217');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21800
+     * @tc.name      testDfmaFileIo0218
+     * @tc.desc      Verify sandbox file lifecycle case 218.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0218',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0218.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0218');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0218');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_21900
+     * @tc.name      testDfmaFileIo0219
+     * @tc.desc      Verify sandbox file lifecycle case 219.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0219',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0219.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0219');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0219');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22000
+     * @tc.name      testDfmaFileIo0220
+     * @tc.desc      Verify sandbox file lifecycle case 220.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0220',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0220.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0220');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0220');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22100
+     * @tc.name      testDfmaFileIo0221
+     * @tc.desc      Verify sandbox file lifecycle case 221.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0221',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0221.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0221');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0221');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22200
+     * @tc.name      testDfmaFileIo0222
+     * @tc.desc      Verify sandbox file lifecycle case 222.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0222',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0222.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0222');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0222');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22300
+     * @tc.name      testDfmaFileIo0223
+     * @tc.desc      Verify sandbox file lifecycle case 223.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0223',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0223.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0223');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0223');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22400
+     * @tc.name      testDfmaFileIo0224
+     * @tc.desc      Verify sandbox file lifecycle case 224.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0224',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0224.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0224');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0224');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22500
+     * @tc.name      testDfmaFileIo0225
+     * @tc.desc      Verify sandbox file lifecycle case 225.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0225',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0225.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0225');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0225');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22600
+     * @tc.name      testDfmaFileIo0226
+     * @tc.desc      Verify sandbox file lifecycle case 226.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0226',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0226.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0226');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0226');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22700
+     * @tc.name      testDfmaFileIo0227
+     * @tc.desc      Verify sandbox file lifecycle case 227.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0227',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0227.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0227');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0227');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22800
+     * @tc.name      testDfmaFileIo0228
+     * @tc.desc      Verify sandbox file lifecycle case 228.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0228',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0228.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0228');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0228');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_22900
+     * @tc.name      testDfmaFileIo0229
+     * @tc.desc      Verify sandbox file lifecycle case 229.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0229',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0229.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0229');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0229');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23000
+     * @tc.name      testDfmaFileIo0230
+     * @tc.desc      Verify sandbox file lifecycle case 230.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0230',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0230.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0230');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0230');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23100
+     * @tc.name      testDfmaFileIo0231
+     * @tc.desc      Verify sandbox file lifecycle case 231.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0231',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0231.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0231');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0231');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23200
+     * @tc.name      testDfmaFileIo0232
+     * @tc.desc      Verify sandbox file lifecycle case 232.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0232',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0232.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0232');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0232');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23300
+     * @tc.name      testDfmaFileIo0233
+     * @tc.desc      Verify sandbox file lifecycle case 233.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0233',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0233.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0233');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0233');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23400
+     * @tc.name      testDfmaFileIo0234
+     * @tc.desc      Verify sandbox file lifecycle case 234.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0234',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0234.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0234');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0234');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23500
+     * @tc.name      testDfmaFileIo0235
+     * @tc.desc      Verify sandbox file lifecycle case 235.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0235',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0235.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0235');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0235');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23600
+     * @tc.name      testDfmaFileIo0236
+     * @tc.desc      Verify sandbox file lifecycle case 236.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0236',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0236.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0236');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0236');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23700
+     * @tc.name      testDfmaFileIo0237
+     * @tc.desc      Verify sandbox file lifecycle case 237.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0237',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0237.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0237');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0237');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23800
+     * @tc.name      testDfmaFileIo0238
+     * @tc.desc      Verify sandbox file lifecycle case 238.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0238',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0238.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0238');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0238');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_23900
+     * @tc.name      testDfmaFileIo0239
+     * @tc.desc      Verify sandbox file lifecycle case 239.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0239',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0239.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0239');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0239');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24000
+     * @tc.name      testDfmaFileIo0240
+     * @tc.desc      Verify sandbox file lifecycle case 240.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0240',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0240.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0240');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0240');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24100
+     * @tc.name      testDfmaFileIo0241
+     * @tc.desc      Verify sandbox file lifecycle case 241.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0241',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0241.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0241');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0241');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24200
+     * @tc.name      testDfmaFileIo0242
+     * @tc.desc      Verify sandbox file lifecycle case 242.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0242',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0242.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0242');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0242');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24300
+     * @tc.name      testDfmaFileIo0243
+     * @tc.desc      Verify sandbox file lifecycle case 243.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0243',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0243.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0243');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0243');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24400
+     * @tc.name      testDfmaFileIo0244
+     * @tc.desc      Verify sandbox file lifecycle case 244.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0244',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0244.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0244');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0244');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24500
+     * @tc.name      testDfmaFileIo0245
+     * @tc.desc      Verify sandbox file lifecycle case 245.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0245',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0245.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0245');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0245');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24600
+     * @tc.name      testDfmaFileIo0246
+     * @tc.desc      Verify sandbox file lifecycle case 246.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0246',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0246.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0246');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0246');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24700
+     * @tc.name      testDfmaFileIo0247
+     * @tc.desc      Verify sandbox file lifecycle case 247.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0247',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0247.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0247');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0247');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24800
+     * @tc.name      testDfmaFileIo0248
+     * @tc.desc      Verify sandbox file lifecycle case 248.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0248',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0248.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0248');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0248');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_24900
+     * @tc.name      testDfmaFileIo0249
+     * @tc.desc      Verify sandbox file lifecycle case 249.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0249',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0249.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0249');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0249');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25000
+     * @tc.name      testDfmaFileIo0250
+     * @tc.desc      Verify sandbox file lifecycle case 250.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0250',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0250.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0250');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0250');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25100
+     * @tc.name      testDfmaFileIo0251
+     * @tc.desc      Verify sandbox file lifecycle case 251.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0251',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0251.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0251');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0251');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25200
+     * @tc.name      testDfmaFileIo0252
+     * @tc.desc      Verify sandbox file lifecycle case 252.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0252',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0252.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0252');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0252');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25300
+     * @tc.name      testDfmaFileIo0253
+     * @tc.desc      Verify sandbox file lifecycle case 253.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0253',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0253.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0253');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0253');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25400
+     * @tc.name      testDfmaFileIo0254
+     * @tc.desc      Verify sandbox file lifecycle case 254.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0254',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0254.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0254');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0254');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25500
+     * @tc.name      testDfmaFileIo0255
+     * @tc.desc      Verify sandbox file lifecycle case 255.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0255',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0255.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0255');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0255');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25600
+     * @tc.name      testDfmaFileIo0256
+     * @tc.desc      Verify sandbox file lifecycle case 256.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0256',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0256.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0256');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0256');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25700
+     * @tc.name      testDfmaFileIo0257
+     * @tc.desc      Verify sandbox file lifecycle case 257.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0257',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0257.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0257');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0257');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25800
+     * @tc.name      testDfmaFileIo0258
+     * @tc.desc      Verify sandbox file lifecycle case 258.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0258',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0258.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0258');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0258');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_25900
+     * @tc.name      testDfmaFileIo0259
+     * @tc.desc      Verify sandbox file lifecycle case 259.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0259',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0259.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0259');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0259');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26000
+     * @tc.name      testDfmaFileIo0260
+     * @tc.desc      Verify sandbox file lifecycle case 260.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0260',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0260.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0260');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0260');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26100
+     * @tc.name      testDfmaFileIo0261
+     * @tc.desc      Verify sandbox file lifecycle case 261.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0261',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0261.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0261');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0261');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26200
+     * @tc.name      testDfmaFileIo0262
+     * @tc.desc      Verify sandbox file lifecycle case 262.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0262',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0262.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0262');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0262');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26300
+     * @tc.name      testDfmaFileIo0263
+     * @tc.desc      Verify sandbox file lifecycle case 263.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0263',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0263.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0263');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0263');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26400
+     * @tc.name      testDfmaFileIo0264
+     * @tc.desc      Verify sandbox file lifecycle case 264.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0264',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0264.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0264');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0264');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26500
+     * @tc.name      testDfmaFileIo0265
+     * @tc.desc      Verify sandbox file lifecycle case 265.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0265',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0265.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0265');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0265');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26600
+     * @tc.name      testDfmaFileIo0266
+     * @tc.desc      Verify sandbox file lifecycle case 266.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0266',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0266.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0266');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0266');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26700
+     * @tc.name      testDfmaFileIo0267
+     * @tc.desc      Verify sandbox file lifecycle case 267.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0267',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0267.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0267');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0267');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26800
+     * @tc.name      testDfmaFileIo0268
+     * @tc.desc      Verify sandbox file lifecycle case 268.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0268',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0268.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0268');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0268');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_26900
+     * @tc.name      testDfmaFileIo0269
+     * @tc.desc      Verify sandbox file lifecycle case 269.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0269',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0269.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0269');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0269');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_27000
+     * @tc.name      testDfmaFileIo0270
+     * @tc.desc      Verify sandbox file lifecycle case 270.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0270',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0270.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0270');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0270');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_27100
+     * @tc.name      testDfmaFileIo0271
+     * @tc.desc      Verify sandbox file lifecycle case 271.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0271',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0271.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0271');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0271');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_27200
+     * @tc.name      testDfmaFileIo0272
+     * @tc.desc      Verify sandbox file lifecycle case 272.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0272',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0272.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0272');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0272');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_FILEIO_27300
+     * @tc.name      testDfmaFileIo0273
+     * @tc.desc      Verify sandbox file lifecycle case 273.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaFileIo0273',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const path: string = ROOT + '/case0273.txt';
+          const file: fs.File = fs.openSync(path,
+            fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+          fs.writeSync(file.fd, 'dfma_content_0273');
+          fs.closeSync(file);
+          expect(fs.accessSync(path)).assertTrue();
+          const stat: fs.Stat = fs.statSync(path);
+          expect(stat.size).assertEqual(17);
+          expect(fs.readTextSync(path)).assertEqual('dfma_content_0273');
+          fs.unlinkSync(path);
+          expect(fs.accessSync(path)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
