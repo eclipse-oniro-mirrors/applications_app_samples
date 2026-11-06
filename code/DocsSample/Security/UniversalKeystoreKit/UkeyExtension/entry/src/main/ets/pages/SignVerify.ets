@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [ukey_sign_verify_arkts]
+// [Start ukey_sign_verify_arkts]
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -92,13 +92,13 @@ async function signAndVerify() {
     index: { key: 'testKey' } as ESObject
   });
   try {
-    // 签名流程
+    // 绛惧悕娴佺▼
     await huksExternalCrypto.openResource(keyAlias);
-    // 进行PIN认证
+    // 杩涜PIN璁よ瘉
     await sign(keyAlias);
     await huksExternalCrypto.closeResource(keyAlias);
 
-    // 验签流程（不需要PIN认证）
+    // 楠岀娴佺▼锛堜笉闇€瑕丳IN璁よ瘉锛?
     await huksExternalCrypto.openResource(keyAlias);
     await verify(keyAlias);
     await huksExternalCrypto.closeResource(keyAlias);
@@ -106,4 +106,4 @@ async function signAndVerify() {
     console.error('signAndVerify input arg invalid.');
   }
 }
-// [ukey_sign_verify_arkts]
+// [End ukey_sign_verify_arkts]

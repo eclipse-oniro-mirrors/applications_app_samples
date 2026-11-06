@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [extension_error_arkts]
+// [Start extension_error_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { util } from '@kit.ArkTS';
 
@@ -22,7 +22,7 @@ function stringToUint8Array(str: string): Uint8Array {
 }
 
 async function testExtensionError(): Promise<void> {
-  /* 1.假设已打开的资源如下 */
+  /* 1.鍋囪宸叉墦寮€鐨勮祫婧愬涓?*/
   const testResourceId = JSON.stringify({
     providerName: 'testProviderName',
     bundleName: 'com.example.cryptoapplication',
@@ -32,7 +32,7 @@ async function testExtensionError(): Promise<void> {
     } as ESObject
   });
 
-  /* 2.构造参数 */
+  /* 2.鏋勯€犲弬鏁?*/
   const pin = '123456';
   const params: huksExternalCrypto.HuksExternalCryptoParam[] = [
     {
@@ -41,7 +41,7 @@ async function testExtensionError(): Promise<void> {
     }
   ];
 
-  /* 3.验证PIN码失败后获取错误信息 */
+  /* 3.楠岃瘉PIN鐮佸け璐ュ悗鑾峰彇閿欒淇℃伅 */
   try {
     await huksExternalCrypto.getUkeyPinAuthState(testResourceId, params);
   } catch (error) {
@@ -52,4 +52,4 @@ async function testExtensionError(): Promise<void> {
     }
   }
 }
-// [extension_error_arkts]
+// [End extension_error_arkts]

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [unregister_all_arkts]
+// [Start unregister_all_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -38,4 +38,4 @@ async function unregisterProvider(): Promise<void> {
 async function testRegisterProvider() {
   await unregisterProvider();
 }
-// [unregister_all_arkts]
+// [End unregister_all_arkts]

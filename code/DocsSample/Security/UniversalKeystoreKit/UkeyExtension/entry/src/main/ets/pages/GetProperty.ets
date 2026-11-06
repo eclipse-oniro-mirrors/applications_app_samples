@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-// [get_property_arkts]
+// [Start get_property_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 async function getDeviceInfo(): Promise<void> {
-  // 假设已通过openResource打开resourceId
+  // 鍋囪宸查€氳繃openResource鎵撳紑resourceId
   const testResourceId = JSON.stringify({
     providerName: 'testProviderName',
     bundleName: 'com.example.cryptoapplication',
@@ -28,11 +28,11 @@ async function getDeviceInfo(): Promise<void> {
     } as ESObject
   });
 
-  // 设置propertyId
+  // 璁剧疆propertyId
   const propertyId = 'SKF_GetDevInfo';
   const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [];
 
-  // 调用getProperty获取属性信息
+  // 璋冪敤getProperty鑾峰彇灞炴€т俊鎭?
   try {
     await huksExternalCrypto.getProperty(testResourceId, propertyId, extProperties)
       .then((data) => {
@@ -44,4 +44,4 @@ async function getDeviceInfo(): Promise<void> {
     console.error('promise: getProperty input arg invalid.');
   }
 }
-// [get_property_arkts]
+// [End get_property_arkts]
