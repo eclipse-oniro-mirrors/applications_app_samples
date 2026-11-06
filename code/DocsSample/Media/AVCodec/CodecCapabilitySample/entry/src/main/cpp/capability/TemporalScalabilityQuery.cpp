@@ -438,7 +438,8 @@ std::string TemporalScalabilityQuery::LtrFeatureCheck()
     // 1.3 确定支持的LTR数目。
     if (isSupported) {
         OH_AVFormat *properties = OH_AVCapability_GetFeatureProperties(cap, VIDEO_ENCODER_LONG_TERM_REFERENCE);
-        if (!OH_AVFormat_GetIntValue(properties, OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT, &supportedLTRCount)) {
+        if (!OH_AVFormat_GetIntValue(properties, OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT,
+                                     &supportedLTRCount)) {
             // 异常处理。
         }
         OH_AVFormat_Destroy(properties);

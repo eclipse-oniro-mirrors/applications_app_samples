@@ -23,60 +23,60 @@ std::string CapabilityQuery::QueryProfileAndLevel()
     OH_AVCProfile profile = AVC_PROFILE_MAIN;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 确认待配置档次是否支持。
     const int32_t *profiles = nullptr;
     uint32_t profileNum = 0;
     int32_t ret = OH_AVCapability_GetSupportedProfiles(capability, &profiles, &profileNum);
     if (ret != AV_ERR_OK || profiles == nullptr || profileNum == 0) {
-       // 异常处理。
+        // 异常处理。
     }
     bool isMatched = false;
     for (int i = 0; i < profileNum; i++) {
-       if (profiles[i] == profile) {
-          isMatched = true;
-          break;
-       }
+        if (profiles[i] == profile) {
+            isMatched = true;
+            break;
+        }
     }
     // 2. 查询待配置档次能支持的级别范围。
     const int32_t *levels = nullptr;
     uint32_t levelNum = 0;
     ret = OH_AVCapability_GetSupportedLevelsForProfile(capability, profile, &levels, &levelNum);
     if (ret != AV_ERR_OK || levels == nullptr || levelNum == 0) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVCLevel maxLevel = static_cast<OH_AVCLevel>(levels[0]);
     for (int32_t i = 1; i < levelNum; i++) {
-       OH_AVCLevel tmp = static_cast<OH_AVCLevel>(levels[i]);
-       if (tmp > maxLevel) {
-          maxLevel = tmp;
-       }
+        OH_AVCLevel tmp = static_cast<OH_AVCLevel>(levels[i]);
+        if (tmp > maxLevel) {
+            maxLevel = tmp;
+        }
     }
     // 3.（可选）基于支持的最大级别做业务逻辑区分。
     if (maxLevel >= AVC_LEVEL_51) {
-       // level5.1以上，宽、高可配置3840x2160。
+        // level5.1以上，宽、高可配置3840x2160。
     } else if (maxLevel >= AVC_LEVEL_4) {
-       // level4.0以上，宽、高可配1920x1080。
+        // level4.0以上，宽、高可配1920x1080。
     } else if (maxLevel >= AVC_LEVEL_31) {
-       // level3.1以上，宽、高可配1280x720。
+        // level3.1以上，宽、高可配1280x720。
     } else {
-       // 报错，不做编码。
+        // 报错，不做编码。
     }
     // 4. 配置档次参数。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
     if (videoEnc == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, 1920, 1080);
     if (format == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, profile)) {
-       // 异常处理。
+        // 异常处理。
     }
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat_Destroy(format);
     // [End capability_profile_and_level]
@@ -102,7 +102,7 @@ std::string CapabilityQuery::CheckProfileAndLevel()
     // 1. 获取H.264编码器能力实例。
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 2. 查询编码档次和级别是否支持。
     bool isSupported = OH_AVCapability_AreProfileAndLevelSupported(capability, AVC_PROFILE_MAIN, AVC_LEVEL_51);
@@ -123,12 +123,12 @@ std::string CapabilityQuery::CheckVideoSize()
     int32_t height = 1080;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 确认视频宽高是否支持。
     bool isSupported = OH_AVCapability_IsVideoSizeSupported(capability, width, height);
     if (!isSupported) {
-       // 2. (可选) 按已知视频高或已知视频宽查询详细限制，并调整。
+        // 2. (可选) 按已知视频高或已知视频宽查询详细限制，并调整。
     }
     // [End capability_video_size_check]
     std::string result = "校验视频宽高是否支持：";
@@ -147,31 +147,31 @@ std::string CapabilityQuery::QuerySizeForWidth()
     int32_t width = 1920;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 确认视频宽符合宽对齐要求。
     int32_t widthAlignment = 0;
     int32_t ret = OH_AVCapability_GetVideoWidthAlignment(capability, &widthAlignment);
     if (ret != AV_ERR_OK || widthAlignment <= 0) {
-       // 异常处理。
+        // 异常处理。
     } else if (width % widthAlignment != 0) {
-       // 2. (可选) 对齐视频宽。
-       width = (width + widthAlignment - 1) / widthAlignment * widthAlignment;
+        // 2. (可选) 对齐视频宽。
+        width = (width + widthAlignment - 1) / widthAlignment * widthAlignment;
     }
     // 3. 确认视频宽处在可支持宽范围内。
     OH_AVRange widthRange = {-1, -1};
     ret = OH_AVCapability_GetVideoWidthRange(capability, &widthRange);
     if (ret != AV_ERR_OK || widthRange.maxVal <= 0) {
-       // 异常处理。
+        // 异常处理。
     } else if (width < widthRange.minVal || width > widthRange.maxVal) {
-       // 4. (可选) 调整视频宽。
-       width = std::min(std::max(width, widthRange.minVal), widthRange.maxVal);
+        // 4. (可选) 调整视频宽。
+        width = std::min(std::max(width, widthRange.minVal), widthRange.maxVal);
     }
     // 5. 基于视频宽，获取可选视频高的范围。
     OH_AVRange heightRange = {-1, -1};
     ret = OH_AVCapability_GetVideoHeightRangeForWidth(capability, width, &heightRange);
     if (ret != AV_ERR_OK || heightRange.maxVal <= 0) {
-       // 异常处理。
+        // 异常处理。
     }
     // 6. 从可选高度范围中挑选合适的高度配置。
     // [End capability_video_size_for_width]
@@ -202,23 +202,23 @@ std::string CapabilityQuery::QuerySizeForHeight()
     if (ret != AV_ERR_OK || heightAlignment <= 0) {
        // 异常处理。
     } else if (height % heightAlignment != 0) {
-       // 2. (可选) 对齐视频高。
-       height = (height + heightAlignment - 1) / heightAlignment * heightAlignment;
+        // 2. (可选) 对齐视频高。
+        height = (height + heightAlignment - 1) / heightAlignment * heightAlignment;
     }
     // 3. 确认视频高处在可支持高范围内。
     OH_AVRange heightRange = {-1, -1};
     ret = OH_AVCapability_GetVideoHeightRange(capability, &heightRange);
     if (ret != AV_ERR_OK || heightRange.maxVal <= 0) {
-       // 异常处理。
+        // 异常处理。
     } else if (height < heightRange.minVal || height > heightRange.maxVal) {
-       // 4. (可选) 调整视频高。
-       height = std::min(std::max(height, heightRange.minVal), heightRange.maxVal);
+        // 4. (可选) 调整视频高。
+        height = std::min(std::max(height, heightRange.minVal), heightRange.maxVal);
     }
     // 5. 基于视频高，获取可选视频宽的范围。
     OH_AVRange widthRange = {-1, -1};
     ret = OH_AVCapability_GetVideoWidthRangeForHeight(capability, height, &widthRange);
     if (ret != AV_ERR_OK || widthRange.maxVal <= 0) {
-       // 异常处理。
+        // 异常处理。
     }
     // 6. 从可选宽度范围中挑选合适的宽度配置。
     // [End capability_video_size_for_height]
@@ -241,13 +241,13 @@ std::string CapabilityQuery::CheckFrameRateRange()
     int32_t frameRate = 120;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 获取支持的帧率范围。
     OH_AVRange frameRateRange = {-1, -1};
     int32_t ret = OH_AVCapability_GetVideoFrameRateRange(capability, &frameRateRange);
     if (ret != AV_ERR_OK || frameRateRange.maxVal <= 0) {
-       // 异常处理。
+        // 异常处理。
     }
     // 2. 判断是否在可选帧率范围内。
     bool isSupported = frameRate >= frameRateRange.minVal && frameRate <= frameRateRange.maxVal;
@@ -275,29 +275,29 @@ std::string CapabilityQuery::ConfigSizeAndFrameRate()
     // 1. 确认待配置尺寸是否能达到理想帧率。
     bool isSupported = OH_AVCapability_AreVideoSizeAndFrameRateSupported(capability, width, height, frameRate);
     if (!isSupported) {
-       // 2. 基于待配置视频尺寸，查询支持的帧率范围，并基于查询到的帧率调整待配置帧率。
-       OH_AVRange frameRateRange = {-1, -1};
-       int32_t ret = OH_AVCapability_GetVideoFrameRateRangeForSize(capability, width, height, &frameRateRange);
-       if (ret != AV_ERR_OK || frameRateRange.maxVal <= 0) {
-          // 异常处理。
-       }
-       frameRate = std::min(std::max(frameRate, frameRateRange.minVal), frameRateRange.maxVal);
+        // 2. 基于待配置视频尺寸，查询支持的帧率范围，并基于查询到的帧率调整待配置帧率。
+        OH_AVRange frameRateRange = {-1, -1};
+        int32_t ret = OH_AVCapability_GetVideoFrameRateRangeForSize(capability, width, height, &frameRateRange);
+        if (ret != AV_ERR_OK || frameRateRange.maxVal <= 0) {
+            // 异常处理。
+        }
+        frameRate = std::min(std::max(frameRate, frameRateRange.minVal), frameRateRange.maxVal);
     }
 
     // 3. 配置尺寸和帧率参数。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
     if (videoEnc == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, width, height);
     if (format == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     if (!OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, static_cast<double>(frameRate))) {
-       // 异常处理。
+        // 异常处理。
     }
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat_Destroy(format);
     // [End capability_size_frame_rate_config]
@@ -324,7 +324,7 @@ std::string CapabilityQuery::QueryPixelFormats()
     constexpr OH_AVPixelFormat DEFAULT_PIXELFORMAT = AV_PIXEL_FORMAT_NV12;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 获取当前视频编解码器支持的像素格式。
     const int32_t *pixFormats = nullptr;
@@ -334,18 +334,18 @@ std::string CapabilityQuery::QueryPixelFormats()
     // const OH_NativeBuffer_Format *nativeBufferFormats = nullptr;
     // int32_t ret = OH_AVCapability_GetVideoSupportedNativeBufferFormats(capability, &nativeBufferFormats, &pixFormatNum);
     if (ret != AV_ERR_OK || pixFormats == nullptr || pixFormatNum == 0) {
-       // 异常处理。
+        // 异常处理。
     }
     // 2. 校验是否支持对应像素格式。
     bool isMatched = false;
     for (int i = 0; i < pixFormatNum; i++) {
-       if (pixFormats[i] == DEFAULT_PIXELFORMAT) {
-          isMatched = true;
-          break;
-       }
+        if (pixFormats[i] == DEFAULT_PIXELFORMAT) {
+            isMatched = true;
+            break;
+        }
     }
     if (!isMatched) {
-       // 3. 替换其他像素格式输入或选择其他编解码器。
+        // 3. 替换其他像素格式输入或选择其他编解码器。
     }
     // [End capability_pixel_formats]
     std::string result = "查询视频像素格式支持情况：";
@@ -373,29 +373,30 @@ std::string CapabilityQuery::QueryFeatureLtr()
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, 1920, 1080);
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 查询是否支持长期参考帧特性。
-    bool isSupported = OH_AVCapability_IsFeatureSupported(capability,VIDEO_ENCODER_LONG_TERM_REFERENCE);
+    bool isSupported = OH_AVCapability_IsFeatureSupported(capability, VIDEO_ENCODER_LONG_TERM_REFERENCE);
     if (isSupported) {
-       // 2. 查询支持的长期参考帧个数。
-       OH_AVFormat *properties = OH_AVCapability_GetFeatureProperties(capability, VIDEO_ENCODER_LONG_TERM_REFERENCE);
-       if (properties == nullptr) {
-          // 异常处理。
-       }
-       int32_t maxLTRCount = -1;
-       bool ret = OH_AVFormat_GetIntValue(properties, OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT, &maxLTRCount);
-       if (ret && maxLTRCount >= NEEDED_LTR_NUM) {
-          if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_LTR_FRAME_COUNT, NEEDED_LTR_NUM)) {
-             // 异常处理。
-          }
-       }
-       OH_AVFormat_Destroy(properties);
+        // 2. 查询支持的长期参考帧个数。
+        OH_AVFormat *properties = OH_AVCapability_GetFeatureProperties(capability, VIDEO_ENCODER_LONG_TERM_REFERENCE);
+        if (properties == nullptr) {
+            // 异常处理。
+        }
+        int32_t maxLTRCount = -1;
+        bool ret = OH_AVFormat_GetIntValue(properties,
+                                           OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT, &maxLTRCount);
+        if (ret && maxLTRCount >= NEEDED_LTR_NUM) {
+            if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_LTR_FRAME_COUNT, NEEDED_LTR_NUM)) {
+                // 异常处理。
+            }
+        }
+        OH_AVFormat_Destroy(properties);
     }
     // 3. 编码器创建和配置。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
-       // 异常处理。
+        // 异常处理。
     }
     // [End capability_feature_ltr]
     std::string result = "查询长期参考帧特性支持情况：";

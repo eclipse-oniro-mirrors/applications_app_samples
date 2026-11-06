@@ -220,10 +220,10 @@ std::string CapabilityQuery::CreateDecoderByName()
     // 1. 获取H.264软件解码器能力实例。
     OH_AVCapability *capability = OH_AVCodec_GetCapabilityByCategory(OH_AVCODEC_MIMETYPE_VIDEO_AVC, false, SOFTWARE);
     if (capability != nullptr) {
-       // 2. 获取H.264软件解码器名称。
-       const char *codecName = OH_AVCapability_GetName(capability);
-       // 3. 创建H.264软件解码器实例。
-       OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(codecName);
+        // 2. 获取H.264软件解码器名称。
+        const char *codecName = OH_AVCapability_GetName(capability);
+        // 3. 创建H.264软件解码器实例。
+        OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(codecName);
     }
     // [End capability_create_decoder_by_name]
     if (capability == nullptr) {
@@ -241,24 +241,24 @@ std::string CapabilityQuery::ConfigByCategory()
     // 1. 确认推荐的H.264编码器的软硬件类别。
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     bool isHardware = OH_AVCapability_IsHardware(capability);
     // 2. 基于软硬件类别差异化配置。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
     if (videoEnc == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, 1920, 1080);
     if (format == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     double frameRate = isHardware ? 60.0 : 30.0;
     if (!OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, frameRate)) {
-       // 异常处理。
+        // 异常处理。
     }
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
-       // 异常处理。
+        // 异常处理。
     }
     OH_AVFormat_Destroy(format);
     // [End capability_config_by_category]
@@ -282,30 +282,30 @@ std::string CapabilityQuery::CreateMultiDecoders()
     // 1. 创建硬件解码器实例。
     OH_AVCapability *capHW = OH_AVCodec_GetCapabilityByCategory(OH_AVCODEC_MIMETYPE_VIDEO_AVC, false, HARDWARE);
     if (capHW == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     int32_t vDecNumHW = std::min(OH_AVCapability_GetMaxSupportedInstances(capHW), NEEDED_VDEC_NUM);
     int32_t createdVDecNum = 0;
     for (int i = 0; i < vDecNumHW; i++) {
        OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capHW));
        if (videoDec != nullptr) {
-          // 维护在videoDecVector中。
-          createdVDecNum++;
+            // 维护在videoDecVector中。
+            createdVDecNum++;
        }
     }
     if (createdVDecNum < NEEDED_VDEC_NUM) {
        // 2. 不够时，创建软件解码器实例。
        OH_AVCapability *capSW = OH_AVCodec_GetCapabilityByCategory(OH_AVCODEC_MIMETYPE_VIDEO_AVC, false, SOFTWARE);
        if (capSW == nullptr) {
-          // 异常处理。
+            // 异常处理。
        }
        int32_t vDecNumSW = std::min(OH_AVCapability_GetMaxSupportedInstances(capSW), NEEDED_VDEC_NUM - createdVDecNum);
        for (int i = 0; i < vDecNumSW; i++) {
-          OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capSW));
-          if (videoDec != nullptr) {
-             // 维护在videoDecVector中。
-             createdVDecNum++;
-          }
+            OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capSW));
+            if (videoDec != nullptr) {
+                // 维护在videoDecVector中。
+                createdVDecNum++;
+            }
        }
     }
     // [End capability_create_multi_decoders]
