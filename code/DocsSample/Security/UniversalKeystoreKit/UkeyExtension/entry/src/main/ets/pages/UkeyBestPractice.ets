@@ -27,9 +27,9 @@ struct Index {
                 .fontSize(50)
                 .fontWeight(FontWeight.Bold)
                 .onClick(() => {
-                    testNapi.getUkeyCert(keyUri);
-                    testNapi.openResource(keyUri);
-                    testNapi.getUkeyPinAuthState(keyUri);
+                    testNapi.getUkeyCert(this.keyUri);
+                    testNapi.openResource(this.keyUri);
+                    testNapi.getUkeyPinAuthState(this.keyUri);
                 })
         }
         .width('100%')

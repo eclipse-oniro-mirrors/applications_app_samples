@@ -2,7 +2,15 @@
   "devices": {
     "general": ["default","tablet"]
   },
+  "development": {
+    "addedSysCaps": [
+      "SystemCapability.Security.Huks.CryptoExtension"
+    ]
+  },
   "production": {
+    "addedSysCaps": [
+      "SystemCapability.Security.Huks.CryptoExtension"
+    ],
     "removedSysCaps": [
       "SystemCapability.Security.DeviceSecurityLevel",
       "SystemCapability.UserIAM.UserAuth.PinAuth",
