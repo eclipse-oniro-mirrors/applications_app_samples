@@ -51,7 +51,7 @@ std::string CapabilityQuery::BitrateModeCbr()
     }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, bitrateMode) ||
         !OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, static_cast<int64_t>(bitrate))) {
-       // 异常处理。
+        // 异常处理。
     }
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
         // 异常处理。
@@ -106,7 +106,7 @@ std::string CapabilityQuery::BitrateModeCq()
         // 异常处理。
     }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, bitrateMode) ||
-       !OH_AVFormat_SetIntValue(format, OH_MD_KEY_QUALITY, quality)) {
+        !OH_AVFormat_SetIntValue(format, OH_MD_KEY_QUALITY, quality)) {
         // 异常处理。
     }
     if (OH_VideoEncoder_Configure(videoEnc, format) != AV_ERR_OK) {
@@ -193,8 +193,10 @@ std::string CapabilityQuery::BitrateModeSqr()
     // 7.（可选）OH_VideoEncoder_SetParameter()在运行过程中动态配置质量稳定码率因子参数和最大码率参数。
     OH_AVFormat *dynamicFormat = OH_AVFormat_Create();
     // SQR码控支持动态配置最大码率参数和质量稳定码率因子参数。
-    sqrFactor = 25; // 更新质量稳定码率因子。
-    maxBitrate = 10000000; // 更新最大码率参数。
+    constexpr int32_t UPDATED_SQR_FACTOR = 25; // 动态更新后的质量稳定码率因子。
+    constexpr int32_t UPDATED_MAX_BITRATE = 10000000; // 动态更新后的最大码率，单位为bps。
+    sqrFactor = UPDATED_SQR_FACTOR;
+    maxBitrate = UPDATED_MAX_BITRATE;
     OH_AVFormat_SetLongValue(dynamicFormat, OH_MD_KEY_MAX_BITRATE, maxBitrate);
     OH_AVFormat_SetIntValue(dynamicFormat, OH_MD_KEY_SQR_FACTOR, sqrFactor);
     ret = OH_VideoEncoder_SetParameter(videoEnc, dynamicFormat);

@@ -154,8 +154,9 @@ std::string CapabilityQuery::QuerySizeForWidth()
     int32_t ret = OH_AVCapability_GetVideoWidthAlignment(capability, &widthAlignment);
     if (ret != AV_ERR_OK || widthAlignment <= 0) {
         // 异常处理。
-    } else if (width % widthAlignment != 0) {
-        // 2. (可选) 对齐视频宽。
+    }
+    // 2. (可选) 对齐视频宽（对齐值有效时才计算，避免除零）。
+    if (widthAlignment > 0 && width % widthAlignment != 0) {
         width = (width + widthAlignment - 1) / widthAlignment * widthAlignment;
     }
     // 3. 确认视频宽处在可支持宽范围内。
@@ -194,15 +195,16 @@ std::string CapabilityQuery::QuerySizeForHeight()
     int32_t height = 1080;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 确认视频高符合高对齐要求。
     int32_t heightAlignment = 0;
     int32_t ret = OH_AVCapability_GetVideoHeightAlignment(capability, &heightAlignment);
     if (ret != AV_ERR_OK || heightAlignment <= 0) {
-       // 异常处理。
-    } else if (height % heightAlignment != 0) {
-        // 2. (可选) 对齐视频高。
+        // 异常处理。
+    }
+    // 2. (可选) 对齐视频高（对齐值有效时才计算，避免除零）。
+    if (heightAlignment > 0 && height % heightAlignment != 0) {
         height = (height + heightAlignment - 1) / heightAlignment * heightAlignment;
     }
     // 3. 确认视频高处在可支持高范围内。
@@ -270,7 +272,7 @@ std::string CapabilityQuery::ConfigSizeAndFrameRate()
     int32_t frameRate = 120;
     OH_AVCapability *capability = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_VIDEO_AVC, true);
     if (capability == nullptr) {
-       // 异常处理。
+        // 异常处理。
     }
     // 1. 确认待配置尺寸是否能达到理想帧率。
     bool isSupported = OH_AVCapability_AreVideoSizeAndFrameRateSupported(capability, width, height, frameRate);
@@ -330,9 +332,7 @@ std::string CapabilityQuery::QueryPixelFormats()
     const int32_t *pixFormats = nullptr;
     uint32_t pixFormatNum = 0;
     int32_t ret = OH_AVCapability_GetVideoSupportedPixelFormats(capability, &pixFormats, &pixFormatNum);
-    // 获取当前视频编解码器支持的OH_NativeBuffer格式，使用方式同OH_AVCapability_GetVideoSupportedPixelFormats接口。
-    // const OH_NativeBuffer_Format *nativeBufferFormats = nullptr;
-    // int32_t ret = OH_AVCapability_GetVideoSupportedNativeBufferFormats(capability, &nativeBufferFormats, &pixFormatNum);
+    // 如需查询OH_NativeBuffer格式支持情况，可调用OH_AVCapability_GetVideoSupportedNativeBufferFormats接口，使用方式相同。
     if (ret != AV_ERR_OK || pixFormats == nullptr || pixFormatNum == 0) {
         // 异常处理。
     }
@@ -439,21 +439,19 @@ std::string CapabilityQuery::FindSecureDecoder()
     // 2. 获取所有视频解码器的能力列表。
     OH_AVCapability **capabilityList = OH_AVCodec_GetCapabilityList(OH_AVCODEC_TYPE_VIDEO_DECODER, &count);
 
-    if (capabilityList != nullptr && count > 0) {
-        for (uint32_t i = 0; i < count; i++) {
-            OH_AVCapability *cap = capabilityList[i];
-        
-            // 3. 检查是否为目标的MIME类型，且必须是安全解码器。
-            if (OH_AVCapability_CheckMimeType(cap, targetMime) && OH_AVCapability_IsSecure(cap)) {
-                // 4. 找到符合条件的解码器，获取其名称用于创建实例。
-                const char *codecName = OH_AVCapability_GetName(cap);
-                OH_AVCodec *secureVideoDec = OH_VideoDecoder_CreateByName(codecName);
-            
-                if (secureVideoDec != nullptr) {
-                    // 5. 成功创建安全解码器，跳出循环执行后续业务。
-                    break;
-                }
-            }
+    // 3. 遍历能力列表，筛选目标MIME类型的安全解码器并创建实例。
+    OH_AVCodec *secureVideoDec = nullptr;
+    for (uint32_t i = 0; capabilityList != nullptr && i < count; i++) {
+        OH_AVCapability *cap = capabilityList[i];
+        // 4. 检查是否为目标的MIME类型，且必须是安全解码器。
+        if (!OH_AVCapability_CheckMimeType(cap, targetMime) || !OH_AVCapability_IsSecure(cap)) {
+            continue;
+        }
+        // 5. 找到符合条件的解码器，获取其名称用于创建实例。
+        secureVideoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(cap));
+        if (secureVideoDec != nullptr) {
+            // 6. 成功创建安全解码器，跳出循环执行后续业务。
+            break;
         }
     }
     // [End capability_secure_decoder]
@@ -464,7 +462,8 @@ std::string CapabilityQuery::FindSecureDecoder()
     }
     const char *secureName = nullptr;
     for (uint32_t i = 0; i < count; i++) {
-        if (OH_AVCapability_CheckMimeType(capabilityList[i], targetMime) && OH_AVCapability_IsSecure(capabilityList[i])) {
+        if (OH_AVCapability_CheckMimeType(capabilityList[i], targetMime) &&
+            OH_AVCapability_IsSecure(capabilityList[i])) {
             secureName = OH_AVCapability_GetName(capabilityList[i]);
             break;
         }

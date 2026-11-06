@@ -33,138 +33,112 @@ std::string CapabilityQuery::RunScenario(int32_t scenarioId)
         }
     }
     std::string result;
-    switch (scenarioId) {
-        case SCENARIO_GET_CAPABILITY_BY_MIME:
-            result = GetCapabilityByMime();
-            break;
-        case SCENARIO_GET_CAPABILITY_BY_CATEGORY:
-            result = GetCapabilityByCategory();
-            break;
-        case SCENARIO_GET_CAPABILITY_LIST:
-            result = GetCapabilityListInfo();
-            break;
-        case SCENARIO_CREATE_DECODER_BY_NAME:
-            result = CreateDecoderByName();
-            break;
-        case SCENARIO_CONFIG_BY_CATEGORY:
-            result = ConfigByCategory();
-            break;
-        case SCENARIO_CREATE_MULTI_DECODERS:
-            result = CreateMultiDecoders();
-            break;
-        case SCENARIO_BITRATE_MODE_CBR:
-            result = BitrateModeCbr();
-            break;
-        case SCENARIO_BITRATE_MODE_CQ:
-            result = BitrateModeCq();
-            break;
-        case SCENARIO_BITRATE_MODE_SQR:
-            result = BitrateModeSqr();
-            break;
-        case SCENARIO_BITRATE_MODE_CBRHQ:
-            result = BitrateModeCbrhq();
-            break;
-        case SCENARIO_COMPLEXITY_RANGE:
-            result = QueryComplexityRange();
-            break;
-        case SCENARIO_AUDIO_PARAMS:
-            result = QueryAudioParams();
-            break;
-        case SCENARIO_PROFILE_AND_LEVEL:
-            result = QueryProfileAndLevel();
-            break;
-        case SCENARIO_PROFILE_LEVEL_SUPPORTED:
-            result = CheckProfileAndLevel();
-            break;
-        case SCENARIO_VIDEO_SIZE_CHECK:
-            result = CheckVideoSize();
-            break;
-        case SCENARIO_VIDEO_SIZE_FOR_WIDTH:
-            result = QuerySizeForWidth();
-            break;
-        case SCENARIO_VIDEO_SIZE_FOR_HEIGHT:
-            result = QuerySizeForHeight();
-            break;
-        case SCENARIO_FRAME_RATE_CHECK:
-            result = CheckFrameRateRange();
-            break;
-        case SCENARIO_SIZE_FRAME_RATE_CONFIG:
-            result = ConfigSizeAndFrameRate();
-            break;
-        case SCENARIO_PIXEL_FORMATS:
-            result = QueryPixelFormats();
-            break;
-        case SCENARIO_FEATURE_LTR:
-            result = QueryFeatureLtr();
-            break;
-        case SCENARIO_SECURE_DECODER:
-            result = FindSecureDecoder();
-            break;
+    if (scenarioId >= SCENARIO_LOW_LATENCY_CBR && scenarioId <= SCENARIO_OFFLINE_SQR) {
         // 《各类场景的视频编码基础参数配置》开发指南场景。
-        case SCENARIO_LOW_LATENCY_CBR:
-            result = EncodingConfigQuery::LowLatencyCbr();
-            break;
-        case SCENARIO_DYNAMIC_REQUEST_IDR:
-            result = EncodingConfigQuery::DynamicRequestIdr();
-            break;
-        case SCENARIO_CBRHQ_CONFIG:
-            result = EncodingConfigQuery::CbrhqConfig();
-            break;
-        case SCENARIO_LIVE_VBR:
-            result = EncodingConfigQuery::LiveVbr();
-            break;
-        case SCENARIO_LIVE_SQR:
-            result = EncodingConfigQuery::LiveSqr();
-            break;
-        case SCENARIO_OFFLINE_VBR:
-            result = EncodingConfigQuery::OfflineVbr();
-            break;
-        case SCENARIO_OFFLINE_SQR:
-            result = EncodingConfigQuery::OfflineSqr();
-            break;
+        result = RunEncodingConfigGuideScenario(scenarioId);
+    } else if (scenarioId >= SCENARIO_BFRAME_FEATURE_CHECK && scenarioId <= SCENARIO_BFRAME_CONFIGURE) {
         // 《高压缩率B帧编码》开发指南场景。
-        case SCENARIO_BFRAME_FEATURE_CHECK:
-            result = BFrameQuery::FeatureCheck();
-            break;
-        case SCENARIO_BFRAME_CONFIGURE:
-            result = BFrameQuery::Configure();
-            break;
+        result = RunBFrameGuideScenario(scenarioId);
+    } else if (scenarioId >= SCENARIO_TEMPORAL_SCALABILITY_CHECK &&
+               scenarioId <= SCENARIO_LTR_SURFACE_CALLBACK_REGISTER) {
         // 《具有抗弱网丢包能力的时域可分层编码》开发指南场景。
-        case SCENARIO_TEMPORAL_SCALABILITY_CHECK:
-            result = TemporalScalabilityQuery::FeatureCheck();
-            break;
-        case SCENARIO_TEMPORAL_SCALABILITY_CREATE:
-            result = TemporalScalabilityQuery::CreateEncoder();
-            break;
-        case SCENARIO_TEMPORAL_SCALABILITY_CONFIG:
-            result = TemporalScalabilityQuery::Configure();
-            break;
-        case SCENARIO_TEMPORAL_SCALABILITY_DYNAMIC_ENABLE:
-            result = TemporalScalabilityQuery::DynamicEnable();
-            break;
-        case SCENARIO_TEMPORAL_SCALABILITY_DYNAMIC_DISABLE:
-            result = TemporalScalabilityQuery::DynamicDisable();
-            break;
-        case SCENARIO_LTR_FEATURE_CHECK:
-            result = TemporalScalabilityQuery::LtrFeatureCheck();
-            break;
-        case SCENARIO_LTR_CONFIG_COUNT:
-            result = TemporalScalabilityQuery::LtrConfigCount();
-            break;
-        case SCENARIO_LTR_BUFFER_CALLBACK_REGISTER:
-            result = TemporalScalabilityQuery::LtrBufferCallbackRegister();
-            break;
-        case SCENARIO_LTR_SURFACE_CALLBACK_REGISTER:
-            result = TemporalScalabilityQuery::LtrSurfaceCallbackRegister();
-            break;
-        default:
-            result = "未知场景编号: " + std::to_string(scenarioId);
-            break;
+        result = RunTemporalScalabilityGuideScenario(scenarioId);
+    } else {
+        // 《获取支持的编解码能力》开发指南场景。
+        result = RunCapabilityGuideScenario(scenarioId);
     }
     SAMPLE_LOGI("Scenario %{public}d result: %{public}s", scenarioId, result.c_str());
     std::lock_guard<std::mutex> lock(scenarioMutex_);
     scenarioResults_[scenarioId] = result;
     return result;
+}
+
+std::string CapabilityQuery::RunCapabilityGuideScenario(int32_t scenarioId)
+{
+    using ScenarioHandler = std::string (*)();
+    static const std::map<int32_t, ScenarioHandler> handlers = {
+        {SCENARIO_GET_CAPABILITY_BY_MIME, GetCapabilityByMime},
+        {SCENARIO_GET_CAPABILITY_BY_CATEGORY, GetCapabilityByCategory},
+        {SCENARIO_GET_CAPABILITY_LIST, GetCapabilityListInfo},
+        {SCENARIO_CREATE_DECODER_BY_NAME, CreateDecoderByName},
+        {SCENARIO_CONFIG_BY_CATEGORY, ConfigByCategory},
+        {SCENARIO_CREATE_MULTI_DECODERS, CreateMultiDecoders},
+        {SCENARIO_BITRATE_MODE_CBR, BitrateModeCbr},
+        {SCENARIO_BITRATE_MODE_CQ, BitrateModeCq},
+        {SCENARIO_BITRATE_MODE_SQR, BitrateModeSqr},
+        {SCENARIO_BITRATE_MODE_CBRHQ, BitrateModeCbrhq},
+        {SCENARIO_COMPLEXITY_RANGE, QueryComplexityRange},
+        {SCENARIO_AUDIO_PARAMS, QueryAudioParams},
+        {SCENARIO_PROFILE_AND_LEVEL, QueryProfileAndLevel},
+        {SCENARIO_PROFILE_LEVEL_SUPPORTED, CheckProfileAndLevel},
+        {SCENARIO_VIDEO_SIZE_CHECK, CheckVideoSize},
+        {SCENARIO_VIDEO_SIZE_FOR_WIDTH, QuerySizeForWidth},
+        {SCENARIO_VIDEO_SIZE_FOR_HEIGHT, QuerySizeForHeight},
+        {SCENARIO_FRAME_RATE_CHECK, CheckFrameRateRange},
+        {SCENARIO_SIZE_FRAME_RATE_CONFIG, ConfigSizeAndFrameRate},
+        {SCENARIO_PIXEL_FORMATS, QueryPixelFormats},
+        {SCENARIO_FEATURE_LTR, QueryFeatureLtr},
+        {SCENARIO_SECURE_DECODER, FindSecureDecoder},
+    };
+    auto it = handlers.find(scenarioId);
+    if (it == handlers.end()) {
+        return "未知场景编号: " + std::to_string(scenarioId);
+    }
+    return it->second();
+}
+
+std::string CapabilityQuery::RunEncodingConfigGuideScenario(int32_t scenarioId)
+{
+    using ScenarioHandler = std::string (*)();
+    static const std::map<int32_t, ScenarioHandler> handlers = {
+        {SCENARIO_LOW_LATENCY_CBR, EncodingConfigQuery::LowLatencyCbr},
+        {SCENARIO_DYNAMIC_REQUEST_IDR, EncodingConfigQuery::DynamicRequestIdr},
+        {SCENARIO_CBRHQ_CONFIG, EncodingConfigQuery::CbrhqConfig},
+        {SCENARIO_LIVE_VBR, EncodingConfigQuery::LiveVbr},
+        {SCENARIO_LIVE_SQR, EncodingConfigQuery::LiveSqr},
+        {SCENARIO_OFFLINE_VBR, EncodingConfigQuery::OfflineVbr},
+        {SCENARIO_OFFLINE_SQR, EncodingConfigQuery::OfflineSqr},
+    };
+    auto it = handlers.find(scenarioId);
+    if (it == handlers.end()) {
+        return "未知场景编号: " + std::to_string(scenarioId);
+    }
+    return it->second();
+}
+
+std::string CapabilityQuery::RunBFrameGuideScenario(int32_t scenarioId)
+{
+    using ScenarioHandler = std::string (*)();
+    static const std::map<int32_t, ScenarioHandler> handlers = {
+        {SCENARIO_BFRAME_FEATURE_CHECK, BFrameQuery::FeatureCheck},
+        {SCENARIO_BFRAME_CONFIGURE, BFrameQuery::Configure},
+    };
+    auto it = handlers.find(scenarioId);
+    if (it == handlers.end()) {
+        return "未知场景编号: " + std::to_string(scenarioId);
+    }
+    return it->second();
+}
+
+std::string CapabilityQuery::RunTemporalScalabilityGuideScenario(int32_t scenarioId)
+{
+    using ScenarioHandler = std::string (*)();
+    static const std::map<int32_t, ScenarioHandler> handlers = {
+        {SCENARIO_TEMPORAL_SCALABILITY_CHECK, TemporalScalabilityQuery::FeatureCheck},
+        {SCENARIO_TEMPORAL_SCALABILITY_CREATE, TemporalScalabilityQuery::CreateEncoder},
+        {SCENARIO_TEMPORAL_SCALABILITY_CONFIG, TemporalScalabilityQuery::Configure},
+        {SCENARIO_TEMPORAL_SCALABILITY_DYNAMIC_ENABLE, TemporalScalabilityQuery::DynamicEnable},
+        {SCENARIO_TEMPORAL_SCALABILITY_DYNAMIC_DISABLE, TemporalScalabilityQuery::DynamicDisable},
+        {SCENARIO_LTR_FEATURE_CHECK, TemporalScalabilityQuery::LtrFeatureCheck},
+        {SCENARIO_LTR_CONFIG_COUNT, TemporalScalabilityQuery::LtrConfigCount},
+        {SCENARIO_LTR_BUFFER_CALLBACK_REGISTER, TemporalScalabilityQuery::LtrBufferCallbackRegister},
+        {SCENARIO_LTR_SURFACE_CALLBACK_REGISTER, TemporalScalabilityQuery::LtrSurfaceCallbackRegister},
+    };
+    auto it = handlers.find(scenarioId);
+    if (it == handlers.end()) {
+        return "未知场景编号: " + std::to_string(scenarioId);
+    }
+    return it->second();
 }
 
 std::string CapabilityQuery::GetCapabilityByMime()
@@ -287,26 +261,26 @@ std::string CapabilityQuery::CreateMultiDecoders()
     int32_t vDecNumHW = std::min(OH_AVCapability_GetMaxSupportedInstances(capHW), NEEDED_VDEC_NUM);
     int32_t createdVDecNum = 0;
     for (int i = 0; i < vDecNumHW; i++) {
-       OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capHW));
-       if (videoDec != nullptr) {
+        OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capHW));
+        if (videoDec != nullptr) {
             // 维护在videoDecVector中。
             createdVDecNum++;
-       }
+        }
     }
     if (createdVDecNum < NEEDED_VDEC_NUM) {
-       // 2. 不够时，创建软件解码器实例。
-       OH_AVCapability *capSW = OH_AVCodec_GetCapabilityByCategory(OH_AVCODEC_MIMETYPE_VIDEO_AVC, false, SOFTWARE);
-       if (capSW == nullptr) {
+        // 2. 不够时，创建软件解码器实例。
+        OH_AVCapability *capSW = OH_AVCodec_GetCapabilityByCategory(OH_AVCODEC_MIMETYPE_VIDEO_AVC, false, SOFTWARE);
+        if (capSW == nullptr) {
             // 异常处理。
-       }
-       int32_t vDecNumSW = std::min(OH_AVCapability_GetMaxSupportedInstances(capSW), NEEDED_VDEC_NUM - createdVDecNum);
-       for (int i = 0; i < vDecNumSW; i++) {
+        }
+        int32_t vDecNumSW = std::min(OH_AVCapability_GetMaxSupportedInstances(capSW), NEEDED_VDEC_NUM - createdVDecNum);
+        for (int i = 0; i < vDecNumSW; i++) {
             OH_AVCodec *videoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(capSW));
             if (videoDec != nullptr) {
                 // 维护在videoDecVector中。
                 createdVDecNum++;
             }
-       }
+        }
     }
     // [End capability_create_multi_decoders]
     // 说明：示例按文档演示多路创建，创建的解码器实例由业务方在videoDecVector中维护并适时释放。

@@ -88,6 +88,12 @@ private:
     // 场景化开发：筛选特定MIME类型的安全解码器（DRM播放场景）。
     static std::string FindSecureDecoder();
 
+    // 按开发指南分组分发场景执行，控制单个分发函数的规模。
+    static std::string RunCapabilityGuideScenario(int32_t scenarioId);
+    static std::string RunEncodingConfigGuideScenario(int32_t scenarioId);
+    static std::string RunBFrameGuideScenario(int32_t scenarioId);
+    static std::string RunTemporalScalabilityGuideScenario(int32_t scenarioId);
+
     static std::mutex scenarioMutex_;
     static std::map<int32_t, std::string> scenarioResults_;
 };
