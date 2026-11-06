@@ -257,14 +257,14 @@ export class StreamFileUtil {
             LogUtil.info('StreamFileUtil', `流式写入完成：${path}（${size}B）`);
             resolve(size);
           } catch (err) {
-            LogUtil.error('StreamFileUtil', `finish 后读取文件大小失败：${err instanceof Error ? err.message : '未知错误'}`);
+            LogUtil.error('StreamFileUtil', `finish 后读取文件大小失败：${err instanceof Error ? err.message : 'Unknown error'}`);
             reject(err instanceof Error ? err : new Error('读取文件大小失败'));
           }
         });
         writer.on('error', (err: emitter.EventData) => {
           const e: Error = eventDataToError(err);
-          LogUtil.error('StreamFileUtil', `写入流出错：${e && e.message ? e.message : '未知错误'}`);
-          reject(new Error(`写入流出错：${e && e.message ? e.message : '未知错误'}`));
+          LogUtil.error('StreamFileUtil', `Write stream error：${e && e.message ? e.message : 'Unknown error'}`);
+          reject(new Error(`Write stream error：${e && e.message ? e.message : 'Unknown error'}`));
         });
       });
       for (const c of chunks) {
@@ -277,7 +277,7 @@ export class StreamFileUtil {
         try {
           fs.closeSync(fd);
         } catch (err) {
-          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : 'Unknown error'}`);
         }
         fd = -1;
       }
@@ -298,7 +298,7 @@ export class StreamFileUtil {
       const finished = new Promise<void>((resolve, reject) => {
         reader.on('end', () => {
           if (reader.readError !== null) {
-            LogUtil.error('StreamFileUtil', `读取流出错：${reader.readError.message}`);
+            LogUtil.error('StreamFileUtil', `Read stream error：${reader.readError.message}`);
             reject(reader.readError);
             return;
           }
@@ -307,8 +307,8 @@ export class StreamFileUtil {
         });
         reader.on('error', (err: emitter.EventData) => {
           const e: Error = eventDataToError(err);
-          LogUtil.error('StreamFileUtil', `读取流出错：${e && e.message ? e.message : '未知错误'}`);
-          reject(new Error(`读取流出错：${e && e.message ? e.message : '未知错误'}`));
+          LogUtil.error('StreamFileUtil', `Read stream error：${e && e.message ? e.message : 'Unknown error'}`);
+          reject(new Error(`Read stream error：${e && e.message ? e.message : 'Unknown error'}`));
         });
       });
       reader.on('data', (data: emitter.EventData) => {
@@ -332,7 +332,7 @@ export class StreamFileUtil {
         try {
           fs.closeSync(fd);
         } catch (err) {
-          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : 'Unknown error'}`);
         }
         fd = -1;
       }
@@ -367,12 +367,12 @@ export class StreamFileUtil {
       const finished = new Promise<void>((resolve, reject) => {
         reader.on('error', (err: emitter.EventData) => {
           const e: Error = eventDataToError(err);
-          LogUtil.error('StreamFileUtil', `拷贝读流出错：${e && e.message ? e.message : '未知错误'}`);
-          reject(new Error(`拷贝读流出错：${e && e.message ? e.message : '未知错误'}`));
+          LogUtil.error('StreamFileUtil', `Copy read stream error：${e && e.message ? e.message : 'Unknown error'}`);
+          reject(new Error(`Copy read stream error：${e && e.message ? e.message : 'Unknown error'}`));
         });
         reader.on('end', () => {
           if (reader.readError !== null) {
-            LogUtil.error('StreamFileUtil', `拷贝读流出错：${reader.readError.message}`);
+            LogUtil.error('StreamFileUtil', `Copy read stream error：${reader.readError.message}`);
             reject(reader.readError);
             return;
           }
@@ -384,8 +384,8 @@ export class StreamFileUtil {
         });
         writer.on('error', (err: emitter.EventData) => {
           const e: Error = eventDataToError(err);
-          LogUtil.error('StreamFileUtil', `拷贝写出错：${e && e.message ? e.message : '未知错误'}`);
-          reject(new Error(`拷贝写出错：${e && e.message ? e.message : '未知错误'}`));
+          LogUtil.error('StreamFileUtil', `Copy write stream error：${e && e.message ? e.message : 'Unknown error'}`);
+          reject(new Error(`Copy write stream error：${e && e.message ? e.message : 'Unknown error'}`));
         });
       });
       reader.on('data', (data: emitter.EventData) => {
@@ -399,7 +399,7 @@ export class StreamFileUtil {
         try {
           fs.closeSync(srcFd);
         } catch (err) {
-          LogUtil.error('StreamFileUtil', `关闭源 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          LogUtil.error('StreamFileUtil', `关闭源 fd 失败：${err instanceof Error ? err.message : 'Unknown error'}`);
         }
         srcFd = -1;
       }
@@ -407,7 +407,7 @@ export class StreamFileUtil {
         try {
           fs.closeSync(destFd);
         } catch (err) {
-          LogUtil.error('StreamFileUtil', `关闭目标 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          LogUtil.error('StreamFileUtil', `关闭目标 fd 失败：${err instanceof Error ? err.message : 'Unknown error'}`);
         }
         destFd = -1;
       }

@@ -297,7 +297,7 @@ export class CanvasScenes {
     ctx.fillRect(0, 0, w, h);
     ctx.fillStyle = '#FFFFFF';
     ctx.font = '16px sans-serif';
-    ctx.fillText(`动画帧 t=${t.toFixed(2)}`, 12, 24);
+    ctx.fillText(`Frame t=${t.toFixed(2)}`, 12, 24);
   }
 
   /** 扩展：GeometryUtil 圆环阵——极坐标计算圆周点，三圈不同密度圆点 */

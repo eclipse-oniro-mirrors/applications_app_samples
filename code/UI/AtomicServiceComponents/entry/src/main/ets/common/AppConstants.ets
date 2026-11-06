@@ -51,7 +51,7 @@ export const LOG_STORE_CAPACITY: number = 200;
 export const PAGE_LOG_LIMIT: number = 20;
 export const HOME_LOG_LIMIT: number = 30;
 
-export const HILOG_DOMAIN: number = 0x0000;
-export const HILOG_TAG: string = 'AtomicServiceComponents';
+export const HILOG_DOMAIN: number = 0xF811;
+export const HILOG_TAG: string = '[Sample_AtomicServiceComponents]';
 
 export const HALF_SCREEN_APP_ID: string = '576000000000000000';

@@ -23,7 +23,7 @@ import { truncateMiddle } from '../utils/FormatUtil';
 export struct LogPanel {
   @StorageProp('appLogs') allLogs: LogItem[] = [];
   filterSource: string = '';
-  title: string = '事件日志';
+  title: ResourceStr = $r('app.string.log_panel_title');
   maxItems: number = PAGE_LOG_LIMIT;
 
   private visibleLogs(): LogItem[] {
@@ -62,28 +62,28 @@ export struct LogPanel {
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
         Blank()
-        Text(`${this.visibleLogs().length} 条`)
+        Text($r('app.string.log_count', this.visibleLogs().length))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_TERTIARY)
         if (this.visibleLogs().length > 0) {
-          Button('清空')
+          Button($r('app.string.common_clear'))
             .fontSize(AppText.SMALL)
             .height(AppSize.BUTTON_SM)
             .backgroundColor(AppColors.SOFT_BG)
             .fontColor(AppColors.TEXT_STRONG)
             .onClick(() => {
               this.getUIContext().showAlertDialog({
-                title: '清空日志',
-                message: '将清空全部事件记录，且不可恢复，确认继续？',
+                title: $r('app.string.log_clear_title'),
+                message: $r('app.string.log_clear_message'),
                 autoCancel: true,
                 alignment: DialogAlignment.Center,
                 primaryButton: {
-                  value: '取消',
+                  value: $r('app.string.common_cancel'),
                   action: () => {
                   }
                 },
                 secondaryButton: {
-                  value: '清空',
+                  value: $r('app.string.common_clear'),
                   fontColor: AppColors.DANGER,
                   action: () => {
                     Logger.clear();
@@ -96,7 +96,7 @@ export struct LogPanel {
       .width('100%')
 
       if (this.visibleLogs().length === 0) {
-        Text('暂无事件，操作组件后将在这里看到回调记录')
+        Text($r('app.string.log_empty'))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')

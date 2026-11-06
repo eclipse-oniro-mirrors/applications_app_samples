@@ -63,13 +63,13 @@ export struct DownloadDemo {
   };
   private picker: DownloadPicker | null = null;
 
-  private getString(resource: Resource): string {
+  private getString(resource: Resource, ...args: Array<string | number>): string {
     const context = this.getUIContext().getHostContext();
     if (context === undefined) {
       return '';
     }
     try {
-      return context.resourceManager.getStringSync(resource.id);
+      return context.resourceManager.getStringSync(resource.id, ...args);
     } catch (err) {
       return '';
     }
@@ -183,14 +183,14 @@ export struct DownloadDemo {
   build() {
     DemoPageScaffold({
       title: 'DownloadFileButton',
-      subtitle: '统一样式的下载按钮。点击后优先调用文档选择器，不可用时降级写入应用沙箱。',
+      subtitle: $r('app.string.download_page_subtitle'),
       logSource: 'Download',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Column({ space: AppSpacing.PAGE }) {
-            Text('下载按钮预览')
+            Text($r('app.string.download_section_preview'))
               .fontSize(AppText.TITLE)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -212,19 +212,23 @@ export struct DownloadDemo {
                 .onClick(() => this.downloadAction())
             }, (key: string) => key)
 
-            Text(`图标：${this.iconFilled ? 'FULL_FILLED（实心）' : 'LINES（线性）'} · 排列：${this.horizontal ? 'HORIZONTAL（水平）' : 'VERTICAL（垂直）'}`)
+            Text(this.getString($r('app.string.download_style_summary'),
+              this.iconFilled ? this.getString($r('app.string.download_icon_filled')) :
+                this.getString($r('app.string.download_icon_lines')),
+              this.horizontal ? this.getString($r('app.string.orientation_horizontal')) :
+                this.getString($r('app.string.orientation_vertical'))))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')
 
             Row({ space: AppSpacing.MD }) {
-              Button('切换图标')
+              Button($r('app.string.download_btn_toggle_icon'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
                 .fontColor(AppColors.PRIMARY)
                 .onClick(() => this.toggleIcon())
-              Button('切换排列')
+              Button($r('app.string.download_btn_toggle_layout'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -241,7 +245,7 @@ export struct DownloadDemo {
 
           Column({ space: AppSpacing.SM }) {
             Row() {
-              Text('当前状态')
+              Text($r('app.string.label_current_state'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
@@ -251,12 +255,14 @@ export struct DownloadDemo {
             }
             .width('100%')
 
-            Text(`设备形态：${this.layout.form} · 文档选择器${this.layout.pickerSupported ? '可用' : '不可用'}`)
+            Text(this.getString($r('app.string.download_device_info'), this.layout.form,
+              this.layout.pickerSupported ? this.getString($r('app.string.available')) :
+                this.getString($r('app.string.unavailable'))))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')
 
-            Text(this.lastPath.length > 0 ? this.lastPath : '尚未执行下载')
+            Text(this.lastPath.length > 0 ? this.lastPath : this.getString($r('app.string.download_empty')))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')
@@ -269,12 +275,12 @@ export struct DownloadDemo {
           .borderRadius(AppRadius.LARGE)
 
           Column({ space: AppSpacing.SM }) {
-            Text('实现说明')
+            Text($r('app.string.label_impl_title'))
               .fontSize(AppText.TITLE)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
-            Text('DownloadFileButton 只负责统一的按钮样式，点击行为由通用 onClick 实现。示例使用 picker.DocumentViewPicker 的 DOWNLOAD 模式获取公共下载目录；如果开发板镜像没有文件选择器，则写入应用沙箱 filesDir 并显示真实路径。')
+            Text($r('app.string.download_impl_desc'))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -284,7 +290,7 @@ export struct DownloadDemo {
           .backgroundColor(AppColors.CARD_BG)
           .borderRadius(AppRadius.LARGE)
 
-          LogPanel({ title: 'Download 事件', filterSource: 'Download' })
+          LogPanel({ title: $r('app.string.log_title_download'), filterSource: 'Download' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

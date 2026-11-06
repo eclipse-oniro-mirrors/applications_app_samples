@@ -37,12 +37,25 @@ export struct CrossAbilityDemo {
   navPathStack: NavPathStack = new NavPathStack();
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
   @State state: JumpState = JumpState.IDLE;
-  @State message: string = '尚未发起跳转';
+  @State message: string = '';
   @State currentTarget: string = '';
   private activeToken: number = 0;
   private timeoutId: number = -1;
 
+  private getString(resource: Resource, ...args: Array<string | number>): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id, ...args);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
+    this.message = this.getString($r('app.string.jump_msg_idle'));
     Logger.info('Jump', '生命周期', '进入应用间跳转演示页');
   }
 
@@ -66,7 +79,7 @@ export struct CrossAbilityDemo {
       context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     } catch (err) {
       this.state = JumpState.REJECTED;
-      this.message = '获取 UIAbilityContext 失败';
+      this.message = this.getString($r('app.string.jump_msg_context_failed'));
       Logger.error('Jump', '跳转', this.message);
       return;
     }
@@ -78,7 +91,7 @@ export struct CrossAbilityDemo {
     const token = this.activeToken;
     this.currentTarget = target.title;
     this.state = JumpState.WAITING;
-    this.message = `正在拉起 ${target.title}…`;
+    this.message = this.getString($r('app.string.jump_msg_starting'), target.title);
     Logger.info('Jump', '跳转',
       `startAbility → ${target.describe()}（超时 ${JUMP_TIMEOUT_MS}ms）`);
     this.clearTimer();
@@ -89,7 +102,7 @@ export struct CrossAbilityDemo {
       }
       this.activeToken = beginAttempt(this.activeToken);
       this.state = JumpState.TIMEOUT;
-      this.message = `${target.title} 超过 ${JUMP_TIMEOUT_MS / 1000} 秒未响应，已判定超时`;
+      this.message = this.getString($r('app.string.jump_msg_timeout'), target.title, JUMP_TIMEOUT_MS / 1000);
       Logger.warn('Jump', '超时', this.message);
     }, JUMP_TIMEOUT_MS);
     context.startAbility(want).then(() => {
@@ -98,7 +111,7 @@ export struct CrossAbilityDemo {
       }
       this.clearTimer();
       this.state = JumpState.SUCCESS;
-      this.message = `已拉起 ${target.title}`;
+      this.message = this.getString($r('app.string.jump_msg_success'), target.title);
       Logger.info('Jump', '跳转', `${this.message}（${target.describe()}）`);
     }).catch((err: BusinessError) => {
       if (!isActiveAttempt(token, this.activeToken)) {
@@ -120,7 +133,7 @@ export struct CrossAbilityDemo {
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
         Blank()
-        Button('拉起')
+        Button($r('app.string.jump_btn_launch'))
           .fontSize(AppText.BODY)
           .height(AppSize.BUTTON)
           .backgroundColor(AppColors.PRIMARY)
@@ -149,15 +162,15 @@ export struct CrossAbilityDemo {
 
   build() {
     DemoPageScaffold({
-      title: '应用间跳转',
-      subtitle: '使用 startAbility 拉起其他应用。成功、拒绝与 3 秒超时三类结果都会写入日志。',
+      title: $r('app.string.dest_jump'),
+      subtitle: $r('app.string.jump_page_subtitle'),
       logSource: 'Jump',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Column({ space: AppSpacing.MD }) {
-            Text('目标应用')
+            Text($r('app.string.jump_section_targets'))
               .fontSize(AppText.TITLE)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -170,7 +183,7 @@ export struct CrossAbilityDemo {
 
           Column({ space: AppSpacing.SM }) {
             Row() {
-              Text('当前状态')
+              Text($r('app.string.label_current_state'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
@@ -186,7 +199,8 @@ export struct CrossAbilityDemo {
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')
 
-            Text(this.currentTarget.length > 0 ? `目标：${this.currentTarget}` : '目标：未选择')
+            Text(this.currentTarget.length > 0 ?
+              $r('app.string.jump_target_prefix', this.currentTarget) : $r('app.string.jump_target_none'))
               .fontSize(AppText.SMALL)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -198,12 +212,12 @@ export struct CrossAbilityDemo {
           .alignItems(HorizontalAlign.Start)
 
           Column({ space: AppSpacing.SM }) {
-            Text('实现说明')
+            Text($r('app.string.label_impl_title'))
               .fontSize(AppText.TITLE)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
-            Text('跳转使用 UIAbilityContext.startAbility 与显式 Want。示例内置三个目标：系统设置、本应用首页和未安装应用，分别对应成功、成功与 16000001 失败分支。每次发起都会生成新的 token，3 秒内没有结果则判定超时，迟到的回调会被 token 丢弃。')
+            Text($r('app.string.jump_impl_desc'))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -213,7 +227,7 @@ export struct CrossAbilityDemo {
           .backgroundColor(AppColors.CARD_BG)
           .borderRadius(AppRadius.LARGE)
 
-          LogPanel({ title: 'Jump 事件', filterSource: 'Jump' })
+          LogPanel({ title: $r('app.string.log_title_jump'), filterSource: 'Jump' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

@@ -127,6 +127,594 @@
     {
       "name": "download_state_failed",
       "value": "Save failed"
+    },
+    {
+      "name": "common_back",
+      "value": "Back"
+    },
+    {
+      "name": "log_panel_title",
+      "value": "Event log"
+    },
+    {
+      "name": "log_count",
+      "value": "%d entries"
+    },
+    {
+      "name": "common_clear",
+      "value": "Clear"
+    },
+    {
+      "name": "common_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "log_clear_title",
+      "value": "Clear logs"
+    },
+    {
+      "name": "log_clear_message",
+      "value": "All event records will be cleared and cannot be recovered. Continue?"
+    },
+    {
+      "name": "log_empty",
+      "value": "No events yet. Callbacks appear here after you interact with components."
+    },
+    {
+      "name": "label_current_state",
+      "value": "Current state"
+    },
+    {
+      "name": "label_impl_title",
+      "value": "Implementation"
+    },
+    {
+      "name": "jump_page_subtitle",
+      "value": "Launch other apps with startAbility. Success, rejection and 3-second timeout are all written to the log."
+    },
+    {
+      "name": "jump_btn_launch",
+      "value": "Launch"
+    },
+    {
+      "name": "jump_section_targets",
+      "value": "Target apps"
+    },
+    {
+      "name": "jump_target_prefix",
+      "value": "Target: %s"
+    },
+    {
+      "name": "jump_target_none",
+      "value": "Target: not selected"
+    },
+    {
+      "name": "jump_impl_desc",
+      "value": "Jump uses UIAbilityContext.startAbility with an explicit Want. Three built-in targets are settings, this app's home page and an uninstalled app, covering the success, success and 16000001 error branches. Each attempt gets a new token; no result within 3 seconds is treated as timeout and late callbacks are dropped by token."
+    },
+    {
+      "name": "log_title_jump",
+      "value": "Jump events"
+    },
+    {
+      "name": "jump_msg_idle",
+      "value": "No jump started yet"
+    },
+    {
+      "name": "jump_msg_context_failed",
+      "value": "Failed to get UIAbilityContext"
+    },
+    {
+      "name": "jump_msg_starting",
+      "value": "Launching %s…"
+    },
+    {
+      "name": "jump_msg_timeout",
+      "value": "%s did not respond within %d seconds; timeout"
+    },
+    {
+      "name": "jump_msg_success",
+      "value": "Launched %s"
+    },
+    {
+      "name": "download_page_subtitle",
+      "value": "A download button with a unified style. It prefers the document picker and falls back to the app sandbox when unavailable."
+    },
+    {
+      "name": "download_section_preview",
+      "value": "Download button preview"
+    },
+    {
+      "name": "download_style_summary",
+      "value": "Icon: %s · Layout: %s"
+    },
+    {
+      "name": "download_icon_filled",
+      "value": "FULL_FILLED"
+    },
+    {
+      "name": "download_icon_lines",
+      "value": "LINES"
+    },
+    {
+      "name": "orientation_horizontal",
+      "value": "HORIZONTAL"
+    },
+    {
+      "name": "orientation_vertical",
+      "value": "VERTICAL"
+    },
+    {
+      "name": "download_btn_toggle_icon",
+      "value": "Toggle icon"
+    },
+    {
+      "name": "download_btn_toggle_layout",
+      "value": "Toggle layout"
+    },
+    {
+      "name": "download_device_info",
+      "value": "Device form: %s · Document picker %s"
+    },
+    {
+      "name": "download_empty",
+      "value": "No download yet"
+    },
+    {
+      "name": "download_impl_desc",
+      "value": "DownloadFileButton only provides the unified button style; the click behavior is implemented by the generic onClick. The sample uses picker.DocumentViewPicker in DOWNLOAD mode to get the public downloads directory; if the board image has no file picker, it writes to the app sandbox filesDir and shows the real path."
+    },
+    {
+      "name": "log_title_download",
+      "value": "Download events"
+    },
+    {
+      "name": "half_page_subtitle",
+      "value": "Launch an atomic service with half-screen embedding. A placeholder appId is used, so the board follows the onError fallback path."
+    },
+    {
+      "name": "half_entry_title",
+      "value": "Embedded launch entry"
+    },
+    {
+      "name": "half_trigger_title",
+      "value": "Tap to trigger a launch test"
+    },
+    {
+      "name": "half_trigger_hint",
+      "value": "Placeholder appId · onError is expected; result shown below"
+    },
+    {
+      "name": "half_recent_title",
+      "value": "Latest result"
+    },
+    {
+      "name": "half_stub_title",
+      "value": "Stub notes"
+    },
+    {
+      "name": "half_appid_prefix",
+      "value": "Current appId: %s"
+    },
+    {
+      "name": "half_stub_desc",
+      "value": "Embedded launch requires the target atomic service to have an AGC-assigned appId and its ability to extend EmbeddableUIAbility. An offline board has neither, so this shows the real onError fallback. For a real service, replace the appId and ensure it supports embedded launch; otherwise the system falls back to a pop-up launch."
+    },
+    {
+      "name": "log_title_half",
+      "value": "HalfScreen events"
+    },
+    {
+      "name": "half_result_idle",
+      "value": "No launch triggered yet"
+    },
+    {
+      "name": "half_result_terminated",
+      "value": "Target atomic service terminated"
+    },
+    {
+      "name": "half_result_error",
+      "value": "Launch failed (%d): %s. The placeholder appId cannot be resolved on an offline board, which is expected."
+    },
+    {
+      "name": "nav_page_subtitle",
+      "value": "The app's outer container is this component. Settings below apply live to this page's title bar, background and navigation mode."
+    },
+    {
+      "name": "label_title",
+      "value": "Title"
+    },
+    {
+      "name": "label_bg",
+      "value": "Background"
+    },
+    {
+      "name": "label_mode",
+      "value": "Mode"
+    },
+    {
+      "name": "label_titlebar",
+      "value": "Title bar"
+    },
+    {
+      "name": "label_device",
+      "value": "Device adaptation"
+    },
+    {
+      "name": "nav_bg_gradient_short",
+      "value": "Gradient"
+    },
+    {
+      "name": "nav_bg_solid_short",
+      "value": "Solid"
+    },
+    {
+      "name": "nav_mode_split",
+      "value": "Split"
+    },
+    {
+      "name": "nav_mode_stack",
+      "value": "Stack"
+    },
+    {
+      "name": "nav_titlebar_hidden",
+      "value": "Hidden"
+    },
+    {
+      "name": "nav_titlebar_shown",
+      "value": "Shown"
+    },
+    {
+      "name": "nav_device_info",
+      "value": "%s / %s / %d columns"
+    },
+    {
+      "name": "nav_section_title",
+      "value": "Title"
+    },
+    {
+      "name": "nav_switch_gradient",
+      "value": "Gradient background"
+    },
+    {
+      "name": "nav_switch_hide_title",
+      "value": "Hide title bar"
+    },
+    {
+      "name": "nav_switch_split",
+      "value": "Split mode"
+    },
+    {
+      "name": "nav_btn_back_home",
+      "value": "Back to home"
+    },
+    {
+      "name": "nav_btn_reset",
+      "value": "Reset"
+    },
+    {
+      "name": "log_title_nav",
+      "value": "Navigation events"
+    },
+    {
+      "name": "prefs_page_subtitle",
+      "value": "Use preferences to write, read, delete and clear; data is flushed to disk and restored after restart."
+    },
+    {
+      "name": "prefs_label_input",
+      "value": "Content to write"
+    },
+    {
+      "name": "prefs_placeholder",
+      "value": "Enter text to save"
+    },
+    {
+      "name": "prefs_hint",
+      "value": "Up to %d characters; leading and trailing whitespace is trimmed"
+    },
+    {
+      "name": "prefs_btn_write",
+      "value": "Write"
+    },
+    {
+      "name": "prefs_btn_read",
+      "value": "Read"
+    },
+    {
+      "name": "prefs_btn_delete",
+      "value": "Delete text"
+    },
+    {
+      "name": "prefs_btn_clear",
+      "value": "Clear all"
+    },
+    {
+      "name": "prefs_label_state",
+      "value": "Persist state"
+    },
+    {
+      "name": "prefs_state_failed",
+      "value": "Error"
+    },
+    {
+      "name": "prefs_state_ok",
+      "value": "OK"
+    },
+    {
+      "name": "prefs_impl_desc",
+      "value": "The preferences instance is created by preferences.getPreferencesSync; writes and deletes use the sync APIs followed by flush. The read counter accumulates with each write and is persisted together, then restored when the page opens."
+    },
+    {
+      "name": "log_title_prefs",
+      "value": "Prefs events"
+    },
+    {
+      "name": "prefs_default_text",
+      "value": "Atomic service preferences sample"
+    },
+    {
+      "name": "prefs_status_idle",
+      "value": "Not loaded yet"
+    },
+    {
+      "name": "prefs_status_read",
+      "value": "%s: read from preferences"
+    },
+    {
+      "name": "prefs_status_read_fail",
+      "value": "Read failed (%d)"
+    },
+    {
+      "name": "prefs_status_empty",
+      "value": "Content is empty; write skipped"
+    },
+    {
+      "name": "prefs_status_saved",
+      "value": "Written and flushed"
+    },
+    {
+      "name": "prefs_status_save_fail",
+      "value": "Write failed (%d)"
+    },
+    {
+      "name": "prefs_status_instance_fail",
+      "value": "Failed to get preferences instance (%d)"
+    },
+    {
+      "name": "prefs_status_deleted",
+      "value": "Text deleted and flushed"
+    },
+    {
+      "name": "prefs_status_delete_fail",
+      "value": "Delete failed (%d)"
+    },
+    {
+      "name": "prefs_status_cleared",
+      "value": "All preferences cleared"
+    },
+    {
+      "name": "prefs_status_clear_fail",
+      "value": "Clear failed (%d)"
+    },
+    {
+      "name": "search_page_subtitle",
+      "value": "The search area, selector and two action areas are combined; all interactions are written to the log below."
+    },
+    {
+      "name": "search_input_placeholder",
+      "value": "Enter a component name or category"
+    },
+    {
+      "name": "search_results_title",
+      "value": "Matches (%d)"
+    },
+    {
+      "name": "search_summary",
+      "value": "%s / %s"
+    },
+    {
+      "name": "search_all_keywords",
+      "value": "All keywords"
+    },
+    {
+      "name": "search_empty",
+      "value": "No matching results"
+    },
+    {
+      "name": "log_title_search",
+      "value": "Search events"
+    },
+    {
+      "name": "sheet_page_subtitle",
+      "value": "Use bindSheet for half-modal content with height detents, style switching and close callbacks."
+    },
+    {
+      "name": "sheet_content_title",
+      "value": "Half-modal content"
+    },
+    {
+      "name": "sheet_content_desc",
+      "value": "Drag up to switch between medium and large detents; drag down past the threshold or tap close to exit."
+    },
+    {
+      "name": "sheet_current_style",
+      "value": "Current style: %s"
+    },
+    {
+      "name": "sheet_realtime_height",
+      "value": "Live height: %s vp · %s"
+    },
+    {
+      "name": "sheet_btn_close",
+      "value": "Close sheet"
+    },
+    {
+      "name": "sheet_label_action",
+      "value": "Actions"
+    },
+    {
+      "name": "sheet_btn_open",
+      "value": "Open sheet"
+    },
+    {
+      "name": "sheet_btn_style",
+      "value": "Style: %s"
+    },
+    {
+      "name": "sheet_btn_close_btn",
+      "value": "Close button: %s"
+    },
+    {
+      "name": "shown",
+      "value": "Shown"
+    },
+    {
+      "name": "hidden",
+      "value": "Hidden"
+    },
+    {
+      "name": "sheet_state_open",
+      "value": "Opened"
+    },
+    {
+      "name": "sheet_state_closed",
+      "value": "Closed"
+    },
+    {
+      "name": "sheet_last_close",
+      "value": "Last close: %s"
+    },
+    {
+      "name": "sheet_dismiss_none",
+      "value": "Not closed yet"
+    },
+    {
+      "name": "sheet_dismiss_reason",
+      "value": "Closed (button, drag or mask)"
+    },
+    {
+      "name": "sheet_impl_desc",
+      "value": "bindSheet uses $$ two-way binding; detents are medium and large; preferType switches between CENTER and POPUP. onHeightDidChange logs the drag height bucketed as low/medium/high, and onDisappear records the close reason."
+    },
+    {
+      "name": "log_title_sheet",
+      "value": "Sheet events"
+    },
+    {
+      "name": "tabs_page_subtitle",
+      "value": "Three icon-text tabs demonstrating tap, switch, switch interception and layout mode."
+    },
+    {
+      "name": "tabs_overview",
+      "value": "Overview"
+    },
+    {
+      "name": "tabs_overview_desc",
+      "value": "AtomicServiceTabs keeps the Tabs switching capability while simplifying tab styles, supporting up to 5 tabs."
+    },
+    {
+      "name": "tabs_count",
+      "value": "Tab count"
+    },
+    {
+      "name": "tabs_current_index",
+      "value": "Current index"
+    },
+    {
+      "name": "tabs_data",
+      "value": "Data"
+    },
+    {
+      "name": "tabs_click_count",
+      "value": "Tab taps"
+    },
+    {
+      "name": "tabs_switch_count",
+      "value": "Tab switches"
+    },
+    {
+      "name": "tabs_data_desc",
+      "value": "After switching, the onChange callback updates the current index; counts come from records with source=Tabs in the global log store."
+    },
+    {
+      "name": "tabs_more",
+      "value": "More"
+    },
+    {
+      "name": "tabs_more_desc",
+      "value": "When tabs are locked, onContentWillChange returns false and switching is intercepted."
+    },
+    {
+      "name": "tabs_state_locked",
+      "value": "State: locked"
+    },
+    {
+      "name": "tabs_state_unlocked",
+      "value": "State: switchable"
+    },
+    {
+      "name": "tabs_lock_switch",
+      "value": "Lock switching"
+    },
+    {
+      "name": "tabs_layout_vertical",
+      "value": "Layout: VERTICAL"
+    },
+    {
+      "name": "tabs_layout_auto",
+      "value": "Layout: AUTO"
+    },
+    {
+      "name": "tabs_prev",
+      "value": "Previous"
+    },
+    {
+      "name": "tabs_next",
+      "value": "Next"
+    },
+    {
+      "name": "tabs_current",
+      "value": "Current: %d / %d"
+    },
+    {
+      "name": "log_title_tabs",
+      "value": "Tabs events"
+    },
+    {
+      "name": "web_page_subtitle",
+      "value": "Loads local rawfile pages that can navigate between each other, with controller forward/back/refresh and H5 messages."
+    },
+    {
+      "name": "web_btn_refresh",
+      "value": "Refresh"
+    },
+    {
+      "name": "web_btn_back",
+      "value": "Back"
+    },
+    {
+      "name": "web_btn_forward",
+      "value": "Forward"
+    },
+    {
+      "name": "web_local_title",
+      "value": "Local page notes"
+    },
+    {
+      "name": "web_local_desc",
+      "value": "The pages are resources/rawfile/index.html and page2.html and do not need the network. They can navigate to each other; back/forward switch pages in history and onPageBegin/onPageEnd log it. The Send message button in H5 calls the JS SDK injected by AtomicServiceWeb; if no JS SDK is injected, the page shows a status hint instead of crashing."
+    },
+    {
+      "name": "log_title_web",
+      "value": "Web events"
+    },
+    {
+      "name": "prefs_reason_enter",
+      "value": "page opened"
+    },
+    {
+      "name": "prefs_reason_manual",
+      "value": "manual refresh"
     }
   ]
 }

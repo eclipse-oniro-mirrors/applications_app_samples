@@ -28,10 +28,23 @@ export struct HalfScreenDemo {
   navPathStack: NavPathStack = new NavPathStack();
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
   @State lastFailed: boolean = false;
-  @State lastResult: string = '尚未触发拉起';
+  @State lastResult: string = '';
   appId: string = HALF_SCREEN_APP_ID;
 
+  private getString(resource: Resource, ...args: Array<string | number>): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id, ...args);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
+    this.lastResult = this.getString($r('app.string.half_result_idle'));
     Logger.info('HalfScreen', '生命周期', `进入半屏演示页，appId=${this.appId}，${this.layout.describe()}`);
   }
 
@@ -42,14 +55,14 @@ export struct HalfScreenDemo {
   build() {
     DemoPageScaffold({
       title: 'HalfScreenLaunchComponent',
-      subtitle: '半屏嵌入启动原子化服务。当前使用占位 appId，开发板上会走 onError 降级路径。',
+      subtitle: $r('app.string.half_page_subtitle'),
       logSource: 'HalfScreen',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Column({ space: AppSpacing.CARD }) {
-            Text('嵌入启动入口')
+            Text($r('app.string.half_entry_title'))
               .fontSize(AppText.TITLE)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -59,12 +72,12 @@ export struct HalfScreenDemo {
               options: {},
               onTerminated: (info: TerminationInfo) => {
                 this.lastFailed = false;
-                this.lastResult = '目标原子化服务已结束';
+                this.lastResult = this.getString($r('app.string.half_result_terminated'));
                 Logger.info('HalfScreen', '终止', `目标原子化服务结束：${JSON.stringify(info.want)}`);
               },
               onError: (err: BusinessError) => {
                 this.lastFailed = true;
-                this.lastResult = `拉起失败（${err.code}）：${err.message.length > 0 ? err.message : '未知错误'}。占位 appId 无法在离线开发板解析，属预期结果。`;
+                this.lastResult = this.getString($r('app.string.half_result_error'), err.code, err.message);
                 Logger.error('HalfScreen', '错误',
                   `${formatError('拉起原子化服务', err.code, err.message)}；占位 appId 未在 AGC 注册，属预期结果`);
               },
@@ -77,11 +90,11 @@ export struct HalfScreenDemo {
                   .width(AppSize.LOGO)
                   .height(AppSize.LOGO)
                   .fillColor(AppColors.PRIMARY)
-                Text('点击触发拉起测试')
+                Text($r('app.string.half_trigger_title'))
                   .fontSize(AppText.SECTION)
                   .fontWeight(FontWeight.Medium)
                   .fontColor(AppColors.TEXT_PRIMARY)
-                Text('占位 appId · 预期返回 onError，结果见下方')
+                Text($r('app.string.half_trigger_hint'))
                   .fontSize(AppText.SMALL)
                   .fontColor(AppColors.TEXT_TERTIARY)
               }
@@ -92,7 +105,7 @@ export struct HalfScreenDemo {
             }
 
             Column({ space: AppSpacing.XS }) {
-              Text('最近一次结果')
+              Text($r('app.string.half_recent_title'))
                 .fontSize(AppText.SMALL)
                 .fontColor(AppColors.TEXT_TERTIARY)
                 .width('100%')
@@ -110,16 +123,16 @@ export struct HalfScreenDemo {
           .alignItems(HorizontalAlign.Start)
 
           Column({ space: AppSpacing.MD }) {
-            Text('打桩说明')
+            Text($r('app.string.half_stub_title'))
               .fontSize(AppText.TITLE)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
-            Text(`当前 appId：${this.appId}`)
+            Text(this.getString($r('app.string.half_appid_prefix'), this.appId))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
-            Text('嵌入式拉起要求目标原子化服务已在 AGC 分配 appId，并且目标 Ability 继承 EmbeddableUIAbility。开发板离线环境不具备这两个条件，因此这里展示真实的 onError 降级路径。接入真实服务时，只需替换 appId，并确保目标服务支持嵌入式运行；未授权时系统会改为跳出式拉起。')
+            Text($r('app.string.half_stub_desc'))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -129,7 +142,7 @@ export struct HalfScreenDemo {
           .backgroundColor(AppColors.CARD_BG)
           .borderRadius(AppRadius.LARGE)
 
-          LogPanel({ title: 'HalfScreen 事件', filterSource: 'HalfScreen' })
+          LogPanel({ title: $r('app.string.log_title_half'), filterSource: 'HalfScreen' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

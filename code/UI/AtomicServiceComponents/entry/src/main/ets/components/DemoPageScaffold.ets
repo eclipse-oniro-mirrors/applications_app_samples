@@ -19,8 +19,8 @@ import { Logger } from '../utils/Logger';
 
 @Component
 export struct DemoPageScaffold {
-  title: string = '';
-  subtitle: string = '';
+  title: ResourceStr = '';
+  subtitle: ResourceStr = '';
   logSource: string = '';
   navPathStack: NavPathStack = new NavPathStack();
   @StorageLink('navHideTitle') navHideTitle: boolean = false;
@@ -44,7 +44,7 @@ export struct DemoPageScaffold {
     Column({ space: AppSpacing.LG }) {
       Row({ space: AppSpacing.LG }) {
         if (this.navHideTitle) {
-          Button('返回')
+          Button($r('app.string.common_back'))
             .fontSize(AppText.BODY)
             .height(AppSize.BUTTON_SM)
             .backgroundColor(AppColors.PRIMARY_SOFT)

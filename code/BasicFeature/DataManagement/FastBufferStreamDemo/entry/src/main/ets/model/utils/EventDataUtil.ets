@@ -29,7 +29,7 @@ export function eventDataToError(data: emitter.EventData): Error {
   if (value instanceof Error) {
     return value;
   }
-  return new Error(typeof value === 'string' ? value : '未知错误');
+  return new Error(typeof value === 'string' ? value : 'Unknown error');
 }
 
 /** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */

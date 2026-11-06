@@ -32,17 +32,31 @@ import { Logger } from '../../utils/Logger';
 export struct PreferencesDemo {
   navPathStack: NavPathStack = new NavPathStack();
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
-  @State input: string = '原子化服务首选项示例';
+  @State input: string = '';
   @State savedText: string = '';
   @State readTimes: number = 0;
-  @State status: string = '尚未加载';
+  @State status: string = '';
   @State failed: boolean = false;
   private disposed: boolean = false;
 
+  private getString(resource: Resource, ...args: Array<string | number>): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id, ...args);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
     this.disposed = false;
+    this.input = this.getString($r('app.string.prefs_default_text'));
+    this.status = this.getString($r('app.string.prefs_status_idle'));
     Logger.info('Prefs', '生命周期', '进入首选项演示页');
-    this.reload('进入页面');
+    this.reload(this.getString($r('app.string.prefs_reason_enter')));
   }
 
   aboutToDisappear(): void {
@@ -61,19 +75,19 @@ export struct PreferencesDemo {
       this.savedText = text;
       this.readTimes = count;
       this.failed = false;
-      this.status = `${reason}：已从首选项读取`;
+      this.status = this.getString($r('app.string.prefs_status_read'), reason);
       Logger.info('Prefs', '读取', buildPrefsSummary(text, count));
     } catch (err) {
       const error = err as BusinessError;
       this.failed = true;
-      this.status = `读取失败（${error.code}）`;
+      this.status = this.getString($r('app.string.prefs_status_read_fail'), error.code);
       Logger.error('Prefs', '读取', `首选项读取失败（${error.code}）：${error.message}`);
     }
   }
 
   private save(): void {
     if (!canSaveText(this.input)) {
-      this.status = '内容为空，已跳过写入';
+      this.status = this.getString($r('app.string.prefs_status_empty'));
       Logger.warn('Prefs', '写入', '输入为空，未写入首选项');
       return;
     }
@@ -86,20 +100,20 @@ export struct PreferencesDemo {
         this.savedText = text;
         this.readTimes = count;
         this.failed = false;
-        this.status = '已写入并 flush 落盘';
+        this.status = this.getString($r('app.string.prefs_status_saved'));
         Logger.info('Prefs', '写入', `写入「${text}」，flush 完成，累计 ${count} 次`);
       }).catch((err: BusinessError) => {
         if (this.disposed) {
           return;
         }
         this.failed = true;
-        this.status = `写入失败（${err.code}）`;
+        this.status = this.getString($r('app.string.prefs_status_save_fail'), err.code);
         Logger.error('Prefs', '写入', `首选项写入失败（${err.code}）：${err.message}`);
       });
     } catch (err) {
       const error = err as BusinessError;
       this.failed = true;
-      this.status = `获取首选项实例失败（${error.code}）`;
+      this.status = this.getString($r('app.string.prefs_status_instance_fail'), error.code);
       Logger.error('Prefs', '写入', `获取首选项实例失败（${error.code}）：${error.message}`);
     }
   }
@@ -112,20 +126,20 @@ export struct PreferencesDemo {
         }
         this.savedText = '';
         this.failed = false;
-        this.status = '已删除文本并 flush';
+        this.status = this.getString($r('app.string.prefs_status_deleted'));
         Logger.info('Prefs', '删除', '删除 demoText 并 flush 完成');
       }).catch((err: BusinessError) => {
         if (this.disposed) {
           return;
         }
         this.failed = true;
-        this.status = `删除失败（${err.code}）`;
+        this.status = this.getString($r('app.string.prefs_status_delete_fail'), err.code);
         Logger.error('Prefs', '删除', `删除文本失败（${err.code}）：${err.message}`);
       });
     } catch (err) {
       const error = err as BusinessError;
       this.failed = true;
-      this.status = `获取首选项实例失败（${error.code}）`;
+      this.status = this.getString($r('app.string.prefs_status_instance_fail'), error.code);
       Logger.error('Prefs', '删除', `获取首选项实例失败（${error.code}）：${error.message}`);
     }
   }
@@ -139,40 +153,40 @@ export struct PreferencesDemo {
         this.savedText = '';
         this.readTimes = 0;
         this.failed = false;
-        this.status = '已清空全部首选项';
+        this.status = this.getString($r('app.string.prefs_status_cleared'));
         Logger.info('Prefs', '清空', 'clearSync + flush 完成');
       }).catch((err: BusinessError) => {
         if (this.disposed) {
           return;
         }
         this.failed = true;
-        this.status = `清空失败（${err.code}）`;
+        this.status = this.getString($r('app.string.prefs_status_clear_fail'), err.code);
         Logger.error('Prefs', '清空', `清空首选项失败（${err.code}）：${err.message}`);
       });
     } catch (err) {
       const error = err as BusinessError;
       this.failed = true;
-      this.status = `获取首选项实例失败（${error.code}）`;
+      this.status = this.getString($r('app.string.prefs_status_instance_fail'), error.code);
       Logger.error('Prefs', '清空', `获取首选项实例失败（${error.code}）：${error.message}`);
     }
   }
 
   build() {
     DemoPageScaffold({
-      title: '首选项存储',
-      subtitle: '使用 preferences 完成写入、读取、删除与清空，数据经 flush 落盘，重启后仍可恢复。',
+      title: $r('app.string.dest_prefs'),
+      subtitle: $r('app.string.prefs_page_subtitle'),
       logSource: 'Prefs',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Column({ space: AppSpacing.MD }) {
-            Text('写入内容')
+            Text($r('app.string.prefs_label_input'))
               .fontSize(AppText.TITLE)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
 
-            TextInput({ text: this.input, placeholder: '输入要保存的文本' })
+            TextInput({ text: this.input, placeholder: $r('app.string.prefs_placeholder') })
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON_MD)
               .backgroundColor(AppColors.SUBTLE_BG)
@@ -181,13 +195,13 @@ export struct PreferencesDemo {
                 this.input = value;
               })
 
-            Text(`最多保留 ${PREFS_MAX_LENGTH} 个字符，首尾空白会被裁剪`)
+            Text(this.getString($r('app.string.prefs_hint'), PREFS_MAX_LENGTH))
               .fontSize(AppText.SMALL)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
 
             Row({ space: AppSpacing.MD }) {
-              Button('写入')
+              Button($r('app.string.prefs_btn_write'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY)
@@ -196,20 +210,20 @@ export struct PreferencesDemo {
                 .onClick(() => {
                   this.save();
                 })
-              Button('读取')
+              Button($r('app.string.prefs_btn_read'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
                 .fontColor(AppColors.PRIMARY)
                 .layoutWeight(1)
                 .onClick(() => {
-                  this.reload('手动刷新');
+                  this.reload(this.getString($r('app.string.prefs_reason_manual')));
                 })
             }
             .width('100%')
 
             Row({ space: AppSpacing.MD }) {
-              Button('删除文本')
+              Button($r('app.string.prefs_btn_delete'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.DANGER_SOFT)
@@ -218,7 +232,7 @@ export struct PreferencesDemo {
                 .onClick(() => {
                   this.removeText();
                 })
-              Button('清空全部')
+              Button($r('app.string.prefs_btn_clear'))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.WARNING_SOFT)
@@ -238,11 +252,11 @@ export struct PreferencesDemo {
 
           Column({ space: AppSpacing.SM }) {
             Row() {
-              Text('落盘状态')
+              Text($r('app.string.prefs_label_state'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(this.failed ? '异常' : '正常')
+              Text(this.failed ? $r('app.string.prefs_state_failed') : $r('app.string.prefs_state_ok'))
                 .fontSize(AppText.TITLE)
                 .fontColor(this.failed ? AppColors.DANGER : AppColors.PRIMARY)
             }
@@ -264,12 +278,12 @@ export struct PreferencesDemo {
           .alignItems(HorizontalAlign.Start)
 
           Column({ space: AppSpacing.SM }) {
-            Text('实现说明')
+            Text($r('app.string.label_impl_title'))
               .fontSize(AppText.TITLE)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
-            Text('首选项实例由 preferences.getPreferencesSync 创建，写入与删除使用 sync 接口，随后 flush 保证落盘。读取次数会随每次写入累加并一起持久化，进入页面时从存储中恢复。')
+            Text($r('app.string.prefs_impl_desc'))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -279,7 +293,7 @@ export struct PreferencesDemo {
           .backgroundColor(AppColors.CARD_BG)
           .borderRadius(AppRadius.LARGE)
 
-          LogPanel({ title: 'Prefs 事件', filterSource: 'Prefs' })
+          LogPanel({ title: $r('app.string.log_title_prefs'), filterSource: 'Prefs' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

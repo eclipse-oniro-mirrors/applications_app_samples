@@ -26,10 +26,23 @@ export struct SearchDemo {
   navPathStack: NavPathStack = new NavPathStack();
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
   @State keyword: string = '';
-  @State category: string = '全部';
+  @State category: string = '';
   @State categoryIndex: number = 0;
 
+  private getString(resource: Resource, ...args: Array<string | number>): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id, ...args);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
+    this.category = this.getString($r('app.string.category_all'));
     Logger.info('Search', '生命周期', '进入 Search 演示页');
   }
 
@@ -44,7 +57,7 @@ export struct SearchDemo {
   build() {
     DemoPageScaffold({
       title: 'AtomicServiceSearch',
-      subtitle: '搜索区、选择区和两个功能区组合使用，所有交互都会写入下方日志。',
+      subtitle: $r('app.string.search_page_subtitle'),
       logSource: 'Search',
       navPathStack: this.navPathStack
     }) {
@@ -53,10 +66,10 @@ export struct SearchDemo {
           Column({ space: AppSpacing.XL }) {
             AtomicServiceSearch({
               value: this.keyword,
-              placeholder: '输入组件名或类别',
+              placeholder: this.getString($r('app.string.search_input_placeholder')),
               search: {
                 searchButton: {
-                  searchButtonValue: '搜索'
+                  searchButtonValue: $r('app.string.search_button')
                 },
                 onChange: (value: string) => {
                   this.keyword = value;
@@ -68,10 +81,10 @@ export struct SearchDemo {
               },
               select: {
                 options: [
-                  { value: '全部', icon: $r('sys.media.ohos_ic_public_more') },
-                  { value: '容器', icon: $r('sys.media.ohos_ic_public_phone') },
-                  { value: '交互', icon: $r('sys.media.ohos_ic_public_location') },
-                  { value: '能力', icon: $r('sys.media.ohos_ic_public_share') }
+                  { value: $r('app.string.category_all'), icon: $r('sys.media.ohos_ic_public_more') },
+                  { value: $r('app.string.category_container'), icon: $r('sys.media.ohos_ic_public_phone') },
+                  { value: $r('app.string.category_interaction'), icon: $r('sys.media.ohos_ic_public_location') },
+                  { value: $r('app.string.category_capability'), icon: $r('sys.media.ohos_ic_public_share') }
                 ],
                 selected: this.categoryIndex,
                 selectValue: this.category,
@@ -105,12 +118,13 @@ export struct SearchDemo {
           .borderRadius(AppRadius.LARGE)
 
           Row() {
-            Text(`匹配结果（${this.results().length}）`)
+            Text($r('app.string.search_results_title', this.results().length))
               .fontSize(AppText.SECTION)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
             Blank()
-            Text(`${this.category} / ${this.keyword.length > 0 ? this.keyword : '全部关键字'}`)
+            Text(this.getString($r('app.string.search_summary'), this.category,
+              this.keyword.length > 0 ? this.keyword : this.getString($r('app.string.search_all_keywords'))))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
           }
@@ -137,7 +151,7 @@ export struct SearchDemo {
                 .borderRadius(AppRadius.TAG)
                 .padding({ left: 6, right: 6, top: 2, bottom: 2 })
 
-              Text('进入')
+              Text($r('app.string.action_enter'))
                 .fontSize(AppText.SMALL)
                 .fontColor(AppColors.PRIMARY)
             }
@@ -152,7 +166,7 @@ export struct SearchDemo {
           }, (item: DemoItem) => item.key)
 
           if (this.results().length === 0) {
-            Text('没有匹配结果')
+            Text($r('app.string.search_empty'))
               .fontSize(AppText.LABEL)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -161,7 +175,7 @@ export struct SearchDemo {
               .borderRadius(AppRadius.CARD)
           }
 
-          LogPanel({ title: 'Search 事件', filterSource: 'Search' })
+          LogPanel({ title: $r('app.string.log_title_search'), filterSource: 'Search' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

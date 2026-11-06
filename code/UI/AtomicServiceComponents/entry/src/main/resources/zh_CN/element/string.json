@@ -127,6 +127,594 @@
     {
       "name": "download_state_failed",
       "value": "保存失败"
+    },
+    {
+      "name": "common_back",
+      "value": "返回"
+    },
+    {
+      "name": "log_panel_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "log_count",
+      "value": "共 %d 条"
+    },
+    {
+      "name": "common_clear",
+      "value": "清空"
+    },
+    {
+      "name": "common_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "log_clear_title",
+      "value": "清空日志"
+    },
+    {
+      "name": "log_clear_message",
+      "value": "将清空全部事件记录，且不可恢复，确认继续？"
+    },
+    {
+      "name": "log_empty",
+      "value": "暂无事件，操作组件后将在这里看到回调记录"
+    },
+    {
+      "name": "label_current_state",
+      "value": "当前状态"
+    },
+    {
+      "name": "label_impl_title",
+      "value": "实现说明"
+    },
+    {
+      "name": "jump_page_subtitle",
+      "value": "使用 startAbility 拉起其他应用。成功、拒绝与 3 秒超时三类结果都会写入日志。"
+    },
+    {
+      "name": "jump_btn_launch",
+      "value": "拉起"
+    },
+    {
+      "name": "jump_section_targets",
+      "value": "目标应用"
+    },
+    {
+      "name": "jump_target_prefix",
+      "value": "目标：%s"
+    },
+    {
+      "name": "jump_target_none",
+      "value": "目标：未选择"
+    },
+    {
+      "name": "jump_impl_desc",
+      "value": "跳转使用 UIAbilityContext.startAbility 与显式 Want。示例内置三个目标：系统设置、本应用首页和未安装应用，分别对应成功、成功与 16000001 失败分支。每次发起都会生成新的 token，3 秒内没有结果则判定超时，迟到的回调会被 token 丢弃。"
+    },
+    {
+      "name": "log_title_jump",
+      "value": "Jump 事件"
+    },
+    {
+      "name": "jump_msg_idle",
+      "value": "尚未发起跳转"
+    },
+    {
+      "name": "jump_msg_context_failed",
+      "value": "获取 UIAbilityContext 失败"
+    },
+    {
+      "name": "jump_msg_starting",
+      "value": "正在拉起 %s…"
+    },
+    {
+      "name": "jump_msg_timeout",
+      "value": "%s 超过 %d 秒未响应，已判定超时"
+    },
+    {
+      "name": "jump_msg_success",
+      "value": "已拉起 %s"
+    },
+    {
+      "name": "download_page_subtitle",
+      "value": "统一样式的下载按钮。点击后优先调用文档选择器，不可用时降级写入应用沙箱。"
+    },
+    {
+      "name": "download_section_preview",
+      "value": "下载按钮预览"
+    },
+    {
+      "name": "download_style_summary",
+      "value": "图标：%s · 排列：%s"
+    },
+    {
+      "name": "download_icon_filled",
+      "value": "FULL_FILLED（实心）"
+    },
+    {
+      "name": "download_icon_lines",
+      "value": "LINES（线性）"
+    },
+    {
+      "name": "orientation_horizontal",
+      "value": "HORIZONTAL（水平）"
+    },
+    {
+      "name": "orientation_vertical",
+      "value": "VERTICAL（垂直）"
+    },
+    {
+      "name": "download_btn_toggle_icon",
+      "value": "切换图标"
+    },
+    {
+      "name": "download_btn_toggle_layout",
+      "value": "切换排列"
+    },
+    {
+      "name": "download_device_info",
+      "value": "设备形态：%s · 文档选择器%s"
+    },
+    {
+      "name": "download_empty",
+      "value": "尚未执行下载"
+    },
+    {
+      "name": "download_impl_desc",
+      "value": "DownloadFileButton 只负责统一的按钮样式，点击行为由通用 onClick 实现。示例使用 picker.DocumentViewPicker 的 DOWNLOAD 模式获取公共下载目录；如果开发板镜像没有文件选择器，则写入应用沙箱 filesDir 并显示真实路径。"
+    },
+    {
+      "name": "log_title_download",
+      "value": "Download 事件"
+    },
+    {
+      "name": "half_page_subtitle",
+      "value": "半屏嵌入启动原子化服务。当前使用占位 appId，开发板上会走 onError 降级路径。"
+    },
+    {
+      "name": "half_entry_title",
+      "value": "嵌入启动入口"
+    },
+    {
+      "name": "half_trigger_title",
+      "value": "点击触发拉起测试"
+    },
+    {
+      "name": "half_trigger_hint",
+      "value": "占位 appId · 预期返回 onError，结果见下方"
+    },
+    {
+      "name": "half_recent_title",
+      "value": "最近一次结果"
+    },
+    {
+      "name": "half_stub_title",
+      "value": "打桩说明"
+    },
+    {
+      "name": "half_appid_prefix",
+      "value": "当前 appId：%s"
+    },
+    {
+      "name": "half_stub_desc",
+      "value": "嵌入式拉起要求目标原子化服务已在 AGC 分配 appId，并且目标 Ability 继承 EmbeddableUIAbility。开发板离线环境不具备这两个条件，因此这里展示真实的 onError 降级路径。接入真实服务时，只需替换 appId，并确保目标服务支持嵌入式运行；未授权时系统会改为跳出式拉起。"
+    },
+    {
+      "name": "log_title_half",
+      "value": "HalfScreen 事件"
+    },
+    {
+      "name": "half_result_idle",
+      "value": "尚未触发拉起"
+    },
+    {
+      "name": "half_result_terminated",
+      "value": "目标原子化服务已结束"
+    },
+    {
+      "name": "half_result_error",
+      "value": "拉起失败（%d）：%s。占位 appId 无法在离线开发板解析，属预期结果。"
+    },
+    {
+      "name": "nav_page_subtitle",
+      "value": "当前应用的外层容器就是该组件。下面的设置会实时作用到本页的标题栏、背景与导航模式。"
+    },
+    {
+      "name": "label_title",
+      "value": "标题"
+    },
+    {
+      "name": "label_bg",
+      "value": "背景"
+    },
+    {
+      "name": "label_mode",
+      "value": "模式"
+    },
+    {
+      "name": "label_titlebar",
+      "value": "标题栏"
+    },
+    {
+      "name": "label_device",
+      "value": "设备适配"
+    },
+    {
+      "name": "nav_bg_gradient_short",
+      "value": "渐变"
+    },
+    {
+      "name": "nav_bg_solid_short",
+      "value": "纯色"
+    },
+    {
+      "name": "nav_mode_split",
+      "value": "Split（分栏）"
+    },
+    {
+      "name": "nav_mode_stack",
+      "value": "Stack（单栏）"
+    },
+    {
+      "name": "nav_titlebar_hidden",
+      "value": "已隐藏"
+    },
+    {
+      "name": "nav_titlebar_shown",
+      "value": "显示"
+    },
+    {
+      "name": "nav_device_info",
+      "value": "%s / %s / %d 列"
+    },
+    {
+      "name": "nav_section_title",
+      "value": "标题"
+    },
+    {
+      "name": "nav_switch_gradient",
+      "value": "渐变背景"
+    },
+    {
+      "name": "nav_switch_hide_title",
+      "value": "隐藏标题栏"
+    },
+    {
+      "name": "nav_switch_split",
+      "value": "分栏模式"
+    },
+    {
+      "name": "nav_btn_back_home",
+      "value": "返回首页"
+    },
+    {
+      "name": "nav_btn_reset",
+      "value": "恢复默认"
+    },
+    {
+      "name": "log_title_nav",
+      "value": "Navigation 事件"
+    },
+    {
+      "name": "prefs_page_subtitle",
+      "value": "使用 preferences 完成写入、读取、删除与清空，数据经 flush 落盘，重启后仍可恢复。"
+    },
+    {
+      "name": "prefs_label_input",
+      "value": "写入内容"
+    },
+    {
+      "name": "prefs_placeholder",
+      "value": "输入要保存的文本"
+    },
+    {
+      "name": "prefs_hint",
+      "value": "最多保留 %d 个字符，首尾空白会被裁剪"
+    },
+    {
+      "name": "prefs_btn_write",
+      "value": "写入"
+    },
+    {
+      "name": "prefs_btn_read",
+      "value": "读取"
+    },
+    {
+      "name": "prefs_btn_delete",
+      "value": "删除文本"
+    },
+    {
+      "name": "prefs_btn_clear",
+      "value": "清空全部"
+    },
+    {
+      "name": "prefs_label_state",
+      "value": "落盘状态"
+    },
+    {
+      "name": "prefs_state_failed",
+      "value": "异常"
+    },
+    {
+      "name": "prefs_state_ok",
+      "value": "正常"
+    },
+    {
+      "name": "prefs_impl_desc",
+      "value": "首选项实例由 preferences.getPreferencesSync 创建，写入与删除使用 sync 接口，随后 flush 保证落盘。读取次数会随每次写入累加并一起持久化，进入页面时从存储中恢复。"
+    },
+    {
+      "name": "log_title_prefs",
+      "value": "Prefs 事件"
+    },
+    {
+      "name": "prefs_default_text",
+      "value": "原子化服务首选项示例"
+    },
+    {
+      "name": "prefs_status_idle",
+      "value": "尚未加载"
+    },
+    {
+      "name": "prefs_status_read",
+      "value": "%s：已从首选项读取"
+    },
+    {
+      "name": "prefs_status_read_fail",
+      "value": "读取失败（%d）"
+    },
+    {
+      "name": "prefs_status_empty",
+      "value": "内容为空，已跳过写入"
+    },
+    {
+      "name": "prefs_status_saved",
+      "value": "已写入并 flush 落盘"
+    },
+    {
+      "name": "prefs_status_save_fail",
+      "value": "写入失败（%d）"
+    },
+    {
+      "name": "prefs_status_instance_fail",
+      "value": "获取首选项实例失败（%d）"
+    },
+    {
+      "name": "prefs_status_deleted",
+      "value": "已删除文本并 flush"
+    },
+    {
+      "name": "prefs_status_delete_fail",
+      "value": "删除失败（%d）"
+    },
+    {
+      "name": "prefs_status_cleared",
+      "value": "已清空全部首选项"
+    },
+    {
+      "name": "prefs_status_clear_fail",
+      "value": "清空失败（%d）"
+    },
+    {
+      "name": "search_page_subtitle",
+      "value": "搜索区、选择区和两个功能区组合使用，所有交互都会写入下方日志。"
+    },
+    {
+      "name": "search_input_placeholder",
+      "value": "输入组件名或类别"
+    },
+    {
+      "name": "search_results_title",
+      "value": "匹配结果（%d）"
+    },
+    {
+      "name": "search_summary",
+      "value": "%s / %s"
+    },
+    {
+      "name": "search_all_keywords",
+      "value": "全部关键字"
+    },
+    {
+      "name": "search_empty",
+      "value": "没有匹配结果"
+    },
+    {
+      "name": "log_title_search",
+      "value": "Search 事件"
+    },
+    {
+      "name": "sheet_page_subtitle",
+      "value": "使用 bindSheet 承载半模态内容，支持高度档位、样式切换和关闭回调。"
+    },
+    {
+      "name": "sheet_content_title",
+      "value": "半模态内容区"
+    },
+    {
+      "name": "sheet_content_desc",
+      "value": "向上拖动可切换半屏 / 全屏两档；向下拖过阈值或点击关闭按钮即可退出。"
+    },
+    {
+      "name": "sheet_current_style",
+      "value": "当前样式：%s"
+    },
+    {
+      "name": "sheet_realtime_height",
+      "value": "实时高度：%s vp · %s"
+    },
+    {
+      "name": "sheet_btn_close",
+      "value": "关闭半模态"
+    },
+    {
+      "name": "sheet_label_action",
+      "value": "操作"
+    },
+    {
+      "name": "sheet_btn_open",
+      "value": "打开半模态"
+    },
+    {
+      "name": "sheet_btn_style",
+      "value": "样式：%s"
+    },
+    {
+      "name": "sheet_btn_close_btn",
+      "value": "关闭按钮：%s"
+    },
+    {
+      "name": "shown",
+      "value": "显示"
+    },
+    {
+      "name": "hidden",
+      "value": "隐藏"
+    },
+    {
+      "name": "sheet_state_open",
+      "value": "已打开"
+    },
+    {
+      "name": "sheet_state_closed",
+      "value": "已关闭"
+    },
+    {
+      "name": "sheet_last_close",
+      "value": "最近一次关闭：%s"
+    },
+    {
+      "name": "sheet_dismiss_none",
+      "value": "尚未关闭过"
+    },
+    {
+      "name": "sheet_dismiss_reason",
+      "value": "已关闭（按钮、拖拽或遮罩）"
+    },
+    {
+      "name": "sheet_impl_desc",
+      "value": "bindSheet 通过 $$ 双向绑定控制显隐，detents 固定为半屏与全屏两档，preferType 在 CENTER 与 POPUP 间切换。onHeightDidChange 把拖拽高度按低 / 中 / 高归档写入日志，onDisappear 记录关闭原因。"
+    },
+    {
+      "name": "log_title_sheet",
+      "value": "Sheet 事件"
+    },
+    {
+      "name": "tabs_page_subtitle",
+      "value": "三个图文页签，演示点击、切换、切换拦截和布局模式。"
+    },
+    {
+      "name": "tabs_overview",
+      "value": "概览"
+    },
+    {
+      "name": "tabs_overview_desc",
+      "value": "AtomicServiceTabs 在保留 Tabs 切换能力的同时，简化了页签样式，最多支持 5 个页签。"
+    },
+    {
+      "name": "tabs_count",
+      "value": "页签数量"
+    },
+    {
+      "name": "tabs_current_index",
+      "value": "当前索引"
+    },
+    {
+      "name": "tabs_data",
+      "value": "数据"
+    },
+    {
+      "name": "tabs_click_count",
+      "value": "页签点击次数"
+    },
+    {
+      "name": "tabs_switch_count",
+      "value": "页签切换次数"
+    },
+    {
+      "name": "tabs_data_desc",
+      "value": "切换页签后，onChange 回调会同步更新当前索引；计数来自全局日志存储中 source=Tabs 的记录。"
+    },
+    {
+      "name": "tabs_more",
+      "value": "更多"
+    },
+    {
+      "name": "tabs_more_desc",
+      "value": "锁定页签后，onContentWillChange 返回 false，切换动作会被拦截。"
+    },
+    {
+      "name": "tabs_state_locked",
+      "value": "当前状态：已锁定"
+    },
+    {
+      "name": "tabs_state_unlocked",
+      "value": "当前状态：可切换"
+    },
+    {
+      "name": "tabs_lock_switch",
+      "value": "锁定切换"
+    },
+    {
+      "name": "tabs_layout_vertical",
+      "value": "布局：VERTICAL"
+    },
+    {
+      "name": "tabs_layout_auto",
+      "value": "布局：AUTO"
+    },
+    {
+      "name": "tabs_prev",
+      "value": "上一页"
+    },
+    {
+      "name": "tabs_next",
+      "value": "下一页"
+    },
+    {
+      "name": "tabs_current",
+      "value": "当前：%d / %d"
+    },
+    {
+      "name": "log_title_tabs",
+      "value": "Tabs 事件"
+    },
+    {
+      "name": "web_page_subtitle",
+      "value": "加载本地 rawfile 页面，两页之间可跳转，通过控制器操作前进、后退、刷新，并接收 H5 消息。"
+    },
+    {
+      "name": "web_btn_refresh",
+      "value": "刷新"
+    },
+    {
+      "name": "web_btn_back",
+      "value": "后退"
+    },
+    {
+      "name": "web_btn_forward",
+      "value": "前进"
+    },
+    {
+      "name": "web_local_title",
+      "value": "本地页面说明"
+    },
+    {
+      "name": "web_local_desc",
+      "value": "页面位于 resources/rawfile/index.html 与 page2.html，不依赖网络。两页可互相跳转，跳转后“后退 / 前进”会在浏览历史中切换页面，onPageBegin / onPageEnd 同步记录。H5 中的“发送消息”按钮会调用 AtomicServiceWeb 注入的 JS SDK；如果当前运行环境未注入 JS SDK，页面会在状态区提示，不会崩溃。"
+    },
+    {
+      "name": "log_title_web",
+      "value": "Web 事件"
+    },
+    {
+      "name": "prefs_reason_enter",
+      "value": "进入页面"
+    },
+    {
+      "name": "prefs_reason_manual",
+      "value": "手动刷新"
     }
   ]
 }

@@ -92,11 +92,11 @@ export struct TabsDemo {
   @Builder
   tabOverview() {
     Column({ space: AppSpacing.XL }) {
-      Text('概览')
+      Text($r('app.string.tabs_overview'))
         .fontSize(AppText.HEADING)
         .fontWeight(FontWeight.Bold)
         .fontColor(AppColors.TEXT_PRIMARY)
-      Text('AtomicServiceTabs 在保留 Tabs 切换能力的同时，简化了页签样式，最多支持 5 个页签。')
+      Text($r('app.string.tabs_overview_desc'))
         .fontSize(AppText.LABEL)
         .fontColor(AppColors.TEXT_SECONDARY)
         .textAlign(TextAlign.Start)
@@ -106,7 +106,7 @@ export struct TabsDemo {
             .fontSize(AppText.METRIC)
             .fontWeight(FontWeight.Bold)
             .fontColor(AppColors.PRIMARY)
-          Text('页签数量')
+          Text($r('app.string.tabs_count'))
             .fontSize(AppText.SMALL)
             .fontColor(AppColors.TEXT_TERTIARY)
         }
@@ -120,7 +120,7 @@ export struct TabsDemo {
             .fontSize(AppText.METRIC)
             .fontWeight(FontWeight.Bold)
             .fontColor(AppColors.PRIMARY)
-          Text('当前索引')
+          Text($r('app.string.tabs_current_index'))
             .fontSize(AppText.SMALL)
             .fontColor(AppColors.TEXT_TERTIARY)
         }
@@ -141,12 +141,12 @@ export struct TabsDemo {
   @Builder
   tabData() {
     Column({ space: AppSpacing.LG }) {
-      Text('数据')
+      Text($r('app.string.tabs_data'))
         .fontSize(AppText.HEADING)
         .fontWeight(FontWeight.Bold)
         .fontColor(AppColors.TEXT_PRIMARY)
       Row() {
-        Text('页签点击次数')
+        Text($r('app.string.tabs_click_count'))
           .fontSize(AppText.LABEL)
           .fontColor(AppColors.TEXT_SECONDARY)
         Blank()
@@ -159,7 +159,7 @@ export struct TabsDemo {
       .backgroundColor(AppColors.SUBTLE_BG)
       .borderRadius(AppRadius.SMALL)
       Row() {
-        Text('页签切换次数')
+        Text($r('app.string.tabs_switch_count'))
           .fontSize(AppText.LABEL)
           .fontColor(AppColors.TEXT_SECONDARY)
         Blank()
@@ -171,7 +171,7 @@ export struct TabsDemo {
       .padding(AppSpacing.LG)
       .backgroundColor(AppColors.SUBTLE_BG)
       .borderRadius(AppRadius.SMALL)
-      Text('切换页签后，onChange 回调会同步更新当前索引；计数来自全局日志存储中 source=Tabs 的记录。')
+      Text($r('app.string.tabs_data_desc'))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_TERTIARY)
     }
@@ -185,14 +185,14 @@ export struct TabsDemo {
   @Builder
   tabMore() {
     Column({ space: AppSpacing.LG }) {
-      Text('更多')
+      Text($r('app.string.tabs_more'))
         .fontSize(AppText.HEADING)
         .fontWeight(FontWeight.Bold)
         .fontColor(AppColors.TEXT_PRIMARY)
-      Text('锁定页签后，onContentWillChange 返回 false，切换动作会被拦截。')
+      Text($r('app.string.tabs_more_desc'))
         .fontSize(AppText.LABEL)
         .fontColor(AppColors.TEXT_SECONDARY)
-      Text(this.locked ? '当前状态：已锁定' : '当前状态：可切换')
+      Text(this.locked ? $r('app.string.tabs_state_locked') : $r('app.string.tabs_state_unlocked'))
         .fontSize(AppText.LABEL)
         .fontColor(this.locked ? AppColors.DANGER : AppColors.PRIMARY)
         .padding(AppSpacing.LG)
@@ -210,14 +210,14 @@ export struct TabsDemo {
   build() {
     DemoPageScaffold({
       title: 'AtomicServiceTabs',
-      subtitle: '三个图文页签，演示点击、切换、切换拦截和布局模式。',
+      subtitle: $r('app.string.tabs_page_subtitle'),
       logSource: 'Tabs',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Row({ space: AppSpacing.XL }) {
-            Text('锁定切换')
+            Text($r('app.string.tabs_lock_switch'))
               .fontSize(AppText.TITLE)
               .fontColor(AppColors.TEXT_PRIMARY)
             Toggle({ type: ToggleType.Switch, isOn: this.locked })
@@ -226,7 +226,7 @@ export struct TabsDemo {
                 Logger.info('Tabs', '拦截', `页签切换${value ? '已锁定' : '已解锁'}`);
               })
             Blank()
-            Button(this.verticalLayout ? '布局：VERTICAL' : '布局：AUTO')
+            Button(this.verticalLayout ? $r('app.string.tabs_layout_vertical') : $r('app.string.tabs_layout_auto'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -255,11 +255,11 @@ export struct TabsDemo {
                 }
               ],
               tabBarOptionsArray: [
-                new TabBarOptions($r('sys.media.ohos_ic_public_phone'), '概览',
+                new TabBarOptions($r('sys.media.ohos_ic_public_phone'), $r('app.string.tabs_overview'),
                   AppColors.TEXT_TERTIARY, AppColors.PRIMARY),
-                new TabBarOptions($r('sys.media.ohos_ic_public_location'), '数据',
+                new TabBarOptions($r('sys.media.ohos_ic_public_location'), $r('app.string.tabs_data'),
                   AppColors.TEXT_TERTIARY, AppColors.PRIMARY),
-                new TabBarOptions($r('sys.media.ohos_ic_public_more'), '更多',
+                new TabBarOptions($r('sys.media.ohos_ic_public_more'), $r('app.string.tabs_more'),
                   AppColors.TEXT_TERTIARY, AppColors.PRIMARY)
               ],
               tabBarPosition: TabBarPosition.BOTTOM,
@@ -292,7 +292,7 @@ export struct TabsDemo {
           .clip(true)
 
           Row({ space: AppSpacing.MD }) {
-            Button('上一页')
+            Button($r('app.string.tabs_prev'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(this.canGoPrevious() ? AppColors.PRIMARY : AppColors.SOFT_BG)
@@ -300,7 +300,7 @@ export struct TabsDemo {
               .onClick(() => {
                 this.goTo(this.currentIndex - 1);
               })
-            Button('下一页')
+            Button($r('app.string.tabs_next'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(this.canGoNext() ? AppColors.PRIMARY : AppColors.SOFT_BG)
@@ -308,13 +308,13 @@ export struct TabsDemo {
               .onClick(() => {
                 this.goTo(this.currentIndex + 1);
               })
-            Text(`当前：${this.currentIndex + 1} / ${TAB_COUNT}`)
+            Text($r('app.string.tabs_current', this.currentIndex + 1, TAB_COUNT))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
           }
           .width('100%')
 
-          LogPanel({ title: 'Tabs 事件', filterSource: 'Tabs' })
+          LogPanel({ title: $r('app.string.log_title_tabs'), filterSource: 'Tabs' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

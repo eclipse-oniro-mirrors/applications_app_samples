@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 import { DemoPageScaffold } from '../../components/DemoPageScaffold';
 import { LogPanel } from '../../components/LogPanel';
 import { DEFAULT_NAV_TITLE, NAV_TITLE_PRESETS } from '../../common/AppConstants';
@@ -71,20 +71,20 @@ export struct NavigationDemo {
   build() {
     DemoPageScaffold({
       title: 'AtomicServiceNavigation',
-      subtitle: '当前应用的外层容器就是该组件。下面的设置会实时作用到本页的标题栏、背景与导航模式。',
+      subtitle: $r('app.string.nav_page_subtitle'),
       logSource: 'Navigation',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Column({ space: AppSpacing.SM }) {
-            Text('当前状态')
+            Text($r('app.string.label_current_state'))
               .fontSize(AppText.SECTION)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
             Row() {
-              Text('标题')
+              Text($r('app.string.label_title'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
@@ -94,45 +94,49 @@ export struct NavigationDemo {
             }
             .width('100%')
             .padding({ top: AppSpacing.SM, bottom: AppSpacing.SM })
+
             Row() {
-              Text('背景')
+              Text($r('app.string.label_bg'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(this.navGradient ? '渐变' : '纯色')
+              Text(this.navGradient ? $r('app.string.nav_bg_gradient_short') : $r('app.string.nav_bg_solid_short'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_PRIMARY)
             }
             .width('100%')
             .padding({ top: AppSpacing.SM, bottom: AppSpacing.SM })
+
             Row() {
-              Text('模式')
+              Text($r('app.string.label_mode'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(this.navSplit ? 'Split（分栏）' : 'Stack（单栏）')
+              Text(this.navSplit ? $r('app.string.nav_mode_split') : $r('app.string.nav_mode_stack'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_PRIMARY)
             }
             .width('100%')
             .padding({ top: AppSpacing.SM, bottom: AppSpacing.SM })
+
             Row() {
-              Text('标题栏')
+              Text($r('app.string.label_titlebar'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(this.navHideTitle ? '已隐藏' : '显示')
+              Text(this.navHideTitle ? $r('app.string.nav_titlebar_hidden') : $r('app.string.nav_titlebar_shown'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_PRIMARY)
             }
             .width('100%')
             .padding({ top: AppSpacing.SM, bottom: AppSpacing.SM })
+
             Row() {
-              Text('设备适配')
+              Text($r('app.string.label_device'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(`${this.layout.form} / ${this.layout.breakpoint} / ${this.layout.columns} 列`)
+              Text($r('app.string.nav_device_info', this.layout.form, this.layout.breakpoint, this.layout.columns))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_PRIMARY)
             }
@@ -145,7 +149,7 @@ export struct NavigationDemo {
           .borderRadius(AppRadius.LARGE)
 
           Column({ space: AppSpacing.LG }) {
-            Text('标题')
+            Text($r('app.string.nav_section_title'))
               .fontSize(AppText.SECTION)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
@@ -171,7 +175,7 @@ export struct NavigationDemo {
 
           Column({ space: AppSpacing.XS }) {
             Row() {
-              Text('渐变背景')
+              Text($r('app.string.nav_switch_gradient'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_PRIMARY)
               Blank()
@@ -183,8 +187,9 @@ export struct NavigationDemo {
             }
             .width('100%')
             .padding({ top: AppSpacing.XS, bottom: AppSpacing.XS })
+
             Row() {
-              Text('隐藏标题栏')
+              Text($r('app.string.nav_switch_hide_title'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_PRIMARY)
               Blank()
@@ -196,8 +201,9 @@ export struct NavigationDemo {
             }
             .width('100%')
             .padding({ top: AppSpacing.XS, bottom: AppSpacing.XS })
+
             Row() {
-              Text('分栏模式')
+              Text($r('app.string.nav_switch_split'))
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_PRIMARY)
               Blank()
@@ -216,13 +222,13 @@ export struct NavigationDemo {
           .borderRadius(AppRadius.LARGE)
 
           Row({ space: AppSpacing.MD }) {
-            Button('返回首页')
+            Button($r('app.string.nav_btn_back_home'))
               .fontSize(AppText.LABEL)
               .height(AppSize.BUTTON_MD)
               .backgroundColor(AppColors.PRIMARY)
               .fontColor(AppColors.WHITE)
               .onClick(() => this.goBack())
-            Button('恢复默认')
+            Button($r('app.string.nav_btn_reset'))
               .fontSize(AppText.LABEL)
               .height(AppSize.BUTTON_MD)
               .backgroundColor(AppColors.SOFT_BG)
@@ -238,7 +244,7 @@ export struct NavigationDemo {
           }
           .width('100%')
 
-          LogPanel({ title: 'Navigation 事件', filterSource: 'Navigation' })
+          LogPanel({ title: $r('app.string.log_title_nav'), filterSource: 'Navigation' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })

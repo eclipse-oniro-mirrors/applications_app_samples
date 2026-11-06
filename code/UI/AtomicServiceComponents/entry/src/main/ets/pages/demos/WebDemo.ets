@@ -89,26 +89,26 @@ export struct WebDemo {
   build() {
     DemoPageScaffold({
       title: 'AtomicServiceWeb',
-      subtitle: '加载本地 rawfile 页面，两页之间可跳转，通过控制器操作前进、后退、刷新，并接收 H5 消息。',
+      subtitle: $r('app.string.web_page_subtitle'),
       logSource: 'Web',
       navPathStack: this.navPathStack
     }) {
       Scroll() {
         Column({ space: AppSpacing.XL }) {
           Row({ space: AppSpacing.MD }) {
-            Button('刷新')
+            Button($r('app.string.web_btn_refresh'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(AppColors.PRIMARY_SOFT)
               .fontColor(AppColors.PRIMARY)
               .onClick(() => this.refreshPage())
-            Button('后退')
+            Button($r('app.string.web_btn_back'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(AppColors.PRIMARY_SOFT)
               .fontColor(AppColors.PRIMARY)
               .onClick(() => this.goBack())
-            Button('前进')
+            Button($r('app.string.web_btn_forward'))
               .fontSize(AppText.BODY)
               .height(AppSize.BUTTON)
               .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -162,12 +162,12 @@ export struct WebDemo {
           .clip(true)
 
           Column({ space: AppSpacing.SM }) {
-            Text('本地页面说明')
+            Text($r('app.string.web_local_title'))
               .fontSize(AppText.TITLE)
               .fontWeight(FontWeight.Medium)
               .fontColor(AppColors.TEXT_PRIMARY)
               .width('100%')
-            Text('页面位于 resources/rawfile/index.html 与 page2.html，不依赖网络。两页可互相跳转，跳转后“后退 / 前进”会在浏览历史中切换页面，onPageBegin / onPageEnd 同步记录。H5 中的“发送消息”按钮会调用 AtomicServiceWeb 注入的 JS SDK；如果当前运行环境未注入 JS SDK，页面会在状态区提示，不会崩溃。')
+            Text($r('app.string.web_local_desc'))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_SECONDARY)
               .width('100%')
@@ -177,7 +177,7 @@ export struct WebDemo {
           .backgroundColor(AppColors.CARD_BG)
           .borderRadius(AppRadius.LARGE)
 
-          LogPanel({ title: 'Web 事件', filterSource: 'Web' })
+          LogPanel({ title: $r('app.string.log_title_web'), filterSource: 'Web' })
         }
         .width('100%')
         .constraintSize({ maxWidth: this.layout.pageMaxWidth })
