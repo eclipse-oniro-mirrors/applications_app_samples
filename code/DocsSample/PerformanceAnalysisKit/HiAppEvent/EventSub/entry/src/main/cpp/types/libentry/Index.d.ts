@@ -53,6 +53,8 @@ export const RegisterAppHicollieWatcherT: () => void;
 // [Start Sys_Native_Crash_Event_C++_Index.d.ts]
 export const testNullptr: () => void;
 // [End Sys_Native_Crash_Event_C++_Index.d.ts]
+export const testStackOverflow: () => void;
+export const testSigpipeCrash: () => void;
 // [Start test_hicollie_set_timer_Index.d.ts]
 export const HiCollieTestTimerNdk: () => void;
 // [End test_hicollie_set_timer_Index.d.ts]
