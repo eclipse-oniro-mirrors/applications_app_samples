@@ -22,9 +22,9 @@ import { AppColors, AppRadius, AppSpacing, AppText } from '../common/Theme';
 import { WidgetTone, toneSoftColor, toneTextColor } from './CommonWidgets';
 
 export class ResultRow {
-  title: string;
-  detail: string;
-  tone: WidgetTone;
+  public title: string;
+  public detail: string;
+  public tone: WidgetTone;
 
   constructor(title: string, detail: string, tone: WidgetTone) {
     this.title = title;

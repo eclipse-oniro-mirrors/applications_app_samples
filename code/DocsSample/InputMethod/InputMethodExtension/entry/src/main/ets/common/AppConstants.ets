@@ -18,7 +18,7 @@
  * 这里只放"纯数据"，不引用任何 SDK 类型，保证 model/utils 里的纯函数可以在本地单测直接跑。
  */
 
-/** 日志域。0x0C23 与本机其他示例的日志域错开，便于多套示例同时抓日志 */
+/** 日志域。0x0C23 与本机其余示例的日志域错开，便于多套示例同时抓日志 */
 export const HILOG_DOMAIN: number = 0x0C23;
 export const HILOG_TAG: string = 'InputMethodExt';
 
@@ -28,8 +28,8 @@ export const PAGE_LOG_LIMIT: number = 20;
 export const HOME_LOG_LIMIT: number = 30;
 
 export class StorageKeys {
-  static readonly APP_LOGS: string = 'appLogs';
-  static readonly KEYBOARD_TEXT: string = 'keyboardText';
+  public static readonly APP_LOGS: string = 'appLogs';
+  public static readonly KEYBOARD_TEXT: string = 'keyboardText';
 }
 
 /**

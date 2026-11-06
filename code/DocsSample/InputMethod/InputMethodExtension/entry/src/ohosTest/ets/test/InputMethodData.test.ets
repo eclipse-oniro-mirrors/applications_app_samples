@@ -80,8 +80,8 @@ import {
 
 /** 只带 code / message 的错误对象：复现 BusinessError 被 catch 到时的最小形状 */
 class CodedError {
-  code: number;
-  message: string;
+  public code: number;
+  public message: string;
 
   constructor(code: number, message: string) {
     this.code = code;

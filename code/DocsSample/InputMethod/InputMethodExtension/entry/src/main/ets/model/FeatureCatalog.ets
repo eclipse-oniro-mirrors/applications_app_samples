@@ -25,11 +25,11 @@ export enum FeatureId {
 }
 
 export class FeatureEntry {
-  id: FeatureId;
-  title: string;
-  subtitle: string;
-  apis: string[];
-  route: string;
+  public id: FeatureId;
+  public title: string;
+  public subtitle: string;
+  public apis: string[];
+  public route: string;
 
   constructor(id: FeatureId, title: string, subtitle: string, apis: string[], route: string) {
     this.id = id;
@@ -70,8 +70,8 @@ export const FEATURES: FeatureEntry[] = [
  * 这里不写"不支持"，只写"未覆盖"和原因——能力是否可用不由示例的取舍来断定。
  */
 export class UncoveredApi {
-  name: string;
-  reason: string;
+  public name: string;
+  public reason: string;
 
   constructor(name: string, reason: string) {
     this.name = name;

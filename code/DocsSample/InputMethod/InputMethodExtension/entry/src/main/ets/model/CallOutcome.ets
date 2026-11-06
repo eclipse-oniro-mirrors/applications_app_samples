@@ -19,7 +19,7 @@
  * 为什么单独建模：输入法框架的接口失败时不一定抛异常——createPanel 在非输入法
  * 进程里抛 12800004，而部分能力在能力未声明时返回 undefined。只判断 try/catch
  * 会让失败被当成成功，所以用 status 把三种情况分开：抛异常、返回 undefined、正常返回。
- * 0 永远只代表成功。
+ * 0 始终只代表成功。
  */
 
 /** 问题类别。页面据此选颜色，用例据此挑断言分支 */
@@ -33,7 +33,7 @@ export enum ApiStatus {
   INPUT_METHOD = 'inputMethod',
   /** 接口返回了 undefined 却没有任何错误——最需要警惕的一类 */
   EMPTY_RESULT = 'empty',
-  /** 其他失败：12800008、12800010、12800014 以及本地兜底码 */
+  /** 其余失败：12800008、12800010、12800014 以及本地兜底码 */
   INTERNAL = 'internal'
 }
 
@@ -92,12 +92,12 @@ export function apiStatusName(status: ApiStatus): string {
 
 /** 统一的结果对象：页面只渲染 describe()，用例只断言 status 与 code */
 export class CallOutcome {
-  api: string;
-  status: ApiStatus;
-  code: number;
-  summary: string;
-  detail: string;
-  durationMs: number;
+  public api: string;
+  public status: ApiStatus;
+  public code: number;
+  public summary: string;
+  public detail: string;
+  public durationMs: number;
 
   constructor(api: string, status: ApiStatus, code: number, summary: string,
               detail: string, durationMs: number) {

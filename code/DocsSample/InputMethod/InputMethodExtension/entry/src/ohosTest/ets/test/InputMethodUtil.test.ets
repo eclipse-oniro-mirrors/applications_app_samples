@@ -71,8 +71,8 @@ import {
 
 /** 只带 message（可选 code）的对象：复现"错误对象里没有数值码"的最小形状 */
 class CodedLike {
-  code?: number;
-  message: string;
+  public code?: number;
+  public message: string;
 
   constructor(message: string, code?: number) {
     this.message = message;

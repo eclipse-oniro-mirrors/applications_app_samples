@@ -115,23 +115,13 @@ cd D:\appSamples1028\InputMethodExtension
 D:\hdc.exe install -r "entry\build\default\outputs\default\entry-default-signed.hap"
 D:\hdc.exe install -r "entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap"
 
-# 全部用例：一条命令跑完 411 条（连跑两轮均 411/411，见「实测记录」）
-# -s unittest 传运行器在包内的路径。本工程目录名是小写 testrunner，所以是
-# /ets/testrunner/OpenHarmonyTestRunner；传类名 OpenHarmonyTestRunner 也能拉起，两种写法都实测过
-# 不加 -s class 就是跑 testsuite() 里登记的全部套件
-D:\hdc.exe shell aa test -b com.example.inputmethodextension -m entry_test `
-  -s unittest /ets/testrunner/OpenHarmonyTestRunner -w 900000
-
-# 只想跑 UI 冒烟（或某个套件）时，用 -s class 过滤，套件名可用逗号分隔
-D:\hdc.exe shell aa test -b com.example.inputmethodextension -m entry_test `
-  -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class InputMethodUiSmokeTest -w 400000
-
-# 启动 UI
-D:\hdc.exe shell aa start -a EntryAbility -b com.example.inputmethodextension
-
 # 日志（domain 0x0C23，tag InputMethodExt）
 D:\hdc.exe shell hilog -x -T InputMethodExt
 ```
+
+运行测试：在 DevEco Studio 中右键 `entry/src/ohosTest` 选择运行，即执行 `testsuite()` 里登记的全部 411 条
+（连跑两轮均 411/411，见「实测记录」）；只跑 UI 冒烟或某个套件时，在对应测试文件的 `describe` 旁点运行。
+运行配置里不要勾选「安装选项 → 仅测试包」，原因见「已知限制」第 13 条。启动 UI：在设备桌面点击本应用图标。
 
 权限：本示例不申请任何权限。系统能力依赖 `SystemCapability.MiscServices.InputMethodFramework`。
 
@@ -237,7 +227,7 @@ D:\hdc.exe shell hilog -x -T InputMethodExt
   删除链到空、删除保留模式、emoji 与混排整删、额度精确封顶与额度 0、emoji 计 1、满缓冲忽略回车与空格、
   未知 action 落 label、删后继续输入、候选跟随缓冲、64 打 + 64 删的长稳、每次按键返回独立 `KeyEdit`；
 - `..._ERRE_0100`–`1600`（16 条，`InputMethodErrorEdge.test.ets`）：取码边界——`code=0` 仍算成功、文本里的
-  三位码/末尾码/首个长串优先/数字粘连字母/四位与八位整取、两位数字被丢弃、裸对象与空 message 兜底为
+  三位码/末尾码/最靠前的长串优先/数字粘连字母/四位与八位整取、两位数字被丢弃、裸对象与空 message 兜底为
   `-1` 与 `[object Object]`、`formatError` 的负码与空文案、`describeThrown` 的未知码/`-3`/`801` 三类提示、
   六条状态提示两两不同、相邻码必须落 `INTERNAL`；
 - `..._SESS_0100`–`1000`、`..._RUNTIME_0100`–`0700`（17 条，`InputMethodSessionDeep.test.ets`）：会话与运行时——
@@ -296,7 +286,7 @@ metadata issues=[]
 | `InputMethodLogStoreMatrixTest` | 日志矩阵 | id 自增、默认值、容量兜底与裁剪、三条件组合查询、tag 大小写 | 20 | 是 |
 | `InputMethodLoggerStorageTest` | 运行时日志通道 | `Logger.record` 写入 AppStorage、按 tag 计数、200 条封顶（`beforeEach`/`afterEach` 清场） | 5 | 是 |
 | `InputMethodKeyboardFlowTest` | 键盘状态机 | 连打、模式往返、删除链、emoji 整删、满缓冲、未知 action、64 打 64 删长稳 | 23 | 是 |
-| `InputMethodErrorEdgeTest` | 错误取码边界 | 字段/文本取码、两位丢弃、首个长串优先、空 message 兜底、六条提示互异 | 16 | 是 |
+| `InputMethodErrorEdgeTest` | 错误取码边界 | 字段/文本取码、两位丢弃、最靠前的长串优先、空 message 兜底、六条提示互异 | 16 | 是 |
 | `InputMethodSessionDeepTest` | 会话结果 | 六个演示结果的 summary/detail 文案、页序、状态与耗时 | 10 | 是 |
 | `InputMethodRuntimeStateTest` | 运行时空状态 | 面板控制器初始态与幂等销毁、页面路径、键盘通道无客户端不伪造成功 | 7 | 是 |
 | `InputMethodAppLimitTest` | 常量与实现 | 常量与使用它的真函数成对断言、键盘几何、默认键名、路由前缀、接口总数 | 14 | 是 |
@@ -325,7 +315,7 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
 | 构建 | `entry@default` 与 `entry@ohosTest` 均 `BUILD SUCCESSFUL`，产物为 `-signed.hap` |
 | 安装 | `hdc install -r` / `bm install` 主包与测试包均 `install bundle successfully` |
 | 扩展注册 | `bm dump` 可见 `InputMethodService`：`extensionTypeName=inputMethod`、`enabled=true`、进程 `com.example.inputmethodextension:inputMethod` |
-| aa test（一条命令跑全部） | 不加 `-s class`：`Tests run: 411, Failure: 0, Error: 0, Pass: 411, Ignore: 0`，`TestFinished-ResultMsg: your test finished!!!` |
+| 命令行测试（一条命令跑全部） | 不加 `-s class`：`Tests run: 411, Failure: 0, Error: 0, Pass: 411, Ignore: 0`，`TestFinished-ResultMsg: your test finished!!!` |
 | 第 2 轮（同一产物连跑，不重装） | 再次 `Tests run: 411, Failure: 0, Error: 0, Pass: 411`，无 `App died`、无 `THREAD_BLOCK_6S` |
 | IDE 一键运行 | DevEco 运行配置里取消「安装选项 → 仅测试包」后点运行：`411 测试已通过`，46 秒 250 毫秒 |
 | 合计 | 411 条连续两轮全绿；此前“必须拆两条命令”的结论是 `List.test.ets` 注册写法错误引发的误判，见「已知限制」第 12 条 |
@@ -360,7 +350,7 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
    传前者在编译期就报 `Property 'FLAG_FIXED' does not exist`。
 
 3. **`hapModulesInfo` 需要叠加 `GET_BUNDLE_INFO_WITH_HAP_MODULE`（实测）**：只给
-   `GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY` 时 `hapModulesInfo` 为空数组，扩展列表永远查不到。
+   `GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY` 时 `hapModulesInfo` 为空数组，扩展列表查不到任何条目。
 
    `BundleInfo` 本身没有 extension 字段，必须
    `info.hapModulesInfo → module.extensionAbilitiesInfo`，且字段名是 `extensionAbilityType`（不是 `type`）。
@@ -376,7 +366,7 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
    自动化环境无法保证这一点。
 
 6. **签名绑定包名与设备 UDID**：调试 profile 里写死了 `bundle-name` 与 `device-ids`，换包名或换设备
-   都要重新出 profile；直接复用其他工程的 `default_*.p7b` 会在安装时报签名校验失败。
+   都要重新出 profile；直接复用别的工程的 `default_*.p7b` 会在安装时报签名校验失败。
 
 7. **`entry@ohosTest` 构建有一条 `'start_window_background' conflict` WARN**：`.test` 中间产物与主资源
    重复声明了同名颜色，属噪音，不影响 `BUILD SUCCESSFUL` 与用例执行。
@@ -405,7 +395,7 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
 12. **`List.test.ets` 必须用直接调用语句注册套件（实测）**：DevEco 运行测试前会静态扫描该文件，只认
     `xxxTest();` 这种直接调用；改成 `SUITE_MANIFEST` 数组 + `forEach` 的表驱动写法后，IDE 里整包跑报
     00502002「在包中未找到任何测试用例」、单文件跑报 00502004「当前文件未在 list 文件中注册任何函数」，
-    而同一份产物用命令行 `aa test` 仍然能跑——这正是“命令行能过、IDE 点不过”的根因。现为 23 条直接调用。
+    而同一份产物用命令行直接拉起测试仍然能跑——这正是“命令行能过、IDE 点不过”的根因。现为 23 条直接调用。
     另外历史上记录过 `Driver.create()` 等 uitest 守护进程、同进程串跑时 7.08s 阻塞叠加 `THREAD_BLOCK_6S`
     与 `App died` 的现场，当时据此拆成 `-s class` / `-s notClass` 两条命令；修好注册写法后一条命令连跑两轮
     411/411 均无阻塞或崩溃，拆命令只作为排查手段保留。
@@ -416,12 +406,12 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
 
 ## 参考资料
 
-本示例的两个主体接口以开发者官网在线文档为准，并与本地 SDK 声明逐条对照：
+本示例的两个主体接口以 OpenHarmony 官方文档为准，并与本地 SDK 声明逐条对照：
 
 - `@ohos.inputMethod.ExtraConfig`（输入法扩展信息）：
-  https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-inputmethod-extraconfig
+  https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethod-extraconfig.md
 - `@ohos.inputMethodList`（输入法切换列表控件）：
-  https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-inputmethodlist
+  https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodlist.md
 
 配套声明的本地路径（`%DEVECO_SDK_HOME%/default/openharmony/ets/api/`）：
 `@ohos.inputMethod.ExtraConfig.d.ts`、`@ohos.inputMethodList.d.ets`、`@ohos.inputMethodEngine.d.ts`、
@@ -431,7 +421,7 @@ material 在 `~/.ohos/config/`）。下方 411 条命令行、IDE 一键运行�
 
 | 要点 | 文档原文 | 本示例的处理 |
 | --- | --- | --- |
-| 值类型 | `CustomValueType = number \| string \| boolean` | `ExtraConfigModel` 只用这三种类型，其他类型在构造阶段就拒绝 |
+| 值类型 | `CustomValueType = number \| string \| boolean` | `ExtraConfigModel` 只用这三种类型，其余类型在构造阶段就拒绝 |
 | 容量 | “信息总长度不超过 32KB”，超时“超出部分不被传递” | 按 JSON 序列化后的 UTF-8 字节计；`32769` 用例报 401 是**本地**写入前拦截，不等于系统会报错 |
 | 调用方限制 | inputMethodList “仅系统应用和输入法应用可调用，`patternOptions` 仅系统预置输入法支持” | 页面如实记录：本应用不满足条件，只弹列表、不渲染模式项 |
 

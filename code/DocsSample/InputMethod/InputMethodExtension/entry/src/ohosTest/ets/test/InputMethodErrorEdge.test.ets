@@ -32,8 +32,8 @@ import {
 
 /** 可选的 code 字段：用来区分“有数值码”“只有文本”“什么都没有”三种 catch 对象 */
 class ThrownLike {
-  code?: number;
-  message: string;
+  public code?: number;
+  public message: string;
 
   constructor(message: string, code?: number) {
     this.message = message;

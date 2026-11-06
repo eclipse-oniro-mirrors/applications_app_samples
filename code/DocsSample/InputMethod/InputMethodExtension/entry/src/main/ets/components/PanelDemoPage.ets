@@ -101,7 +101,7 @@ export struct PanelDemoPage {
 
   /**
    * 检查本应用是否真的把 inputMethod 扩展注册进去了：
-   * 注册缺失时，系统永远不会拉起输入法，后面所有面板调用都无从谈起。
+   * 注册缺失时，系统不会拉起输入法，后面所有面板调用都无从谈起。
    */
   private checkExtension(): void {
     try {

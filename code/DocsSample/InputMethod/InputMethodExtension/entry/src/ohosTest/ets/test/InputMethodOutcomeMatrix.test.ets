@@ -58,8 +58,8 @@ import {
 
 /** 复现 BusinessError 的形状：只有 code 与 message 两个字段，不引入 SDK 依赖 */
 class CodedError {
-  code: number;
-  message: string;
+  public code: number;
+  public message: string;
 
   constructor(code: number, message: string) {
     this.code = code;

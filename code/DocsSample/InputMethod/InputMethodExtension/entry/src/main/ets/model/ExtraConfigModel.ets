@@ -28,8 +28,8 @@ import { InputMethodExtraConfig } from '@kit.IMEKit';
 export type ConfigValue = number | string | boolean;
 
 export class ConfigEntry {
-  key: string;
-  value: ConfigValue;
+  public key: string;
+  public value: ConfigValue;
 
   constructor(key: string, value: ConfigValue) {
     this.key = key;
@@ -143,9 +143,9 @@ export interface EditorAttributeLike {
 
 /** 打桩对象：输入法侧看到的编辑框属性由系统提供，三方进程只能复现同样的数据形状 */
 export class StubEditorAttribute implements EditorAttributeLike {
-  bundleName?: string;
-  inputPattern: number;
-  extraConfig?: InputMethodExtraConfig;
+  public bundleName?: string;
+  public inputPattern: number;
+  public extraConfig?: InputMethodExtraConfig;
 
   constructor(inputPattern: number, bundleName: string, extraConfig?: InputMethodExtraConfig) {
     this.inputPattern = inputPattern;

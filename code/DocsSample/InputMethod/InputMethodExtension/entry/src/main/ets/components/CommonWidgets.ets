@@ -61,7 +61,7 @@ export function toneSoftColor(tone: WidgetTone): string {
 /**
  * 注意：这几个展示组件的入参必须是 @Prop（不能用常规成员变量）。
  * 常规成员变量只在组件创建时赋值一次，父组件的 @State 变化不会同步进来，
- * 表现就是页面上「探测结果 / 状态胶囊 / 按钮文案」永远停在首帧。
+ * 表现就是页面上「探测结果 / 状态胶囊 / 按钮文案」停留在首帧、不再刷新。
  */
 
 /** 分组卡片：标题 + 可选副标题 + 自定义内容 */
@@ -161,7 +161,7 @@ export struct KeyValueRow {
       Text(this.value)
         .fontSize(this.mono ? AppText.SMALL : AppText.BODY)
         .fontColor(this.valueColor)
-        .fontFamily(this.mono ? 'monospace' : 'HarmonyOS Sans')
+        .fontFamily(this.mono ? 'monospace' : 'sans-serif')
         .layoutWeight(1)
     }
     .width('100%')

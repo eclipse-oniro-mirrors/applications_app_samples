@@ -31,9 +31,9 @@ export const ACTION_MODE: string = 'mode';
 export const ACTION_ENTER: string = 'enter';
 
 export class KeySpec {
-  label: string;
-  action: string;
-  wide: boolean;
+  public label: string;
+  public action: string;
+  public wide: boolean;
 
   constructor(label: string, action: string, wide: boolean = false) {
     this.label = label;
@@ -131,10 +131,10 @@ export function charCount(text: string): number {
  * 两个使用方（系统面板页、演示页预览）共用同一份规则。
  */
 export class KeyEdit {
-  text: string;
-  mode: KeyboardMode;
-  inserted: string;
-  deleted: number;
+  public text: string;
+  public mode: KeyboardMode;
+  public inserted: string;
+  public deleted: number;
 
   constructor(text: string, mode: KeyboardMode, inserted: string, deleted: number) {
     this.text = text;

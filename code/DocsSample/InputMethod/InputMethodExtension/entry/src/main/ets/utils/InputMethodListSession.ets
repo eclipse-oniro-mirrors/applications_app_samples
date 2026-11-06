@@ -24,9 +24,9 @@
 import { LIST_PATTERN_COUNT } from '../common/AppConstants';
 
 export class PatternSpec {
-  index: number;
-  label: string;
-  hint: string;
+  public index: number;
+  public label: string;
+  public hint: string;
 
   constructor(index: number, label: string, hint: string) {
     this.index = index;

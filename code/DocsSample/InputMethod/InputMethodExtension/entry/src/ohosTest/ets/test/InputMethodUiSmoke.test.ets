@@ -453,7 +453,7 @@ export default function inputMethodUiSmokeTest() {
      *
      * 接续上一条：页面已经停在面板演示页，这里只读不导航。
      * 断言的是整个示例的前提——module.json5 里那段 inputMethod 扩展真的能被读到：
-     * type 写错或 srcEntry 失配时页面会显示“未注册”，系统永远不会拉起这个输入法，
+     * type 写错或 srcEntry 失配时页面会显示“未注册”，系统不会拉起这个输入法，
      * 而除了这条之外没有任何用例会发现。
      * @tc.size MediumTest
      * @tc.type Function
