@@ -40,9 +40,11 @@ struct Index {
   build(): void {
     Column({ space: SECTION_SPACING }) {
       Text($r('app.string.EntryAbility_label'))
+        .id('EntryAbility_label')
         .fontSize(TITLE_FONT_SIZE)
         .fontWeight(FontWeight.Bold)
       Text($r('app.string.home_description'))
+        .id('home_description')
         .fontSize(BODY_FONT_SIZE)
         .fontColor($r('app.color.secondary_text'))
       Button($r('app.string.skill_tab_title'))

@@ -5,6 +5,10 @@
     "pluginandskill/pages/SkillManagerHome",
     "pluginandskill/pages/SelfSkillQueryPage",
     "pluginandskill/pages/BundleSkillQueryPage",
-    "pluginandskill/pages/AllSkillsQueryPage"
+    "pluginandskill/pages/AllSkillsQueryPage",
+    "pluginandskill/pages/SkillExecutionPage",
+    "pluginandskill/pages/SkillComparePage",
+    "pluginandskill/pages/SkillHistoryPage",
+    "pluginandskill/pages/SkillBatchPage"
   ]
 }

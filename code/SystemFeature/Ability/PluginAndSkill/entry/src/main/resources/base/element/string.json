@@ -289,6 +289,271 @@
       "name": "skill_flag_placeholder",
       "value": "Query flags",
       "description": "Skill flag selector label"
+    },
+    {
+      "name": "skill_execution_title",
+      "value": "Execute Skill",
+      "description": "Skill execution page title"
+    },
+    {
+      "name": "skill_execution_description",
+      "value": "Select a skill and execute it to view the result.",
+      "description": "Skill execution page description"
+    },
+    {
+      "name": "execute_skill_button",
+      "value": "Execute",
+      "description": "Execute skill button text"
+    },
+    {
+      "name": "execution_result_title",
+      "value": "Execution Result",
+      "description": "Execution result section title"
+    },
+    {
+      "name": "execution_no_result",
+      "value": "No execution result yet.",
+      "description": "Empty execution result hint"
+    },
+    {
+      "name": "execution_success",
+      "value": "Execution completed successfully.",
+      "description": "Execution success message"
+    },
+    {
+      "name": "execution_failed",
+      "value": "Execution failed.",
+      "description": "Execution failure message"
+    },
+    {
+      "name": "plugin_detail_title",
+      "value": "Plugin Details",
+      "description": "Plugin detail page title"
+    },
+    {
+      "name": "plugin_detail_description",
+      "value": "View detailed information about installed plugins.",
+      "description": "Plugin detail page description"
+    },
+    {
+      "name": "refresh_plugins_button",
+      "value": "Refresh Plugin List",
+      "description": "Refresh plugins button text"
+    },
+    {
+      "name": "plugin_detail_label",
+      "value": "Label",
+      "description": "Plugin label field"
+    },
+    {
+      "name": "plugin_detail_bundle",
+      "value": "Bundle Name",
+      "description": "Plugin bundle name field"
+    },
+    {
+      "name": "plugin_detail_version",
+      "value": "Version",
+      "description": "Plugin version field"
+    },
+    {
+      "name": "plugin_detail_module_count",
+      "value": "Module Count",
+      "description": "Plugin module count field"
+    },
+    {
+      "name": "skill_compare_title",
+      "value": "Compare Skills",
+      "description": "Skill compare page title"
+    },
+    {
+      "name": "skill_compare_description",
+      "value": "Select two skills to compare their properties side by side.",
+      "description": "Skill compare page description"
+    },
+    {
+      "name": "compare_skill_a_label",
+      "value": "Skill A",
+      "description": "First skill selector label"
+    },
+    {
+      "name": "compare_skill_b_label",
+      "value": "Skill B",
+      "description": "Second skill selector label"
+    },
+    {
+      "name": "compare_button",
+      "value": "Compare",
+      "description": "Compare skills button text"
+    },
+    {
+      "name": "compare_result_title",
+      "value": "Comparison Result",
+      "description": "Comparison result section title"
+    },
+    {
+      "name": "compare_same_bundle",
+      "value": "Same Bundle",
+      "description": "Skills have same bundle name"
+    },
+    {
+      "name": "compare_diff_bundle",
+      "value": "Different Bundle",
+      "description": "Skills have different bundle names"
+    },
+    {
+      "name": "compare_same_module",
+      "value": "Same Module",
+      "description": "Skills have same module name"
+    },
+    {
+      "name": "compare_diff_module",
+      "value": "Different Module",
+      "description": "Skills have different module names"
+    },
+    {
+      "name": "skill_execution_button",
+      "value": "Execute Skill",
+      "description": "Navigation button for skill execution page"
+    },
+    {
+      "name": "plugin_detail_button",
+      "value": "Plugin Details",
+      "description": "Navigation button for plugin detail page"
+    },
+    {
+      "name": "skill_compare_button",
+      "value": "Compare Skills",
+      "description": "Navigation button for skill compare page"
+    },
+    {
+      "name": "plugin_compare_title",
+      "value": "Compare Plugins",
+      "description": "Plugin compare page title"
+    },
+    {
+      "name": "plugin_compare_description",
+      "value": "Select two installed plugins to compare their properties.",
+      "description": "Plugin compare page description"
+    },
+    {
+      "name": "plugin_compare_select_a",
+      "value": "Select Plugin A",
+      "description": "Plugin A selector label"
+    },
+    {
+      "name": "plugin_compare_select_b",
+      "value": "Select Plugin B",
+      "description": "Plugin B selector label"
+    },
+    {
+      "name": "skill_history_title",
+      "value": "Skill Query History",
+      "description": "Skill history page title"
+    },
+    {
+      "name": "skill_history_description",
+      "value": "View history of skill queries with statistics.",
+      "description": "Skill history page description"
+    },
+    {
+      "name": "history_query_all",
+      "value": "Query All",
+      "description": "Query all skills button"
+    },
+    {
+      "name": "history_clear",
+      "value": "Clear",
+      "description": "Clear history button"
+    },
+    {
+      "name": "history_filter_title",
+      "value": "Filter",
+      "description": "History filter section title"
+    },
+    {
+      "name": "history_statistics_title",
+      "value": "Statistics",
+      "description": "History statistics section title"
+    },
+    {
+      "name": "history_records_title",
+      "value": "Query Records",
+      "description": "History records section title"
+    },
+    {
+      "name": "plugin_search_title",
+      "value": "Search Plugins",
+      "description": "Plugin search page title"
+    },
+    {
+      "name": "plugin_search_description",
+      "value": "Search installed plugins by keyword and filters.",
+      "description": "Plugin search page description"
+    },
+    {
+      "name": "plugin_search_options",
+      "value": "Search Options",
+      "description": "Plugin search options label"
+    },
+    {
+      "name": "plugin_search_button",
+      "value": "Search",
+      "description": "Plugin search button"
+    },
+    {
+      "name": "plugin_search_results_title",
+      "value": "Search Results",
+      "description": "Plugin search results title"
+    },
+    {
+      "name": "skill_batch_title",
+      "value": "Batch Skill Operations",
+      "description": "Skill batch page title"
+    },
+    {
+      "name": "skill_batch_description",
+      "value": "Select skills and execute batch queries.",
+      "description": "Skill batch page description"
+    },
+    {
+      "name": "skill_batch_select_skills",
+      "value": "Select Skills",
+      "description": "Skill batch selection label"
+    },
+    {
+      "name": "skill_batch_execute",
+      "value": "Execute Batch",
+      "description": "Skill batch execute button"
+    },
+    {
+      "name": "skill_batch_summary",
+      "value": "Batch Summary",
+      "description": "Skill batch summary title"
+    },
+    {
+      "name": "skill_batch_records_title",
+      "value": "Batch Records",
+      "description": "Skill batch records title"
+    },
+    {
+      "name": "plugin_compare_button",
+      "value": "Compare Plugins",
+      "description": "Navigation button for plugin compare page"
+    },
+    {
+      "name": "skill_history_button",
+      "value": "Query History",
+      "description": "Navigation button for skill history page"
+    },
+    {
+      "name": "plugin_search_button_nav",
+      "value": "Search Plugins",
+      "description": "Navigation button for plugin search page"
+    },
+    {
+      "name": "skill_batch_button",
+      "value": "Batch Operations",
+      "description": "Navigation button for skill batch page"
     }
   ]
 }

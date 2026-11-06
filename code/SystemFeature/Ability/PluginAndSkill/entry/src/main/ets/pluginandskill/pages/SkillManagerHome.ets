@@ -69,6 +69,40 @@ struct SkillManagerHome {
         .onClick(() => {
           this.navigateTo('pluginandskill/pages/AllSkillsQueryPage');
         })
+
+      Divider().width('80%').color($r('app.color.secondary_text'))
+
+      Button($r('app.string.skill_execution_title'))
+        .id('skill_execution_button')
+        .width('100%')
+        .height(BUTTON_HEIGHT)
+        .onClick(() => {
+          this.navigateTo('pluginandskill/pages/SkillExecutionPage');
+        })
+      Button($r('app.string.skill_compare_title'))
+        .id('skill_compare_button')
+        .width('100%')
+        .height(BUTTON_HEIGHT)
+        .onClick(() => {
+          this.navigateTo('pluginandskill/pages/SkillComparePage');
+        })
+
+      Divider().width('80%').color($r('app.color.secondary_text'))
+
+      Button($r('app.string.skill_history_button'))
+        .id('skill_history_button')
+        .width('100%')
+        .height(BUTTON_HEIGHT)
+        .onClick(() => {
+          this.navigateTo('pluginandskill/pages/SkillHistoryPage');
+        })
+      Button($r('app.string.skill_batch_button'))
+        .id('skill_batch_button')
+        .width('100%')
+        .height(BUTTON_HEIGHT)
+        .onClick(() => {
+          this.navigateTo('pluginandskill/pages/SkillBatchPage');
+        })
     }
     .width('100%')
     .height('100%')

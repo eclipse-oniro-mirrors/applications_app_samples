@@ -231,6 +231,218 @@
         {
             "name": "skill_flag_placeholder",
             "value": "查询标志位"
+        },
+        {
+            "name": "skill_execution_title",
+            "value": "执行技能"
+        },
+        {
+            "name": "skill_execution_description",
+            "value": "选择一个一个技能并执行查看结果。"
+        },
+        {
+            "name": "execute_skill_button",
+            "value": "执行"
+        },
+        {
+            "name": "execution_result_title",
+            "value": "执行结果"
+        },
+        {
+            "name": "execution_no_result",
+            "value": "暂无执行结果。"
+        },
+        {
+            "name": "execution_success",
+            "value": "执行成功。"
+        },
+        {
+            "name": "execution_failed",
+            "value": "执行失败。"
+        },
+        {
+            "name": "plugin_detail_title",
+            "value": "插件详情"
+        },
+        {
+            "name": "plugin_detail_description",
+            "value": "查看已安装插件的详细信息。"
+        },
+        {
+            "name": "refresh_plugins_button",
+            "value": "刷新插件列表"
+        },
+        {
+            "name": "plugin_detail_label",
+            "value": "标签"
+        },
+        {
+            "name": "plugin_detail_bundle",
+            "value": "包名"
+        },
+        {
+            "name": "plugin_detail_version",
+            "value": "版本"
+        },
+        {
+            "name": "plugin_detail_module_count",
+            "value": "模块数量"
+        },
+        {
+            "name": "skill_compare_title",
+            "value": "技能对比"
+        },
+        {
+            "name": "skill_compare_description",
+            "value": "选择两个技能进行属性对比。"
+        },
+        {
+            "name": "compare_skill_a_label",
+            "value": "技能 A"
+        },
+        {
+            "name": "compare_skill_b_label",
+            "value": "技能 B"
+        },
+        {
+            "name": "compare_button",
+            "value": "对比"
+        },
+        {
+            "name": "compare_result_title",
+            "value": "对比结果"
+        },
+        {
+            "name": "compare_same_bundle",
+            "value": "相同包名"
+        },
+        {
+            "name": "compare_diff_bundle",
+            "value": "不同包名"
+        },
+        {
+            "name": "compare_same_module",
+            "value": "相同模块"
+        },
+        {
+            "name": "compare_diff_module",
+            "value": "不同模块"
+        },
+        {
+            "name": "skill_execution_button",
+            "value": "执行技能"
+        },
+        {
+            "name": "plugin_detail_button",
+            "value": "插件详情"
+        },
+        {
+            "name": "skill_compare_button",
+            "value": "技能对比"
+        },
+        {
+            "name": "plugin_compare_title",
+            "value": "插件对比"
+        },
+        {
+            "name": "plugin_compare_description",
+            "value": "选择两个已安装插件进行属性对比。"
+        },
+        {
+            "name": "plugin_compare_select_a",
+            "value": "选择插件 A"
+        },
+        {
+            "name": "plugin_compare_select_b",
+            "value": "选择插件 B"
+        },
+        {
+            "name": "skill_history_title",
+            "value": "技能查询历史"
+        },
+        {
+            "name": "skill_history_description",
+            "value": "查看技能查询历史记录和统计数据。"
+        },
+        {
+            "name": "history_query_all",
+            "value": "查询全部"
+        },
+        {
+            "name": "history_clear",
+            "value": "清除"
+        },
+        {
+            "name": "history_filter_title",
+            "value": "筛选"
+        },
+        {
+            "name": "history_statistics_title",
+            "value": "统计"
+        },
+        {
+            "name": "history_records_title",
+            "value": "查询记录"
+        },
+        {
+            "name": "plugin_search_title",
+            "value": "搜索插件"
+        },
+        {
+            "name": "plugin_search_description",
+            "value": "按关键字和筛选条件搜索已安装插件。"
+        },
+        {
+            "name": "plugin_search_options",
+            "value": "搜索选项"
+        },
+        {
+            "name": "plugin_search_button",
+            "value": "搜索"
+        },
+        {
+            "name": "plugin_search_results_title",
+            "value": "搜索结果"
+        },
+        {
+            "name": "skill_batch_title",
+            "value": "批量技能操作"
+        },
+        {
+            "name": "skill_batch_description",
+            "value": "选择技能并执行批量查询。"
+        },
+        {
+            "name": "skill_batch_select_skills",
+            "value": "选择技能"
+        },
+        {
+            "name": "skill_batch_execute",
+            "value": "执行批量"
+        },
+        {
+            "name": "skill_batch_summary",
+            "value": "批量摘要"
+        },
+        {
+            "name": "skill_batch_records_title",
+            "value": "批量记录"
+        },
+        {
+            "name": "plugin_compare_button",
+            "value": "插件对比"
+        },
+        {
+            "name": "skill_history_button",
+            "value": "查询历史"
+        },
+        {
+            "name": "plugin_search_button_nav",
+            "value": "搜索插件"
+        },
+        {
+            "name": "skill_batch_button",
+            "value": "批量操作"
         }
     ]
 }
