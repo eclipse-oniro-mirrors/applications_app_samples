@@ -473,5 +473,151 @@ export default function dfmaBulkPerfExtraTest(): void {
         }
       });
 
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_PERF_0900
+     * @tc.name      testDfmaBulkPerfExtra0009
+     * @tc.desc      Verify bulk lifecycle 40 files case 9.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkPerfExtra0009',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_009';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          writeFile(dir + '/f21.txt', 'v21');
+          writeFile(dir + '/f22.txt', 'v22');
+          writeFile(dir + '/f23.txt', 'v23');
+          writeFile(dir + '/f24.txt', 'v24');
+          writeFile(dir + '/f25.txt', 'v25');
+          writeFile(dir + '/f26.txt', 'v26');
+          writeFile(dir + '/f27.txt', 'v27');
+          writeFile(dir + '/f28.txt', 'v28');
+          writeFile(dir + '/f29.txt', 'v29');
+          writeFile(dir + '/f30.txt', 'v30');
+          writeFile(dir + '/f31.txt', 'v31');
+          writeFile(dir + '/f32.txt', 'v32');
+          writeFile(dir + '/f33.txt', 'v33');
+          writeFile(dir + '/f34.txt', 'v34');
+          writeFile(dir + '/f35.txt', 'v35');
+          writeFile(dir + '/f36.txt', 'v36');
+          writeFile(dir + '/f37.txt', 'v37');
+          writeFile(dir + '/f38.txt', 'v38');
+          writeFile(dir + '/f39.txt', 'v39');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(40);
+          expect(files.length > 0).assertTrue();
+          for (let index: number = 0; index < 40; index++) {
+            fs.unlinkSync(dir + '/f' + index.toString() + '.txt');
+          }
+          fs.rmdirSync(dir);
+          expect(fs.accessSync(dir)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_PERF_1000
+     * @tc.name      testDfmaBulkPerfExtra0010
+     * @tc.desc      Verify bulk lifecycle 50 files case 10.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkPerfExtra0010',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_010';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          writeFile(dir + '/f21.txt', 'v21');
+          writeFile(dir + '/f22.txt', 'v22');
+          writeFile(dir + '/f23.txt', 'v23');
+          writeFile(dir + '/f24.txt', 'v24');
+          writeFile(dir + '/f25.txt', 'v25');
+          writeFile(dir + '/f26.txt', 'v26');
+          writeFile(dir + '/f27.txt', 'v27');
+          writeFile(dir + '/f28.txt', 'v28');
+          writeFile(dir + '/f29.txt', 'v29');
+          writeFile(dir + '/f30.txt', 'v30');
+          writeFile(dir + '/f31.txt', 'v31');
+          writeFile(dir + '/f32.txt', 'v32');
+          writeFile(dir + '/f33.txt', 'v33');
+          writeFile(dir + '/f34.txt', 'v34');
+          writeFile(dir + '/f35.txt', 'v35');
+          writeFile(dir + '/f36.txt', 'v36');
+          writeFile(dir + '/f37.txt', 'v37');
+          writeFile(dir + '/f38.txt', 'v38');
+          writeFile(dir + '/f39.txt', 'v39');
+          writeFile(dir + '/f40.txt', 'v40');
+          writeFile(dir + '/f41.txt', 'v41');
+          writeFile(dir + '/f42.txt', 'v42');
+          writeFile(dir + '/f43.txt', 'v43');
+          writeFile(dir + '/f44.txt', 'v44');
+          writeFile(dir + '/f45.txt', 'v45');
+          writeFile(dir + '/f46.txt', 'v46');
+          writeFile(dir + '/f47.txt', 'v47');
+          writeFile(dir + '/f48.txt', 'v48');
+          writeFile(dir + '/f49.txt', 'v49');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(50);
+          expect(files.length > 0).assertTrue();
+          for (let index: number = 0; index < 50; index++) {
+            fs.unlinkSync(dir + '/f' + index.toString() + '.txt');
+          }
+          fs.rmdirSync(dir);
+          expect(fs.accessSync(dir)).assertFalse();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
