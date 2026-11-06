@@ -22,20 +22,14 @@
 
 // [Start EventSub_napi_nohiappevent_Header]
 // [Start EventSub_napi_Header]
-// [Start EventSub_napi_sanitizer_events_1_Header]
+// [Start address_sanitizer_events_arkts_3]
 #include "napi/native_api.h"
 // [StartExclude EventSub_napi_nohiappevent_Header]
-// [StartExclude EventSub_napi_Header]
-#include "json/json.h"
-// [EndExclude EventSub_napi_Header]
+// [StartExclude address_sanitizer_events_arkts_3]
 // 根据工程中三方库jsoncpp的位置适配引用json.h的路径
-// [StartExlude EventSub_napi_sanitizer_events_1_Header]
 #include "../../../build/jsoncpp-1.9.6/include/json/json.h"
-// [EndExlude EventSub_napi_sanitizer_events_1_Header]
 #include "hiappevent/hiappevent.h"
-// [StartExlude EventSub_napi_sanitizer_events_1_Header]
 #include "hiappevent/hiappevent_param.h"
-// [EndExlude EventSub_napi_sanitizer_events_1_Header]
 // [EndExclude EventSub_napi_nohiappevent_Header]
 #include "hilog/log.h"
 
@@ -43,7 +37,6 @@
 #define LOG_TAG "testTag"
 // [End EventSub_napi_Header]
 // [End EventSub_napi_nohiappevent_Header]
-// [End EventSub_napi_sanitizer_events_1_Header]
 
 // [Start Hicollie_Set_Timer_h]
 #include <unistd.h>
@@ -632,186 +625,6 @@ static void OnTakeCrash(const char *const *events, uint32_t eventLen)
     }
 }
 
-//[Start EventSub_napi_sanitizer_events_2_Header]
-namespace {
-// 订阅过滤条件：不附加额外标志位。
-constexpr int32_t APP_EVENT_FILTER_FLAG_NONE = 0;
-// 订阅的事件名称个数。
-constexpr int32_t APP_EVENT_NAME_COUNT = 1;
-// 触发条件：新增 1 条事件时触发回调，不限制事件大小与超时时间。
-constexpr int32_t TRIGGER_ROW = 1;
-constexpr int32_t TRIGGER_SIZE = 0;
-constexpr int32_t TRIGGER_TIMEOUT = 0;
-// 测试数组长度，用于演示越界写。
-constexpr int TEST_ARRAY_LENGTH = 10;
-} // namespace
-
-// 定义一个变量，用来缓存创建的观察者的指针。
-static HiAppEvent_Watcher *systemEventWatcher;
-
-static bool IsSanitizerEvent(const char *eventDomain, const char *eventName)
-{
-    return strcmp(eventDomain, DOMAIN_OS) == 0 && strcmp(eventName, EVENT_ADDRESS_SANITIZER) == 0;
-}
-
-static void LogSanitizerEventParams(const Json::Value &params)
-{
-    Json::FastWriter writer;
-    auto time = params["time"].asInt64();
-    auto bundleVersion = params["bundle_version"].asString();
-    auto bundleName = params["bundle_name"].asString();
-    auto pid = params["pid"].asInt();
-    auto uid = params["uid"].asInt();
-    auto type = params["type"].asString();
-    std::string logOverLimit = params["log_over_limit"].asBool() ? "true" : "false";
-    auto externalLog = writer.write(params["external_log"]);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
-                bundleVersion.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
-                bundleName.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.type=%{public}s", type.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
-                externalLog.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s",
-                logOverLimit.c_str());
-}
-
-static void HandleSanitizerEvent(const char *paramsJson)
-{
-    Json::Value params;
-    Json::Reader reader(Json::Features::strictMode());
-    if (!reader.parse(paramsJson, params)) {
-        return;
-    }
-    LogSanitizerEventParams(params);
-}
-
-static void OnReceive(const char *domain, const struct HiAppEvent_AppEventGroup *appEventGroups,
-                      uint32_t groupLen)
-{
-    for (uint32_t i = 0; i < groupLen; ++i) {
-        const auto &eventGroup = appEventGroups[i];
-        for (uint32_t j = 0; j < eventGroup.infoLen; ++j) {
-            const auto &eventInfo = eventGroup.appEventInfos[j];
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", eventInfo.domain);
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", eventInfo.name);
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", eventInfo.type);
-            if (IsSanitizerEvent(eventInfo.domain, eventInfo.name)) {
-                HandleSanitizerEvent(eventInfo.params);
-            }
-        }
-    }
-}
-
-static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
-{
-    // 开发者自定义观察者名称，系统根据不同的名称来识别不同的观察者。
-    systemEventWatcher = OH_HiAppEvent_CreateWatcher("onReceiverWatcher");
-    // 设置订阅的事件为EVENT_ADDRESS_SANITIZER。
-    const char *names[] = {EVENT_ADDRESS_SANITIZER};
-    // 开发者订阅感兴趣的事件，此处订阅了系统事件。
-    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, APP_EVENT_FILTER_FLAG_NONE,
-                                    names, APP_EVENT_NAME_COUNT);
-    // 开发者设置已实现的回调函数，观察者接收到事件后会立即触发OnReceive回调。
-    OH_HiAppEvent_SetWatcherOnReceive(systemEventWatcher, OnReceive);
-    // 使观察者开始监听订阅的事件。
-    OH_HiAppEvent_AddWatcher(systemEventWatcher);
-    return {};
-}
-//[End EventSub_napi_sanitizer_events_2_Header]
-
-//[Start EventSub_napi_sanitizer_events_3_Header]
-// 定义一个变量，用来缓存创建的观察者的指针。
-static HiAppEvent_Watcher *systemEventWatcher;
-
-static void LogTakenEventParams(const Json::Value &eventInfo)
-{
-    Json::FastWriter writer;
-    auto time = eventInfo["time"].asInt64();
-    auto bundleVersion = eventInfo["bundle_version"].asString();
-    auto bundleName = eventInfo["bundle_name"].asString();
-    auto pid = eventInfo["pid"].asInt();
-    auto uid = eventInfo["uid"].asInt();
-    auto asanType = eventInfo["type"].asString();
-    auto externalLog = writer.write(eventInfo["external_log"]);
-    std::string logOverLimit = eventInfo["log_over_limit"].asBool() ? "true" : "false";
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
-                bundleVersion.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
-                bundleName.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.crash_type=%{public}s",
-                asanType.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
-                externalLog.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s",
-                logOverLimit.c_str());
-}
-
-static void HandleTakenEvent(const Json::Value &eventInfo)
-{
-    auto domain = eventInfo["domain_"].asString();
-    auto name = eventInfo["name_"].asString();
-    auto type = eventInfo["type_"].asInt();
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", domain.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", name.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", type);
-    if (domain == DOMAIN_OS && name == EVENT_ADDRESS_SANITIZER) {
-        LogTakenEventParams(eventInfo);
-    }
-}
-
-// 开发者可以自行实现获取已监听到事件的回调函数，其中events指针指向内容仅在该函数内有效。
-static void OnTake(const char *const *events, uint32_t eventLen)
-{
-    Json::Reader reader(Json::Features::strictMode());
-    for (uint32_t i = 0; i < eventLen; ++i) {
-        Json::Value eventInfo;
-        if (reader.parse(events[i], eventInfo)) {
-            HandleTakenEvent(eventInfo);
-        }
-    }
-}
-
-// 开发者可以自行实现订阅回调函数，以便对获取到的事件打点数据进行自定义处理。
-static void OnTrigger(int row, int size)
-{
-    OH_HiAppEvent_TakeWatcherData(systemEventWatcher, row, OnTake);
-}
-
-static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
-{
-    // 开发者自定义观察者名称，系统根据不同的名称来识别不同的观察者。
-    systemEventWatcher = OH_HiAppEvent_CreateWatcher("onTriggerWatcher");
-    // 设置订阅的事件为EVENT_ADDRESS_SANITIZER。
-    const char *names[] = {EVENT_ADDRESS_SANITIZER};
-    // 开发者订阅感兴趣的事件，此处订阅了系统事件。
-    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, APP_EVENT_FILTER_FLAG_NONE,
-                                    names, APP_EVENT_NAME_COUNT);
-    // 开发者设置已实现的回调函数，需OH_HiAppEvent_SetTriggerCondition设置的条件满足方可触发。
-    OH_HiAppEvent_SetWatcherOnTrigger(systemEventWatcher, OnTrigger);
-    // 开发者可以设置订阅触发回调的条件，此处是设置新增事件打点数量为1个时，触发onTrigger回调。
-    OH_HiAppEvent_SetTriggerCondition(systemEventWatcher, TRIGGER_ROW, TRIGGER_SIZE, TRIGGER_TIMEOUT);
-    // 使观察者开始监听订阅的事件。
-    OH_HiAppEvent_AddWatcher(systemEventWatcher);
-    return {};
-}
-//[End EventSub_napi_sanitizer_events_3_Header]
-
-//[Start EventSub_napi_sanitizer_events_4_Header]
-static napi_value Test(napi_env env, napi_callback_info info)
-{
-    int a[TEST_ARRAY_LENGTH];
-    a[TEST_ARRAY_LENGTH] = 1;
-    return {};
-}
-//[End EventSub_napi_sanitizer_events_4_Header]
-
 // 定义变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *systemEventWatcherT;
 
@@ -1192,7 +1005,7 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_RemoveWatcher]
 // [Start AppKillEvent_RemoveWatcher]
 // [Start MainThreadJankEvent_RemoveWatcher]
-// [Start EventSub_napi_sanitizer_events_9_Header]
+// [Start resourceleak_events_ndk_3]
 static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 {
     // 使观察者停止监听事件
@@ -1202,8 +1015,9 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_RemoveWatcher]
     // [StartExclude AppEvent_C++_RemoveWatcher]
     // [StartExclude MainThreadJankEvent_RemoveWatcher]
+    // 移除观察者以停止监听事件
     OH_HiAppEvent_RemoveWatcher(systemEventWatcher);
-    // [StartExclude EventSub_napi_sanitizer_events_9_Header]
+    // [StartExclude resourceleak_events_ndk_3]
     OH_HiAppEvent_RemoveWatcher(eventWatcherT);
     OH_HiAppEvent_RemoveWatcher(eventWatcherR);
     // [EndExclude AppEvent_C++_RemoveWatcher]
@@ -1230,7 +1044,7 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AsanEvent_RemoveWatcher]
     // [EndExclude PssLeakEvent_RemoveWatcher]
     // [EndExclude APP_Hicollie_RemoveWatcher]
-    // [EndExclude ventSub_napi_sanitizer_events_9_Header]
+    // [EndExclude resourceleak_events_ndk_3]
     return {};
 }
 // [End MainThreadJankEvent_RemoveWatcher]
@@ -1240,7 +1054,7 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_RemoveWatcher]
 // [End AppEvent_C++_RemoveWatcher]
 // [End EventSub_RemoveWatcher_All]
-// [End EventSub_napi_sanitizer_events_9_Header]
+// [End resourceleak_events_ndk_3]
 
 // [Start Sys_Crash_Event_C++_RemoveWatcher]
 static napi_value RemoveWatcherCrash(napi_env env, napi_callback_info info)
@@ -1259,7 +1073,7 @@ static napi_value RemoveWatcherCrash(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_DestroyWatcher]
 // [Start AppKillEvent_DestroyWatcher]
 // [Start MainThreadJankEvent_DestroyWatcher]
-// [Start EventSub_napi_sanitizer_events_10_Header]
+// [Start resourceleak_events_ndk_4]
 static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 {
     // 销毁创建的观察者，并置eventWatcher为nullptr。
@@ -1269,9 +1083,10 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_DestroyWatcher]
     // [StartExclude AppEvent_C++_DestroyWatcher]
     // [StartExclude MainThreadJankEvent_DestroyWatcher]
+    // 销毁创建的观察者，并置systemEventWatcher为nullptr。
     OH_HiAppEvent_DestroyWatcher(systemEventWatcher);
     systemEventWatcher = nullptr;
-    // [StartExclude EventSub_napi_sanitizer_events_10_Header]
+    // [StartExclude resourceleak_events_ndk_4] 
     OH_HiAppEvent_DestroyWatcher(eventWatcherT);
     OH_HiAppEvent_DestroyWatcher(eventWatcherR);
     eventWatcherT = nullptr;
@@ -1308,7 +1123,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AppEvent_C++_DestroyWatcher]
     // [EndExclude AsanEvent_DestroyWatcher]
     // [EndExclude PssLeakEvent_DestroyWatcher]
-    // [EndExclude EventSub_napi_sanitizer_events_10_Header]
+    // [EndExclude resourceleak_events_ndk_4] 
     return {};
 }
 // [End MainThreadJankEvent_DestroyWatcher]
@@ -1318,7 +1133,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_DestroyWatcher]
 // [End AppEvent_C++_DestroyWatcher]
 // [End EventSub_DestroyWatcher_All]
-// [End EventSub_napi_sanitizer_events_10_Header]
+// [End resourceleak_events_ndk_4]
 
 // [Start Sys_Crash_Event_C++_DestroyWatcher]
 static napi_value DestroyWatcherCrash(napi_env env, napi_callback_info info)
@@ -1344,6 +1159,7 @@ static napi_value WriteAppEvent(napi_env env, napi_callback_info info)
 }
 // [End AppEvent_Click_C++_WriteAppEvent]
 // [Start AsanEvent_AddressTest]
+// [EndExclude address_sanitizer_events_arkts_3]
 static napi_value AddressSanitizerTest(napi_env env, napi_callback_info info)
 {
     constexpr int bufferSize = 42;
@@ -1355,6 +1171,7 @@ static napi_value AddressSanitizerTest(napi_env env, napi_callback_info info)
 }
 // [End AsanEvent_AddressTest]
 // [Start AppKillEvent_NativeLeak]
+// [StartExclude address_sanitizer_events_arkts_3]
 #include <thread>
 
 static void NativeLeak()
@@ -1746,7 +1563,7 @@ static napi_value HiCollieTestTimerNdk(napi_env env, napi_callback_info exports)
 // [Start Sys_Native_Nullptr_Event_C++_Init]
 // [Start Pss_Leak_Init]
 // [Start AppEvent_C++_Init]
-// [Start EventSub_napi_sanitizer_events_5_Header]
+// [EndExclude address_sanitizer_events_arkts_3]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
@@ -1759,9 +1576,8 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude Sys_Native_Nullptr_Event_C++_Init]
         // [StartExclude Pss_Leak_Init]
         // [StartExclude MainThreadJank_Init]
+        // [StartExclude address_sanitizer_events_arkts_3]
         {"registerWatcher", nullptr, RegisterWatcher, nullptr, nullptr, nullptr, napi_default, nullptr},
-        { "test", nullptr, Test, nullptr, nullptr, nullptr, napi_default, nullptr },
-        // [StartExclude EventSub_napi_sanitizer_events_5_Header]
         // [EndExclude AppEvent_C++_Init]
         { "registerWatcherCrash", nullptr, RegisterWatcherCrash, nullptr, nullptr, nullptr, napi_default, nullptr },
         { "registerWatcherClick", nullptr, RegisterWatcherClick, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -1792,8 +1608,10 @@ static napi_value Init(napi_env env, napi_value exports)
         { "registerSanitizerReceiveWatcher", nullptr, RegisterSanitizerReceiveWatcher, nullptr, nullptr, nullptr,
             napi_default, nullptr },
         // [EndExclude AsanEventTS_Init]
+        // [EndExclude address_sanitizer_events_arkts_3]
         { "addressSanitizerTest", nullptr, AddressSanitizerTest, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude PssLeakEvent_Init]
+        // [StartExclude address_sanitizer_events_arkts_3]
         // [StartExclude AsanEventTS_Init]
         // [StartExclude AsanEvent_Init]
         { "registerLeakReceiveWatcher", nullptr, RegisterLeakReceiveWatcher, nullptr, nullptr, nullptr,
@@ -1807,6 +1625,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Pss_Leak_Init]
         { "leakMB", nullptr, LeakMB, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [Start test_hicollie_set_timer]
+        // [StartExclude Pss_Leak_Init]
         // 将HiCollieTestTimerNdk注册为ArkTS接口
         { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [End test_hicollie_set_timer]
@@ -1822,7 +1641,8 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Sys_Crash_Event_C++_Init]
         // [EndExclude Sys_Native_Nullptr_Event_C++_Init]
         // [EndExclude AppKillEvent_Init]
-        // [EndExclude EventSub_napi_sanitizer_events_5_Header]
+        // [EndExclude Pss_Leak_Init]
+        // [EndExclude address_sanitizer_events_arkts_3]
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
@@ -1836,7 +1656,6 @@ static napi_value Init(napi_env env, napi_value exports)
 // [End Sys_Native_Nullptr_Event_C++_Init]
 // [End Pss_Leak_Init]
 // [End EventSub_Init_All]
-// [En EventSub_napi_sanitizer_events_5_Header]
 static napi_module demoModule = {
     .nm_version = 1,
     .nm_flags = 0,
@@ -1848,3 +1667,4 @@ static napi_module demoModule = {
 };
 
 extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+// [address_sanitizer_events_arkts_3]

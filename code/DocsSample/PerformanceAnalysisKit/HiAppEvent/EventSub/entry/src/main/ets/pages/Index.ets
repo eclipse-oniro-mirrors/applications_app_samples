@@ -26,17 +26,19 @@ import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
 // [End CrashConfig_Policy_Header]
 // [Start EventSub_Index_Capi_Header]
-// [Start EventSub_napi_sanitizer_events_8_Header]
+// [Start address_sanitizer_events_arkts_5]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
 // [End PssLeakEvent_Header]
+// [StartExclude address_sanitizer_events_arkts_5]
 // [Start ArkWeb_Fling_Jank_Header]
 import { ArkWebPage } from './ArkWebPage';
 // [End ArkWeb_Fling_Jank_Header]
+// [EndExclude address_sanitizer_events_arkts_5]
 @Entry
 @Component
 struct Index {
-  // [StartExclude EventSub_napi_sanitizer_events_8_Header]
+  // [StartExclude address_sanitizer_events_arkts_5]
   @State leakedArray: string[][] = [];
   // [Start AppKillEvent_Button]
   @State message: string = 'Start To Leak';
@@ -71,15 +73,11 @@ struct Index {
     });
     // [End CrashConfig_Policy]
   }
-  // [EndExclude EventSub_napi_sanitizer_events_8_Header]
 
   build() {
-    // [StartExclude EventSub_napi_sanitizer_events_8_Header]
     Navigation(this.navPathStack) {
-    // [EndExclude EventSub_napi_sanitizer_events_8_Header]
       Row() {
         Column() {
-          // [StartExclude EventSub_napi_sanitizer_events_8_Header]
           // [Start AppEvent_Crash_Button]
           Button('WatchAppCrash ArkTS&C++')
             .type(ButtonType.Capsule)
@@ -281,6 +279,7 @@ struct Index {
               }, 1000)
             })
           // [End FreezeEvent_Button]
+          // [StartExclude address_sanitizer_events_arkts_5]
           // [Start AsanEvent_Button]
           Button('address-sanitizer')
             .type(ButtonType.Capsule)
@@ -293,6 +292,7 @@ struct Index {
             .onClick(() => {
               testNapi.addressSanitizerTest();
             })
+            // [EndExclude address_sanitizer_events_arkts_5]
           // [End AsanEvent_Button]
           // [Start hicollie_timer_ndk_Button]
           // 添加点击事件，触发TestHiCollieTimerNdk方法。
@@ -409,20 +409,17 @@ struct Index {
               while (Date.now() - t <= 500) {}
             })
           // [End MainThreadJank_Timeout_500_Button]
-          // [EndExclude EventSub_napi_sanitizer_events_8_Header]
-          Button("address-sanitizer").onClick(() => {
-            testNapi.test();
-          })
         }
-        .width('100%')
+        // [EndExclude address_sanitizer_events_arkts_5]
+        .width('50%')
       }
       .height('100%')
     }
-    // [StartExclude EventSub_napi_sanitizer_events_8_Header]
+    // [EndExclude address_sanitizer_events_arkts_5]
     .navDestination(this.PageMap)
     .hideTitleBar(true)
     .mode(NavigationMode.Stack)
-    // [EndExclude EventSub_napi_sanitizer_events_8_Header]
+    // [StartExclude address_sanitizer_events_arkts_5]
   }
 }
-// [End EventSub_napi_sanitizer_events_8_Header]
+// [End address_sanitizer_events_arkts_5]

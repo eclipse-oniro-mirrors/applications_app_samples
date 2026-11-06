@@ -14,13 +14,9 @@
  */
 
 // [Start EventSub_Index.d.ts_All]
-// [Start EventSub_napi_sanitizer_events_6_Header]
+// [Start resourceleak_events_ndk_1]
 export const registerWatcher: () => void;
-// [StartExclude EventSub_Index.d.ts_All]
-export const test: () => void;
-// [EndExclude EventSub_Index.d.ts_All]
-// [End EventSub_napi_sanitizer_events_6_Header]
-
+// [End resourceleak_events_ndk_1]
 // [Start AppEvent_C++_Index.d.ts]
 export const registerWatcherCrash: () => void;
 export const registerWatcherClick: () => void;
@@ -37,7 +33,9 @@ export const TestHiCollieTimerNdk: () => void;
 // [End test_hicollie_timer_Index.d.ts]
 // [Start AsanEvent_Index.d.ts]
 export const registerSanitizerReceiveWatcher: () => void;
+// [Start address_sanitizer_events_arkts_4]
 export const addressSanitizerTest: () => void;
+// [End address_sanitizer_events_arkts_4]
 // [End AsanEvent_Index.d.ts]
 // [Start PssLeakEvent_Index.d.ts]
 export const registerLeakReceiveWatcher: () => void;
