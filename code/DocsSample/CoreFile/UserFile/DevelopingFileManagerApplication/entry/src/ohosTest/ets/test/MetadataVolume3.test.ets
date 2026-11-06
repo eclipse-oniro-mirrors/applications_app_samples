@@ -881,5 +881,270 @@ export default function dfmaMetadataVolume3Test(): void {
         }
       });
 
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2400
+     * @tc.name      testDfmaMetadataVolume30024
+     * @tc.desc      Verify metadata3 case 24.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30024',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_024';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          writeFile(dir + '/m5.txt', 'v5');
+          writeFile(dir + '/m6.txt', 'v6');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(7);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.unlinkSync(dir + '/m5.txt');
+          fs.unlinkSync(dir + '/m6.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2500
+     * @tc.name      testDfmaMetadataVolume30025
+     * @tc.desc      Verify metadata3 case 25.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30025',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_025';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          writeFile(dir + '/m5.txt', 'v5');
+          writeFile(dir + '/m6.txt', 'v6');
+          writeFile(dir + '/m7.txt', 'v7');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(8);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.unlinkSync(dir + '/m5.txt');
+          fs.unlinkSync(dir + '/m6.txt');
+          fs.unlinkSync(dir + '/m7.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2600
+     * @tc.name      testDfmaMetadataVolume30026
+     * @tc.desc      Verify metadata3 case 26.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30026',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_026';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(4);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2700
+     * @tc.name      testDfmaMetadataVolume30027
+     * @tc.desc      Verify metadata3 case 27.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30027',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_027';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(5);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2800
+     * @tc.name      testDfmaMetadataVolume30028
+     * @tc.desc      Verify metadata3 case 28.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30028',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_028';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          writeFile(dir + '/m5.txt', 'v5');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(6);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.unlinkSync(dir + '/m5.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_2900
+     * @tc.name      testDfmaMetadataVolume30029
+     * @tc.desc      Verify metadata3 case 29.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30029',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_029';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          writeFile(dir + '/m5.txt', 'v5');
+          writeFile(dir + '/m6.txt', 'v6');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(7);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.unlinkSync(dir + '/m5.txt');
+          fs.unlinkSync(dir + '/m6.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_3000
+     * @tc.name      testDfmaMetadataVolume30030
+     * @tc.desc      Verify metadata3 case 30.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataVolume30030',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/meta3_030';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/m0.txt', 'v0');
+          writeFile(dir + '/m1.txt', 'v1');
+          writeFile(dir + '/m2.txt', 'v2');
+          writeFile(dir + '/m3.txt', 'v3');
+          writeFile(dir + '/m4.txt', 'v4');
+          writeFile(dir + '/m5.txt', 'v5');
+          writeFile(dir + '/m6.txt', 'v6');
+          writeFile(dir + '/m7.txt', 'v7');
+          const stat: fs.Stat = fs.statSync(dir);
+          expect(stat.isDirectory()).assertTrue();
+          expect(stat.mtime > 0).assertTrue();
+          expect(fs.listFileSync(dir).length).assertEqual(8);
+          fs.unlinkSync(dir + '/m0.txt');
+          fs.unlinkSync(dir + '/m1.txt');
+          fs.unlinkSync(dir + '/m2.txt');
+          fs.unlinkSync(dir + '/m3.txt');
+          fs.unlinkSync(dir + '/m4.txt');
+          fs.unlinkSync(dir + '/m5.txt');
+          fs.unlinkSync(dir + '/m6.txt');
+          fs.unlinkSync(dir + '/m7.txt');
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
