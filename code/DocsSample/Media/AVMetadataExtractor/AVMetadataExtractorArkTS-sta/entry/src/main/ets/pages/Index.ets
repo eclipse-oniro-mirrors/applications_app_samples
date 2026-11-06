@@ -74,13 +74,14 @@ struct index {
   // 获取视频专辑封面并通过Image控件显示在屏幕上。该demo以Promise形式进行异步接口调用。
   async testStaticFetchMetadataFromFdSrcByPromise() {
     try {
-      // 创建AVMetadataExtractor对象。
       // [Start set_fdSrc]
+      // 创建AVMetadataExtractor对象。
       this.avMetadataExtractor = await media.createAVMetadataExtractor();
-
-      // 设置fdSrc。
+      // 获取rawfile目录下资源文件描述符，设置fdSrc属性。
+      // 获取当前组件所在Ability的Context，并通过Context获取应用文件路径。
       this.context = globalContext.getAbilityContext();
-      this.fileDescriptor = await this.context!!.resourceManager.getRawFd(this.testFilename);
+      // 设置fdSrc，test.mp4为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
+      this.fileDescriptor = await this.context!!.resourceManager.getRawFd('test.mp4');
       const descriptor: media.AVFileDescriptor = {
         fd: this.fileDescriptor!.fd,
         offset: this.fileDescriptor!.offset,
@@ -99,13 +100,13 @@ struct index {
       this.pixelMap = await this.avMetadataExtractor!!.fetchAlbumCover();
 
       // [Start fetch_frame]
-      // 获取视频缩略图（promise模式）。
       let timeUs: Long = 0;
       let queryOption: media.AVImageQueryOptions = media.AVImageQueryOptions.AV_IMAGE_QUERY_NEXT_SYNC;
       let param: media.PixelMapParams = {
         width: 300,
         height: 300
       };
+      // 获取视频缩略图（promise模式）。
       this.pixelMap = await this.avMetadataExtractor!!.fetchFrameByTime(timeUs, queryOption, param);
       // [End fetch_frame]
 
@@ -152,8 +153,7 @@ struct index {
       };
       // 批量获取视频缩略图（callback模式）。
       this.avMetadataExtractor!!.fetchFramesByTimes(timesUs, queryOption, param, onFrameFetched);
-
-      // 暂停批量获取视频缩略图
+      // 暂停批量获取视频缩略图。
       this.avMetadataExtractor!!.cancelAllFetchFrames();
       // [End fetch_frames]
 
@@ -228,10 +228,9 @@ struct index {
   // 获取视频专辑封面并通过Image控件显示在屏幕上。该demo以Promise形式进行异步接口调用。
   async testStaticFetchMetadataFromDataSrc() {
     try {
-      // 创建AVMetadataExtractor对象。
       // [Start set_dataSrc]
+      // 创建AVMetadataExtractor对象。
       this.avMetadataExtractor = await media.createAVMetadataExtractor();
-
       this.context = globalContext.getAbilityContext();
       let rootPath: string = this.context!!.filesDir; // 应用文件目录。
       let fileName: string = '/test.mp4'; // test.mp4为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
@@ -274,6 +273,71 @@ struct index {
       console.info(TAG, `release success.`);
     } catch (e) {
       console.error(TAG + `StaticFetchMetadataFromDataSrc, code is ${e.code}, message is ${e.message}`);
+    }
+  }
+
+    // 在以下demo中，使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置dataSrc属性，获取音频元数据并打印。
+  // 获取音频专辑封面并通过Image控件显示在屏幕上。
+  async testFetchMetadataFromDataSrc() {
+    if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
+      let fd: number = -1;
+      try {
+        // [Start set_openSync]
+        // 创建AVMetadataExtractor对象。
+        let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+        let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        let rootPath: string = context.filesDir; // 应用文件目录。
+        let testFilename: string = '/test.mp4'; // test.mp3为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
+        fd = fileIo.openSync(rootPath + testFilename).fd; // 获取fdSrc属性。
+        // [End set_openSync]
+        let fileSize: number = fileIo.statSync(this.rootPath + this.testFilename).size;
+        // 设置dataSrc描述符，通过callback从文件中获取资源，写入buffer中。
+        let dataSrc: media.AVDataSrcDescriptor = {
+          fileSize: fileSize,
+          callback: (buffer, len: number, pos: number) => {
+            if (buffer == undefined || len == undefined || pos == undefined) {
+              console.error(TAG, `dataSrc callback param invalid`);
+              return -1;
+            }
+            let options: ReadOptions = {
+              offset: pos,
+              length: len
+            };
+            let num = fileIo.readSync(fd, buffer, options);
+            console.info(TAG, 'readAt end, num: ' + num);
+            if (num > 0 && fileSize >= pos) {
+              return num;
+            }
+            return -1;
+          }
+        };
+        // 设置dataSrc。
+        avMetadataExtractor.dataSrc = dataSrc;
+
+        // 获取元数据（promise模式）。
+        let metadata = await avMetadataExtractor.fetchMetadata();
+        console.info(TAG, `get meta data, mimeType: ${metadata.mimeType}`);
+
+        // 获取专辑封面（promise模式）。
+        this.pixelMap = await avMetadataExtractor.fetchAlbumCover();
+
+        // 释放资源（promise模式）。
+        avMetadataExtractor.release();
+
+        console.info(TAG, `release data source success.`);
+      } catch (e) {
+        console.error(TAG + `FetchMetadataFromDataSrc, code is ${e.code}, message is ${e.message}`);
+      } finally {
+        // 确保文件流关闭
+        if (fd >= 0) {
+          try {
+            // 在执行完后续获取元数据或者抽帧操作后，需要关闭fd。
+            fileIo.closeSync(fd);
+          } catch (e) {
+            console.error(TAG + `closeSync failed, code is ${e.code}, message is ${e.message}`);
+          }
+        }
+      }
     }
   }
 }
