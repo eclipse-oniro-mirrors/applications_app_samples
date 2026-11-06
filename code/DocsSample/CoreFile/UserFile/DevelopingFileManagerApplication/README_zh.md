@@ -49,21 +49,17 @@
 ### 具体实现
 
 * 开发用户文件管理器：
-    * 权限配置和导入模块。 申请ohos.permission.FILE_ACCESS_MANAGER和ohos.permission.GET_BUNDLE_INFO_PRIVILEGED权限，参见[申请应用权限](https://gitcode.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/determine-application-mode.md)。
-    * 导入依赖模块。
-    * 创建一个文件访问助手对象，然后使用该对象获取根目录迭代器，并遍历所有根目录信息。
-    * 使用listfile接口遍历下一级所有文件（目录）的迭代器对象；通过scanfile过滤指定目录，获取满足条件的迭代器对象。
-    * 定义目标目录的 URI 和文件的显示名称，然后使用 [createFile](https://gitcode.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md#createfile)方法创建文件。
-* 开发监听设备上下线：
-    * 权限配置和导入模块。
-    * 导入依赖模块。
-    * 根据[DEVICES_URI](https://gitcode.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md#常量)，传入方法registerObserver()中，能监听设备上下线状态。传入方法unregisterObserver()中，能取消监听设备上线，下线状态。
+    * 通过 `getUIContext().getHostContext()` 获取应用上下文，使用 `filesDir` 定位应用沙箱目录。
+    * 使用 fileIo 的 `openSync`、`writeSync` 和 `closeSync` 在沙箱目录创建并写入文件；写入异常时通过 `finally` 关闭文件句柄。
+    * 创建成功后在页面显示 `CreateDocumentUriSuccess`，并在日志中打印文件路径。
+* 开发文件监听：
+    * 使用 `fs.createWatcher()` 监听应用沙箱目录，通过 `WATCH_EVENTS` 订阅文件变化事件。
+    * 调用 `watcher.start()` 启动监听，并在回调中输出 `NotifyType` 和 `NotifyFile`。
+    * 取消监听时调用 `watcher.stop()`；重复注册前先停止并释放旧 watcher。
 
 ### 相关权限
 
-[ohos.permission.FILE_ACCESS_MANAGER](https://gitcode.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionfile_access_manager)
-
-[ohos.permission.GET_BUNDLE_INFO_PRIVILEGED](https://gitcode.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionget_bundle_info_privileged)
+本示例仅在应用沙箱目录内操作和监听文件，无需申请特殊权限。
 
 ### 依赖
 

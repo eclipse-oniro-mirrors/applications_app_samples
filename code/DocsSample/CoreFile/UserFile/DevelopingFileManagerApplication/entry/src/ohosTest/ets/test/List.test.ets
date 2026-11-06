@@ -14,6 +14,7 @@
  */
 
 
+import abilityTest from './Ability.test';
 import fileIoMatrix1Test from './FileIoMatrix1.test';
 import fileIoMatrix2Test from './FileIoMatrix2.test';
 import fileIoMatrix3Test from './FileIoMatrix3.test';
@@ -54,6 +55,7 @@ import dfmaMetadataVolume3Test from './MetadataVolume3.test';
 import dfmaFinalVolumeTest from './FinalVolumeExtra.test';
 
 export default function testsuite() {
+  abilityTest();
   dfmaFileIoVolume3Test();
   dfmaBulkLifecycle3Test();
   dfmaMetadataVolume3Test();
