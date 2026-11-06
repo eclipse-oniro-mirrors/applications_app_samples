@@ -65,8 +65,11 @@ struct Index {
       }
       let path: string = hostContext.filesDir + '/file2.txt';
       let file: fs.File = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
-      fs.writeSync(file.fd, 'DevelopingFileManagerApplication demo file');
-      fs.closeSync(file);
+      try {
+        fs.writeSync(file.fd, 'DevelopingFileManagerApplication demo file');
+      } finally {
+        fs.closeSync(file);
+      }
       Logger.info('createFile sucess, filePath: ' + path);
       this.uriMessage = 'CreateDocumentUriSuccess';
     } catch (err) {

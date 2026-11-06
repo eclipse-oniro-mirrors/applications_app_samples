@@ -33,6 +33,7 @@ export default function fileIoMatrix3Test(): void {
           fs.rmdirSync(ROOT);
         }
       } catch (err) {
+        console.error('afterAll cleanup failed: ' + JSON.stringify(err));
       }
     });
     /**

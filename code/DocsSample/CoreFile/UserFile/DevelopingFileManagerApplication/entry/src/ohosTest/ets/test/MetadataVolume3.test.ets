@@ -34,7 +34,9 @@ export default function dfmaMetadataVolume3Test(): void {
       }
     });
     afterAll(async () => {
-      try { fs.rmdirSync(ROOT); } catch (err) {}
+      try { fs.rmdirSync(ROOT); } catch (err) {
+        console.error('afterAll cleanup failed: ' + JSON.stringify(err));
+      }
     });
     /**
      * @tc.number    SUB_COREFILE_DFMA_METADATA_VOLUME3_0100

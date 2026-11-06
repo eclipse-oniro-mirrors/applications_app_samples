@@ -37,7 +37,9 @@ export default function dfmaRandomAccessTest(): void {
       }
     });
     afterAll(async () => {
-      try { fs.rmdirSync(ROOT); } catch (err) {}
+      try { fs.rmdirSync(ROOT); } catch (err) {
+        console.error('afterAll cleanup failed: ' + JSON.stringify(err));
+      }
     });
     /**
      * @tc.number    SUB_COREFILE_DFMA_RANDOM_0100
@@ -57,7 +59,6 @@ export default function dfmaRandomAccessTest(): void {
           const read: number = fs.readSync(file.fd, buffer, { offset: 0, length: 1 });
           fs.closeSync(file);
           expect(read).assertEqual(1);
-          expect(new Uint8Array(buffer)[0]).assertEqual(65);
           expect(new Uint8Array(buffer)[0]).assertEqual(65);
           fs.unlinkSync(path);
         } catch (err) {

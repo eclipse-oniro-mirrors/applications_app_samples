@@ -37,6 +37,7 @@ export default function dfmaFileOpsTest(): void {
       try {
         fs.rmdirSync(ROOT);
       } catch (err) {
+        console.error('afterAll cleanup failed: ' + JSON.stringify(err));
       }
     });
     /**
