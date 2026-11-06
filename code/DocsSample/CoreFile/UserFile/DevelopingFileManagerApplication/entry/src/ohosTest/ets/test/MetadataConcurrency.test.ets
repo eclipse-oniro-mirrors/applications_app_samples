@@ -969,5 +969,35 @@ export default function dfmaMetadataConcurrencyTest(): void {
         }
       });
 
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_METADATA_3000
+     * @tc.name      testDfmaMetadataConcurrency0030
+     * @tc.desc      Verify bulk file lifecycle case 30.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaMetadataConcurrency0030',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_030';
+          fs.mkdirSync(dir);
+          for (let index: number = 0; index < 8; index++) {
+            writeFile(dir + '/b' + index.toString() + '.txt', 'bulk');
+          }
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(8);
+          expect(files.length > 0).assertTrue();
+          for (let index: number = 0; index < 8; index++) {
+            fs.unlinkSync(dir + '/b' + index.toString() + '.txt');
+          }
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
