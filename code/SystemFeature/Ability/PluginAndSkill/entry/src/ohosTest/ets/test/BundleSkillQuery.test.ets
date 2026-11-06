@@ -73,10 +73,12 @@ export default function bundleSkillQueryTest(): void {
       await runCase('testBundleSkillQuery0001', async (): Promise<void> => {
         await clickId('bundle_skill_query_button');
         await waitId('bundle_skill_page_title');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
         await selectValue(MODULE_SELECT_ID, '');
         await selectValue(MODULE_SELECT_ID, '');
         await selectValue(SKILL_SELECT_ID, '');
         await clickId('query_bundle_skill_button');
+        expect(await existsId('skill_operation_result')).assertTrue();
         expect(await existsId('skill_no_results')).assertTrue();
         await pressBack();
       }, done);
@@ -94,10 +96,12 @@ export default function bundleSkillQueryTest(): void {
       await runCase('testBundleSkillQuery0002', async (): Promise<void> => {
         await clickId('bundle_skill_query_button');
         await waitId('bundle_skill_page_title');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
         await selectValue(BUNDLE_SELECT_ID, '')
         await selectValue(MODULE_SELECT_ID, MODULE_NAME)
         await selectValue(SKILL_SELECT_ID, 'skill-test')
         await clickId('query_bundle_skill_button');
+        expect(await existsId('skill_operation_result')).assertTrue();
         expect(await existsId('skill_no_results')).assertTrue();
         await pressBack();
       }, done);
@@ -115,10 +119,12 @@ export default function bundleSkillQueryTest(): void {
       await runCase('testBundleSkillQuery0003', async (): Promise<void> => {
         await clickId('bundle_skill_query_button');
         await waitId('bundle_skill_page_title');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
         await selectValue(BUNDLE_SELECT_ID, BUNDLE_NAME)
         await selectValue(MODULE_SELECT_ID, '')
         await selectValue(SKILL_SELECT_ID, 'skill-test')
         await clickId('query_bundle_skill_button');
+        expect(await existsId('skill_operation_result')).assertTrue();
         expect(await existsId('skill_no_results')).assertTrue();
         await pressBack();
       }, done);
@@ -136,10 +142,12 @@ export default function bundleSkillQueryTest(): void {
       await runCase('testBundleSkillQuery0004', async (): Promise<void> => {
         await clickId('bundle_skill_query_button');
         await waitId('bundle_skill_page_title');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
         await selectValue(BUNDLE_SELECT_ID, BUNDLE_NAME)
         await selectValue(MODULE_SELECT_ID, MODULE_NAME)
         await selectValue(SKILL_SELECT_ID, '')
         await clickId('query_bundle_skill_button');
+        expect(await existsId('skill_operation_result')).assertTrue();
         expect(await existsId('skill_no_results')).assertTrue();
         await pressBack();
       }, done);
@@ -164,6 +172,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, SKILL_NAME)
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await assertTextExists('testBundleSkillQuery0005', SKILL_NAME)
         await pressBack();
       }, done);
@@ -186,6 +196,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(BUNDLE_SELECT_ID, BUNDLE_NAME)
         await clickId('query_bundle_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -205,6 +217,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(BUNDLE_SELECT_ID, '')
         await clickId('query_bundle_skills_button');
         expect(await existsId('skill_no_results')).assertTrue();
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -228,6 +242,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, SKILL_NAME);
         await clickId('query_bundle_skill_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -249,6 +265,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, SKILL_NAME);
         await clickId('query_bundle_skill_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -270,6 +288,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-nonexistent');
         await clickId('query_bundle_skill_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -289,6 +309,8 @@ export default function bundleSkillQueryTest(): void {
         await selectValue(BUNDLE_SELECT_ID, 'com.nonexistent.bundle');
         await clickId('query_bundle_skills_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('bundle_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -315,6 +337,7 @@ export default function bundleSkillQueryTest(): void {
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_src_entries_0_value');
         expect(await textOfId('skill_result_src_entries_0_value')).assertEqual('-');
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -340,6 +363,7 @@ export default function bundleSkillQueryTest(): void {
         await scrollToId('skill_result_src_entries_0_value');
         const srcEntriesText = await textOfId('skill_result_src_entries_0_value');
         expect(srcEntriesText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -365,6 +389,7 @@ export default function bundleSkillQueryTest(): void {
         await scrollToId('skill_result_description_0_value');
         const descText = await textOfId('skill_result_description_0_value');
         expect(descText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -390,6 +415,7 @@ export default function bundleSkillQueryTest(): void {
         await scrollToId('skill_result_permissions_0_value');
         const permissionsText = await textOfId('skill_result_permissions_0_value');
         expect(permissionsText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -415,6 +441,7 @@ export default function bundleSkillQueryTest(): void {
         await scrollToId('skill_result_request_permissions_0_value');
         const reqPermText = await textOfId('skill_result_request_permissions_0_value');
         expect(reqPermText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });

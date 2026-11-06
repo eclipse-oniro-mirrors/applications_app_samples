@@ -47,11 +47,13 @@ export default function abilityTest(): void {
      * @tc.desc: Verify that the skill entry button exists on the main page.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level Level 0
+     * @tc.level: Level 0
      */
     it('testSkillManagerHome0001', 0, async (done: Function) => {
       await runCase('testSkillManagerHome0001', async (): Promise<void> => {
         expect(await existsId('skillButton')).assertTrue();
+        expect(await existsId('EntryAbility_label')).assertTrue();
+        expect(await existsId('home_description')).assertTrue();
       }, done);
     });
 
@@ -61,7 +63,7 @@ export default function abilityTest(): void {
      * @tc.desc: Verify that the SkillManagerHome page displays all text elements and navigation buttons correctly.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level Level 0
+     * @tc.level: Level 0
      */
     it('testSkillManagerHome0002', 0, async (done: Function) => {
       await runCase('testSkillManagerHome0002', async (): Promise<void> => {

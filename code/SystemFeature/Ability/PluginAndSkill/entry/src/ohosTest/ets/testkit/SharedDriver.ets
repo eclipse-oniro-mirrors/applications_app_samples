@@ -60,7 +60,7 @@ export async function waitText(text: string, timeout: number = COMPONENT_WAIT_TI
 
 export async function clickId(id: string): Promise<void> {
   hilog.info(DOMAIN, TAG, 'UI step: wait for id %{public}s', id);
-  const component: Component = await waitId(id);
+  const component: Component = await waitId(id, 10000);
   await component.click();
   await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
   hilog.info(DOMAIN, TAG, 'UI step: clicked id %{public}s', id);
@@ -160,6 +160,12 @@ export async function scrollToText(expected: string): Promise<void> {
   await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
 }
 
+export async function scrollToTop(): Promise<void> {
+  const scroll: Component = await getDriver().findComponent(ON.type('Scroll'));
+  await scroll.scrollToTop()
+  await getDriver().waitForIdle(UI_IDLE_TIME, 1000);
+}
+
 export async function waitIdContains(id: string, expected: string,
   timeout: number = TEXT_WAIT_TIMEOUT): Promise<void> {
   const start: number = Date.now();
@@ -197,4 +203,164 @@ export async function runCase(name: string, action: () => Promise<void>, done: F
 }
 export async function addLog(format: string,...args: string[]): Promise<void> {
   hilog.info(DOMAIN, TAG, format, ...args);
+}
+
+export async function addLogNumber(format: string, ...args: number[]): Promise<void> {
+  hilog.info(DOMAIN, TAG, format, ...args);
+}
+
+export async function assertComponentExists(id: string, testName: string): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s asserts component exists: %{public}s', testName, id);
+  const exists: boolean = await existsId(id);
+  if (!exists) {
+    throw new Error(`Expected component '${id}' to exist but it was not found`);
+  }
+}
+
+export async function assertComponentNotExists(id: string, testName: string): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s asserts component not exists: %{public}s', testName, id);
+  const exists: boolean = await existsId(id);
+  if (exists) {
+    throw new Error(`Expected component '${id}' to not exist but it was found`);
+  }
+}
+
+export async function assertTextContains(id: string, expected: string, testName: string): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s asserts id %{public}s contains: %{public}s', testName, id, expected);
+  const actual: string = await textOfId(id);
+  if (!actual.includes(expected)) {
+    throw new Error(`Expected text of '${id}' to contain '${expected}' but got '${actual}'`);
+  }
+}
+
+export async function assertTextNotEmpty(id: string, testName: string): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s asserts id %{public}s text not empty', testName, id);
+  const actual: string = await textOfId(id);
+  if (actual.length === 0 || actual === '-') {
+    throw new Error(`Expected text of '${id}' to be non-empty but got '${actual}'`);
+  }
+}
+
+export async function navigateToSkillManagerHome(): Promise<void> {
+  await clickId('skillButton');
+  await waitId('skill_page_title');
+}
+
+export async function navigateToSelfSkillQuery(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('self_skill_query_button');
+  await waitId('self_skill_page_title');
+}
+
+export async function navigateToBundleSkillQuery(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('bundle_skill_query_button');
+  await waitId('bundle_skill_page_title');
+}
+
+export async function navigateToAllSkillsQuery(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('all_skills_query_button');
+  await waitId('all_skills_page_title');
+}
+
+export async function resetToIndex(): Promise<void> {
+  hilog.info(DOMAIN, TAG, 'resetToIndex: starting navigation reset');
+  let attempts: number = 0;
+  const maxAttempts: number = 10;
+  while (attempts < maxAttempts && (await existsId('skill_page_title') || await existsId('self_skill_page_title') ||
+    await existsId('bundle_skill_page_title') || await existsId('all_skills_page_title') ||
+    await existsId('skill_execution_page_title') || await existsId('plugin_detail_page_title') ||
+    await existsId('skill_compare_page_title') || await existsId('plugin_compare_page_title') ||
+    await existsId('skill_history_page_title') || await existsId('plugin_search_page_title') ||
+    await existsId('skill_batch_page_title') || await existsId('plugin_manager_page_title'))) {
+    hilog.info(DOMAIN, TAG, 'resetToIndex: pressing back, attempt %{public}d', attempts + 1);
+    await pressBack();
+    attempts++;
+  }
+  hilog.info(DOMAIN, TAG, 'resetToIndex: waiting for skillButton');
+  await waitId('skillButton', 10000);
+  hilog.info(DOMAIN, TAG, 'resetToIndex: skillButton found, reset complete');
+}
+
+export async function getComponentBounds(id: string): Promise<Record<string, number>> {
+  const component: Component = await waitId(id);
+  const bounds = await component.getBounds();
+  const result: Record<string, number> = {};
+  result['left'] = bounds.left;
+  result['top'] = bounds.top;
+  result['right'] = bounds.right;
+  result['bottom'] = bounds.bottom;
+  result['width'] = bounds.right - bounds.left;
+  result['height'] = bounds.bottom - bounds.top;
+  return result;
+}
+
+export async function assertTextEquals(id: string, expected: string, testName: string): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s asserts id %{public}s equals: %{public}s', testName, id, expected);
+  const actual: string = await textOfId(id);
+  if (actual !== expected) {
+    throw new Error(`Expected text of '${id}' to equal '${expected}' but got '${actual}'`);
+  }
+}
+
+export async function waitForTextDisappear(text: string,
+  timeout: number = TEXT_WAIT_TIMEOUT): Promise<void> {
+  const start: number = Date.now();
+  while (Date.now() - start < timeout) {
+    try {
+      await getDriver().assertComponentExist(ON.text(text));
+      await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
+    } catch (error) {
+      return;
+    }
+  }
+  throw new Error(`Text '${text}' did not disappear within ${timeout}ms`);
+}
+
+export async function countComponentsById(id: string): Promise<number> {
+  await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
+  const components: Component[] = await getDriver().findComponents(ON.id(id));
+  return components.length;
+}
+
+export async function navigateToSkillExecution(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('skill_execution_button');
+  await waitId('skill_execution_page_title');
+}
+
+export async function navigateToSkillCompare(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('skill_compare_button');
+  await waitId('skill_compare_page_title');
+}
+
+export async function navigateToPluginCompare(): Promise<void> {
+  await navigateToPluginManagerHome();
+  await clickId('plugin_compare_nav_button');
+  await waitId('plugin_compare_page_title');
+}
+
+export async function navigateToSkillHistory(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('skill_history_button');
+  await waitId('skill_history_page_title');
+}
+
+export async function navigateToPluginSearch(): Promise<void> {
+  await navigateToPluginManagerHome();
+  await clickId('plugin_search_nav_button');
+  await waitId('plugin_search_page_title');
+}
+
+export async function navigateToSkillBatch(): Promise<void> {
+  await navigateToSkillManagerHome();
+  await clickId('skill_batch_button');
+  await waitId('skill_batch_page_title');
+}
+
+export async function navigateToPluginManagerHome(): Promise<void> {
+  await clickId('pluginButton');
+  await waitId('plugin_manager_page_title');
 }

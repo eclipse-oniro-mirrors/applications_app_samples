@@ -75,6 +75,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, '');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertTrue();
+        expect(await existsId('self_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -95,6 +97,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertTrue();
+        expect(await existsId('self_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -115,6 +119,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, '');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertTrue();
+        expect(await existsId('self_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -137,6 +143,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await assertTextExists('testSelfSkillQuery0004', 'skill-test');
         await pressBack();
       }, done);
@@ -158,6 +166,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-echo');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await assertTextExists('testSelfSkillQuery0005', 'skill-echo');
         await pressBack();
       }, done);
@@ -179,6 +189,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-calculator');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await assertTextExists('testSelfSkillQuery0006', 'skill-calculator');
         await pressBack();
       }, done);
@@ -200,6 +212,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-validation');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
         await assertTextExists('testSelfSkillQuery0007', 'skill-validation');
         await pressBack();
       }, done);
@@ -222,6 +236,9 @@ export default function selfSkillQueryTest(): void {
         await selectValue(MODULE_SELECT_ID, '');
         await selectValue(SKILL_SELECT_ID, '');
         await clickId('query_self_skills_button');
+        expect(await existsId('skill_result_name_0')).assertTrue();
+        expect(await existsId('skill_results_title')).assertTrue();
+        expect(await existsId('self_skill_page_title')).assertTrue();
         await assertTextExists('testSelfSkillQuery0008', 'skill-test');
         await pressBack();
       }, done);
@@ -245,6 +262,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, SKILL_NAME);
         await clickId('query_self_skill_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('self_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -265,6 +284,8 @@ export default function selfSkillQueryTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-nonexistent');
         await clickId('query_self_skill_button');
         expect(await textOfId('skill_operation_result')).assertContain('BusinessError');
+        expect(await existsId('self_skill_page_title')).assertTrue();
+        expect(await existsId('skill_operation_result')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -290,6 +311,7 @@ export default function selfSkillQueryTest(): void {
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_description_0_value');
         expect(await textOfId('skill_result_description_0_value')).assertEqual('-');
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -314,6 +336,7 @@ export default function selfSkillQueryTest(): void {
         await scrollToId('skill_result_description_0_value');
         const text = await textOfId('skill_result_description_0_value');
         expect(text.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -338,6 +361,7 @@ export default function selfSkillQueryTest(): void {
         await scrollToId('skill_result_src_entries_0_value');
         const srcEntriesText = await textOfId('skill_result_src_entries_0_value');
         expect(srcEntriesText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -362,6 +386,7 @@ export default function selfSkillQueryTest(): void {
         await scrollToId('skill_result_permissions_0_value');
         const permissionsText = await textOfId('skill_result_permissions_0_value');
         expect(permissionsText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
@@ -386,6 +411,7 @@ export default function selfSkillQueryTest(): void {
         await scrollToId('skill_result_request_permissions_0_value');
         const requestPermissionsText = await textOfId('skill_result_request_permissions_0_value');
         expect(requestPermissionsText.length).assertLarger(1);
+        expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
       }, done);
     });
