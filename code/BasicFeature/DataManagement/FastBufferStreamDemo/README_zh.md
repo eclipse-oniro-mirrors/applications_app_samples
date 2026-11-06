@@ -222,7 +222,8 @@ hdc shell "${ability_command} start -b com.samples.fastbufferstreamdemo -a Entry
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/BasicFeature/DataManagement/FastBufferStreamDemo .
+cd applications_app_samples
+git sparse-checkout set code/BasicFeature/DataManagement/FastBufferStreamDemo
 ```
 
 获取后在 DevEco Studio 中打开 `FastBufferStreamDemo` 根目录运行。

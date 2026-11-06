@@ -104,11 +104,12 @@ export default function downloadFlowTest() {
 
     // 状态文案：五个状态都有稳定的中文展示名（页面状态徽标直接使用）
     it('downloadState_names', 0, () => {
-      expect(downloadStateName(DownloadState.IDLE)).assertEqual('待下载');
-      expect(downloadStateName(DownloadState.PICKING)).assertEqual('等待文件选择器');
-      expect(downloadStateName(DownloadState.SUCCESS)).assertEqual('已保存');
-      expect(downloadStateName(DownloadState.FALLBACK)).assertEqual('已降级保存到沙箱');
-      expect(downloadStateName(DownloadState.FAILED)).assertEqual('保存失败');
+      const idleId: number = downloadStateName(DownloadState.IDLE).id;
+      expect(idleId > 0).assertTrue();
+      expect(downloadStateName(DownloadState.PICKING).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.SUCCESS).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.FALLBACK).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.FAILED).id !== idleId).assertTrue();
     });
 
     // 超时常量：3 秒与页面计时器一致，改动会导致降级窗口变化

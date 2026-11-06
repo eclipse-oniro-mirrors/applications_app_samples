@@ -63,6 +63,18 @@ export struct DownloadDemo {
   };
   private picker: DownloadPicker | null = null;
 
+  private getString(resource: Resource): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
     Logger.info('Download', '生命周期',
       `进入下载演示页，设备形态 ${this.layout.form}，文档选择器${this.layout.pickerSupported ? '可用' : '不可用'}`);
@@ -73,7 +85,7 @@ export struct DownloadDemo {
       this.picker.dispose();
       this.picker = null;
     }
-    Logger.info('Download', '生命周期', `离开下载演示页，最终状态 ${downloadStateName(this.state)}`);
+    Logger.info('Download', '生命周期', `离开下载演示页，最终状态 ${this.getString(downloadStateName(this.state))}`);
   }
 
   private toggleIcon(): void {

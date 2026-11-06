@@ -103,6 +103,30 @@
     {
       "name": "dest_prefs",
       "value": "Preferences"
+    },
+    {
+      "name": "nav_title_alt",
+      "value": "Component demo center"
+    },
+    {
+      "name": "download_state_idle",
+      "value": "Idle"
+    },
+    {
+      "name": "download_state_picking",
+      "value": "Waiting for document picker"
+    },
+    {
+      "name": "download_state_success",
+      "value": "Saved"
+    },
+    {
+      "name": "download_state_fallback",
+      "value": "Saved to app sandbox (fallback)"
+    },
+    {
+      "name": "download_state_failed",
+      "value": "Save failed"
     }
   ]
 }

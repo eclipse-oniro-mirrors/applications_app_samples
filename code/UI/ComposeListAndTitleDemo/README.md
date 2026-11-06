@@ -222,7 +222,8 @@ The project is currently maintained as a standalone directory; copy the `Compose
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/ComposeListAndTitleDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/ComposeListAndTitleDemo
 ```
 
 Open the `ComposeListAndTitleDemo` root directory in DevEco Studio after fetching.

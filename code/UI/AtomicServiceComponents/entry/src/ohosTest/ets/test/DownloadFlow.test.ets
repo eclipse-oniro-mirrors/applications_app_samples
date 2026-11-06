@@ -156,11 +156,12 @@ export default function downloadFlowTest() {
      * @tc.level Level 1
      */
     it('stateName_allStates', 0, () => {
-      expect(downloadStateName(DownloadState.IDLE)).assertEqual('待下载');
-      expect(downloadStateName(DownloadState.PICKING)).assertEqual('等待文件选择器');
-      expect(downloadStateName(DownloadState.SUCCESS)).assertEqual('已保存');
-      expect(downloadStateName(DownloadState.FALLBACK)).assertEqual('已降级保存到沙箱');
-      expect(downloadStateName(DownloadState.FAILED)).assertEqual('保存失败');
+      const idleId: number = downloadStateName(DownloadState.IDLE).id;
+      expect(idleId > 0).assertTrue();
+      expect(downloadStateName(DownloadState.PICKING).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.SUCCESS).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.FALLBACK).id !== idleId).assertTrue();
+      expect(downloadStateName(DownloadState.FAILED).id !== idleId).assertTrue();
     });
 
     /**
@@ -193,8 +194,9 @@ export default function downloadFlowTest() {
      * @tc.level Level 1
      */
     it('stateName_unknownFallsBackToIdle', 0, () => {
-      expect(downloadStateName(99 as DownloadState)).assertEqual('待下载');
-      expect(downloadStateName(-1 as DownloadState)).assertEqual('待下载');
+      const idleId: number = downloadStateName(DownloadState.IDLE).id;
+      expect(downloadStateName(99 as DownloadState).id).assertEqual(idleId);
+      expect(downloadStateName(-1 as DownloadState).id).assertEqual(idleId);
     });
   });
 }

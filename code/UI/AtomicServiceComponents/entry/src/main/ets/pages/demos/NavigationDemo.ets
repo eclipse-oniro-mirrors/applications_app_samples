@@ -23,13 +23,28 @@ import { Logger } from '../../utils/Logger';
 @Component
 export struct NavigationDemo {
   navPathStack: NavPathStack = new NavPathStack();
-  @StorageLink('navTitle') navTitle: string = '原子化服务组件';
+  @StorageLink('navTitle') navTitle: string = '';
   @StorageLink('navGradient') navGradient: boolean = true;
   @StorageLink('navHideTitle') navHideTitle: boolean = false;
   @StorageLink('navSplit') navSplit: boolean = false;
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
 
+  private getStringByName(name: string): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringByNameSync(name);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
+    if (this.navTitle === '') {
+      this.navTitle = this.getStringByName(DEFAULT_NAV_TITLE);
+    }
     Logger.info('Navigation', '生命周期',
       `进入 Navigation 演示页，当前标题「${this.navTitle}」，` +
         `模式 ${this.navSplit ? 'Split' : 'Stack'}，${this.layout.describe()}`);
@@ -137,12 +152,14 @@ export struct NavigationDemo {
               .width('100%')
             Row({ space: AppSpacing.MD }) {
               ForEach(NAV_TITLE_PRESETS, (preset: string) => {
-                Button(preset)
+                Button(this.getStringByName(preset))
                   .fontSize(AppText.BODY)
                   .height(AppSize.BUTTON)
-                  .backgroundColor(this.navTitle === preset ? AppColors.PRIMARY : AppColors.PRIMARY_SOFT)
-                  .fontColor(this.navTitle === preset ? AppColors.WHITE : AppColors.PRIMARY)
-                  .onClick(() => this.changeTitle(preset))
+                  .backgroundColor(this.navTitle === this.getStringByName(preset) ?
+                    AppColors.PRIMARY : AppColors.PRIMARY_SOFT)
+                  .fontColor(this.navTitle === this.getStringByName(preset) ?
+                    AppColors.WHITE : AppColors.PRIMARY)
+                  .onClick(() => this.changeTitle(this.getStringByName(preset)))
               }, (preset: string) => preset)
             }
             .width('100%')
@@ -211,7 +228,7 @@ export struct NavigationDemo {
               .backgroundColor(AppColors.SOFT_BG)
               .fontColor(AppColors.TEXT_STRONG)
               .onClick(() => {
-                this.navTitle = DEFAULT_NAV_TITLE;
+                this.navTitle = this.getStringByName(DEFAULT_NAV_TITLE);
                 this.navGradient = true;
                 this.navHideTitle = false;
                 this.navSplit = this.layout.navSplitDefault;

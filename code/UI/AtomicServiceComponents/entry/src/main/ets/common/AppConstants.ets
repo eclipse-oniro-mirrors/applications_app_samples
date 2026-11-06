@@ -40,8 +40,8 @@ export function isRouteKey(value: string): boolean {
     value === RouteKey.JUMP || value === RouteKey.SHEET || value === RouteKey.PREFS;
 }
 
-export const DEFAULT_NAV_TITLE: string = '原子化服务组件';
-export const NAV_TITLE_PRESETS: string[] = ['原子化服务组件', '组件演示中心'];
+export const DEFAULT_NAV_TITLE: string = 'nav_title_default';
+export const NAV_TITLE_PRESETS: string[] = ['nav_title_default', 'nav_title_alt'];
 
 export const TAB_COUNT: number = 3;
 export const PICKER_TIMEOUT_MS: number = 3000;

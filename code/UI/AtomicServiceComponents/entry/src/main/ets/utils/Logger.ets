@@ -56,7 +56,7 @@ export class Logger {
       AppStorage.setOrCreate(StorageKeys.APP_LOGS,
         appendLog(current, new LogItem(source, tag, detail, level), LOG_STORE_CAPACITY));
     } catch (err) {
-      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] 中央日志写入失败: ${err}`);
+      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] failed to write central log: ${err}`);
     }
   }
 
@@ -64,7 +64,7 @@ export class Logger {
     try {
       AppStorage.setOrCreate(StorageKeys.APP_LOGS, clearLogs());
     } catch (err) {
-      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] 清空日志失败: ${err}`);
+      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] failed to clear logs: ${err}`);
     }
   }
 }

@@ -50,17 +50,17 @@ export function nextDownloadState(current: DownloadState, success: boolean): Dow
   return success ? DownloadState.SUCCESS : DownloadState.FALLBACK;
 }
 
-export function downloadStateName(state: DownloadState): string {
+export function downloadStateName(state: DownloadState): Resource {
   switch (state) {
     case DownloadState.PICKING:
-      return '等待文件选择器';
+      return $r('app.string.download_state_picking');
     case DownloadState.SUCCESS:
-      return '已保存';
+      return $r('app.string.download_state_success');
     case DownloadState.FALLBACK:
-      return '已降级保存到沙箱';
+      return $r('app.string.download_state_fallback');
     case DownloadState.FAILED:
-      return '保存失败';
+      return $r('app.string.download_state_failed');
     default:
-      return '待下载';
+      return $r('app.string.download_state_idle');
   }
 }

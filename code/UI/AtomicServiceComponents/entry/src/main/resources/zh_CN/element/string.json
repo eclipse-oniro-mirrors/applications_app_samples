@@ -103,6 +103,30 @@
     {
       "name": "dest_prefs",
       "value": "首选项存储"
+    },
+    {
+      "name": "nav_title_alt",
+      "value": "组件演示中心"
+    },
+    {
+      "name": "download_state_idle",
+      "value": "待下载"
+    },
+    {
+      "name": "download_state_picking",
+      "value": "等待文件选择器"
+    },
+    {
+      "name": "download_state_success",
+      "value": "已保存"
+    },
+    {
+      "name": "download_state_fallback",
+      "value": "已降级保存到沙箱"
+    },
+    {
+      "name": "download_state_failed",
+      "value": "保存失败"
     }
   ]
 }

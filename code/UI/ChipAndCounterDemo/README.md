@@ -270,7 +270,8 @@ The project is currently maintained as a standalone directory; copy the `ChipAnd
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/ChipAndCounterDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/ChipAndCounterDemo
 ```
 
 Open the `ChipAndCounterDemo` root directory in DevEco Studio after fetching.

@@ -36,9 +36,7 @@
 | --- | --- | --- | --- |
 | ![首页](screenshots/1_home.svg) | ![确认框](screenshots/2_confirm.svg) | ![警告框](screenshots/3_alert.svg) | ![单选框](screenshots/4_select.svg) |
 
-| 图示提示 | 加载框 | 自定义内容 | 插屏弹窗 | 气泡 |
-| --- | --- | --- | --- | --- |
-| ![图示提示](screenshots/5_tips.svg) | ![加载框](screenshots/6_loading.svg) | ![自定义内容](screenshots/7_custom.svg) | ![插屏弹窗](screenshots/8_interstitial.svg) | ![气泡](screenshots/9_popover.svg) |
+更多截图（图示提示 / 加载框 / 自定义内容 / 插屏弹窗 / 气泡）见 [screenshots/](screenshots/)。
 
 > 加载框 2 秒自动关闭，截图为出现瞬间；插屏弹窗呈现为屏幕底部横幅样式。
 
@@ -190,7 +188,8 @@ hdc shell "${ability_command} test -b com.samples.dialogsdemo -m entry_test \
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/DialogsDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/DialogsDemo
 ```
 
 获取后在 DevEco Studio 中打开 `DialogsDemo` 根目录运行。

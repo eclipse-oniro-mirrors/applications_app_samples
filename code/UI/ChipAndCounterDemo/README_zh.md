@@ -270,7 +270,8 @@ hdc shell "${ability_command} test -b com.samples.chipandcounterdemo -m entry_te
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/ChipAndCounterDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/ChipAndCounterDemo
 ```
 
 获取后在 DevEco Studio 中打开 `ChipAndCounterDemo` 根目录运行。

@@ -217,7 +217,8 @@ hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_te
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/CanvasShowcaseDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/CanvasShowcaseDemo
 ```
 
 获取后在 DevEco Studio 中打开 `CanvasShowcaseDemo` 根目录运行。

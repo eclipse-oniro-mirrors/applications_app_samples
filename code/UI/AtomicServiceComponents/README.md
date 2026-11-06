@@ -239,7 +239,8 @@ The project is currently maintained as a standalone directory; copy the `AtomicS
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/AtomicServiceComponents .
+cd applications_app_samples
+git sparse-checkout set code/UI/AtomicServiceComponents
 ```
 
 Open the `AtomicServiceComponents` root directory in DevEco Studio after fetching.

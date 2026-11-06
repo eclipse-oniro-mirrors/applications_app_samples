@@ -32,9 +32,7 @@ An ArkUI advanced-components sample project corresponding to the samples catalog
 | --- | --- | --- | --- |
 | ![Home](screenshots/1_home.svg) | ![Confirm](screenshots/2_confirm.svg) | ![Alert](screenshots/3_alert.svg) | ![Select](screenshots/4_select.svg) |
 
-| Tips | Loading | Custom | Interstitial | Popover |
-| --- | --- | --- | --- | --- |
-| ![Tips](screenshots/5_tips.svg) | ![Loading](screenshots/6_loading.svg) | ![Custom](screenshots/7_custom.svg) | ![Interstitial](screenshots/8_interstitial.svg) | ![Popover](screenshots/9_popover.svg) |
+More screenshots (Tips / Loading / Custom / Interstitial / Popover) are available under [screenshots/](screenshots/).
 
 ## Implementation notes
 
@@ -96,7 +94,8 @@ The project is currently maintained as a standalone directory; copy the `Dialogs
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/DialogsDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/DialogsDemo
 ```
 
 Open the `DialogsDemo` root directory in DevEco Studio after fetching.

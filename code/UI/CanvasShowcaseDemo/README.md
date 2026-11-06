@@ -217,7 +217,8 @@ The project is currently maintained as a standalone directory; copy the `CanvasS
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/CanvasShowcaseDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/CanvasShowcaseDemo
 ```
 
 Open the `CanvasShowcaseDemo` root directory in DevEco Studio after fetching.

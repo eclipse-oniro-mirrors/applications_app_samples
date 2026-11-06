@@ -298,7 +298,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.level Level 1
      */
     it('stateName_idle', 0, () => {
-      expect(downloadStateName(DownloadState.IDLE)).assertEqual('待下载');
+      expect(downloadStateName(DownloadState.IDLE).id > 0).assertTrue();
     });
 
     /**
@@ -310,7 +310,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.level Level 1
      */
     it('stateName_picking', 0, () => {
-      expect(downloadStateName(DownloadState.PICKING)).assertEqual('等待文件选择器');
+      expect(downloadStateName(DownloadState.PICKING).id > 0).assertTrue();
     });
 
     /**
@@ -322,7 +322,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.level Level 1
      */
     it('stateName_success', 0, () => {
-      expect(downloadStateName(DownloadState.SUCCESS)).assertEqual('已保存');
+      expect(downloadStateName(DownloadState.SUCCESS).id > 0).assertTrue();
     });
 
     /**
@@ -334,7 +334,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.level Level 1
      */
     it('stateName_fallback', 0, () => {
-      expect(downloadStateName(DownloadState.FALLBACK)).assertEqual('已降级保存到沙箱');
+      expect(downloadStateName(DownloadState.FALLBACK).id > 0).assertTrue();
     });
 
     /**
@@ -346,7 +346,7 @@ export default function downloadFlowMatrixTest() {
      * @tc.level Level 1
      */
     it('stateName_failed', 0, () => {
-      expect(downloadStateName(DownloadState.FAILED)).assertEqual('保存失败');
+      expect(downloadStateName(DownloadState.FAILED).id > 0).assertTrue();
     });
 
     /**

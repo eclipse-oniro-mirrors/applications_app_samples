@@ -120,10 +120,10 @@ export default function constantsAndThemeTest() {
      * @tc.level Level 1
      */
     it('navTitle_presets', 0, () => {
-      expect(DEFAULT_NAV_TITLE).assertEqual('原子化服务组件');
+      expect(DEFAULT_NAV_TITLE).assertEqual('nav_title_default');
       expect(NAV_TITLE_PRESETS.length).assertEqual(2);
       expect(NAV_TITLE_PRESETS[0]).assertEqual(DEFAULT_NAV_TITLE);
-      expect(NAV_TITLE_PRESETS[1]).assertEqual('组件演示中心');
+      expect(NAV_TITLE_PRESETS[1]).assertEqual('nav_title_alt');
     });
 
     /**

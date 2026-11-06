@@ -222,7 +222,8 @@ hdc shell "${ability_command} test -b com.samples.composelistandtitledemo -m ent
 
 ```bash
 git clone https://gitcode.com/openharmony/applications_app_samples.git
-cp -r applications_app_samples/code/UI/ComposeListAndTitleDemo .
+cd applications_app_samples
+git sparse-checkout set code/UI/ComposeListAndTitleDemo
 ```
 
 获取后在 DevEco Studio 中打开 `ComposeListAndTitleDemo` 根目录运行。

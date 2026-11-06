@@ -46,7 +46,7 @@ export class LogUtil {
     if (minLevel !== undefined) {
       LogUtil.minLevel = minLevel;
     }
-    LogUtil.hilog(LogLevel.INFO, 'LogUtil 已初始化');
+    LogUtil.hilog(LogLevel.INFO, 'LogUtil initialized');
   }
 
   /** 设置最低输出级别，低于该级别的日志被过滤 */
