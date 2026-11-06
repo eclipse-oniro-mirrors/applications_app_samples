@@ -93,7 +93,7 @@ export class DialogEventLog {
 }
 
 /** 主按钮：EMPHASIZED 强调样式 */
-export function buildPrimaryButton(content: string,
+export function buildPrimaryButton(content: ResourceStr,
   action?: () => void): AdvancedDialogV2Button {
   const options: AdvancedDialogV2ButtonOptions = {
     content: content,
@@ -104,7 +104,7 @@ export function buildPrimaryButton(content: string,
 }
 
 /** 次按钮：TEXTUAL 文本样式 */
-export function buildSecondaryButton(content: string,
+export function buildSecondaryButton(content: ResourceStr,
   action?: () => void): AdvancedDialogV2Button {
   const options: AdvancedDialogV2ButtonOptions = {
     content: content,
@@ -132,13 +132,13 @@ export function buildSheetInfos(labels: string[], onPick: (index: number) => voi
 
 /** 插屏弹窗配置描述（不含 UIContext，页面组装 DialogOptions 时注入） */
 export class InterstitialConfig {
-  public title: string;
-  public subtitle: string;
+  public title: ResourceStr;
+  public subtitle: ResourceStr;
   public titlePosition: TitlePosition;
   public iconStyle: IconStyle;
   public bottomOffsetType: BottomOffset;
 
-  constructor(title: string, subtitle: string, titlePosition: TitlePosition,
+  constructor(title: ResourceStr, subtitle: ResourceStr, titlePosition: TitlePosition,
     iconStyle: IconStyle, bottomOffsetType: BottomOffset) {
     this.title = title;
     this.subtitle = subtitle;
@@ -151,9 +151,9 @@ export class InterstitialConfig {
 /** 场景1 ConfirmDialogV2 载荷 */
 export class ConfirmParams {
   public sceneId: number = 1;
-  public title: string = '';
-  public content: string = '';
-  public checkTips: string = '';
+  public title: ResourceStr = '';
+  public content: ResourceStr = '';
+  public checkTips: ResourceStr = '';
   public primaryButton: AdvancedDialogV2Button | null = null;
   public secondaryButton: AdvancedDialogV2Button | null = null;
 }
@@ -161,9 +161,9 @@ export class ConfirmParams {
 /** 场景2 AlertDialogV2 载荷 */
 export class AlertParams {
   public sceneId: number = 2;
-  public primaryTitle: string = '';
-  public secondaryTitle: string = '';
-  public content: string = '';
+  public primaryTitle: ResourceStr = '';
+  public secondaryTitle: ResourceStr = '';
+  public content: ResourceStr = '';
   public primaryButton: AdvancedDialogV2Button | null = null;
   public secondaryButton: AdvancedDialogV2Button | null = null;
 }
@@ -171,8 +171,8 @@ export class AlertParams {
 /** 场景3 SelectDialogV2 载荷 */
 export class SelectParams {
   public sceneId: number = 3;
-  public title: string = '';
-  public content: string = '';
+  public title: ResourceStr = '';
+  public content: ResourceStr = '';
   public selectedIndex: number = 0;
   public radioContent: SheetInfo[] = [];
   public confirm: AdvancedDialogV2Button | null = null;
@@ -182,9 +182,9 @@ export class SelectParams {
 export class TipsParams {
   public sceneId: number = 4;
   public imageRes: ResourceStr = $r('app.media.startIcon');
-  public title: string = '';
-  public content: string = '';
-  public checkTips: string = '';
+  public title: ResourceStr = '';
+  public content: ResourceStr = '';
+  public checkTips: ResourceStr = '';
   public primaryButton: AdvancedDialogV2Button | null = null;
   public secondaryButton: AdvancedDialogV2Button | null = null;
 }
@@ -192,14 +192,14 @@ export class TipsParams {
 /** 场景5 LoadingDialogV2 载荷 */
 export class LoadingParams {
   public sceneId: number = 5;
-  public content: string = '';
+  public content: ResourceStr = '';
 }
 
 /** 场景6 CustomContentDialogV2 载荷 */
 export class CustomParams {
   public sceneId: number = 6;
-  public primaryTitle: string = '';
-  public secondaryTitle: string = '';
+  public primaryTitle: ResourceStr = '';
+  public secondaryTitle: ResourceStr = '';
   public buttons: AdvancedDialogV2Button[] = [];
 }
 
@@ -221,20 +221,20 @@ export class ScenarioInfo {
 /** 全部场景目录（1-14），供页面与测试共用 */
 export function listScenarios(): ScenarioInfo[] {
   return [
-    new ScenarioInfo(1, '确认对话框', 'ConfirmDialogV2', 'DialogV2'),
-    new ScenarioInfo(2, '警告详情弹窗', 'AlertDialogV2', 'DialogV2'),
-    new ScenarioInfo(3, '单选列表弹窗', 'SelectDialogV2', 'DialogV2'),
-    new ScenarioInfo(4, '图示提示弹窗', 'TipsDialogV2', 'DialogV2'),
-    new ScenarioInfo(5, '加载弹窗', 'LoadingDialogV2', 'DialogV2'),
-    new ScenarioInfo(6, '自定义内容弹窗', 'CustomContentDialogV2', 'DialogV2'),
-    new ScenarioInfo(7, '气泡弹窗', 'PopoverDialogV2', 'DialogV2'),
-    new ScenarioInfo(8, '插屏弹窗', 'InterstitialDialogAction', 'Interstitial'),
-    new ScenarioInfo(9, '操作列表弹窗', 'showActionSheet', 'SystemPrompt'),
-    new ScenarioInfo(10, '日期选择弹窗', 'showDatePickerDialog', 'SystemPicker'),
-    new ScenarioInfo(11, '时间选择弹窗', 'showTimePickerDialog', 'SystemPicker'),
-    new ScenarioInfo(12, '文本选择弹窗', 'showTextPickerDialog', 'SystemPicker'),
-    new ScenarioInfo(13, '轻提示', 'openToast', 'SystemPrompt'),
-    new ScenarioInfo(14, '系统按钮弹窗', 'showDialog', 'SystemPrompt')
+    new ScenarioInfo(1, 'Confirm dialog', 'ConfirmDialogV2', 'DialogV2'),
+    new ScenarioInfo(2, 'Alert detail dialog', 'AlertDialogV2', 'DialogV2'),
+    new ScenarioInfo(3, 'Single-select dialog', 'SelectDialogV2', 'DialogV2'),
+    new ScenarioInfo(4, 'Tips dialog', 'TipsDialogV2', 'DialogV2'),
+    new ScenarioInfo(5, 'Loading dialog', 'LoadingDialogV2', 'DialogV2'),
+    new ScenarioInfo(6, 'Custom content dialog', 'CustomContentDialogV2', 'DialogV2'),
+    new ScenarioInfo(7, 'Popover dialog', 'PopoverDialogV2', 'DialogV2'),
+    new ScenarioInfo(8, 'Interstitial dialog', 'InterstitialDialogAction', 'Interstitial'),
+    new ScenarioInfo(9, 'Action sheet', 'showActionSheet', 'SystemPrompt'),
+    new ScenarioInfo(10, 'Date picker dialog', 'showDatePickerDialog', 'SystemPicker'),
+    new ScenarioInfo(11, 'Time picker dialog', 'showTimePickerDialog', 'SystemPicker'),
+    new ScenarioInfo(12, 'Text picker dialog', 'showTextPickerDialog', 'SystemPicker'),
+    new ScenarioInfo(13, 'Toast', 'openToast', 'SystemPrompt'),
+    new ScenarioInfo(14, 'System button dialog', 'showDialog', 'SystemPrompt')
   ];
 }
 

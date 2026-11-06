@@ -11,6 +11,254 @@
     {
       "name": "EntryAbility_label",
       "value": "DialogsDemo"
+    },
+    {
+      "name": "page_title",
+      "value": "Dialogs: DialogV2 and interstitial dialogs"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "DialogV2 family ¡¤ InterstitialDialogAction ¡¤ ActionSheet / pickers / Toast / showDialog"
+    },
+    {
+      "name": "btn_scene_1",
+      "value": "Scene 1: ConfirmDialogV2 (checkbox / primary & secondary buttons)"
+    },
+    {
+      "name": "btn_scene_2",
+      "value": "Scene 2: AlertDialogV2 (two titles)"
+    },
+    {
+      "name": "btn_scene_3",
+      "value": "Scene 3: SelectDialogV2 (preselect / confirm)"
+    },
+    {
+      "name": "btn_scene_4",
+      "value": "Scene 4: TipsDialogV2 (image / checkbox)"
+    },
+    {
+      "name": "btn_scene_5",
+      "value": "Scene 5: LoadingDialogV2 (auto close in 2s)"
+    },
+    {
+      "name": "btn_scene_6",
+      "value": "Scene 6: CustomContentDialogV2 (button array)"
+    },
+    {
+      "name": "btn_scene_7",
+      "value": "Scene 7: PopoverDialogV2 (anchor visibility)"
+    },
+    {
+      "name": "btn_scene_8",
+      "value": "Scene 8: InterstitialDialogAction"
+    },
+    {
+      "name": "btn_scene_9",
+      "value": "Scene 9: ActionSheet (multiple actions / cancel)"
+    },
+    {
+      "name": "btn_scene_10",
+      "value": "Scene 10: DatePickerDialog"
+    },
+    {
+      "name": "btn_scene_11",
+      "value": "Scene 11: TimePickerDialog"
+    },
+    {
+      "name": "btn_scene_12",
+      "value": "Scene 12: TextPickerDialog"
+    },
+    {
+      "name": "btn_scene_13",
+      "value": "Scene 13: Toast (openToast/closeToast)"
+    },
+    {
+      "name": "btn_scene_14",
+      "value": "Scene 14: showDialog system buttons"
+    },
+    {
+      "name": "common_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "common_confirm",
+      "value": "OK"
+    },
+    {
+      "name": "d1_title",
+      "value": "Delete this record?"
+    },
+    {
+      "name": "d1_content",
+      "value": "This cannot be undone. Proceed with caution."
+    },
+    {
+      "name": "d1_check",
+      "value": "Do not ask again"
+    },
+    {
+      "name": "d1_primary",
+      "value": "Delete"
+    },
+    {
+      "name": "d2_primary_title",
+      "value": "Not enough storage"
+    },
+    {
+      "name": "d2_secondary_title",
+      "value": "Clean up now"
+    },
+    {
+      "name": "d2_content",
+      "value": "Cache uses 3.2 GB; further downloads may fail."
+    },
+    {
+      "name": "d2_primary",
+      "value": "Clean up"
+    },
+    {
+      "name": "d2_secondary",
+      "value": "Later"
+    },
+    {
+      "name": "d3_title",
+      "value": "Choose a network"
+    },
+    {
+      "name": "d3_content",
+      "value": "Connect to one of the hotspots below"
+    },
+    {
+      "name": "d4_title",
+      "value": "Enable smart sync"
+    },
+    {
+      "name": "d4_content",
+      "value": "Albums and contacts will be backed up automatically over WLAN."
+    },
+    {
+      "name": "d4_check",
+      "value": "Remember my choice"
+    },
+    {
+      "name": "d4_primary",
+      "value": "Enable"
+    },
+    {
+      "name": "d4_secondary",
+      "value": "Not now"
+    },
+    {
+      "name": "d5_content",
+      "value": "Syncing data¡­"
+    },
+    {
+      "name": "d6_primary_title",
+      "value": "Preferences"
+    },
+    {
+      "name": "d6_secondary_title",
+      "value": "Custom content"
+    },
+    {
+      "name": "d6_reset",
+      "value": "Reset"
+    },
+    {
+      "name": "d6_save",
+      "value": "Save"
+    },
+    {
+      "name": "d6_inner_count",
+      "value": "Button count: %d"
+    },
+    {
+      "name": "d6_inner_desc",
+      "value": "Scene id: %d; content rendered by contentBuilder"
+    },
+    {
+      "name": "d8_title",
+      "value": "Update available"
+    },
+    {
+      "name": "d8_subtitle",
+      "value": "Version 2.0.0 is available. Update now?"
+    },
+    {
+      "name": "d9_title",
+      "value": "File actions"
+    },
+    {
+      "name": "d9_subtitle",
+      "value": "example.png ¡¤ 2.4MB"
+    },
+    {
+      "name": "d9_message",
+      "value": "Choose an action"
+    },
+    {
+      "name": "d9_rename",
+      "value": "Rename"
+    },
+    {
+      "name": "d9_share",
+      "value": "Share"
+    },
+    {
+      "name": "d9_delete",
+      "value": "Delete"
+    },
+    {
+      "name": "d13_message",
+      "value": "Saved to album"
+    },
+    {
+      "name": "d14_title",
+      "value": "Save changes?"
+    },
+    {
+      "name": "d14_message",
+      "value": "You have unsaved changes. Save before leaving?"
+    },
+    {
+      "name": "d14_no_save",
+      "value": "Don't save"
+    },
+    {
+      "name": "d14_save",
+      "value": "Save"
+    },
+    {
+      "name": "pop_title",
+      "value": "PopoverDialogV2"
+    },
+    {
+      "name": "pop_desc",
+      "value": "visible/$visible controls visibility; targetBuilder is the anchor"
+    },
+    {
+      "name": "pop_anchor_open",
+      "value": "Hide popover"
+    },
+    {
+      "name": "pop_anchor_closed",
+      "value": "Popover anchor"
+    },
+    {
+      "name": "log_title",
+      "value": "Event log"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "Breakpoint: %s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "Device: %s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API: %d"
     }
   ]
 }

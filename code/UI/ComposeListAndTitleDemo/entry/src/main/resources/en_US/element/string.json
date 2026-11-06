@@ -11,6 +11,186 @@
     {
       "name": "EntryAbility_label",
       "value": "List & Title"
+    },
+    {
+      "name": "page_title",
+      "value": "List & Title"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "ComposeListItem/V2 ¡¤ ComposeTitleBar/V2"
+    },
+    {
+      "name": "titlebar_avatar",
+      "value": "Avatar"
+    },
+    {
+      "name": "menu_refresh",
+      "value": "Refresh"
+    },
+    {
+      "name": "menu_settings",
+      "value": "Settings"
+    },
+    {
+      "name": "toolbar_team_title",
+      "value": "Team contacts"
+    },
+    {
+      "name": "toolbar_team_subtitle",
+      "value": "%d people ¡¤ %d online"
+    },
+    {
+      "name": "menu_search",
+      "value": "Search"
+    },
+    {
+      "name": "menu_more",
+      "value": "More"
+    },
+    {
+      "name": "section_titlebar_v2",
+      "value": "ComposeTitleBarV2 (API 26)"
+    },
+    {
+      "name": "section_list_v1",
+      "value": "ComposeListItem (V1, API 10+)"
+    },
+    {
+      "name": "section_list_v1_desc",
+      "value": "Content: avatar + primary/secondary text; three operate styles"
+    },
+    {
+      "name": "item_dnd_title",
+      "value": "Mute notifications"
+    },
+    {
+      "name": "item_dnd_desc",
+      "value": "Silence this contact"
+    },
+    {
+      "name": "item_update_title",
+      "value": "Update available"
+    },
+    {
+      "name": "item_update_desc",
+      "value": "Version 1.0.0 available"
+    },
+    {
+      "name": "btn_install",
+      "value": "Install"
+    },
+    {
+      "name": "item_sync_title",
+      "value": "Sync to cloud"
+    },
+    {
+      "name": "item_sync_desc",
+      "value": "Back up contacts automatically"
+    },
+    {
+      "name": "item_ring_title",
+      "value": "Default ringtone"
+    },
+    {
+      "name": "item_ring_desc",
+      "value": "Choose the incoming call sound"
+    },
+    {
+      "name": "item_share_title",
+      "value": "Favorites & share"
+    },
+    {
+      "name": "item_share_desc",
+      "value": "Two icons on the right"
+    },
+    {
+      "name": "item_unread_title",
+      "value": "Unread messages"
+    },
+    {
+      "name": "item_unread_desc",
+      "value": "3 pinned"
+    },
+    {
+      "name": "item_unread_detail",
+      "value": "Long press to mark all as read; description supports wrapping"
+    },
+    {
+      "name": "operate_3_items",
+      "value": "3"
+    },
+    {
+      "name": "item_preview_title",
+      "value": "Image preview"
+    },
+    {
+      "name": "item_preview_desc",
+      "value": "PREVIEW 96vp"
+    },
+    {
+      "name": "section_list_v2",
+      "value": "ComposeListItemV2 (API 26)"
+    },
+    {
+      "name": "section_list_v2_desc",
+      "value": "Same data, V2: new ContentItemV2/OperateItemV2, toggle replaces V1 switch"
+    },
+    {
+      "name": "item_update_v2_title",
+      "value": "System update"
+    },
+    {
+      "name": "item_update_v2_desc",
+      "value": "Check for new versions"
+    },
+    {
+      "name": "btn_check",
+      "value": "Check"
+    },
+    {
+      "name": "item_about_title",
+      "value": "About device"
+    },
+    {
+      "name": "item_about_desc",
+      "value": "View device information"
+    },
+    {
+      "name": "item_multi_title",
+      "value": "Multi-select"
+    },
+    {
+      "name": "item_multi_desc",
+      "value": "checkbox operate area"
+    },
+    {
+      "name": "item_v2_desc",
+      "value": "V2 three-line text: primaryText + secondaryText + description"
+    },
+    {
+      "name": "btn_preview",
+      "value": "Preview"
+    },
+    {
+      "name": "log_title",
+      "value": "Event log"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "Breakpoint: %s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "Device: %s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API: %d"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "Search name or department"
     }
   ]
 }

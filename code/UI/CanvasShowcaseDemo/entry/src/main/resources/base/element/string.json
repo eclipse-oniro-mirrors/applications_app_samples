@@ -11,6 +11,74 @@
     {
       "name": "EntryAbility_label",
       "value": "CanvasShowcaseDemo"
+    },
+    {
+      "name": "page_title",
+      "value": "Canvas: gradients, patterns and matrix transforms"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "CanvasGradient ， CanvasPattern ， Matrix2D ， paths / text / clip & composite / strokes ， OffscreenCanvas ， ImageData"
+    },
+    {
+      "name": "scene_title_idle",
+      "value": "(Tap a button to start the demo)"
+    },
+    {
+      "name": "scene_title_anim",
+      "value": "Animation: gradient transition (interpolated by ColorUtil)"
+    },
+    {
+      "name": "scene_title_cleared",
+      "value": "(Cleared, tap a button to start the demo)"
+    },
+    {
+      "name": "clear_dialog_title",
+      "value": "Clear canvas and logs?"
+    },
+    {
+      "name": "clear_dialog_message",
+      "value": "Canvas content and event logs will be removed and cannot be recovered."
+    },
+    {
+      "name": "common_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "common_clear",
+      "value": "Clear"
+    },
+    {
+      "name": "scene_current_suffix",
+      "value": " (current)"
+    },
+    {
+      "name": "btn_anim_stop",
+      "value": "Stop gradient animation"
+    },
+    {
+      "name": "btn_anim_start",
+      "value": "Animation: gradient transition"
+    },
+    {
+      "name": "btn_clear",
+      "value": "Clear canvas and logs"
+    },
+    {
+      "name": "log_title",
+      "value": "Event log"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "Breakpoint: %s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "Device: %s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API: %d"
     }
   ]
 }

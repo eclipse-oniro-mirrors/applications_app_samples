@@ -133,7 +133,7 @@ export class ListConfigFactory {
   // ---------- ComposeListItem V1（class，字面量 as 断言） ----------
 
   /** V1 内容区：头像/图标 + 主文本 + 副文本 */
-  static buildV1ContentItem(icon: ResourceStr, iconStyle: IconType, primary: string, secondary: string): ContentItem {
+  static buildV1ContentItem(icon: ResourceStr, iconStyle: IconType, primary: ResourceStr, secondary: ResourceStr): ContentItem {
     return {
       icon: icon,
       iconStyle: iconStyle,
@@ -143,8 +143,8 @@ export class ListConfigFactory {
   }
 
   /** V1 内容区（三行文本：主文本 + 副文本 + 描述） */
-  static buildV1ContentItemWithDesc(icon: ResourceStr, iconStyle: IconType, primary: string,
-    secondary: string, description: string): ContentItem {
+  static buildV1ContentItemWithDesc(icon: ResourceStr, iconStyle: IconType, primary: ResourceStr,
+    secondary: ResourceStr, description: ResourceStr): ContentItem {
     return {
       icon: icon,
       iconStyle: iconStyle,
@@ -175,7 +175,7 @@ export class ListConfigFactory {
   }
 
   /** V1 右侧按钮操作区 */
-  static buildV1OperateButton(text: string): OperateItem {
+  static buildV1OperateButton(text: ResourceStr): OperateItem {
     return {
       button: {
         text: text
@@ -211,7 +211,7 @@ export class ListConfigFactory {
   }
 
   /** V1 右侧文本操作区 */
-  static buildV1OperateText(text: string): OperateItem {
+  static buildV1OperateText(text: ResourceStr): OperateItem {
     return {
       text: text
     } as OperateItem;
@@ -232,7 +232,7 @@ export class ListConfigFactory {
   }
 
   /** V1 标题栏菜单项 */
-  static buildV1MenuItem(value: string, action: () => void): ComposeTitleBarMenuItem {
+  static buildV1MenuItem(value: ResourceStr, action: () => void): ComposeTitleBarMenuItem {
     return {
       value: value,
       action: action
@@ -242,8 +242,8 @@ export class ListConfigFactory {
   // ---------- ComposeListItem V2（class，constructor(options)） ----------
 
   /** V2 内容区 */
-  static buildV2ContentItem(icon: ResourceStr, iconStyle: IconTypeV2, primary: string,
-    secondary: string): ContentItemV2 {
+  static buildV2ContentItem(icon: ResourceStr, iconStyle: IconTypeV2, primary: ResourceStr,
+    secondary: ResourceStr): ContentItemV2 {
     return new ContentItemV2({
       icon: icon,
       iconStyle: iconStyle,
@@ -253,8 +253,8 @@ export class ListConfigFactory {
   }
 
   /** V2 内容区（三行文本） */
-  static buildV2ContentItemWithDesc(icon: ResourceStr, iconStyle: IconTypeV2, primary: string,
-    secondary: string, description: string): ContentItemV2 {
+  static buildV2ContentItemWithDesc(icon: ResourceStr, iconStyle: IconTypeV2, primary: ResourceStr,
+    secondary: ResourceStr, description: ResourceStr): ContentItemV2 {
     return new ContentItemV2({
       icon: icon,
       iconStyle: iconStyle,
@@ -275,7 +275,7 @@ export class ListConfigFactory {
   }
 
   /** V2 右侧按钮操作区 */
-  static buildV2OperateButton(text: string): OperateItemV2 {
+  static buildV2OperateButton(text: ResourceStr): OperateItemV2 {
     return new OperateItemV2({
       button: new OperateButtonV2({
         text: text
@@ -311,7 +311,7 @@ export class ListConfigFactory {
   }
 
   /** V2 右侧文本操作区 */
-  static buildV2OperateText(text: string): OperateItemV2 {
+  static buildV2OperateText(text: ResourceStr): OperateItemV2 {
     return new OperateItemV2({
       text: text
     });
@@ -342,7 +342,7 @@ export class ListConfigFactory {
   }
 
   /** V2 标题栏菜单项 */
-  static buildV2MenuItem(value: string, action: () => void): ComposeTitleBarV2MenuItem {
+  static buildV2MenuItem(value: ResourceStr, action: () => void): ComposeTitleBarV2MenuItem {
     return new ComposeTitleBarV2MenuItem({
       value: value,
       action: action

@@ -104,7 +104,7 @@ struct Index {
   @Builder
   buttonsArea() {
     Column({ space: 8 }) {
-      Button('场景1：FastBuffer 基础操作（创建/读写/编码/拼接/切片）')
+      Button($r('app.string.btn_scene_1'))
         .width('100%')
         .backgroundColor(this.activeScene === 1 ? '#1565C0' : '#E3F2FD')
         .fontColor(this.activeScene === 1 ? Color.White : '#1565C0')
@@ -114,7 +114,7 @@ struct Index {
             this.basics.runBasics();
           });
         })
-      Button('场景2：FastBuffer vs Buffer 性能对比')
+      Button($r('app.string.btn_scene_2'))
         .width('100%')
         .backgroundColor(this.activeScene === 2 ? '#1565C0' : '#E3F2FD')
         .fontColor(this.activeScene === 2 ? Color.White : '#1565C0')
@@ -124,7 +124,7 @@ struct Index {
             this.basics.runBenchmark();
           });
         })
-      Button('场景3：Writable 流式写入（水位线背压）')
+      Button($r('app.string.btn_scene_3'))
         .width('100%')
         .enabled(!this.busy)
         .backgroundColor(this.activeScene === 3 ? '#1565C0' : '#E3F2FD')
@@ -136,7 +136,7 @@ struct Index {
             this.pipeline.runWritableDemo(this.filesDir());
           });
         })
-      Button('场景4：Readable 流式读取（分块消费）')
+      Button($r('app.string.btn_scene_4'))
         .width('100%')
         .enabled(!this.busy)
         .backgroundColor(this.activeScene === 4 ? '#1565C0' : '#E3F2FD')
@@ -148,7 +148,7 @@ struct Index {
             this.pipeline.runReadableDemo(this.filesDir());
           });
         })
-      Button('场景5：三流流水线 Readable→Transform→Writable')
+      Button($r('app.string.btn_scene_5'))
         .width('100%')
         .enabled(!this.busy)
         .backgroundColor(this.activeScene === 5 ? '#1565C0' : '#E3F2FD')
@@ -160,7 +160,7 @@ struct Index {
             this.pipeline.runPipelineDemo(this.filesDir());
           });
         })
-      Button('场景6：工具类实战（协议封包/CRC 校验/hexDump）')
+      Button($r('app.string.btn_scene_6'))
         .width('100%')
         .backgroundColor(this.activeScene === 6 ? '#1565C0' : '#E3F2FD')
         .fontColor(this.activeScene === 6 ? Color.White : '#1565C0')
@@ -170,7 +170,7 @@ struct Index {
             this.basics.runPacketDemo();
           });
         })
-      Button('场景7：TLV 协议流解析（噪声定位/CRC 检出/截断防护）')
+      Button($r('app.string.btn_scene_7'))
         .width('100%')
         .backgroundColor(this.activeScene === 7 ? '#1565C0' : '#E3F2FD')
         .fontColor(this.activeScene === 7 ? Color.White : '#1565C0')
@@ -180,7 +180,7 @@ struct Index {
             this.basics.runTlvDemo();
           });
         })
-      Button('场景8：pipe 一行流水线（Readable→Transform→Writable）')
+      Button($r('app.string.btn_scene_8'))
         .width('100%')
         .enabled(!this.busy)
         .backgroundColor(this.activeScene === 8 ? '#1565C0' : '#E3F2FD')
@@ -192,7 +192,7 @@ struct Index {
             this.pipeline.runPipeDemo(this.filesDir());
           });
         })
-      Button('场景9：Duplex 双工流（写侧回显/读侧回送）')
+      Button($r('app.string.btn_scene_9'))
         .width('100%')
         .enabled(!this.busy)
         .backgroundColor(this.activeScene === 9 ? '#1565C0' : '#E3F2FD')
@@ -212,16 +212,16 @@ struct Index {
   logArea() {
     Column({ space: 4 }) {
       Row({ space: 8 }) {
-        Text('事件日志')
+        Text($r('app.string.log_title'))
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
         if (this.busy) {
-          Text('（流式执行中…）')
+          Text($r('app.string.log_running'))
             .fontSize(12)
             .fontColor('#FF8800')
         }
         Blank()
-        Text(`断点：${this.bp}`)
+        Text($r('app.string.breakpoint_prefix', this.bp))
           .fontSize(11)
           .fontColor('#999999')
       }
@@ -248,20 +248,20 @@ struct Index {
 
   build() {
     Column({ space: 12 }) {
-      Text('FastBuffer 与 Stream 流式数据处理')
+      Text($r('app.string.page_title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-      Text('FastBuffer（API 20+）高效二进制缓冲 · Stream（API 12+）分块流式读写 · 展示高效缓冲和流式数据')
+      Text($r('app.string.page_subtitle'))
         .fontSize(12)
         .fontColor('#666666')
         .width('100%')
 
       // 设备信息卡（DAYU200 上用于确认运行环境与断点档位）
       Row({ space: 10 }) {
-        Text(`设备：${this.deviceType}`)
+        Text($r('app.string.device_prefix', this.deviceType))
           .fontSize(12)
-        Text(`API：${this.apiVersion}`)
+        Text($r('app.string.api_prefix', this.apiVersion))
           .fontSize(12)
         Text(this.osName)
           .fontSize(12)

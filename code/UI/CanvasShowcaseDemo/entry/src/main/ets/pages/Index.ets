@@ -31,7 +31,7 @@ struct Index {
   @State deviceType: string = '';
   @State osName: string = '';
   @State apiVersion: number = 0;
-  @State sceneTitle: string = '（点击按钮开始演示）';
+  @State sceneTitle: string = '';
   @State animRunning: boolean = false;
   /** 当前已绘制场景 id，-1 表示无选中（动画/清空后复位） */
   @State activeSceneId: number = -1;
@@ -41,10 +41,28 @@ struct Index {
   private animT: number = 0;
   private drawTimer: PerfTimer = new PerfTimer();
 
+  /** 读取字符串资源；用于与动态内容拼接的场景 */
+  private getString(resource: Resource): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id);
+    } catch (err) {
+      return '';
+    }
+  }
+
+  private sceneCurrentSuffix(): string {
+    return this.getString($r('app.string.scene_current_suffix'));
+  }
+
   aboutToAppear(): void {
     LogUtil.init((line: string) => {
       this.pushLog(line);
     });
+    this.sceneTitle = this.getString($r('app.string.scene_title_idle'));
     this.deviceType = DeviceUtil.getDeviceType();
     this.osName = DeviceUtil.getOsFullName();
     this.apiVersion = DeviceUtil.getSdkApiVersion();
@@ -96,7 +114,7 @@ struct Index {
       return;
     }
     this.clearCanvas();
-    this.sceneTitle = '动画：渐变过渡（ColorUtil 插值驱动）';
+    this.sceneTitle = this.getString($r('app.string.scene_title_anim'));
     this.activeSceneId = -1;
     this.animRunning = true;
     this.animT = 0;
@@ -119,23 +137,23 @@ struct Index {
   /** 清空为不可恢复操作，先弹框二次确认 */
   private confirmClear(): void {
     this.getUIContext().showAlertDialog({
-      title: '确认清空',
-      message: '画布内容和事件日志将全部移除，且无法恢复。',
+      title: $r('app.string.clear_dialog_title'),
+      message: $r('app.string.clear_dialog_message'),
       autoCancel: true,
       primaryButton: {
-        value: '取消',
+        value: $r('app.string.common_cancel'),
         action: () => {
           LogUtil.info('Index', '已取消清空');
         }
       },
       secondaryButton: {
-        value: '清空',
+        value: $r('app.string.common_clear'),
         fontColor: '#E53935',
         action: () => {
           this.stopAnim();
           this.clearCanvas();
           this.logs = [];
-          this.sceneTitle = '（已清空，点击按钮开始演示）';
+          this.sceneTitle = this.getString($r('app.string.scene_title_cleared'));
           this.activeSceneId = -1;
           LogUtil.info('Index', '画布与日志已清空');
         }
@@ -147,13 +165,13 @@ struct Index {
   buttonsArea() {
     Column({ space: 6 }) {
       ForEach(this.scenes, (s: SceneInfo) => {
-        Button(this.activeSceneId === s.id ? `${s.button}（当前）` : s.button)
+        Button(this.activeSceneId === s.id ? s.button + this.sceneCurrentSuffix() : s.button)
           .width('100%').height(36)
           .backgroundColor(this.activeSceneId === s.id ? '#1565C0' : '#E3F2FD')
           .fontColor(this.activeSceneId === s.id ? Color.White : '#1565C0')
           .onClick(() => this.runScene(s.id))
       }, (s: SceneInfo) => `${s.id}`)
-      Button(this.animRunning ? '停止渐变动画' : '动画：渐变过渡')
+      Button(this.animRunning ? $r('app.string.btn_anim_stop') : $r('app.string.btn_anim_start'))
         .width('100%').height(36)
         .backgroundColor(this.animRunning ? '#E53935' : '#43A047')
         .onClick(() => {
@@ -163,7 +181,7 @@ struct Index {
             this.startAnim();
           }
         })
-      Button('清空画布与日志')
+      Button($r('app.string.btn_clear'))
         .width('100%').height(36)
         .backgroundColor('#78909C')
         .onClick(() => {
@@ -177,11 +195,11 @@ struct Index {
   logArea() {
     Column({ space: 4 }) {
       Row({ space: 8 }) {
-        Text('事件日志')
+        Text($r('app.string.log_title'))
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
         Blank()
-        Text(`断点：${this.bp}`)
+        Text($r('app.string.breakpoint_prefix', this.bp))
           .fontSize(11)
           .fontColor('#999999')
       }
@@ -208,20 +226,20 @@ struct Index {
 
   build() {
     Column({ space: 10 }) {
-      Text('Canvas 画布：渐变、图案与矩阵变换')
+      Text($r('app.string.page_title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-      Text('CanvasGradient 渐变 · CanvasPattern 图案 · Matrix2D 矩阵 · 路径 / 文字 / 裁剪合成 / 描边 · OffscreenCanvas 离屏 · ImageData 像素')
+      Text($r('app.string.page_subtitle'))
         .fontSize(12)
         .fontColor('#666666')
         .width('100%')
 
       // 设备信息卡（DAYU200 上用于确认运行环境与断点档位）
       Row({ space: 10 }) {
-        Text(`设备：${this.deviceType}`)
+        Text($r('app.string.device_prefix', this.deviceType))
           .fontSize(12)
-        Text(`API：${this.apiVersion}`)
+        Text($r('app.string.api_prefix', this.apiVersion))
           .fontSize(12)
         Text(this.osName)
           .fontSize(12)

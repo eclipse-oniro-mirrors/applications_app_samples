@@ -14,7 +14,7 @@
  */
  
 import { AtomicServiceNavigation, AtomicServiceSearch, BackgroundTheme, GradientAlpha, MixMode } from '@kit.ArkUI';
-import { DemoItem, DEMO_ITEMS, filterDemos } from '../model/DemoLogic';
+import { DemoItem, DEMO_ITEMS, CATEGORIES, filterDemos } from '../model/DemoLogic';
 import { DEFAULT_LAYOUT_PROFILE, DisplaySnapshot, LayoutProfile, buildLayoutProfile } from '../model/DeviceProfile';
 import { LogItem } from '../model/LogStore';
 import { HOME_LOG_LIMIT, RouteKey, StorageKeys } from '../common/AppConstants';
@@ -36,23 +36,43 @@ import { PreferencesDemo } from './demos/PreferencesDemo';
 @Component
 struct Index {
   navPathStack: NavPathStack = new NavPathStack();
-  @StorageLink('navTitle') navTitle: string = '原子化服务组件';
+  @StorageLink('navTitle') navTitle: string = '';
   @StorageLink('navGradient') navGradient: boolean = true;
   @StorageLink('navHideTitle') navHideTitle: boolean = false;
   @StorageLink('navSplit') navSplit: boolean = false;
   @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
   @State keyword: string = '';
-  @State category: string = '全部';
+  @State category: string = '';
   @State categoryIndex: number = 0;
   private layoutInitialized: boolean = false;
 
+  /** 读取字符串资源；用于需要与动态内容拼接或接口只接受 string 的场景 */
+  private getString(resource: Resource): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id);
+    } catch (err) {
+      return '';
+    }
+  }
+
   private filteredDemos(): DemoItem[] {
-    return filterDemos(DEMO_ITEMS, this.keyword, this.category);
+    // 过滤仍使用逻辑分类值，显示文案由 category 单独维护，避免英文环境下过滤失效
+    return filterDemos(DEMO_ITEMS, this.keyword, CATEGORIES[this.categoryIndex]);
   }
 
   aboutToAppear(): void {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
+    }
+    if (this.navTitle === '') {
+      this.navTitle = this.getString($r('app.string.nav_title_default'));
+    }
+    if (this.category === '') {
+      this.category = this.getString($r('app.string.category_all'));
     }
     const snapshot = readDeviceSnapshot();
     AppStorage.setOrCreate(StorageKeys.LAYOUT_PROFILE, snapshot.profile);
@@ -86,10 +106,10 @@ struct Index {
       Column() {
         AtomicServiceSearch({
           value: this.keyword,
-          placeholder: '搜索组件，例如 Web、Tabs',
+          placeholder: this.getString($r('app.string.search_placeholder')),
           search: {
             searchButton: {
-              searchButtonValue: '搜索'
+              searchButtonValue: $r('app.string.search_button')
             },
             onChange: (value: string) => {
               this.keyword = value;
@@ -101,10 +121,10 @@ struct Index {
           },
           select: {
             options: [
-              { value: '全部' },
-              { value: '容器' },
-              { value: '交互' },
-              { value: '能力' }
+              { value: $r('app.string.category_all') },
+              { value: $r('app.string.category_container') },
+              { value: $r('app.string.category_interaction') },
+              { value: $r('app.string.category_capability') }
             ],
             selected: this.categoryIndex,
             selectValue: this.category,
@@ -144,19 +164,21 @@ struct Index {
                   .fontSize(AppText.SECTION)
                   .fontWeight(FontWeight.Medium)
                   .fontColor(AppColors.TEXT_PRIMARY)
-                Text(`当前：${this.navTitle} · ${this.navSplit ? '分栏' : '单栏'} · ` +
-                  `${this.navGradient ? '渐变背景' : '纯色背景'}`)
+                Text(`${this.getString($r('app.string.nav_current'))}${this.navTitle} · ` +
+                  `${this.navSplit ? this.getString($r('app.string.nav_split')) : this.getString($r('app.string.nav_stack'))} · ` +
+                  `${this.navGradient ? this.getString($r('app.string.nav_gradient')) : this.getString($r('app.string.nav_solid'))}`)
                   .fontSize(AppText.BODY)
                   .fontColor(AppColors.TEXT_SECONDARY)
-                Text(`设备：${this.layout.form} · ${this.layout.breakpoint} · ${this.layout.columns} 列 · ` +
-                  `选择器${this.layout.pickerSupported ? '可用' : '不可用'}`)
+                Text($r('app.string.layout_info', this.layout.form, this.layout.breakpoint, this.layout.columns,
+                  this.layout.pickerSupported ? this.getString($r('app.string.available')) :
+                    this.getString($r('app.string.unavailable'))))
                   .fontSize(AppText.SMALL)
                   .fontColor(AppColors.TEXT_TERTIARY)
               }
               .alignItems(HorizontalAlign.Start)
               .layoutWeight(1)
 
-              Button('调节')
+              Button($r('app.string.btn_adjust'))
                 .fontSize(AppText.LABEL)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -172,7 +194,7 @@ struct Index {
             .borderRadius(AppRadius.LARGE)
 
             Row() {
-              Text(`组件目录（${this.filteredDemos().length}）`)
+              Text($r('app.string.catalog_title', this.filteredDemos().length))
                 .fontSize(AppText.SECTION)
                 .fontWeight(FontWeight.Medium)
                 .fontColor(AppColors.TEXT_PRIMARY)
@@ -193,7 +215,7 @@ struct Index {
             .width('100%')
 
             if (this.filteredDemos().length === 0) {
-              Text('没有匹配的组件，试试清空搜索词或切换分类')
+              Text($r('app.string.home_empty'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_MUTED)
                 .width('100%')
@@ -202,7 +224,7 @@ struct Index {
                 .borderRadius(AppRadius.LARGE)
             }
 
-            LogPanel({ title: '首页事件', maxItems: HOME_LOG_LIMIT })
+            LogPanel({ title: this.getString($r('app.string.home_log_title')), maxItems: HOME_LOG_LIMIT })
           }
           .width('100%')
           .constraintSize({ maxWidth: this.layout.pageMaxWidth })
@@ -253,7 +275,7 @@ struct Index {
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
 
-      Text('进入')
+      Text($r('app.string.action_enter'))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.PRIMARY)
     }
@@ -303,17 +325,17 @@ struct Index {
       NavDestination() {
         CrossAbilityDemo({ navPathStack: this.navPathStack })
       }
-      .title('应用间跳转')
+      .title($r('app.string.dest_jump'))
     } else if (name === RouteKey.SHEET) {
       NavDestination() {
         SheetDemo({ navPathStack: this.navPathStack })
       }
-      .title('半模态面板')
+      .title($r('app.string.dest_sheet'))
     } else if (name === RouteKey.PREFS) {
       NavDestination() {
         PreferencesDemo({ navPathStack: this.navPathStack })
       }
-      .title('首选项存储')
+      .title($r('app.string.dest_prefs'))
     }
   }
 

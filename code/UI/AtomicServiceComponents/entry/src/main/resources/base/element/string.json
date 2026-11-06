@@ -11,6 +11,98 @@
     {
       "name": "EntryAbility_label",
       "value": "原子化服务组件"
+    },
+    {
+      "name": "nav_title_default",
+      "value": "原子化服务组件"
+    },
+    {
+      "name": "category_all",
+      "value": "全部"
+    },
+    {
+      "name": "category_container",
+      "value": "容器"
+    },
+    {
+      "name": "category_interaction",
+      "value": "交互"
+    },
+    {
+      "name": "category_capability",
+      "value": "能力"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "搜索组件，例如 Web、Tabs"
+    },
+    {
+      "name": "search_button",
+      "value": "搜索"
+    },
+    {
+      "name": "nav_current",
+      "value": "当前："
+    },
+    {
+      "name": "nav_split",
+      "value": "分栏"
+    },
+    {
+      "name": "nav_stack",
+      "value": "单栏"
+    },
+    {
+      "name": "nav_gradient",
+      "value": "渐变背景"
+    },
+    {
+      "name": "nav_solid",
+      "value": "纯色背景"
+    },
+    {
+      "name": "layout_info",
+      "value": "设备：%s · %s · %d 列 · 选择器%s"
+    },
+    {
+      "name": "available",
+      "value": "可用"
+    },
+    {
+      "name": "unavailable",
+      "value": "不可用"
+    },
+    {
+      "name": "btn_adjust",
+      "value": "调节"
+    },
+    {
+      "name": "catalog_title",
+      "value": "组件目录（%d）"
+    },
+    {
+      "name": "home_empty",
+      "value": "没有匹配的组件，试试清空搜索词或切换分类"
+    },
+    {
+      "name": "home_log_title",
+      "value": "首页事件"
+    },
+    {
+      "name": "action_enter",
+      "value": "进入"
+    },
+    {
+      "name": "dest_jump",
+      "value": "应用间跳转"
+    },
+    {
+      "name": "dest_sheet",
+      "value": "半模态面板"
+    },
+    {
+      "name": "dest_prefs",
+      "value": "首选项存储"
     }
   ]
 }

@@ -149,9 +149,9 @@ let gCustomParams: CustomParams | null = null;
 @Builder
 function customInnerBuilder() {
   Column({ space: 8 }) {
-    Text(`按钮数组元素数：${gCustomParams!.buttons.length}`)
+    Text($r('app.string.d6_inner_count', gCustomParams!.buttons.length))
       .fontSize(14)
-    Text(`场景 id：${gCustomParams!.sceneId}，内容由 contentBuilder 渲染`)
+    Text($r('app.string.d6_inner_desc', gCustomParams!.sceneId))
       .fontSize(12)
       .fontColor('#666666')
   }
@@ -277,15 +277,15 @@ struct Index {
   private showConfirm(): void {
     this.activeScene = 1;
     const params: ConfirmParams = new ConfirmParams();
-    params.title = '删除这条记录？';
-    params.content = '删除后不可恢复，请谨慎操作。';
-    params.checkTips = '不再提示';
-    params.primaryButton = buildPrimaryButton('删除', () => {
+    params.title = $r('app.string.d1_title');
+    params.content = $r('app.string.d1_content');
+    params.checkTips = $r('app.string.d1_check');
+    params.primaryButton = buildPrimaryButton($r('app.string.d1_primary'), () => {
       this.logEvent(1, DialogEventLog.formatClick(1) + ' → 主按钮“删除”');
       this.logEvent(1, DialogEventLog.formatClose(1, '确认框'));
       this.closeTop();
     });
-    params.secondaryButton = buildSecondaryButton('取消', () => {
+    params.secondaryButton = buildSecondaryButton($r('app.string.common_cancel'), () => {
       this.logEvent(1, DialogEventLog.formatClick(1) + ' → 次按钮“取消”');
       this.logEvent(1, DialogEventLog.formatClose(1, '确认框'));
       this.closeTop();
@@ -300,15 +300,15 @@ struct Index {
   private showAlert(): void {
     this.activeScene = 2;
     const params: AlertParams = new AlertParams();
-    params.primaryTitle = '存储空间不足';
-    params.secondaryTitle = '建议立即清理';
-    params.content = '缓存已占用 3.2GB，继续下载可能失败。';
-    params.primaryButton = buildPrimaryButton('去清理', () => {
+    params.primaryTitle = $r('app.string.d2_primary_title');
+    params.secondaryTitle = $r('app.string.d2_secondary_title');
+    params.content = $r('app.string.d2_content');
+    params.primaryButton = buildPrimaryButton($r('app.string.d2_primary'), () => {
       this.logEvent(2, DialogEventLog.formatClick(2) + ' → 主按钮“去清理”');
       this.logEvent(2, DialogEventLog.formatClose(2, '警告框'));
       this.closeTop();
     });
-    params.secondaryButton = buildSecondaryButton('稍后', () => {
+    params.secondaryButton = buildSecondaryButton($r('app.string.d2_secondary'), () => {
       this.logEvent(2, DialogEventLog.formatClick(2) + ' → 次按钮“稍后”');
       this.logEvent(2, DialogEventLog.formatClose(2, '警告框'));
       this.closeTop();
@@ -323,8 +323,8 @@ struct Index {
   private showSelect(): void {
     this.activeScene = 3;
     const params: SelectParams = new SelectParams();
-    params.title = '选择网络';
-    params.content = '连接到以下设备热点';
+    params.title = $r('app.string.d3_title');
+    params.content = $r('app.string.d3_content');
     params.selectedIndex = this.selectedNetworkIndex;
     params.radioContent = buildSheetInfos(['OHOS-Home-5G', 'OHOS-Office', 'OHOS-Guest'], (index: number) => {
       this.logEvent(3, DialogEventLog.formatSelect(3, index));
@@ -335,7 +335,7 @@ struct Index {
         new ComponentContent<Object>(this.getUIContext(), wrapBuilder(selectBuilder), params);
       this.showContent(reopen, true);
     });
-    params.confirm = buildPrimaryButton('确定', () => {
+    params.confirm = buildPrimaryButton($r('app.string.common_confirm'), () => {
       this.selectedNetworkIndex = params.selectedIndex;
       this.logEvent(3, DialogEventLog.formatClick(3) + ' → 确认按钮');
       this.logEvent(3, DialogEventLog.formatClose(3, '选择框'));
@@ -352,15 +352,15 @@ struct Index {
     this.activeScene = 4;
     const params: TipsParams = new TipsParams();
     params.imageRes = $r('app.media.startIcon');
-    params.title = '开启智能同步';
-    params.content = '开启后在 WLAN 环境自动备份相册与联系人。';
-    params.checkTips = '记住本次选择';
-    params.primaryButton = buildPrimaryButton('立即开启', () => {
+    params.title = $r('app.string.d4_title');
+    params.content = $r('app.string.d4_content');
+    params.checkTips = $r('app.string.d4_check');
+    params.primaryButton = buildPrimaryButton($r('app.string.d4_primary'), () => {
       this.logEvent(4, DialogEventLog.formatClick(4) + ' → 主按钮“立即开启”');
       this.logEvent(4, DialogEventLog.formatClose(4, '提示框'));
       this.closeTop();
     });
-    params.secondaryButton = buildSecondaryButton('暂不', () => {
+    params.secondaryButton = buildSecondaryButton($r('app.string.d4_secondary'), () => {
       this.logEvent(4, DialogEventLog.formatClick(4) + ' → 次按钮“暂不”');
       this.logEvent(4, DialogEventLog.formatClose(4, '提示框'));
       this.closeTop();
@@ -380,7 +380,7 @@ struct Index {
       this.loadingTimer = -1;
     }
     const params: LoadingParams = new LoadingParams();
-    params.content = '正在同步数据…';
+    params.content = $r('app.string.d5_content');
     this.logEvent(5, DialogEventLog.formatOpen(5, '加载框 LoadingDialogV2'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(loadingBuilder), params);
@@ -399,15 +399,15 @@ struct Index {
   private showCustom(): void {
     this.activeScene = 6;
     const params: CustomParams = new CustomParams();
-    params.primaryTitle = '偏好设置';
-    params.secondaryTitle = '自定义内容区';
+    params.primaryTitle = $r('app.string.d6_primary_title');
+    params.secondaryTitle = $r('app.string.d6_secondary_title');
     params.buttons = [
-      buildSecondaryButton('重置', () => {
+      buildSecondaryButton($r('app.string.d6_reset'), () => {
         this.customValue = 30;
         this.customCount = 0;
         this.logEvent(6, DialogEventLog.formatClick(6) + ' → 重置');
       }),
-      buildPrimaryButton('保存', () => {
+      buildPrimaryButton($r('app.string.d6_save'), () => {
         this.logEvent(6, `${DialogEventLog.formatClick(6)} → 保存（值=${this.customValue}）`);
         this.logEvent(6, DialogEventLog.formatClose(6, '自定义框'));
         this.closeTop();
@@ -428,7 +428,7 @@ struct Index {
       return;
     }
     const cfg: InterstitialConfig = new InterstitialConfig(
-      '版本更新提示', '发现新版本 2.0.0，是否立即升级？',
+      $r('app.string.d8_title'), $r('app.string.d8_subtitle'),
       TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
     try {
       const dialog: InterstitialDialogAction = new InterstitialDialogAction({
@@ -474,12 +474,12 @@ struct Index {
     this.activeScene = 9;
     this.logEvent(9, DialogEventLog.formatOpen(9, '操作列表 ActionSheet'));
     this.getUIContext().showActionSheet({
-      title: '文件操作',
-      subtitle: 'example.png · 2.4MB',
-      message: '选择要执行的操作',
+      title: $r('app.string.d9_title'),
+      subtitle: $r('app.string.d9_subtitle'),
+      message: $r('app.string.d9_message'),
       autoCancel: true,
       confirm: {
-        value: '取消',
+        value: $r('app.string.common_cancel'),
         action: (): void => {
           this.logEvent(9, DialogEventLog.formatClose(9, '操作列表（取消）'));
         }
@@ -489,21 +489,21 @@ struct Index {
       },
       sheets: [
         {
-          title: '重命名',
+          title: $r('app.string.d9_rename'),
           action: (): void => {
             this.logEvent(9, `${DialogEventLog.formatClick(9)} → 重命名`);
             this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
           }
         },
         {
-          title: '分享',
+          title: $r('app.string.d9_share'),
           action: (): void => {
             this.logEvent(9, `${DialogEventLog.formatClick(9)} → 分享`);
             this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
           }
         },
         {
-          title: '删除',
+          title: $r('app.string.d9_delete'),
           action: (): void => {
             this.logEvent(9, `${DialogEventLog.formatClick(9)} → 删除`);
             this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
@@ -583,7 +583,7 @@ struct Index {
     }
     this.logEvent(13, DialogEventLog.formatOpen(13, '轻提示 Toast'));
     this.getUIContext().getPromptAction().openToast({
-      message: '已保存到相册',
+      message: $r('app.string.d13_message'),
       duration: 3000,
       bottom: '80vp'
     }).then((toastId: number): void => {
@@ -613,11 +613,11 @@ struct Index {
     this.activeScene = 14;
     this.logEvent(14, DialogEventLog.formatOpen(14, '系统按钮弹窗 showDialog'));
     this.getUIContext().getPromptAction().showDialog({
-      title: '保存更改？',
-      message: '你有未保存的更改，是否保存后退出？',
+      title: $r('app.string.d14_title'),
+      message: $r('app.string.d14_message'),
       buttons: [
-        { text: '不保存', color: '#666666' },
-        { text: '保存', color: '#007DFF' }
+        { text: $r('app.string.d14_no_save'), color: '#666666' },
+        { text: $r('app.string.d14_save'), color: '#007DFF' }
       ]
     }).then((result: ShowDialogSuccessResponse): void => {
       this.logEvent(14, `${DialogEventLog.formatClick(14)} → index=${result.index}`);
@@ -630,49 +630,49 @@ struct Index {
   @Builder
   buttonsArea() {
     Column({ space: 8 }) {
-      Button('场景1：ConfirmDialogV2 确认对话框（复选框/主次按钮）')
+      Button($r('app.string.btn_scene_1'))
         .width('100%')
         .backgroundColor(this.activeScene === 1 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 1 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showConfirm();
         })
-      Button('场景2：AlertDialogV2 警告详情弹窗（双标题）')
+      Button($r('app.string.btn_scene_2'))
         .width('100%')
         .backgroundColor(this.activeScene === 2 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 2 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showAlert();
         })
-      Button('场景3：SelectDialogV2 单选列表弹窗（预选中/确认）')
+      Button($r('app.string.btn_scene_3'))
         .width('100%')
         .backgroundColor(this.activeScene === 3 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 3 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showSelect();
         })
-      Button('场景4：TipsDialogV2 图示提示弹窗（图标/勾选）')
+      Button($r('app.string.btn_scene_4'))
         .width('100%')
         .backgroundColor(this.activeScene === 4 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 4 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showTips();
         })
-      Button('场景5：LoadingDialogV2 加载弹窗（2s 自动关闭）')
+      Button($r('app.string.btn_scene_5'))
         .width('100%')
         .backgroundColor(this.activeScene === 5 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 5 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showLoading();
         })
-      Button('场景6：CustomContentDialogV2 自定义内容弹窗（按钮数组）')
+      Button($r('app.string.btn_scene_6'))
         .width('100%')
         .backgroundColor(this.activeScene === 6 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 6 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showCustom();
         })
-      Button('场景7：PopoverDialogV2 气泡弹窗（锚点显隐）')
+      Button($r('app.string.btn_scene_7'))
         .width('100%')
         .backgroundColor(this.activeScene === 7 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 7 ? '#FFFFFF' : '#182431')
@@ -681,49 +681,49 @@ struct Index {
           this.popVisible = !this.popVisible;
           this.logEvent(7, `${DialogEventLog.formatOpen(7, '气泡 PopoverDialogV2')} visible=${this.popVisible}`);
         })
-      Button('场景8：InterstitialDialogAction 插屏弹窗（原子化服务弹框）')
+      Button($r('app.string.btn_scene_8'))
         .width('100%')
         .backgroundColor(this.activeScene === 8 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 8 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showInterstitial();
         })
-      Button('场景9：ActionSheet 操作列表弹窗（多项操作/取消）')
+      Button($r('app.string.btn_scene_9'))
         .width('100%')
         .backgroundColor(this.activeScene === 9 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 9 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showActionSheet();
         })
-      Button('场景10：DatePickerDialog 日期选择弹窗')
+      Button($r('app.string.btn_scene_10'))
         .width('100%')
         .backgroundColor(this.activeScene === 10 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 10 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showDatePicker();
         })
-      Button('场景11：TimePickerDialog 时间选择弹窗')
+      Button($r('app.string.btn_scene_11'))
         .width('100%')
         .backgroundColor(this.activeScene === 11 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 11 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showTimePicker();
         })
-      Button('场景12：TextPickerDialog 文本选择弹窗')
+      Button($r('app.string.btn_scene_12'))
         .width('100%')
         .backgroundColor(this.activeScene === 12 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 12 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showTextPicker();
         })
-      Button('场景13：Toast 轻提示（openToast/closeToast）')
+      Button($r('app.string.btn_scene_13'))
         .width('100%')
         .backgroundColor(this.activeScene === 13 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 13 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showToast();
         })
-      Button('场景14：showDialog 系统按钮弹窗')
+      Button($r('app.string.btn_scene_14'))
         .width('100%')
         .backgroundColor(this.activeScene === 14 ? '#007DFF' : '#F1F3F5')
         .fontColor(this.activeScene === 14 ? '#FFFFFF' : '#182431')
@@ -738,11 +738,11 @@ struct Index {
   logArea() {
     Column({ space: 4 }) {
       Row({ space: 8 }) {
-        Text('事件日志')
+        Text($r('app.string.log_title'))
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
         Blank()
-        Text(`断点：${this.bp}`)
+        Text($r('app.string.breakpoint_prefix', this.bp))
           .fontSize(11)
           .fontColor('#999999')
         // 场景7：PopoverDialogV2 直接内嵌组件树，锚点为日志栏小按钮
@@ -805,19 +805,19 @@ struct Index {
 
   build() {
     Column({ space: 12 }) {
-      Text('弹窗组件：DialogV2 与插屏弹窗')
+      Text($r('app.string.page_title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-      Text('DialogV2 标准弹窗家族 · InterstitialDialogAction 插屏 · ActionSheet/选择器/Toast/showDialog 系统弹窗')
+      Text($r('app.string.page_subtitle'))
         .fontSize(12)
         .fontColor('#666666')
         .width('100%')
 
       Row({ space: 10 }) {
-        Text(`设备：${this.deviceType}`)
+        Text($r('app.string.device_prefix', this.deviceType))
           .fontSize(12)
-        Text(`API：${this.apiVersion}`)
+        Text($r('app.string.api_prefix', this.apiVersion))
           .fontSize(12)
         Text(this.osName)
           .fontSize(12)
@@ -874,7 +874,7 @@ struct Index {
   /** 场景7 锚点：悬浮小按钮，点击自身也可切换显隐 */
   @Builder
   popAnchor() {
-    Button(this.popVisible ? '收起气泡' : '气泡锚点')
+    Button(this.popVisible ? $r('app.string.pop_anchor_open') : $r('app.string.pop_anchor_closed'))
       .height(36)
       .onClick(() => {
         this.popVisible = !this.popVisible;
@@ -885,10 +885,10 @@ struct Index {
   @Builder
   popContent() {
     Column({ space: 6 }) {
-      Text('PopoverDialogV2 气泡')
+      Text($r('app.string.pop_title'))
         .fontSize(14)
         .fontWeight(FontWeight.Medium)
-      Text('visible/$visible 控制显隐，targetBuilder 为锚点')
+      Text($r('app.string.pop_desc'))
         .fontSize(12)
         .fontColor('#666666')
     }
