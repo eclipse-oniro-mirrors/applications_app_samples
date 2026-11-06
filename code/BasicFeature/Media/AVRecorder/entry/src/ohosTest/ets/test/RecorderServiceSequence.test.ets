@@ -1864,5 +1864,263 @@ export default function recorderServiceSequenceTest() {
       }
     })
 
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5100
+     * @tc.name testServiceSequence0051
+     * @tc.desc Verify the sequence create-prepareAudio-reset-pause leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0051', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.resetRecorder();
+        await service.pauseRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5200
+     * @tc.name testServiceSequence0052
+     * @tc.desc Verify the sequence create-prepareAudio-pause-resume leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0052', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.pauseRecorder();
+        await service.resumeRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5300
+     * @tc.name testServiceSequence0053
+     * @tc.desc Verify the sequence create-prepareAudio-resume-stop leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0053', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.resumeRecorder();
+        await service.stopRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5400
+     * @tc.name testServiceSequence0054
+     * @tc.desc Verify the sequence create-prepareAudio-stop-reset leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0054', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.stopRecorder();
+        await service.resetRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5500
+     * @tc.name testServiceSequence0055
+     * @tc.desc Verify the sequence create-prepareAudio-reset-release leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0055', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.resetRecorder();
+        await service.releaseRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5600
+     * @tc.name testServiceSequence0056
+     * @tc.desc Verify the sequence create-prepareAudio-release-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0056', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.releaseRecorder();
+        await service.closeFd();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
+
+    /**
+     * @tc.number SUB_AVRECORDER_SVC_SEQ_5700
+     * @tc.name testServiceSequence0057
+     * @tc.desc Verify the sequence create-prepareAudio-closeFd-reset leaves audio_example.m4a and completes without exception
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('testServiceSequence0057', 0, async () => {
+      const before: string[] = listNames();
+      const service: AVRecorderService = new AVRecorderService();
+      let ok: boolean = true;
+      try {
+        await paceTurn();
+        await service.createRecorder();
+        await service.prepareAudioRecorder(appContext());
+        await service.closeFd();
+        await service.resetRecorder();
+      } catch (error) {
+        ok = false;
+      } finally {
+        await service.releaseRecorder();
+        await service.closeFd();
+      }
+      const added: string[] = addedNames(before);
+      try {
+        expect(ok).assertTrue();
+        expect(added.length).assertEqual(1);
+        expect(added.indexOf('audio_example.m4a') >= 0).assertTrue();
+        expect(fileIo.statSync(pathOf('audio_example.m4a')).isFile()).assertTrue();
+        expect(listNames().indexOf('audio_example.m4a') >= 0).assertTrue();
+      } finally {
+        removeQuietly(AUDIO_TARGET);
+        removeQuietly(VIDEO_TARGET);
+      }
+    })
   })
 }
