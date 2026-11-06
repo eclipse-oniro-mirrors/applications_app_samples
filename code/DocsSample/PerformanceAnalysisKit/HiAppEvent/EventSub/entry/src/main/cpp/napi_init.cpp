@@ -633,8 +633,7 @@ static void OnTakeCrash(const char *const *events, uint32_t eventLen)
 }
 
 //[Start EventSub_napi_sanitizer_events_2_Header]
-namespace
-{
+namespace {
 // 订阅过滤条件：不附加额外标志位。
 constexpr int32_t APP_EVENT_FILTER_FLAG_NONE = 0;
 // 订阅的事件名称个数。
@@ -862,8 +861,6 @@ static void OnReceive(const char *domain, const struct HiAppEvent_AppEventGroup 
     }
 }
 // [End EventSub_OnReceive_All]
-
-
 
 // [Start FreezeEvent_OnTrigger]
 static void OnTriggerFreezeEvent(std::string domain, std::string name, Json::Value eventInfo, Json::FastWriter writer)
