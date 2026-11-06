@@ -2340,5 +2340,1701 @@ export default function dfmaBulkLifecycleTest(): void {
         }
       });
 
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_4900
+     * @tc.name      testDfmaBulkLifecycle0049
+     * @tc.desc      Verify bulk lifecycle files 11 case 49.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0049',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_049';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(11);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5000
+     * @tc.name      testDfmaBulkLifecycle0050
+     * @tc.desc      Verify bulk lifecycle files 12 case 50.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0050',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_050';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(12);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5100
+     * @tc.name      testDfmaBulkLifecycle0051
+     * @tc.desc      Verify bulk lifecycle files 13 case 51.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0051',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_051';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(13);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5200
+     * @tc.name      testDfmaBulkLifecycle0052
+     * @tc.desc      Verify bulk lifecycle files 14 case 52.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0052',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_052';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(14);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5300
+     * @tc.name      testDfmaBulkLifecycle0053
+     * @tc.desc      Verify bulk lifecycle files 15 case 53.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0053',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_053';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(15);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5400
+     * @tc.name      testDfmaBulkLifecycle0054
+     * @tc.desc      Verify bulk lifecycle files 16 case 54.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0054',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_054';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(16);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5500
+     * @tc.name      testDfmaBulkLifecycle0055
+     * @tc.desc      Verify bulk lifecycle files 17 case 55.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0055',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_055';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(17);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5600
+     * @tc.name      testDfmaBulkLifecycle0056
+     * @tc.desc      Verify bulk lifecycle files 18 case 56.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0056',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_056';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(18);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5700
+     * @tc.name      testDfmaBulkLifecycle0057
+     * @tc.desc      Verify bulk lifecycle files 19 case 57.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0057',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_057';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(19);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5800
+     * @tc.name      testDfmaBulkLifecycle0058
+     * @tc.desc      Verify bulk lifecycle files 20 case 58.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_058';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(20);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_5900
+     * @tc.name      testDfmaBulkLifecycle0059
+     * @tc.desc      Verify bulk lifecycle files 21 case 59.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_059';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(21);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          fs.unlinkSync(dir + '/f20.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6000
+     * @tc.name      testDfmaBulkLifecycle0060
+     * @tc.desc      Verify bulk lifecycle files 22 case 60.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_060';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          writeFile(dir + '/f21.txt', 'v21');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(22);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          fs.unlinkSync(dir + '/f20.txt');
+          fs.unlinkSync(dir + '/f21.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6100
+     * @tc.name      testDfmaBulkLifecycle0061
+     * @tc.desc      Verify bulk lifecycle files 3 case 61.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0061',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_061';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(3);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6200
+     * @tc.name      testDfmaBulkLifecycle0062
+     * @tc.desc      Verify bulk lifecycle files 4 case 62.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0062',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_062';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(4);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6300
+     * @tc.name      testDfmaBulkLifecycle0063
+     * @tc.desc      Verify bulk lifecycle files 5 case 63.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0063',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_063';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(5);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6400
+     * @tc.name      testDfmaBulkLifecycle0064
+     * @tc.desc      Verify bulk lifecycle files 6 case 64.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0064',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_064';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(6);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6500
+     * @tc.name      testDfmaBulkLifecycle0065
+     * @tc.desc      Verify bulk lifecycle files 7 case 65.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0065',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_065';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(7);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6600
+     * @tc.name      testDfmaBulkLifecycle0066
+     * @tc.desc      Verify bulk lifecycle files 8 case 66.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0066',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_066';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(8);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6700
+     * @tc.name      testDfmaBulkLifecycle0067
+     * @tc.desc      Verify bulk lifecycle files 9 case 67.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0067',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_067';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(9);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6800
+     * @tc.name      testDfmaBulkLifecycle0068
+     * @tc.desc      Verify bulk lifecycle files 10 case 68.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0068',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_068';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(10);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_6900
+     * @tc.name      testDfmaBulkLifecycle0069
+     * @tc.desc      Verify bulk lifecycle files 11 case 69.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0069',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_069';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(11);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7000
+     * @tc.name      testDfmaBulkLifecycle0070
+     * @tc.desc      Verify bulk lifecycle files 12 case 70.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0070',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_070';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(12);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7100
+     * @tc.name      testDfmaBulkLifecycle0071
+     * @tc.desc      Verify bulk lifecycle files 13 case 71.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0071',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_071';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(13);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7200
+     * @tc.name      testDfmaBulkLifecycle0072
+     * @tc.desc      Verify bulk lifecycle files 14 case 72.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0072',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_072';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(14);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7300
+     * @tc.name      testDfmaBulkLifecycle0073
+     * @tc.desc      Verify bulk lifecycle files 15 case 73.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0073',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_073';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(15);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7400
+     * @tc.name      testDfmaBulkLifecycle0074
+     * @tc.desc      Verify bulk lifecycle files 16 case 74.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0074',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_074';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(16);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7500
+     * @tc.name      testDfmaBulkLifecycle0075
+     * @tc.desc      Verify bulk lifecycle files 17 case 75.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0075',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_075';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(17);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7600
+     * @tc.name      testDfmaBulkLifecycle0076
+     * @tc.desc      Verify bulk lifecycle files 18 case 76.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0076',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_076';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(18);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7700
+     * @tc.name      testDfmaBulkLifecycle0077
+     * @tc.desc      Verify bulk lifecycle files 19 case 77.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0077',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_077';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(19);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7800
+     * @tc.name      testDfmaBulkLifecycle0078
+     * @tc.desc      Verify bulk lifecycle files 20 case 78.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0078',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_078';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(20);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_7900
+     * @tc.name      testDfmaBulkLifecycle0079
+     * @tc.desc      Verify bulk lifecycle files 21 case 79.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0079',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_079';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(21);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          fs.unlinkSync(dir + '/f20.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_COREFILE_DFMA_BULK_LIFECYCLE_8000
+     * @tc.name      testDfmaBulkLifecycle0080
+     * @tc.desc      Verify bulk lifecycle files 22 case 80.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testDfmaBulkLifecycle0080',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const dir: string = ROOT + '/bulk_080';
+          fs.mkdirSync(dir);
+          writeFile(dir + '/f0.txt', 'v0');
+          writeFile(dir + '/f1.txt', 'v1');
+          writeFile(dir + '/f2.txt', 'v2');
+          writeFile(dir + '/f3.txt', 'v3');
+          writeFile(dir + '/f4.txt', 'v4');
+          writeFile(dir + '/f5.txt', 'v5');
+          writeFile(dir + '/f6.txt', 'v6');
+          writeFile(dir + '/f7.txt', 'v7');
+          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f9.txt', 'v9');
+          writeFile(dir + '/f10.txt', 'v10');
+          writeFile(dir + '/f11.txt', 'v11');
+          writeFile(dir + '/f12.txt', 'v12');
+          writeFile(dir + '/f13.txt', 'v13');
+          writeFile(dir + '/f14.txt', 'v14');
+          writeFile(dir + '/f15.txt', 'v15');
+          writeFile(dir + '/f16.txt', 'v16');
+          writeFile(dir + '/f17.txt', 'v17');
+          writeFile(dir + '/f18.txt', 'v18');
+          writeFile(dir + '/f19.txt', 'v19');
+          writeFile(dir + '/f20.txt', 'v20');
+          writeFile(dir + '/f21.txt', 'v21');
+          const files: string[] = fs.listFileSync(dir);
+          expect(files.length).assertEqual(22);
+          fs.unlinkSync(dir + '/f0.txt');
+          fs.unlinkSync(dir + '/f1.txt');
+          fs.unlinkSync(dir + '/f2.txt');
+          fs.unlinkSync(dir + '/f3.txt');
+          fs.unlinkSync(dir + '/f4.txt');
+          fs.unlinkSync(dir + '/f5.txt');
+          fs.unlinkSync(dir + '/f6.txt');
+          fs.unlinkSync(dir + '/f7.txt');
+          fs.unlinkSync(dir + '/f8.txt');
+          fs.unlinkSync(dir + '/f9.txt');
+          fs.unlinkSync(dir + '/f10.txt');
+          fs.unlinkSync(dir + '/f11.txt');
+          fs.unlinkSync(dir + '/f12.txt');
+          fs.unlinkSync(dir + '/f13.txt');
+          fs.unlinkSync(dir + '/f14.txt');
+          fs.unlinkSync(dir + '/f15.txt');
+          fs.unlinkSync(dir + '/f16.txt');
+          fs.unlinkSync(dir + '/f17.txt');
+          fs.unlinkSync(dir + '/f18.txt');
+          fs.unlinkSync(dir + '/f19.txt');
+          fs.unlinkSync(dir + '/f20.txt');
+          fs.unlinkSync(dir + '/f21.txt');
+          const after: string[] = fs.listFileSync(dir);
+          expect(after.length).assertEqual(0);
+          fs.rmdirSync(dir);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
