@@ -9403,3 +9403,1888 @@ export default function ArrayBufferUtilTest(): void {
       ).assertEqual(
         144
       );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        144
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        144
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x90'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '90'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        144
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x90'
+      );
+    });
+
+    it('single_byte_145_parses_to_145', 0, () => {
+      // 单字节 0x91（十进制 145）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '91';
+      const withPrefix: string = '0x91';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        145
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        145
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        145
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x91'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '91'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        145
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x91'
+      );
+    });
+
+    it('single_byte_146_parses_to_146', 0, () => {
+      // 单字节 0x92（十进制 146）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '92';
+      const withPrefix: string = '0x92';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        146
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        146
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        146
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x92'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '92'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        146
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x92'
+      );
+    });
+
+    it('single_byte_147_parses_to_147', 0, () => {
+      // 单字节 0x93（十进制 147）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '93';
+      const withPrefix: string = '0x93';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        147
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        147
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        147
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x93'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '93'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        147
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x93'
+      );
+    });
+
+    it('single_byte_148_parses_to_148', 0, () => {
+      // 单字节 0x94（十进制 148）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '94';
+      const withPrefix: string = '0x94';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        148
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        148
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        148
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x94'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '94'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        148
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x94'
+      );
+    });
+
+    it('single_byte_149_parses_to_149', 0, () => {
+      // 单字节 0x95（十进制 149）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '95';
+      const withPrefix: string = '0x95';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        149
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        149
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        149
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x95'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '95'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        149
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x95'
+      );
+    });
+
+    it('single_byte_150_parses_to_150', 0, () => {
+      // 单字节 0x96（十进制 150）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '96';
+      const withPrefix: string = '0x96';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        150
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        150
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        150
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x96'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '96'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        150
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x96'
+      );
+    });
+
+    it('single_byte_151_parses_to_151', 0, () => {
+      // 单字节 0x97（十进制 151）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '97';
+      const withPrefix: string = '0x97';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        151
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        151
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        151
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x97'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '97'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        151
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x97'
+      );
+    });
+
+    it('single_byte_152_parses_to_152', 0, () => {
+      // 单字节 0x98（十进制 152）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '98';
+      const withPrefix: string = '0x98';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        152
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        152
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        152
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x98'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '98'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        152
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x98'
+      );
+    });
+
+    it('single_byte_153_parses_to_153', 0, () => {
+      // 单字节 0x99（十进制 153）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '99';
+      const withPrefix: string = '0x99';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        153
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        153
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        153
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x99'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '99'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        153
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x99'
+      );
+    });
+
+    it('single_byte_154_parses_to_154', 0, () => {
+      // 单字节 0x9a（十进制 154）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9a';
+      const withPrefix: string = '0x9a';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        154
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        154
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        154
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9a'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9a'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        154
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9a'
+      );
+    });
+
+    it('single_byte_155_parses_to_155', 0, () => {
+      // 单字节 0x9b（十进制 155）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9b';
+      const withPrefix: string = '0x9b';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        155
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        155
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        155
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9b'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9b'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        155
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9b'
+      );
+    });
+
+    it('single_byte_156_parses_to_156', 0, () => {
+      // 单字节 0x9c（十进制 156）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9c';
+      const withPrefix: string = '0x9c';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        156
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        156
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        156
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9c'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9c'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        156
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9c'
+      );
+    });
+
+    it('single_byte_157_parses_to_157', 0, () => {
+      // 单字节 0x9d（十进制 157）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9d';
+      const withPrefix: string = '0x9d';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        157
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        157
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        157
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9d'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9d'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        157
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9d'
+      );
+    });
+
+    it('single_byte_158_parses_to_158', 0, () => {
+      // 单字节 0x9e（十进制 158）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9e';
+      const withPrefix: string = '0x9e';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        158
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        158
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        158
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9e'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9e'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        158
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9e'
+      );
+    });
+
+    it('single_byte_159_parses_to_159', 0, () => {
+      // 单字节 0x9f（十进制 159）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = '9f';
+      const withPrefix: string = '0x9f';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        159
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        159
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        159
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0x9f'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        '9f'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        159
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9f'
+      );
+    });
+
+    it('single_byte_160_parses_to_160', 0, () => {
+      // 单字节 0xa0（十进制 160）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a0';
+      const withPrefix: string = '0xa0';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        160
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        160
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        160
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa0'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a0'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        160
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa0'
+      );
+    });
+
+    it('single_byte_161_parses_to_161', 0, () => {
+      // 单字节 0xa1（十进制 161）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a1';
+      const withPrefix: string = '0xa1';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        161
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        161
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        161
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa1'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a1'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        161
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa1'
+      );
+    });
+
+    it('single_byte_162_parses_to_162', 0, () => {
+      // 单字节 0xa2（十进制 162）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a2';
+      const withPrefix: string = '0xa2';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        162
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        162
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        162
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa2'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a2'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        162
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa2'
+      );
+    });
+
+    it('single_byte_163_parses_to_163', 0, () => {
+      // 单字节 0xa3（十进制 163）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a3';
+      const withPrefix: string = '0xa3';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        163
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        163
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        163
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa3'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a3'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        163
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa3'
+      );
+    });
+
+    it('single_byte_164_parses_to_164', 0, () => {
+      // 单字节 0xa4（十进制 164）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a4';
+      const withPrefix: string = '0xa4';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        164
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        164
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        164
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa4'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a4'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        164
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa4'
+      );
+    });
+
+    it('single_byte_165_parses_to_165', 0, () => {
+      // 单字节 0xa5（十进制 165）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a5';
+      const withPrefix: string = '0xa5';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        165
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        165
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        165
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa5'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a5'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        165
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa5'
+      );
+    });
+
+    it('single_byte_166_parses_to_166', 0, () => {
+      // 单字节 0xa6（十进制 166）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a6';
+      const withPrefix: string = '0xa6';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        166
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        166
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        166
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa6'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a6'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        166
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa6'
+      );
+    });
+
+    it('single_byte_167_parses_to_167', 0, () => {
+      // 单字节 0xa7（十进制 167）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a7';
+      const withPrefix: string = '0xa7';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        167
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        167
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        167
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa7'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a7'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        167
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa7'
+      );
+    });
+
+    it('single_byte_168_parses_to_168', 0, () => {
+      // 单字节 0xa8（十进制 168）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a8';
+      const withPrefix: string = '0xa8';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        168
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        168
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        168
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa8'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a8'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        168
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa8'
+      );
+    });
+
+    it('single_byte_169_parses_to_169', 0, () => {
+      // 单字节 0xa9（十进制 169）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'a9';
+      const withPrefix: string = '0xa9';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        169
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        169
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        169
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xa9'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'a9'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        169
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xa9'
+      );
+    });
+
+    it('single_byte_170_parses_to_170', 0, () => {
+      // 单字节 0xaa（十进制 170）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'aa';
+      const withPrefix: string = '0xaa';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        170
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        170
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        170
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xaa'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'aa'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        170
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xaa'
+      );
+    });
+
+    it('single_byte_171_parses_to_171', 0, () => {
+      // 单字节 0xab（十进制 171）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'ab';
+      const withPrefix: string = '0xab';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        171
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        171
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        171
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xab'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'ab'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        171
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xab'
+      );
+    });
+
+    it('single_byte_172_parses_to_172', 0, () => {
+      // 单字节 0xac（十进制 172）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'ac';
+      const withPrefix: string = '0xac';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        172
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(hex)
+      ).assertEqual(
+        172
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        172
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(withPrefix)[0]
+      ).assertEqual(
+        '0xac'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex.toUpperCase())
+      ).assertEqual(
+        'ac'
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        1
+      );
+      expect(
+        new DataView(buffer).getUint8(0)
+      ).assertEqual(
+        172
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xac'
+      );
+    });
+
+    it('single_byte_173_parses_to_173', 0, () => {
+      // 单字节 0xad（十进制 173）的解析/格式化全链路
+      // 覆盖 parseInt、formatHex、Buffer 往返三种实现
+      const hex: string = 'ad';
+      const withPrefix: string = '0xad';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(withPrefix);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(withPrefix);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.isValidHexString(withPrefix)
+      ).assertTrue();
+      expect(
+        ArrayBufferUtil.getIntFromHex(withPrefix)
+      ).assertEqual(
+        173
+      );
