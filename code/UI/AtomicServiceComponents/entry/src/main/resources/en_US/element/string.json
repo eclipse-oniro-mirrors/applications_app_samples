@@ -1,0 +1,108 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Atomic service advanced components sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Atomic service advanced components sample"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AtomicServiceComponents"
+    },
+    {
+      "name": "nav_title_default",
+      "value": "Atomic service components"
+    },
+    {
+      "name": "category_all",
+      "value": "All"
+    },
+    {
+      "name": "category_container",
+      "value": "Container"
+    },
+    {
+      "name": "category_interaction",
+      "value": "Interaction"
+    },
+    {
+      "name": "category_capability",
+      "value": "Capability"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "Search components, e.g. Web, Tabs"
+    },
+    {
+      "name": "search_button",
+      "value": "Search"
+    },
+    {
+      "name": "nav_current",
+      "value": "Current: "
+    },
+    {
+      "name": "nav_split",
+      "value": "Split"
+    },
+    {
+      "name": "nav_stack",
+      "value": "Stack"
+    },
+    {
+      "name": "nav_gradient",
+      "value": "Gradient"
+    },
+    {
+      "name": "nav_solid",
+      "value": "Solid"
+    },
+    {
+      "name": "layout_info",
+      "value": "Device: %s · %s · %d columns · Picker %s"
+    },
+    {
+      "name": "available",
+      "value": "available"
+    },
+    {
+      "name": "unavailable",
+      "value": "unavailable"
+    },
+    {
+      "name": "btn_adjust",
+      "value": "Adjust"
+    },
+    {
+      "name": "catalog_title",
+      "value": "Component catalog (%d)"
+    },
+    {
+      "name": "home_empty",
+      "value": "No matching components. Clear the keyword or switch category."
+    },
+    {
+      "name": "home_log_title",
+      "value": "Home events"
+    },
+    {
+      "name": "action_enter",
+      "value": "Open"
+    },
+    {
+      "name": "dest_jump",
+      "value": "Cross-app navigation"
+    },
+    {
+      "name": "dest_sheet",
+      "value": "Half-modal sheet"
+    },
+    {
+      "name": "dest_prefs",
+      "value": "Preferences"
+    }
+  ]
+}
