@@ -19,7 +19,7 @@ import { PromptAction, UIContext } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 interface GeneratedTypeLiteralInterface {
-  text: string;
+  text: string | Resource;
   action: () => void;
 }
 
@@ -33,33 +33,61 @@ struct Index {
 
   private buttonList: Array<GeneratedTypeLiteralInterface> = [
     {
-      text: '获取Display对象',
+      text: $r('app.string.button_get_display_object'),
       action: () => this.callGetDisplayClass()
     },
     {
-      text: '获取Display对象属性',
+      text: $r('app.string.button_get_display_attributes'),
       action: () => this.callGetDisplayInfo()
     },
     {
-      text: '获取挖孔信息',
+      text: $r('app.string.button_get_cutout_info'),
       action: () => this.callGetCutoutInfo()
     },
     {
-      text: '获取截录屏状态',
+      text: $r('app.string.button_get_captured_status'),
       action: () => this.callGetDisplayCaptured()
     },
     {
-      text: '测试Display监听机制',
+      text: $r('app.string.button_test_display_listener'),
       action: () => this.callDealListenCallback()
     },
     {
-      text: '折叠设备判断',
+      text: $r('app.string.button_foldable_device_check'),
       action: () => this.callDealFoldableDevice()
+    },
+    {
+      text: $r('app.string.button_get_all_source_mode'),
+      action: () => this.callGetAllDisplaysSourceMode()
+    },
+    {
+      text: $r('app.string.button_get_source_mode_by_id'),
+      action: () => this.callGetDisplaySourceModeById()
+    },
+    {
+      text: $r('app.string.button_listen_source_mode_change'),
+      action: () => this.callListenSourceModeChange()
+    },
+    {
+      text: $r('app.string.button_get_global_position'),
+      action: () => this.callGetDisplayGlobalPosition()
+    },
+    {
+      text: $r('app.string.button_relative_to_global'),
+      action: () => this.callConvertRelativeToGlobal()
+    },
+    {
+      text: $r('app.string.button_global_to_relative'),
+      action: () => this.callConvertGlobalToRelative()
+    },
+    {
+      text: $r('app.string.button_get_display_id_by_position'),
+      action: () => this.callGetDisplayIdByGlobalPosition()
     }
   ]
 
   private callGetDisplayClass(): void {
-    this.promptAction.openToast({ message: '调用getDisplayClass方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_display_class') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callGetDisplayClass error ${JSON.stringify(error)}`);
     }).then(() => {
       this.getDisplayClass();
@@ -67,7 +95,7 @@ struct Index {
   }
 
   private callGetDisplayInfo(): void {
-    this.promptAction.openToast({ message: '调用getDisplayInfo方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_display_info') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callGetDisplayInfo error ${JSON.stringify(error)}`);
     }).then(() => {
       this.getDisplayInfo();
@@ -75,7 +103,7 @@ struct Index {
   }
 
   private callGetCutoutInfo(): void {
-    this.promptAction.openToast({ message: '调用getCutoutInfo方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_cutout_info') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callGetCutoutInfo error ${JSON.stringify(error)}`);
     }).then(() => {
       this.getCutoutInfo();
@@ -83,7 +111,7 @@ struct Index {
   }
 
   private callGetDisplayCaptured(): void {
-    this.promptAction.openToast({ message: '调用getDisplayCaptured方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_captured_status') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callGetDisplayCaptured error ${JSON.stringify(error)}`);
     }).then(() => {
       this.getDisplayCaptured();
@@ -91,7 +119,7 @@ struct Index {
   }
 
   private callDealListenCallback(): void {
-    this.promptAction.openToast({ message: '调用dealListenCallback方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_deal_listen_callback') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callDealListenCallback error ${JSON.stringify(error)}`);
     }).then(() => {
       this.dealListenCallback();
@@ -99,10 +127,66 @@ struct Index {
   }
 
   private callDealFoldableDevice(): void {
-    this.promptAction.openToast({ message: '调用dealFoldableDevice方法' }).catch((error: Error) => {
+    this.promptAction.openToast({ message: $r('app.string.toast_deal_foldable_device') }).catch((error: Error) => {
       hilog.error(DOMAIN, 'DisplayTest', `callDealFoldableDevice error ${JSON.stringify(error)}`);
     }).then(() => {
       this.dealFoldableDevice();
+    });
+  }
+
+  private callGetAllDisplaysSourceMode(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_all_source_mode') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callGetAllDisplaysSourceMode error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.getAllDisplaysSourceMode();
+    });
+  }
+
+  private callGetDisplaySourceModeById(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_source_mode_by_id') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callGetDisplaySourceModeById error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.getDisplaySourceModeById();
+    });
+  }
+
+  private callListenSourceModeChange(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_listen_source_mode_change') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callListenSourceModeChange error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.listenSourceModeChange();
+    });
+  }
+
+  private callGetDisplayGlobalPosition(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_get_global_position') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callGetDisplayGlobalPosition error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.getDisplayGlobalPosition();
+    });
+  }
+
+  private callConvertRelativeToGlobal(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_relative_to_global') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callConvertRelativeToGlobal error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.convertRelativeToGlobal();
+    });
+  }
+
+  private callConvertGlobalToRelative(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_global_to_relative') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callConvertGlobalToRelative error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.convertGlobalToRelative();
+    });
+  }
+
+  private callGetDisplayIdByGlobalPosition(): void {
+    this.promptAction.openToast({ message: $r('app.string.toast_display_id_by_position') }).catch((error: Error) => {
+      hilog.error(DOMAIN, 'DisplayTest', `callGetDisplayIdByGlobalPosition error ${JSON.stringify(error)}`);
+    }).then(() => {
+      this.getDisplayIdByGlobalPosition();
     });
   }
 
@@ -285,15 +369,162 @@ struct Index {
     }
   }
 
+  private getAllDisplaysSourceMode(): void {
+    // [Start get_all_displays_source_mode]
+    display.getAllDisplays().then((displays: Array<display.Display>) => {
+      for (let i = 0; i < displays.length; i++) {
+        // 获取屏幕ID
+        hilog.info(DOMAIN, 'DisplayTest', `The display id is ${displays[i].id}`);
+        // 获取屏幕显示模式
+        hilog.info(DOMAIN, 'DisplayTest', `The display sourceMode is ${displays[i].sourceMode}`);
+        if (displays[i].sourceMode === display.DisplaySourceMode.EXTEND) {
+          // 对扩展屏进行相应的业务处理，例如在扩展屏上创建窗口显示内容
+        }
+      }
+    }).catch((err: BusinessError) => {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to get all displays. Code: ${err.code}, message: ${err.message}`);
+    });
+    // [End get_all_displays_source_mode]
+  }
+
+  private getDisplaySourceModeById(): void {
+    // [Start get_display_source_mode_by_id]
+    let displayClass: display.Display | null = null;
+    try {
+      // 此处displayId仅为示例，实际取值以业务场景为准
+      let displayId: number = 1;
+      displayClass = display.getDisplayByIdSync(displayId);
+      // 获取指定屏幕的显示模式
+      hilog.info(DOMAIN, 'DisplayTest', `The display sourceMode is ${displayClass.sourceMode}`);
+    } catch (exception) {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to get display. Code: ${exception.code}, message: ${exception.message}`);
+    }
+    // [End get_display_source_mode_by_id]
+  }
+
+  private listenSourceModeChange(): void {
+    // [Start listen_source_mode_change]
+    let callback: Callback<number> = (displayId: number) => {
+      hilog.info(DOMAIN, 'DisplayTest', `Display changed. displayId: ${displayId}`);
+      // 屏幕发生变化后，重新查询各屏幕的显示模式并更新业务逻辑
+      display.getAllDisplays().then((displays: Array<display.Display>) => {
+        for (let i = 0; i < displays.length; i++) {
+          hilog.info(DOMAIN, 'DisplayTest',
+            `The display ${displays[i].id} sourceMode is ${displays[i].sourceMode}`);
+        }
+      });
+    };
+    try {
+      // 监听显示设备的增加，例如插入显示器
+      display.on('add', callback);
+      // 监听显示设备的移除，例如移除显示器
+      display.on('remove', callback);
+      // 监听显示设备的改变，例如显示模式切换
+      display.on('change', callback);
+      // 不需要监听时，关闭对应的监听
+      display.off('add', callback);
+      display.off('remove', callback);
+      display.off('change', callback);
+    } catch (exception) {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to register/unregister callback. Code: ${exception.code}, message: ${exception.message}`);
+    }
+    // [End listen_source_mode_change]
+  }
+
+  private getDisplayGlobalPosition(): void {
+    // [Start get_display_global_position]
+    display.getAllDisplays().then((displays: Array<display.Display>) => {
+      for (let i = 0; i < displays.length; i++) {
+        if (displays[i].sourceMode === display.DisplaySourceMode.EXTEND) {
+          // 获取扩展屏左上角在全局坐标系中的坐标
+          hilog.info(DOMAIN, 'DisplayTest',
+            `The extended display top-left corner is (${displays[i].x}, ${displays[i].y})`);
+        }
+      }
+    }).catch((err: BusinessError) => {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to get all displays. Code: ${err.code}, message: ${err.message}`);
+    });
+    // [End get_display_global_position]
+  }
+
+  private convertRelativeToGlobal(): void {
+    // [Start convert_relative_to_global]
+    // 定义需要转换的相对坐标，displayId为相对坐标系原点所在的屏幕ID
+    let relativePosition: display.RelativePosition = {
+      displayId: 1,
+      position: {
+        x: 100,
+        y: 200
+      }
+    };
+
+    try {
+      // 将相对坐标转换为全局坐标
+      let position: display.Position = display.convertRelativeToGlobalCoordinate(relativePosition);
+      hilog.info(DOMAIN, 'DisplayTest', `The global coordinate is (${position.x}, ${position.y})`);
+    } catch (exception) {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to convert the relative coordinate to the global coordinate. Code: ${exception.code}, ` +
+        `message: ${exception.message}`);
+    }
+    // [End convert_relative_to_global]
+  }
+
+  private convertGlobalToRelative(): void {
+    // [Start convert_global_to_relative]
+    // 定义需要转换的全局坐标
+    let position: display.Position = {
+      x: 2660,
+      y: 200
+    };
+
+    try {
+      // 将全局坐标转换为displayId为1的屏幕的相对坐标
+      let relPos: display.RelativePosition = display.convertGlobalToRelativeCoordinate(position, 1);
+      hilog.info(DOMAIN, 'DisplayTest',
+        `The relative coordinate is displayId: ${relPos.displayId}, x: ${relPos.position.x}, y: ${relPos.position.y}`);
+    } catch (exception) {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to convert the global coordinate to the relative coordinate. Code: ${exception.code}, ` +
+        `message: ${exception.message}`);
+    }
+    // [End convert_global_to_relative]
+  }
+
+  private getDisplayIdByGlobalPosition(): void {
+    // [Start get_display_id_by_global_position]
+    // 定义需要判断的全局坐标
+    let position: display.Position = {
+      x: 2660,
+      y: 200
+    };
+
+    try {
+      // 不传入displayId，返回全局坐标所在屏幕的相对坐标
+      let relPos: display.RelativePosition = display.convertGlobalToRelativeCoordinate(position);
+      // relPos.displayId即该全局坐标所在屏幕的Id
+      hilog.info(DOMAIN, 'DisplayTest', `The position is on the display ${relPos.displayId}`);
+    } catch (exception) {
+      hilog.error(DOMAIN, 'DisplayTest',
+        `Failed to convert the global coordinate to the relative coordinate. Code: ${exception.code}, ` +
+        `message: ${exception.message}`);
+    }
+    // [End get_display_id_by_global_position]
+  }
+
   build() {
     Column() {
       // 页面标题
-      Text('DMS示例功能')
+      Text($r('app.string.page_title'))
         .fontSize(24)
         .fontWeight(FontWeight.Bold)
         .margin(20)
 
-      // 网格布局：2行3列（无图标，仅文字）
+      // 网格布局：2列（无图标，仅文字），超出可纵向滚动
       Grid() {
         ForEach(this.buttonList, (item: GeneratedTypeLiteralInterface) => {
           GridItem() {
@@ -318,7 +549,6 @@ struct Index {
         })
       }
       .columnsTemplate('1fr 1fr') // 2列等宽
-      .rowsTemplate('1fr 1fr 1fr') // 3行等高
       .columnsGap(15) // 列间距
       .rowsGap(10) // 行间距
       .padding(15)
