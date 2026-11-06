@@ -177,11 +177,11 @@
       "value": "场景 id：%d，内容由 contentBuilder 渲染"
     },
     {
-      "name": "d8_title",
+      "name": "interstitial_title",
       "value": "版本更新提示"
     },
     {
-      "name": "d8_subtitle",
+      "name": "interstitial_subtitle",
       "value": "发现新版本 2.0.0，是否立即升级？"
     },
     {

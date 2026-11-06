@@ -59,6 +59,14 @@ struct Index {
     }
   }
 
+  private navModeLabel(): string {
+    return this.navSplit ? this.getString($r('app.string.nav_split')) : this.getString($r('app.string.nav_stack'));
+  }
+
+  private navBackgroundLabel(): string {
+    return this.navGradient ? this.getString($r('app.string.nav_gradient')) : this.getString($r('app.string.nav_solid'));
+  }
+
   private filteredDemos(): DemoItem[] {
     // 过滤仍使用逻辑分类值，显示文案由 category 单独维护，避免英文环境下过滤失效
     return filterDemos(DEMO_ITEMS, this.keyword, CATEGORIES[this.categoryIndex]);
@@ -165,8 +173,7 @@ struct Index {
                   .fontWeight(FontWeight.Medium)
                   .fontColor(AppColors.TEXT_PRIMARY)
                 Text(`${this.getString($r('app.string.nav_current'))}${this.navTitle} · ` +
-                  `${this.navSplit ? this.getString($r('app.string.nav_split')) : this.getString($r('app.string.nav_stack'))} · ` +
-                  `${this.navGradient ? this.getString($r('app.string.nav_gradient')) : this.getString($r('app.string.nav_solid'))}`)
+                  `${this.navModeLabel()} · ${this.navBackgroundLabel()}`)
                   .fontSize(AppText.BODY)
                   .fontColor(AppColors.TEXT_SECONDARY)
                 Text($r('app.string.layout_info', this.layout.form, this.layout.breakpoint, this.layout.columns,

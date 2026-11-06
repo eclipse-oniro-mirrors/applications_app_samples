@@ -342,11 +342,11 @@
     },
     {
       "name": "adv_a11y",
-      "value": "Accessibility description"
+      "value": "Screen reader description"
     },
     {
       "name": "adv_a11y_desc_v1",
-      "value": "This chip demonstrates accessibilityDescription"
+      "value": "This chip adds a screen reader description"
     },
     {
       "name": "adv_enabled",

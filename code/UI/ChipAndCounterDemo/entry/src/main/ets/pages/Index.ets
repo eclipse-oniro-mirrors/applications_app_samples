@@ -944,7 +944,8 @@ struct Index {
             allowClose: false,
             onClicked: (): void => {
               LogUtil.info('Index',
-                '点击「大字号 + 宽内边距」→ fontSize=fp(15)、padding.start/end=16vp 生效，标签比默认更宽更高');
+                '点击「大字号 + 宽内边距」→ fontSize=fp(15)、padding.start/end=16vp 生效，' +
+                  '标签比默认更宽更高');
             }
           })
         })

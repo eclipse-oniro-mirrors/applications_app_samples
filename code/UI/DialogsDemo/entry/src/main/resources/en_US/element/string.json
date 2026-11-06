@@ -18,7 +18,7 @@
     },
     {
       "name": "page_subtitle",
-      "value": "DialogV2 family ¡¤ InterstitialDialogAction ¡¤ ActionSheet / pickers / Toast / showDialog"
+      "value": "DialogV2 family · InterstitialDialogAction · ActionSheet / pickers / Toast / showDialog"
     },
     {
       "name": "btn_scene_1",
@@ -150,7 +150,7 @@
     },
     {
       "name": "d5_content",
-      "value": "Syncing data¡­"
+      "value": "Syncing data…"
     },
     {
       "name": "d6_primary_title",
@@ -177,11 +177,11 @@
       "value": "Scene id: %d; content rendered by contentBuilder"
     },
     {
-      "name": "d8_title",
+      "name": "interstitial_title",
       "value": "Update available"
     },
     {
-      "name": "d8_subtitle",
+      "name": "interstitial_subtitle",
       "value": "Version 2.0.0 is available. Update now?"
     },
     {
@@ -190,7 +190,7 @@
     },
     {
       "name": "d9_subtitle",
-      "value": "example.png ¡¤ 2.4MB"
+      "value": "example.png · 2.4MB"
     },
     {
       "name": "d9_message",

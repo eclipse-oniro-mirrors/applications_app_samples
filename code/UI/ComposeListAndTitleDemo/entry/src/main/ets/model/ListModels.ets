@@ -133,7 +133,8 @@ export class ListConfigFactory {
   // ---------- ComposeListItem V1（class，字面量 as 断言） ----------
 
   /** V1 内容区：头像/图标 + 主文本 + 副文本 */
-  static buildV1ContentItem(icon: ResourceStr, iconStyle: IconType, primary: ResourceStr, secondary: ResourceStr): ContentItem {
+  static buildV1ContentItem(icon: ResourceStr, iconStyle: IconType, primary: ResourceStr,
+    secondary: ResourceStr): ContentItem {
     return {
       icon: icon,
       iconStyle: iconStyle,

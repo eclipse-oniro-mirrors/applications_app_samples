@@ -428,7 +428,7 @@ struct Index {
       return;
     }
     const cfg: InterstitialConfig = new InterstitialConfig(
-      $r('app.string.d8_title'), $r('app.string.d8_subtitle'),
+      $r('app.string.interstitial_title'), $r('app.string.interstitial_subtitle'),
       TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
     try {
       const dialog: InterstitialDialogAction = new InterstitialDialogAction({
