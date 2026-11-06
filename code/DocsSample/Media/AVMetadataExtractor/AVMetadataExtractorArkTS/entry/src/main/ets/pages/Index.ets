@@ -100,7 +100,7 @@ struct Index {
         // [End AVMetadataExtractor_FetchMetadata]
 
         // [Start AVMetadataExtractor_fetchAlbumCover]
-        //获取专辑封面（callback模式）。
+        // 获取专辑封面（callback模式）。
         avMetadataExtractor.fetchAlbumCover((err, pixelMap) => {
           if (err) {
             console.error(TAG, `fetchAlbumCover callback failed, err = ${JSON.stringify(err)}`);
