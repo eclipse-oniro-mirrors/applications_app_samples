@@ -17,6 +17,7 @@ import AlarmClockReminder from '../../util/AlarmClockReminder'
 import { AlarmClockSetting } from './AlarmClockSetting'
 import { DrawClock } from './DrawClock'
 import PreferencesDataManager from '../../util/PreferencesDataManager'
+import { getReminderNames } from '../../common/Reminder'
 
 const TAG: string = 'AlarmClock';
 
@@ -125,11 +126,7 @@ export struct AlarmClock {
   }
 
   refreshAlarmNames(): void {
-    let names: string[] = []
-    for (let i = 0; i < AlarmClockReminder.alarmClockReminders.length; i++) {
-      names.push(AlarmClockReminder.alarmClockReminders[i].reminderName)
-    }
-    this.alarmClockName = names
+    this.alarmClockName = getReminderNames(AlarmClockReminder.alarmClockReminders)
   }
 
   deleteItem(index: number): boolean {

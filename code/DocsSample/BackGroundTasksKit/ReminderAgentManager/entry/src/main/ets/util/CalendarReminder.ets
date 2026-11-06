@@ -30,9 +30,6 @@ const TAG: string = 'CalendarReminder';
 class CalendarReminder {
   public calendarReminders: Reminder[] = [];
 
-  setCalendarReminder() {
-  }
-
   async setCalendar(date: Date, hostContext?: common.Context) {
     try {
       let context = hostContext ?? UIContext.getCallingScopeUIContext()?.getHostContext()
@@ -40,7 +37,7 @@ class CalendarReminder {
       if (context == undefined) {
         return
       }
-      let resourceContext = context.createModuleContext('entry')
+      let resourceContext = context.createModuleContext(Constant.ENTRY_MODULE_NAME)
       let selectCalendar: string =
         `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
       let isExistName = this.calendarReminders.find(element => element.reminderName === selectCalendar) !== undefined;
@@ -91,7 +88,6 @@ class CalendarReminder {
         Logger.info(TAG, `setCalendar pushed, length=${this.calendarReminders.length}`)
         Logger.info(TAG, `setCalendar this all calendar is ${JSON.stringify(this.calendarReminders)}`);
         await PreferencesDataManager.putData('Calendar', this.calendarReminders)
-        this.setCalendarReminder();
       } else {
         UIContext.getCallingScopeUIContext()?.getPromptAction().showToast({
           message: resourceContext.resourceManager.getStringByNameSync('calendar_existence'),
@@ -169,7 +165,9 @@ class CalendarReminder {
         // [End cancel_reminder]
         await vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
       }
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `setToggle error: ${JSON.stringify(err)}`)
+    }
   }
 
   async openDialog(dialog: CustomDialogController, index: number) {

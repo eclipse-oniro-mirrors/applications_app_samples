@@ -39,7 +39,7 @@ class AlarmClockReminder {
       if (context == undefined) {
         return
       }
-      let resourceContext = context.createModuleContext('entry')
+      let resourceContext = context.createModuleContext(Constant.ENTRY_MODULE_NAME)
       let hour = time.hour! < 10 ? `0${time.hour}` : time.hour;
       let minute = time.minute! < 10 ? `0${time.minute}` : time.minute;
       let selectTime: string = `${hour}:${minute}`
@@ -167,7 +167,9 @@ class AlarmClockReminder {
         await reminderAgentManager.cancelReminder(this.alarmClockReminders[index].reminderId);
         await vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
       }
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `setToggle error: ${JSON.stringify(err)}`)
+    }
   }
 
   async openDialog(dialog: CustomDialogController, index: number) {

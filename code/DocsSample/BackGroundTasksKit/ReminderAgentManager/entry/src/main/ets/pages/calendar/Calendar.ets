@@ -16,6 +16,7 @@
 import { CalendarSetting } from './CalendarSetting'
 import CalendarReminder from '../../util/CalendarReminder'
 import PreferencesDataManager from '../../util/PreferencesDataManager'
+import { getReminderNames } from '../../common/Reminder'
 
 @Component
 export struct ReminderCalendar {
@@ -109,11 +110,7 @@ export struct ReminderCalendar {
   }
 
   refreshCalendarNames(): void {
-    let names: string[] = []
-    for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-      names.push(CalendarReminder.calendarReminders[i].reminderName)
-    }
-    this.calendarNames = names
+    this.calendarNames = getReminderNames(CalendarReminder.calendarReminders)
   }
 
   deleteItem(index: number): boolean {
