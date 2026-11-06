@@ -18821,3 +18821,195 @@ export default function ArrayBufferUtilTest(): void {
       ).assertEqual(
         190
       );
+    });
+
+    it('dataview_write_hex_array_at_offset_9', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 9, ['0x36', '0x9d', '0xd5']);
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        54
+      );
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        157
+      );
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        213
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_10', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 10, ['0x3b', '0xae', '0xec']);
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        59
+      );
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        174
+      );
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        236
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_11', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 11, ['0x40', '0xbf', '0x03']);
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        64
+      );
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        191
+      );
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        3
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_12', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 12, ['0x45', '0xd0', '0x1a']);
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        69
+      );
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        208
+      );
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        26
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_13', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 13, ['0x4a', '0xe1', '0x31']);
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        74
+      );
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        225
+      );
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        49
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_14', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 14, ['0x4f', '0xf2', '0x48']);
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        79
+      );
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        242
+      );
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        72
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_15', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 15, ['0x54', '0x03', '0x5f']);
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        84
+      );
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        3
+      );
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        95
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_16', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 16, ['0x59', '0x14', '0x76']);
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        89
+      );
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        20
+      );
+      expect(
+        view.getUint8(18)
+      ).assertEqual(
+        118
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_17', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 17, ['0x5e', '0x25', '0x8d']);
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        94
+      );
+      expect(
+        view.getUint8(18)
+      ).assertEqual(
+        37
+      );
+      expect(
+        view.getUint8(19)
+      ).assertEqual(
+        141
+      );
+    });
+  });
+}
