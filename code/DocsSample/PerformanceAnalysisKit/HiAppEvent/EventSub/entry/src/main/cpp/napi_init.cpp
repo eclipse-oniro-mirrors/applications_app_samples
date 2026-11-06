@@ -633,51 +633,89 @@ static void OnTakeCrash(const char *const *events, uint32_t eventLen)
 }
 
 //[Start EventSub_napi_sanitizer_events_2_Header]
+namespace
+{
+// 订阅过滤条件：不附加额外标志位。
+constexpr int32_t APP_EVENT_FILTER_FLAG_NONE = 0;
+// 订阅的事件名称个数。
+constexpr int32_t APP_EVENT_NAME_COUNT = 1;
+// 触发条件：新增 1 条事件时触发回调，不限制事件大小与超时时间。
+constexpr int32_t TRIGGER_ROW = 1;
+constexpr int32_t TRIGGER_SIZE = 0;
+constexpr int32_t TRIGGER_TIMEOUT = 0;
+// 测试数组长度，用于演示越界写。
+constexpr int TEST_ARRAY_LENGTH = 10;
+} // namespace
+
 // 定义一个变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *systemEventWatcher;
 
-static void OnReceive(const char *domain, const struct HiAppEvent_AppEventGroup *appEventGroups, uint32_t groupLen) 
+static bool IsSanitizerEvent(const char *eventDomain, const char *eventName)
 {
-    for (int i = 0; i < groupLen; ++i) {
-        for (int j = 0; j < appEventGroups[i].infoLen; ++j) {
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", appEventGroups[i].appEventInfos[j].domain);
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", appEventGroups[i].appEventInfos[j].name);
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", appEventGroups[i].appEventInfos[j].type);
-            if (strcmp(appEventGroups[i].appEventInfos[j].domain, DOMAIN_OS) == 0 &&
-                strcmp(appEventGroups[i].appEventInfos[j].name, EVENT_ADDRESS_SANITIZER) == 0) {
-                    Json::Value params;
-                    Json::Reader reader(Json::Features::strictMode());
-                    Json::FastWriter writer;
-                    if (reader.parse(appEventGroups[i].appEventInfos[j].params, params)) {
-                        auto time = params["time"].asInt64();
-                        auto bundleVersion = params["bundle_version"].asString();
-                        auto bundleName = params["bundle_name"].asString();
-                        auto pid = params["pid"].asInt();
-                        auto uid = params["uid"].asInt();
-                        auto type = params["type"].asString();
-                        std::string logOverLimit = params["log_over_limit"].asBool() ? "true" : "false";
-                        auto externalLog = writer.write(params["external_log"]);
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s", bundleVersion.c_str());
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s", bundleName.c_str());
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.type=%{public}s", type.c_str());
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s", externalLog.c_str());
-                        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s", logOverLimit.c_str());
-                    }
-                }
+    return strcmp(eventDomain, DOMAIN_OS) == 0 && strcmp(eventName, EVENT_ADDRESS_SANITIZER) == 0;
+}
+
+static void LogSanitizerEventParams(const Json::Value &params)
+{
+    Json::FastWriter writer;
+    auto time = params["time"].asInt64();
+    auto bundleVersion = params["bundle_version"].asString();
+    auto bundleName = params["bundle_name"].asString();
+    auto pid = params["pid"].asInt();
+    auto uid = params["uid"].asInt();
+    auto type = params["type"].asString();
+    std::string logOverLimit = params["log_over_limit"].asBool() ? "true" : "false";
+    auto externalLog = writer.write(params["external_log"]);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
+                bundleVersion.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
+                bundleName.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.type=%{public}s", type.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
+                externalLog.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s",
+                logOverLimit.c_str());
+}
+
+static void HandleSanitizerEvent(const char *paramsJson)
+{
+    Json::Value params;
+    Json::Reader reader(Json::Features::strictMode());
+    if (!reader.parse(paramsJson, params)) {
+        return;
+    }
+    LogSanitizerEventParams(params);
+}
+
+static void OnReceive(const char *domain, const struct HiAppEvent_AppEventGroup *appEventGroups,
+                      uint32_t groupLen)
+{
+    for (uint32_t i = 0; i < groupLen; ++i) {
+        const auto &eventGroup = appEventGroups[i];
+        for (uint32_t j = 0; j < eventGroup.infoLen; ++j) {
+            const auto &eventInfo = eventGroup.appEventInfos[j];
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", eventInfo.domain);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", eventInfo.name);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", eventInfo.type);
+            if (IsSanitizerEvent(eventInfo.domain, eventInfo.name)) {
+                HandleSanitizerEvent(eventInfo.params);
+            }
         }
     }
 }
 
-static napi_value RegisterWatcher(napi_env env, napi_callback_info info) {
+static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
+{
     // 开发者自定义观察者名称，系统根据不同的名称来识别不同的观察者。
     systemEventWatcher = OH_HiAppEvent_CreateWatcher("onReceiverWatcher");
     // 设置订阅的事件为EVENT_ADDRESS_SANITIZER。
     const char *names[] = {EVENT_ADDRESS_SANITIZER};
     // 开发者订阅感兴趣的事件，此处订阅了系统事件。
-    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, 0, names, 1);
+    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, APP_EVENT_FILTER_FLAG_NONE,
+                                    names, APP_EVENT_NAME_COUNT);
     // 开发者设置已实现的回调函数，观察者接收到事件后会立即触发OnReceive回调。
     OH_HiAppEvent_SetWatcherOnReceive(systemEventWatcher, OnReceive);
     // 使观察者开始监听订阅的事件。
@@ -690,60 +728,76 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info) {
 // 定义一个变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *systemEventWatcher;
 
+static void LogTakenEventParams(const Json::Value &eventInfo)
+{
+    Json::FastWriter writer;
+    auto time = eventInfo["time"].asInt64();
+    auto bundleVersion = eventInfo["bundle_version"].asString();
+    auto bundleName = eventInfo["bundle_name"].asString();
+    auto pid = eventInfo["pid"].asInt();
+    auto uid = eventInfo["uid"].asInt();
+    auto asanType = eventInfo["type"].asString();
+    auto externalLog = writer.write(eventInfo["external_log"]);
+    std::string logOverLimit = eventInfo["log_over_limit"].asBool() ? "true" : "false";
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
+                bundleVersion.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
+                bundleName.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.crash_type=%{public}s",
+                asanType.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
+                externalLog.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s",
+                logOverLimit.c_str());
+}
+
+static void HandleTakenEvent(const Json::Value &eventInfo)
+{
+    auto domain = eventInfo["domain_"].asString();
+    auto name = eventInfo["name_"].asString();
+    auto type = eventInfo["type_"].asInt();
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", domain.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", name.c_str());
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", type);
+    if (domain == DOMAIN_OS && name == EVENT_ADDRESS_SANITIZER) {
+        LogTakenEventParams(eventInfo);
+    }
+}
+
 // 开发者可以自行实现获取已监听到事件的回调函数，其中events指针指向内容仅在该函数内有效。
-static void OnTake(const char *const *events, uint32_t eventLen) 
+static void OnTake(const char *const *events, uint32_t eventLen)
 {
     Json::Reader reader(Json::Features::strictMode());
-    Json::FastWriter writer;
-    for (int i = 0; i < eventLen; ++i) {
+    for (uint32_t i = 0; i < eventLen; ++i) {
         Json::Value eventInfo;
         if (reader.parse(events[i], eventInfo)) {
-            auto domain =  eventInfo["domain_"].asString();
-            auto name = eventInfo["name_"].asString();
-            auto type = eventInfo["type_"].asInt();
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", domain.c_str());
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", name.c_str());
-            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", type);
-            if (domain ==  DOMAIN_OS && name == EVENT_ADDRESS_SANITIZER) {
-                auto time = eventInfo["time"].asInt64();
-                auto bundleVersion = eventInfo["bundle_version"].asString();
-                auto bundleName = eventInfo["bundle_name"].asString();
-                auto pid = eventInfo["pid"].asInt();
-                auto uid = eventInfo["uid"].asInt();
-                auto asanType = eventInfo["type"].asString();
-                auto externalLog = writer.write(eventInfo["external_log"]);
-                std::string logOverLimit = eventInfo["log_over_limit"].asBool() ? "true" : "false";
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s", bundleVersion.c_str());
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s", bundleName.c_str());
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.crash_type=%{public}s", asanType.c_str());
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s", externalLog.c_str());
-                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}s", logOverLimit.c_str());
-            }
+            HandleTakenEvent(eventInfo);
         }
     }
 }
 
 // 开发者可以自行实现订阅回调函数，以便对获取到的事件打点数据进行自定义处理。
-static void OnTrigger(int row, int size) 
+static void OnTrigger(int row, int size)
 {
     OH_HiAppEvent_TakeWatcherData(systemEventWatcher, row, OnTake);
 }
 
-static napi_value RegisterWatcher(napi_env env, napi_callback_info info) 
+static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 {
     // 开发者自定义观察者名称，系统根据不同的名称来识别不同的观察者。
     systemEventWatcher = OH_HiAppEvent_CreateWatcher("onTriggerWatcher");
     // 设置订阅的事件为EVENT_ADDRESS_SANITIZER。
     const char *names[] = {EVENT_ADDRESS_SANITIZER};
     // 开发者订阅感兴趣的事件，此处订阅了系统事件。
-    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, 0, names, 1);
+    OH_HiAppEvent_SetAppEventFilter(systemEventWatcher, DOMAIN_OS, APP_EVENT_FILTER_FLAG_NONE,
+                                    names, APP_EVENT_NAME_COUNT);
     // 开发者设置已实现的回调函数，需OH_HiAppEvent_SetTriggerCondition设置的条件满足方可触发。
     OH_HiAppEvent_SetWatcherOnTrigger(systemEventWatcher, OnTrigger);
     // 开发者可以设置订阅触发回调的条件，此处是设置新增事件打点数量为1个时，触发onTrigger回调。
-    OH_HiAppEvent_SetTriggerCondition(systemEventWatcher, 1, 0, 0);
+    OH_HiAppEvent_SetTriggerCondition(systemEventWatcher, TRIGGER_ROW, TRIGGER_SIZE, TRIGGER_TIMEOUT);
     // 使观察者开始监听订阅的事件。
     OH_HiAppEvent_AddWatcher(systemEventWatcher);
     return {};
@@ -753,8 +807,8 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 //[Start EventSub_napi_sanitizer_events_4_Header]
 static napi_value Test(napi_env env, napi_callback_info info)
 {
-    int a[10];
-    a[10] = 1;
+    int a[TEST_ARRAY_LENGTH];
+    a[TEST_ARRAY_LENGTH] = 1;
     return {};
 }
 //[End EventSub_napi_sanitizer_events_4_Header]
