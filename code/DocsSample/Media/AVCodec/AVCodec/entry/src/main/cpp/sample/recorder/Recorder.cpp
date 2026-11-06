@@ -719,9 +719,7 @@ int32_t Recorder::CreateAudioEncoder()
 // [Start Recorder::AudioEncInputAsyncThread]
 void Recorder::AudioEncInputAsyncThread()
 {
-    while (true) {
-        CHECK_AND_BREAK_LOG(!isEos_, "Work done, thread out");
-        CHECK_AND_BREAK_LOG(isStarted_, "Encoder input thread out");
+    while (isStarted_ && !isEos_) {
         if (isStopping_.load()) {
             std::this_thread::sleep_for(std::chrono::milliseconds(AUDIO_INPUT_STOP_POLL_INTERVAL_MS));
             continue;
@@ -797,9 +795,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
 // [Start Recorder::AudioEncOutputAsyncThread]
 void Recorder::AudioEncOutputAsyncThread()
 {
-    while (true) {
-        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
-
+    while (isStarted_) {
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");

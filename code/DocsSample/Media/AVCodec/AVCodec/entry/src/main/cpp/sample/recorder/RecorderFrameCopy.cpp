@@ -16,10 +16,8 @@
 #include "RecorderFrameCopy.h"
 #include <algorithm>
 
-namespace RecorderFrames
-{
-namespace
-{
+namespace RecorderFrames {
+namespace {
 bool ResolveChromaPlanes(const Plane *mapped, uint32_t count, bool semiplanar, size_t bytes, int32_t width,
                          int32_t height, Plane &u, Plane &v)
 {

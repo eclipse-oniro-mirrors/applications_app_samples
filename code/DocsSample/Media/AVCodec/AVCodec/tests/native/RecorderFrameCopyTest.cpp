@@ -20,23 +20,20 @@
 #include <limits>
 #include "../../entry/src/main/cpp/sample/recorder/RecorderFrameCopy.h"
 
-namespace
-{
+namespace {
 using RecorderFrames::CopyNv12;
 using RecorderFrames::Plane;
 using RecorderFrames::ResolveYuv420Planes;
 using RecorderFrames::Yuv420Layout;
 
-void CheckTest(bool passed, const char *expression, int32_t line)
+// 测试检查在Release构建中同样执行，复制和布局解析不会随NDEBUG被移除。
+void CheckTest(bool passed, const char *description)
 {
     if (!passed) {
-        std::cerr << "Frame copy check failed at line " << line << ": " << expression << std::endl;
+        std::cerr << "Frame copy check failed: " << description << std::endl;
         std::exit(EXIT_FAILURE);
     }
 }
-
-// 测试检查在Release构建中同样执行，复制和布局解析不会随NDEBUG被移除。
-#define CHECK_TEST(expression) CheckTest((expression), #expression, __LINE__)
 
 // 4x4有效图像：相机每行6字节，编码器每行8字节并为Y平面分配6行。
 constexpr int32_t FRAME_WIDTH = 4;
@@ -77,14 +74,14 @@ struct FrameCopyFixture {
 void TestPaddedNv12Copy()
 {
     FrameCopyFixture frame;
-    CHECK_TEST(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
-                        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
-                        ENCODER_SLICE_HEIGHT));
+    CheckTest(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
+        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
+        ENCODER_SLICE_HEIGHT), "Copy padded NV12 frame");
     for (size_t row = 0; row < ENCODER_SLICE_HEIGHT; ++row) {
         for (size_t col = 0; col < ENCODER_STRIDE; ++col) {
             const uint8_t expected =
                 row < FRAME_HEIGHT && col < FRAME_WIDTH ? frame.camera[row * CAMERA_STRIDE + col] : EXPECTED_BLACK;
-            CHECK_TEST(frame.encoded[row * ENCODER_STRIDE + col] == expected);
+            CheckTest(frame.encoded[row * ENCODER_STRIDE + col] == expected, "NV12 luma and padding");
         }
     }
     for (size_t row = 0; row < ENCODER_SLICE_HEIGHT / CHROMA_SUBSAMPLING; ++row) {
@@ -92,7 +89,8 @@ void TestPaddedNv12Copy()
             const uint8_t expected = row < CHROMA_HEIGHT && col < FRAME_WIDTH
                                          ? frame.camera[FIRST_CHROMA_OFFSET + row * CAMERA_STRIDE + col]
                                          : EXPECTED_NEUTRAL_CHROMA;
-            CHECK_TEST(frame.encoded[ENCODER_LUMA_BYTES + row * ENCODER_STRIDE + col] == expected);
+            CheckTest(frame.encoded[ENCODER_LUMA_BYTES + row * ENCODER_STRIDE + col] == expected,
+                "NV12 chroma and padding");
         }
     }
 }
@@ -103,8 +101,8 @@ void CheckNv21Chroma(const FrameCopyFixture &frame)
         for (size_t col = 0; col < FRAME_WIDTH / CHROMA_SUBSAMPLING; ++col) {
             const size_t output = ENCODER_LUMA_BYTES + row * ENCODER_STRIDE + col * CHROMA_COMPONENTS;
             const size_t input = FIRST_CHROMA_OFFSET + row * CAMERA_STRIDE + col * CHROMA_COMPONENTS;
-            CHECK_TEST(frame.encoded[output] == frame.camera[input + 1]);
-            CHECK_TEST(frame.encoded[output + 1] == frame.camera[input]);
+            CheckTest(frame.encoded[output] == frame.camera[input + 1], "NV21 U component order");
+            CheckTest(frame.encoded[output + 1] == frame.camera[input], "NV21 V component order");
         }
     }
 }
@@ -113,9 +111,9 @@ void TestNv21Copy()
 {
     FrameCopyFixture frame;
     // NV21必须交换色度顺序，不能因为宽高一致而整块复制。
-    CHECK_TEST(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, SECOND_CHROMA, FIRST_CHROMA,
-                        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
-                        ENCODER_SLICE_HEIGHT));
+    CheckTest(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, SECOND_CHROMA, FIRST_CHROMA,
+        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
+        ENCODER_SLICE_HEIGHT), "Copy NV21 frame");
     CheckNv21Chroma(frame);
 }
 
@@ -129,21 +127,25 @@ void TestNativePlaneLayouts()
     const Plane nativeNv21[]{{0, 1, CAMERA_STRIDE},
                              {SECOND_CHROMA_OFFSET, CHROMA_COMPONENTS, CAMERA_STRIDE},
                              {FIRST_CHROMA_OFFSET, CHROMA_COMPONENTS, CAMERA_STRIDE}};
-    CHECK_TEST(ResolveYuv420Planes(nativeNv21, std::size(nativeNv21), Yuv420Layout::NV21, frame.camera.size(),
-                                   FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV));
-    CHECK_TEST(resolvedY.rowStride == CAMERA_STRIDE && resolvedY.pixelStride == 1);
-    CHECK_TEST(resolvedU.offset == SECOND_CHROMA_OFFSET && resolvedV.offset == FIRST_CHROMA_OFFSET);
-    CHECK_TEST(CopyNv12(frame.camera.data(), frame.camera.size(), resolvedY, resolvedU, resolvedV, frame.encoded.data(),
-                        frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE, ENCODER_SLICE_HEIGHT));
+    CheckTest(ResolveYuv420Planes(nativeNv21, std::size(nativeNv21), Yuv420Layout::NV21, frame.camera.size(),
+        FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV), "Resolve native NV21 planes");
+    CheckTest(resolvedY.rowStride == CAMERA_STRIDE && resolvedY.pixelStride == 1, "Normalize native luma stride");
+    CheckTest(resolvedU.offset == SECOND_CHROMA_OFFSET && resolvedV.offset == FIRST_CHROMA_OFFSET,
+        "Resolve native NV21 chroma offsets");
+    CheckTest(CopyNv12(frame.camera.data(), frame.camera.size(), resolvedY, resolvedU, resolvedV, frame.encoded.data(),
+        frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE, ENCODER_SLICE_HEIGHT),
+        "Copy resolved native NV21 frame");
     CheckNv21Chroma(frame);
     const Plane nativeNv12[]{Y_PLANE, FIRST_CHROMA, SECOND_CHROMA};
-    CHECK_TEST(ResolveYuv420Planes(nativeNv12, std::size(nativeNv12), Yuv420Layout::NV12, frame.camera.size(),
-                                   FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV));
-    CHECK_TEST(resolvedU.offset == FIRST_CHROMA_OFFSET && resolvedV.offset == SECOND_CHROMA_OFFSET);
+    CheckTest(ResolveYuv420Planes(nativeNv12, std::size(nativeNv12), Yuv420Layout::NV12, frame.camera.size(),
+        FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV), "Resolve native NV12 planes");
+    CheckTest(resolvedU.offset == FIRST_CHROMA_OFFSET && resolvedV.offset == SECOND_CHROMA_OFFSET,
+        "Resolve native NV12 chroma offsets");
     const Plane twoPlaneNv21[]{Y_PLANE, FIRST_CHROMA};
-    CHECK_TEST(ResolveYuv420Planes(twoPlaneNv21, std::size(twoPlaneNv21), Yuv420Layout::NV21, frame.camera.size(),
-                                   FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV));
-    CHECK_TEST(resolvedU.offset == SECOND_CHROMA_OFFSET && resolvedV.offset == FIRST_CHROMA_OFFSET);
+    CheckTest(ResolveYuv420Planes(twoPlaneNv21, std::size(twoPlaneNv21), Yuv420Layout::NV21, frame.camera.size(),
+        FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV), "Resolve two-plane NV21 layout");
+    CheckTest(resolvedU.offset == SECOND_CHROMA_OFFSET && resolvedV.offset == FIRST_CHROMA_OFFSET,
+        "Resolve two-plane NV21 chroma offsets");
 }
 
 void TestInvalidPlaneLayouts()
@@ -154,12 +156,12 @@ void TestInvalidPlaneLayouts()
     // 该跨度既不能描述Y像素，也不能在交换后描述有效行。
     constexpr uint32_t invalidLumaStride = FRAME_WIDTH - 1;
     const Plane invalidStride[]{{0, invalidLumaStride, invalidLumaStride}, FIRST_CHROMA, SECOND_CHROMA};
-    CHECK_TEST(!ResolveYuv420Planes(invalidStride, std::size(invalidStride), Yuv420Layout::NV21, CAMERA_BYTES,
-                                    FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV));
+    CheckTest(!ResolveYuv420Planes(invalidStride, std::size(invalidStride), Yuv420Layout::NV21, CAMERA_BYTES,
+        FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV), "Reject invalid luma stride");
     const Plane invalidChroma[]{
         Y_PLANE, FIRST_CHROMA, {FIRST_CHROMA_OFFSET + CHROMA_COMPONENTS, CAMERA_STRIDE, CHROMA_COMPONENTS}};
-    CHECK_TEST(!ResolveYuv420Planes(invalidChroma, std::size(invalidChroma), Yuv420Layout::NV21, CAMERA_BYTES,
-                                    FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV));
+    CheckTest(!ResolveYuv420Planes(invalidChroma, std::size(invalidChroma), Yuv420Layout::NV21, CAMERA_BYTES,
+        FRAME_WIDTH, FRAME_HEIGHT, resolvedY, resolvedU, resolvedV), "Reject invalid chroma offsets");
 }
 
 void TestPlanarYuvCopy()
@@ -167,14 +169,15 @@ void TestPlanarYuvCopy()
     FrameCopyFixture frame;
     const Plane planarU{FIRST_CHROMA_OFFSET, PLANAR_CHROMA_STRIDE, 1};
     const Plane planarV{PLANAR_V_OFFSET, PLANAR_CHROMA_STRIDE, 1};
-    CHECK_TEST(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, planarU, planarV, frame.encoded.data(),
-                        frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE, ENCODER_SLICE_HEIGHT));
+    CheckTest(CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, planarU, planarV, frame.encoded.data(),
+        frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE, ENCODER_SLICE_HEIGHT),
+        "Copy planar YUV frame");
     for (size_t row = 0; row < CHROMA_HEIGHT; ++row) {
         for (size_t col = 0; col < FRAME_WIDTH / CHROMA_SUBSAMPLING; ++col) {
             const size_t output = ENCODER_LUMA_BYTES + row * ENCODER_STRIDE + col * CHROMA_COMPONENTS;
             const size_t input = row * PLANAR_CHROMA_STRIDE + col;
-            CHECK_TEST(frame.encoded[output] == frame.camera[FIRST_CHROMA_OFFSET + input]);
-            CHECK_TEST(frame.encoded[output + 1] == frame.camera[PLANAR_V_OFFSET + input]);
+            CheckTest(frame.encoded[output] == frame.camera[FIRST_CHROMA_OFFSET + input], "Planar U component");
+            CheckTest(frame.encoded[output + 1] == frame.camera[PLANAR_V_OFFSET + input], "Planar V component");
         }
     }
 }
@@ -186,24 +189,25 @@ void TestCopyBoundaries()
     const Plane planarV{PLANAR_V_OFFSET, PLANAR_CHROMA_STRIDE, 1};
     frame.encoded.fill(UNTOUCHED_PIXEL);
     const auto untouched = frame.encoded;
-    CHECK_TEST(!CopyNv12(frame.camera.data(), frame.camera.size() - CHROMA_COMPONENTS, Y_PLANE, planarU, planarV,
-                         frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
-                         ENCODER_SLICE_HEIGHT));
-    CHECK_TEST(frame.encoded == untouched);
-    CHECK_TEST(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
-                         frame.encoded.data(), frame.encoded.size() - 1, FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
-                         ENCODER_SLICE_HEIGHT));
-    CHECK_TEST(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
-                         frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH - 1, FRAME_HEIGHT, ENCODER_STRIDE,
-                         ENCODER_SLICE_HEIGHT));
-    CHECK_TEST(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
-                         frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE - 1,
-                         ENCODER_SLICE_HEIGHT));
+    CheckTest(!CopyNv12(frame.camera.data(), frame.camera.size() - CHROMA_COMPONENTS, Y_PLANE, planarU, planarV,
+        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
+        ENCODER_SLICE_HEIGHT), "Reject truncated source buffer");
+    CheckTest(frame.encoded == untouched, "Truncated source does not modify destination");
+    CheckTest(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
+        frame.encoded.data(), frame.encoded.size() - 1, FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE,
+        ENCODER_SLICE_HEIGHT), "Reject undersized destination buffer");
+    CheckTest(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
+        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH - 1, FRAME_HEIGHT, ENCODER_STRIDE,
+        ENCODER_SLICE_HEIGHT), "Reject odd frame width");
+    CheckTest(!CopyNv12(frame.camera.data(), frame.camera.size(), Y_PLANE, FIRST_CHROMA, SECOND_CHROMA,
+        frame.encoded.data(), frame.encoded.size(), FRAME_WIDTH, FRAME_HEIGHT, ENCODER_STRIDE - 1,
+        ENCODER_SLICE_HEIGHT), "Reject odd destination stride");
     const Plane overflow{std::numeric_limits<uint64_t>::max(), CAMERA_STRIDE, 1};
-    CHECK_TEST(!RecorderFrames::Contains(frame.camera.size(), overflow, FRAME_WIDTH, FRAME_HEIGHT));
-    CHECK_TEST(!RecorderFrames::Contains(frame.camera.size(), {0, FRAME_WIDTH - 1, CHROMA_COMPONENTS}, FRAME_WIDTH,
-                                         FRAME_HEIGHT));
-    CHECK_TEST(frame.encoded == untouched);
+    CheckTest(!RecorderFrames::Contains(frame.camera.size(), overflow, FRAME_WIDTH, FRAME_HEIGHT),
+        "Reject overflowing plane offset");
+    CheckTest(!RecorderFrames::Contains(frame.camera.size(), {0, FRAME_WIDTH - 1, CHROMA_COMPONENTS}, FRAME_WIDTH,
+        FRAME_HEIGHT), "Reject insufficient source row stride");
+    CheckTest(frame.encoded == untouched, "Invalid dimensions do not modify destination");
 }
 } // namespace
 

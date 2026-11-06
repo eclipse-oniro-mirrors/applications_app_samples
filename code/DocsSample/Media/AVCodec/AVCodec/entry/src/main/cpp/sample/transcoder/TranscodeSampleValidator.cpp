@@ -24,15 +24,13 @@
 #include <multimedia/player_framework/native_avcodec_videodecoder.h>
 #include <multimedia/player_framework/native_averrors.h>
 
-namespace
-{
+namespace {
 constexpr int64_t US_PER_MS = 1000;
 constexpr int64_t SAMPLE_PTS_TOLERANCE_US = 2000000;
 constexpr auto SAMPLE_DECODE_TIMEOUT = std::chrono::seconds(10);
 constexpr auto SAMPLE_IDLE_WAIT = std::chrono::milliseconds(1);
 
-class OutputSampleDecoder
-{
+class OutputSampleDecoder {
 public:
     OutputSampleDecoder(int64_t targetUs, int64_t durationUs, const std::atomic<bool> &cancelled, std::string &failure)
         : targetUs_(targetUs), durationUs_(durationUs), cancelled_(cancelled), failure_(failure)

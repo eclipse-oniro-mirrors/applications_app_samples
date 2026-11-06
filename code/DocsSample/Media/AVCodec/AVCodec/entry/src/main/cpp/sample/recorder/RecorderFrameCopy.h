@@ -61,11 +61,10 @@ inline bool NormalizePlane(Plane &plane, size_t bytes, int32_t columns, int32_t 
 }
 
 bool ResolveYuv420Planes(const Plane *mapped, uint32_t count, Yuv420Layout layout, size_t bytes, int32_t width,
-                        int32_t height, Plane &y, Plane &u, Plane &v);
+    int32_t height, Plane &y, Plane &u, Plane &v);
 
 // U/V的位置由实际NativeBuffer格式和plane描述确定，不把相机YUV420SP一律当作NV12。
 bool CopyNv12(const uint8_t *source, size_t bytes, const Plane &y, const Plane &u, const Plane &v,
-              uint8_t *destination, size_t capacity, int32_t width, int32_t height, int32_t stride,
-              int32_t sliceHeight);
+    uint8_t *destination, size_t capacity, int32_t width, int32_t height, int32_t stride, int32_t sliceHeight);
 } // namespace RecorderFrames
 #endif
