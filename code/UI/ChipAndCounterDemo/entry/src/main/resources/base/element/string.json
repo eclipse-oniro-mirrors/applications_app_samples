@@ -11,6 +11,514 @@
     {
       "name": "EntryAbility_label",
       "value": "ChipAndCounterDemo"
+    },
+    {
+      "name": "page_title",
+      "value": "Chips and counters: tags, counts and segmented selection"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "Chip(V1) · ChipV2 · ChipGroupV2 · CounterV2 (4 types) · SegmentButtonV2 (3 forms)"
+    },
+    {
+      "name": "log_title",
+      "value": "Event log"
+    },
+    {
+      "name": "log_hint",
+      "value": "(newest first; each tap appends an entry)"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "Breakpoint: %s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "Device: %s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API: %d"
+    },
+    {
+      "name": "sections_hint",
+      "value": "9 sections; scroll the demo area"
+    },
+    {
+      "name": "jump_hint",
+      "value": "Jump to counters & segments ↓"
+    },
+    {
+      "name": "hint_disabled",
+      "value": "enabled: false, taps ignored"
+    },
+    {
+      "name": "hint_icon_type",
+      "value": "Icon type: SymbolGlyphModifier"
+    },
+    {
+      "name": "btn_restore_closable",
+      "value": "+ Restore closable tag"
+    },
+    {
+      "name": "group_more",
+      "value": "More"
+    },
+    {
+      "name": "section1_title",
+      "value": "1. Chip (V1, API 11+)"
+    },
+    {
+      "name": "section1_desc",
+      "value": "Basics, Image/Symbol icons, custom style, size, close (closeOptions), disabled; activated shows dark blue fill + white text + ✓"
+    },
+    {
+      "name": "section2_title",
+      "value": "2. ChipV2 (API 26)"
+    },
+    {
+      "name": "section2_desc",
+      "value": "NORMAL/SMALL sizes, Image/Symbol icons, activated state, background + radius, custom closeIcon, disabled"
+    },
+    {
+      "name": "section3_title",
+      "value": "3. ChipGroupV2 (API 26)"
+    },
+    {
+      "name": "section3_desc",
+      "value": "Group chips manage selection: single (keep one) / multiple / custom style, space and tail content"
+    },
+    {
+      "name": "section4_title",
+      "value": "4. CounterV2 (API 26)"
+    },
+    {
+      "name": "section4_desc",
+      "value": "Precise value adjustment: LIST / COMPACT / INLINE / INLINE_DATE"
+    },
+    {
+      "name": "section5_title",
+      "value": "5. SegmentButtonV2 (API 18+)"
+    },
+    {
+      "name": "section5_desc",
+      "value": "Segmented buttons: tab-style single, capsule mixed icon+text, capsule multi-select"
+    },
+    {
+      "name": "section6_title",
+      "value": "6. Chip advanced (V1 / V2)"
+    },
+    {
+      "name": "section6_desc",
+      "value": "Suffix Symbol click callback, ChipV2 custom fontSize/padding, accessibilityDescription, dynamic enable/disable"
+    },
+    {
+      "name": "section7_title",
+      "value": "7. ChipGroupV2 advanced"
+    },
+    {
+      "name": "section7_desc",
+      "value": "chipGroupPadding, suffix icon group (Image + like/favorite Symbols with toggle)"
+    },
+    {
+      "name": "section8_title",
+      "value": "8. CounterV2 advanced"
+    },
+    {
+      "name": "section8_desc",
+      "value": "label, step, textWidth, focus/blur/hover callbacks, initial date and date changes"
+    },
+    {
+      "name": "section9_title",
+      "value": "9. SegmentButtonV2 advanced"
+    },
+    {
+      "name": "section9_desc",
+      "value": "Symbol-only items, disabled items, onItemClicked, icon size/selected color, custom padding/background"
+    },
+    {
+      "name": "s3_intro",
+      "value": "What is ChipGroupV2: a selectable chip group whose selection is managed by selectedIndexes"
+    },
+    {
+      "name": "s3_compare",
+      "value": "Single-select behaves like Radio; multi-select behaves like Checkbox."
+    },
+    {
+      "name": "s3_single_label",
+      "value": "① Single-select group (default style, exactly one selected)"
+    },
+    {
+      "name": "s3_multi_label",
+      "value": "② Multi-select group (default style, multiple allowed)"
+    },
+    {
+      "name": "s3_custom_label",
+      "value": "③ Customized single-select group (itemStyle + space + suffix + onChange)"
+    },
+    {
+      "name": "s3_single_status",
+      "value": "   ↳ Selected: %s (tapping another replaces it)"
+    },
+    {
+      "name": "s3_multi_status",
+      "value": "   ↳ Selected: %s (%d items; tap again to clear)"
+    },
+    {
+      "name": "s3_custom_status",
+      "value": "   ↳ Selected: %s · \"More ›\" comes from suffix"
+    },
+    {
+      "name": "counter_list_label",
+      "value": "LIST (0-20): %d"
+    },
+    {
+      "name": "counter_compact_label",
+      "value": "COMPACT (1-9): %d"
+    },
+    {
+      "name": "counter_inline_label",
+      "value": "INLINE (step 5, 0-100): %d"
+    },
+    {
+      "name": "counter_date_label",
+      "value": "INLINE_DATE"
+    },
+    {
+      "name": "seg_tab_label",
+      "value": "Tab single-select (custom, current: %s)"
+    },
+    {
+      "name": "seg_capsule_label",
+      "value": "Capsule single-select (mixed, current: %s)"
+    },
+    {
+      "name": "seg_multi_label",
+      "value": "Capsule multi-select (current: %s)"
+    },
+    {
+      "name": "s6_v1_hint",
+      "value": "V1: suffixSymbol + suffixSymbolOptions.action"
+    },
+    {
+      "name": "s6_toggle_hint",
+      "value": "Dynamic enable/disable: behavior changes immediately"
+    },
+    {
+      "name": "s6_v2_hint",
+      "value": "ChipV2: suffixIcon (Symbol) + fontSize + padding"
+    },
+    {
+      "name": "suffix_clicks_status",
+      "value": "Suffix Symbol taps: V1 %d · V2 %d"
+    },
+    {
+      "name": "adv_tag_status",
+      "value": "Status: dynamic tag %s · suffix taps V1 %d / V2 %d"
+    },
+    {
+      "name": "s7_selected",
+      "value": "Selected: %s (10vp padding top/bottom)"
+    },
+    {
+      "name": "s7_tail_status",
+      "value": "Tail icons: like %s · favorite %s"
+    },
+    {
+      "name": "s7_hint",
+      "value": "   ↳ Tail icons come from suffix → ChipGroupV2IconGroupSuffix; tapping toggles gray/orange without changing selection"
+    },
+    {
+      "name": "lit_on",
+      "value": "on (orange)"
+    },
+    {
+      "name": "lit_off",
+      "value": "off (gray)"
+    },
+    {
+      "name": "s8_list_label",
+      "value": "LIST with label (step=2): %d"
+    },
+    {
+      "name": "s8_inline_label",
+      "value": "INLINE with textWidth (step=5): %d"
+    },
+    {
+      "name": "s8_date_label",
+      "value": "INLINE_DATE (initial %s):"
+    },
+    {
+      "name": "label_portion",
+      "value": "Portions"
+    },
+    {
+      "name": "s9_symbol_label",
+      "value": "Symbol-only capsule (icon %d)"
+    },
+    {
+      "name": "s9_disabled_label",
+      "value": "Disabled item (2nd item enabled=false, current: %s)"
+    },
+    {
+      "name": "chip_v1_basic_on",
+      "value": "Basic ✓"
+    },
+    {
+      "name": "chip_v1_basic_off",
+      "value": "Basic"
+    },
+    {
+      "name": "chip_prefix_on",
+      "value": "Prefix icon ✓"
+    },
+    {
+      "name": "chip_prefix_off",
+      "value": "Prefix icon"
+    },
+    {
+      "name": "chip_suffix_icon",
+      "value": "Suffix icon"
+    },
+    {
+      "name": "chip_v1_size_small",
+      "value": "Small"
+    },
+    {
+      "name": "chip_v1_size_normal",
+      "value": "Standard"
+    },
+    {
+      "name": "chip_symbol_on",
+      "value": "Symbol ✓"
+    },
+    {
+      "name": "chip_symbol_off",
+      "value": "Symbol icon"
+    },
+    {
+      "name": "chip_v1_custom",
+      "value": "Custom style"
+    },
+    {
+      "name": "chip_closable",
+      "value": "Closable"
+    },
+    {
+      "name": "chip_v1_close_a11y",
+      "value": "Remove the closable tag"
+    },
+    {
+      "name": "chip_disabled",
+      "value": "Disabled tag"
+    },
+    {
+      "name": "chip_v2_normal_on",
+      "value": "NORMAL ✓"
+    },
+    {
+      "name": "chip_v2_normal_off",
+      "value": "NORMAL"
+    },
+    {
+      "name": "chip_v2_small_on",
+      "value": "SMALL ✓"
+    },
+    {
+      "name": "chip_v2_small_off",
+      "value": "SMALL"
+    },
+    {
+      "name": "chip_v2_bg_radius",
+      "value": "Background + radius"
+    },
+    {
+      "name": "chip_v2_close_a11y",
+      "value": "Remove this V2 tag"
+    },
+    {
+      "name": "adv_suffix_symbol",
+      "value": "Suffix Symbol"
+    },
+    {
+      "name": "adv_a11y",
+      "value": "Accessibility description"
+    },
+    {
+      "name": "adv_a11y_desc_v1",
+      "value": "This chip demonstrates accessibilityDescription"
+    },
+    {
+      "name": "adv_enabled",
+      "value": "Enabled"
+    },
+    {
+      "name": "adv_disabled",
+      "value": "Disabled, taps ignored"
+    },
+    {
+      "name": "adv_toggle_to_disable",
+      "value": "Tap to disable →"
+    },
+    {
+      "name": "adv_toggle_to_enable",
+      "value": "Tap to enable →"
+    },
+    {
+      "name": "adv_v2_suffix",
+      "value": "V2 suffix Symbol"
+    },
+    {
+      "name": "adv_v2_font_padding",
+      "value": "Large font + wide padding"
+    },
+    {
+      "name": "adv_v2_a11y_desc",
+      "value": "This ChipV2 demonstrates accessibilityDescription"
+    },
+    {
+      "name": "group_single_all",
+      "value": "All"
+    },
+    {
+      "name": "group_single_mail",
+      "value": "Mail"
+    },
+    {
+      "name": "group_single_docs",
+      "value": "Docs"
+    },
+    {
+      "name": "group_multi_image",
+      "value": "Images"
+    },
+    {
+      "name": "group_multi_video",
+      "value": "Videos"
+    },
+    {
+      "name": "group_multi_audio",
+      "value": "Audio"
+    },
+    {
+      "name": "group_tail_hot",
+      "value": "Trending"
+    },
+    {
+      "name": "group_tail_recommend",
+      "value": "Recommended"
+    },
+    {
+      "name": "group_tail_follow",
+      "value": "Following"
+    },
+    {
+      "name": "adv_group_recommend",
+      "value": "Recommended"
+    },
+    {
+      "name": "adv_group_follow",
+      "value": "Following"
+    },
+    {
+      "name": "adv_group_hot",
+      "value": "Hot"
+    },
+    {
+      "name": "seg_day",
+      "value": "Day"
+    },
+    {
+      "name": "seg_week",
+      "value": "Week"
+    },
+    {
+      "name": "seg_month",
+      "value": "Month"
+    },
+    {
+      "name": "seg_image",
+      "value": "Images"
+    },
+    {
+      "name": "seg_favorite",
+      "value": "Favorite"
+    },
+    {
+      "name": "seg_star",
+      "value": "Starred"
+    },
+    {
+      "name": "seg_available_a",
+      "value": "Available A"
+    },
+    {
+      "name": "seg_disabled_item",
+      "value": "Disabled"
+    },
+    {
+      "name": "seg_available_b",
+      "value": "Available B"
+    },
+    {
+      "name": "bg_light_blue",
+      "value": "Light blue"
+    },
+    {
+      "name": "bg_light_green",
+      "value": "Light green"
+    },
+    {
+      "name": "bg_light_orange",
+      "value": "Light orange"
+    },
+    {
+      "name": "names_none",
+      "value": "None"
+    },
+    {
+      "name": "list_separator",
+      "value": ", "
+    },
+    {
+      "name": "state_on",
+      "value": "on"
+    },
+    {
+      "name": "state_off",
+      "value": "off"
+    },
+    {
+      "name": "size_small_short",
+      "value": "small"
+    },
+    {
+      "name": "size_normal_short",
+      "value": "standard"
+    },
+    {
+      "name": "visible",
+      "value": "shown"
+    },
+    {
+      "name": "closed",
+      "value": "closed"
+    },
+    {
+      "name": "enabled_word",
+      "value": "enabled"
+    },
+    {
+      "name": "disabled_word",
+      "value": "disabled"
+    },
+    {
+      "name": "v1_status",
+      "value": "Status: basic %s · prefix icon %s · Symbol %s · size %s · closable %s"
+    },
+    {
+      "name": "v2_status",
+      "value": "Status: NORMAL %s · SMALL %s · prefix icon %s · Symbol %s · background %s · closable %s"
     }
   ]
 }
