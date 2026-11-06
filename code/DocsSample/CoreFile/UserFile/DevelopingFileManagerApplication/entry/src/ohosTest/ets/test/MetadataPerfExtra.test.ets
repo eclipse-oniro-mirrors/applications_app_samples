@@ -284,7 +284,7 @@ export default function dfmaMetadataPerfExtraTest(): void {
           writeFile(dir + '/m5.txt', 'v5');
           writeFile(dir + '/m6.txt', 'v6');
           writeFile(dir + '/m7.txt', 'v7');
-          writeFile(dir + '/m8.txt', 'v8');
+          writeFile(dir + '/m8.txt', 'content8');
           const stat: fs.Stat = fs.statSync(dir);
           const files: string[] = fs.listFileSync(dir);
           expect(stat.isDirectory()).assertTrue();
@@ -328,7 +328,7 @@ export default function dfmaMetadataPerfExtraTest(): void {
           writeFile(dir + '/m5.txt', 'v5');
           writeFile(dir + '/m6.txt', 'v6');
           writeFile(dir + '/m7.txt', 'v7');
-          writeFile(dir + '/m8.txt', 'v8');
+          writeFile(dir + '/m8.txt', 'content8');
           writeFile(dir + '/m9.txt', 'v9');
           const stat: fs.Stat = fs.statSync(dir);
           const files: string[] = fs.listFileSync(dir);
@@ -374,7 +374,7 @@ export default function dfmaMetadataPerfExtraTest(): void {
           writeFile(dir + '/m5.txt', 'v5');
           writeFile(dir + '/m6.txt', 'v6');
           writeFile(dir + '/m7.txt', 'v7');
-          writeFile(dir + '/m8.txt', 'v8');
+          writeFile(dir + '/m8.txt', 'content8');
           writeFile(dir + '/m9.txt', 'v9');
           writeFile(dir + '/m10.txt', 'v10');
           const stat: fs.Stat = fs.statSync(dir);
@@ -422,7 +422,7 @@ export default function dfmaMetadataPerfExtraTest(): void {
           writeFile(dir + '/m5.txt', 'v5');
           writeFile(dir + '/m6.txt', 'v6');
           writeFile(dir + '/m7.txt', 'v7');
-          writeFile(dir + '/m8.txt', 'v8');
+          writeFile(dir + '/m8.txt', 'content8');
           writeFile(dir + '/m9.txt', 'v9');
           writeFile(dir + '/m10.txt', 'v10');
           writeFile(dir + '/m11.txt', 'v11');

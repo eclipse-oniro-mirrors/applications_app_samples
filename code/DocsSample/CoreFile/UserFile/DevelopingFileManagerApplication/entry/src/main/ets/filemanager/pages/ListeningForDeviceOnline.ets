@@ -97,16 +97,22 @@ struct Index {
       if (!hostContext) {
         return;
       }
-        let watchDir: string = hostContext.filesDir;
-        if (this.watcher != null) {
-          this.watcher.stop();
-          this.watcher = null;
-        }
-        this.watcher = fs.createWatcher(watchDir, WATCH_EVENTS, this.callBackDir1);
+      let watchDir: string = hostContext.filesDir;
+      if (this.watcher != null) {
+        this.watcher.stop();
+        this.watcher = null;
+      }
+      this.watcher = fs.createWatcher(watchDir, WATCH_EVENTS, this.callBackDir1);
       this.watcher.start();
-      let file: fs.File =
-        fs.openSync(watchDir + '/monitor_demo.txt', fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
-      fs.closeSync(file);
+      let file: fs.File | null = null;
+      try {
+        file = fs.openSync(watchDir + '/monitor_demo.txt',
+          fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+      } finally {
+        if (file != null) {
+          fs.closeSync(file);
+        }
+      }
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       Logger.error('registerObserver failed, errCode:' + error.code + ', errMessage:' + error.message);

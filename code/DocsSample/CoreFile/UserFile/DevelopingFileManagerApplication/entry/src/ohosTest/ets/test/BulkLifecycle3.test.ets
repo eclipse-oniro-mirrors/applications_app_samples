@@ -203,7 +203,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           expect(fs.listFileSync(dir).length).assertEqual(9);
           fs.unlinkSync(dir + '/f0.txt');
           fs.unlinkSync(dir + '/f1.txt');
@@ -244,7 +244,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           expect(fs.listFileSync(dir).length).assertEqual(10);
           fs.unlinkSync(dir + '/f0.txt');
@@ -287,7 +287,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           expect(fs.listFileSync(dir).length).assertEqual(11);
@@ -332,7 +332,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -379,7 +379,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -428,7 +428,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -479,7 +479,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -532,7 +532,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -731,7 +731,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           expect(fs.listFileSync(dir).length).assertEqual(9);
           fs.unlinkSync(dir + '/f0.txt');
           fs.unlinkSync(dir + '/f1.txt');
@@ -772,7 +772,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           expect(fs.listFileSync(dir).length).assertEqual(10);
           fs.unlinkSync(dir + '/f0.txt');
@@ -815,7 +815,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           expect(fs.listFileSync(dir).length).assertEqual(11);
@@ -860,7 +860,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -907,7 +907,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -956,7 +956,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1007,7 +1007,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1060,7 +1060,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1259,7 +1259,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           expect(fs.listFileSync(dir).length).assertEqual(9);
           fs.unlinkSync(dir + '/f0.txt');
           fs.unlinkSync(dir + '/f1.txt');
@@ -1300,7 +1300,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           expect(fs.listFileSync(dir).length).assertEqual(10);
           fs.unlinkSync(dir + '/f0.txt');
@@ -1343,7 +1343,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           expect(fs.listFileSync(dir).length).assertEqual(11);
@@ -1388,7 +1388,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1435,7 +1435,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1484,7 +1484,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1535,7 +1535,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');
@@ -1588,7 +1588,7 @@ export default function dfmaBulkLifecycle3Test(): void {
           writeFile(dir + '/f5.txt', 'v5');
           writeFile(dir + '/f6.txt', 'v6');
           writeFile(dir + '/f7.txt', 'v7');
-          writeFile(dir + '/f8.txt', 'v8');
+          writeFile(dir + '/f8.txt', 'content8');
           writeFile(dir + '/f9.txt', 'v9');
           writeFile(dir + '/f10.txt', 'v10');
           writeFile(dir + '/f11.txt', 'v11');

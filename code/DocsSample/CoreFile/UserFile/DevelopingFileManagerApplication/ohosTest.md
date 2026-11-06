@@ -20,7 +20,7 @@
 | `DfmaSecurityExtraTest` | 20 | 路径安全与越界访问 |
 | `DfmaMetadataPerfExtraTest` | 20 | mtime、目录元数据和批量生命周期 |
 | `DfmaRandomAccessTest` | 20 | 随机偏移读取 |
-| `DfmaSecurityPathExtra2Test` | 10 | 路径穿越/绝对路径/缺失路径 |
+| `DfmaSecurityPathExtra2Test` | 10 | 路径穿越/越界路径/缺失路径 |
 | `DfmaWatcherCreateExtraTest` | 10 | watcher create 事件补充 |
 | `DfmaBulkPerfExtraTest` | 10 | 批量文件生命周期 |
 | `DfmaFileIoVolume2Test` | 70 | 文件内容体量补充 |
