@@ -166,7 +166,7 @@ export default function perfTimerMatrixTest() {
       const text = PerfTimer.summary();
       expect(text.includes('first=')).assertTrue();
       expect(text.includes('second=')).assertTrue();
-      expect(text.includes('，')).assertTrue();
+      expect(text.includes(', ')).assertTrue();
     });
 
     /**
@@ -179,7 +179,7 @@ export default function perfTimerMatrixTest() {
      */
     it('summary_after_clear_is_placeholder', 0, () => {
       PerfTimer.clear();
-      expect(PerfTimer.summary()).assertEqual('（无计时记录）');
+      expect(PerfTimer.summary()).assertEqual('No timing records');
     });
 
     /**

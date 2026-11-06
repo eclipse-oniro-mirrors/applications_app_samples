@@ -136,7 +136,7 @@ export default function formatUtilTest() {
       expect(content.includes('DownloadFileButton')).assertTrue();
       expect(content.includes('2026-10-27 08:09:10')).assertTrue();
       expect(content.includes('DocumentViewPicker')).assertTrue();
-      expect(content.includes('应用沙箱')).assertTrue();
+      expect(content.includes('sandbox')).assertTrue();
       expect(content.split('\n').length).assertEqual(4);
     });
 

@@ -161,7 +161,7 @@ export default function fastBufferUtilTest() {
      * @tc.level Level 1
      */
     it('hexDump_empty', 0, () => {
-      expect(FastBufferUtil.hexDump(fastbuffer.alloc(0))).assertEqual('（空缓冲区）');
+      expect(FastBufferUtil.hexDump(fastbuffer.alloc(0))).assertEqual('Empty buffer');
     });
 
     /**

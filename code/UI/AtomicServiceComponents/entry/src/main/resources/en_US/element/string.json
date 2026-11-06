@@ -181,14 +181,6 @@
       "value": "Target apps"
     },
     {
-      "name": "jump_target_prefix",
-      "value": "Target: %s"
-    },
-    {
-      "name": "jump_target_none",
-      "value": "Target: not selected"
-    },
-    {
       "name": "jump_impl_desc",
       "value": "Jump uses UIAbilityContext.startAbility with an explicit Want. Three built-in targets are settings, this app's home page and an uninstalled app, covering the success, success and 16000001 error branches. Each attempt gets a new token; no result within 3 seconds is treated as timeout and late callbacks are dropped by token."
     },
@@ -715,6 +707,210 @@
     {
       "name": "prefs_reason_manual",
       "value": "manual refresh"
+    },
+    {
+      "name": "demo_navigation_title",
+      "value": "AtomicServiceNavigation"
+    },
+    {
+      "name": "demo_navigation_subtitle",
+      "value": "Page root container: title bar, content area, NavDestination routes"
+    },
+    {
+      "name": "demo_search_title",
+      "value": "AtomicServiceSearch"
+    },
+    {
+      "name": "demo_search_subtitle",
+      "value": "Search area + selection area + two function areas"
+    },
+    {
+      "name": "demo_tabs_title",
+      "value": "AtomicServiceTabs"
+    },
+    {
+      "name": "demo_tabs_subtitle",
+      "value": "Simplified Tabs with up to 5 tabs"
+    },
+    {
+      "name": "demo_web_title",
+      "value": "AtomicServiceWeb"
+    },
+    {
+      "name": "demo_web_subtitle",
+      "value": "Local H5 page + controller + message channel"
+    },
+    {
+      "name": "demo_download_title",
+      "value": "DownloadFileButton"
+    },
+    {
+      "name": "demo_download_subtitle",
+      "value": "Unified download button + document saving"
+    },
+    {
+      "name": "demo_halfscreen_title",
+      "value": "HalfScreenLaunchComponent"
+    },
+    {
+      "name": "demo_halfscreen_subtitle",
+      "value": "Half-screen embedded atomic service (placeholder appId stub)"
+    },
+    {
+      "name": "demo_jump_title",
+      "value": "Cross-app jump"
+    },
+    {
+      "name": "demo_jump_subtitle",
+      "value": "startAbility launches system settings; demonstrates success, rejection, timeout and error codes"
+    },
+    {
+      "name": "demo_sheet_title",
+      "value": "Half-modal sheet"
+    },
+    {
+      "name": "demo_sheet_subtitle",
+      "value": "bindSheet half-modal sheet: height presets, style switch and close callback"
+    },
+    {
+      "name": "demo_prefs_title",
+      "value": "Preferences storage"
+    },
+    {
+      "name": "demo_prefs_subtitle",
+      "value": "preferences read/write: write, read, delete and restore after restart"
+    },
+    {
+      "name": "demo_category_all",
+      "value": "All"
+    },
+    {
+      "name": "demo_category_container",
+      "value": "Container"
+    },
+    {
+      "name": "demo_category_interaction",
+      "value": "Interaction"
+    },
+    {
+      "name": "demo_category_capability",
+      "value": "Capability"
+    },
+    {
+      "name": "jump_target_settings_title",
+      "value": "System Settings"
+    },
+    {
+      "name": "jump_target_self_title",
+      "value": "This app (home)"
+    },
+    {
+      "name": "jump_target_missing_title",
+      "value": "Not installed app"
+    },
+    {
+      "name": "jump_target_settings_expectation",
+      "value": "Succeeds when the settings app is built into the image"
+    },
+    {
+      "name": "jump_target_self_expectation",
+      "value": "Reachable target used to verify the success callback"
+    },
+    {
+      "name": "jump_target_missing_expectation",
+      "value": "Used to observe error code 16000001 and its hint"
+    },
+    {
+      "name": "jump_state_idle",
+      "value": "Idle"
+    },
+    {
+      "name": "jump_state_waiting",
+      "value": "Waiting for target"
+    },
+    {
+      "name": "jump_state_success",
+      "value": "Launched"
+    },
+    {
+      "name": "jump_state_rejected",
+      "value": "Launch rejected"
+    },
+    {
+      "name": "jump_state_timeout",
+      "value": "Timed out"
+    },
+    {
+      "name": "jump_error_16000001",
+      "value": "Target ability not found. Ensure the app is installed and the name is correct."
+    },
+    {
+      "name": "jump_error_16000002",
+      "value": "Target ability type mismatch. Check the action and type."
+    },
+    {
+      "name": "jump_error_16000004",
+      "value": "Target ability is not visible. Check the visibility configuration."
+    },
+    {
+      "name": "jump_error_16000011",
+      "value": "Invalid Want parameters. Check bundleName and abilityName."
+    },
+    {
+      "name": "jump_error_16000019",
+      "value": "No matching ability. Ensure the target is installed."
+    },
+    {
+      "name": "jump_error_16000050",
+      "value": "Internal error. Try again later."
+    },
+    {
+      "name": "jump_error_201",
+      "value": "Missing permission required to launch another app."
+    },
+    {
+      "name": "jump_error_default",
+      "value": "Check the target bundleName and abilityName."
+    },
+    {
+      "name": "sheet_mode_popup",
+      "value": "POPUP popup style"
+    },
+    {
+      "name": "sheet_mode_center",
+      "value": "CENTER centered style"
+    },
+    {
+      "name": "sheet_height_low",
+      "value": "Low (< 300vp)"
+    },
+    {
+      "name": "sheet_height_mid",
+      "value": "Medium (300-600vp)"
+    },
+    {
+      "name": "sheet_height_high",
+      "value": "High (>= 600vp)"
+    },
+    {
+      "name": "sheet_height_none",
+      "value": "Not opened"
+    },
+    {
+      "name": "prefs_summary_saved",
+      "value": "Saved \"%s\", read %d times"
+    },
+    {
+      "name": "prefs_summary_empty",
+      "value": "No content yet, read %d times"
+    },
+    {
+      "name": "jump_target_prefix",
+      "value": "Target: %s"
+    },
+    {
+      "name": "jump_target_none",
+      "value": "Target: not selected"
     }
   ]
 }

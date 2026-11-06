@@ -18,7 +18,7 @@
     },
     {
       "name": "page_subtitle",
-      "value": "CanvasGradient ¡¤ CanvasPattern ¡¤ Matrix2D ¡¤ paths / text / clip & composite / strokes ¡¤ OffscreenCanvas ¡¤ ImageData"
+      "value": "CanvasGradient · CanvasPattern · Matrix2D · paths / text / clip & composite / strokes · OffscreenCanvas · ImageData"
     },
     {
       "name": "scene_title_idle",
@@ -79,6 +79,190 @@
     {
       "name": "api_prefix",
       "value": "API: %d"
+    },
+    {
+      "name": "scene_1_button",
+      "value": "Scene 1: Linear gradient and gradient stroke"
+    },
+    {
+      "name": "scene_1_title",
+      "value": "Scene 1: Linear gradient and gradient stroke"
+    },
+    {
+      "name": "scene_2_button",
+      "value": "Scene 1: Radial gradient glow"
+    },
+    {
+      "name": "scene_2_title",
+      "value": "Scene 1: Radial gradient glow"
+    },
+    {
+      "name": "scene_3_button",
+      "value": "Scene 2: Pattern fill repeat"
+    },
+    {
+      "name": "scene_3_title",
+      "value": "Scene 2: Pattern fill repeat"
+    },
+    {
+      "name": "scene_4_button",
+      "value": "Scene 2: repeat-x and no-repeat"
+    },
+    {
+      "name": "scene_4_title",
+      "value": "Scene 2: repeat-x and no-repeat"
+    },
+    {
+      "name": "scene_5_button",
+      "value": "Scene 3: Matrix2D translate"
+    },
+    {
+      "name": "scene_5_title",
+      "value": "Scene 3: Matrix2D translate"
+    },
+    {
+      "name": "scene_6_button",
+      "value": "Scene 3: Matrix2D scale"
+    },
+    {
+      "name": "scene_6_title",
+      "value": "Scene 3: Matrix2D scale"
+    },
+    {
+      "name": "scene_7_button",
+      "value": "Scene 3: Matrix2D rotate"
+    },
+    {
+      "name": "scene_7_title",
+      "value": "Scene 3: Matrix2D rotate"
+    },
+    {
+      "name": "scene_8_button",
+      "value": "Scene 3: Combined transforms and inverse matrix"
+    },
+    {
+      "name": "scene_8_title",
+      "value": "Scene 3: Combined transforms and inverse matrix"
+    },
+    {
+      "name": "scene_9_button",
+      "value": "Scene 4: Offscreen composite (three features chained)"
+    },
+    {
+      "name": "scene_9_title",
+      "value": "Scene 4: Offscreen composite (three features chained)"
+    },
+    {
+      "name": "scene_10_button",
+      "value": "Scene 3: Matrix2D skew (property style)"
+    },
+    {
+      "name": "scene_10_title",
+      "value": "Scene 3: Matrix2D skew (property style)"
+    },
+    {
+      "name": "scene_11_button",
+      "value": "Extension: ImageData pixel operations"
+    },
+    {
+      "name": "scene_11_title",
+      "value": "Extension: ImageData pixel operations"
+    },
+    {
+      "name": "scene_12_button",
+      "value": "Extension: GeometryUtil dot ring"
+    },
+    {
+      "name": "scene_12_title",
+      "value": "Extension: GeometryUtil dot ring"
+    },
+    {
+      "name": "scene_13_button",
+      "value": "Supplement: Pattern matrix transform (Pattern x Matrix2D)"
+    },
+    {
+      "name": "scene_13_title",
+      "value": "Supplement: CanvasPattern.setTransform pattern matrix"
+    },
+    {
+      "name": "scene_14_button",
+      "value": "Supplement: drawImage source rectangle crop"
+    },
+    {
+      "name": "scene_14_title",
+      "value": "Supplement: drawImage 9-arg source rectangle crop"
+    },
+    {
+      "name": "scene_15_button",
+      "value": "Supplement: Shadow + gradient"
+    },
+    {
+      "name": "scene_15_title",
+      "value": "Supplement: Shadow and gradient overlay"
+    },
+    {
+      "name": "scene_16_button",
+      "value": "Supplement: filter blur comparison"
+    },
+    {
+      "name": "scene_16_title",
+      "value": "Supplement: filter blur comparison"
+    },
+    {
+      "name": "scene_17_button",
+      "value": "Supplement: ColorMetrics gradient stops (API 12+)"
+    },
+    {
+      "name": "scene_17_title",
+      "value": "Supplement: addColorStop ColorMetrics overload"
+    },
+    {
+      "name": "scene_18_button",
+      "value": "Scene 1: Conic gradient color wheel (API 12+)"
+    },
+    {
+      "name": "scene_18_title",
+      "value": "Scene 1: createConicGradient conic color wheel"
+    },
+    {
+      "name": "scene_19_button",
+      "value": "Extension: Bezier and quadratic curve paths"
+    },
+    {
+      "name": "scene_19_title",
+      "value": "Extension: Path drawing (bezierCurveTo / quadraticCurveTo / arcTo)"
+    },
+    {
+      "name": "scene_20_button",
+      "value": "Extension: clip and composite modes"
+    },
+    {
+      "name": "scene_20_title",
+      "value": "Extension: clip + globalCompositeOperation composite modes"
+    },
+    {
+      "name": "scene_21_button",
+      "value": "Extension: Text drawing and measureText"
+    },
+    {
+      "name": "scene_21_title",
+      "value": "Extension: fillText / strokeText / measureText text drawing"
+    },
+    {
+      "name": "scene_22_button",
+      "value": "Extension: Dashed stroke and line caps/joins"
+    },
+    {
+      "name": "scene_22_title",
+      "value": "Extension: setLineDash / lineCap / lineJoin stroke styles"
+    },
+    {
+      "name": "scene_23_button",
+      "value": "Extension: ImageData readback invert"
+    },
+    {
+      "name": "scene_23_title",
+      "value": "Extension: getImageData readback and pixel inversion"
     }
   ]
 }

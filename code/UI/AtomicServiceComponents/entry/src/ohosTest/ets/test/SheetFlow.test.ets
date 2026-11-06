@@ -38,8 +38,8 @@ export default function sheetFlowTest() {
      * @tc.level Level 1
      */
     it('sheetMode_names', 0, () => {
-      expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER 居中样式');
-      expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP 弹窗样式');
+      expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER centered style');
+      expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP popup style');
     });
 
     /**
@@ -99,7 +99,7 @@ export default function sheetFlowTest() {
       expect(heightBucket(0)).assertEqual(0);
       expect(heightBucket(-1)).assertEqual(0);
       expect(heightBucket(-320)).assertEqual(0);
-      expect(heightBucketLabel(0)).assertEqual('尚未打开');
+      expect(heightBucketLabel(0)).assertEqual('Not opened');
     });
 
     /**
@@ -111,10 +111,10 @@ export default function sheetFlowTest() {
      * @tc.level Level 1
      */
     it('heightBucket_labels', 0, () => {
-      expect(heightBucketLabel(1)).assertEqual('低档（< 300vp）');
-      expect(heightBucketLabel(2)).assertEqual('中档（300–600vp）');
-      expect(heightBucketLabel(3)).assertEqual('高档（≥ 600vp）');
-      expect(heightBucketLabel(4)).assertEqual('尚未打开');
+      expect(heightBucketLabel(1)).assertEqual('Low (< 300vp)');
+      expect(heightBucketLabel(2)).assertEqual('Medium (300-600vp)');
+      expect(heightBucketLabel(3)).assertEqual('High (>= 600vp)');
+      expect(heightBucketLabel(4)).assertEqual('Not opened');
     });
 
     /**
@@ -127,11 +127,11 @@ export default function sheetFlowTest() {
      */
     it('sheetStatusText_combinations', 0, () => {
       expect(sheetStatusText(false, SheetStyle.CENTER, 0))
-        .assertEqual('已关闭 · CENTER 居中样式 · 尚未打开');
+        .assertEqual('Closed · CENTER centered style · Not opened');
       expect(sheetStatusText(true, SheetStyle.POPUP, 350))
-        .assertEqual('已打开 · POPUP 弹窗样式 · 中档（300–600vp）');
+        .assertEqual('Opened · POPUP popup style · Medium (300-600vp)');
       expect(sheetStatusText(true, SheetStyle.CENTER, 700))
-        .assertEqual('已打开 · CENTER 居中样式 · 高档（≥ 600vp）');
+        .assertEqual('Opened · CENTER centered style · High (>= 600vp)');
     });
 
     /**

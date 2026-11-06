@@ -229,7 +229,7 @@ export default function perfTimerMatrixTest() {
      */
     it('report_emptyExactFormat', 0, () => {
       const t: PerfTimer = new PerfTimer();
-      expect(t.report('空场景')).assertEqual('空场景：0 次采样，平均 0ms，最小 0ms，最大 0ms');
+      expect(t.report('空场景')).assertEqual('空场景: 0 samples, avg 0ms, min 0ms, max 0ms');
     });
 
     /**
@@ -281,8 +281,8 @@ export default function perfTimerMatrixTest() {
       const t: PerfTimer = new PerfTimer();
       t.start();
       t.stop();
-      expect(t.report('场景A').includes('1 次采样')).assertTrue();
-      expect(t.report('场景A').includes('场景A：')).assertTrue();
+      expect(t.report('场景A').includes('1 samples')).assertTrue();
+      expect(t.report('场景A').includes('场景A:')).assertTrue();
     });
 
     /**

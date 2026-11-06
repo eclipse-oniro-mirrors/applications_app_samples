@@ -270,8 +270,8 @@ export default function deviceProfileTest() {
       const text = profile.describe();
       expect(text.includes('default/sm')).assertTrue();
       expect(text.includes('360x780vp')).assertTrue();
-      expect(text.includes('1列')).assertTrue();
-      expect(text.includes('选择器:不可用')).assertTrue();
+      expect(text.includes('1 columns')).assertTrue();
+      expect(text.includes('picker:unavailable')).assertTrue();
     });
 
     /**

@@ -72,8 +72,8 @@ export class LayoutProfile {
 
   describe(): string {
     return `${this.form}/${this.breakpoint} ${this.widthVp.toFixed(0)}x${this.heightVp.toFixed(0)}vp ` +
-      `x${this.density} ${this.columns}列 分栏默认:${this.navSplitDefault ? '开' : '关'} ` +
-      `选择器:${this.pickerSupported ? '支持' : '不可用'}`;
+      `x${this.density} ${this.columns} columns splitDefault:${this.navSplitDefault ? 'on' : 'off'} ` +
+      `picker:${this.pickerSupported ? 'supported' : 'unavailable'}`;
   }
 }
 

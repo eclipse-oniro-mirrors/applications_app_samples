@@ -272,7 +272,7 @@ export class ChipConfigFactory {
   /** SegmentButtonV2 图文混合条目：Image 图标+文本、两个 Symbol 图标+文本 */
   static buildHybridSegmentItems(icon: ResourceStr, symbolA: Resource,
     symbolB: Resource, labels?: string[]): SegmentButtonV2ItemOptions[] {
-    const texts: string[] = labels !== undefined && labels.length >= 3 ? labels : ['图片', '收藏', '星标'];
+    const texts: string[] = labels !== undefined && labels.length >= 3 ? labels : ['Images', 'Favorite', 'Starred'];
     return [
       { icon: icon, text: texts[0] } as SegmentButtonV2ItemOptions,
       { symbol: symbolA, text: texts[1] } as SegmentButtonV2ItemOptions,
@@ -330,7 +330,7 @@ export class ChipConfigFactory {
     for (let i = 0; i < symbols.length; i++) {
       items.push({
         symbol: symbols[i],
-        accessibilityText: `第 ${i + 1} 个图标选项`
+        accessibilityText: `Symbol option ${i + 1}`
       } as SegmentButtonV2ItemOptions);
     }
     return items;

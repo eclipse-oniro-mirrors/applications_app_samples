@@ -189,9 +189,9 @@ export default function deviceProfileTest() {
       expect(text.includes('default/sm')).assertTrue();
       expect(text.includes('480x853vp')).assertTrue();
       expect(text.includes('x1.5')).assertTrue();
-      expect(text.includes('1列')).assertTrue();
-      expect(text.includes('分栏默认:关')).assertTrue();
-      expect(text.includes('选择器:不可用')).assertTrue();
+      expect(text.includes('1 columns')).assertTrue();
+      expect(text.includes('splitDefault:off')).assertTrue();
+      expect(text.includes('picker:unavailable')).assertTrue();
     });
 
     // DisplaySnapshot：非正数（0/负数/0 密度）整体回落 360x780x1；三个字段各自独立校验，合法字段保留

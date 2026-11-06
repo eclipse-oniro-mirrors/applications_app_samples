@@ -375,9 +375,9 @@ export default function chipConfigFactoryMatrixTest() {
     it('hybridSegmentTexts0023', 0, () => {
       const items: SegmentButtonV2ItemOptions[] = ChipConfigFactory.buildHybridSegmentItems(
         $r('app.media.startIcon'), $r('sys.symbol.heart'), $r('sys.symbol.star'));
-      expect(items[0].text).assertEqual('图片');
-      expect(items[1].text).assertEqual('收藏');
-      expect(items[2].text).assertEqual('星标');
+      expect(items[0].text).assertEqual('Images');
+      expect(items[1].text).assertEqual('Favorite');
+      expect(items[2].text).assertEqual('Starred');
     });
 
     /**
@@ -567,8 +567,8 @@ export default function chipConfigFactoryMatrixTest() {
       expect(items.length).assertEqual(3);
       expect(items[0].symbol !== undefined).assertTrue();
       expect(items[0].text === undefined).assertTrue();
-      expect(items[0].accessibilityText).assertEqual('第 1 个图标选项');
-      expect(items[2].accessibilityText).assertEqual('第 3 个图标选项');
+      expect(items[0].accessibilityText).assertEqual('Symbol option 1');
+      expect(items[2].accessibilityText).assertEqual('Symbol option 3');
     });
 
     /**
@@ -748,9 +748,9 @@ export default function chipConfigFactoryMatrixTest() {
       expect(items[0].icon !== undefined).assertTrue();
       expect(items[1].symbol !== undefined).assertTrue();
       expect(items[2].symbol !== undefined).assertTrue();
-      expect(items[0].text).assertEqual('图片');
-      expect(items[1].text).assertEqual('收藏');
-      expect(items[2].text).assertEqual('星标');
+      expect(items[0].text).assertEqual('Images');
+      expect(items[1].text).assertEqual('Favorite');
+      expect(items[2].text).assertEqual('Starred');
     });
 
     /**

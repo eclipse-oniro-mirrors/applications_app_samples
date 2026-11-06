@@ -18,7 +18,7 @@
     },
     {
       "name": "page_subtitle",
-      "value": "ComposeListItem/V2 ¡¤ ComposeTitleBar/V2"
+      "value": "ComposeListItem/V2 Â· ComposeTitleBar/V2"
     },
     {
       "name": "titlebar_avatar",
@@ -38,7 +38,7 @@
     },
     {
       "name": "toolbar_team_subtitle",
-      "value": "%d people ¡¤ %d online"
+      "value": "%d people Â· %d online"
     },
     {
       "name": "menu_search",
@@ -191,6 +191,38 @@
     {
       "name": "search_placeholder",
       "value": "Search name or department"
+    },
+    {
+      "name": "contact_1_name",
+      "value": "Alice"
+    },
+    {
+      "name": "contact_1_dept",
+      "value": "R&D"
+    },
+    {
+      "name": "contact_2_name",
+      "value": "Bob"
+    },
+    {
+      "name": "contact_2_dept",
+      "value": "Product"
+    },
+    {
+      "name": "contact_3_name",
+      "value": "Carol"
+    },
+    {
+      "name": "contact_3_dept",
+      "value": "R&D"
+    },
+    {
+      "name": "contact_4_name",
+      "value": "David"
+    },
+    {
+      "name": "contact_4_dept",
+      "value": "QA"
     }
   ]
 }

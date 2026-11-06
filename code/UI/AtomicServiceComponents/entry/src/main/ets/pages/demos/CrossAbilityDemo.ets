@@ -24,8 +24,11 @@ import {
   beginAttempt,
   describeJumpResult,
   isActiveAttempt,
-  jumpErrorHint,
-  jumpStateName
+  jumpErrorHintRes,
+  jumpStateName,
+  jumpStateNameRes,
+  jumpTargetExpectationRes,
+  jumpTargetTitleRes
 } from '../../model/AbilityJump';
 import { DEFAULT_LAYOUT_PROFILE, LayoutProfile } from '../../model/DeviceProfile';
 import { JUMP_TIMEOUT_MS } from '../../common/AppConstants';
@@ -89,9 +92,9 @@ export struct CrossAbilityDemo {
     };
     this.activeToken = beginAttempt(this.activeToken);
     const token = this.activeToken;
-    this.currentTarget = target.title;
+    this.currentTarget = this.getString(jumpTargetTitleRes(target.key));
     this.state = JumpState.WAITING;
-    this.message = this.getString($r('app.string.jump_msg_starting'), target.title);
+    this.message = this.getString($r('app.string.jump_msg_starting'), this.currentTarget);
     Logger.info('Jump', '跳转',
       `startAbility → ${target.describe()}（超时 ${JUMP_TIMEOUT_MS}ms）`);
     this.clearTimer();
@@ -102,7 +105,8 @@ export struct CrossAbilityDemo {
       }
       this.activeToken = beginAttempt(this.activeToken);
       this.state = JumpState.TIMEOUT;
-      this.message = this.getString($r('app.string.jump_msg_timeout'), target.title, JUMP_TIMEOUT_MS / 1000);
+      this.message = this.getString($r('app.string.jump_msg_timeout'),
+        this.getString(jumpTargetTitleRes(target.key)), JUMP_TIMEOUT_MS / 1000);
       Logger.warn('Jump', '超时', this.message);
     }, JUMP_TIMEOUT_MS);
     context.startAbility(want).then(() => {
@@ -111,7 +115,8 @@ export struct CrossAbilityDemo {
       }
       this.clearTimer();
       this.state = JumpState.SUCCESS;
-      this.message = this.getString($r('app.string.jump_msg_success'), target.title);
+      this.message = this.getString($r('app.string.jump_msg_success'),
+        this.getString(jumpTargetTitleRes(target.key)));
       Logger.info('Jump', '跳转', `${this.message}（${target.describe()}）`);
     }).catch((err: BusinessError) => {
       if (!isActiveAttempt(token, this.activeToken)) {
@@ -119,7 +124,7 @@ export struct CrossAbilityDemo {
       }
       this.clearTimer();
       this.state = JumpState.REJECTED;
-      this.message = `${describeJumpResult(err.code, err.message)}；${jumpErrorHint(err.code)}`;
+      this.message = `${describeJumpResult(err.code, err.message)}；${this.getString(jumpErrorHintRes(err.code))}`;
       Logger.warn('Jump', '跳转', `拉起 ${target.title} 失败：${this.message}`);
     });
   }
@@ -128,7 +133,7 @@ export struct CrossAbilityDemo {
   targetCard(target: JumpTarget) {
     Column({ space: AppSpacing.SM }) {
       Row({ space: AppSpacing.MD }) {
-        Text(target.title)
+        Text(jumpTargetTitleRes(target.key))
           .fontSize(AppText.TITLE)
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
@@ -148,7 +153,7 @@ export struct CrossAbilityDemo {
         .fontSize(AppText.SMALL)
         .fontColor(AppColors.PRIMARY)
         .width('100%')
-      Text(target.expectation)
+      Text(jumpTargetExpectationRes(target.key))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_SECONDARY)
         .width('100%')
@@ -187,7 +192,7 @@ export struct CrossAbilityDemo {
                 .fontSize(AppText.TITLE)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              Text(jumpStateName(this.state))
+              Text(jumpStateNameRes(this.state))
                 .fontSize(AppText.TITLE)
                 .fontColor(this.state === JumpState.REJECTED || this.state === JumpState.TIMEOUT ?
                   AppColors.DANGER : AppColors.PRIMARY)

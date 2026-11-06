@@ -77,11 +77,11 @@ export default function abilityJumpTest() {
      * @tc.level Level 1
      */
     it('jumpState_names', 0, () => {
-      expect(jumpStateName(JumpState.IDLE)).assertEqual('待发起');
-      expect(jumpStateName(JumpState.WAITING)).assertEqual('等待目标响应');
-      expect(jumpStateName(JumpState.SUCCESS)).assertEqual('已拉起');
-      expect(jumpStateName(JumpState.REJECTED)).assertEqual('拉起被拒绝');
-      expect(jumpStateName(JumpState.TIMEOUT)).assertEqual('等待超时');
+      expect(jumpStateName(JumpState.IDLE)).assertEqual('Idle');
+      expect(jumpStateName(JumpState.WAITING)).assertEqual('Waiting for target');
+      expect(jumpStateName(JumpState.SUCCESS)).assertEqual('Launched');
+      expect(jumpStateName(JumpState.REJECTED)).assertEqual('Launch rejected');
+      expect(jumpStateName(JumpState.TIMEOUT)).assertEqual('Timed out');
     });
 
     /**
@@ -93,8 +93,8 @@ export default function abilityJumpTest() {
      * @tc.level Level 1
      */
     it('jumpErrorHint_missingAbility', 0, () => {
-      expect(jumpErrorHint(16000001).includes('不存在')).assertTrue();
-      expect(jumpErrorHint(16000001).includes('安装')).assertTrue();
+      expect(jumpErrorHint(16000001).includes('not found')).assertTrue();
+      expect(jumpErrorHint(16000001).includes('installed')).assertTrue();
     });
 
     /**
@@ -106,11 +106,11 @@ export default function abilityJumpTest() {
      * @tc.level Level 1
      */
     it('jumpErrorHint_otherCodes', 0, () => {
-      expect(jumpErrorHint(16000004).includes('不可见')).assertTrue();
-      expect(jumpErrorHint(16000011).includes('参数无效')).assertTrue();
-      expect(jumpErrorHint(16000019).includes('没有匹配')).assertTrue();
-      expect(jumpErrorHint(16000050).includes('稍后重试')).assertTrue();
-      expect(jumpErrorHint(201).includes('权限')).assertTrue();
+      expect(jumpErrorHint(16000004).includes('not visible')).assertTrue();
+      expect(jumpErrorHint(16000011).includes('Invalid')).assertTrue();
+      expect(jumpErrorHint(16000019).includes('No matching')).assertTrue();
+      expect(jumpErrorHint(16000050).includes('Try again later')).assertTrue();
+      expect(jumpErrorHint(201).includes('permission')).assertTrue();
       expect(jumpErrorHint(999).includes('bundleName')).assertTrue();
     });
 
@@ -125,7 +125,7 @@ export default function abilityJumpTest() {
     it('describeJumpResult_formats', 0, () => {
       expect(describeJumpResult(16000050, 'internal error')).assertEqual('[16000050] internal error');
       expect(describeJumpResult(0, 'timed out')).assertEqual('timed out');
-      expect(describeJumpResult(0, '')).assertEqual('未知错误');
+      expect(describeJumpResult(0, '')).assertEqual('Unknown error');
       expect(describeJumpResult(-1, 'weird')).assertEqual('weird');
     });
 

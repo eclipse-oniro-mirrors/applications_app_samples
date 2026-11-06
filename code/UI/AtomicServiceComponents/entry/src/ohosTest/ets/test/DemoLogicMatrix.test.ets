@@ -29,7 +29,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_web', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'web', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
     });
 
     /**
@@ -41,7 +41,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_webUppercase', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'WEB', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'WEB', 'All').length).assertEqual(1);
     });
 
     /**
@@ -53,7 +53,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_trimmedKeyword', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '  web  ', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '  web  ', 'All').length).assertEqual(1);
     });
 
     /**
@@ -65,7 +65,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_tabsSubtitle', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '页签', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
     });
 
     /**
@@ -77,7 +77,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_navDestination', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'NavDestination', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'NavDestination', 'All').length).assertEqual(1);
     });
 
     /**
@@ -89,7 +89,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_emptyKeywordContainer', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '容器').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '', 'Container').length).assertEqual(1);
     });
 
     /**
@@ -101,7 +101,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_emptyKeywordInteraction', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
     });
 
     /**
@@ -113,7 +113,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_emptyKeywordCapability', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(5);
+      expect(filterDemos(DEMO_ITEMS, '', 'Capability').length).assertEqual(5);
     });
 
     /**
@@ -125,7 +125,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_allCategory', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '全部').length).assertEqual(9);
+      expect(filterDemos(DEMO_ITEMS, '', 'All').length).assertEqual(9);
     });
 
     /**
@@ -137,7 +137,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_unknownCategory', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '未知分类').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, '', 'Unknown').length).assertEqual(0);
     });
 
     /**
@@ -149,8 +149,8 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_combinedMatch', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'search', '交互').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, 'download', '能力').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'search', 'Interaction').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'download', 'Capability').length).assertEqual(1);
     });
 
     /**
@@ -162,7 +162,7 @@ export default function demoLogicMatrixTest() {
      * @tc.level Level 1
      */
     it('filter_combinedMismatch', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'download', '容器').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, 'download', 'Container').length).assertEqual(0);
     });
 
     /**
@@ -293,9 +293,9 @@ export default function demoLogicMatrixTest() {
       expect(DEMO_ITEMS[3].title).assertEqual('AtomicServiceWeb');
       expect(DEMO_ITEMS[4].title).assertEqual('DownloadFileButton');
       expect(DEMO_ITEMS[5].title).assertEqual('HalfScreenLaunchComponent');
-      expect(DEMO_ITEMS[6].title).assertEqual('应用间跳转');
-      expect(DEMO_ITEMS[7].title).assertEqual('半模态面板');
-      expect(DEMO_ITEMS[8].title).assertEqual('首选项存储');
+      expect(DEMO_ITEMS[6].title).assertEqual('Cross-app jump');
+      expect(DEMO_ITEMS[7].title).assertEqual('Half-modal sheet');
+      expect(DEMO_ITEMS[8].title).assertEqual('Preferences storage');
     });
 
     /**
@@ -313,7 +313,7 @@ export default function demoLogicMatrixTest() {
         expect(keys.indexOf(key)).assertEqual(keys.lastIndexOf(key));
       }
       expect(CATEGORIES.length).assertEqual(4);
-      expect(CATEGORIES[0]).assertEqual('全部');
+      expect(CATEGORIES[0]).assertEqual('All');
     });
   });
 }

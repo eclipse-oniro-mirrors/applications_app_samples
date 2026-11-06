@@ -191,6 +191,38 @@
     {
       "name": "search_placeholder",
       "value": "搜索姓名或部门"
+    },
+    {
+      "name": "contact_1_name",
+      "value": "张三"
+    },
+    {
+      "name": "contact_1_dept",
+      "value": "研发部"
+    },
+    {
+      "name": "contact_2_name",
+      "value": "李四"
+    },
+    {
+      "name": "contact_2_dept",
+      "value": "产品部"
+    },
+    {
+      "name": "contact_3_name",
+      "value": "王五"
+    },
+    {
+      "name": "contact_3_dept",
+      "value": "研发部"
+    },
+    {
+      "name": "contact_4_name",
+      "value": "赵六"
+    },
+    {
+      "name": "contact_4_dept",
+      "value": "测试部"
     }
   ]
 }

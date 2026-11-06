@@ -82,8 +82,8 @@ export default function prefsStoreTest() {
 
     // 摘要文案：有内容与无内容两种形态
     it('buildPrefsSummary_variants', 0, () => {
-      expect(buildPrefsSummary('原子化服务', 3)).assertEqual('已保存「原子化服务」，读取 3 次');
-      expect(buildPrefsSummary('', 0)).assertEqual('尚未写入内容，读取 0 次');
+      expect(buildPrefsSummary('Atomic service', 3)).assertEqual('Saved "Atomic service", read 3 times');
+      expect(buildPrefsSummary('', 0)).assertEqual('No content yet, read 0 times');
     });
   });
 }

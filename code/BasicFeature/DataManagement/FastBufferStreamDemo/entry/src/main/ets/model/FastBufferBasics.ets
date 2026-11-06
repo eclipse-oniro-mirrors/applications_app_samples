@@ -152,9 +152,9 @@ export class FastBufferBasics {
       if (sumFb === sumBf && fbJoined.length === bfJoined.length) {
         LogUtil.info(TAG, '2.3 正确性校验：两套结果校验和与长度一致，数据正确');
         const rwDiff: number = bfRwMs - fbRwMs;
-        const rwWinner: string = rwDiff > 0 ? 'FastBuffer 更快' : (rwDiff < 0 ? 'Buffer 更快' : '两者持平');
+        const rwWinner: string = rwDiff > 0 ? 'FastBuffer faster' : (rwDiff < 0 ? 'Buffer faster' : 'Tie');
         const concatDiff: number = bfConcatMs - fbConcatMs;
-        const concatWinner: string = concatDiff > 0 ? 'FastBuffer 更快' : (concatDiff < 0 ? 'Buffer 更快' : '两者持平');
+        const concatWinner: string = concatDiff > 0 ? 'FastBuffer faster' : (concatDiff < 0 ? 'Buffer faster' : 'Tie');
         LogUtil.info(TAG, `2.3 结论：写读 ${rwWinner}（差 ${Math.abs(rwDiff)}ms），拼接 ${concatWinner}（差 ${Math.abs(concatDiff)}ms）`);
         LogUtil.info(TAG, `2.3 PerfTimer 汇总：${PerfTimer.summary()}`);
       } else {

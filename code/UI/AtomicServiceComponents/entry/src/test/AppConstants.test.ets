@@ -86,10 +86,10 @@ export default function appConstantsTest() {
       expect(StorageKeys.LAYOUT_PROFILE).assertEqual('layoutProfile');
     });
 
-    // hilog 参数：tag 供 `hdc hilog | grep` 过滤、domain 固定为 0，改名会破坏设备侧排查流程
+    // hilog 参数：tag 供 `hdc hilog | grep` 过滤、domain 固定为 0xF811，改名会破坏设备侧排查流程
     it('hilogTag_stable', 0, () => {
-      expect(HILOG_TAG).assertEqual('AtomicServiceComponents');
-      expect(HILOG_DOMAIN).assertEqual(0);
+      expect(HILOG_TAG).assertEqual('[Sample_AtomicServiceComponents]');
+      expect(HILOG_DOMAIN).assertEqual(0xF811);
     });
 
     // 半屏 appId：18 位纯数字（华为 atoms 上架号），逐字符校验防止误入空格或字母

@@ -181,14 +181,6 @@
       "value": "目标应用"
     },
     {
-      "name": "jump_target_prefix",
-      "value": "目标：%s"
-    },
-    {
-      "name": "jump_target_none",
-      "value": "目标：未选择"
-    },
-    {
       "name": "jump_impl_desc",
       "value": "跳转使用 UIAbilityContext.startAbility 与显式 Want。示例内置三个目标：系统设置、本应用首页和未安装应用，分别对应成功、成功与 16000001 失败分支。每次发起都会生成新的 token，3 秒内没有结果则判定超时，迟到的回调会被 token 丢弃。"
     },
@@ -715,6 +707,210 @@
     {
       "name": "prefs_reason_manual",
       "value": "手动刷新"
+    },
+    {
+      "name": "demo_navigation_title",
+      "value": "AtomicServiceNavigation"
+    },
+    {
+      "name": "demo_navigation_subtitle",
+      "value": "页面根容器：标题栏、内容区、NavDestination 路由"
+    },
+    {
+      "name": "demo_search_title",
+      "value": "AtomicServiceSearch"
+    },
+    {
+      "name": "demo_search_subtitle",
+      "value": "搜索区 + 选择区 + 两个功能区"
+    },
+    {
+      "name": "demo_tabs_title",
+      "value": "AtomicServiceTabs"
+    },
+    {
+      "name": "demo_tabs_subtitle",
+      "value": "最多 5 个页签的简化 Tabs"
+    },
+    {
+      "name": "demo_web_title",
+      "value": "AtomicServiceWeb"
+    },
+    {
+      "name": "demo_web_subtitle",
+      "value": "本地 H5 页面 + 控制器 + 消息通信"
+    },
+    {
+      "name": "demo_download_title",
+      "value": "DownloadFileButton"
+    },
+    {
+      "name": "demo_download_subtitle",
+      "value": "统一样式的下载按钮 + 文档保存"
+    },
+    {
+      "name": "demo_halfscreen_title",
+      "value": "HalfScreenLaunchComponent"
+    },
+    {
+      "name": "demo_halfscreen_subtitle",
+      "value": "半屏嵌入拉起原子化服务（占位 appId 打桩）"
+    },
+    {
+      "name": "demo_jump_title",
+      "value": "应用间跳转"
+    },
+    {
+      "name": "demo_jump_subtitle",
+      "value": "startAbility 拉起系统设置，演示成功、拒绝、超时与错误码"
+    },
+    {
+      "name": "demo_sheet_title",
+      "value": "半模态面板"
+    },
+    {
+      "name": "demo_sheet_subtitle",
+      "value": "bindSheet 半模态面板：高度档位、样式切换与关闭回调"
+    },
+    {
+      "name": "demo_prefs_title",
+      "value": "首选项存储"
+    },
+    {
+      "name": "demo_prefs_subtitle",
+      "value": "preferences 落盘读写：写入、读取、删除与重启恢复"
+    },
+    {
+      "name": "demo_category_all",
+      "value": "全部"
+    },
+    {
+      "name": "demo_category_container",
+      "value": "容器"
+    },
+    {
+      "name": "demo_category_interaction",
+      "value": "交互"
+    },
+    {
+      "name": "demo_category_capability",
+      "value": "能力"
+    },
+    {
+      "name": "jump_target_settings_title",
+      "value": "系统设置"
+    },
+    {
+      "name": "jump_target_self_title",
+      "value": "本应用首页"
+    },
+    {
+      "name": "jump_target_missing_title",
+      "value": "未安装的应用"
+    },
+    {
+      "name": "jump_target_settings_expectation",
+      "value": "镜像内置设置应用时走成功分支"
+    },
+    {
+      "name": "jump_target_self_expectation",
+      "value": "确定可达的目标，用于验证成功回调"
+    },
+    {
+      "name": "jump_target_missing_expectation",
+      "value": "用于观察 16000001 错误码与提示"
+    },
+    {
+      "name": "jump_state_idle",
+      "value": "待发起"
+    },
+    {
+      "name": "jump_state_waiting",
+      "value": "等待目标响应"
+    },
+    {
+      "name": "jump_state_success",
+      "value": "已拉起"
+    },
+    {
+      "name": "jump_state_rejected",
+      "value": "拉起被拒绝"
+    },
+    {
+      "name": "jump_state_timeout",
+      "value": "等待超时"
+    },
+    {
+      "name": "jump_error_16000001",
+      "value": "目标 Ability 不存在，请确认应用已安装且名称正确"
+    },
+    {
+      "name": "jump_error_16000002",
+      "value": "目标 Ability 类型不匹配，请检查 action 与类型"
+    },
+    {
+      "name": "jump_error_16000004",
+      "value": "目标 Ability 不可见，请检查可见性配置"
+    },
+    {
+      "name": "jump_error_16000011",
+      "value": "Want 参数无效，请检查 bundleName 与 abilityName"
+    },
+    {
+      "name": "jump_error_16000019",
+      "value": "没有匹配的 Ability，请确认目标已安装"
+    },
+    {
+      "name": "jump_error_16000050",
+      "value": "内部错误，可稍后重试"
+    },
+    {
+      "name": "jump_error_201",
+      "value": "缺少跨应用拉起所需权限"
+    },
+    {
+      "name": "jump_error_default",
+      "value": "请检查目标 bundleName 与 abilityName"
+    },
+    {
+      "name": "sheet_mode_popup",
+      "value": "POPUP 弹窗样式"
+    },
+    {
+      "name": "sheet_mode_center",
+      "value": "CENTER 居中样式"
+    },
+    {
+      "name": "sheet_height_low",
+      "value": "低档（< 300vp）"
+    },
+    {
+      "name": "sheet_height_mid",
+      "value": "中档（300–600vp）"
+    },
+    {
+      "name": "sheet_height_high",
+      "value": "高档（≥ 600vp）"
+    },
+    {
+      "name": "sheet_height_none",
+      "value": "尚未打开"
+    },
+    {
+      "name": "prefs_summary_saved",
+      "value": "已保存「%s」，读取 %d 次"
+    },
+    {
+      "name": "prefs_summary_empty",
+      "value": "尚未写入内容，读取 %d 次"
+    },
+    {
+      "name": "jump_target_prefix",
+      "value": "目标：%s"
+    },
+    {
+      "name": "jump_target_none",
+      "value": "目标：未选择"
     }
   ]
 }

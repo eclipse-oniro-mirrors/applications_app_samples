@@ -300,7 +300,7 @@ export default function dialogModelsMatrixTest() {
         TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
       expect(cfg.title).assertEqual('版本更新提示');
       expect(cfg.subtitle).assertEqual('立即体验新功能');
-      expect(cfg.title.length).assertEqual(6);
+      expect((cfg.title as string).length).assertEqual(6);
     });
 
     /**
@@ -316,7 +316,7 @@ export default function dialogModelsMatrixTest() {
         TitlePosition.BOTTOM, IconStyle.LIGHT, BottomOffset.OFFSET_FOR_NONE);
       expect(cfg.title).assertEqual('');
       expect(cfg.subtitle).assertEqual('');
-      expect(cfg.subtitle.length).assertEqual(0);
+      expect((cfg.subtitle as string).length).assertEqual(0);
     });
 
     /**
@@ -448,7 +448,7 @@ export default function dialogModelsMatrixTest() {
       const p = new LoadingParams();
       expect(p.sceneId).assertEqual(5);
       expect(p.content).assertEqual('');
-      expect(p.content.length).assertEqual(0);
+      expect((p.content as string).length).assertEqual(0);
     });
 
     /**

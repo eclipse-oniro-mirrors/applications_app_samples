@@ -611,9 +611,9 @@ export default function deviceProfileMatrixTest() {
       const text = buildLayoutProfile(DeviceForm.DEFAULT, new DisplaySnapshot(360, 780, 1)).describe();
       expect(text.includes('default/sm')).assertTrue();
       expect(text.includes('360x780vp')).assertTrue();
-      expect(text.includes('1列')).assertTrue();
-      expect(text.includes('分栏默认:关')).assertTrue();
-      expect(text.includes('选择器:不可用')).assertTrue();
+      expect(text.includes('1 columns')).assertTrue();
+      expect(text.includes('splitDefault:off')).assertTrue();
+      expect(text.includes('picker:unavailable')).assertTrue();
     });
 
     /**
@@ -628,9 +628,9 @@ export default function deviceProfileMatrixTest() {
       const text = buildLayoutProfile(DeviceForm.TWO_IN_ONE, new DisplaySnapshot(1200, 900, 1)).describe();
       expect(text.includes('2in1/lg')).assertTrue();
       expect(text.includes('1200x900vp')).assertTrue();
-      expect(text.includes('3列')).assertTrue();
-      expect(text.includes('分栏默认:开')).assertTrue();
-      expect(text.includes('选择器:支持')).assertTrue();
+      expect(text.includes('3 columns')).assertTrue();
+      expect(text.includes('splitDefault:on')).assertTrue();
+      expect(text.includes('picker:supported')).assertTrue();
     });
 
     /**

@@ -45,7 +45,7 @@ export function readText(value: number | string | boolean): string {
 
 export function buildPrefsSummary(text: string, count: number): string {
   if (text.length > 0) {
-    return `已保存「${text}」，读取 ${count} 次`;
+    return `Saved "${text}", read ${count} times`;
   }
-  return `尚未写入内容，读取 ${count} 次`;
+  return `No content yet, read ${count} times`;
 }

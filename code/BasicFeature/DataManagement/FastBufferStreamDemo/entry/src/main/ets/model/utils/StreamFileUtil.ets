@@ -61,7 +61,7 @@ export class FileWritable extends stream.Writable {
       callback();
     } catch (err) {
       // 写入失败必须把错误回传给框架，否则流会永久等待回调而挂起
-      callback(err instanceof Error ? err : new Error('写入文件失败'));
+      callback(err instanceof Error ? err : new Error('Failed to write file'));
     }
   }
 }
@@ -105,7 +105,7 @@ export class FileReadable extends stream.Readable {
     try {
       bytes = fs.readSync(this.fd, this.readBuf, { offset: this.offset, length: len });
     } catch (err) {
-      const e: Error = err instanceof Error ? err : new Error('读取文件失败');
+      const e: Error = err instanceof Error ? err : new Error('Failed to read file');
       LogUtil.error('StreamFileUtil', `doRead 读取失败：${e.message}`);
       this.readError = e;
       this.eofSent = true;
@@ -115,7 +115,7 @@ export class FileReadable extends stream.Readable {
     if (bytes <= 0) {
       // 异常情况下 readSync 可能返回 0；若不推进 offset 会陷入 doRead 死循环
       LogUtil.warn('StreamFileUtil', `doRead 读取 0 字节（offset=${this.offset}），按 EOF 处理`);
-      this.readError = new Error(`读取到 0 字节（offset=${this.offset}）`);
+      this.readError = new Error(`Read 0 bytes (offset=${this.offset})`);
       this.pushEof();
       return;
     }
@@ -133,7 +133,7 @@ export class FileReadable extends stream.Readable {
         this.push(decoded);
       }
     } catch (err) {
-      const e: Error = err instanceof Error ? err : new Error('推送数据失败');
+      const e: Error = err instanceof Error ? err : new Error('Failed to push data');
       LogUtil.error('StreamFileUtil', `doRead 推送失败：${e.message}`);
       this.readError = e;
       this.eofSent = true;

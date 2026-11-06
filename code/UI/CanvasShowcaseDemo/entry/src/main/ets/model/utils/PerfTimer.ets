@@ -91,7 +91,7 @@ export class PerfTimer {
 
   /** 统计报告（输出到日志并返回） */
   report(name: string): string {
-    const line: string = `${name}：${this.count()} 次采样，平均 ${this.avg()}ms，最小 ${this.min()}ms，最大 ${this.max()}ms`;
+    const line: string = `${name}: ${this.count()} samples, avg ${this.avg()}ms, min ${this.min()}ms, max ${this.max()}ms`;
     LogUtil.info(TAG, line);
     return line;
   }

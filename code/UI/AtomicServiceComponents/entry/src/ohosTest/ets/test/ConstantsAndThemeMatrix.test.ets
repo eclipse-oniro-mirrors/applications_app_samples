@@ -246,8 +246,8 @@ export default function constantsAndThemeMatrixTest() {
     it('runtime_constants', 0, () => {
       expect(TAB_COUNT).assertEqual(3);
       expect(PICKER_TIMEOUT_MS).assertEqual(3000);
-      expect(HILOG_DOMAIN).assertEqual(0);
-      expect(HILOG_TAG).assertEqual('AtomicServiceComponents');
+      expect(HILOG_DOMAIN).assertEqual(0xF811);
+      expect(HILOG_TAG).assertEqual('[Sample_AtomicServiceComponents]');
     });
 
     /**

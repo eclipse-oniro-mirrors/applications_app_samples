@@ -80,9 +80,9 @@ export class DeviceUtil {
 
   /** 输出设备档案日志（Index 启动时调用，便于在 DAYU200 上确认运行环境） */
   static logDeviceProfile(): void {
-    LogUtil.info('Device', `设备类型=${DeviceUtil.getDeviceType()}` +
-      `，产品型号=${DeviceUtil.getProductModel()}` +
-      `，系统版本=${DeviceUtil.getOsFullName()}` +
-      `，SDK API=${DeviceUtil.getSdkApiVersion()}`);
+    LogUtil.info('Device', `deviceType=${DeviceUtil.getDeviceType()}` +
+      `, productModel=${DeviceUtil.getProductModel()}` +
+      `, osVersion=${DeviceUtil.getOsFullName()}` +
+      `, SDK API=${DeviceUtil.getSdkApiVersion()}`);
   }
 }

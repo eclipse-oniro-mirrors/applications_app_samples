@@ -61,7 +61,8 @@ export class DownloadPicker {
     this.timer = setTimeout(() => {
       if (shouldFallbackOnTimeout(this.settled, token, this.activeToken)) {
         this.settled = true;
-        this.finish(new PickerOutcome(false, '', 0, `文档选择器 ${PICKER_TIMEOUT_MS / 1000} 秒无响应`, true));
+        this.finish(new PickerOutcome(false, '', 0,
+          `Document picker got no response within ${PICKER_TIMEOUT_MS / 1000} seconds`, true));
       }
     }, PICKER_TIMEOUT_MS);
 
@@ -80,10 +81,10 @@ export class DownloadPicker {
         }
         const path = result.length > 0 ? result[0] : '';
         if (path.length === 0) {
-          this.finish(new PickerOutcome(false, '', 0, '选择器未返回路径', false));
+          this.finish(new PickerOutcome(false, '', 0, 'Picker did not return a path', false));
           return;
         }
-        this.finish(new PickerOutcome(true, path, 0, '已获取保存路径', false));
+        this.finish(new PickerOutcome(true, path, 0, 'Save path obtained', false));
       });
     } catch (err) {
       const error = err as BusinessError;

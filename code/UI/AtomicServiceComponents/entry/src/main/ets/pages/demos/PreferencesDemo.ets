@@ -262,7 +262,9 @@ export struct PreferencesDemo {
             }
             .width('100%')
 
-            Text(buildPrefsSummary(this.savedText, this.readTimes))
+            Text(this.savedText.length > 0
+              ? this.getString($r('app.string.prefs_summary_saved'), this.savedText, this.readTimes)
+              : this.getString($r('app.string.prefs_summary_empty'), this.readTimes))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')

@@ -20,7 +20,9 @@ import {
   canOpenSheet,
   heightBucket,
   heightBucketLabel,
+  heightBucketRes,
   sheetModeName,
+  sheetModeRes,
   sheetStatusText,
   toggleSheetStyle
 } from '../../model/SheetFlow';
@@ -48,6 +50,15 @@ export struct SheetDemo {
     } catch (err) {
       return '';
     }
+  }
+
+  /** 半模态状态文案：由资源拼接，避免中文字面量进入页面 */
+  private sheetStatusResolved(): string {
+    const state = this.getString(this.showSheet ?
+      $r('app.string.sheet_state_open') : $r('app.string.sheet_state_closed'));
+    const mode = this.getString(sheetModeRes(this.style));
+    const bucket = this.getString(heightBucketRes(heightBucket(this.lastHeight)));
+    return `${state} · ${mode} · ${bucket}`;
   }
 
   aboutToAppear(): void {
@@ -91,12 +102,12 @@ export struct SheetDemo {
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_SECONDARY)
         .width('100%')
-      Text(this.getString($r('app.string.sheet_current_style'), sheetModeName(this.style)))
+        Text(this.getString($r('app.string.sheet_current_style'), this.getString(sheetModeRes(this.style))))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.PRIMARY)
         .width('100%')
       Text(this.getString($r('app.string.sheet_realtime_height'), this.lastHeight.toFixed(0),
-        heightBucketLabel(heightBucket(this.lastHeight))))
+        this.getString(heightBucketRes(heightBucket(this.lastHeight)))))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_TERTIARY)
         .width('100%')
@@ -142,7 +153,7 @@ export struct SheetDemo {
               })
 
             Row({ space: AppSpacing.MD }) {
-              Button(this.getString($r('app.string.sheet_btn_style'), sheetModeName(this.style)))
+              Button(this.getString($r('app.string.sheet_btn_style'), this.getString(sheetModeRes(this.style))))
                 .fontSize(AppText.BODY)
                 .height(AppSize.BUTTON)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -182,7 +193,7 @@ export struct SheetDemo {
             }
             .width('100%')
 
-            Text(sheetStatusText(this.showSheet, this.style, this.lastHeight))
+            Text(this.sheetStatusResolved())
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_TERTIARY)
               .width('100%')

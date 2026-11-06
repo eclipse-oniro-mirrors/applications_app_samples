@@ -611,7 +611,7 @@ export default function formatUtilMatrixTest() {
     it('downloadContent_lineCount', 0, () => {
       const lines = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5)).split('\n');
       expect(lines.length).assertEqual(4);
-      expect(lines[0]).assertEqual('AtomicServiceComponents 示例下载文件');
+      expect(lines[0]).assertEqual('AtomicServiceComponents sample download file');
     });
 
     /**
@@ -624,7 +624,7 @@ export default function formatUtilMatrixTest() {
      */
     it('downloadContent_timestamp', 0, () => {
       const content = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5));
-      expect(content.includes('生成时间：2026-01-02 03:04:05')).assertTrue();
+      expect(content.includes('Generated at: 2026-01-02 03:04:05')).assertTrue();
     });
 
     /**
@@ -638,7 +638,7 @@ export default function formatUtilMatrixTest() {
     it('downloadContent_notes', 0, () => {
       const content = buildDownloadContent(new Date(2026, 0, 2, 3, 4, 5));
       expect(content.includes('DownloadFileButton')).assertTrue();
-      expect(content.includes('沙箱')).assertTrue();
+      expect(content.includes('sandbox')).assertTrue();
     });
   });
 }

@@ -62,20 +62,20 @@ export default function abilityJumpTest() {
 
     // 状态文案：五种状态各有中文描述
     it('jumpStateName_all', 0, () => {
-      expect(jumpStateName(JumpState.IDLE)).assertEqual('待发起');
-      expect(jumpStateName(JumpState.WAITING)).assertEqual('等待目标响应');
-      expect(jumpStateName(JumpState.SUCCESS)).assertEqual('已拉起');
-      expect(jumpStateName(JumpState.REJECTED)).assertEqual('拉起被拒绝');
-      expect(jumpStateName(JumpState.TIMEOUT)).assertEqual('等待超时');
+      expect(jumpStateName(JumpState.IDLE)).assertEqual('Idle');
+      expect(jumpStateName(JumpState.WAITING)).assertEqual('Waiting for target');
+      expect(jumpStateName(JumpState.SUCCESS)).assertEqual('Launched');
+      expect(jumpStateName(JumpState.REJECTED)).assertEqual('Launch rejected');
+      expect(jumpStateName(JumpState.TIMEOUT)).assertEqual('Timed out');
     });
 
     // 错误码提示：已覆盖 16000001 / 16000004 / 16000019 / 201，未知码给出兜底
     it('jumpErrorHint_knownCodes', 0, () => {
-      expect(jumpErrorHint(16000001).includes('不存在')).assertTrue();
-      expect(jumpErrorHint(16000004).includes('不可见')).assertTrue();
-      expect(jumpErrorHint(16000019).includes('没有匹配')).assertTrue();
-      expect(jumpErrorHint(201).includes('权限')).assertTrue();
-      expect(jumpErrorHint(16000050).includes('稍后重试')).assertTrue();
+      expect(jumpErrorHint(16000001).includes('not found')).assertTrue();
+      expect(jumpErrorHint(16000004).includes('not visible')).assertTrue();
+      expect(jumpErrorHint(16000019).includes('No matching')).assertTrue();
+      expect(jumpErrorHint(201).includes('permission')).assertTrue();
+      expect(jumpErrorHint(16000050).includes('Try again later')).assertTrue();
       expect(jumpErrorHint(999).includes('bundleName')).assertTrue();
     });
 
@@ -83,7 +83,7 @@ export default function abilityJumpTest() {
     it('describeJumpResult_formats', 0, () => {
       expect(describeJumpResult(16000001, 'ability not exist')).assertEqual('[16000001] ability not exist');
       expect(describeJumpResult(0, 'timed out')).assertEqual('timed out');
-      expect(describeJumpResult(0, '')).assertEqual('未知错误');
+      expect(describeJumpResult(0, '')).assertEqual('Unknown error');
     });
 
     // attempt token 单调递增，只有当前 token 的结果会被采纳

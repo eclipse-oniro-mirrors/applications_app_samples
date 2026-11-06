@@ -78,10 +78,10 @@ export default function atomicServiceComponentsTest() {
      * @tc.level Level 1
      */
     it('searchArea_filterWorks', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'web', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '页签', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
-      expect(filterDemos(DEMO_ITEMS, '不存在的组件', '全部').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, 'missing component', 'All').length).assertEqual(0);
     });
 
     /**
@@ -223,10 +223,10 @@ export default function atomicServiceComponentsTest() {
      * @tc.level Level 1
      */
     it('errorUtil_device', 0, () => {
-      expect(pickerErrorHint(13900012).includes('权限被拒绝')).assertTrue();
-      expect(pickerErrorHint(13900042).includes('稍后重试')).assertTrue();
-      expect(formatError('下载', 13900001, 'denied')).assertEqual('下载失败（13900001）：denied');
-      expect(formatError('下载', 0, '')).assertEqual('下载失败：未知错误');
+      expect(pickerErrorHint(13900012).includes('Permission denied')).assertTrue();
+      expect(pickerErrorHint(13900042).includes('try again later')).assertTrue();
+      expect(formatError('download', 13900001, 'denied')).assertEqual('download failed (13900001): denied');
+      expect(formatError('download', 0, '')).assertEqual('download failed: Unknown error');
     });
 
     /**

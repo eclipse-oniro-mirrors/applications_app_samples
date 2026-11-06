@@ -14,7 +14,9 @@
  */
  
 import { AtomicServiceNavigation, AtomicServiceSearch, BackgroundTheme, GradientAlpha, MixMode } from '@kit.ArkUI';
-import { DemoItem, DEMO_ITEMS, CATEGORIES, filterDemos } from '../model/DemoLogic';
+import {
+  DemoItem, DEMO_ITEMS, CATEGORIES, filterDemos, demoTitleRes, demoSubtitleRes, demoCategoryRes
+} from '../model/DemoLogic';
 import { DEFAULT_LAYOUT_PROFILE, DisplaySnapshot, LayoutProfile, buildLayoutProfile } from '../model/DeviceProfile';
 import { LogItem } from '../model/LogStore';
 import { HOME_LOG_LIMIT, RouteKey, StorageKeys } from '../common/AppConstants';
@@ -262,11 +264,11 @@ struct Index {
     Row({ space: AppSpacing.XL }) {
       Column({ space: AppSpacing.XS }) {
         Row({ space: AppSpacing.MD }) {
-          Text(item.title)
+          Text(demoTitleRes(item.key))
             .fontSize(AppText.SECTION)
             .fontWeight(FontWeight.Medium)
             .fontColor(AppColors.TEXT_PRIMARY)
-          Text(item.category)
+          Text(demoCategoryRes(item.key))
             .fontSize(AppText.CAPTION)
             .fontColor(AppColors.PRIMARY)
             .backgroundColor(AppColors.PRIMARY_SOFT)
@@ -274,7 +276,7 @@ struct Index {
             .padding({ left: 6, right: 6, top: 2, bottom: 2 })
         }
 
-        Text(item.subtitle)
+        Text(demoSubtitleRes(item.key))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_SECONDARY)
           .maxLines(2)

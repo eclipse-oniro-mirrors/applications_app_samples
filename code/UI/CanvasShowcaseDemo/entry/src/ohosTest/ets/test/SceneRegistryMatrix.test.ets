@@ -72,8 +72,8 @@ export default function sceneRegistryMatrixTest() {
       const first: SceneInfo | null = SceneRegistry.getById(1);
       expect(first !== null).assertTrue();
       if (first !== null) {
-        expect(first.button).assertEqual('场景1：线性渐变与渐变描边');
-        expect(first.title).assertEqual('场景1：线性渐变与渐变描边');
+        expect(first.button).assertEqual('Scene 1: Linear gradient and gradient stroke');
+        expect(first.title).assertEqual('Scene 1: Linear gradient and gradient stroke');
       }
     });
 
@@ -89,8 +89,8 @@ export default function sceneRegistryMatrixTest() {
       const last: SceneInfo | null = SceneRegistry.getById(23);
       expect(last !== null).assertTrue();
       if (last !== null) {
-        expect(last.button).assertEqual('扩展：ImageData 回读反相');
-        expect(last.title).assertEqual('扩展：getImageData 回读与像素反相');
+        expect(last.button).assertEqual('Extension: ImageData readback invert');
+        expect(last.title).assertEqual('Extension: getImageData readback and pixel inversion');
       }
     });
 
@@ -108,8 +108,8 @@ export default function sceneRegistryMatrixTest() {
       expect(s13 !== null).assertTrue();
       expect(s14 !== null).assertTrue();
       if (s13 !== null) {
-        expect(s13.button).assertEqual('补充：图案矩阵变换（Pattern×Matrix2D）');
-        expect(s13.title).assertEqual('补充：CanvasPattern.setTransform 图案矩阵变换');
+        expect(s13.button).assertEqual('Supplement: Pattern matrix transform (Pattern x Matrix2D)');
+        expect(s13.title).assertEqual('Supplement: CanvasPattern.setTransform pattern matrix');
         expect(s13.button === s13.title).assertFalse();
       }
       if (s14 !== null) {
@@ -275,16 +275,16 @@ export default function sceneRegistryMatrixTest() {
      * @tc.level Level 1
      */
     it('scene_groupPrefixes', 0, () => {
-      expect(scenes[0].button.substring(0, 3)).assertEqual('场景1');
-      expect(scenes[1].button.substring(0, 3)).assertEqual('场景1');
-      expect(scenes[2].button.substring(0, 3)).assertEqual('场景2');
-      expect(scenes[3].button.substring(0, 3)).assertEqual('场景2');
-      expect(scenes[4].button.substring(0, 3)).assertEqual('场景3');
-      expect(scenes[9].button.substring(0, 3)).assertEqual('场景3');
-      expect(scenes[10].button.substring(0, 2)).assertEqual('扩展');
-      expect(scenes[11].button.substring(0, 2)).assertEqual('扩展');
-      expect(scenes[12].button.substring(0, 2)).assertEqual('补充');
-      expect(scenes[16].button.substring(0, 2)).assertEqual('补充');
+      expect(scenes[0].button.startsWith('Scene 1')).assertTrue();
+      expect(scenes[1].button.startsWith('Scene 1')).assertTrue();
+      expect(scenes[2].button.startsWith('Scene 2')).assertTrue();
+      expect(scenes[3].button.startsWith('Scene 2')).assertTrue();
+      expect(scenes[4].button.startsWith('Scene 3')).assertTrue();
+      expect(scenes[9].button.startsWith('Scene 3')).assertTrue();
+      expect(scenes[10].button.startsWith('Extension')).assertTrue();
+      expect(scenes[11].button.startsWith('Extension')).assertTrue();
+      expect(scenes[12].button.startsWith('Supplement')).assertTrue();
+      expect(scenes[16].button.startsWith('Supplement')).assertTrue();
     });
 
     /**

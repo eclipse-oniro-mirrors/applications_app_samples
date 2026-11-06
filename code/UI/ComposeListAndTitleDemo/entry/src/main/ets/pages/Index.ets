@@ -36,6 +36,19 @@ struct Index {
   @State shownContacts: ContactItem[] = [];
   private store: ContactStore = new ContactStore();
 
+  /** 读取字符串资源；用于初始化示例联系人数据 */
+  private getString(resource: Resource): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id);
+    } catch (err) {
+      return '';
+    }
+  }
+
   aboutToAppear(): void {
     LogUtil.init((line: string) => {
       this.pushLog(line);
@@ -45,10 +58,14 @@ struct Index {
     this.apiVersion = DeviceUtil.getSdkApiVersion();
     DeviceUtil.logDeviceProfile();
     // 初始联系人数据：通讯录场景
-    this.store.add('张三', '13800000001', '研发部', true);
-    this.store.add('李四', '13800000002', '产品部', false);
-    this.store.add('王五', '13800000003', '研发部', true);
-    this.store.add('赵六', '13800000004', '测试部', false);
+    this.store.add(this.getString($r('app.string.contact_1_name')), '13800000001',
+      this.getString($r('app.string.contact_1_dept')), true);
+    this.store.add(this.getString($r('app.string.contact_2_name')), '13800000002',
+      this.getString($r('app.string.contact_2_dept')), false);
+    this.store.add(this.getString($r('app.string.contact_3_name')), '13800000003',
+      this.getString($r('app.string.contact_3_dept')), true);
+    this.store.add(this.getString($r('app.string.contact_4_name')), '13800000004',
+      this.getString($r('app.string.contact_4_dept')), false);
     this.refreshList();
     LogUtil.info('Index', `初始联系人 ${this.store.count()} 人，在线 ${this.store.onlineCount()} 人`);
   }

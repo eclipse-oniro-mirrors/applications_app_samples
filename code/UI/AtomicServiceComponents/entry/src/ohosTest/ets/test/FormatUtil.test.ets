@@ -203,10 +203,10 @@ export default function formatUtilTest() {
       const content = buildDownloadContent(FIXED_TIME);
       const lines = content.split('\n');
       expect(lines.length).assertEqual(4);
-      expect(lines[0]).assertEqual('AtomicServiceComponents 示例下载文件');
-      expect(lines[1]).assertEqual('生成时间：2026-01-02 03:04:05');
+      expect(lines[0]).assertEqual('AtomicServiceComponents sample download file');
+      expect(lines[1]).assertEqual('Generated at: 2026-01-02 03:04:05');
       expect(lines[2].indexOf('DownloadFileButton') >= 0).assertTrue();
-      expect(lines[3].indexOf('沙箱') >= 0).assertTrue();
+      expect(lines[3].indexOf('sandbox') >= 0).assertTrue();
     });
   });
 }

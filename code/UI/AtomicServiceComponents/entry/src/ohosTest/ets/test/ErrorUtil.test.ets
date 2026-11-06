@@ -33,9 +33,9 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('errorInfo_emptyMessageFallback', 0, () => {
-      const info = new ErrorInfo(0, '', '提示');
-      expect(info.message).assertEqual('未知错误');
-      expect(info.hint).assertEqual('提示');
+      const info = new ErrorInfo(0, '', 'hint');
+      expect(info.message).assertEqual('Unknown error');
+      expect(info.hint).assertEqual('hint');
     });
 
     /**
@@ -47,9 +47,10 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('errorInfo_describePrefixesCode', 0, () => {
-      expect(new ErrorInfo(13900001, '缺少授权', 'x').describe()).assertEqual('[13900001] 缺少授权');
-      expect(new ErrorInfo(0, '未知错误', 'x').describe()).assertEqual('未知错误');
-      expect(new ErrorInfo(-1, '取消失败', 'x').describe()).assertEqual('取消失败');
+      expect(new ErrorInfo(13900001, 'missing authorization', 'x').describe())
+        .assertEqual('[13900001] missing authorization');
+      expect(new ErrorInfo(0, 'Unknown error', 'x').describe()).assertEqual('Unknown error');
+      expect(new ErrorInfo(-1, 'cancel failed', 'x').describe()).assertEqual('cancel failed');
     });
 
     /**
@@ -61,14 +62,14 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('errorInfo_factoryWiresHint', 0, () => {
-      const known = errorInfo(13900012, '权限不足');
+      const known = errorInfo(13900012, 'permission denied');
       expect(known.code).assertEqual(13900012);
-      expect(known.message).assertEqual('权限不足');
-      expect(known.hint).assertEqual('权限被拒绝，请检查可见性配置');
-      expect(known.describe()).assertEqual('[13900012] 权限不足');
+      expect(known.message).assertEqual('permission denied');
+      expect(known.hint).assertEqual('Permission denied; check the visibility configuration');
+      expect(known.describe()).assertEqual('[13900012] permission denied');
       const unknown = errorInfo(0, '');
-      expect(unknown.message).assertEqual('未知错误');
-      expect(unknown.hint).assertEqual('选择器不可用时将降级写入应用沙箱');
+      expect(unknown.message).assertEqual('Unknown error');
+      expect(unknown.hint).assertEqual('Falls back to the app sandbox when the picker is unavailable');
     });
 
     /**
@@ -80,7 +81,8 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('formatError_withCode', 0, () => {
-      expect(formatError('保存', 13900015, '目标文件已存在')).assertEqual('保存失败（13900015）：目标文件已存在');
+      expect(formatError('save', 13900015, 'target file already exists'))
+        .assertEqual('save failed (13900015): target file already exists');
     });
 
     /**
@@ -92,8 +94,8 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('formatError_withoutCode', 0, () => {
-      expect(formatError('下载', 0, '')).assertEqual('下载失败：未知错误');
-      expect(formatError('下载', -1, '已取消')).assertEqual('下载失败：已取消');
+      expect(formatError('download', 0, '')).assertEqual('download failed: Unknown error');
+      expect(formatError('download', -1, 'cancelled')).assertEqual('download failed: cancelled');
     });
 
     /**
@@ -105,12 +107,13 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('pickerErrorHint_knownCodes', 0, () => {
-      expect(pickerErrorHint(13900001)).assertEqual('操作不允许，可能缺少用户授权');
-      expect(pickerErrorHint(13900002)).assertEqual('目标文件或目录不存在');
-      expect(pickerErrorHint(13900012)).assertEqual('权限被拒绝，请检查可见性配置');
-      expect(pickerErrorHint(13900015)).assertEqual('目标文件已存在');
-      expect(pickerErrorHint(13900020)).assertEqual('参数无效，请检查保存选项');
-      expect(pickerErrorHint(13900042)).assertEqual('文件服务暂不可用，可稍后重试');
+      expect(pickerErrorHint(13900001))
+        .assertEqual('Operation not allowed; user authorization may be missing');
+      expect(pickerErrorHint(13900002)).assertEqual('Target file or directory does not exist');
+      expect(pickerErrorHint(13900012)).assertEqual('Permission denied; check the visibility configuration');
+      expect(pickerErrorHint(13900015)).assertEqual('Target file already exists');
+      expect(pickerErrorHint(13900020)).assertEqual('Invalid parameters; check the save options');
+      expect(pickerErrorHint(13900042)).assertEqual('File service is temporarily unavailable; try again later');
     });
 
     /**
@@ -122,8 +125,10 @@ export default function errorUtilTest() {
      * @tc.level Level 1
      */
     it('pickerErrorHint_unknownCode', 0, () => {
-      expect(pickerErrorHint(0)).assertEqual('选择器不可用时将降级写入应用沙箱');
-      expect(pickerErrorHint(123456)).assertEqual('选择器不可用时将降级写入应用沙箱');
+      expect(pickerErrorHint(0))
+        .assertEqual('Falls back to the app sandbox when the picker is unavailable');
+      expect(pickerErrorHint(123456))
+        .assertEqual('Falls back to the app sandbox when the picker is unavailable');
     });
   });
 }

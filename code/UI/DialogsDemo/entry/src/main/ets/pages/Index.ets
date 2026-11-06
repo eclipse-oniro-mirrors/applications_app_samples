@@ -228,7 +228,7 @@ struct Index {
       try {
         prompt.closeCustomDialog(this.current);
       } catch (err) {
-        LogUtil.error(TAG, `关闭旧弹窗失败：${err instanceof Error ? err.message : '未知错误'}`);
+        LogUtil.error(TAG, `Failed to close previous dialog: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
       this.current = null;
     }
@@ -240,7 +240,7 @@ struct Index {
         maskColor: '#4D000000',
         transition: TransitionEffect.IDENTITY
       }).catch((err: Error) => {
-        LogUtil.error(TAG, `openCustomDialog 失败：${err.message}`);
+        LogUtil.error(TAG, `openCustomDialog failed: ${err.message}`);
       });
     } else {
       prompt.openCustomDialog(content, {
@@ -248,7 +248,7 @@ struct Index {
         alignment: DialogAlignment.Center,
         maskColor: '#4D000000'
       }).catch((err: Error) => {
-        LogUtil.error(TAG, `openCustomDialog 失败：${err.message}`);
+        LogUtil.error(TAG, `openCustomDialog failed: ${err.message}`);
       });
     }
   }
@@ -259,7 +259,7 @@ struct Index {
       try {
         this.getUIContext().getPromptAction().closeCustomDialog(this.current);
       } catch (err) {
-        LogUtil.error(TAG, `关闭当前弹窗失败：${err instanceof Error ? err.message : '未知错误'}`);
+        LogUtil.error(TAG, `Failed to close current dialog: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
       this.current = null;
     }
@@ -267,7 +267,7 @@ struct Index {
       try {
         this.interstitial.closeDialog();
       } catch (err) {
-        LogUtil.error(TAG, `关闭插屏失败：${err instanceof Error ? err.message : '未知错误'}`);
+        LogUtil.error(TAG, `Failed to close interstitial: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
       this.interstitial = null;
     }
@@ -281,16 +281,16 @@ struct Index {
     params.content = $r('app.string.d1_content');
     params.checkTips = $r('app.string.d1_check');
     params.primaryButton = buildPrimaryButton($r('app.string.d1_primary'), () => {
-      this.logEvent(1, DialogEventLog.formatClick(1) + ' → 主按钮“删除”');
-      this.logEvent(1, DialogEventLog.formatClose(1, '确认框'));
+      this.logEvent(1, DialogEventLog.formatClick(1) + ' → primary button "Delete"');
+      this.logEvent(1, DialogEventLog.formatClose(1, 'Confirm dialog'));
       this.closeTop();
     });
     params.secondaryButton = buildSecondaryButton($r('app.string.common_cancel'), () => {
-      this.logEvent(1, DialogEventLog.formatClick(1) + ' → 次按钮“取消”');
-      this.logEvent(1, DialogEventLog.formatClose(1, '确认框'));
+      this.logEvent(1, DialogEventLog.formatClick(1) + ' → secondary button "Cancel"');
+      this.logEvent(1, DialogEventLog.formatClose(1, 'Confirm dialog'));
       this.closeTop();
     });
-    this.logEvent(1, DialogEventLog.formatOpen(1, '确认框 ConfirmDialogV2'));
+    this.logEvent(1, DialogEventLog.formatOpen(1, 'Confirm dialog (ConfirmDialogV2)'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(confirmBuilder), params);
     this.showContent(content);
@@ -304,16 +304,16 @@ struct Index {
     params.secondaryTitle = $r('app.string.d2_secondary_title');
     params.content = $r('app.string.d2_content');
     params.primaryButton = buildPrimaryButton($r('app.string.d2_primary'), () => {
-      this.logEvent(2, DialogEventLog.formatClick(2) + ' → 主按钮“去清理”');
-      this.logEvent(2, DialogEventLog.formatClose(2, '警告框'));
+      this.logEvent(2, DialogEventLog.formatClick(2) + ' → primary button "Clean up"');
+      this.logEvent(2, DialogEventLog.formatClose(2, 'Alert dialog'));
       this.closeTop();
     });
     params.secondaryButton = buildSecondaryButton($r('app.string.d2_secondary'), () => {
-      this.logEvent(2, DialogEventLog.formatClick(2) + ' → 次按钮“稍后”');
-      this.logEvent(2, DialogEventLog.formatClose(2, '警告框'));
+      this.logEvent(2, DialogEventLog.formatClick(2) + ' → secondary button "Later"');
+      this.logEvent(2, DialogEventLog.formatClose(2, 'Alert dialog'));
       this.closeTop();
     });
-    this.logEvent(2, DialogEventLog.formatOpen(2, '警告框 AlertDialogV2'));
+    this.logEvent(2, DialogEventLog.formatOpen(2, 'Alert dialog (AlertDialogV2)'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(alertBuilder), params);
     this.showContent(content);
@@ -337,11 +337,11 @@ struct Index {
     });
     params.confirm = buildPrimaryButton($r('app.string.common_confirm'), () => {
       this.selectedNetworkIndex = params.selectedIndex;
-      this.logEvent(3, DialogEventLog.formatClick(3) + ' → 确认按钮');
-      this.logEvent(3, DialogEventLog.formatClose(3, '选择框'));
+      this.logEvent(3, DialogEventLog.formatClick(3) + ' → confirm button');
+      this.logEvent(3, DialogEventLog.formatClose(3, 'Select dialog'));
       this.closeTop();
     });
-    this.logEvent(3, DialogEventLog.formatOpen(3, '选择框 SelectDialogV2'));
+    this.logEvent(3, DialogEventLog.formatOpen(3, 'Select dialog (SelectDialogV2)'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(selectBuilder), params);
     this.showContent(content, true);
@@ -356,16 +356,16 @@ struct Index {
     params.content = $r('app.string.d4_content');
     params.checkTips = $r('app.string.d4_check');
     params.primaryButton = buildPrimaryButton($r('app.string.d4_primary'), () => {
-      this.logEvent(4, DialogEventLog.formatClick(4) + ' → 主按钮“立即开启”');
-      this.logEvent(4, DialogEventLog.formatClose(4, '提示框'));
+      this.logEvent(4, DialogEventLog.formatClick(4) + ' → primary button "Enable now"');
+      this.logEvent(4, DialogEventLog.formatClose(4, 'Tips dialog'));
       this.closeTop();
     });
     params.secondaryButton = buildSecondaryButton($r('app.string.d4_secondary'), () => {
-      this.logEvent(4, DialogEventLog.formatClick(4) + ' → 次按钮“暂不”');
-      this.logEvent(4, DialogEventLog.formatClose(4, '提示框'));
+      this.logEvent(4, DialogEventLog.formatClick(4) + ' → secondary button "Not now"');
+      this.logEvent(4, DialogEventLog.formatClose(4, 'Tips dialog'));
       this.closeTop();
     });
-    this.logEvent(4, DialogEventLog.formatOpen(4, '提示框 TipsDialogV2'));
+    this.logEvent(4, DialogEventLog.formatOpen(4, 'Tips dialog (TipsDialogV2)'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(tipsBuilder), params);
     this.showContent(content);
@@ -381,13 +381,13 @@ struct Index {
     }
     const params: LoadingParams = new LoadingParams();
     params.content = $r('app.string.d5_content');
-    this.logEvent(5, DialogEventLog.formatOpen(5, '加载框 LoadingDialogV2'));
+    this.logEvent(5, DialogEventLog.formatOpen(5, 'Loading dialog (LoadingDialogV2)'));
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(loadingBuilder), params);
     this.showContent(content);
     this.loadingTimer = setTimeout(() => {
       this.loadingTimer = -1;
-      this.logEvent(5, DialogEventLog.formatClose(5, '加载框（2s 自动关闭）'));
+      this.logEvent(5, DialogEventLog.formatClose(5, 'Loading dialog (auto close after 2s)'));
       // 只关闭本次 loading 弹窗；期间若已打开其它弹窗，不能误关
       if (this.current === content) {
         this.closeTop();
@@ -405,15 +405,15 @@ struct Index {
       buildSecondaryButton($r('app.string.d6_reset'), () => {
         this.customValue = 30;
         this.customCount = 0;
-        this.logEvent(6, DialogEventLog.formatClick(6) + ' → 重置');
+        this.logEvent(6, DialogEventLog.formatClick(6) + ' → Reset');
       }),
       buildPrimaryButton($r('app.string.d6_save'), () => {
-        this.logEvent(6, `${DialogEventLog.formatClick(6)} → 保存（值=${this.customValue}）`);
-        this.logEvent(6, DialogEventLog.formatClose(6, '自定义框'));
+        this.logEvent(6, `${DialogEventLog.formatClick(6)} → Save (value=${this.customValue})`);
+        this.logEvent(6, DialogEventLog.formatClose(6, 'Custom dialog'));
         this.closeTop();
       })
     ];
-    this.logEvent(6, DialogEventLog.formatOpen(6, '自定义框 CustomContentDialogV2'));
+    this.logEvent(6, DialogEventLog.formatOpen(6, 'Custom dialog (CustomContentDialogV2)'));
     gCustomParams = params;
     const content: ComponentContent<Object> =
       new ComponentContent<Object>(this.getUIContext(), wrapBuilder(customBuilder), params);
@@ -424,7 +424,7 @@ struct Index {
   private showInterstitial(): void {
     this.activeScene = 8;
     if (this.interstitial !== null) {
-      this.logEvent(8, '插屏已打开，忽略重复点击');
+      this.logEvent(8, 'Interstitial is already open; duplicate click ignored');
       return;
     }
     const cfg: InterstitialConfig = new InterstitialConfig(
@@ -450,21 +450,21 @@ struct Index {
             try {
               dlg.closeDialog();
             } catch (err) {
-              LogUtil.error(TAG, `插屏关闭失败：${err instanceof Error ? err.message : '未知错误'}`);
+              LogUtil.error(TAG, `Failed to close interstitial: ${err instanceof Error ? err.message : 'Unknown error'}`);
             }
           }
         },
         onDialogClose: () => {
-          this.logEvent(8, DialogEventLog.formatClose(8, '插屏'));
+          this.logEvent(8, DialogEventLog.formatClose(8, 'Interstitial'));
           this.interstitial = null;
         }
       });
       this.interstitial = dialog;
       dialog.openDialog();
-      this.logEvent(8, DialogEventLog.formatOpen(8, '插屏 InterstitialDialogAction'));
+      this.logEvent(8, DialogEventLog.formatOpen(8, 'Interstitial (InterstitialDialogAction)'));
     } catch (err) {
       this.interstitial = null;
-      const e: Error = err instanceof Error ? err : new Error('插屏打开失败');
+      const e: Error = err instanceof Error ? err : new Error('Failed to open interstitial');
       this.logEvent(8, DialogEventLog.formatError(8, e.message));
     }
   }
@@ -472,7 +472,7 @@ struct Index {
   /** 场景9：ActionSheet 操作列表弹窗 */
   private showActionSheet(): void {
     this.activeScene = 9;
-    this.logEvent(9, DialogEventLog.formatOpen(9, '操作列表 ActionSheet'));
+    this.logEvent(9, DialogEventLog.formatOpen(9, 'Action list (ActionSheet)'));
     this.getUIContext().showActionSheet({
       title: $r('app.string.d9_title'),
       subtitle: $r('app.string.d9_subtitle'),
@@ -481,32 +481,32 @@ struct Index {
       confirm: {
         value: $r('app.string.common_cancel'),
         action: (): void => {
-          this.logEvent(9, DialogEventLog.formatClose(9, '操作列表（取消）'));
+          this.logEvent(9, DialogEventLog.formatClose(9, 'Action list (cancel)'));
         }
       },
       cancel: (): void => {
-        this.logEvent(9, DialogEventLog.formatClose(9, '操作列表（点遮罩）'));
+        this.logEvent(9, DialogEventLog.formatClose(9, 'Action list (mask tap)'));
       },
       sheets: [
         {
           title: $r('app.string.d9_rename'),
           action: (): void => {
-            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 重命名`);
-            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → Rename`);
+            this.logEvent(9, DialogEventLog.formatClose(9, 'Action list'));
           }
         },
         {
           title: $r('app.string.d9_share'),
           action: (): void => {
-            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 分享`);
-            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → Share`);
+            this.logEvent(9, DialogEventLog.formatClose(9, 'Action list'));
           }
         },
         {
           title: $r('app.string.d9_delete'),
           action: (): void => {
-            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 删除`);
-            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → Delete`);
+            this.logEvent(9, DialogEventLog.formatClose(9, 'Action list'));
           }
         }
       ]
@@ -516,7 +516,7 @@ struct Index {
   /** 场景10：DatePickerDialog 日期选择弹窗 */
   private showDatePicker(): void {
     this.activeScene = 10;
-    this.logEvent(10, DialogEventLog.formatOpen(10, '日期选择 DatePickerDialog'));
+    this.logEvent(10, DialogEventLog.formatOpen(10, 'Date picker (DatePickerDialog)'));
     const now: Date = new Date();
     const start: Date = new Date(now.getFullYear() - 1, 0, 1);
     const end: Date = new Date(now.getFullYear() + 1, 11, 31);
@@ -527,10 +527,10 @@ struct Index {
       lunar: false,
       onDateAccept: (value: Date): void => {
         this.logEvent(10, `${DialogEventLog.formatClick(10)} → ${formatDateValue(value)}`);
-        this.logEvent(10, DialogEventLog.formatClose(10, '日期选择'));
+        this.logEvent(10, DialogEventLog.formatClose(10, 'Date picker'));
       },
       onCancel: (): void => {
-        this.logEvent(10, DialogEventLog.formatClose(10, '日期选择（取消）'));
+        this.logEvent(10, DialogEventLog.formatClose(10, 'Date picker (cancel)'));
       }
     });
   }
@@ -538,16 +538,16 @@ struct Index {
   /** 场景11：TimePickerDialog 时间选择弹窗 */
   private showTimePicker(): void {
     this.activeScene = 11;
-    this.logEvent(11, DialogEventLog.formatOpen(11, '时间选择 TimePickerDialog'));
+    this.logEvent(11, DialogEventLog.formatOpen(11, 'Time picker (TimePickerDialog)'));
     this.getUIContext().showTimePickerDialog({
       selected: new Date(),
       useMilitaryTime: true,
       onAccept: (value: TimePickerResult): void => {
         this.logEvent(11, `${DialogEventLog.formatClick(11)} → ${formatTimeValue(value.hour, value.minute)}`);
-        this.logEvent(11, DialogEventLog.formatClose(11, '时间选择'));
+        this.logEvent(11, DialogEventLog.formatClose(11, 'Time picker'));
       },
       onCancel: (): void => {
-        this.logEvent(11, DialogEventLog.formatClose(11, '时间选择（取消）'));
+        this.logEvent(11, DialogEventLog.formatClose(11, 'Time picker (cancel)'));
       }
     });
   }
@@ -555,9 +555,9 @@ struct Index {
   /** 场景12：TextPickerDialog 文本选择弹窗 */
   private showTextPicker(): void {
     this.activeScene = 12;
-    this.logEvent(12, DialogEventLog.formatOpen(12, '文本选择 TextPickerDialog'));
+    this.logEvent(12, DialogEventLog.formatOpen(12, 'Text picker (TextPickerDialog)'));
     this.getUIContext().showTextPickerDialog({
-      range: ['北京', '上海', '广州', '深圳'],
+      range: ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen'],
       selected: 1,
       onAccept: (value: TextPickerResult): void => {
         const rawValue: string | string[] = value.value;
@@ -565,10 +565,10 @@ struct Index {
         const text: string = typeof rawValue === 'string' ? rawValue : rawValue[0];
         const index: number = typeof rawIndex === 'number' ? rawIndex : rawIndex[0];
         this.logEvent(12, `${DialogEventLog.formatClick(12)} → ${formatTextValue(text, index)}`);
-        this.logEvent(12, DialogEventLog.formatClose(12, '文本选择'));
+        this.logEvent(12, DialogEventLog.formatClose(12, 'Text picker'));
       },
       onCancel: (): void => {
-        this.logEvent(12, DialogEventLog.formatClose(12, '文本选择（取消）'));
+        this.logEvent(12, DialogEventLog.formatClose(12, 'Text picker (cancel)'));
       }
     });
   }
@@ -581,7 +581,7 @@ struct Index {
       clearTimeout(this.toastTimer);
       this.toastTimer = -1;
     }
-    this.logEvent(13, DialogEventLog.formatOpen(13, '轻提示 Toast'));
+    this.logEvent(13, DialogEventLog.formatOpen(13, 'Toast'));
     this.getUIContext().getPromptAction().openToast({
       message: $r('app.string.d13_message'),
       duration: 3000,
@@ -598,7 +598,7 @@ struct Index {
           return;
         }
         this.getUIContext().getPromptAction().closeToast(toastId);
-        this.logEvent(13, DialogEventLog.formatClose(13, '轻提示'));
+        this.logEvent(13, DialogEventLog.formatClose(13, 'Toast'));
       }, 1000);
     }).catch((err: Error): void => {
       if (this.disposed) {
@@ -611,7 +611,7 @@ struct Index {
   /** 场景14：PromptAction.showDialog 系统按钮弹窗 */
   private showSystemDialog(): void {
     this.activeScene = 14;
-    this.logEvent(14, DialogEventLog.formatOpen(14, '系统按钮弹窗 showDialog'));
+    this.logEvent(14, DialogEventLog.formatOpen(14, 'System button dialog (showDialog)'));
     this.getUIContext().getPromptAction().showDialog({
       title: $r('app.string.d14_title'),
       message: $r('app.string.d14_message'),
@@ -621,7 +621,7 @@ struct Index {
       ]
     }).then((result: ShowDialogSuccessResponse): void => {
       this.logEvent(14, `${DialogEventLog.formatClick(14)} → index=${result.index}`);
-      this.logEvent(14, DialogEventLog.formatClose(14, '系统按钮弹窗'));
+      this.logEvent(14, DialogEventLog.formatClose(14, 'System button dialog'));
     }).catch((err: Error): void => {
       this.logEvent(14, DialogEventLog.formatError(14, err.message));
     });
@@ -679,7 +679,7 @@ struct Index {
         .onClick(() => {
           this.activeScene = 7;
           this.popVisible = !this.popVisible;
-          this.logEvent(7, `${DialogEventLog.formatOpen(7, '气泡 PopoverDialogV2')} visible=${this.popVisible}`);
+          this.logEvent(7, `${DialogEventLog.formatOpen(7, 'Popover (PopoverDialogV2)')} visible=${this.popVisible}`);
         })
       Button($r('app.string.btn_scene_8'))
         .width('100%')
@@ -751,7 +751,7 @@ struct Index {
           $visible: (visible: boolean) => {
             this.popVisible = visible;
             if (!visible) {
-              this.logEvent(7, DialogEventLog.formatClose(7, '气泡'));
+              this.logEvent(7, DialogEventLog.formatClose(7, 'Popover'));
             }
           },
           popover: {
@@ -866,7 +866,7 @@ struct Index {
       const next: Breakpoint = DeviceUtil.getBreakpoint(widthVp);
       if (next !== this.bp) {
         this.bp = next;
-        LogUtil.info(TAG, `窗口宽度 ${widthVp.toFixed(0)}vp，断点切换为 ${next}`);
+        LogUtil.info(TAG, `Window width ${widthVp.toFixed(0)}vp, breakpoint switched to ${next}`);
       }
     })
   }

@@ -191,7 +191,38 @@
     {
       "name": "search_placeholder",
       "value": "Search name or department"
+    },
+    {
+      "name": "contact_1_name",
+      "value": "Alice"
+    },
+    {
+      "name": "contact_1_dept",
+      "value": "R&D"
+    },
+    {
+      "name": "contact_2_name",
+      "value": "Bob"
+    },
+    {
+      "name": "contact_2_dept",
+      "value": "Product"
+    },
+    {
+      "name": "contact_3_name",
+      "value": "Carol"
+    },
+    {
+      "name": "contact_3_dept",
+      "value": "R&D"
+    },
+    {
+      "name": "contact_4_name",
+      "value": "David"
+    },
+    {
+      "name": "contact_4_dept",
+      "value": "QA"
     }
   ]
 }
-

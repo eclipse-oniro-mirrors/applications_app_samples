@@ -92,7 +92,7 @@ struct Index {
       return;
     }
     this.clearCanvas();
-    this.sceneTitle = scene.title;
+    this.sceneTitle = this.getString(scene.titleRes);
     this.activeSceneId = id;
     const w: number = this.context.width;
     const h: number = this.context.height;
@@ -165,7 +165,8 @@ struct Index {
   buttonsArea() {
     Column({ space: 6 }) {
       ForEach(this.scenes, (s: SceneInfo) => {
-        Button(this.activeSceneId === s.id ? s.button + this.sceneCurrentSuffix() : s.button)
+        Button(this.activeSceneId === s.id ?
+          this.getString(s.buttonRes) + this.sceneCurrentSuffix() : this.getString(s.buttonRes))
           .width('100%').height(36)
           .backgroundColor(this.activeSceneId === s.id ? '#1565C0' : '#E3F2FD')
           .fontColor(this.activeSceneId === s.id ? Color.White : '#1565C0')

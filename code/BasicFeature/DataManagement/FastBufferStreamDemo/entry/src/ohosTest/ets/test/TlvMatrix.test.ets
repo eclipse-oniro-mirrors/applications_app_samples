@@ -145,7 +145,7 @@ export default function tlvMatrixTest() {
       expect(result.ok).assertFalse();
       expect(result.records.length).assertEqual(1);
       expect(result.errorIndex).assertEqual(HEADER_SIZE + 16 + CRC_SIZE);
-      expect(result.errorMessage.includes('截断')).assertTrue();
+      expect(result.errorMessage.includes('truncated')).assertTrue();
     });
 
     /**
@@ -163,7 +163,7 @@ export default function tlvMatrixTest() {
       expect(result.ok).assertFalse();
       expect(result.records.length).assertEqual(1);
       expect(result.errorIndex).assertEqual(HEADER_SIZE + 16 + CRC_SIZE);
-      expect(result.errorMessage.includes('截断')).assertTrue();
+      expect(result.errorMessage.includes('truncated')).assertTrue();
     });
 
     /**
@@ -181,7 +181,7 @@ export default function tlvMatrixTest() {
       expect(result.ok).assertFalse();
       expect(result.records.length).assertEqual(1);
       expect(result.errorIndex).assertEqual(HEADER_SIZE + 16 + CRC_SIZE);
-      expect(result.errorMessage.includes('截断')).assertTrue();
+      expect(result.errorMessage.includes('truncated')).assertTrue();
     });
 
     /**
@@ -199,7 +199,7 @@ export default function tlvMatrixTest() {
       expect(result.ok).assertFalse();
       expect(result.records.length).assertEqual(1);
       expect(result.errorIndex).assertEqual(HEADER_SIZE + 16 + CRC_SIZE);
-      expect(result.errorMessage.includes('头截断')).assertTrue();
+      expect(result.errorMessage.includes('header truncated')).assertTrue();
     });
 
     /**

@@ -116,7 +116,8 @@ export class TlvUtil {
       if (data.length - offset < HEADER_SIZE) {
         result.ok = false;
         result.errorIndex = offset;
-        result.errorMessage = `记录头截断：偏移 ${offset} 处仅剩 ${data.length - offset}B，不足头 ${HEADER_SIZE}B`;
+        result.errorMessage =
+          `Record header truncated: only ${data.length - offset}B left at offset ${offset}, less than ${HEADER_SIZE}B`;
         return result;
       }
       const tag: number = data.readUInt8(offset + 4);
@@ -125,7 +126,8 @@ export class TlvUtil {
       if (data.length - offset < recordSize) {
         result.ok = false;
         result.errorIndex = offset;
-        result.errorMessage = `记录体截断：tag=${tag} 声明 ${length}B，偏移 ${offset} 处仅剩 ${data.length - offset - HEADER_SIZE}B`;
+        result.errorMessage =
+          `Record body truncated: tag=${tag} declares ${length}B, only ${data.length - offset - HEADER_SIZE}B left at offset ${offset}`;
         return result;
       }
       const value: fastbuffer.FastBuffer = data.subarray(offset + HEADER_SIZE, offset + HEADER_SIZE + length);

@@ -20,7 +20,7 @@ export class ErrorInfo {
 
   constructor(code: number, message: string, hint: string) {
     this.code = code;
-    this.message = message.length > 0 ? message : '未知错误';
+    this.message = message.length > 0 ? message : 'Unknown error';
     this.hint = hint;
   }
 
@@ -37,28 +37,28 @@ export function errorInfo(code: number, message: string): ErrorInfo {
 }
 
 export function formatError(action: string, code: number, message: string): string {
-  const detail = message.length > 0 ? message : '未知错误';
+  const detail = message.length > 0 ? message : 'Unknown error';
   if (code > 0) {
-    return `${action}失败（${code}）：${detail}`;
+    return `${action} failed (${code}): ${detail}`;
   }
-  return `${action}失败：${detail}`;
+  return `${action} failed: ${detail}`;
 }
 
 export function pickerErrorHint(code: number): string {
   switch (code) {
     case 13900001:
-      return '操作不允许，可能缺少用户授权';
+      return 'Operation not allowed; user authorization may be missing';
     case 13900002:
-      return '目标文件或目录不存在';
+      return 'Target file or directory does not exist';
     case 13900012:
-      return '权限被拒绝，请检查可见性配置';
+      return 'Permission denied; check the visibility configuration';
     case 13900015:
-      return '目标文件已存在';
+      return 'Target file already exists';
     case 13900020:
-      return '参数无效，请检查保存选项';
+      return 'Invalid parameters; check the save options';
     case 13900042:
-      return '文件服务暂不可用，可稍后重试';
+      return 'File service is temporarily unavailable; try again later';
     default:
-      return '选择器不可用时将降级写入应用沙箱';
+      return 'Falls back to the app sandbox when the picker is unavailable';
   }
 }

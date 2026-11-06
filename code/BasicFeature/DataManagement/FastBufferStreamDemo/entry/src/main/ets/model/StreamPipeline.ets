@@ -76,13 +76,13 @@ class UpperCaseTransform extends stream.Transform {
 
   doTransform(chunk: string, encoding: string, callback: StreamCallback): void {
     const out: string = chunk.toUpperCase();
-    this.notify(`块加工 ${chunk.length}B → ${out.length}B（转大写）`);
+    this.notify(`Block processed ${chunk.length}B -> ${out.length}B (uppercased)`);
     this.push(out);
     callback();
   }
 
   doFlush(callback: FlushCallback): void {
-    this.notify('doFlush：流结束，追加尾部标记');
+    this.notify('doFlush: stream ended, append tail marker');
     callback(null, FLUSH_TAIL);
   }
 }
@@ -515,7 +515,7 @@ export class StreamPipeline {
       duplex.write('stream');
       duplex.end();
     } catch (err) {
-      const e: Error = err instanceof Error ? err : new Error('双工流写入失败');
+      const e: Error = err instanceof Error ? err : new Error('Duplex stream write failed');
       LogUtil.error(TAG, `9.x 双工流写入异常：${e.message}`);
       doneOnce();
     }

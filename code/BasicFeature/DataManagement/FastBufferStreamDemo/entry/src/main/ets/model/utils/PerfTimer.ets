@@ -62,11 +62,11 @@ export class PerfTimer {
   /** 汇总文本：label=xxms，逗号分隔 */
   static summary(): string {
     if (PerfTimer.records.length === 0) {
-      return '（无计时记录）';
+      return 'No timing records';
     }
     let text: string = '';
     for (const r of PerfTimer.records) {
-      text += (text === '' ? '' : '，') + `${r.label}=${r.costMs}ms`;
+      text += (text === '' ? '' : ', ') + `${r.label}=${r.costMs}ms`;
     }
     return text;
   }

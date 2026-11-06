@@ -123,7 +123,7 @@ export default function downloadFlowTest() {
       expect(buildDownloadFileName(date)).assertEqual('atomic-service-demo-20261027-101112.txt');
       const content = buildDownloadContent(date);
       expect(content.includes('DownloadFileButton')).assertTrue();
-      expect(content.includes('应用沙箱')).assertTrue();
+      expect(content.includes('sandbox')).assertTrue();
       expect(content.split('\n').length).assertEqual(4);
     });
   });

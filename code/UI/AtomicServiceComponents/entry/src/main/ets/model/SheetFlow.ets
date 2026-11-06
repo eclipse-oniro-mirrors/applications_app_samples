@@ -19,7 +19,7 @@ export enum SheetStyle {
 }
 
 export function sheetModeName(mode: SheetStyle): string {
-  return mode === SheetStyle.POPUP ? 'POPUP 弹窗样式' : 'CENTER 居中样式';
+  return mode === SheetStyle.POPUP ? 'POPUP popup style' : 'CENTER centered style';
 }
 
 export function toggleSheetStyle(mode: SheetStyle): SheetStyle {
@@ -46,17 +46,36 @@ export function heightBucket(heightVp: number): number {
 export function heightBucketLabel(bucket: number): string {
   switch (bucket) {
     case 1:
-      return '低档（< 300vp）';
+      return 'Low (< 300vp)';
     case 2:
-      return '中档（300–600vp）';
+      return 'Medium (300-600vp)';
     case 3:
-      return '高档（≥ 600vp）';
+      return 'High (>= 600vp)';
     default:
-      return '尚未打开';
+      return 'Not opened';
   }
 }
 
 export function sheetStatusText(visible: boolean, mode: SheetStyle, heightVp: number): string {
-  const state = visible ? '已打开' : '已关闭';
+  const state = visible ? 'Opened' : 'Closed';
   return `${state} · ${sheetModeName(mode)} · ${heightBucketLabel(heightBucket(heightVp))}`;
+}
+
+/** 半模态样式资源；页面展示统一走 $r */
+export function sheetModeRes(mode: SheetStyle): Resource {
+  return mode === SheetStyle.POPUP ? $r('app.string.sheet_mode_popup') : $r('app.string.sheet_mode_center');
+}
+
+/** 高度档位资源；页面展示统一走 $r */
+export function heightBucketRes(bucket: number): Resource {
+  switch (bucket) {
+    case 1:
+      return $r('app.string.sheet_height_low');
+    case 2:
+      return $r('app.string.sheet_height_mid');
+    case 3:
+      return $r('app.string.sheet_height_high');
+    default:
+      return $r('app.string.sheet_height_none');
+  }
 }

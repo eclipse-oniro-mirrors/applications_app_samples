@@ -90,9 +90,9 @@ export function buildDownloadFileName(date: Date): string {
 
 export function buildDownloadContent(date: Date): string {
   return [
-    'AtomicServiceComponents 示例下载文件',
-    `生成时间：${formatDateTime(date)}`,
-    '组件：DownloadFileButton',
-    '说明：该文件由 DocumentViewPicker 保存，选择器不可用时降级写入应用沙箱。'
+    'AtomicServiceComponents sample download file',
+    `Generated at: ${formatDateTime(date)}`,
+    'Component: DownloadFileButton',
+    'Note: This file is saved by DocumentViewPicker; if the picker is unavailable it falls back to the app sandbox.'
   ].join('\n');
 }

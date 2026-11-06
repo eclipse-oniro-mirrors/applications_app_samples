@@ -49,11 +49,11 @@ export default function demoLogicTest() {
      * @tc.level Level 1
      */
     it('filterDemos_keywordNormalization', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'web', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, 'WEB', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '  web  ', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '全部').length).assertEqual(9);
-      expect(filterDemos(DEMO_ITEMS, '不存在的组件', '全部').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, 'web', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'WEB', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '  web  ', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '', 'All').length).assertEqual(9);
+      expect(filterDemos(DEMO_ITEMS, 'missing component', 'All').length).assertEqual(0);
     });
 
     /**
@@ -65,9 +65,9 @@ export default function demoLogicTest() {
      * @tc.level Level 1
      */
     it('filterDemos_subtitleMatch', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '页签', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, 'NavDestination', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '半屏', '全部').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'Simplified', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'NavDestination', 'All').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'Half-screen', 'All').length).assertEqual(1);
     });
 
     /**
@@ -80,10 +80,10 @@ export default function demoLogicTest() {
      */
     it('filterDemos_categoryBuckets', 0, () => {
       expect(filterDemos(DEMO_ITEMS, '', '').length).assertEqual(9);
-      expect(filterDemos(DEMO_ITEMS, '', '容器').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
-      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(5);
-      expect(filterDemos(DEMO_ITEMS, '', '未知分类').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, '', 'Container').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, '', 'Interaction').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', 'Capability').length).assertEqual(5);
+      expect(filterDemos(DEMO_ITEMS, '', 'Unknown').length).assertEqual(0);
     });
 
     /**
@@ -95,9 +95,9 @@ export default function demoLogicTest() {
      * @tc.level Level 1
      */
     it('filterDemos_combinedConditions', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, 'search', '交互').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, 'button', '能力').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, 'download', '容器').length).assertEqual(0);
+      expect(filterDemos(DEMO_ITEMS, 'search', 'Interaction').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'button', 'Capability').length).assertEqual(1);
+      expect(filterDemos(DEMO_ITEMS, 'download', 'Container').length).assertEqual(0);
     });
 
     /**
@@ -109,7 +109,7 @@ export default function demoLogicTest() {
      * @tc.level Level 1
      */
     it('filterDemos_doesNotMutateInput', 0, () => {
-      const result = filterDemos(DEMO_ITEMS, '', '交互');
+      const result = filterDemos(DEMO_ITEMS, '', 'Interaction');
       expect(result.length).assertEqual(3);
       result.pop();
       expect(result.length).assertEqual(2);
@@ -171,15 +171,15 @@ export default function demoLogicTest() {
      */
     it('categoriesOrder_and_DemoItem', 0, () => {
       expect(CATEGORIES.length).assertEqual(4);
-      expect(CATEGORIES[0]).assertEqual('全部');
-      expect(CATEGORIES[1]).assertEqual('容器');
-      expect(CATEGORIES[2]).assertEqual('交互');
-      expect(CATEGORIES[3]).assertEqual('能力');
-      const item = new DemoItem('key', '标题', '副标题', '能力');
+      expect(CATEGORIES[0]).assertEqual('All');
+      expect(CATEGORIES[1]).assertEqual('Container');
+      expect(CATEGORIES[2]).assertEqual('Interaction');
+      expect(CATEGORIES[3]).assertEqual('Capability');
+      const item = new DemoItem('key', 'Title', 'Subtitle', 'Capability');
       expect(item.key).assertEqual('key');
-      expect(item.title).assertEqual('标题');
-      expect(item.subtitle).assertEqual('副标题');
-      expect(item.category).assertEqual('能力');
+      expect(item.title).assertEqual('Title');
+      expect(item.subtitle).assertEqual('Subtitle');
+      expect(item.category).assertEqual('Capability');
     });
   });
 }

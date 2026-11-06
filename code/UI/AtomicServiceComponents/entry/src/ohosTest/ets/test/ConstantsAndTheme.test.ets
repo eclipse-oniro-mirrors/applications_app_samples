@@ -135,8 +135,8 @@ export default function constantsAndThemeTest() {
      * @tc.level Level 1
      */
     it('hilogAndHalfScreen_constants', 0, () => {
-      expect(HILOG_DOMAIN).assertEqual(0x0000);
-      expect(HILOG_TAG).assertEqual('AtomicServiceComponents');
+      expect(HILOG_DOMAIN).assertEqual(0xF811);
+      expect(HILOG_TAG).assertEqual('[Sample_AtomicServiceComponents]');
       expect(HALF_SCREEN_APP_ID.length > 0).assertTrue();
       expect(HALF_SCREEN_APP_ID).assertEqual('576000000000000000');
     });

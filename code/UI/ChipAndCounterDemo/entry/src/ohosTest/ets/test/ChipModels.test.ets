@@ -407,9 +407,9 @@ export default function chipModelsTest() {
       const items = ChipConfigFactory.buildHybridSegmentItems(
         'icon.png', $r('sys.symbol.heart'), $r('sys.symbol.star'));
       expect(items.length).assertEqual(3);
-      expect(items[0].text).assertEqual('图片');
+      expect(items[0].text).assertEqual('Images');
       expect(items[0].icon !== undefined).assertTrue();
-      expect(items[1].text).assertEqual('收藏');
+      expect(items[1].text).assertEqual('Favorite');
       expect(items[1].symbol !== undefined).assertTrue();
       expect(items[2].symbol !== undefined).assertTrue();
     });
@@ -648,7 +648,7 @@ export default function chipModelsTest() {
       expect(items.length).assertEqual(2);
       expect(items[0].symbol !== undefined).assertTrue();
       expect(items[1].symbol !== undefined).assertTrue();
-      expect(items[0].accessibilityText).assertEqual('第 1 个图标选项');
+      expect(items[0].accessibilityText).assertEqual('Symbol option 1');
     });
 
     /**

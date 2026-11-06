@@ -30,8 +30,8 @@ export default function sheetFlowTest() {
   describe('SheetFlowTest', () => {
     // 样式文案：CENTER / POPUP 各有可读名称
     it('sheetModeName_values', 0, () => {
-      expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER 居中样式');
-      expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP 弹窗样式');
+      expect(sheetModeName(SheetStyle.CENTER)).assertEqual('CENTER centered style');
+      expect(sheetModeName(SheetStyle.POPUP)).assertEqual('POPUP popup style');
     });
 
     // 样式切换：两次切换回到原值
@@ -61,21 +61,21 @@ export default function sheetFlowTest() {
 
     // 档位文案：三档 + 兜底
     it('heightBucketLabel_all', 0, () => {
-      expect(heightBucketLabel(0)).assertEqual('尚未打开');
-      expect(heightBucketLabel(1).includes('低档')).assertTrue();
-      expect(heightBucketLabel(2).includes('中档')).assertTrue();
-      expect(heightBucketLabel(3).includes('高档')).assertTrue();
-      expect(heightBucketLabel(9)).assertEqual('尚未打开');
+      expect(heightBucketLabel(0)).assertEqual('Not opened');
+      expect(heightBucketLabel(1).includes('Low')).assertTrue();
+      expect(heightBucketLabel(2).includes('Medium')).assertTrue();
+      expect(heightBucketLabel(3).includes('High')).assertTrue();
+      expect(heightBucketLabel(9)).assertEqual('Not opened');
     });
 
     // 状态摘要：打开/关闭、样式与档位组合
     it('sheetStatusText_combinations', 0, () => {
       expect(sheetStatusText(false, SheetStyle.CENTER, 0))
-        .assertEqual('已关闭 · CENTER 居中样式 · 尚未打开');
+        .assertEqual('Closed · CENTER centered style · Not opened');
       expect(sheetStatusText(true, SheetStyle.POPUP, 350))
-        .assertEqual('已打开 · POPUP 弹窗样式 · 中档（300–600vp）');
+        .assertEqual('Opened · POPUP popup style · Medium (300-600vp)');
       expect(sheetStatusText(true, SheetStyle.CENTER, 700))
-        .assertEqual('已打开 · CENTER 居中样式 · 高档（≥ 600vp）');
+        .assertEqual('Opened · CENTER centered style · High (>= 600vp)');
     });
   });
 }

@@ -144,7 +144,7 @@ export default function perfTimerTest() {
       t.stop();
       const line: string = t.report('测试场景');
       expect(line.includes('测试场景')).assertTrue();
-      expect(line.includes('1 次采样')).assertTrue();
+      expect(line.includes('1 samples')).assertTrue();
     });
   });
 }

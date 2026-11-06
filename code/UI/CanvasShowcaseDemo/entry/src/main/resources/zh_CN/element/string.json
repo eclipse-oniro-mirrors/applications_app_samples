@@ -79,6 +79,190 @@
     {
       "name": "api_prefix",
       "value": "API：%d"
+    },
+    {
+      "name": "scene_1_button",
+      "value": "场景1：线性渐变与渐变描边"
+    },
+    {
+      "name": "scene_1_title",
+      "value": "场景1：线性渐变与渐变描边"
+    },
+    {
+      "name": "scene_2_button",
+      "value": "场景1：径向渐变光晕"
+    },
+    {
+      "name": "scene_2_title",
+      "value": "场景1：径向渐变光晕"
+    },
+    {
+      "name": "scene_3_button",
+      "value": "场景2：图案填充 repeat"
+    },
+    {
+      "name": "scene_3_title",
+      "value": "场景2：图案填充 repeat"
+    },
+    {
+      "name": "scene_4_button",
+      "value": "场景2：repeat-x 与 no-repeat"
+    },
+    {
+      "name": "scene_4_title",
+      "value": "场景2：repeat-x 与 no-repeat"
+    },
+    {
+      "name": "scene_5_button",
+      "value": "场景3：Matrix2D 平移"
+    },
+    {
+      "name": "scene_5_title",
+      "value": "场景3：Matrix2D 平移"
+    },
+    {
+      "name": "scene_6_button",
+      "value": "场景3：Matrix2D 缩放"
+    },
+    {
+      "name": "scene_6_title",
+      "value": "场景3：Matrix2D 缩放"
+    },
+    {
+      "name": "scene_7_button",
+      "value": "场景3：Matrix2D 旋转"
+    },
+    {
+      "name": "scene_7_title",
+      "value": "场景3：Matrix2D 旋转"
+    },
+    {
+      "name": "scene_8_button",
+      "value": "场景3：组合变换与逆矩阵"
+    },
+    {
+      "name": "scene_8_title",
+      "value": "场景3：组合变换与逆矩阵"
+    },
+    {
+      "name": "scene_9_button",
+      "value": "场景4：离屏合成（三特性串联）"
+    },
+    {
+      "name": "scene_9_title",
+      "value": "场景4：离屏合成（三特性串联）"
+    },
+    {
+      "name": "scene_10_button",
+      "value": "场景3：Matrix2D 倾斜（属性方式）"
+    },
+    {
+      "name": "scene_10_title",
+      "value": "场景3：Matrix2D 倾斜（属性方式）"
+    },
+    {
+      "name": "scene_11_button",
+      "value": "扩展：ImageData 像素操作"
+    },
+    {
+      "name": "scene_11_title",
+      "value": "扩展：ImageData 像素操作"
+    },
+    {
+      "name": "scene_12_button",
+      "value": "扩展：GeometryUtil 圆环阵"
+    },
+    {
+      "name": "scene_12_title",
+      "value": "扩展：GeometryUtil 圆环阵"
+    },
+    {
+      "name": "scene_13_button",
+      "value": "补充：图案矩阵变换（Pattern×Matrix2D）"
+    },
+    {
+      "name": "scene_13_title",
+      "value": "补充：CanvasPattern.setTransform 图案矩阵变换"
+    },
+    {
+      "name": "scene_14_button",
+      "value": "补充：drawImage 源矩形裁剪"
+    },
+    {
+      "name": "scene_14_title",
+      "value": "补充：drawImage 9 参数源矩形裁剪"
+    },
+    {
+      "name": "scene_15_button",
+      "value": "补充：阴影 + 渐变"
+    },
+    {
+      "name": "scene_15_title",
+      "value": "补充：阴影与渐变叠加"
+    },
+    {
+      "name": "scene_16_button",
+      "value": "补充：filter 滤镜模糊对比"
+    },
+    {
+      "name": "scene_16_title",
+      "value": "补充：filter 滤镜模糊对比"
+    },
+    {
+      "name": "scene_17_button",
+      "value": "补充：ColorMetrics 渐变断点（API 12+）"
+    },
+    {
+      "name": "scene_17_title",
+      "value": "补充：addColorStop 的 ColorMetrics 重载"
+    },
+    {
+      "name": "scene_18_button",
+      "value": "场景1：圆锥渐变色环（API 12+）"
+    },
+    {
+      "name": "scene_18_title",
+      "value": "场景1：createConicGradient 圆锥渐变色环"
+    },
+    {
+      "name": "scene_19_button",
+      "value": "扩展：贝塞尔与二次曲线路径"
+    },
+    {
+      "name": "scene_19_title",
+      "value": "扩展：Path 绘制（bezierCurveTo / quadraticCurveTo / arcTo）"
+    },
+    {
+      "name": "scene_20_button",
+      "value": "扩展：clip 裁剪与合成模式"
+    },
+    {
+      "name": "scene_20_title",
+      "value": "扩展：clip 裁剪 + globalCompositeOperation 合成模式"
+    },
+    {
+      "name": "scene_21_button",
+      "value": "扩展：文字绘制与 measureText"
+    },
+    {
+      "name": "scene_21_title",
+      "value": "扩展：fillText / strokeText / measureText 文字绘制"
+    },
+    {
+      "name": "scene_22_button",
+      "value": "扩展：虚线描边与线帽拐角"
+    },
+    {
+      "name": "scene_22_title",
+      "value": "扩展：setLineDash / lineCap / lineJoin 描边样式"
+    },
+    {
+      "name": "scene_23_button",
+      "value": "扩展：ImageData 回读反相"
+    },
+    {
+      "name": "scene_23_title",
+      "value": "扩展：getImageData 回读与像素反相"
     }
   ]
 }

@@ -100,7 +100,7 @@ export class FastBufferUtil {
    */
   static hexDump(fb: fastbuffer.FastBuffer, bytesPerLine: number = DUMP_BYTES_PER_LINE): string {
     if (fb.length === 0) {
-      return '（空缓冲区）';
+      return 'Empty buffer';
     }
     // bytesPerLine <= 0 会导致 off 不递增而死循环，统一回退到默认值
     const width: number = bytesPerLine > 0 ? bytesPerLine : DUMP_BYTES_PER_LINE;

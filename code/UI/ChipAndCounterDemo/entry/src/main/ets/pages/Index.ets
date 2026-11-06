@@ -176,7 +176,7 @@ struct Index {
     this.disabledSegmentItems = new SegmentButtonV2Items(
       ChipConfigFactory.buildSegmentItemsWithDisabled(this.stringsOf(SEG_DISABLED_LABELS), 1));
     // 初始标签数据：搜索历史场景
-    this.store.add('鸿蒙');
+    this.store.add('HarmonyOS');
     this.store.add('ArkTS');
     this.store.add('RK3568');
     LogUtil.info('Index', `页面加载完成：已创建 ${this.store.count()} 个示例标签`);
@@ -260,7 +260,7 @@ struct Index {
     // ChipGroupV2IconGroupSuffix 的 items 为 @Param 且不会驱动 ChipGroupV2 重渲染其 suffix @BuilderParam：
     // 通过 if/else 分支翻转强制销毁重建整个分组，尾部图标以最新点亮色重建，选中项由 selectedIndexes 参数保持
     this.advSuffixFlip = !this.advSuffixFlip;
-    const label: string = index === 0 ? '点赞' : '收藏';
+    const label: string = index === 0 ? 'Like' : 'Favorite';
     LogUtil.info('Index',
       `点击尾部「${label}」图标 → ${this.advSuffixOn[index] ? '点亮（灰→橙）' : '熄灭（橙→灰）'}，与组内选中互不影响`);
   }
@@ -825,7 +825,7 @@ struct Index {
         selectedIndex: this.capsuleSel,
         $selectedIndex: (v: number): void => {
           this.capsuleSel = v;
-          LogUtil.info('Index', `点击「胶囊型单选」→ 选中「${['图片', '收藏', '星标'][v]}」（第 ${v +
+          LogUtil.info('Index', `点击「胶囊型单选」→ 选中「${['Images', 'Favorite', 'Starred'][v]}」（第 ${v +
             1} 个；第 1 项为 Image 图标+文本，第 2/3 项为 Symbol 图标+文本）`);
         },
         itemSpace: LengthMetrics.vp(4),

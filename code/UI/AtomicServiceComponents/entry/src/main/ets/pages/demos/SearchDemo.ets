@@ -16,7 +16,9 @@
 import { AtomicServiceSearch } from '@kit.ArkUI';
 import { DemoPageScaffold } from '../../components/DemoPageScaffold';
 import { LogPanel } from '../../components/LogPanel';
-import { DemoItem, DEMO_ITEMS, filterDemos } from '../../model/DemoLogic';
+import {
+  DemoItem, DEMO_ITEMS, CATEGORIES, filterDemos, demoTitleRes, demoSubtitleRes, demoCategoryRes
+} from '../../model/DemoLogic';
 import { DEFAULT_LAYOUT_PROFILE, LayoutProfile } from '../../model/DeviceProfile';
 import { AppColors, AppRadius, AppSpacing, AppText } from '../../common/Theme';
 import { Logger } from '../../utils/Logger';
@@ -51,7 +53,7 @@ export struct SearchDemo {
   }
 
   private results(): DemoItem[] {
-    return filterDemos(DEMO_ITEMS, this.keyword, this.category);
+    return filterDemos(DEMO_ITEMS, this.keyword, CATEGORIES[this.categoryIndex]);
   }
 
   build() {
@@ -133,18 +135,18 @@ export struct SearchDemo {
           ForEach(this.results(), (item: DemoItem) => {
             Row({ space: AppSpacing.LG }) {
               Column({ space: 3 }) {
-                Text(item.title)
+                Text(demoTitleRes(item.key))
                   .fontSize(AppText.TITLE)
                   .fontWeight(FontWeight.Medium)
                   .fontColor(AppColors.TEXT_PRIMARY)
-                Text(item.subtitle)
+                Text(demoSubtitleRes(item.key))
                   .fontSize(AppText.BODY)
                   .fontColor(AppColors.TEXT_SECONDARY)
               }
               .alignItems(HorizontalAlign.Start)
               .layoutWeight(1)
 
-              Text(item.category)
+              Text(demoCategoryRes(item.key))
                 .fontSize(AppText.SMALL)
                 .fontColor(AppColors.PRIMARY)
                 .backgroundColor(AppColors.PRIMARY_SOFT)
