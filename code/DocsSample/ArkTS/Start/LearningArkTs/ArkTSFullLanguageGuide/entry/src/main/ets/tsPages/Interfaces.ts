@@ -52,30 +52,20 @@ interface Base {
 }
 
 interface Derived extends Base {
-  // 可以添加新方法
+  // 可以添加新成员
   newMethod(): void;
 
-  // 可以覆盖父接口的方法（保持相同签名）
-  method(): void;
-
-  // 不能修改方法的返回类型（编译错误）
+  // 可以覆盖同名方法，返回类型可以与父接口不同（签名兼容即可）
   method(): string;
 }
 
-// 接口继承时的属性约束
+// 覆盖属性时，类型必须与父接口兼容
 interface Colorable {
   color: string;
 }
 
-interface Sized {
-  size: number;
-}
-
-interface Shape extends Colorable, Sized {
-  // 可以添加新属性
-  area(): number;
-
-  // 不能重新定义父接口的属性
+interface BadColorable extends Colorable {
+  // 不能把属性重新声明为不兼容的类型
   color: number; // 编译错误：类型不匹配
 }
 // [End ts_interface_inheritance_rules]
@@ -377,3 +367,43 @@ interface TvDog extends TvAnimal {
 type TvAnimal2 = { name: string };
 type TvDog2 = TvAnimal2 & { breed: string };
 // [End ts_type_vs_interface]
+
+// ===== interface_method_declaration =====
+// [Start interface_method_declaration]
+interface Calculator {
+  reset(): void;
+  add(a: number, b: number): number;
+  subtract(a: number, b: number): number;
+
+  // 可选方法（使用 ?）
+  logResult?(): void;
+}
+
+class BasicCalculator implements Calculator {
+  private result: number = 0;
+  
+  public reset(): void {
+    this.result = 0;
+    console.info('Calculator reset');
+  }
+  
+  public add(a: number, b: number): number {
+    this.result = a + b;
+    return this.result;
+  }
+  
+  public subtract(a: number, b: number): number {
+    this.result = a - b;
+    return this.result;
+  }
+  
+  // 可选方法可以不实现，如需实现可参考以下写法
+  public logResult(): void {
+    console.info(`Result: ${this.result}`);
+  }
+}
+
+let calculator: BasicCalculator = new BasicCalculator();
+let sum: number = calculator.add(10, 5);
+console.info(`${sum}`); // 15
+// [End interface_method_declaration]
