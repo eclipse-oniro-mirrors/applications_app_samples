@@ -111,6 +111,9 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_05.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_06.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
 				<filteritem type="filepath" name="code\DocsSample\Stationary\DeviceStatus\screenshots\MultimodalAwareness_07.jpg" desc="Provide by code/DocsSample/Stationary/DeviceStatus"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/WindowFreeformResize/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/DocsSample/ArkUISample/WindowFreeformResize"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/WindowFreeformResize/AppScope/resources/base/media/background.png" desc="Provide by code/DocsSample/ArkUISample/WindowFreeformResize"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/WindowFreeformResize/AppScope/resources/base/media/foreground.png" desc="Provide by code/DocsSample/ArkUISample/WindowFreeformResize"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/AppScope/resources/base/media/app_icon.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/background.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
