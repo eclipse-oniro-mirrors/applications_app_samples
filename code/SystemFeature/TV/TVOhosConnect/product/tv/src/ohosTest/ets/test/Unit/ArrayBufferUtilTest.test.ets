@@ -16939,3 +16939,1885 @@ export default function ArrayBufferUtilTest(): void {
       ).assertEqual(
         'becbd8e5f2ff0c'
       );
+    });
+
+    it('multi_byte_vector_length_8', 0, () => {
+      // 8 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = 'e3f0fd0a1724313e';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        8
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        8
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        227
+      );
+      expect(
+        bytes[7]
+      ).assertEqual(
+        62
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        8
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xe3f0fd0a1724313e'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        'e3f0fd0a1724313e'
+      );
+    });
+
+    it('multi_byte_vector_length_9', 0, () => {
+      // 9 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '0815222f3c49566370';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        9
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        9
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        8
+      );
+      expect(
+        bytes[8]
+      ).assertEqual(
+        112
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        9
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x0815222f3c49566370'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '0815222f3c49566370'
+      );
+    });
+
+    it('multi_byte_vector_length_10', 0, () => {
+      // 10 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '2d3a4754616e7b8895a2';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        10
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        10
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        45
+      );
+      expect(
+        bytes[9]
+      ).assertEqual(
+        162
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        10
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x2d3a4754616e7b8895a2'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '2d3a4754616e7b8895a2'
+      );
+    });
+
+    it('multi_byte_vector_length_12', 0, () => {
+      // 12 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '525f6c798693a0adbac7d4e1';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        12
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        12
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        82
+      );
+      expect(
+        bytes[11]
+      ).assertEqual(
+        225
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        12
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x525f6c798693a0adbac7d4e1'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '525f6c798693a0adbac7d4e1'
+      );
+    });
+
+    it('multi_byte_vector_length_16', 0, () => {
+      // 16 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '7784919eabb8c5d2dfecf90613202d3a';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        16
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        16
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        119
+      );
+      expect(
+        bytes[15]
+      ).assertEqual(
+        58
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        16
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x7784919eabb8c5d2dfecf90613202d3a'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '7784919eabb8c5d2dfecf90613202d3a'
+      );
+    });
+
+    it('multi_byte_vector_length_20', 0, () => {
+      // 20 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '9ca9b6c3d0ddeaf704111e2b3845525f6c798693';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        20
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        20
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        156
+      );
+      expect(
+        bytes[19]
+      ).assertEqual(
+        147
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        20
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x9ca9b6c3d0ddeaf704111e2b3845525f6c798693'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '9ca9b6c3d0ddeaf704111e2b3845525f6c798693'
+      );
+    });
+
+    it('multi_byte_vector_length_24', 0, () => {
+      // 24 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = 'c1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfec';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        24
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        24
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        193
+      );
+      expect(
+        bytes[23]
+      ).assertEqual(
+        236
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        24
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xc1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfec'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        'c1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfec'
+      );
+    });
+
+    it('multi_byte_vector_length_32', 0, () => {
+      // 32 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = 'e6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c79';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        32
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        32
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        230
+      );
+      expect(
+        bytes[31]
+      ).assertEqual(
+        121
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        32
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0xe6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c79'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        'e6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c79'
+      );
+    });
+
+    it('multi_byte_vector_length_40', 0, () => {
+      // 40 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '0b1825323f4c596673808d9aa7b4c1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfecf906';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        40
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        40
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        11
+      );
+      expect(
+        bytes[39]
+      ).assertEqual(
+        6
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        40
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x0b1825323f4c596673808d9aa7b4c1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfecf906'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '0b1825323f4c596673808d9aa7b4c1cedbe8f5020f1c293643505d6a7784919eabb8c5d2dfecf906'
+      );
+    });
+
+    it('multi_byte_vector_length_48', 0, () => {
+      // 48 字节向量的长度、首字节、末字节与往返一致性
+      // 同时验证奇数长度输入被左侧补 0 后的长度不变式
+      const hex: string = '303d4a5764717e8b98a5b2bfccd9e6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c798693';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(hex);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(hex);
+      expect(
+        ArrayBufferUtil.isValidHexString(hex)
+      ).assertTrue();
+      expect(
+        bytes.length
+      ).assertEqual(
+        48
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        48
+      );
+      expect(
+        bytes[0]
+      ).assertEqual(
+        48
+      );
+      expect(
+        bytes[47]
+      ).assertEqual(
+        147
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(hex).length
+      ).assertEqual(
+        48
+      );
+      expect(
+        ArrayBufferUtil.getHexStringFromArrayBuffer(buffer)
+      ).assertEqual(
+        '0x303d4a5764717e8b98a5b2bfccd9e6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c798693'
+      );
+      expect(
+        ArrayBufferUtil.formatHex(hex)
+      ).assertEqual(
+        '303d4a5764717e8b98a5b2bfccd9e6f3000d1a2734414e5b6875828f9ca9b6c3d0ddeaf704111e2b3845525f6c798693'
+      );
+    });
+
+    it('odd_length_normalisation_01', 0, () => {
+      // 奇数位十六进制 '1' 左侧补 0 后应为偶数位
+      // 补位后长度翻倍关系：字节数 = 格式化长度 / 2
+      const input: string = '1';
+      const formatted: string = ArrayBufferUtil.formatHex(input);
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertTrue();
+      expect(
+        formatted
+      ).assertEqual(
+        '01'
+      );
+      expect(
+        formatted.length % 2
+      ).assertEqual(
+        0
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(input).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getArrayBufferFromHexStr(input).byteLength
+      ).assertEqual(
+        1
+      );
+    });
+
+    it('odd_length_normalisation_02', 0, () => {
+      // 奇数位十六进制 'f' 左侧补 0 后应为偶数位
+      // 补位后长度翻倍关系：字节数 = 格式化长度 / 2
+      const input: string = 'f';
+      const formatted: string = ArrayBufferUtil.formatHex(input);
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertTrue();
+      expect(
+        formatted
+      ).assertEqual(
+        '0f'
+      );
+      expect(
+        formatted.length % 2
+      ).assertEqual(
+        0
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(input).length
+      ).assertEqual(
+        1
+      );
+      expect(
+        ArrayBufferUtil.getArrayBufferFromHexStr(input).byteLength
+      ).assertEqual(
+        1
+      );
+    });
+
+    it('odd_length_normalisation_03', 0, () => {
+      // 奇数位十六进制 'abc' 左侧补 0 后应为偶数位
+      // 补位后长度翻倍关系：字节数 = 格式化长度 / 2
+      const input: string = 'abc';
+      const formatted: string = ArrayBufferUtil.formatHex(input);
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertTrue();
+      expect(
+        formatted
+      ).assertEqual(
+        '0abc'
+      );
+      expect(
+        formatted.length % 2
+      ).assertEqual(
+        0
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        2
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(input).length
+      ).assertEqual(
+        2
+      );
+      expect(
+        ArrayBufferUtil.getArrayBufferFromHexStr(input).byteLength
+      ).assertEqual(
+        2
+      );
+    });
+
+    it('odd_length_normalisation_04', 0, () => {
+      // 奇数位十六进制 '123' 左侧补 0 后应为偶数位
+      // 补位后长度翻倍关系：字节数 = 格式化长度 / 2
+      const input: string = '123';
+      const formatted: string = ArrayBufferUtil.formatHex(input);
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertTrue();
+      expect(
+        formatted
+      ).assertEqual(
+        '0123'
+      );
+      expect(
+        formatted.length % 2
+      ).assertEqual(
+        0
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        2
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(input).length
+      ).assertEqual(
+        2
+      );
+      expect(
+        ArrayBufferUtil.getArrayBufferFromHexStr(input).byteLength
+      ).assertEqual(
+        2
+      );
+    });
+
+
+
+
+
+    it('odd_length_normalisation_09', 0, () => {
+      // 奇数位十六进制 '12345' 左侧补 0 后应为偶数位
+      // 补位后长度翻倍关系：字节数 = 格式化长度 / 2
+      const input: string = '12345';
+      const formatted: string = ArrayBufferUtil.formatHex(input);
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertTrue();
+      expect(
+        formatted
+      ).assertEqual(
+        '012345'
+      );
+      expect(
+        formatted.length % 2
+      ).assertEqual(
+        0
+      );
+      expect(
+        bytes.length
+      ).assertEqual(
+        3
+      );
+      expect(
+        ArrayBufferUtil.getHexStrArr(input).length
+      ).assertEqual(
+        3
+      );
+      expect(
+        ArrayBufferUtil.getArrayBufferFromHexStr(input).byteLength
+      ).assertEqual(
+        3
+      );
+    });
+
+
+    it('invalid_hex_input_01_rejected', 0, () => {
+      // 非法输入 [] 必须被 isValidHexString 拒绝
+      // 解析函数返回空数组 / -1 / 空 buffer，保证调用方不会拿到脏数据
+      const input: string = '';
+      const bytes: Array<number> = ArrayBufferUtil.getHexArr(input);
+      const strArr: Array<string> = ArrayBufferUtil.getHexStrArr(input);
+      const buffer: ArrayBuffer = ArrayBufferUtil.getArrayBufferFromHexStr(input);
+      expect(
+        ArrayBufferUtil.isValidHexString(input)
+      ).assertFalse();
+      expect(
+        bytes.length
+      ).assertEqual(
+        0
+      );
+      expect(
+        strArr.length
+      ).assertEqual(
+        0
+      );
+      expect(
+        buffer.byteLength
+      ).assertEqual(
+        0
+      );
+      expect(
+        ArrayBufferUtil.getIntFromHex(input)
+      ).assertEqual(
+        -1
+      );
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    it('dataview_write_single_byte_at_offset_0', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(0, 0xAA);
+      view.setUint8(1, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 0, '0x03');
+      expect(
+        view.getUint8(0)
+      ).assertEqual(
+        3
+      );
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(0) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_1', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(1, 0xAA);
+      view.setUint8(2, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 1, '0x0a');
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        10
+      );
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(1) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_2', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(2, 0xAA);
+      view.setUint8(3, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 2, '0x11');
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        17
+      );
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(2) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_3', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(3, 0xAA);
+      view.setUint8(4, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 3, '0x18');
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        24
+      );
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(3) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_4', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(4, 0xAA);
+      view.setUint8(5, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 4, '0x1f');
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        31
+      );
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(4) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_5', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(5, 0xAA);
+      view.setUint8(6, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 5, '0x26');
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        38
+      );
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(5) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_6', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(6, 0xAA);
+      view.setUint8(7, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 6, '0x2d');
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        45
+      );
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(6) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_7', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(7, 0xAA);
+      view.setUint8(8, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 7, '0x34');
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        52
+      );
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(7) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_8', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(8, 0xAA);
+      view.setUint8(9, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 8, '0x3b');
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        59
+      );
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(8) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_9', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(9, 0xAA);
+      view.setUint8(10, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 9, '0x42');
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        66
+      );
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(9) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_10', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(10, 0xAA);
+      view.setUint8(11, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 10, '0x49');
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        73
+      );
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(10) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_11', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(11, 0xAA);
+      view.setUint8(12, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 11, '0x50');
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        80
+      );
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(11) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_12', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(12, 0xAA);
+      view.setUint8(13, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 12, '0x57');
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        87
+      );
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(12) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_13', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(13, 0xAA);
+      view.setUint8(14, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 13, '0x5e');
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        94
+      );
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(13) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_14', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(14, 0xAA);
+      view.setUint8(15, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 14, '0x65');
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        101
+      );
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(14) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_15', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(15, 0xAA);
+      view.setUint8(16, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 15, '0x6c');
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        108
+      );
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(15) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_16', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(16, 0xAA);
+      view.setUint8(17, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 16, '0x73');
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        115
+      );
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(16) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_17', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(17, 0xAA);
+      view.setUint8(18, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 17, '0x7a');
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        122
+      );
+      expect(
+        view.getUint8(18)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(17) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_18', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(18, 0xAA);
+      view.setUint8(19, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 18, '0x81');
+      expect(
+        view.getUint8(18)
+      ).assertEqual(
+        129
+      );
+      expect(
+        view.getUint8(19)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(18) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_19', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(19, 0xAA);
+      view.setUint8(20, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 19, '0x88');
+      expect(
+        view.getUint8(19)
+      ).assertEqual(
+        136
+      );
+      expect(
+        view.getUint8(20)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(19) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_20', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(20, 0xAA);
+      view.setUint8(21, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 20, '0x8f');
+      expect(
+        view.getUint8(20)
+      ).assertEqual(
+        143
+      );
+      expect(
+        view.getUint8(21)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(20) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_21', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(21, 0xAA);
+      view.setUint8(22, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 21, '0x96');
+      expect(
+        view.getUint8(21)
+      ).assertEqual(
+        150
+      );
+      expect(
+        view.getUint8(22)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(21) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_22', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(22, 0xAA);
+      view.setUint8(23, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 22, '0x9d');
+      expect(
+        view.getUint8(22)
+      ).assertEqual(
+        157
+      );
+      expect(
+        view.getUint8(23)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(22) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_23', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(23, 0xAA);
+      view.setUint8(24, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 23, '0xa4');
+      expect(
+        view.getUint8(23)
+      ).assertEqual(
+        164
+      );
+      expect(
+        view.getUint8(24)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(23) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_24', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(24, 0xAA);
+      view.setUint8(25, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 24, '0xab');
+      expect(
+        view.getUint8(24)
+      ).assertEqual(
+        171
+      );
+      expect(
+        view.getUint8(25)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(24) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_25', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(25, 0xAA);
+      view.setUint8(26, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 25, '0xb2');
+      expect(
+        view.getUint8(25)
+      ).assertEqual(
+        178
+      );
+      expect(
+        view.getUint8(26)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(25) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_26', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(26, 0xAA);
+      view.setUint8(27, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 26, '0xb9');
+      expect(
+        view.getUint8(26)
+      ).assertEqual(
+        185
+      );
+      expect(
+        view.getUint8(27)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(26) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_27', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(27, 0xAA);
+      view.setUint8(28, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 27, '0xc0');
+      expect(
+        view.getUint8(27)
+      ).assertEqual(
+        192
+      );
+      expect(
+        view.getUint8(28)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(27) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_28', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(28, 0xAA);
+      view.setUint8(29, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 28, '0xc7');
+      expect(
+        view.getUint8(28)
+      ).assertEqual(
+        199
+      );
+      expect(
+        view.getUint8(29)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(28) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_single_byte_at_offset_29', 0, () => {
+      // 在 DataView 的指定偏移写入 1 字节，并确认相邻字节未被污染
+      const buffer: ArrayBuffer = new ArrayBuffer(64);
+      const view: DataView = new DataView(buffer);
+      view.setUint8(29, 0xAA);
+      view.setUint8(30, 0x55);
+      ArrayBufferUtil.setUint8FromHex(view, 29, '0xce');
+      expect(
+        view.getUint8(29)
+      ).assertEqual(
+        206
+      );
+      expect(
+        view.getUint8(30)
+      ).assertEqual(
+        0x55
+      );
+      expect(
+        view.getUint8(29) === 0xAA
+      ).assertFalse();
+    });
+
+    it('dataview_write_two_bytes_at_offset_0', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 0, '0x0102');
+      expect(
+        view.getUint8(0)
+      ).assertEqual(
+        1
+      );
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        2
+      );
+      expect(
+        view.getUint8(1) === 2
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_1', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 1, '0x0c0f');
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        12
+      );
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        15
+      );
+      expect(
+        view.getUint8(2) === 15
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_2', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 2, '0x171c');
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        23
+      );
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        28
+      );
+      expect(
+        view.getUint8(3) === 28
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_3', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 3, '0x2229');
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        34
+      );
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        41
+      );
+      expect(
+        view.getUint8(4) === 41
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_4', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 4, '0x2d36');
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        45
+      );
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        54
+      );
+      expect(
+        view.getUint8(5) === 54
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_5', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 5, '0x3843');
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        56
+      );
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        67
+      );
+      expect(
+        view.getUint8(6) === 67
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_6', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 6, '0x4350');
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        67
+      );
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        80
+      );
+      expect(
+        view.getUint8(7) === 80
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_7', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 7, '0x4e5d');
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        78
+      );
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        93
+      );
+      expect(
+        view.getUint8(8) === 93
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_8', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 8, '0x596a');
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        89
+      );
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        106
+      );
+      expect(
+        view.getUint8(9) === 106
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_9', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 9, '0x6477');
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        100
+      );
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        119
+      );
+      expect(
+        view.getUint8(10) === 119
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_10', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 10, '0x6f84');
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        111
+      );
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        132
+      );
+      expect(
+        view.getUint8(11) === 132
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_11', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 11, '0x7a91');
+      expect(
+        view.getUint8(11)
+      ).assertEqual(
+        122
+      );
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        145
+      );
+      expect(
+        view.getUint8(12) === 145
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_12', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 12, '0x859e');
+      expect(
+        view.getUint8(12)
+      ).assertEqual(
+        133
+      );
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        158
+      );
+      expect(
+        view.getUint8(13) === 158
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_13', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 13, '0x90ab');
+      expect(
+        view.getUint8(13)
+      ).assertEqual(
+        144
+      );
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        171
+      );
+      expect(
+        view.getUint8(14) === 171
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_14', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 14, '0x9bb8');
+      expect(
+        view.getUint8(14)
+      ).assertEqual(
+        155
+      );
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        184
+      );
+      expect(
+        view.getUint8(15) === 184
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_15', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 15, '0xa6c5');
+      expect(
+        view.getUint8(15)
+      ).assertEqual(
+        166
+      );
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        197
+      );
+      expect(
+        view.getUint8(16) === 197
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_16', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 16, '0xb1d2');
+      expect(
+        view.getUint8(16)
+      ).assertEqual(
+        177
+      );
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        210
+      );
+      expect(
+        view.getUint8(17) === 210
+      ).assertTrue();
+    });
+
+    it('dataview_write_two_bytes_at_offset_17', 0, () => {
+      // 连续的 2 字节十六进制写入应保持大小端原样（按字节序写入）
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUint8FromHex(view, 17, '0xbcdf');
+      expect(
+        view.getUint8(17)
+      ).assertEqual(
+        188
+      );
+      expect(
+        view.getUint8(18)
+      ).assertEqual(
+        223
+      );
+      expect(
+        view.getUint8(18) === 223
+      ).assertTrue();
+    });
+
+    it('dataview_write_hex_array_at_offset_0', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 0, ['0x09', '0x04', '0x06']);
+      expect(
+        view.getUint8(0)
+      ).assertEqual(
+        9
+      );
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        4
+      );
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        6
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_1', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 1, ['0x0e', '0x15', '0x1d']);
+      expect(
+        view.getUint8(1)
+      ).assertEqual(
+        14
+      );
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        21
+      );
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        29
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_2', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 2, ['0x13', '0x26', '0x34']);
+      expect(
+        view.getUint8(2)
+      ).assertEqual(
+        19
+      );
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        38
+      );
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        52
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_3', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 3, ['0x18', '0x37', '0x4b']);
+      expect(
+        view.getUint8(3)
+      ).assertEqual(
+        24
+      );
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        55
+      );
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        75
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_4', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 4, ['0x1d', '0x48', '0x62']);
+      expect(
+        view.getUint8(4)
+      ).assertEqual(
+        29
+      );
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        72
+      );
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        98
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_5', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 5, ['0x22', '0x59', '0x79']);
+      expect(
+        view.getUint8(5)
+      ).assertEqual(
+        34
+      );
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        89
+      );
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        121
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_6', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 6, ['0x27', '0x6a', '0x90']);
+      expect(
+        view.getUint8(6)
+      ).assertEqual(
+        39
+      );
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        106
+      );
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        144
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_7', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 7, ['0x2c', '0x7b', '0xa7']);
+      expect(
+        view.getUint8(7)
+      ).assertEqual(
+        44
+      );
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        123
+      );
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        167
+      );
+    });
+
+    it('dataview_write_hex_array_at_offset_8', 0, () => {
+      // 十六进制数组按元素顺序连续写入，偏移自动累加
+      const view: DataView = new DataView(new ArrayBuffer(32));
+      ArrayBufferUtil.setUnit8FromHexArray(view, 8, ['0x31', '0x8c', '0xbe']);
+      expect(
+        view.getUint8(8)
+      ).assertEqual(
+        49
+      );
+      expect(
+        view.getUint8(9)
+      ).assertEqual(
+        140
+      );
+      expect(
+        view.getUint8(10)
+      ).assertEqual(
+        190
+      );
