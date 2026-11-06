@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,12 @@
  * limitations under the License.
  */
 
-// [Start TestHidebugNdk_Backtrace]
-#ifndef MYAPPLICATION_TESTBACKTRACE_H
-#define MYAPPLICATION_TESTBACKTRACE_H
+// [Start TestHidebugNdk_AsyncContextHeader]
+#ifndef MYAPPLICATION_TESTASYNCCONTEXT_H
+#define MYAPPLICATION_TESTASYNCCONTEXT_H
 
-void BacktraceCurrentThread();
+// 测试异步上下文管理接口，构造A->B最小三方异步调用。
+void TestAsyncContextChain();
 
-#endif // MYAPPLICATION_TESTBACKTRACE_H
-// [End TestHidebugNdk_Backtrace]
+#endif // MYAPPLICATION_TESTASYNCCONTEXT_H
+// [End TestHidebugNdk_AsyncContextHeader]
