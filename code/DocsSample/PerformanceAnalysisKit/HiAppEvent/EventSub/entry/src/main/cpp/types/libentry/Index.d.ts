@@ -14,7 +14,13 @@
  */
 
 // [Start EventSub_Index.d.ts_All]
+// [Start EventSub_napi_sanitizer_events_6_Header]
 export const registerWatcher: () => void;
+// [StartExclude EventSub_Index.d.ts_All]
+export const test: () => void;
+// [EndExclude EventSub_Index.d.ts_All]
+// [End EventSub_napi_sanitizer_events_6_Header]
+
 // [Start AppEvent_C++_Index.d.ts]
 export const registerWatcherCrash: () => void;
 export const registerWatcherClick: () => void;

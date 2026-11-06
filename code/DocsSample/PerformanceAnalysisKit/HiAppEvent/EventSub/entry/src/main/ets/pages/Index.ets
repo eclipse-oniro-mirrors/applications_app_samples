@@ -26,6 +26,7 @@ import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
 // [End CrashConfig_Policy_Header]
 // [Start EventSub_Index_Capi_Header]
+// [Start EventSub_napi_sanitizer_events_8_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
 // [End PssLeakEvent_Header]
@@ -35,6 +36,7 @@ import { ArkWebPage } from './ArkWebPage';
 @Entry
 @Component
 struct Index {
+  // [StartExclude EventSub_napi_sanitizer_events_8_Header]
   @State leakedArray: string[][] = [];
   // [Start AppKillEvent_Button]
   @State message: string = 'Start To Leak';
@@ -69,11 +71,15 @@ struct Index {
     });
     // [End CrashConfig_Policy]
   }
+  // [EndExclude EventSub_napi_sanitizer_events_8_Header]
 
   build() {
+    // [StartExclude EventSub_napi_sanitizer_events_8_Header]
     Navigation(this.navPathStack) {
+    // [EndExclude EventSub_napi_sanitizer_events_8_Header]
       Row() {
         Column() {
+          // [StartExclude EventSub_napi_sanitizer_events_8_Header]
           // [Start AppEvent_Crash_Button]
           Button('WatchAppCrash ArkTS&C++')
             .type(ButtonType.Capsule)
@@ -403,13 +409,20 @@ struct Index {
               while (Date.now() - t <= 500) {}
             })
           // [End MainThreadJank_Timeout_500_Button]
+          // [EndExclude EventSub_napi_sanitizer_events_8_Header]
+          Button("address-sanitizer").onClick(() => {
+            testNapi.test();
+          })
         }
-        .width('50%')
+        .width('100%')
       }
       .height('100%')
     }
+    // [StartExclude EventSub_napi_sanitizer_events_8_Header]
     .navDestination(this.PageMap)
     .hideTitleBar(true)
     .mode(NavigationMode.Stack)
+    // [EndExclude EventSub_napi_sanitizer_events_8_Header]
   }
 }
+// [End EventSub_napi_sanitizer_events_8_Header]

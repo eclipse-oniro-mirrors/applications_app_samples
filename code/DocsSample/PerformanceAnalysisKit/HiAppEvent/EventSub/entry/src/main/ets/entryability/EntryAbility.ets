@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+// [EventSub_napi_sanitizer_events_7_Header]
+// 导入依赖模块
+// [StartExclude EventSub_napi_sanitizer_events_7_Header]
 // [Start EventSub_EntryAbility_Header]
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 // [Start PssLeakEvent_ArkTS_Header]
@@ -41,7 +44,16 @@ import { window } from '@kit.ArkUI';
 // [End EventSub_EntryAbility_Header]
 // [Start EventSub_Capi_Header]
 // [Start MainThreadJank_Header]
+// [EndExclude EventSub_napi_sanitizer_events_7_Header]
 import testNapi from 'libentry.so';
+// [StartExclude EventSub_Capi_Header]
+// [StartExclude MainThreadJank_Header]
+
+// 在onCreate()函数中新增接口调用
+// 启动时，注册系统事件观察者
+// [EndExclude EventSub_Capi_Header]
+// [EndExclude MainThreadJank_Header]
+// [StartExclude EventSub_napi_sanitizer_events_7_Header]
 // [End EventSub_Capi_Header]
 // [End MainThreadJank_Header]
 // [Start ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
@@ -698,7 +710,9 @@ export default class EntryAbility extends UIAbility {
     // [End MainThreadJank_ArkTS_Add_Watcher]
     // [Start EventSub_Call_Capi_Function]
     // 调用C++观察者
+    // [EndExclude EventSub_napi_sanitizer_events_7_Header]
     testNapi.registerWatcher();
+    // [End EventSub_napi_sanitizer_events_7_Header]
     // [End EventSub_Call_Capi_Function]
     // [Start AppEvent_Call_Capi_Function]
     // 在onCreate()函数中添加C API接口调用
