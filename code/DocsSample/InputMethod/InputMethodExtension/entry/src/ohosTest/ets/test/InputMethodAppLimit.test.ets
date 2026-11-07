@@ -157,7 +157,7 @@ export default function inputMethodAppLimitTest() {
      * @tc.level Level 2
      */
     it('testAppLimit0006', 0, () => {
-      expect(HILOG_DOMAIN).assertEqual(0x0C23);
+      expect(HILOG_DOMAIN).assertEqual(0xF811);
       expect(HILOG_TAG).assertEqual('InputMethodExt');
       expect(HILOG_TAG.includes(' ')).assertFalse();
       expect(HILOG_DOMAIN > 0).assertTrue();

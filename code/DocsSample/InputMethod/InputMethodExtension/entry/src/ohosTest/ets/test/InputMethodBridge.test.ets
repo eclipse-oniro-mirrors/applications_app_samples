@@ -21,7 +21,7 @@ import { KEYBOARD_PAGE_PATH, PanelController, panelController } from '../../../m
 import { Logger } from '../../../main/ets/utils/Logger';
 
 /** 桥接层写日志用的 source，与被测模块内部保持一致 */
-const BRIDGE_SOURCE: string = '键盘';
+const BRIDGE_SOURCE: string = 'Keyboard';
 /** 没有 InputClient 时的状态文案：页面靠它说明"这是壳外预览" */
 const PREVIEW_STATUS: string = '未连接编辑框（壳外预览）';
 /** detach 之后的状态文案 */
