@@ -64,13 +64,12 @@ let funACall = (data: rpc.MessageSequence): MyParcelable => {
       let formMsg: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
       formProvider.updateForm(curFormId, formMsg).then(() => {
         hilog.info(DOMAIN_NUMBER, TAG, `updateForm success.`);
-      }).catch((error: BusinessError) => {
-        hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${error.code}, error message: ${error.message}`);
+      }).catch((err: BusinessError) => {
+        hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${err.code}, error message: ${err.message}`);
       });
     }
-  } catch (e) {
-    hilog.error(DOMAIN_NUMBER, TAG, `funACall catch error` + `,
-      code: ${e.code}, message: ${e.message}`);
+  } catch (err) {
+    hilog.error(DOMAIN_NUMBER, TAG, `funACall catch error, code: ${err.code}, message: ${err.message}`);
   }
   return new MyParcelable(CONST_NUMBER_1, 'aaa');
 };
@@ -80,8 +79,8 @@ export default class WidgetCalleeEntryAbility extends UIAbility {
     try {
       // 监听call事件所需的方法
       this.callee.on(MSG_SEND_METHOD, funACall);
-    } catch (error) {
-      hilog.error(DOMAIN_NUMBER, TAG, `${MSG_SEND_METHOD} register failed, error code: ${error.code}, error message: ${error.message}`);
+    } catch (err) {
+      hilog.error(DOMAIN_NUMBER, TAG, `${MSG_SEND_METHOD} register failed, error code: ${err.code}, error message: ${err.message}`);
     }
   }
 

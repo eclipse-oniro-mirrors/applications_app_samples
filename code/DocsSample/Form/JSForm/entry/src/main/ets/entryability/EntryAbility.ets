@@ -39,9 +39,8 @@ export default class EntryAbility extends UIAbility {
           // 执行业务逻辑，由用户自行实现
           hilog.info(DOMAIN_NUMBER, TAG, `router message: ${params.message}`);
         }
-      } catch (e) {
-        hilog.error(DOMAIN_NUMBER, TAG, `onCreate catch error` + `,
-          code: ${e.code}, message: ${e.message}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onCreate catch error, code: ${err.code}, message: ${err.message}`);
       }
     }
   }

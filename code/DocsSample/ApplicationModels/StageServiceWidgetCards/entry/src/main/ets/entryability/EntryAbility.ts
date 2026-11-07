@@ -35,9 +35,8 @@ export default class EntryAbility extends UIAbility {
         let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
         this.selectPage = params.targetPage as string;
         hilog.info(DOMAIN_NUMBER, TAG, `onCreate selectPage: ${this.selectPage}`);
-      } catch (e) {
-        hilog.error(DOMAIN_NUMBER, TAG, `onCreate catch error` + `,
-          code: ${e.code}, message: ${e.message}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onCreate catch error, code: ${err.code}, message: ${err.message}`);
       }
     }
   }
@@ -51,9 +50,8 @@ export default class EntryAbility extends UIAbility {
         let params: Record<string, Object> = JSON.parse(want.parameters.params as string);
         this.selectPage = params.targetPage as string;
         hilog.info(DOMAIN_NUMBER, TAG, `onNewWant selectPage: ${this.selectPage}`);
-      } catch (e) {
-        hilog.error(DOMAIN_NUMBER, TAG, `onNewWant catch error` + `,
-          code: ${e.code}, message: ${e.message}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onNewWant catch error, code: ${err.code}, message: ${err.message}`);
       }
     }
     if (this.currentWindowStage !== null) {
