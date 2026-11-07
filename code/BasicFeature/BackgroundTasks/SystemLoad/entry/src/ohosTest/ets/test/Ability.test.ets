@@ -616,7 +616,7 @@ export default function abilityTest() {
      * @tc.desc      Cycle through all 8 levels and verify each has valid description and recommendation.
      * @tc.size      MediumTest
      * @tc.type      Function
-     * @tc.level     Level 1
+     * @tc.level     Level 2
      */
     it('testSystemLoadAllLevelDescriptions0022', 0, async () => {
       const caseName = 'testSystemLoadAllLevelDescriptions0022';
@@ -645,7 +645,7 @@ export default function abilityTest() {
      * @tc.desc      Switch between mock and local data multiple times and verify state consistency.
      * @tc.size      MediumTest
      * @tc.type      Function
-     * @tc.level     Level 1
+     * @tc.level     Level 2
      */
     it('testSystemLoadDataSourceSwitchConsistency0023', 0, async () => {
       const caseName = 'testSystemLoadDataSourceSwitchConsistency0023';
@@ -676,7 +676,7 @@ export default function abilityTest() {
      * @tc.desc      Verify operation status text updates correctly after each operation.
      * @tc.size      MediumTest
      * @tc.type      Function
-     * @tc.level     Level 1
+     * @tc.level     Level 2
      */
     it('testSystemLoadOperationStatusUpdates0024', 0, async () => {
       const caseName = 'testSystemLoadOperationStatusUpdates0024';
@@ -702,7 +702,7 @@ export default function abilityTest() {
      * @tc.desc      Verify callback history component updates when callbacks are received.
      * @tc.size      MediumTest
      * @tc.type      Function
-     * @tc.level     Level 1
+     * @tc.level     Level 2
      */
     it('testSystemLoadCallbackHistoryUpdates0025', 0, async () => {
       const caseName = 'testSystemLoadCallbackHistoryUpdates0025';

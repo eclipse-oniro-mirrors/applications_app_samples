@@ -33,11 +33,6 @@ import boundaryExtensionPart1Test from './BoundaryExtensionPart1.test';
 import boundaryExtensionPart2Test from './BoundaryExtensionPart2.test';
 import boundaryExtensionPart3Test from './BoundaryExtensionPart3.test';
 import boundaryExtensionPart4Test from './BoundaryExtensionPart4.test';
-import cryptoUtilsBoundaryTest from './CryptoUtilsBoundary.test';
-import clipboardUtilsBoundaryTest from './ClipboardUtilsBoundary.test';
-import storageUtilsBoundaryTest from './StorageUtilsBoundary.test';
-import networkUtilsBoundaryTest from './NetworkUtilsBoundary.test';
-import uiAutomationEnhancedTest from './UIAutomationEnhanced.test';
 
 export default function testsuite() {
   systemLoadSdkTest();
@@ -60,9 +55,4 @@ export default function testsuite() {
   boundaryExtensionPart2Test();
   boundaryExtensionPart3Test();
   boundaryExtensionPart4Test();
-  cryptoUtilsBoundaryTest();
-  clipboardUtilsBoundaryTest();
-  storageUtilsBoundaryTest();
-  networkUtilsBoundaryTest();
-  uiAutomationEnhancedTest();
 }

@@ -30,7 +30,20 @@
         }
       }
     ],
-    "signingConfigs": []
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_TotK23gJtSHhMCIcPG9vxrNRMST3qgRZ1MXVWt1cvdo=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BEDE9A101C07548DBAB69D115BF0F8DEE3563A6E2FBDC20558F02B2B0F38920496CBAB1B8C17B30",
+          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_TotK23gJtSHhMCIcPG9vxrNRMST3qgRZ1MXVWt1cvdo=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_TotK23gJtSHhMCIcPG9vxrNRMST3qgRZ1MXVWt1cvdo=.p12",
+          "storePassword": "0000001B82DB215B083624506D51E2A599D9E3F5214B2B6A63EF171810D6BAF164088CEE297B288AE13C74"
+        }
+      }
+    ]
   },
   "modules": [
     {
