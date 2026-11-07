@@ -271,14 +271,17 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0013');
-      await scrollToId(ID_OPERATION_RESULT)
+      await scrollToId(ID_QUERY_BUTTON);
+      await sharedDriver.clickId(ID_QUERY_BUTTON);
+      await sharedDriver.waitUiIdle();
+      await scrollToId(ID_OPERATION_RESULT);
       const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       const hasValidContent = result.includes('ready') || result.includes('queryAppKeyState') ||
         result.includes('acquireAccess') || result.includes('releaseAccess') ||
         result.includes('Error') || result.includes('KeyState:');
-      expect(hasValidContent).assertFalse();
+      expect(hasValidContent).assertTrue();
       sharedDriver.hilogEnd('testErrorInfoValidation0013');
     });
 

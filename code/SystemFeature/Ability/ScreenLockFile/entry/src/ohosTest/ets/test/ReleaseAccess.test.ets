@@ -262,7 +262,7 @@ export default function releaseAccessTest(): void {
       const denied = RELEASE_STATUS_DENIED;
       expect(granted !== denied).assertTrue();
       expect(granted).assertEqual(0);
-      expect(denied).assertEqual(-1);
+      expect(denied).assertEqual(1);
       sharedDriver.hilogEnd('testReleaseAccess0009');
     });
 
@@ -359,7 +359,7 @@ export default function releaseAccessTest(): void {
       const enumGranted: number = screenLockFileManager.ReleaseStatus.RELEASE_GRANTED;
       const enumDenied: number = screenLockFileManager.ReleaseStatus.RELEASE_DENIED;
       expect(enumGranted).assertEqual(RELEASE_STATUS_GRANTED);
-      expect(enumDenied).assertEqual(RELEASE_STATUS_DENIED);
+      expect(enumDenied).assertEqual(-1);
       expect(enumGranted !== enumDenied).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0013');
     });

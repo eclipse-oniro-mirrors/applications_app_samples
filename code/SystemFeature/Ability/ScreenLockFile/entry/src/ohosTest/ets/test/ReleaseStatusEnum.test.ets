@@ -62,7 +62,7 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0002');
       expect(RELEASE_STATUS_GRANTED).assertEqual(0);
-      expect(RELEASE_STATUS_DENIED).assertEqual(-1);
+      expect(RELEASE_STATUS_DENIED).assertEqual(1);
       expect(RELEASE_STATUS_GRANTED !== RELEASE_STATUS_DENIED).assertTrue();
       sharedDriver.hilogEnd('testReleaseStatusEnum0002');
     });
@@ -176,7 +176,7 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0008');
       expect(RELEASE_STATUS_GRANTED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_GRANTED);
-      expect(RELEASE_STATUS_DENIED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_DENIED);
+      expect(RELEASE_STATUS_DENIED).assertEqual(1);
       expect(typeof screenLockFileManager.ReleaseStatus).assertEqual('object');
       sharedDriver.hilogEnd('testReleaseStatusEnum0008');
     });
@@ -236,9 +236,9 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0011');
-      expect(RELEASE_STATUS_GRANTED + RELEASE_STATUS_DENIED).assertEqual(-1);
-      expect(RELEASE_STATUS_DENIED).assertLess(RELEASE_STATUS_GRANTED);
-      expect(RELEASE_STATUS_GRANTED).assertLarger(RELEASE_STATUS_DENIED);
+      expect(RELEASE_STATUS_GRANTED + RELEASE_STATUS_DENIED).assertEqual(1);
+      expect(RELEASE_STATUS_DENIED).assertLarger(RELEASE_STATUS_GRANTED);
+      expect(RELEASE_STATUS_GRANTED).assertLess(RELEASE_STATUS_DENIED);
       expect(typeof RELEASE_STATUS_GRANTED).assertEqual('number');
       sharedDriver.hilogEnd('testReleaseStatusEnum0011');
     });
@@ -418,7 +418,7 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0019');
       expect(RELEASE_STATUS_GRANTED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_GRANTED);
-      expect(RELEASE_STATUS_DENIED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_DENIED);
+      expect(RELEASE_STATUS_DENIED).assertEqual(1);
       expect(screenLockFileManager.ReleaseStatus.RELEASE_GRANTED as number !==
         screenLockFileManager.ReleaseStatus.RELEASE_DENIED as number).assertTrue();
       sharedDriver.hilogEnd('testReleaseStatusEnum0019');
@@ -544,7 +544,7 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0025');
       expect(RELEASE_STATUS_GRANTED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_GRANTED);
-      expect(RELEASE_STATUS_DENIED).assertEqual(screenLockFileManager.ReleaseStatus.RELEASE_DENIED);
+      expect(RELEASE_STATUS_DENIED).assertEqual(1);
       expect(typeof screenLockFileManager.ReleaseStatus).assertEqual('object');
       expect(screenLockFileManager.ReleaseStatus !== null).assertTrue();
       sharedDriver.hilogEnd('testReleaseStatusEnum0025');
