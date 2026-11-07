@@ -27,6 +27,10 @@ struct DemoQueue {
     void Flush() {}
 };
 
+// 演示用最小视频规格，用于动态开关场景中创建并启动编码器。
+constexpr int32_t DEMO_VIDEO_WIDTH = 320; // 演示用视频像素宽。
+constexpr int32_t DEMO_VIDEO_HEIGHT = 240; // 演示用视频像素高。
+
 // 创建并按最小格式配置、启动编码器，用于动态开关时域可分层能力的场景演示。
 OH_AVCodec *CreateRunningEncoder()
 {
@@ -34,7 +38,8 @@ OH_AVCodec *CreateRunningEncoder()
     if (videoEnc == nullptr) {
         return nullptr;
     }
-    OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, 320, 240);
+    OH_AVFormat *format =
+        OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, DEMO_VIDEO_WIDTH, DEMO_VIDEO_HEIGHT);
     if (format == nullptr) {
         OH_VideoEncoder_Destroy(videoEnc);
         return nullptr;
@@ -114,8 +119,9 @@ static void OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
         return;
     }
     // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
+    constexpr int32_t USE_LTR_FRAME_POC = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, 4);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, USE_LTR_FRAME_POC);
     OH_AVBuffer_SetParameter(buffer, format);
     OH_AVFormat_Destroy(format);
     // 通知编码器buffer输入完成。
@@ -198,8 +204,9 @@ static void OnNeedInputParameter(OH_AVCodec *codec, uint32_t index, OH_AVFormat 
     // - 通知编码器码流结束。
     // - 随帧参数写入。
     // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
+    constexpr int32_t USE_LTR_FRAME_POC = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
     OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
-    OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, 4);
+    OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, USE_LTR_FRAME_POC);
     // 通知编码器随帧参数配置输入完成。
     OH_AVErrCode ret = OH_VideoEncoder_PushInputParameter(codec, index);
     if (ret != AV_ERR_OK) {
@@ -453,8 +460,8 @@ std::string TemporalScalabilityQuery::LtrFeatureCheck()
     }
     result += "LTR特性支持情况: " + std::string(isSupported ? "支持" : "不支持");
     result += "\n当前编码器支持的最大LTR数目: " + std::to_string(supportedLTRCount);
-    result += "\n按4层时域分层结构需求（5个LTR）评估: " +
-        std::string(supportedLTRCount >= 5 ? "满足" : "不满足");
+    result += "\n按4层时域分层结构需求（" + std::to_string(NEEDED_LTR_COUNT) + "个LTR）评估: " +
+        std::string(supportedLTRCount >= NEEDED_LTR_COUNT ? "满足" : "不满足");
     return result;
 }
 
