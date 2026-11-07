@@ -73,9 +73,9 @@ export class StorageEntry<T> {
  */
 export class StorageUtils {
   /** 默认Preferences文件名 */
-  static readonly DEFAULT_STORE_NAME: string = 'app_data';
+  public static readonly DEFAULT_STORE_NAME: string = 'app_data';
   /** 默认值前缀 */
-  static readonly KEY_PREFIX: string = 'storage_';
+  public static readonly KEY_PREFIX: string = 'storage_';
 
   /**
    * 获取Preferences实例
@@ -575,7 +575,7 @@ export class StorageUtils {
       // 获取所有键值对数据 - getAllSync()返回Object（包含所有键值对）
       const allData: Object = pref.getAllSync();
       // 由于ArkTS中无Object.keys，使用ts文件中的辅助方法获取键名
-      const keys: Array<string> = getObjectKeys(allData);
+      const keys: string[] = getObjectKeys(allData);
       hilog.info(DOMAIN, TAG, `getAllKeys() found ${keys.length} keys`);
       return keys;
     } catch (error) {

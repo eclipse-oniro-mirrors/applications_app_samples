@@ -87,13 +87,13 @@ export default function accessibilityPerformanceTest() {
       expect(uiElements.length > 0).assertTrue();
 
       for (const element of uiElements) {
-        logger.info(`${BUNDLE}ui element for screen reader: ${element}`);
+        logger.info(`${BUNDLE}ui element supports screen reader: ${element}`);
         expect(element.length > 0).assertTrue();
         expect(typeof element).assertEqual('string');
       }
 
       expect(uiElements.length).assertEqual(7);
-      logger.info(`${BUNDLE}all ${uiElements.length} ui elements are accessible`);
+      logger.info(`${BUNDLE}all ${uiElements.length} ui elements support screen reader`);
 
       logger.info(`${BUNDLE}accessibilityScreenReaderSupport_0001, end`);
     });
@@ -131,7 +131,7 @@ export default function accessibilityPerformanceTest() {
       }
 
       expect(focusableElements.length).assertEqual(10);
-      logger.info(`${BUNDLE}all ${focusableElements.length} elements are keyboard accessible`);
+      logger.info(`${BUNDLE}all ${focusableElements.length} elements support keyboard navigation`);
 
       logger.info(`${BUNDLE}accessibilityKeyboardNavigation_0001, end`);
     });

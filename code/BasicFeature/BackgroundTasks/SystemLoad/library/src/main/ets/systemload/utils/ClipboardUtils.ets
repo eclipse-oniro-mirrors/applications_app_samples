@@ -43,15 +43,15 @@ export enum ClipboardDataType {
  */
 export class ClipboardContent {
   /** 数据类型 */
-  type: ClipboardDataType = ClipboardDataType.NONE;
+  public type: ClipboardDataType = ClipboardDataType.NONE;
   /** 文本内容 */
-  text: string = '';
+  public text: string = '';
   /** URI内容 */
-  uri: string = '';
+  public uri: string = '';
   /** HTML内容 */
-  html: string = '';
+  public html: string = '';
   /** 时间戳 */
-  timestamp: number = 0;
+  public timestamp: number = 0;
 }
 
 /**
@@ -76,7 +76,7 @@ export class ClipboardContent {
  */
 export class ClipboardUtils {
   /** 默认剪贴板名称 */
-  static readonly DEFAULT_CLIPBOARD_NAME: string = 'clipboard';
+  public static readonly DEFAULT_CLIPBOARD_NAME: string = 'clipboard';
 
   /**
    * 获取系统剪贴板实例

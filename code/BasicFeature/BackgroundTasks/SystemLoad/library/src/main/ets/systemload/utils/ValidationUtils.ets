@@ -55,11 +55,19 @@ export enum ValidationRule {
  */
 export class ValidationResult {
   /** 是否通过校验 */
+<<<<<<< HEAD
+  public valid: boolean = false;
+  /** 错误消息 */
+  public message: string = '';
+  /** 校验规则 */
+  public rule: ValidationRule = ValidationRule.REQUIRED;
+=======
   valid: boolean = false;
   /** 错误消息 */
   message: string = '';
   /** 校验规则 */
   rule: ValidationRule = ValidationRule.REQUIRED;
+>>>>>>> 8aaffd639a1ca7f501f3d5b8114eb9e68d29c388
 }
 
 /**
@@ -68,9 +76,15 @@ export class ValidationResult {
  */
 export class ValidationEntry {
   /** 字段值 */
+<<<<<<< HEAD
+  public value: string = '';
+  /** 校验规则 */
+  public rule: ValidationRule = ValidationRule.REQUIRED;
+=======
   value: string = '';
   /** 校验规则 */
   rule: ValidationRule = ValidationRule.REQUIRED;
+>>>>>>> 8aaffd639a1ca7f501f3d5b8114eb9e68d29c388
 }
 
 /**

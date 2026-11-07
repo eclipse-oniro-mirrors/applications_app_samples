@@ -37,9 +37,9 @@ export enum CryptoAlgorithm {
  * 加密结果结构体
  */
 export class CryptoResult {
-  success: boolean = false;
-  data: string = '';
-  error: string = '';
+  public success: boolean = false;
+  public data: string = '';
+  public error: string = '';
 }
 
 /**
@@ -228,8 +228,12 @@ export class CryptoUtils {
         const c3: number = i + 2 < cleanBase64.length ? CryptoUtils.BASE64_CHARS.indexOf(cleanBase64[i + 2]) : -1;
         const c4: number = i + 3 < cleanBase64.length ? CryptoUtils.BASE64_CHARS.indexOf(cleanBase64[i + 3]) : -1;
         bytes.push((c1 << 2) | (c2 >> 4));
-        if (c3 !== -1) bytes.push(((c2 & 15) << 4) | (c3 >> 2));
-        if (c4 !== -1) bytes.push(((c3 & 3) << 6) | c4);
+        if (c3 !== -1) {
+          bytes.push(((c2 & 15) << 4) | (c3 >> 2));
+        }
+        if (c4 !== -1) {
+          bytes.push(((c3 & 3) << 6) | c4);
+        }
       }
       const result: string = CryptoUtils.arrayBufferToString(new Uint8Array(bytes).buffer as ArrayBuffer);
       hilog.info(DOMAIN, TAG, `base64Decode() result length: ${result.length}`);

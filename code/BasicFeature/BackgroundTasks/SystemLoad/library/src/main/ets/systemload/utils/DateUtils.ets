@@ -39,13 +39,13 @@ const TAG: string = 'DateUtils';
  */
 export class DateUtils {
   /** 默认日期格式 */
-  static readonly DEFAULT_FORMAT: string = 'yyyy-MM-dd HH:mm:ss';
+  public static readonly DEFAULT_FORMAT: string = 'yyyy-MM-dd HH:mm:ss';
   /** 日期格式 */
-  static readonly DATE_FORMAT: string = 'yyyy-MM-dd';
+  public static readonly DATE_FORMAT: string = 'yyyy-MM-dd';
   /** 时间格式 */
-  static readonly TIME_FORMAT: string = 'HH:mm:ss';
+  public static readonly TIME_FORMAT: string = 'HH:mm:ss';
   /** 简短日期格式 */
-  static readonly SHORT_FORMAT: string = 'yyyyMMdd';
+  public static readonly SHORT_FORMAT: string = 'yyyyMMdd';
 
   /** 星期名称映射 */
   private static readonly WEEK_DAYS: Map<number, string> = new Map([

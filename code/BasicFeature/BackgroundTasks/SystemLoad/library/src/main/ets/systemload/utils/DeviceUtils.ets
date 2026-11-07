@@ -27,17 +27,17 @@ const TAG: string = 'DeviceUtils';
  */
 export class DeviceInfo {
   /** 设备品牌 */
-  brand: string = '';
+  public brand: string = '';
   /** 设备型号 */
-  model: string = '';
+  public model: string = '';
   /** 系统版本 */
-  osVersion: string = '';
+  public osVersion: string = '';
   /** 系统类型 */
-  osType: string = '';
+  public osType: string = '';
   /** 设备类型 */
-  deviceType: string = '';
+  public deviceType: string = '';
   /** 设备UDID */
-  udid: string = '';
+  public udid: string = '';
 }
 
 /**
@@ -60,13 +60,13 @@ export class DeviceInfo {
  */
 export class DeviceUtils {
   /** 设备类型：手机 */
-  static readonly DEVICE_TYPE_PHONE: string = 'phone';
+  public static readonly DEVICE_TYPE_PHONE: string = 'phone';
   /** 设备类型：平板 */
-  static readonly DEVICE_TYPE_TABLET: string = 'tablet';
+  public static readonly DEVICE_TYPE_TABLET: string = 'tablet';
   /** 设备类型：2in1 */
-  static readonly DEVICE_TYPE_2IN1: string = '2in1';
+  public static readonly DEVICE_TYPE_2IN1: string = '2in1';
   /** 设备类型：未知 */
-  static readonly DEVICE_TYPE_UNKNOWN: string = 'unknown';
+  public static readonly DEVICE_TYPE_UNKNOWN: string = 'unknown';
 
   /**
    * 获取设备品牌
@@ -112,7 +112,7 @@ export class DeviceUtils {
 
   /**
    * 获取系统版本
-   * 返回HarmonyOS/OpenHarmony系统版本号
+   * 返回操作系统版本号
    * 
    * @returns string 系统版本号
    */

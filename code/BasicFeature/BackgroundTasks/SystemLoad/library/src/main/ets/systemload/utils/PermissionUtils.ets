@@ -42,9 +42,9 @@ export enum PermissionStatus {
  */
 export class PermissionRequestResults {
   /** 权限名称 */
-  permission: string = '';
+  public permission: string = '';
   /** 授权状态 */
-  status: PermissionStatus = PermissionStatus.UNKNOWN;
+  public status: PermissionStatus = PermissionStatus.UNKNOWN;
 }
 
 /**
@@ -53,7 +53,7 @@ export class PermissionRequestResults {
  */
 export class PermissionUtils {
   /** 权限已授权常量 */
-  static readonly PERMISSION_GRANTED: number = 0;
+  public static readonly PERMISSION_GRANTED: number = 0;
 
   /**
    * 检查单个权限

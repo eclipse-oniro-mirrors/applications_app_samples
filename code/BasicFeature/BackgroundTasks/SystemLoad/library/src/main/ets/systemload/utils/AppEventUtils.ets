@@ -56,15 +56,15 @@ export enum EventDomain {
  */
 export class EventData {
   /** 事件名称 */
-  name: string = '';
+  public name: string = '';
   /** 事件类型 */
-  type: EventType = EventType.STATISTIC;
+  public type: EventType = EventType.STATISTIC;
   /** 事件域 */
-  domain: EventDomain = EventDomain.APP;
+  public domain: EventDomain = EventDomain.APP;
   /** 事件参数 */
-  params: Record<string, string> = {};
+  public params: Record<string, string> = {};
   /** 时间戳 */
-  timestamp: number = 0;
+  public timestamp: number = 0;
 }
 
 /**

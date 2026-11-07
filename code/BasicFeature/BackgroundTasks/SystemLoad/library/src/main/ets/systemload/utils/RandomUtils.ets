@@ -57,17 +57,17 @@ export interface RandomOptions {
  */
 export class RandomUtils {
   /** 默认字符集：字母和数字 */
-  static readonly DEFAULT_CHARSET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  public static readonly DEFAULT_CHARSET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   /** 数字字符集 */
-  static readonly NUMERIC_CHARSET: string = '0123456789';
+  public static readonly NUMERIC_CHARSET: string = '0123456789';
   /** 小写字母字符集 */
-  static readonly LOWERCASE_CHARSET: string = 'abcdefghijklmnopqrstuvwxyz';
+  public static readonly LOWERCASE_CHARSET: string = 'abcdefghijklmnopqrstuvwxyz';
   /** 大写字母字符集 */
-  static readonly UPPERCASE_CHARSET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  public static readonly UPPERCASE_CHARSET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   /** 特殊字符集 */
-  static readonly SPECIAL_CHARSET: string = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  public static readonly SPECIAL_CHARSET: string = '!@#$%^&*()_+-=[]{}|;:,.<>?';
   /** 十六进制字符集 */
-  static readonly HEX_CHARSET: string = '0123456789ABCDEF';
+  public static readonly HEX_CHARSET: string = '0123456789ABCDEF';
 
   /**
    * 生成随机整数

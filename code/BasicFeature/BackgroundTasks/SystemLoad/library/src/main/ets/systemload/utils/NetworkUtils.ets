@@ -57,15 +57,15 @@ export class NetworkStatus {
  */
 export class NetworkUtils {
   /** 网络类型：WiFi */
-  static readonly NETWORK_TYPE_WIFI: string = 'wifi';
+  public static readonly NETWORK_TYPE_WIFI: string = 'wifi';
   /** 网络类型：蜂窝网络 */
-  static readonly NETWORK_TYPE_CELLULAR: string = 'cellular';
+  public static readonly NETWORK_TYPE_CELLULAR: string = 'cellular';
   /** 网络类型：以太网 */
-  static readonly NETWORK_TYPE_ETHERNET: string = 'ethernet';
+  public static readonly NETWORK_TYPE_ETHERNET: string = 'ethernet';
   /** 网络类型：无网络 */
-  static readonly NETWORK_TYPE_NONE: string = 'none';
+  public static readonly NETWORK_TYPE_NONE: string = 'none';
   /** 网络类型：未知 */
-  static readonly NETWORK_TYPE_UNKNOWN: string = 'unknown';
+  public static readonly NETWORK_TYPE_UNKNOWN: string = 'unknown';
 
   /**
    * 检查网络是否可用

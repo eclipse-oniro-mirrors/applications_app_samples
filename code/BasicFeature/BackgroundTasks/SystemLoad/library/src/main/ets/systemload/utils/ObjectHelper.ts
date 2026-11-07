@@ -16,7 +16,7 @@
 /**
  * 获取Object的所有键名
  * 由于ArkTS中无Object.keys方法，需将此方法单独抽离至ts文件中
- * 参考官方文档: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-data-preferences
+ * 参考平台 API 文档中 data.preferences 相关说明
  *
  * @param obj - 目标Object
  * @returns string[] 键名数组
