@@ -1,0 +1,114 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "锁屏敏感数据管理示例",
+      "description": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "锁屏敏感数据管理入口",
+      "description": "入口元能力描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ScreenLockFile",
+      "description": "应用名称"
+    },
+    {
+      "name": "page_title",
+      "value": "锁屏敏感数据管理",
+      "description": "功能页面标题"
+    },
+    {
+      "name": "page_description",
+      "value": "申请、释放并查询锁屏下本应用敏感数据的访问权限。",
+      "description": "功能页面说明"
+    },
+    {
+      "name": "precondition_title",
+      "value": "调用前提",
+      "description": "调用前提标题"
+    },
+    {
+      "name": "precondition_description",
+      "value": "需声明 ohos.permission.PROTECT_SCREEN_LOCK_DATA 权限，并在 queryAppKeyState 返回 KEY_EXIST 时调用 acquireAccess。",
+      "description": "权限和密钥状态要求"
+    },
+    {
+      "name": "data_type_description",
+      "value": "DataType：MEDIA_DATA = 0x00000001；ALL_DATA = 0xffffffff。",
+      "description": "敏感数据类型取值"
+    },
+    {
+      "name": "access_pairing_description",
+      "value": "每次成功调用 acquireAccess 后，都需要配对调用 releaseAccess。",
+      "description": "申请和释放配对要求"
+    },
+    {
+      "name": "query_key_state",
+      "value": "查询应用密钥状态",
+      "description": "查询密钥状态按钮文本"
+    },
+    {
+      "name": "acquire_access",
+      "value": "申请锁屏访问权限",
+      "description": "申请访问按钮文本"
+    },
+    {
+      "name": "release_access",
+      "value": "释放锁屏访问权限",
+      "description": "释放访问按钮文本"
+    },
+    {
+      "name": "result_title",
+      "value": "操作结果",
+      "description": "结果区域标题"
+    },
+    {
+      "name": "operation_ready",
+      "value": "已就绪，请选择一项操作。",
+      "description": "初始操作结果"
+    },
+    {
+      "name": "result_description",
+      "value": "结果展示返回枚举的名称和数值，或 BusinessError 的错误码与错误信息。",
+      "description": "结果区域说明"
+    },
+    {
+      "name": "operation_history_title",
+      "value": "操作历史",
+      "description": "操作历史区域标题"
+    },
+    {
+      "name": "pairing_status_title",
+      "value": "配对状态",
+      "description": "申请和释放配对状态区域标题"
+    },
+    {
+      "name": "pairing_status_format",
+      "value": "申请次数：%d，释放次数：%d，待配对：%d",
+      "description": "配对状态展示格式"
+    },
+    {
+      "name": "clear_history",
+      "value": "清除历史",
+      "description": "清除操作历史按钮文本"
+    },
+    {
+      "name": "no_history",
+      "value": "暂无操作记录。",
+      "description": "操作历史为空时的占位文本"
+    },
+    {
+      "name": "query_all_states",
+      "value": "查询全部状态",
+      "description": "查询全部状态按钮文本"
+    },
+    {
+      "name": "data_type_enum_title",
+      "value": "DataType 枚举值",
+      "description": "DataType 枚举程序化展示区域标题"
+    }
+  ]
+}

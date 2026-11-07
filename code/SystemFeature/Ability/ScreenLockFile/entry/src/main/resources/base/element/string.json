@@ -1,0 +1,114 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Screen lock sensitive data management sample",
+      "description": "Module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Screen lock sensitive data management entry",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ScreenLockFile",
+      "description": "Application label"
+    },
+    {
+      "name": "page_title",
+      "value": "Screen Lock Sensitive Data",
+      "description": "Feature page title"
+    },
+    {
+      "name": "page_description",
+      "value": "Request, release, and query access to application sensitive data while the screen is locked.",
+      "description": "Feature page description"
+    },
+    {
+      "name": "precondition_title",
+      "value": "Before calling",
+      "description": "Precondition section title"
+    },
+    {
+      "name": "precondition_description",
+      "value": "Declare ohos.permission.PROTECT_SCREEN_LOCK_DATA. Call acquireAccess only when queryAppKeyState returns KEY_EXIST.",
+      "description": "Permission and key state requirements"
+    },
+    {
+      "name": "data_type_description",
+      "value": "DataType: MEDIA_DATA = 0x00000001; ALL_DATA = 0xffffffff.",
+      "description": "Sensitive data type values"
+    },
+    {
+      "name": "access_pairing_description",
+      "value": "Each successful acquireAccess call must be paired with releaseAccess.",
+      "description": "Acquire and release pairing requirement"
+    },
+    {
+      "name": "query_key_state",
+      "value": "Query app key state",
+      "description": "Query key state button label"
+    },
+    {
+      "name": "acquire_access",
+      "value": "Acquire access",
+      "description": "Acquire access button label"
+    },
+    {
+      "name": "release_access",
+      "value": "Release access",
+      "description": "Release access button label"
+    },
+    {
+      "name": "result_title",
+      "value": "Operation result",
+      "description": "Result section title"
+    },
+    {
+      "name": "operation_ready",
+      "value": "Ready. Select an operation.",
+      "description": "Initial operation result"
+    },
+    {
+      "name": "result_description",
+      "value": "The result includes the returned enum name and value, or the BusinessError code and message.",
+      "description": "Result section description"
+    },
+    {
+      "name": "operation_history_title",
+      "value": "Operation history",
+      "description": "Operation history section title"
+    },
+    {
+      "name": "pairing_status_title",
+      "value": "Pairing status",
+      "description": "Acquire/release pairing status section title"
+    },
+    {
+      "name": "pairing_status_format",
+      "value": "Acquire count: %d, Release count: %d, Pending: %d",
+      "description": "Pairing status display format"
+    },
+    {
+      "name": "clear_history",
+      "value": "Clear history",
+      "description": "Clear operation history button label"
+    },
+    {
+      "name": "no_history",
+      "value": "No operations yet.",
+      "description": "Placeholder when operation history is empty"
+    },
+    {
+      "name": "query_all_states",
+      "value": "Query all states",
+      "description": "Query all states button label"
+    },
+    {
+      "name": "data_type_enum_title",
+      "value": "DataType Enum Values",
+      "description": "DataType enum programmatic display section title"
+    }
+  ]
+}
