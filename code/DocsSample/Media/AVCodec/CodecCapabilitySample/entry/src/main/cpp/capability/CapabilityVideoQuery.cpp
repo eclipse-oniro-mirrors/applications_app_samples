@@ -16,6 +16,69 @@
 #include "CapabilityQuery.h"
 #include "SampleLog.h"
 
+namespace {
+// 校验待配置档次是否在支持的档次列表中。
+bool IsProfileSupported(const int32_t *profiles, uint32_t profileNum, OH_AVCProfile profile)
+{
+    for (int i = 0; i < profileNum; i++) {
+        if (profiles[i] == profile) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 取指定档次支持的级别中的最大级别。
+OH_AVCLevel GetMaxSupportedLevel(const int32_t *levels, uint32_t levelNum)
+{
+    OH_AVCLevel maxLevel = static_cast<OH_AVCLevel>(levels[0]);
+    for (int32_t i = 1; i < levelNum; i++) {
+        OH_AVCLevel tmp = static_cast<OH_AVCLevel>(levels[i]);
+        if (tmp > maxLevel) {
+            maxLevel = tmp;
+        }
+    }
+    return maxLevel;
+}
+
+// 组装档次和级别查询场景的结果文本，并释放示例编码器实例。
+std::string BuildProfileAndLevelResult(const OH_AVCapability *capability, bool isMatched, OH_AVCLevel maxLevel,
+    OH_AVCodec *videoEnc)
+{
+    std::string result = "查询编解码档次和级别支持情况：";
+    if (capability == nullptr) {
+        return result + "未获取到推荐的H.264编码器。";
+    }
+    result += "AVC_PROFILE_MAIN档次支持情况: " + std::string(isMatched ? "支持" : "不支持");
+    result += "\n该档次支持的最大级别: " + std::to_string(maxLevel);
+    if (videoEnc != nullptr) {
+        OH_VideoEncoder_Destroy(videoEnc);
+        result += "\n档次参数配置完成（示例验证后已销毁实例）。";
+    } else {
+        result += "\n编码器创建失败。";
+    }
+    return result;
+}
+
+// 拼接长期参考帧特性支持情况及支持的最大个数文本。
+std::string BuildFeatureLtrResult(OH_AVCapability *capability, bool isSupported)
+{
+    std::string result = "长期参考帧特性支持情况: " + std::string(isSupported ? "支持" : "不支持");
+    if (isSupported) {
+        OH_AVFormat *properties = OH_AVCapability_GetFeatureProperties(capability, VIDEO_ENCODER_LONG_TERM_REFERENCE);
+        if (properties != nullptr) {
+            int32_t maxLTRCount = -1;
+            [[maybe_unused]] bool getRet =
+                OH_AVFormat_GetIntValue(properties, OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT,
+                                        &maxLTRCount);
+            result += "\n支持的最大长期参考帧个数: " + std::to_string(maxLTRCount);
+            OH_AVFormat_Destroy(properties);
+        }
+    }
+    return result;
+}
+} // namespace
+
 std::string CapabilityQuery::QueryProfileAndLevel()
 {
     SAMPLE_LOGI("Run QueryProfileAndLevel.");
@@ -32,13 +95,7 @@ std::string CapabilityQuery::QueryProfileAndLevel()
     if (ret != AV_ERR_OK || profiles == nullptr || profileNum == 0) {
         // 异常处理。
     }
-    bool isMatched = false;
-    for (int i = 0; i < profileNum; i++) {
-        if (profiles[i] == profile) {
-            isMatched = true;
-            break;
-        }
-    }
+    bool isMatched = IsProfileSupported(profiles, profileNum, profile);
     // 2. 查询待配置档次能支持的级别范围。
     const int32_t *levels = nullptr;
     uint32_t levelNum = 0;
@@ -46,13 +103,7 @@ std::string CapabilityQuery::QueryProfileAndLevel()
     if (ret != AV_ERR_OK || levels == nullptr || levelNum == 0) {
         // 异常处理。
     }
-    OH_AVCLevel maxLevel = static_cast<OH_AVCLevel>(levels[0]);
-    for (int32_t i = 1; i < levelNum; i++) {
-        OH_AVCLevel tmp = static_cast<OH_AVCLevel>(levels[i]);
-        if (tmp > maxLevel) {
-            maxLevel = tmp;
-        }
-    }
+    OH_AVCLevel maxLevel = GetMaxSupportedLevel(levels, levelNum);
     // 3.（可选）基于支持的最大级别做业务逻辑区分。
     if (maxLevel >= AVC_LEVEL_51) {
         // level5.1以上，宽、高可配置3840x2160。
@@ -65,13 +116,7 @@ std::string CapabilityQuery::QueryProfileAndLevel()
     }
     // 4. 配置档次参数。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
-    if (videoEnc == nullptr) {
-        // 异常处理。
-    }
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_AVC, 1920, 1080);
-    if (format == nullptr) {
-        // 异常处理。
-    }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, profile)) {
         // 异常处理。
     }
@@ -80,19 +125,8 @@ std::string CapabilityQuery::QueryProfileAndLevel()
     }
     OH_AVFormat_Destroy(format);
     // [End capability_profile_and_level]
-    std::string result = "查询编解码档次和级别支持情况：";
-    if (capability == nullptr) {
-        return result + "未获取到推荐的H.264编码器。";
-    }
-    result += "AVC_PROFILE_MAIN档次支持情况: " + std::string(isMatched ? "支持" : "不支持");
-    result += "\n该档次支持的最大级别: " + std::to_string(maxLevel);
-    if (videoEnc != nullptr) {
-        OH_VideoEncoder_Destroy(videoEnc);
-        result += "\n档次参数配置完成（示例验证后已销毁实例）。";
-    } else {
-        result += "\n编码器创建失败。";
-    }
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildProfileAndLevelResult(capability, isMatched, maxLevel, videoEnc);
 }
 
 std::string CapabilityQuery::CheckProfileAndLevel()
@@ -406,18 +440,7 @@ std::string CapabilityQuery::QueryFeatureLtr()
         }
         return result + "未获取到推荐的H.264编码器。";
     }
-    result += "长期参考帧特性支持情况: " + std::string(isSupported ? "支持" : "不支持");
-    if (isSupported) {
-        OH_AVFormat *properties = OH_AVCapability_GetFeatureProperties(capability, VIDEO_ENCODER_LONG_TERM_REFERENCE);
-        if (properties != nullptr) {
-            int32_t maxLTRCount = -1;
-            [[maybe_unused]] bool getRet =
-                OH_AVFormat_GetIntValue(properties, OH_FEATURE_PROPERTY_KEY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT,
-                                        &maxLTRCount);
-            result += "\n支持的最大长期参考帧个数: " + std::to_string(maxLTRCount);
-            OH_AVFormat_Destroy(properties);
-        }
-    }
+    result += BuildFeatureLtrResult(capability, isSupported);
     result += videoEnc == nullptr ? "\n编码器创建失败。" : "\n编码器创建并配置完成（示例验证后已销毁实例）。";
     if (format != nullptr) {
         OH_AVFormat_Destroy(format);

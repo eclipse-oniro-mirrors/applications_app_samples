@@ -48,7 +48,7 @@ export class CodecCategoryConstants {
   static readonly VIDEO_ENCODER: number = 1;
   static readonly AUDIO_DECODER: number = 2;
   static readonly AUDIO_ENCODER: number = 3;
-  static readonly CATEGORY_NAMES: string[] = ['视频解码器', '视频编码器', '音频解码器', '音频编码器'];
+  public static readonly CATEGORY_NAMES: string[] = ['视频解码器', '视频编码器', '音频解码器', '音频编码器'];
 }
 
 /**
@@ -187,7 +187,7 @@ export const SCENARIO_GROUPS: ScenarioGroup[] = [
       { id: 36, name: 'LTR特性与数目校验' },
       { id: 37, name: '配置最大LTR数目' },
       { id: 38, name: 'LTR随帧回调注册（Buffer模式）' },
-      { id: 39, name: 'LTR随帧回调注册（Surface模式）' }
+      { id: 39, name: 'LTR随帧回调注册（窗口输入模式）' }
     ]
   }
 ];

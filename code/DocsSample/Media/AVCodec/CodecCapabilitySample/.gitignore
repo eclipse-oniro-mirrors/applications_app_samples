@@ -9,4 +9,7 @@
 /.clang-format
 /.clang-tidy
 **/.test
-/wecode-cpp.db
+/wecode-cpp.db*
+*.db
+*.db-shm
+*.db-wal

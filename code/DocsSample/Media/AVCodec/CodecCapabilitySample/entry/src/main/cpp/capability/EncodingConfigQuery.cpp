@@ -16,6 +16,27 @@
 #include "EncodingConfigQuery.h"
 #include "SampleLog.h"
 
+namespace {
+// 按码控模式支持情况与配置结果组装场景结果文本，并释放示例编码器实例。
+std::string BuildEncodingResult(const std::string &sceneName, OH_AVCapability *cap, OH_BitrateMode mode,
+    const std::string &supportedText, const std::string &fallbackText, int32_t ret, OH_AVCodec *videoEnc)
+{
+    std::string result = sceneName;
+    if (videoEnc == nullptr) {
+        return result + "H.265编码器创建失败。";
+    }
+    if (cap != nullptr && OH_AVCapability_IsEncoderBitrateModeSupported(cap, mode)) {
+        result += supportedText;
+    } else {
+        result += fallbackText;
+    }
+    result += ret == AV_ERR_OK ? "编码器配置成功（示例验证后已销毁实例）。"
+                               : "编码器配置失败，错误码: " + std::to_string(ret);
+    OH_VideoEncoder_Destroy(videoEnc);
+    return result;
+}
+} // namespace
+
 std::string EncodingConfigQuery::LowLatencyCbr()
 {
     SAMPLE_LOGI("Run LowLatencyCbr.");
@@ -163,19 +184,9 @@ std::string EncodingConfigQuery::CbrhqConfig()
     // 5. 配置完成后销毁AVFormat实例。
     OH_AVFormat_Destroy(format);
     // [End config_cbrhq]
-    std::string result = "低时延场景（CBRHQ 1080p@15fps）：";
-    if (videoEnc == nullptr) {
-        return result + "H.265编码器创建失败。";
-    }
-    if (cap != nullptr && OH_AVCapability_IsEncoderBitrateModeSupported(cap, BITRATE_MODE_CBR_HIGH_QUALITY)) {
-        result += "当前编码器支持CBRHQ，已按CBRHQ码控配置。";
-    } else {
-        result += "当前编码器不支持CBRHQ，已自动降级为CBR码控配置。";
-    }
-    result += ret == AV_ERR_OK ? "编码器配置成功（示例验证后已销毁实例）。"
-                               : "编码器配置失败，错误码: " + std::to_string(ret);
-    OH_VideoEncoder_Destroy(videoEnc);
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildEncodingResult("低时延场景（CBRHQ 1080p@15fps）：", cap, BITRATE_MODE_CBR_HIGH_QUALITY,
+        "当前编码器支持CBRHQ，已按CBRHQ码控配置。", "当前编码器不支持CBRHQ，已自动降级为CBR码控配置。", ret, videoEnc);
 }
 
 std::string EncodingConfigQuery::LiveVbr()
@@ -263,7 +274,7 @@ std::string EncodingConfigQuery::LiveSqr()
         // 支持SQR，配置SQR码控参数。
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE,
                                 OH_BitrateMode::BITRATE_MODE_SQR); // 必须配置，码控模式配置为SQR。
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_SQR_FACTOR, VIDEO_SQR_FACTOR); // 必选配置，设置SQR质量因子，取值范围为[0, 51]，数值越小画质越高。
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_SQR_FACTOR, VIDEO_SQR_FACTOR); // 必选配置，SQR质量因子。
         OH_AVFormat_SetLongValue(format, OH_MD_KEY_MAX_BITRATE, VIDEO_MAX_BITRATE); // 必须配置，设置峰值码率，单位为bps。
     }
 
@@ -275,19 +286,10 @@ std::string EncodingConfigQuery::LiveSqr()
     // 5. 配置完成后销毁AVFormat实例。
     OH_AVFormat_Destroy(format);
     // [End config_live_sqr]
-    std::string result = "实时流媒体场景（直播SQR 1080p@25fps）：";
-    if (videoEnc == nullptr) {
-        return result + "H.265编码器创建失败。";
-    }
-    if (cap != nullptr && OH_AVCapability_IsEncoderBitrateModeSupported(cap, BITRATE_MODE_SQR)) {
-        result += "当前编码器支持SQR，已按SQR码控（质量因子25）配置。";
-    } else {
-        result += "当前编码器不支持SQR，已自动降级为VBR码控配置。";
-    }
-    result += ret == AV_ERR_OK ? "编码器配置成功（示例验证后已销毁实例）。"
-                               : "编码器配置失败，错误码: " + std::to_string(ret);
-    OH_VideoEncoder_Destroy(videoEnc);
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildEncodingResult("实时流媒体场景（直播SQR 1080p@25fps）：", cap, BITRATE_MODE_SQR,
+        "当前编码器支持SQR，已按SQR码控（质量因子25）配置。", "当前编码器不支持SQR，已自动降级为VBR码控配置。",
+        ret, videoEnc);
 }
 
 std::string EncodingConfigQuery::OfflineVbr()
@@ -375,7 +377,7 @@ std::string EncodingConfigQuery::OfflineSqr()
         // 支持SQR，配置SQR码控参数。
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE,
                                 OH_BitrateMode::BITRATE_MODE_SQR); // 必须配置，码控模式配置为SQR。
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_SQR_FACTOR, VIDEO_SQR_FACTOR); // 必选配置，设置SQR质量因子，取值范围为[0, 51]，数值越小画质越高。
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_SQR_FACTOR, VIDEO_SQR_FACTOR); // 必选配置，SQR质量因子。
         OH_AVFormat_SetLongValue(format, OH_MD_KEY_MAX_BITRATE, VIDEO_MAX_BITRATE); // 必须配置，设置峰值码率，单位为bps。
     }
 
@@ -387,17 +389,8 @@ std::string EncodingConfigQuery::OfflineSqr()
     // 5. 配置完成后销毁AVFormat实例。
     OH_AVFormat_Destroy(format);
     // [End config_offline_sqr]
-    std::string result = "离线编码场景（视频分享SQR 1080p@30fps）：";
-    if (videoEnc == nullptr) {
-        return result + "H.265编码器创建失败。";
-    }
-    if (cap != nullptr && OH_AVCapability_IsEncoderBitrateModeSupported(cap, BITRATE_MODE_SQR)) {
-        result += "当前编码器支持SQR，已按SQR码控（质量因子25）配置。";
-    } else {
-        result += "当前编码器不支持SQR，已自动降级为VBR码控配置。";
-    }
-    result += ret == AV_ERR_OK ? "编码器配置成功（示例验证后已销毁实例）。"
-                               : "编码器配置失败，错误码: " + std::to_string(ret);
-    OH_VideoEncoder_Destroy(videoEnc);
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildEncodingResult("离线编码场景（视频分享SQR 1080p@30fps）：", cap, BITRATE_MODE_SQR,
+        "当前编码器支持SQR，已按SQR码控（质量因子25）配置。", "当前编码器不支持SQR，已自动降级为VBR码控配置。",
+        ret, videoEnc);
 }

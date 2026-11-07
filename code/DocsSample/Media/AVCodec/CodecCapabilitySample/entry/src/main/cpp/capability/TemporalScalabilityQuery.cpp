@@ -65,7 +65,7 @@ OH_AVCodec *CreateRunningEncoder()
 namespace TemporalLayerDemo {
 // [Start temporal_scalability_output_layer_by_tgop]
 constexpr int32_t TGOP_SIZE = 3;
-uint32_t outPoc = 0;
+uint32_t g_outPoc = 0;
 // 通过输出回调中有效帧数，获取TGOP内相对位置，对照配置确认层级。
 static void OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
@@ -76,17 +76,17 @@ static void OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
     }
     // 刷新I帧后POC归零。
     if (attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) {
-        outPoc = 0;
+        g_outPoc = 0;
     }
     // 只有XPS的输出需要跳过。
     if (attr.flags != AVCODEC_BUFFER_FLAGS_CODEC_DATA) {
-        int32_t tGopInner = outPoc % TGOP_SIZE;
+        int32_t tGopInner = g_outPoc % TGOP_SIZE;
         if (tGopInner == 0) {
             // 时域关键帧，后续传输、解码流程不可丢弃。
         } else {
             // 时域非关键帧，后续传输、解码流程可以丢弃。
         }
-        outPoc++;
+        g_outPoc++;
     }
 }
 // [End temporal_scalability_output_layer_by_tgop]
@@ -119,9 +119,9 @@ static void OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *bu
         return;
     }
     // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
-    constexpr int32_t USE_LTR_FRAME_POC = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
+    constexpr int32_t useLtrFramePoc = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, USE_LTR_FRAME_POC);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, useLtrFramePoc);
     OH_AVBuffer_SetParameter(buffer, format);
     OH_AVFormat_Destroy(format);
     // 通知编码器buffer输入完成。
@@ -204,9 +204,9 @@ static void OnNeedInputParameter(OH_AVCodec *codec, uint32_t index, OH_AVFormat 
     // - 通知编码器码流结束。
     // - 随帧参数写入。
     // 随帧参数写入：将当前帧标记为LTR帧，并指定参考的LTR帧POC号。
-    constexpr int32_t USE_LTR_FRAME_POC = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
+    constexpr int32_t useLtrFramePoc = 4; // 当前帧参考的LTR帧POC号，需为已标记的LTR帧POC。
     OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_MARK_LTR, 1);
-    OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, USE_LTR_FRAME_POC);
+    OH_AVFormat_SetIntValue(parameter, OH_MD_KEY_VIDEO_ENCODER_PER_FRAME_USE_LTR, useLtrFramePoc);
     // 通知编码器随帧参数配置输入完成。
     OH_AVErrCode ret = OH_VideoEncoder_PushInputParameter(codec, index);
     if (ret != AV_ERR_OK) {
@@ -311,7 +311,7 @@ std::string TemporalScalabilityQuery::Configure()
     // 场景示例中的videoEnc为视频编码器实例，此处先创建H.264编码器用于演示。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_AVC);
     // [Start temporal_scalability_configure]
-    constexpr int32_t TGOP_SIZE = 3; 
+    constexpr int32_t TGOP_SIZE = 3;
     // 2.1 创建配置用临时AVFormat。
     auto format = std::shared_ptr<OH_AVFormat>(OH_AVFormat_Create(), OH_AVFormat_Destroy);
     if (format == nullptr) {

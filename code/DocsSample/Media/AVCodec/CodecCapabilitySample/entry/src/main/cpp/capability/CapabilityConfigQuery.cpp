@@ -16,6 +16,66 @@
 #include "CapabilityQuery.h"
 #include "SampleLog.h"
 
+namespace {
+// 校验待配置采样率是否落在编码器支持的采样率范围内。
+bool IsSampleRateSupported(const OH_AVRange *sampleRateRanges, uint32_t rangesNum, int32_t sampleRate)
+{
+    for (uint32_t i = 0; i < rangesNum; i++) {
+        if (sampleRate >= sampleRateRanges[i].minVal && sampleRate <= sampleRateRanges[i].maxVal) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 组装音频参数校验场景的结果文本，并释放示例实例。
+std::string BuildAudioParamsResult(const OH_AVCapability *capability, int32_t sampleRate, bool isMatched,
+    const OH_AVRange *sampleRateRanges, uint32_t rangesNum, const OH_AVRange &channelRange,
+    const OH_AVRange &bitrateRange, OH_AVCodec *audioEnc)
+{
+    std::string result = "设置正确的音频编解码参数：";
+    if (capability == nullptr) {
+        return result + "未获取到推荐的AAC编码器。";
+    }
+    if (sampleRateRanges != nullptr && rangesNum > 0) {
+        result += "\n支持的采样率范围: ";
+        for (uint32_t i = 0; i < rangesNum; i++) {
+            result += RangeToString(sampleRateRanges[i].minVal, sampleRateRanges[i].maxVal);
+            if (i + 1 < rangesNum) {
+                result += "、";
+            }
+        }
+        result += "\n采样率 " + std::to_string(sampleRate) + " 匹配情况: " + std::string(isMatched ? "支持" : "不支持");
+    }
+    result += "\n支持通道数范围: " + RangeToString(channelRange.minVal, channelRange.maxVal);
+    result += "\n支持码率范围: " + RangeToString(bitrateRange.minVal, bitrateRange.maxVal);
+    result += audioEnc == nullptr ? "\n音频编码器创建失败。" : "\n音频编码器创建并配置完成（示例验证后已销毁实例）。";
+    if (audioEnc != nullptr) {
+        OH_AudioCodec_Destroy(audioEnc);
+    }
+    return result;
+}
+
+// 组装SQR码控场景的结果文本，并停止、释放示例编码器实例。
+std::string BuildSqrResult(const OH_AVCapability *capability, bool isSupported, const OH_AVRange &bitrateRange,
+    int32_t sqrFactor, int32_t maxBitrate, OH_AVCodec *videoEnc)
+{
+    std::string result = "控制编码质量（SQR）：";
+    if (capability == nullptr) {
+        return result + "未获取到推荐的H.265编码器。";
+    }
+    result += "SQR码控模式支持情况: " + std::string(isSupported ? "支持" : "不支持");
+    result += "\n支持码率范围: " + RangeToString(bitrateRange.minVal, bitrateRange.maxVal);
+    result += "\n质量稳定码率因子: " + std::to_string(sqrFactor) + "，最大码率: " + std::to_string(maxBitrate);
+    result += videoEnc == nullptr ? "\n编码器创建失败。" : "\n编码器已启动并完成动态参数配置（示例验证后已停止并销毁实例）。";
+    if (videoEnc != nullptr) {
+        OH_VideoEncoder_Stop(videoEnc);
+        OH_VideoEncoder_Destroy(videoEnc);
+    }
+    return result;
+}
+} // namespace
+
 std::string CapabilityQuery::BitrateModeCbr()
 {
     SAMPLE_LOGI("Run BitrateModeCbr.");
@@ -163,13 +223,7 @@ std::string CapabilityQuery::BitrateModeSqr()
 
     // 5. 配置编码参数。
     OH_AVCodec *videoEnc = OH_VideoEncoder_CreateByMime(OH_AVCODEC_MIMETYPE_VIDEO_HEVC);
-    if (videoEnc == nullptr) {
-        // 异常处理。
-    }
     OH_AVFormat *format = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_VIDEO_HEVC, 1920, 1080);
-    if (format == nullptr) {
-        // 异常处理。
-    }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, bitrateMode) ||
         !OH_AVFormat_SetIntValue(format, OH_MD_KEY_SQR_FACTOR, sqrFactor) ||
         !OH_AVFormat_SetLongValue(format, OH_MD_KEY_MAX_BITRATE, maxBitrate)) {
@@ -205,19 +259,8 @@ std::string CapabilityQuery::BitrateModeSqr()
     }
     OH_AVFormat_Destroy(dynamicFormat);
     // [End capability_bitrate_mode_sqr]
-    std::string result = "控制编码质量（SQR）：";
-    if (capability == nullptr) {
-        return result + "未获取到推荐的H.265编码器。";
-    }
-    result += "SQR码控模式支持情况: " + std::string(isSupported ? "支持" : "不支持");
-    result += "\n支持码率范围: " + RangeToString(bitrateRange.minVal, bitrateRange.maxVal);
-    result += "\n质量稳定码率因子: " + std::to_string(sqrFactor) + "，最大码率: " + std::to_string(maxBitrate);
-    result += videoEnc == nullptr ? "\n编码器创建失败。" : "\n编码器已启动并完成动态参数配置（示例验证后已停止并销毁实例）。";
-    if (videoEnc != nullptr) {
-        OH_VideoEncoder_Stop(videoEnc);
-        OH_VideoEncoder_Destroy(videoEnc);
-    }
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildSqrResult(capability, isSupported, bitrateRange, sqrFactor, maxBitrate, videoEnc);
 }
 
 std::string CapabilityQuery::BitrateModeCbrhq()
@@ -327,13 +370,7 @@ std::string CapabilityQuery::QueryAudioParams()
     if (ret != AV_ERR_OK || sampleRateRanges == nullptr || rangesNum == 0) {
         // 异常处理。
     }
-    bool isMatched = false;
-    for (uint32_t i = 0; i < rangesNum; i++) {
-        if (sampleRate >= sampleRateRanges[i].minVal && sampleRate <= sampleRateRanges[i].maxVal) {
-            isMatched = true;
-            break;
-        }
-    }
+    bool isMatched = IsSampleRateSupported(sampleRateRanges, rangesNum, sampleRate);
     if (!isMatched) {
         // 2.（可选）调整待配置采样率。
     }
@@ -343,7 +380,7 @@ std::string CapabilityQuery::QueryAudioParams()
     if (ret != AV_ERR_OK || channelRange.maxVal <= 0) {
         // 异常处理。
     }
-    if (channelCount > channelRange.maxVal || channelCount < channelRange.minVal ) {
+    if (channelCount > channelRange.maxVal || channelCount < channelRange.minVal) {
         // 4.（可选）调整待配置通道数。
     }
     // 5. 获取码率范围，判断待配置码率参数是否在范围内。
@@ -361,9 +398,6 @@ std::string CapabilityQuery::QueryAudioParams()
         // 异常处理。
     }
     OH_AVFormat *format = OH_AVFormat_Create();
-    if (format == nullptr) {
-        // 异常处理。
-    }
     if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleRate) ||
         !OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, channelCount) ||
         !OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, static_cast<int64_t>(bitrate))) {
@@ -374,25 +408,7 @@ std::string CapabilityQuery::QueryAudioParams()
     }
     OH_AVFormat_Destroy(format);
     // [End capability_audio_params]
-    std::string result = "设置正确的音频编解码参数：";
-    if (capability == nullptr) {
-        return result + "未获取到推荐的AAC编码器。";
-    }
-    if (sampleRateRanges != nullptr && rangesNum > 0) {
-        result += "\n支持的采样率范围: ";
-        for (uint32_t i = 0; i < rangesNum; i++) {
-            result += RangeToString(sampleRateRanges[i].minVal, sampleRateRanges[i].maxVal);
-            if (i + 1 < rangesNum) {
-                result += "、";
-            }
-        }
-        result += "\n采样率 " + std::to_string(sampleRate) + " 匹配情况: " + std::string(isMatched ? "支持" : "不支持");
-    }
-    result += "\n支持通道数范围: " + RangeToString(channelRange.minVal, channelRange.maxVal);
-    result += "\n支持码率范围: " + RangeToString(bitrateRange.minVal, bitrateRange.maxVal);
-    result += audioEnc == nullptr ? "\n音频编码器创建失败。" : "\n音频编码器创建并配置完成（示例验证后已销毁实例）。";
-    if (audioEnc != nullptr) {
-        OH_AudioCodec_Destroy(audioEnc);
-    }
-    return result;
+    // 结果文本组装与示例实例清理由辅助函数完成。
+    return BuildAudioParamsResult(capability, sampleRate, isMatched, sampleRateRanges, rangesNum, channelRange,
+                                  bitrateRange, audioEnc);
 }
