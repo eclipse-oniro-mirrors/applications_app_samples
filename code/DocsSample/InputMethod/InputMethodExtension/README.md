@@ -126,12 +126,12 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 `runtimeOS` 为 `OpenHarmony`，hvigor 走的是旧版 SDK 管理模式：需要本机在 `SDK Manager → OpenHarmony SDK`
 里装好 API 26.0.0 一整套，并让它能找到该 SDK 根目录（IDE 里自动识别；命令行设在 `local.properties` 的
 `sdk.dir` 或环境变量 `OHOS_BASE_SDK_HOME`，默认位置是 `%LOCALAPPDATA%\OpenHarmony\Sdk`）。缺了会先报
-`00303208 Unable to find 'sdk.dir' ...`，指到 DevEco 自带的 HarmonyOS SDK 则报
+`00303208 Unable to find 'sdk.dir' ...`，指到 DevEco 自带的商用发行版 SDK 则报
 `The SDK management mode has changed`——那份是新管理模式，不能拿来编 OpenHarmony 形态。
 
 ### 签名
 
-示例仓库不带签名材料，`build-profile.json5` 里也不声明 `signingConfigs`。首次运行前在
+示例仓库不带签名材料，`build-profile.json5` 里也不声明 `signingConfigs`。第一次运行前在
 `File → Project Structure → Signing Configs` 勾选 `Automatically generate signature`，IDE 会把本机
 签名写进 `build-profile.json5` 的 `signingConfigs` 与 `products[0].signingConfig`；这两个字段属于本机
 环境，提交前请还原。
@@ -239,7 +239,7 @@ hdc shell hilog -x -T InputMethodExt
 
 12. **`deviceTypes` 只能写 OpenHarmony 支持的取值（实测）**：OpenHarmony SDK 的
     `ets/api/device-define` 只有 `default` / `tablet` / `2in1` / `tv` / `wearable` / `liteWearable`，
-    **没有 `phone`**（那是 HarmonyOS 侧的类型）。`module.json5` 与 `entry/src/ohosTest/module.json5`
+    **没有 `phone`**（那是商用发行版侧的类型）。`module.json5` 与 `entry/src/ohosTest/module.json5`
     里只要留了 `phone`，`runtimeOS: OpenHarmony` 的构建就会在 `*@SyscapTransform` 上报
     `00303060`「系统能力交集为空」——缺 `phone.json` 的那一项 syscap 集合为空，交集自然为空；
     hvigor 只在 debug 日志里打一行 `The systemCapability set corresponding to the 'phone' is not found`。

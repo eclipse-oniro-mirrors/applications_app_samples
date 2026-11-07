@@ -47,9 +47,12 @@ IDE 方式：右键 `entry/src/ohosTest` → Run，即执行 `testsuite()` 里�
 命令行方式（单设备，`-w` 为总等待上限）：
 
 ```bash
-hdc shell aa test -b com.example.inputmethodextension -m entry_test \
+hdc shell <test-subcommand> -b com.example.inputmethodextension -m entry_test \
   -s unittest OpenHarmonyTestRunner -w 1800000
 ```
+
+`<test-subcommand>` 换成设备镜像自带的应用自动化测试子命令，可在 `hdc shell` 里执行 `help`
+查看当前系统实际支持的命令名。
 
 结果看这两行：
 

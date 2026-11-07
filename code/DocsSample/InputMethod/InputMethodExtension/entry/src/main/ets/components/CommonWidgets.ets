@@ -67,7 +67,7 @@ export function textOfResource(context: common.Context | undefined, res: Resourc
   if (context === undefined) {
     return '';
   }
-  const args: Array<string | number> = res.params === undefined ? [] : res.params as Array<string | number>;
+  const args: (string | number)[] = res.params === undefined ? [] : res.params as (string | number)[];
   if (args.length === 0) {
     return context.resourceManager.getStringSync(res.id);
   }
