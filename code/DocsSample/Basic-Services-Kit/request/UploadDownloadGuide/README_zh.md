@@ -105,9 +105,9 @@ UploadAndDownloadGuide
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例为Stage模型，支持API22版本SDK，SDK版本号(API Version 22),镜像版本号(6.0)
+2.本示例为Stage模型，支持API26版本SDK，SDK版本号(API Version 26.0.0 Release)，镜像版本号(OpenHarmony 7.0 Release)。
 
-3.本示例需要使用DevEco Studio 版本号(5.0.5 Release)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(26.0.0 Release)及以上版本才可编译运行。
 
 4.运行本示例需全程联网。
 
