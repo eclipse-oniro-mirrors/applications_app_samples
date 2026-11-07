@@ -1,0 +1,119 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Annotation entry module",
+      "description": "Entry module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Displays API annotation examples",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Annotation",
+      "description": "Entry ability label"
+    },
+    {
+      "name": "annotation_title",
+      "value": "Annotation",
+      "description": "Page title"
+    },
+    {
+      "name": "annotation_subtitle",
+      "value": "API compatibility and warning suppression",
+      "description": "Page subtitle"
+    },
+    {
+      "name": "local_data",
+      "value": "Local data",
+      "description": "Local data source"
+    },
+    {
+      "name": "mock_data",
+      "value": "Mock data",
+      "description": "Mock data source"
+    },
+    {
+      "name": "refresh",
+      "value": "Refresh",
+      "description": "Refresh button"
+    },
+    {
+      "name": "data_source",
+      "value": "Source:",
+      "description": "Data source label"
+    },
+    {
+      "name": "environment_title",
+      "value": "Runtime environment",
+      "description": "Environment card title"
+    },
+    {
+      "name": "api_version_label",
+      "value": "API version:",
+      "description": "API version label"
+    },
+    {
+      "name": "available_annotation_name",
+      "value": "@Available",
+      "description": "Available annotation name"
+    },
+    {
+      "name": "available_description",
+      "value": "Marks a demo function as requiring OpenHarmony 22. A runtime guard calls it only on supported systems.",
+      "description": "Available annotation description"
+    },
+    {
+      "name": "minimum_api_label",
+      "value": "Minimum API:",
+      "description": "Minimum API version label"
+    },
+    {
+      "name": "annotation_since_label",
+      "value": "Annotation since API:",
+      "description": "Annotation initial API version label"
+    },
+    {
+      "name": "demo_api_label",
+      "value": "Demo function API:",
+      "description": "Demo function annotated API version label"
+    },
+    {
+      "name": "not_run",
+      "value": "Not run",
+      "description": "Initial demo result"
+    },
+    {
+      "name": "executed",
+      "value": "Executed",
+      "description": "Successful demo result"
+    },
+    {
+      "name": "fallback",
+      "value": "Compatibility fallback",
+      "description": "Compatibility fallback result"
+    },
+    {
+      "name": "run_example",
+      "value": "Run example",
+      "description": "Run example button"
+    },
+    {
+      "name": "suppress_annotation_name",
+      "value": "@SuppressWarnings",
+      "description": "SuppressWarnings annotation name"
+    },
+    {
+      "name": "suppress_description",
+      "value": "Suppresses the compatibility warning raised because the demo function is marked API 27. The annotation itself is available since API 23, and runtime version checks still apply.",
+      "description": "SuppressWarnings annotation description"
+    },
+    {
+      "name": "suppression_rules_label",
+      "value": "Warning rules:",
+      "description": "Suppression rules label"
+    }
+  ]
+}
