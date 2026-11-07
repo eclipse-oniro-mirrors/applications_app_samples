@@ -54,7 +54,7 @@ struct SkillExecutionPage {
   @State private selectedModule: string = MODULE_NAME_ARRAY[0];
   @State private selectedSkill: string = SKILL_ARRAY[1];
   @State private executionStatus: string = EXECUTION_STATUS_IDLE;
-  @State private executionRecords: Array<ExecutionRecord> = [];
+  @State private executionRecords: ExecutionRecord[] = [];
   @State private isOperating: boolean = false;
   @State private currentResult: string = '';
 

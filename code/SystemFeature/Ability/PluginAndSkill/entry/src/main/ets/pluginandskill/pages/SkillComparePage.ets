@@ -55,7 +55,7 @@ struct SkillComparePage {
   @State private skillA: string = SKILL_ARRAY[1];
   @State private moduleB: string = MODULE_NAME_ARRAY[0];
   @State private skillB: string = SKILL_ARRAY[2];
-  @State private compareResults: Array<SkillCompareResult> = [];
+  @State private compareResults: SkillCompareResult[] = [];
   @State private compareSummary: CompareSummary = {
     totalFields: 0,
     sameFields: 0,
@@ -71,7 +71,7 @@ struct SkillComparePage {
     return value ?? EMPTY_VALUE;
   }
 
-  private formatList(values ?: Array<string>): string {
+  private formatList(values ?: string[]): string {
     if (!values || values.length === 0) {
       return EMPTY_VALUE;
     }

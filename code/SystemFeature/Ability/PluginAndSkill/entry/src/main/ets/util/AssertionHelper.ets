@@ -32,11 +32,11 @@ export interface AssertionSummary {
   passedAssertions: number;
   failedAssertions: number;
   passRate: number;
-  results: Array<AssertionResult>;
+  results: AssertionResult[];
 }
 
 export class AssertionHelper {
-  private results: Array<AssertionResult> = [];
+  private results: AssertionResult[] = [];
   private static instance: AssertionHelper | undefined = undefined;
 
   private constructor() {
@@ -294,8 +294,8 @@ export class AssertionHelper {
     return result;
   }
 
-  public getResults(): Array<AssertionResult> {
-    const copy: Array<AssertionResult> = [];
+  public getResults(): AssertionResult[] {
+    const copy: AssertionResult[] = [];
     for (let i = 0; i < this.results.length; i++) {
       const r = this.results[i];
       const resultCopy: AssertionResult = {
@@ -311,8 +311,8 @@ export class AssertionHelper {
     return copy;
   }
 
-  public getFailedResults(): Array<AssertionResult> {
-    const failed: Array<AssertionResult> = [];
+  public getFailedResults(): AssertionResult[] {
+    const failed: AssertionResult[] = [];
     for (let i = 0; i < this.results.length; i++) {
       if (!this.results[i].passed) {
         failed.push(this.results[i]);
@@ -344,7 +344,7 @@ export class AssertionHelper {
 
   public generateReport(): string {
     const summary = this.summarize();
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('=== Assertion Report ===');
     lines.push(`Total assertions: ${summary.totalAssertions}`);
     lines.push(`Passed: ${summary.passedAssertions}`);

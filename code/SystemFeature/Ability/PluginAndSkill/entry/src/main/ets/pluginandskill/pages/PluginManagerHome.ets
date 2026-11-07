@@ -36,7 +36,7 @@ struct PluginManagerHome {
   @State private pluginFilePath: string = '';
   @State private pluginBundleName: string = '';
   @State private operationResult: ResourceStr = $r('app.string.operation_ready');
-  @State private plugins: Array<pluginBundleManager.PluginBundleInfo> = [];
+  @State private plugins: pluginBundleManager.PluginBundleInfo[] = [];
   @State private isOperating: boolean = false;
 
   private showError(error: BusinessError): void {

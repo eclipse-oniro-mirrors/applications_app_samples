@@ -50,7 +50,7 @@ interface SkillHistoryRecord {
 @Entry
 @Component
 struct SkillHistoryPage {
-  @State private historyRecords: Array<SkillHistoryRecord> = [];
+  @State private historyRecords: SkillHistoryRecord[] = [];
   @State private isOperating: boolean = false;
   @State private operationResult: ResourceStr = $r('app.string.operation_ready');
   @State private filterModule: string = '';
@@ -164,8 +164,8 @@ struct SkillHistoryPage {
     Logger.info('History cleared');
   }
 
-  private getFilteredRecords(): Array<SkillHistoryRecord> {
-    const filtered: Array<SkillHistoryRecord> = [];
+  private getFilteredRecords(): SkillHistoryRecord[] {
+    const filtered: SkillHistoryRecord[] = [];
     for (let i = 0; i < this.historyRecords.length; i++) {
       const record = this.historyRecords[i];
       if (this.filterModule.length > 0 && record.moduleName !== this.filterModule) {

@@ -69,7 +69,7 @@ interface SuiteManifest {
 }
 
 // 套件清单：按分类组织，便于管理和统计
-const SUITE_MANIFEST: Array<SuiteManifest> = [
+const SUITE_MANIFEST: SuiteManifest[] = [
   {
     name: 'PluginAndSkillAbilityTest',
     category: CATEGORY_ABILITY,
@@ -278,8 +278,8 @@ export function findSuite(name: string): SuiteManifest | undefined {
 }
 
 // 获取全部套件名称
-export function getSuiteNames(): Array<string> {
-  const names: Array<string> = [];
+export function getSuiteNames(): string[] {
+  const names: string[] = [];
   for (let i = 0; i < SUITE_MANIFEST.length; i++) {
     names.push(SUITE_MANIFEST[i].name);
   }
@@ -298,7 +298,7 @@ export function getTotalCaseCount(): number {
 // 验证套件清单完整性
 export function validateManifest(): boolean {
   // 检查套件名称是否重复
-  const names: Array<string> = getSuiteNames();
+  const names: string[] = getSuiteNames();
   for (let i = 0; i < names.length; i++) {
     for (let j = i + 1; j < names.length; j++) {
       if (names[i] === names[j]) {

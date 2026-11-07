@@ -44,7 +44,7 @@ struct SelfSkillQueryPage {
   @State private moduleName: string = DEFAULT_MODULE_NAME;
   @State private skillName: string = '';
   @State private operationResult: ResourceStr = $r('app.string.operation_ready');
-  @State private skills: Array<skillManager.SkillInfo> = [];
+  @State private skills: skillManager.SkillInfo[] = [];
   @State private isOperating: boolean = false;
   @State private flagIndex: number = DEFAULT_FLAG_INDEX;
 
@@ -78,7 +78,7 @@ struct SelfSkillQueryPage {
     }
   }
 
-  private async showSkills(query: () => Promise<Array<skillManager.SkillInfo>>): Promise<void> {
+  private async showSkills(query: () => Promise<skillManager.SkillInfo[]>): Promise<void> {
     this.isOperating = true;
     try {
       this.skills = await query();
@@ -101,7 +101,7 @@ struct SelfSkillQueryPage {
 
   private async querySelfSkills(): Promise<void> {
     await this.showSkills(
-      (): Promise<Array<skillManager.SkillInfo>> =>
+      (): Promise<skillManager.SkillInfo[]> =>
         skillManager.getSkillInfosForSelf(FLAG_VALUES[this.flagIndex]));
   }
 
@@ -109,7 +109,7 @@ struct SelfSkillQueryPage {
     return value ?? EMPTY_VALUE;
   }
 
-  private formatList(values ?: Array<string>): string {
+  private formatList(values ?: string[]): string {
     if (!values || values.length === 0) {
       return EMPTY_VALUE;
     }

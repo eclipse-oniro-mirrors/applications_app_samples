@@ -55,7 +55,7 @@ const BATCH_STATUS_FAILED: string = 'failed';
 @Component
 struct SkillBatchPage {
   @State private selectedModule: string = MODULE_NAME_ARRAY[0];
-  @State private batchRecords: Array<BatchOperationRecord> = [];
+  @State private batchRecords: BatchOperationRecord[] = [];
   @State private isOperating: boolean = false;
   @State private operationResult: ResourceStr = $r('app.string.operation_ready');
   @State private totalBatchTime: number = 0;
@@ -63,7 +63,7 @@ struct SkillBatchPage {
   @State private failedBatchCount: number = 0;
   @State private pendingBatchCount: number = 0;
   @State private selectAllSkills: boolean = false;
-  @State private selectedSkillIndices: Array<number> = [];
+  @State private selectedSkillIndices: number[] = [];
 
   private initializeBatchRecords(): void {
     this.batchRecords = [];
@@ -91,8 +91,8 @@ struct SkillBatchPage {
     this.totalBatchTime = 0;
   }
 
-  private getAllSkillIndices(): Array<number> {
-    const indices: Array<number> = [];
+  private getAllSkillIndices(): number[] {
+    const indices: number[] = [];
     for (let i = 0; i < SKILL_ARRAY.length; i++) {
       indices.push(i);
     }
@@ -164,7 +164,7 @@ struct SkillBatchPage {
   }
 
   private toggleSkillSelection(index: number): void {
-    const newIndices: Array<number> = [];
+    const newIndices: number[] = [];
     let found = false;
     for (let i = 0; i < this.selectedSkillIndices.length; i++) {
       if (this.selectedSkillIndices[i] === index) {

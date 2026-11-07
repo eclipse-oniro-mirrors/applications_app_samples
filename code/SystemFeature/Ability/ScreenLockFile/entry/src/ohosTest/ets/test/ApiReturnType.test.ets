@@ -41,7 +41,7 @@ export default function apiReturnTypeTest(): void {
     // ==================== API 返回值类型验证（20 条） ====================
 
     /*
-     * @tc.number: SUB_ART_0100
+     * @tc.number: SUB_APIRT_0100
      * @tc.name: testApiReturnType0001
      * @tc.desc: Verify ApiReturnType scenario 0001.
      * @tc.type: Function
@@ -59,7 +59,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0200
+     * @tc.number: SUB_APIRT_0200
      * @tc.name: testApiReturnType0002
      * @tc.desc: Verify ApiReturnType scenario 0002.
      * @tc.type: Function
@@ -84,7 +84,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0300
+     * @tc.number: SUB_APIRT_0300
      * @tc.name: testApiReturnType0003
      * @tc.desc: Verify ApiReturnType scenario 0003.
      * @tc.type: Function
@@ -109,7 +109,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0400
+     * @tc.number: SUB_APIRT_0400
      * @tc.name: testApiReturnType0004
      * @tc.desc: Verify ApiReturnType scenario 0004.
      * @tc.type: Function
@@ -127,7 +127,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0500
+     * @tc.number: SUB_APIRT_0500
      * @tc.name: testApiReturnType0005
      * @tc.desc: Verify ApiReturnType scenario 0005.
      * @tc.type: Function
@@ -145,7 +145,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0600
+     * @tc.number: SUB_APIRT_0600
      * @tc.name: testApiReturnType0006
      * @tc.desc: Verify ApiReturnType scenario 0006.
      * @tc.type: Function
@@ -163,7 +163,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0700
+     * @tc.number: SUB_APIRT_0700
      * @tc.name: testApiReturnType0007
      * @tc.desc: Verify ApiReturnType scenario 0007.
      * @tc.type: Function
@@ -183,7 +183,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0800
+     * @tc.number: SUB_APIRT_0800
      * @tc.name: testApiReturnType0008
      * @tc.desc: Verify ApiReturnType scenario 0008.
      * @tc.type: Function
@@ -203,7 +203,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_0900
+     * @tc.number: SUB_APIRT_0900
      * @tc.name: testApiReturnType0009
      * @tc.desc: Verify ApiReturnType scenario 0009.
      * @tc.type: Function
@@ -223,7 +223,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1000
+     * @tc.number: SUB_APIRT_1000
      * @tc.name: testApiReturnType0010
      * @tc.desc: Verify ApiReturnType scenario 0010.
      * @tc.type: Function
@@ -243,7 +243,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1100
+     * @tc.number: SUB_APIRT_1100
      * @tc.name: testApiReturnType0011
      * @tc.desc: Verify ApiReturnType scenario 0011.
      * @tc.type: Function
@@ -261,7 +261,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1200
+     * @tc.number: SUB_APIRT_1200
      * @tc.name: testApiReturnType0012
      * @tc.desc: Verify ApiReturnType scenario 0012.
      * @tc.type: Function
@@ -279,7 +279,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1300
+     * @tc.number: SUB_APIRT_1300
      * @tc.name: testApiReturnType0013
      * @tc.desc: Verify ApiReturnType scenario 0013.
      * @tc.type: Function
@@ -297,7 +297,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1400
+     * @tc.number: SUB_APIRT_1400
      * @tc.name: testApiReturnType0014
      * @tc.desc: Verify ApiReturnType scenario 0014.
      * @tc.type: Function
@@ -316,7 +316,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1500
+     * @tc.number: SUB_APIRT_1500
      * @tc.name: testApiReturnType0015
      * @tc.desc: Verify ApiReturnType scenario 0015.
      * @tc.type: Function
@@ -334,7 +334,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1600
+     * @tc.number: SUB_APIRT_1600
      * @tc.name: testApiReturnType0016
      * @tc.desc: Verify ApiReturnType scenario 0016.
      * @tc.type: Function
@@ -352,7 +352,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1700
+     * @tc.number: SUB_APIRT_1700
      * @tc.name: testApiReturnType0017
      * @tc.desc: Verify ApiReturnType scenario 0017.
      * @tc.type: Function
@@ -371,7 +371,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1800
+     * @tc.number: SUB_APIRT_1800
      * @tc.name: testApiReturnType0018
      * @tc.desc: Verify ApiReturnType scenario 0018.
      * @tc.type: Function
@@ -390,7 +390,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_1900
+     * @tc.number: SUB_APIRT_1900
      * @tc.name: testApiReturnType0019
      * @tc.desc: Verify ApiReturnType scenario 0019.
      * @tc.type: Function
@@ -409,7 +409,7 @@ export default function apiReturnTypeTest(): void {
     });
 
     /*
-     * @tc.number: SUB_ART_2000
+     * @tc.number: SUB_APIRT_2000
      * @tc.name: testApiReturnType0020
      * @tc.desc: Verify ApiReturnType scenario 0020.
      * @tc.type: Function
