@@ -45,7 +45,7 @@ export interface CategorySummary {
 }
 
 export class TestMetricsCollector {
-  private dataPoints: Array<MetricDataPoint> = [];
+  private dataPoints: MetricDataPoint[] = [];
   private maxDataPoints: number = 10000;
   private static instance: TestMetricsCollector | undefined = undefined;
 
@@ -109,8 +109,8 @@ export class TestMetricsCollector {
     return 0;
   }
 
-  public getDataPoints(): Array<MetricDataPoint> {
-    const result: Array<MetricDataPoint> = [];
+  public getDataPoints(): MetricDataPoint[] {
+    const result: MetricDataPoint[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       const dp = this.dataPoints[i];
       const tags: Map<string, string> = new Map();
@@ -129,8 +129,8 @@ export class TestMetricsCollector {
     return result;
   }
 
-  public getDataPointsByCategory(category: string): Array<MetricDataPoint> {
-    const result: Array<MetricDataPoint> = [];
+  public getDataPointsByCategory(category: string): MetricDataPoint[] {
+    const result: MetricDataPoint[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       if (this.dataPoints[i].category === category) {
         result.push(this.dataPoints[i]);
@@ -139,8 +139,8 @@ export class TestMetricsCollector {
     return result;
   }
 
-  public getDataPointsByName(name: string): Array<MetricDataPoint> {
-    const result: Array<MetricDataPoint> = [];
+  public getDataPointsByName(name: string): MetricDataPoint[] {
+    const result: MetricDataPoint[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       if (this.dataPoints[i].name === name) {
         result.push(this.dataPoints[i]);
@@ -189,8 +189,8 @@ export class TestMetricsCollector {
     };
   }
 
-  public getCategorySummaries(): Array<CategorySummary> {
-    const categories: Array<string> = [];
+  public getCategorySummaries(): CategorySummary[] {
+    const categories: string[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       const cat = this.dataPoints[i].category;
       let found = false;
@@ -205,13 +205,13 @@ export class TestMetricsCollector {
       }
     }
 
-    const summaries: Array<CategorySummary> = [];
+    const summaries: CategorySummary[] = [];
     for (let i = 0; i < categories.length; i++) {
       const cat = categories[i];
       let metricCount = 0;
       let totalPoints = 0;
       let totalValue = 0;
-      const metricNames: Array<string> = [];
+      const metricNames: string[] = [];
 
       for (let j = 0; j < this.dataPoints.length; j++) {
         if (this.dataPoints[j].category === cat) {
@@ -244,8 +244,8 @@ export class TestMetricsCollector {
     return summaries;
   }
 
-  public getAllMetricNames(): Array<string> {
-    const names: Array<string> = [];
+  public getAllMetricNames(): string[] {
+    const names: string[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       const name = this.dataPoints[i].name;
       let found = false;
@@ -262,8 +262,8 @@ export class TestMetricsCollector {
     return names;
   }
 
-  public getAllCategories(): Array<string> {
-    const categories: Array<string> = [];
+  public getAllCategories(): string[] {
+    const categories: string[] = [];
     for (let i = 0; i < this.dataPoints.length; i++) {
       const cat = this.dataPoints[i].category;
       let found = false;
@@ -281,7 +281,7 @@ export class TestMetricsCollector {
   }
 
   public generateSummaryReport(): string {
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('=== Test Metrics Summary Report ===');
     lines.push(`Total data points: ${this.dataPoints.length}`);
 

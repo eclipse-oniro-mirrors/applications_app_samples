@@ -46,8 +46,8 @@ export interface GeneratedTestCase {
 export interface GeneratedTestSuite {
   suiteName: string;
   totalCases: number;
-  categories: Array<string>;
-  cases: Array<GeneratedTestCase>;
+  categories: string[];
+  cases: GeneratedTestCase[];
 }
 
 export class TestDataGenerator {
@@ -83,8 +83,8 @@ export class TestDataGenerator {
     };
   }
 
-  public generateAllModuleCombinations(skillName: string, flagIndex: number): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+  public generateAllModuleCombinations(skillName: string, flagIndex: number): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
     for (let i = 0; i < MODULE_NAME_ARRAY.length; i++) {
       const moduleName = MODULE_NAME_ARRAY[i];
       const id = this.nextId('MODULE_COMBO');
@@ -111,8 +111,8 @@ export class TestDataGenerator {
   }
 
   public generateAllBundleCombinations(moduleName: string, skillName: string,
-    flagIndex: number): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+    flagIndex: number): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
     for (let i = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
       const bundleName = BUNDLE_NAME_ARRAY[i];
       const id = this.nextId('BUNDLE_COMBO');
@@ -139,8 +139,8 @@ export class TestDataGenerator {
   }
 
   public generateAllFlagCombinations(bundleName: string, moduleName: string,
-    skillName: string): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+    skillName: string): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
     for (let i = 0; i < FLAG_LABELS.length; i++) {
       const id = this.nextId('FLAG_COMBO');
       const testCase: GeneratedTestCase = {
@@ -165,8 +165,8 @@ export class TestDataGenerator {
   }
 
   public generateAllSkillCombinations(bundleName: string, moduleName: string,
-    flagIndex: number): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+    flagIndex: number): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
     for (let i = 0; i < SKILL_ARRAY.length; i++) {
       const skillName = SKILL_ARRAY[i];
       const id = this.nextId('SKILL_COMBO');
@@ -192,8 +192,8 @@ export class TestDataGenerator {
     return cases;
   }
 
-  public generateEmptyParamCases(): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+  public generateEmptyParamCases(): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
 
     const emptyBundle: GeneratedTestCase = {
       id: this.nextId('EMPTY'),
@@ -271,7 +271,7 @@ export class TestDataGenerator {
   }
 
   public generateFullCombinationSuite(): GeneratedTestSuite {
-    const allCases: Array<GeneratedTestCase> = [];
+    const allCases: GeneratedTestCase[] = [];
 
     for (let i = 0; i < SKILL_ARRAY.length; i++) {
       const skillName = SKILL_ARRAY[i];
@@ -291,7 +291,7 @@ export class TestDataGenerator {
       allCases.push(emptyCases[i]);
     }
 
-    const categories: Array<string> = [];
+    const categories: string[] = [];
     for (let i = 0; i < allCases.length; i++) {
       const cat = allCases[i].category;
       let found = false;
@@ -318,8 +318,8 @@ export class TestDataGenerator {
     return this.caseIdCounter;
   }
 
-  public generateBoundaryCases(): Array<GeneratedTestCase> {
-    const cases: Array<GeneratedTestCase> = [];
+  public generateBoundaryCases(): GeneratedTestCase[] {
+    const cases: GeneratedTestCase[] = [];
 
     const longBundleName = 'com.'.repeat(50) + 'test';
     const longBundle: GeneratedTestCase = {

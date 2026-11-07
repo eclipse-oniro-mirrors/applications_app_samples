@@ -40,11 +40,11 @@ export interface PerformanceSummary {
   p99Duration: number;
   successRate: number;
   metricsByCategory: Map<string, number>;
-  slowestMetrics: Array<PerformanceMetric>;
+  slowestMetrics: PerformanceMetric[];
 }
 
 export class PerformanceTracker {
-  private metrics: Array<PerformanceMetric> = [];
+  private metrics: PerformanceMetric[] = [];
   private activeTimers: Map<string, number> = new Map();
   private maxMetrics: number = 5000;
 
@@ -119,8 +119,8 @@ export class PerformanceTracker {
     this.metrics.push(metric);
   }
 
-  public getMetrics(): Array<PerformanceMetric> {
-    const result: Array<PerformanceMetric> = [];
+  public getMetrics(): PerformanceMetric[] {
+    const result: PerformanceMetric[] = [];
     for (let i = 0; i < this.metrics.length; i++) {
       const m = this.metrics[i];
       const tags: Map<string, string> = new Map();
@@ -142,8 +142,8 @@ export class PerformanceTracker {
     return result;
   }
 
-  public getMetricsByCategory(category: string): Array<PerformanceMetric> {
-    const result: Array<PerformanceMetric> = [];
+  public getMetricsByCategory(category: string): PerformanceMetric[] {
+    const result: PerformanceMetric[] = [];
     for (let i = 0; i < this.metrics.length; i++) {
       if (this.metrics[i].category === category) {
         result.push(this.metrics[i]);
@@ -152,8 +152,8 @@ export class PerformanceTracker {
     return result;
   }
 
-  public getMetricsByName(name: string): Array<PerformanceMetric> {
-    const result: Array<PerformanceMetric> = [];
+  public getMetricsByName(name: string): PerformanceMetric[] {
+    const result: PerformanceMetric[] = [];
     for (let i = 0; i < this.metrics.length; i++) {
       if (this.metrics[i].name === name) {
         result.push(this.metrics[i]);
@@ -162,8 +162,8 @@ export class PerformanceTracker {
     return result;
   }
 
-  public getFailedMetrics(): Array<PerformanceMetric> {
-    const result: Array<PerformanceMetric> = [];
+  public getFailedMetrics(): PerformanceMetric[] {
+    const result: PerformanceMetric[] = [];
     for (let i = 0; i < this.metrics.length; i++) {
       if (!this.metrics[i].success) {
         result.push(this.metrics[i]);
@@ -172,8 +172,8 @@ export class PerformanceTracker {
     return result;
   }
 
-  private sortDurations(durations: Array<number>): Array<number> {
-    const sorted: Array<number> = [];
+  private sortDurations(durations: number[]): number[] {
+    const sorted: number[] = [];
     for (let i = 0; i < durations.length; i++) {
       sorted.push(durations[i]);
     }
@@ -189,7 +189,7 @@ export class PerformanceTracker {
     return sorted;
   }
 
-  private percentile(sorted: Array<number>, p: number): number {
+  private percentile(sorted: number[], p: number): number {
     if (sorted.length === 0) {
       return 0;
     }
@@ -214,7 +214,7 @@ export class PerformanceTracker {
       };
     }
 
-    const durations: Array<number> = [];
+    const durations: number[] = [];
     let totalDuration = 0;
     let minDuration = Number.MAX_VALUE;
     let maxDuration = 0;
@@ -250,8 +250,8 @@ export class PerformanceTracker {
     const p99 = this.percentile(sorted, 99);
     const successRate = Math.round((successCount / this.metrics.length) * 100);
 
-    const slowest: Array<PerformanceMetric> = [];
-    const sortedByDuration: Array<PerformanceMetric> = [];
+    const slowest: PerformanceMetric[] = [];
+    const sortedByDuration: PerformanceMetric[] = [];
     for (let i = 0; i < this.metrics.length; i++) {
       sortedByDuration.push(this.metrics[i]);
     }
@@ -286,7 +286,7 @@ export class PerformanceTracker {
 
   public generateReport(): string {
     const summary = this.summarize();
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('=== Performance Report ===');
     lines.push(`Total metrics: ${summary.totalMetrics}`);
     lines.push(`Average duration: ${summary.averageDuration}ms`);

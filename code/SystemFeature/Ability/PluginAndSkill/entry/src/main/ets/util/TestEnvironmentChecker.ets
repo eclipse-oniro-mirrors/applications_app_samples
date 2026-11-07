@@ -48,7 +48,7 @@ export interface EnvironmentSummary {
 }
 
 export class TestEnvironmentChecker {
-  private results: Array<CheckResult> = [];
+  private results: CheckResult[] = [];
   private static instance: TestEnvironmentChecker | undefined = undefined;
 
   private constructor() {
@@ -242,7 +242,7 @@ export class TestEnvironmentChecker {
     ));
   }
 
-  private checkNoDuplicates(arr: Array<string>): boolean {
+  private checkNoDuplicates(arr: string[]): boolean {
     for (let i = 0; i < arr.length; i++) {
       for (let j = i + 1; j < arr.length; j++) {
         if (arr[i] === arr[j]) {
@@ -253,7 +253,7 @@ export class TestEnvironmentChecker {
     return true;
   }
 
-  private checkNoEmptyStrings(arr: Array<string>): boolean {
+  private checkNoEmptyStrings(arr: string[]): boolean {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].length === 0) {
         return false;
@@ -309,8 +309,8 @@ export class TestEnvironmentChecker {
     };
   }
 
-  public getResults(): Array<CheckResult> {
-    const copy: Array<CheckResult> = [];
+  public getResults(): CheckResult[] {
+    const copy: CheckResult[] = [];
     for (let i = 0; i < this.results.length; i++) {
       const r = this.results[i];
       const resultCopy: CheckResult = {
@@ -326,8 +326,8 @@ export class TestEnvironmentChecker {
     return copy;
   }
 
-  public getFailedResults(): Array<CheckResult> {
-    const failed: Array<CheckResult> = [];
+  public getFailedResults(): CheckResult[] {
+    const failed: CheckResult[] = [];
     for (let i = 0; i < this.results.length; i++) {
       if (!this.results[i].passed) {
         failed.push(this.results[i]);
@@ -338,7 +338,7 @@ export class TestEnvironmentChecker {
 
   public generateCheckReport(): string {
     const summary = this.getSummary();
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('=== Environment Check Report ===');
     lines.push(`Total checks: ${summary.totalChecks}`);
     lines.push(`Passed: ${summary.passedChecks}`);

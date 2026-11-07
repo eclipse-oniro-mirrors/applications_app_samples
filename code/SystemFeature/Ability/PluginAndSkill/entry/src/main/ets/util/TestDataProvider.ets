@@ -109,16 +109,16 @@ export class TestDataProvider {
     return this.createParams(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, SKILL_ARRAY[0], 0);
   }
 
-  public getAllSkillNames(): Array<string> {
-    const result: Array<string> = [];
+  public getAllSkillNames(): string[] {
+    const result: string[] = [];
     for (let i = 0; i < SKILL_ARRAY.length; i++) {
       result.push(SKILL_ARRAY[i]);
     }
     return result;
   }
 
-  public getValidSkillNames(): Array<string> {
-    const result: Array<string> = [];
+  public getValidSkillNames(): string[] {
+    const result: string[] = [];
     for (let i = 0; i < SKILL_ARRAY.length; i++) {
       if (SKILL_ARRAY[i] !== 'skill-nonexistent') {
         result.push(SKILL_ARRAY[i]);
@@ -127,32 +127,32 @@ export class TestDataProvider {
     return result;
   }
 
-  public getAllModuleNames(): Array<string> {
-    const result: Array<string> = [];
+  public getAllModuleNames(): string[] {
+    const result: string[] = [];
     for (let i = 0; i < MODULE_NAME_ARRAY.length; i++) {
       result.push(MODULE_NAME_ARRAY[i]);
     }
     return result;
   }
 
-  public getAllBundleNames(): Array<string> {
-    const result: Array<string> = [];
+  public getAllBundleNames(): string[] {
+    const result: string[] = [];
     for (let i = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
       result.push(BUNDLE_NAME_ARRAY[i]);
     }
     return result;
   }
 
-  public getAllFlagLabels(): Array<string> {
-    const result: Array<string> = [];
+  public getAllFlagLabels(): string[] {
+    const result: string[] = [];
     for (let i = 0; i < FLAG_LABELS.length; i++) {
       result.push(FLAG_LABELS[i]);
     }
     return result;
   }
 
-  public getAllFlagValues(): Array<number> {
-    const result: Array<number> = [];
+  public getAllFlagValues(): number[] {
+    const result: number[] = [];
     for (let i = 0; i < FLAG_VALUES.length; i++) {
       result.push(FLAG_VALUES[i]);
     }
@@ -173,8 +173,8 @@ export class TestDataProvider {
     return FLAG_VALUES[0];
   }
 
-  public generateSelfSkillTestCases(): Array<TestCaseDefinition> {
-    const cases: Array<TestCaseDefinition> = [];
+  public generateSelfSkillTestCases(): TestCaseDefinition[] {
+    const cases: TestCaseDefinition[] = [];
     const validSkills = this.getValidSkillNames();
 
     for (let i = 0; i < validSkills.length; i++) {
@@ -199,8 +199,8 @@ export class TestDataProvider {
     return cases;
   }
 
-  public generateBundleSkillTestCases(): Array<TestCaseDefinition> {
-    const cases: Array<TestCaseDefinition> = [];
+  public generateBundleSkillTestCases(): TestCaseDefinition[] {
+    const cases: TestCaseDefinition[] = [];
     const validSkills = this.getValidSkillNames();
 
     for (let i = 0; i < validSkills.length; i++) {
@@ -225,8 +225,8 @@ export class TestDataProvider {
     return cases;
   }
 
-  public generateFlagCombinationCases(): Array<TestCaseDefinition> {
-    const cases: Array<TestCaseDefinition> = [];
+  public generateFlagCombinationCases(): TestCaseDefinition[] {
+    const cases: TestCaseDefinition[] = [];
 
     for (let i = 0; i < FLAG_LABELS.length; i++) {
       const caseDef: TestCaseDefinition = {
@@ -249,8 +249,8 @@ export class TestDataProvider {
     return cases;
   }
 
-  public generateErrorTestCases(): Array<TestCaseDefinition> {
-    const cases: Array<TestCaseDefinition> = [];
+  public generateErrorTestCases(): TestCaseDefinition[] {
+    const cases: TestCaseDefinition[] = [];
 
     const invalidBundle: TestCaseDefinition = {
       id: 'ERROR_INVALID_BUNDLE_0100',
@@ -303,8 +303,8 @@ export class TestDataProvider {
     return cases;
   }
 
-  public generateAllTestCases(): Array<TestCaseDefinition> {
-    const allCases: Array<TestCaseDefinition> = [];
+  public generateAllTestCases(): TestCaseDefinition[] {
+    const allCases: TestCaseDefinition[] = [];
     const selfCases = this.generateSelfSkillTestCases();
     const bundleCases = this.generateBundleSkillTestCases();
     const flagCases = this.generateFlagCombinationCases();
@@ -341,7 +341,7 @@ export class TestDataProvider {
     return count;
   }
 
-  public getCategories(): Array<string> {
+  public getCategories(): string[] {
     return [
       'SelfSkillQuery_Success',
       'BundleSkillQuery_Success',

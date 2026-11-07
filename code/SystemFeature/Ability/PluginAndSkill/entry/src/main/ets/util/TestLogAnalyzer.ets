@@ -47,7 +47,7 @@ export interface LogAnalysisResult {
 }
 
 export class TestLogAnalyzer {
-  private entries: Array<LogEntry> = [];
+  private entries: LogEntry[] = [];
   private maxEntries: number = 10000;
 
   constructor(maxEntries?: number) {
@@ -90,8 +90,8 @@ export class TestLogAnalyzer {
     hilog.error(DOMAIN, tag, message);
   }
 
-  public getEntries(): Array<LogEntry> {
-    const result: Array<LogEntry> = [];
+  public getEntries(): LogEntry[] {
+    const result: LogEntry[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       const entry = this.entries[i];
       const copy: LogEntry = {
@@ -106,8 +106,8 @@ export class TestLogAnalyzer {
     return result;
   }
 
-  public getEntriesByLevel(level: LogLevel): Array<LogEntry> {
-    const result: Array<LogEntry> = [];
+  public getEntriesByLevel(level: LogLevel): LogEntry[] {
+    const result: LogEntry[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       if (this.entries[i].level === level) {
         result.push(this.entries[i]);
@@ -116,8 +116,8 @@ export class TestLogAnalyzer {
     return result;
   }
 
-  public getEntriesByTag(tag: string): Array<LogEntry> {
-    const result: Array<LogEntry> = [];
+  public getEntriesByTag(tag: string): LogEntry[] {
+    const result: LogEntry[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       if (this.entries[i].tag === tag) {
         result.push(this.entries[i]);
@@ -126,8 +126,8 @@ export class TestLogAnalyzer {
     return result;
   }
 
-  public getEntriesByTimeRange(startTime: number, endTime: number): Array<LogEntry> {
-    const result: Array<LogEntry> = [];
+  public getEntriesByTimeRange(startTime: number, endTime: number): LogEntry[] {
+    const result: LogEntry[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       if (this.entries[i].timestamp >= startTime && this.entries[i].timestamp <= endTime) {
         result.push(this.entries[i]);
@@ -136,8 +136,8 @@ export class TestLogAnalyzer {
     return result;
   }
 
-  public searchEntries(keyword: string): Array<LogEntry> {
-    const result: Array<LogEntry> = [];
+  public searchEntries(keyword: string): LogEntry[] {
+    const result: LogEntry[] = [];
     const lowerKeyword = keyword.toLowerCase();
     for (let i = 0; i < this.entries.length; i++) {
       if (this.entries[i].message.toLowerCase().includes(lowerKeyword) ||
@@ -271,7 +271,7 @@ export class TestLogAnalyzer {
 
   public generateReport(): string {
     const analysis = this.analyze();
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('=== Test Log Analysis Report ===');
     lines.push(`Total entries: ${analysis.totalEntries}`);
     lines.push(`Time span: ${analysis.timeSpan}ms`);

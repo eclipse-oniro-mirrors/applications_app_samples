@@ -31,7 +31,7 @@ export interface TestCaseReportEntry {
   assertionCount: number;
   passedAssertions: number;
   failedAssertions: number;
-  tags: Array<string>;
+  tags: string[];
 }
 
 export interface SuiteReportSection {
@@ -56,14 +56,14 @@ export interface FullTestReport {
   totalSkipped: number;
   overallPassRate: number;
   totalDuration: number;
-  suiteSections: Array<SuiteReportSection>;
-  caseEntries: Array<TestCaseReportEntry>;
+  suiteSections: SuiteReportSection[];
+  caseEntries: TestCaseReportEntry[];
   qualityScore: number;
   qualityGrade: string;
 }
 
 export class TestReportGenerator {
-  private entries: Array<TestCaseReportEntry> = [];
+  private entries: TestCaseReportEntry[] = [];
   private reportTitle: string = 'Test Report';
 
   public setReportTitle(title: string): void {
@@ -73,7 +73,7 @@ export class TestReportGenerator {
   public addEntry(caseId: string, caseName: string, caseDescription: string,
     suiteName: string, status: string, startTime: number, endTime: number,
     errorMessage: string, assertionCount: number, passedAssertions: number,
-    failedAssertions: number, tags: Array<string>): void {
+    failedAssertions: number, tags: string[]): void {
     const entry: TestCaseReportEntry = {
       caseId: caseId,
       caseName: caseName,
@@ -96,7 +96,7 @@ export class TestReportGenerator {
   public addPassedEntry(caseId: string, caseName: string, suiteName: string,
     duration: number, assertionCount: number): void {
     const now = Date.now();
-    const tags: Array<string> = [];
+    const tags: string[] = [];
     tags.push('passed');
     this.addEntry(caseId, caseName, `Test ${caseName}`, suiteName, 'passed',
       now - duration, now, '', assertionCount, assertionCount, 0, tags);
@@ -105,14 +105,14 @@ export class TestReportGenerator {
   public addFailedEntry(caseId: string, caseName: string, suiteName: string,
     duration: number, errorMessage: string, assertionCount: number): void {
     const now = Date.now();
-    const tags: Array<string> = [];
+    const tags: string[] = [];
     tags.push('failed');
     this.addEntry(caseId, caseName, `Test ${caseName}`, suiteName, 'failed',
       now - duration, now, errorMessage, assertionCount, 0, assertionCount, tags);
   }
 
-  private collectSuiteNames(): Array<string> {
-    const suites: Array<string> = [];
+  private collectSuiteNames(): string[] {
+    const suites: string[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       const suite = this.entries[i].suiteName;
       let found = false;
@@ -204,7 +204,7 @@ export class TestReportGenerator {
 
   public generateReport(): FullTestReport {
     const suiteNames = this.collectSuiteNames();
-    const sections: Array<SuiteReportSection> = [];
+    const sections: SuiteReportSection[] = [];
     for (let i = 0; i < suiteNames.length; i++) {
       sections.push(this.buildSuiteSection(suiteNames[i]));
     }
@@ -250,11 +250,11 @@ export class TestReportGenerator {
     };
   }
 
-  private getEntriesCopy(): Array<TestCaseReportEntry> {
-    const copy: Array<TestCaseReportEntry> = [];
+  private getEntriesCopy(): TestCaseReportEntry[] {
+    const copy: TestCaseReportEntry[] = [];
     for (let i = 0; i < this.entries.length; i++) {
       const e = this.entries[i];
-      const tags: Array<string> = [];
+      const tags: string[] = [];
       for (let j = 0; j < e.tags.length; j++) {
         tags.push(e.tags[j]);
       }
@@ -280,7 +280,7 @@ export class TestReportGenerator {
 
   public generateTextReport(): string {
     const report = this.generateReport();
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     lines.push('========================================');
     lines.push(`  ${report.reportTitle}`);
     lines.push('========================================');

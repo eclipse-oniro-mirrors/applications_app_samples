@@ -98,7 +98,7 @@ export default function testReportGeneratorTest(): void {
      */
     it('testTrgAddEntry0004', 0, async (done: Function) => {
       const gen = new TestReportGenerator();
-      const tags: Array<string> = ['smoke', 'regression'];
+      const tags: string[] = ['smoke', 'regression'];
       gen.addEntry('id3', 'case3', 'desc3', 'suite1', 'passed',
         0, 100, '', 2, 2, 0, tags);
       const report = gen.generateReport();
