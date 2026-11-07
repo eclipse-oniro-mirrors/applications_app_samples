@@ -51,21 +51,26 @@ class MyParcelable implements rpc.Parcelable {
 
 // 在收到call事件后会触发callee监听的方法
 let funACall = (data: rpc.MessageSequence): MyParcelable => {
-  // 获取call事件中传递的所有参数
-  let params: Record<string, string> = JSON.parse(data.readString());
-  if (params.formId !== undefined) {
-    let curFormId: string = params.formId;
-    let message: string = params.calleeDetail;
-    hilog.info(DOMAIN_NUMBER, TAG, `UpdateForm formId: ${curFormId}, message: ${message}`);
-    let formData: Record<string, string> = {
-      'calleeDetail': message
-    };
-    let formMsg: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
-    formProvider.updateForm(curFormId, formMsg).then(() => {
-      hilog.info(DOMAIN_NUMBER, TAG, `updateForm success.`);
-    }).catch((error: BusinessError) => {
-      hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${error.code}, error message: ${error.message}`);
-    });
+  try {
+    // 获取call事件中传递的所有参数
+    let params: Record<string, string> = JSON.parse(data.readString());
+    if (params.formId !== undefined) {
+      let curFormId: string = params.formId;
+      let message: string = params.calleeDetail;
+      hilog.info(DOMAIN_NUMBER, TAG, `UpdateForm formId: ${curFormId}, message: ${message}`);
+      let formData: Record<string, string> = {
+        'calleeDetail': message
+      };
+      let formMsg: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
+      formProvider.updateForm(curFormId, formMsg).then(() => {
+        hilog.info(DOMAIN_NUMBER, TAG, `updateForm success.`);
+      }).catch((error: BusinessError) => {
+        hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${error.code}, error message: ${error.message}`);
+      });
+    }
+  } catch (e) {
+    hilog.error(DOMAIN_NUMBER, TAG, `funACall catch error` + `,
+      code: ${e.code}, message: ${e.message}`);
   }
   return new MyParcelable(CONST_NUMBER_1, 'aaa');
 };
