@@ -60,13 +60,13 @@ export default function accessibilityPerformanceTest() {
     });
 
     // ========================================================================
-    // 无障碍测试
+    // Accessibility Testing (无障碍功能测试)
     // ========================================================================
 
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0100
      * @tc.name      testAccessibilityScreenReaderSupport0001
-     * @tc.desc      Verify screen reader support
+     * @tc.desc      Verify that UI elements support screen reader accessibility features
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
@@ -101,7 +101,7 @@ export default function accessibilityPerformanceTest() {
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0200
      * @tc.name      testAccessibilityKeyboardNavigation0002
-     * @tc.desc      Verify keyboard navigation support
+     * @tc.desc      Verify that interactive elements support keyboard navigation accessibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
