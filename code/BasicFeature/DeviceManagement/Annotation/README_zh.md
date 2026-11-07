@@ -64,12 +64,11 @@ Annotation
 8. [AnnotationState.test.ets](entry/src/ohosTest/ets/test/AnnotationState.test.ets) 验证环境切换时的状态机转换。
 9. [MockEnvironment.test.ets](entry/src/ohosTest/ets/test/MockEnvironment.test.ets) 专项测试模拟环境行为。
 10. [Robustness.test.ets](entry/src/ohosTest/ets/test/Robustness.test.ets) 验证容错能力和高频调用稳定性。
-11. [AnnotationPerformanceDeep.test.ets](entry/src/ohosTest/ets/test/AnnotationPerformanceDeep.test.ets) 提供深度性能测试，包括内存泄漏检测、CPU/内存压力测试、响应时间百分位数、GC 影响、持续负载、并发访问、资源清理、峰值负载处理和长时间性能稳定性测试。
-12. [ohosTest.md](ohosTest.md) 归档运行时测试场景，并列出需通过独立编译 fixture 验证的告警诊断场景。
+11. [ohosTest.md](ohosTest.md) 归档运行时测试场景，并列出需通过独立编译 fixture 验证的告警诊断场景。
 
 ### 相关权限
 
-本示例不需要申请权限。抑制权限告警不会使应用获得相应权限。
+本示例不需要申请权限。示例中使用 `@SuppressWarnings` 抑制权限告警仅影响编译诊断，不会授予应用相应权限。
 
 ### 依赖
 
@@ -86,7 +85,7 @@ Annotation
 
 ### 测试
 
-本工程包含 134 个自动化测试用例，分布在 8 个测试套件中：
+本工程包含 124 个自动化测试用例，分布在 7 个测试套件中：
 
 - **AnnotationApi.test.ets**：15 个 API 功能测试
 - **Ability.test.ets**：8 个 UI 交互测试
@@ -95,11 +94,10 @@ Annotation
 - **AnnotationState.test.ets**：22 个状态机测试
 - **MockEnvironment.test.ets**：22 个 Mock 环境测试
 - **Robustness.test.ets**：20 个容错稳定性测试
-- **AnnotationPerformanceDeep.test.ets**：10 个深度性能测试
 
 #### AppFreeze 预防
 
-所有性能测试用例都已优化，防止 THREAD_BLOCK_6S 错误：
+所有测试用例都已优化，防止 THREAD_BLOCK_6S 错误：
 
 - **总操作数降低**：83,500 → 3,100（⬇️ 96.3%）
 - **主线程阻塞时间**：>6秒 → <1秒

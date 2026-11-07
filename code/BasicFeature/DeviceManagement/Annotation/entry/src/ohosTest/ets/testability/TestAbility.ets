@@ -25,7 +25,11 @@ import { logger } from '../util/Logger';
 
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    logger.info(`TestAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
+    try {
+      logger.info(`TestAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
+    } catch (error) {
+      logger.info('TestAbility onCreate');
+    }
     const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     const abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);

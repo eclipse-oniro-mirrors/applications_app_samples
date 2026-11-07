@@ -20,7 +20,11 @@ import { logger } from '@ohos/annotation';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    logger.info(`EntryAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
+    try {
+      logger.info(`EntryAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
+    } catch (error) {
+      logger.info('EntryAbility onCreate');
+    }
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
