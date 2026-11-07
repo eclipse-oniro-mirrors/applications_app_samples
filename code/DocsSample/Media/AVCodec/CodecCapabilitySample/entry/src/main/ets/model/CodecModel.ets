@@ -44,10 +44,10 @@ export interface ScenarioGroup {
  * 编解码器类别定义，与native侧CodecCategory对应。
  */
 export class CodecCategoryConstants {
-  static readonly VIDEO_DECODER: number = 0;
-  static readonly VIDEO_ENCODER: number = 1;
-  static readonly AUDIO_DECODER: number = 2;
-  static readonly AUDIO_ENCODER: number = 3;
+  public static readonly VIDEO_DECODER: number = 0;
+  public static readonly VIDEO_ENCODER: number = 1;
+  public static readonly AUDIO_DECODER: number = 2;
+  public static readonly AUDIO_ENCODER: number = 3;
   public static readonly CATEGORY_NAMES: string[] = ['视频解码器', '视频编码器', '音频解码器', '音频编码器'];
 }
 
