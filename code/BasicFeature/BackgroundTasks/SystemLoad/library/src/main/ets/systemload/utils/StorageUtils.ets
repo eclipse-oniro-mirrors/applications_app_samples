@@ -29,11 +29,11 @@ const TAG: string = 'StorageUtils';
  */
 export class StorageOptions {
   /** 是否加密存储 */
-  encrypted: boolean = false;
+  public encrypted: boolean = false;
   /** 数据过期时间（毫秒） */
-  expireTime: number = 0;
+  public expireTime: number = 0;
   /** 存储模式：sync/async */
-  mode: string = 'async';
+  public mode: string = 'async';
 }
 
 /**
@@ -42,13 +42,13 @@ export class StorageOptions {
  */
 export class StorageEntry<T> {
   /** 数据值 */
-  value: T | null = null;
+  public value: T | null = null;
   /** 创建时间戳 */
-  createdAt: number = 0;
+  public createdAt: number = 0;
   /** 过期时间戳 */
-  expireAt: number = 0;
+  public expireAt: number = 0;
   /** 数据标签 */
-  tag: string = '';
+  public tag: string = '';
 }
 
 /**

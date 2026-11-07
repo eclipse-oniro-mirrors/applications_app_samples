@@ -27,15 +27,15 @@ const TAG: string = 'NetworkUtils';
  */
 export class NetworkStatus {
   /** 是否有网络连接 */
-  isConnected: boolean = false;
+  public isConnected: boolean = false;
   /** 网络类型 */
-  networkType: string = '';
+  public networkType: string = '';
   /** 是否为蜂窝网络 */
-  isCellular: boolean = false;
+  public isCellular: boolean = false;
   /** 是否为WiFi */
-  isWifi: boolean = false;
+  public isWifi: boolean = false;
   /** 是否为以太网 */
-  isEthernet: boolean = false;
+  public isEthernet: boolean = false;
 }
 
 /**

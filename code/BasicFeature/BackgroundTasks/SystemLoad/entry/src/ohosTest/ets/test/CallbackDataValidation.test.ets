@@ -67,7 +67,7 @@ export default function callbackDataValidationTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_CALLBACK_0100
+     * @tc.number    SUB_SYSTEMLOAD_CALLBACK_0100
      * @tc.name      testCallbackDataLevelConsistency0001
      * @tc.desc      Verify callback level matches actual level
      * @tc.size      MediumTest
@@ -107,15 +107,15 @@ export default function callbackDataValidationTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_CALLBACK_0200
-     * @tc.name      testCallbackDataTimestampOrder0001
+     * @tc.number    SUB_SYSTEMLOAD_CALLBACK_0200
+     * @tc.name      testCallbackDataTimestampOrder0002
      * @tc.desc      Verify callbacks received in timestamp order
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testCallbackDataTimestampOrder0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackDataTimestampOrder0001, begin`);
+    it('testCallbackDataTimestampOrder0002', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackDataTimestampOrder0002, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -147,15 +147,15 @@ export default function callbackDataValidationTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_CALLBACK_0300
-     * @tc.name      testCallbackDataNoDuplicates0001
+     * @tc.number    SUB_SYSTEMLOAD_CALLBACK_0300
+     * @tc.name      testCallbackDataNoDuplicates0003
      * @tc.desc      Verify callback data has no duplicate records
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testCallbackDataNoDuplicates0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackDataNoDuplicates0001, begin`);
+    it('testCallbackDataNoDuplicates0003', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackDataNoDuplicates0003, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -190,15 +190,15 @@ export default function callbackDataValidationTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_PAGESTATE_0100
-     * @tc.name      testPageStateActiveFlag0001
+     * @tc.number    SUB_SYSTEMLOAD_PAGESTATE_0100
+     * @tc.name      testPageStateActiveFlag0004
      * @tc.desc      Verify isActive flag reflects page state correctly
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testPageStateActiveFlag0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateActiveFlag0001, begin`);
+    it('testPageStateActiveFlag0004', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateActiveFlag0004, begin`);
 
       let isActive = true;
       logger.info(`${BUNDLE}initial active state: ${isActive}`);
@@ -222,15 +222,15 @@ export default function callbackDataValidationTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PAGESTATE_0200
-     * @tc.name      testPageStateMockFlag0001
+     * @tc.number    SUB_SYSTEMLOAD_PAGESTATE_0200
+     * @tc.name      testPageStateMockFlag0005
      * @tc.desc      Verify isMock flag toggles correctly
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testPageStateMockFlag0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMockFlag0001, begin`);
+    it('testPageStateMockFlag0005', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMockFlag0005, begin`);
 
       let isMock = false;
       logger.info(`${BUNDLE}initial mock state: ${isMock}`);
@@ -261,15 +261,15 @@ export default function callbackDataValidationTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_REQUESTID_0100
-     * @tc.name      testRequestIdIncrement0001
+     * @tc.number    SUB_SYSTEMLOAD_REQUESTID_0100
+     * @tc.name      testRequestIdIncrement0006
      * @tc.desc      Verify requestId increments correctly on each operation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRequestIdIncrement0001', 0, async () => {
-      logger.info(`${BUNDLE}testRequestIdIncrement0001, begin`);
+    it('testRequestIdIncrement0006', 0, async () => {
+      logger.info(`${BUNDLE}testRequestIdIncrement0006, begin`);
 
       let requestId = 0;
       logger.info(`${BUNDLE}initial request ID: ${requestId}`);
@@ -296,15 +296,15 @@ export default function callbackDataValidationTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_REQUESTID_0200
-     * @tc.name      testRequestIdPreventStale0001
+     * @tc.number    SUB_SYSTEMLOAD_REQUESTID_0200
+     * @tc.name      testRequestIdPreventStale0007
      * @tc.desc      Verify stale request results do not override new selection
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRequestIdPreventStale0001', 0, async () => {
-      logger.info(`${BUNDLE}testRequestIdPreventStale0001, begin`);
+    it('testRequestIdPreventStale0007', 0, async () => {
+      logger.info(`${BUNDLE}testRequestIdPreventStale0007, begin`);
 
       const requestIds: number[] = [];
       let currentRequestId = 0;

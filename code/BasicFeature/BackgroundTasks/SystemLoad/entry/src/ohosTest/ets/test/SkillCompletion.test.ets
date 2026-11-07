@@ -76,7 +76,7 @@ export default function skillCompletionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0100
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0100
      * @tc.name      testLifecyclePageCreate0001
      * @tc.desc      Auto-load system load data on page creation
      * @tc.size      MediumTest
@@ -103,15 +103,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0200
-     * @tc.name      testLifecyclePageDestroy0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0200
+     * @tc.name      testLifecyclePageDestroy0002
      * @tc.desc      Correctly cleanup all listeners on page destroy
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testLifecyclePageDestroy0001', 0, async () => {
-      logger.info(`${BUNDLE}testLifecyclePageDestroy0001, begin`);
+    it('testLifecyclePageDestroy0002', 0, async () => {
+      logger.info(`${BUNDLE}testLifecyclePageDestroy0002, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -141,15 +141,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0300
-     * @tc.name      testLifecycleForegroundBackground0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0300
+     * @tc.name      testLifecycleForegroundBackground0003
      * @tc.desc      Verify listener state during app foreground/background switch
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testLifecycleForegroundBackground0001', 0, async () => {
-      logger.info(`${BUNDLE}testLifecycleForegroundBackground0001, begin`);
+    it('testLifecycleForegroundBackground0003', 0, async () => {
+      logger.info(`${BUNDLE}testLifecycleForegroundBackground0003, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -188,15 +188,15 @@ export default function skillCompletionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0400
-     * @tc.name      testErrorRecoveryInvalidCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0400
+     * @tc.name      testErrorRecoveryInvalidCallback0004
      * @tc.desc      Verify system state recovery after invalid callback error
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorRecoveryInvalidCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorRecoveryInvalidCallback0001, begin`);
+    it('testErrorRecoveryInvalidCallback0004', 0, async () => {
+      logger.info(`${BUNDLE}testErrorRecoveryInvalidCallback0004, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -223,15 +223,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0500
-     * @tc.name      testErrorRecoveryUnregisterAll0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0500
+     * @tc.name      testErrorRecoveryUnregisterAll0005
      * @tc.desc      Verify system recovery after unregistering all listeners
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorRecoveryUnregisterAll0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorRecoveryUnregisterAll0001, begin`);
+    it('testErrorRecoveryUnregisterAll0005', 0, async () => {
+      logger.info(`${BUNDLE}testErrorRecoveryUnregisterAll0005, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -269,15 +269,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0600
-     * @tc.name      testErrorRecoveryQueryFailure0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0600
+     * @tc.name      testErrorRecoveryQueryFailure0006
      * @tc.desc      Verify system continues working after query failure
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorRecoveryQueryFailure0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorRecoveryQueryFailure0001, begin`);
+    it('testErrorRecoveryQueryFailure0006', 0, async () => {
+      logger.info(`${BUNDLE}testErrorRecoveryQueryFailure0006, begin`);
       
       const level1 = await systemLoad.getLevel();
       logger.info(`${BUNDLE}first query succeeded: ${level1}`);
@@ -299,15 +299,15 @@ export default function skillCompletionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0700
-     * @tc.name      testDataConsistencyCallbackVsQuery0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0700
+     * @tc.name      testDataConsistencyCallbackVsQuery0007
      * @tc.desc      Verify callback data matches query results
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDataConsistencyCallbackVsQuery0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataConsistencyCallbackVsQuery0001, begin`);
+    it('testDataConsistencyCallbackVsQuery0007', 0, async () => {
+      logger.info(`${BUNDLE}testDataConsistencyCallbackVsQuery0007, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -340,15 +340,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0800
-     * @tc.name      testDataConsistencyTimestamp0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0800
+     * @tc.name      testDataConsistencyTimestamp0008
      * @tc.desc      Verify timestamps correct across multiple queries
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDataConsistencyTimestamp0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataConsistencyTimestamp0001, begin`);
+    it('testDataConsistencyTimestamp0008', 0, async () => {
+      logger.info(`${BUNDLE}testDataConsistencyTimestamp0008, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -372,15 +372,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_0900
-     * @tc.name      testDataConsistencyMultiListener0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_0900
+     * @tc.name      testDataConsistencyMultiListener0009
      * @tc.desc      Verify multiple listeners receive consistent data
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDataConsistencyMultiListener0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataConsistencyMultiListener0001, begin`);
+    it('testDataConsistencyMultiListener0009', 0, async () => {
+      logger.info(`${BUNDLE}testDataConsistencyMultiListener0009, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -427,15 +427,15 @@ export default function skillCompletionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_1000
-     * @tc.name      testListenerStateRegisterUnregisterOrder0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_1000
+     * @tc.name      testListenerStateRegisterUnregisterOrder0010
      * @tc.desc      Verify register/unregister order consistency with state
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateRegisterUnregisterOrder0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateRegisterUnregisterOrder0001, begin`);
+    it('testListenerStateRegisterUnregisterOrder0010', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateRegisterUnregisterOrder0010, begin`);
       
       const callback1: SystemLoadCallback = () => {};
       const callback2: SystemLoadCallback = () => {};
@@ -471,15 +471,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_1100
-     * @tc.name      testListenerStatePartialUnregister0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_1100
+     * @tc.name      testListenerStatePartialUnregister0011
      * @tc.desc      Verify remaining listener state after partial unregister
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStatePartialUnregister0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStatePartialUnregister0001, begin`);
+    it('testListenerStatePartialUnregister0011', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStatePartialUnregister0011, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -514,15 +514,15 @@ export default function skillCompletionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SKILL_1200
-     * @tc.name      testListenerStateReRegister0001
+     * @tc.number    SUB_SYSTEMLOAD_SKILL_1200
+     * @tc.name      testListenerStateReRegister0012
      * @tc.desc      Verify re-registration of unregistered listener
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateReRegister0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateReRegister0001, begin`);
+    it('testListenerStateReRegister0012', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateReRegister0012, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       

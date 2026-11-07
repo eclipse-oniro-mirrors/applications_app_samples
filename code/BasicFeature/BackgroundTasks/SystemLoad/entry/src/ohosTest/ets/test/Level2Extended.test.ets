@@ -74,7 +74,7 @@ export default function level2ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0100
+     * @tc.number    SUB_SYSTEMLOAD_L2_0100
      * @tc.name      testErrorHandlingNetworkFailure0001
      * @tc.desc      Verify network failure error handling
      * @tc.size      SmallTest
@@ -108,15 +108,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0200
-     * @tc.name      testErrorHandlingAPIFailure0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0200
+     * @tc.name      testErrorHandlingAPIFailure0002
      * @tc.desc      Verify API call failure handling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorHandlingAPIFailure0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorHandlingAPIFailure0001, begin`);
+    it('testErrorHandlingAPIFailure0002', 0, async () => {
+      logger.info(`${BUNDLE}testErrorHandlingAPIFailure0002, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -139,15 +139,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0300
-     * @tc.name      testErrorHandlingInvalidState0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0300
+     * @tc.name      testErrorHandlingInvalidState0003
      * @tc.desc      Verify invalid state error handling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorHandlingInvalidState0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorHandlingInvalidState0001, begin`);
+    it('testErrorHandlingInvalidState0003', 0, async () => {
+      logger.info(`${BUNDLE}testErrorHandlingInvalidState0003, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -169,15 +169,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0400
-     * @tc.name      testErrorHandlingConcurrent0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0400
+     * @tc.name      testErrorHandlingConcurrent0004
      * @tc.desc      Verify concurrent operation error handling
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testErrorHandlingConcurrent0001', 0, async () => {
-      logger.info(`${BUNDLE}testErrorHandlingConcurrent0001, begin`);
+    it('testErrorHandlingConcurrent0004', 0, async () => {
+      logger.info(`${BUNDLE}testErrorHandlingConcurrent0004, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -219,15 +219,15 @@ export default function level2ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0500
-     * @tc.name      testResourceCleanupPageExit0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0500
+     * @tc.name      testResourceCleanupPageExit0005
      * @tc.desc      Verify resource cleanup on page exit
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testResourceCleanupPageExit0001', 0, async () => {
-      logger.info(`${BUNDLE}testResourceCleanupPageExit0001, begin`);
+    it('testResourceCleanupPageExit0005', 0, async () => {
+      logger.info(`${BUNDLE}testResourceCleanupPageExit0005, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -261,15 +261,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0600
-     * @tc.name      testResourceCleanupAppClose0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0600
+     * @tc.name      testResourceCleanupAppClose0006
      * @tc.desc      Verify resource cleanup on app close
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testResourceCleanupAppClose0001', 0, async () => {
-      logger.info(`${BUNDLE}testResourceCleanupAppClose0001, begin`);
+    it('testResourceCleanupAppClose0006', 0, async () => {
+      logger.info(`${BUNDLE}testResourceCleanupAppClose0006, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -306,15 +306,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0700
-     * @tc.name      testResourceCleanupListenerLeak0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0700
+     * @tc.name      testResourceCleanupListenerLeak0007
      * @tc.desc      Verify listener leak detection
      * @tc.size      LargeTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testResourceCleanupListenerLeak0001', 0, async () => {
-      logger.info(`${BUNDLE}testResourceCleanupListenerLeak0001, begin`);
+    it('testResourceCleanupListenerLeak0007', 0, async () => {
+      logger.info(`${BUNDLE}testResourceCleanupListenerLeak0007, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -343,15 +343,15 @@ export default function level2ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L2_0800
-     * @tc.name      testResourceCleanupCallbackReferences0001
+     * @tc.number    SUB_SYSTEMLOAD_L2_0800
+     * @tc.name      testResourceCleanupCallbackReferences0008
      * @tc.desc      Verify callback reference cleanup
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testResourceCleanupCallbackReferences0001', 0, async () => {
-      logger.info(`${BUNDLE}testResourceCleanupCallbackReferences0001, begin`);
+    it('testResourceCleanupCallbackReferences0008', 0, async () => {
+      logger.info(`${BUNDLE}testResourceCleanupCallbackReferences0008, begin`);
       
       const callback1: SystemLoadCallback = () => {};
       const callback2: SystemLoadCallback = () => {};

@@ -56,7 +56,7 @@ export default function abilityTest() {
 
   describe('SystemLoadAbilityTest', () => {
     /**
-     * @tc.number    SYSTEMLOAD_UI_0100
+     * @tc.number    SUB_SYSTEMLOAD_UI_0100
      * @tc.name      testSystemLoadStartAbility0001
      * @tc.desc      Start the sample and verify the system load page is displayed.
      * @tc.size      MediumTest
@@ -87,7 +87,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0200
+     * @tc.number    SUB_SYSTEMLOAD_UI_0200
      * @tc.name      testSystemLoadLevelDisplay0002
      * @tc.desc      Verify that a valid level, description and application recommendation are displayed.
      * @tc.size      MediumTest
@@ -115,7 +115,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0300
+     * @tc.number    SUB_SYSTEMLOAD_UI_0300
      * @tc.name      testSystemLoadMockData0003
      * @tc.desc      Switch to mock data and verify the default MEDIUM level.
      * @tc.size      MediumTest
@@ -144,7 +144,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0400
+     * @tc.number    SUB_SYSTEMLOAD_UI_0400
      * @tc.name      testSystemLoadMockLevelCycle0004
      * @tc.desc      Cycle through all eight mock levels and verify each name and value.
      * @tc.size      MediumTest
@@ -168,7 +168,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0500
+     * @tc.number    SUB_SYSTEMLOAD_UI_0500
      * @tc.name      testSystemLoadMockPreviousLevel0005
      * @tc.desc      Select the previous mock level and verify NORMAL and Level 1.
      * @tc.size      MediumTest
@@ -190,7 +190,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0600
+     * @tc.number    SUB_SYSTEMLOAD_UI_0600
      * @tc.name      testSystemLoadRefreshMockData0006
      * @tc.desc      Refresh mock data without changing the selected level.
      * @tc.size      MediumTest
@@ -212,7 +212,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0700
+     * @tc.number    SUB_SYSTEMLOAD_UI_0700
      * @tc.name      testSystemLoadMockListenerCleanup0007
      * @tc.desc      Verify that mock mode unregisters both listeners and retains listener controls.
      * @tc.size      MediumTest
@@ -238,7 +238,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0800
+     * @tc.number    SUB_SYSTEMLOAD_UI_0800
      * @tc.name      testSystemLoadLocalData0008
      * @tc.desc      Return to local data and verify the level or the explicit mock fallback.
      * @tc.size      MediumTest
@@ -268,7 +268,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_0900
+     * @tc.number    SUB_SYSTEMLOAD_UI_0900
      * @tc.name      testSystemLoadMockModeOperationStatus0009
      * @tc.desc      Enter mock mode and verify the operation status text updates.
      * @tc.size      MediumTest
@@ -291,7 +291,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1000
+     * @tc.number    SUB_SYSTEMLOAD_UI_1000
      * @tc.name      testSystemLoadCallbackCountReset0010
      * @tc.desc      Verify callback counts display zero in mock mode.
      * @tc.size      MediumTest
@@ -314,7 +314,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1100
+     * @tc.number    SUB_SYSTEMLOAD_UI_1100
      * @tc.name      testSystemLoadLocalModeSwitch0011
      * @tc.desc      Switch from mock to local mode and verify the operation status changes.
      * @tc.size      MediumTest
@@ -341,7 +341,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1200
+     * @tc.number    SUB_SYSTEMLOAD_UI_1200
      * @tc.name      testSystemLoadMockLevelBoundaryLow0012
      * @tc.desc      Navigate to LOW boundary and verify wrapping on previous.
      * @tc.size      MediumTest
@@ -370,7 +370,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1300
+     * @tc.number    SUB_SYSTEMLOAD_UI_1300
      * @tc.name      testSystemLoadMockLevelBoundaryEscape0013
      * @tc.desc      Navigate to ESCAPE boundary and verify wrapping on next.
      * @tc.size      MediumTest
@@ -399,7 +399,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1400
+     * @tc.number    SUB_SYSTEMLOAD_UI_1400
      * @tc.name      testSystemLoadMockFullCyclePrevious0014
      * @tc.desc      Click previous eight times and verify full reverse cycle.
      * @tc.size      MediumTest
@@ -427,7 +427,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1500
+     * @tc.number    SUB_SYSTEMLOAD_UI_1500
      * @tc.name      testSystemLoadRapidNextLevel0015
      * @tc.desc      Rapidly click next level sixteen times and verify page stability.
      * @tc.size      MediumTest
@@ -455,7 +455,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1600
+     * @tc.number    SUB_SYSTEMLOAD_UI_1600
      * @tc.name      testSystemLoadRapidModeSwitch0016
      * @tc.desc      Rapidly switch between mock and local mode six times and verify stability.
      * @tc.size      MediumTest
@@ -481,7 +481,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1700
+     * @tc.number    SUB_SYSTEMLOAD_UI_1700
      * @tc.name      testSystemLoadModeSwitchResetsCallbackCount0017
      * @tc.desc      Switch from local to mock mode and verify callback counts reset to zero.
      * @tc.size      MediumTest
@@ -506,7 +506,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1800
+     * @tc.number    SUB_SYSTEMLOAD_UI_1800
      * @tc.name      testSystemLoadModeSwitchResetsCallbackHistory0018
      * @tc.desc      Switch to mock mode and verify the data source is mock.
      * @tc.size      MediumTest
@@ -532,7 +532,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_1900
+     * @tc.number    SUB_SYSTEMLOAD_UI_1900
      * @tc.name      testSystemLoadMockModeButtonsDisabled0019
      * @tc.desc      Verify listener controls show unregistered state in mock mode.
      * @tc.size      MediumTest
@@ -561,7 +561,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2000
+     * @tc.number    SUB_SYSTEMLOAD_UI_2000
      * @tc.name      testSystemLoadDuplicateMockDataClick0020
      * @tc.desc      Click mock data button twice and verify the state remains unchanged.
      * @tc.size      MediumTest
@@ -585,7 +585,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2100
+     * @tc.number    SUB_SYSTEMLOAD_UI_2100
      * @tc.name      testSystemLoadDuplicateRefreshClick0021
      * @tc.desc      Click refresh button three times and verify the level remains stable.
      * @tc.size      MediumTest
@@ -611,7 +611,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2200
+     * @tc.number    SUB_SYSTEMLOAD_UI_2200
      * @tc.name      testSystemLoadAllLevelDescriptions0022
      * @tc.desc      Cycle through all 8 levels and verify each has valid description and recommendation.
      * @tc.size      MediumTest
@@ -640,7 +640,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2300
+     * @tc.number    SUB_SYSTEMLOAD_UI_2300
      * @tc.name      testSystemLoadDataSourceSwitchConsistency0023
      * @tc.desc      Switch between mock and local data multiple times and verify state consistency.
      * @tc.size      MediumTest
@@ -671,7 +671,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2400
+     * @tc.number    SUB_SYSTEMLOAD_UI_2400
      * @tc.name      testSystemLoadOperationStatusUpdates0024
      * @tc.desc      Verify operation status text updates correctly after each operation.
      * @tc.size      MediumTest
@@ -697,7 +697,7 @@ export default function abilityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UI_2500
+     * @tc.number    SUB_SYSTEMLOAD_UI_2500
      * @tc.name      testSystemLoadCallbackHistoryUpdates0025
      * @tc.desc      Verify callback history component updates when callbacks are received.
      * @tc.size      MediumTest

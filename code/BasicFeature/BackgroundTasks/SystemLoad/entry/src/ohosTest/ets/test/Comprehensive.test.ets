@@ -78,7 +78,7 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0100
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0100
      * @tc.name      testPageStateMachineIdleState0001
      * @tc.desc      Verify idle state page initialization and no data loaded
      * @tc.size      SmallTest
@@ -98,15 +98,15 @@ export default function comprehensiveTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0200
-     * @tc.name      testPageStateMachineLoadingState0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0200
+     * @tc.name      testPageStateMachineLoadingState0002
      * @tc.desc      Verify loading state isLoading true and buttons disabled
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageStateMachineLoadingState0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMachineLoadingState0001, begin`);
+    it('testPageStateMachineLoadingState0002', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMachineLoadingState0002, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -120,19 +120,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(level)).assertTrue();
       expect(level >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testPageStateMachineLoadingState0001, end`);
+      logger.info(`${BUNDLE}testPageStateMachineLoadingState0002, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0300
-     * @tc.name      testPageStateMachineActiveState0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0300
+     * @tc.name      testPageStateMachineActiveState0003
      * @tc.desc      Verify active state isActive true and listener registered
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageStateMachineActiveState0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMachineActiveState0001, begin`);
+    it('testPageStateMachineActiveState0003', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMachineActiveState0003, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -147,19 +147,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(level)).assertTrue();
       expect(level >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testPageStateMachineActiveState0001, end`);
+      logger.info(`${BUNDLE}testPageStateMachineActiveState0003, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0400
-     * @tc.name      testPageStateMachineMockState0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0400
+     * @tc.name      testPageStateMachineMockState0004
      * @tc.desc      Verify mock state isMock true and data source switch
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageStateMachineMockState0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMachineMockState0001, begin`);
+    it('testPageStateMachineMockState0004', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMachineMockState0004, begin`);
       
       const mockLevel = systemLoad.SystemLoadLevel.MEDIUM;
       logger.info(`${BUNDLE}mock state with level ${mockLevel}`);
@@ -171,19 +171,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(realLevel)).assertTrue();
       expect(realLevel >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testPageStateMachineMockState0001, end`);
+      logger.info(`${BUNDLE}testPageStateMachineMockState0004, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0500
-     * @tc.name      testPageStateMachineTransition0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0500
+     * @tc.name      testPageStateMachineTransition0005
      * @tc.desc      Verify state transition idle to loading to active to idle
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageStateMachineTransition0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMachineTransition0001, begin`);
+    it('testPageStateMachineTransition0005', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMachineTransition0005, begin`);
       
       logger.info(`${BUNDLE}idle state`);
       expect(registeredCallbacks.length).assertEqual(0);
@@ -201,19 +201,19 @@ export default function comprehensiveTest() {
       registeredCallbacks.splice(registeredCallbacks.indexOf(callback), 1);
       expect(registeredCallbacks.length).assertEqual(0);
       
-      logger.info(`${BUNDLE}testPageStateMachineTransition0001, end`);
+      logger.info(`${BUNDLE}testPageStateMachineTransition0005, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_PAGESTATE_0600
-     * @tc.name      testPageStateMachineInvalidTransition0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_PAGESTATE_0600
+     * @tc.name      testPageStateMachineInvalidTransition0006
      * @tc.desc      Verify invalid state transition active to active duplicate
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageStateMachineInvalidTransition0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMachineInvalidTransition0001, begin`);
+    it('testPageStateMachineInvalidTransition0006', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMachineInvalidTransition0006, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -233,7 +233,7 @@ export default function comprehensiveTest() {
       
       expect(registeredCallbacks.length >= 1).assertTrue();
       
-      logger.info(`${BUNDLE}testPageStateMachineInvalidTransition0001, end`);
+      logger.info(`${BUNDLE}testPageStateMachineInvalidTransition0006, end`);
     });
 
     // ========================================================================
@@ -241,15 +241,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERSTATE_0100
-     * @tc.name      testListenerStateMachineUnregistered0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERSTATE_0100
+     * @tc.name      testListenerStateMachineUnregistered0007
      * @tc.desc      Verify unregistered state isPrimarySubscribed false
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateMachineUnregistered0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMachineUnregistered0001, begin`);
+    it('testListenerStateMachineUnregistered0007', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMachineUnregistered0007, begin`);
       
       const initialCount = registeredCallbacks.length;
       logger.info(`${BUNDLE}initial callback count: ${initialCount}`);
@@ -267,19 +267,19 @@ export default function comprehensiveTest() {
       expect(registeredCallbacks.length).assertEqual(0);
       logger.info(`${BUNDLE}unregistered state verified`);
       
-      logger.info(`${BUNDLE}testListenerStateMachineUnregistered0001, end`);
+      logger.info(`${BUNDLE}testListenerStateMachineUnregistered0007, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERSTATE_0200
-     * @tc.name      testListenerStateMachineRegistered0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERSTATE_0200
+     * @tc.name      testListenerStateMachineRegistered0008
      * @tc.desc      Verify registered state isPrimarySubscribed true
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateMachineRegistered0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMachineRegistered0001, begin`);
+    it('testListenerStateMachineRegistered0008', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMachineRegistered0008, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -298,19 +298,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}registered state verified`);
       
-      logger.info(`${BUNDLE}testListenerStateMachineRegistered0001, end`);
+      logger.info(`${BUNDLE}testListenerStateMachineRegistered0008, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERSTATE_0300
-     * @tc.name      testListenerStateMachineTransition0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERSTATE_0300
+     * @tc.name      testListenerStateMachineTransition0009
      * @tc.desc      Verify state transition unregistered to registered to unregistered
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateMachineTransition0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMachineTransition0001, begin`);
+    it('testListenerStateMachineTransition0009', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMachineTransition0009, begin`);
       
       const initialCount = registeredCallbacks.length;
       logger.info(`${BUNDLE}initial count: ${initialCount}`);
@@ -331,19 +331,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}listener state machine transition verified`);
       
-      logger.info(`${BUNDLE}testListenerStateMachineTransition0001, end`);
+      logger.info(`${BUNDLE}testListenerStateMachineTransition0009, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERSTATE_0400
-     * @tc.name      testListenerStateMachineDuplicateRegistration0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERSTATE_0400
+     * @tc.name      testListenerStateMachineDuplicateRegistration0010
      * @tc.desc      Verify duplicate registration protection registered to registered rejected
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateMachineDuplicateRegistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMachineDuplicateRegistration0001, begin`);
+    it('testListenerStateMachineDuplicateRegistration0010', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMachineDuplicateRegistration0010, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -364,19 +364,19 @@ export default function comprehensiveTest() {
       
       expect(registeredCallbacks.length).assertEqual(countAfterFirst);
       
-      logger.info(`${BUNDLE}testListenerStateMachineDuplicateRegistration0001, end`);
+      logger.info(`${BUNDLE}testListenerStateMachineDuplicateRegistration0010, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERSTATE_0500
-     * @tc.name      testListenerStateMachineInvalidUnregister0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERSTATE_0500
+     * @tc.name      testListenerStateMachineInvalidUnregister0011
      * @tc.desc      Verify invalid unregister unregistered to unregister error code 401
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerStateMachineInvalidUnregister0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMachineInvalidUnregister0001, begin`);
+    it('testListenerStateMachineInvalidUnregister0011', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMachineInvalidUnregister0011, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -394,7 +394,7 @@ export default function comprehensiveTest() {
       registeredCallbacks.push(validCallback);
       expect(registeredCallbacks.length).assertEqual(1);
       
-      logger.info(`${BUNDLE}testListenerStateMachineInvalidUnregister0001, end`);
+      logger.info(`${BUNDLE}testListenerStateMachineInvalidUnregister0011, end`);
     });
 
     // ========================================================================
@@ -402,15 +402,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LEVELBOUNDARY_0100
-     * @tc.name      testLevelBoundaryMinimum0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LEVELBOUNDARY_0100
+     * @tc.name      testLevelBoundaryMinimum0012
      * @tc.desc      Verify minimum level LOW level 0
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testLevelBoundaryMinimum0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelBoundaryMinimum0001, begin`);
+    it('testLevelBoundaryMinimum0012', 0, async () => {
+      logger.info(`${BUNDLE}testLevelBoundaryMinimum0012, begin`);
       
       const minLevel = systemLoad.SystemLoadLevel.LOW;
       logger.info(`${BUNDLE}minimum level value: ${minLevel}`);
@@ -422,19 +422,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(currentLevel)).assertTrue();
       expect(currentLevel >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testLevelBoundaryMinimum0001, end`);
+      logger.info(`${BUNDLE}testLevelBoundaryMinimum0012, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LEVELBOUNDARY_0200
-     * @tc.name      testLevelBoundaryMaximum0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LEVELBOUNDARY_0200
+     * @tc.name      testLevelBoundaryMaximum0013
      * @tc.desc      Verify maximum level ESCAPE level 7
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testLevelBoundaryMaximum0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelBoundaryMaximum0001, begin`);
+    it('testLevelBoundaryMaximum0013', 0, async () => {
+      logger.info(`${BUNDLE}testLevelBoundaryMaximum0013, begin`);
       
       const maxLevel = systemLoad.SystemLoadLevel.ESCAPE;
       logger.info(`${BUNDLE}maximum level value: ${maxLevel}`);
@@ -446,19 +446,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(currentLevel)).assertTrue();
       expect(currentLevel >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testLevelBoundaryMaximum0001, end`);
+      logger.info(`${BUNDLE}testLevelBoundaryMaximum0013, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LEVELBOUNDARY_0300
-     * @tc.name      testLevelBoundaryUnderflow0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LEVELBOUNDARY_0300
+     * @tc.name      testLevelBoundaryUnderflow0014
      * @tc.desc      Verify level underflow LOW to previous level wraps to ESCAPE
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testLevelBoundaryUnderflow0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelBoundaryUnderflow0001, begin`);
+    it('testLevelBoundaryUnderflow0014', 0, async () => {
+      logger.info(`${BUNDLE}testLevelBoundaryUnderflow0014, begin`);
       
       const lowLevel = systemLoad.SystemLoadLevel.LOW;
       const escapeLevel = systemLoad.SystemLoadLevel.ESCAPE;
@@ -470,19 +470,19 @@ export default function comprehensiveTest() {
       const currentLevel = await systemLoad.getLevel();
       expect(isValidLevel(currentLevel)).assertTrue();
       
-      logger.info(`${BUNDLE}testLevelBoundaryUnderflow0001, end`);
+      logger.info(`${BUNDLE}testLevelBoundaryUnderflow0014, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LEVELBOUNDARY_0400
-     * @tc.name      testLevelBoundaryOverflow0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LEVELBOUNDARY_0400
+     * @tc.name      testLevelBoundaryOverflow0015
      * @tc.desc      Verify level overflow ESCAPE to next level wraps to LOW
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testLevelBoundaryOverflow0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelBoundaryOverflow0001, begin`);
+    it('testLevelBoundaryOverflow0015', 0, async () => {
+      logger.info(`${BUNDLE}testLevelBoundaryOverflow0015, begin`);
       
       const escapeLevel = systemLoad.SystemLoadLevel.ESCAPE;
       const lowLevel = systemLoad.SystemLoadLevel.LOW;
@@ -494,7 +494,7 @@ export default function comprehensiveTest() {
       const currentLevel = await systemLoad.getLevel();
       expect(isValidLevel(currentLevel)).assertTrue();
       
-      logger.info(`${BUNDLE}testLevelBoundaryOverflow0001, end`);
+      logger.info(`${BUNDLE}testLevelBoundaryOverflow0015, end`);
     });
 
     // ========================================================================
@@ -502,15 +502,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_CALLBACKRECORD_0100
-     * @tc.name      testCallbackRecordEmpty0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_CALLBACKRECORD_0100
+     * @tc.name      testCallbackRecordEmpty0016
      * @tc.desc      Verify empty callback records length equals 0
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testCallbackRecordEmpty0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordEmpty0001, begin`);
+    it('testCallbackRecordEmpty0016', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordEmpty0016, begin`);
       
       const callbackRecords: string[] = [];
       expect(callbackRecords.length).assertEqual(0);
@@ -519,19 +519,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}empty callback records verified`);
       
-      logger.info(`${BUNDLE}testCallbackRecordEmpty0001, end`);
+      logger.info(`${BUNDLE}testCallbackRecordEmpty0016, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_CALLBACKRECORD_0200
-     * @tc.name      testCallbackRecordSingleEntry0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_CALLBACKRECORD_0200
+     * @tc.name      testCallbackRecordSingleEntry0017
      * @tc.desc      Verify single entry record callbackRecords length equals 1
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testCallbackRecordSingleEntry0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordSingleEntry0001, begin`);
+    it('testCallbackRecordSingleEntry0017', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordSingleEntry0017, begin`);
       
       const callbackRecords: string[] = [];
       expect(callbackRecords.length).assertEqual(0);
@@ -542,19 +542,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}single callback record verified`);
       
-      logger.info(`${BUNDLE}testCallbackRecordSingleEntry0001, end`);
+      logger.info(`${BUNDLE}testCallbackRecordSingleEntry0017, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_CALLBACKRECORD_0300
-     * @tc.name      testCallbackRecordMaxCapacity0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_CALLBACKRECORD_0300
+     * @tc.name      testCallbackRecordMaxCapacity0018
      * @tc.desc      Verify max capacity callbackRecords length equals 6
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testCallbackRecordMaxCapacity0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordMaxCapacity0001, begin`);
+    it('testCallbackRecordMaxCapacity0018', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordMaxCapacity0018, begin`);
       
       const callbackRecords: string[] = [];
       expect(callbackRecords.length).assertEqual(0);
@@ -567,19 +567,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}max capacity callback records verified`);
       
-      logger.info(`${BUNDLE}testCallbackRecordMaxCapacity0001, end`);
+      logger.info(`${BUNDLE}testCallbackRecordMaxCapacity0018, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_CALLBACKRECORD_0400
-     * @tc.name      testCallbackRecordOverflow0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_CALLBACKRECORD_0400
+     * @tc.name      testCallbackRecordOverflow0019
      * @tc.desc      Verify record overflow auto cleanup oldest after 6 entries
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testCallbackRecordOverflow0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordOverflow0001, begin`);
+    it('testCallbackRecordOverflow0019', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordOverflow0019, begin`);
       
       const callbackRecords: string[] = [];
       expect(callbackRecords.length).assertEqual(0);
@@ -595,7 +595,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}callback record overflow handled correctly`);
       
-      logger.info(`${BUNDLE}testCallbackRecordOverflow0001, end`);
+      logger.info(`${BUNDLE}testCallbackRecordOverflow0019, end`);
     });
 
     // ========================================================================
@@ -603,15 +603,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERCOUNT_0100
-     * @tc.name      testListenerCountZero0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERCOUNT_0100
+     * @tc.name      testListenerCountZero0020
      * @tc.desc      Verify zero listeners registeredCallbacks length equals 0
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testListenerCountZero0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerCountZero0001, begin`);
+    it('testListenerCountZero0020', 0, async () => {
+      logger.info(`${BUNDLE}testListenerCountZero0020, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -621,19 +621,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}zero listener verified`);
       
-      logger.info(`${BUNDLE}testListenerCountZero0001, end`);
+      logger.info(`${BUNDLE}testListenerCountZero0020, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERCOUNT_0200
-     * @tc.name      testListenerCountOne0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERCOUNT_0200
+     * @tc.name      testListenerCountOne0021
      * @tc.desc      Verify single listener registeredCallbacks length equals 1
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testListenerCountOne0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerCountOne0001, begin`);
+    it('testListenerCountOne0021', 0, async () => {
+      logger.info(`${BUNDLE}testListenerCountOne0021, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -649,19 +649,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}one listener verified`);
       
-      logger.info(`${BUNDLE}testListenerCountOne0001, end`);
+      logger.info(`${BUNDLE}testListenerCountOne0021, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERCOUNT_0300
-     * @tc.name      testListenerCountMultiple0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERCOUNT_0300
+     * @tc.name      testListenerCountMultiple0022
      * @tc.desc      Verify multiple listeners registeredCallbacks length equals 5
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testListenerCountMultiple0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerCountMultiple0001, begin`);
+    it('testListenerCountMultiple0022', 0, async () => {
+      logger.info(`${BUNDLE}testListenerCountMultiple0022, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -680,19 +680,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}multiple listeners verified`);
       
-      logger.info(`${BUNDLE}testListenerCountMultiple0001, end`);
+      logger.info(`${BUNDLE}testListenerCountMultiple0022, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LISTENERCOUNT_0400
-     * @tc.name      testListenerCountMax0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LISTENERCOUNT_0400
+     * @tc.name      testListenerCountMax0023
      * @tc.desc      Verify max listeners register 100 listeners
      * @tc.size      LargeTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testListenerCountMax0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerCountMax0001, begin`);
+    it('testListenerCountMax0023', 0, async () => {
+      logger.info(`${BUNDLE}testListenerCountMax0023, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -711,7 +711,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}max listeners verified`);
       
-      logger.info(`${BUNDLE}testListenerCountMax0001, end`);
+      logger.info(`${BUNDLE}testListenerCountMax0023, end`);
     });
 
     // ========================================================================
@@ -719,15 +719,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_EMPTYDATA_0100
-     * @tc.name      testEmptyDataNullCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_EMPTYDATA_0100
+     * @tc.name      testEmptyDataNullCallback0025
      * @tc.desc      Verify null callback passed as callback parameter
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testEmptyDataNullCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testEmptyDataNullCallback0001, begin`);
+    it('testEmptyDataNullCallback0025', 0, async () => {
+      logger.info(`${BUNDLE}testEmptyDataNullCallback0025, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -746,19 +746,19 @@ export default function comprehensiveTest() {
       registeredCallbacks.push(validCallback);
       expect(registeredCallbacks.length).assertEqual(1);
       
-      logger.info(`${BUNDLE}testEmptyDataNullCallback0001, end`);
+      logger.info(`${BUNDLE}testEmptyDataNullCallback0025, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_EMPTYDATA_0200
-     * @tc.name      testEmptyDataUndefinedCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_EMPTYDATA_0200
+     * @tc.name      testEmptyDataUndefinedCallback0026
      * @tc.desc      Verify undefined callback passed as callback parameter
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testEmptyDataUndefinedCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testEmptyDataUndefinedCallback0001, begin`);
+    it('testEmptyDataUndefinedCallback0026', 0, async () => {
+      logger.info(`${BUNDLE}testEmptyDataUndefinedCallback0026, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -777,24 +777,24 @@ export default function comprehensiveTest() {
       registeredCallbacks.push(validCallback);
       expect(registeredCallbacks.length).assertEqual(1);
       
-      logger.info(`${BUNDLE}testEmptyDataUndefinedCallback0001, end`);
+      logger.info(`${BUNDLE}testEmptyDataUndefinedCallback0026, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_EMPTYDATA_0300
-     * @tc.name      testEmptyDataEmptyString0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_EMPTYDATA_0300
+     * @tc.name      testEmptyDataEmptyString0024
      * @tc.desc      Verify empty string passed as event name
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testEmptyDataEmptyString0001', 0, async () => {
-      logger.info(`${BUNDLE}testEmptyDataEmptyString0001, begin`);
+    it('testEmptyDataEmptyString0024', 0, async () => {
+      logger.info(`${BUNDLE}testEmptyDataEmptyString0024, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
       const callback: SystemLoadCallback = () => {};
-      
+
       // ArkTS类型系统在编译时强制限制事件名类型，无法传入空字符串
       // 验证：使用正确的事件名可以正常注册
       systemLoad.on('systemLoadChange', callback);
@@ -810,19 +810,19 @@ export default function comprehensiveTest() {
       expect(level >= 0).assertTrue();
       logger.info(`${BUNDLE}type safety ensures empty string event names are caught at compile time`);
       
-      logger.info(`${BUNDLE}testEmptyDataEmptyString0001, end`);
+      logger.info(`${BUNDLE}testEmptyDataEmptyString0024, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_EMPTYDATA_0400
-     * @tc.name      testEmptyDataNoListeners0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_EMPTYDATA_0400
+     * @tc.name      testEmptyDataNoListeners0027
      * @tc.desc      Verify query with no listeners registered
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testEmptyDataNoListeners0001', 0, async () => {
-      logger.info(`${BUNDLE}testEmptyDataNoListeners0001, begin`);
+    it('testEmptyDataNoListeners0027', 0, async () => {
+      logger.info(`${BUNDLE}testEmptyDataNoListeners0027, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -832,7 +832,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}query with no listeners succeeded`);
       
-      logger.info(`${BUNDLE}testEmptyDataNoListeners0001, end`);
+      logger.info(`${BUNDLE}testEmptyDataNoListeners0027, end`);
     });
 
     // ========================================================================
@@ -840,20 +840,20 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_INVALIDINPUT_0100
-     * @tc.name      testInvalidInputWrongEventType0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_INVALIDINPUT_0100
+     * @tc.name      testInvalidInputWrongEventType0028
      * @tc.desc      Verify wrong event type passed not systemLoadChange
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidInputWrongEventType0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidInputWrongEventType0001, begin`);
+    it('testInvalidInputWrongEventType0028', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidInputWrongEventType0028, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
       const callback: SystemLoadCallback = () => {};
-      
+
       // ArkTS类型系统在编译时强制限制事件名类型，无法传入非法事件名
       // 验证：使用正确的事件名可以正常注册
       systemLoad.on('systemLoadChange', callback);
@@ -869,19 +869,19 @@ export default function comprehensiveTest() {
       expect(level >= 0).assertTrue();
       logger.info(`${BUNDLE}type safety ensures invalid event names are caught at compile time`);
       
-      logger.info(`${BUNDLE}testInvalidInputWrongEventType0001, end`);
+      logger.info(`${BUNDLE}testInvalidInputWrongEventType0028, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_INVALIDINPUT_0200
-     * @tc.name      testInvalidInputNegativeLevel0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_INVALIDINPUT_0200
+     * @tc.name      testInvalidInputNegativeLevel0029
      * @tc.desc      Verify negative level passed as -1
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidInputNegativeLevel0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidInputNegativeLevel0001, begin`);
+    it('testInvalidInputNegativeLevel0029', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidInputNegativeLevel0029, begin`);
       
       const negativeLevel = -1 as systemLoad.SystemLoadLevel;
       expect(negativeLevel < 0).assertTrue();
@@ -893,19 +893,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}negative level handled correctly`);
       
-      logger.info(`${BUNDLE}testInvalidInputNegativeLevel0001, end`);
+      logger.info(`${BUNDLE}testInvalidInputNegativeLevel0029, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_INVALIDINPUT_0300
-     * @tc.name      testInvalidInputOutOfRangeLevel0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_INVALIDINPUT_0300
+     * @tc.name      testInvalidInputOutOfRangeLevel0030
      * @tc.desc      Verify out of range level passed as 100
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidInputOutOfRangeLevel0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidInputOutOfRangeLevel0001, begin`);
+    it('testInvalidInputOutOfRangeLevel0030', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidInputOutOfRangeLevel0030, begin`);
       
       const outOfRangeLevel = 100 as systemLoad.SystemLoadLevel;
       expect(outOfRangeLevel > 7).assertTrue();
@@ -917,19 +917,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}out of range level handled correctly`);
       
-      logger.info(`${BUNDLE}testInvalidInputOutOfRangeLevel0001, end`);
+      logger.info(`${BUNDLE}testInvalidInputOutOfRangeLevel0030, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_INVALIDINPUT_0400
-     * @tc.name      testInvalidInputWrongCallbackType0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_INVALIDINPUT_0400
+     * @tc.name      testInvalidInputWrongCallbackType0031
      * @tc.desc      Verify wrong callback type passed non function object
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidInputWrongCallbackType0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidInputWrongCallbackType0001, begin`);
+    it('testInvalidInputWrongCallbackType0031', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidInputWrongCallbackType0031, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -948,19 +948,19 @@ export default function comprehensiveTest() {
       registeredCallbacks.push(validCallback);
       expect(registeredCallbacks.length).assertEqual(1);
       
-      logger.info(`${BUNDLE}testInvalidInputWrongCallbackType0001, end`);
+      logger.info(`${BUNDLE}testInvalidInputWrongCallbackType0031, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_INVALIDINPUT_0500
-     * @tc.name      testInvalidInputMalformedCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_INVALIDINPUT_0500
+     * @tc.name      testInvalidInputMalformedCallback0032
      * @tc.desc      Verify malformed callback passed function without parameters
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidInputMalformedCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidInputMalformedCallback0001, begin`);
+    it('testInvalidInputMalformedCallback0032', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidInputMalformedCallback0032, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -976,7 +976,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}malformed callback handled correctly`);
       
-      logger.info(`${BUNDLE}testInvalidInputMalformedCallback0001, end`);
+      logger.info(`${BUNDLE}testInvalidInputMalformedCallback0032, end`);
     });
 
     // ========================================================================
@@ -984,15 +984,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPREGISTER_0100
-     * @tc.name      testDuplicateRegisterSameCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPREGISTER_0100
+     * @tc.name      testDuplicateRegisterSameCallback0033
      * @tc.desc      Verify duplicate register same callback register twice idempotent
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateRegisterSameCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateRegisterSameCallback0001, begin`);
+    it('testDuplicateRegisterSameCallback0033', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateRegisterSameCallback0033, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1015,19 +1015,19 @@ export default function comprehensiveTest() {
       expect(registeredCallbacks.length >= 1).assertTrue();
       logger.info(`${BUNDLE}duplicate registration handled`);
       
-      logger.info(`${BUNDLE}testDuplicateRegisterSameCallback0001, end`);
+      logger.info(`${BUNDLE}testDuplicateRegisterSameCallback0033, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPREGISTER_0200
-     * @tc.name      testDuplicateRegisterMultipleCallbacks0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPREGISTER_0200
+     * @tc.name      testDuplicateRegisterMultipleCallbacks0034
      * @tc.desc      Verify duplicate register multiple callbacks register 5 same callbacks
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateRegisterMultipleCallbacks0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateRegisterMultipleCallbacks0001, begin`);
+    it('testDuplicateRegisterMultipleCallbacks0034', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateRegisterMultipleCallbacks0034, begin`);
       
       const callback: SystemLoadCallback = () => {};
       const registerCount = 5;
@@ -1060,19 +1060,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}multiple duplicate registrations handled`);
       
-      logger.info(`${BUNDLE}testDuplicateRegisterMultipleCallbacks0001, end`);
+      logger.info(`${BUNDLE}testDuplicateRegisterMultipleCallbacks0034, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPREGISTER_0300
-     * @tc.name      testDuplicateRegisterAfterUnregister0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPREGISTER_0300
+     * @tc.name      testDuplicateRegisterAfterUnregister0035
      * @tc.desc      Verify register after unregister register then unregister then register
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateRegisterAfterUnregister0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateRegisterAfterUnregister0001, begin`);
+    it('testDuplicateRegisterAfterUnregister0035', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateRegisterAfterUnregister0035, begin`);
       
       const callback: SystemLoadCallback = () => {};
       
@@ -1103,7 +1103,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}register-unregister-register cycle succeeded`);
       
-      logger.info(`${BUNDLE}testDuplicateRegisterAfterUnregister0001, end`);
+      logger.info(`${BUNDLE}testDuplicateRegisterAfterUnregister0035, end`);
     });
 
     // ========================================================================
@@ -1111,15 +1111,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPQUERY_0100
-     * @tc.name      testDuplicateQueryConsecutive0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPQUERY_0100
+     * @tc.name      testDuplicateQueryConsecutive0036
      * @tc.desc      Verify consecutive queries query 10 times within 1 second
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateQueryConsecutive0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateQueryConsecutive0001, begin`);
+    it('testDuplicateQueryConsecutive0036', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateQueryConsecutive0036, begin`);
       
       const queryCount = 10;
       
@@ -1132,19 +1132,19 @@ export default function comprehensiveTest() {
       expect(registeredCallbacks.length).assertEqual(0);
       logger.info(`${BUNDLE}consecutive queries succeeded`);
       
-      logger.info(`${BUNDLE}testDuplicateQueryConsecutive0001, end`);
+      logger.info(`${BUNDLE}testDuplicateQueryConsecutive0036, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPQUERY_0200
-     * @tc.name      testDuplicateQueryWithListener0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPQUERY_0200
+     * @tc.name      testDuplicateQueryWithListener0037
      * @tc.desc      Verify query with active listener query 5 times listener unaffected
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateQueryWithListener0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateQueryWithListener0001, begin`);
+    it('testDuplicateQueryWithListener0037', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateQueryWithListener0037, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1164,19 +1164,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}queries with listener succeeded`);
       
-      logger.info(`${BUNDLE}testDuplicateQueryWithListener0001, end`);
+      logger.info(`${BUNDLE}testDuplicateQueryWithListener0037, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPQUERY_0300
-     * @tc.name      testDuplicateQueryAfterError0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPQUERY_0300
+     * @tc.name      testDuplicateQueryAfterError0038
      * @tc.desc      Verify query after error retry after failure system recovery
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateQueryAfterError0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateQueryAfterError0001, begin`);
+    it('testDuplicateQueryAfterError0038', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateQueryAfterError0038, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1196,7 +1196,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}system recovered after error`);
       
-      logger.info(`${BUNDLE}testDuplicateQueryAfterError0001, end`);
+      logger.info(`${BUNDLE}testDuplicateQueryAfterError0038, end`);
     });
 
     // ========================================================================
@@ -1204,15 +1204,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPUNREGISTER_0100
-     * @tc.name      testDuplicateUnregisterSameCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPUNREGISTER_0100
+     * @tc.name      testDuplicateUnregisterSameCallback0039
      * @tc.desc      Verify duplicate unregister same callback second returns 401
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateUnregisterSameCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateUnregisterSameCallback0001, begin`);
+    it('testDuplicateUnregisterSameCallback0039', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateUnregisterSameCallback0039, begin`);
       
       const callback: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback);
@@ -1230,19 +1230,19 @@ export default function comprehensiveTest() {
       expect(registeredCallbacks.length).assertEqual(0);
       logger.info(`${BUNDLE}duplicate unregister rejected with error code 401`);
       
-      logger.info(`${BUNDLE}testDuplicateUnregisterSameCallback0001, end`);
+      logger.info(`${BUNDLE}testDuplicateUnregisterSameCallback0039, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPUNREGISTER_0200
-     * @tc.name      testDuplicateUnregisterMultipleCallbacks0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPUNREGISTER_0200
+     * @tc.name      testDuplicateUnregisterMultipleCallbacks0040
      * @tc.desc      Verify duplicate unregister multiple callbacks unregister 5 callbacks
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateUnregisterMultipleCallbacks0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateUnregisterMultipleCallbacks0001, begin`);
+    it('testDuplicateUnregisterMultipleCallbacks0040', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateUnregisterMultipleCallbacks0040, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1267,19 +1267,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}multiple callbacks unregistered successfully`);
       
-      logger.info(`${BUNDLE}testDuplicateUnregisterMultipleCallbacks0001, end`);
+      logger.info(`${BUNDLE}testDuplicateUnregisterMultipleCallbacks0040, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DUPUNREGISTER_0300
-     * @tc.name      testDuplicateUnregisterAll0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DUPUNREGISTER_0300
+     * @tc.name      testDuplicateUnregisterAll0041
      * @tc.desc      Verify duplicate unregister all second off returns 401
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDuplicateUnregisterAll0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateUnregisterAll0001, begin`);
+    it('testDuplicateUnregisterAll0041', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateUnregisterAll0041, begin`);
       
       const callback: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback);
@@ -1303,7 +1303,7 @@ export default function comprehensiveTest() {
       expect(registeredCallbacks.length).assertEqual(0);
       logger.info(`${BUNDLE}duplicate unregister all rejected with error code 401`);
       
-      logger.info(`${BUNDLE}testDuplicateUnregisterAll0001, end`);
+      logger.info(`${BUNDLE}testDuplicateUnregisterAll0041, end`);
     });
 
     // ========================================================================
@@ -1311,15 +1311,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0100
-     * @tc.name      testPageLifecycleCreate0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0100
+     * @tc.name      testPageLifecycleCreate0042
      * @tc.desc      Verify page create aboutToAppear auto load data
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleCreate0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleCreate0001, begin`);
+    it('testPageLifecycleCreate0042', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleCreate0042, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1329,19 +1329,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}page created and data loaded automatically`);
       
-      logger.info(`${BUNDLE}testPageLifecycleCreate0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleCreate0042, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0200
-     * @tc.name      testPageLifecycleDestroy0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0200
+     * @tc.name      testPageLifecycleDestroy0043
      * @tc.desc      Verify page destroy aboutToDisappear cleanup all listeners
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleDestroy0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleDestroy0001, begin`);
+    it('testPageLifecycleDestroy0043', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleDestroy0043, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1357,19 +1357,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}page destroyed and all listeners cleaned up`);
       
-      logger.info(`${BUNDLE}testPageLifecycleDestroy0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleDestroy0043, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0300
-     * @tc.name      testPageLifecycleRecreate0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0300
+     * @tc.name      testPageLifecycleRecreate0044
      * @tc.desc      Verify page recreate destroy then create state initialized
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleRecreate0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleRecreate0001, begin`);
+    it('testPageLifecycleRecreate0044', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleRecreate0044, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1394,19 +1394,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}page recreated successfully`);
       
-      logger.info(`${BUNDLE}testPageLifecycleRecreate0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleRecreate0044, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0400
-     * @tc.name      testPageLifecycleMultipleInstances0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0400
+     * @tc.name      testPageLifecycleMultipleInstances0045
      * @tc.desc      Verify multiple instances 2 pages coexist without interference
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleMultipleInstances0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleMultipleInstances0001, begin`);
+    it('testPageLifecycleMultipleInstances0045', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleMultipleInstances0045, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1427,7 +1427,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}multiple page instances coexist without interference`);
       
-      logger.info(`${BUNDLE}testPageLifecycleMultipleInstances0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleMultipleInstances0045, end`);
     });
 
     // ========================================================================
@@ -1435,15 +1435,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0500
-     * @tc.name      testPageLifecycleForeground0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0500
+     * @tc.name      testPageLifecycleForeground0046
      * @tc.desc      Verify foreground transition background to foreground reregister
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleForeground0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleForeground0001, begin`);
+    it('testPageLifecycleForeground0046', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleForeground0046, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1458,19 +1458,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}foreground transition succeeded`);
       
-      logger.info(`${BUNDLE}testPageLifecycleForeground0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleForeground0046, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0600
-     * @tc.name      testPageLifecycleBackground0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0600
+     * @tc.name      testPageLifecycleBackground0047
      * @tc.desc      Verify background transition foreground to background unregister
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleBackground0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleBackground0001, begin`);
+    it('testPageLifecycleBackground0047', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleBackground0047, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1486,19 +1486,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}background transition succeeded`);
       
-      logger.info(`${BUNDLE}testPageLifecycleBackground0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleBackground0047, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_LIFECYCLE_0700
-     * @tc.name      testPageLifecycleForegroundBackgroundCycle0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_LIFECYCLE_0700
+     * @tc.name      testPageLifecycleForegroundBackgroundCycle0048
      * @tc.desc      Verify foreground background cycle switch 5 times state correct
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPageLifecycleForegroundBackgroundCycle0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageLifecycleForegroundBackgroundCycle0001, begin`);
+    it('testPageLifecycleForegroundBackgroundCycle0048', 0, async () => {
+      logger.info(`${BUNDLE}testPageLifecycleForegroundBackgroundCycle0048, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1522,7 +1522,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}foreground-background cycle completed ${cycleCount} times`);
       
-      logger.info(`${BUNDLE}testPageLifecycleForegroundBackgroundCycle0001, end`);
+      logger.info(`${BUNDLE}testPageLifecycleForegroundBackgroundCycle0048, end`);
     });
 
     // ========================================================================
@@ -1530,15 +1530,15 @@ export default function comprehensiveTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DATASOURCE_0100
-     * @tc.name      testDataSourceSwitchToMock0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DATASOURCE_0100
+     * @tc.name      testDataSourceSwitchToMock0049
      * @tc.desc      Verify switch to mock data source isMock true
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchToMock0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchToMock0001, begin`);
+    it('testDataSourceSwitchToMock0049', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchToMock0049, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1547,19 +1547,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(mockLevel)).assertTrue();
       expect(mockLevel >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testDataSourceSwitchToMock0001, end`);
+      logger.info(`${BUNDLE}testDataSourceSwitchToMock0049, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DATASOURCE_0200
-     * @tc.name      testDataSourceSwitchToLocal0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DATASOURCE_0200
+     * @tc.name      testDataSourceSwitchToLocal0050
      * @tc.desc      Verify switch to local data source isMock false
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchToLocal0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchToLocal0001, begin`);
+    it('testDataSourceSwitchToLocal0050', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchToLocal0050, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1568,19 +1568,19 @@ export default function comprehensiveTest() {
       expect(isValidLevel(realLevel)).assertTrue();
       expect(realLevel >= 0).assertTrue();
       
-      logger.info(`${BUNDLE}testDataSourceSwitchToLocal0001, end`);
+      logger.info(`${BUNDLE}testDataSourceSwitchToLocal0050, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DATASOURCE_0300
-     * @tc.name      testDataSourceSwitchMultipleTimes0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DATASOURCE_0300
+     * @tc.name      testDataSourceSwitchMultipleTimes0051
      * @tc.desc      Verify switch multiple times switch 10 times state correct
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchMultipleTimes0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchMultipleTimes0001, begin`);
+    it('testDataSourceSwitchMultipleTimes0051', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchMultipleTimes0051, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -1600,19 +1600,19 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}data source switched ${switchCount} times successfully`);
       
-      logger.info(`${BUNDLE}testDataSourceSwitchMultipleTimes0001, end`);
+      logger.info(`${BUNDLE}testDataSourceSwitchMultipleTimes0051, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMP_DATASOURCE_0400
-     * @tc.name      testDataSourceSwitchWithActiveListeners0001
+     * @tc.number    SUB_SYSTEMLOAD_COMP_DATASOURCE_0400
+     * @tc.name      testDataSourceSwitchWithActiveListeners0052
      * @tc.desc      Verify switch with active listeners listener continues working
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchWithActiveListeners0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchWithActiveListeners0001, begin`);
+    it('testDataSourceSwitchWithActiveListeners0052', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchWithActiveListeners0052, begin`);
       
       const callback: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback);
@@ -1631,7 +1631,7 @@ export default function comprehensiveTest() {
       
       logger.info(`${BUNDLE}listener continued working after data source switch`);
       
-      logger.info(`${BUNDLE}testDataSourceSwitchWithActiveListeners0001, end`);
+      logger.info(`${BUNDLE}testDataSourceSwitchWithActiveListeners0052, end`);
     });
   });
 }

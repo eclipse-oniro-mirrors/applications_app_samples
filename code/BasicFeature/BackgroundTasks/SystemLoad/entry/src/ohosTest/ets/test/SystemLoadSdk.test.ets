@@ -125,7 +125,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_GETLEVEL_0100
+     * @tc.number    SUB_SYSTEMLOAD_GETLEVEL_0100
      * @tc.name      testSystemLoadGetLevel0001
      * @tc.desc      Query the current system load and verify that it is a valid eight-level enum value.
      * @tc.size      MediumTest
@@ -151,7 +151,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_GETLEVEL_0200
+     * @tc.number    SUB_SYSTEMLOAD_GETLEVEL_0200
      * @tc.name      testSystemLoadGetLevel0002
      * @tc.desc      Query repeatedly with an active listener and verify every result without assuming equality.
      * @tc.size      MediumTest
@@ -178,7 +178,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_GETLEVEL_0300
+     * @tc.number    SUB_SYSTEMLOAD_GETLEVEL_0300
      * @tc.name      testSystemLoadGetLevel0003
      * @tc.desc      Query getLevel() five times without any active listener and verify each result.
      * @tc.size      MediumTest
@@ -202,7 +202,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0100
+     * @tc.number    SUB_SYSTEMLOAD_ON_0100
      * @tc.name      testSystemLoadOn0001
      * @tc.desc      Register one listener and validate any real callback delivered during the test.
      * @tc.size      MediumTest
@@ -224,7 +224,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0200
+     * @tc.number    SUB_SYSTEMLOAD_ON_0200
      * @tc.name      testSystemLoadOn0002
      * @tc.desc      Register two distinct listeners and validate any real callback delivered during the test.
      * @tc.size      MediumTest
@@ -251,7 +251,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0300
+     * @tc.number    SUB_SYSTEMLOAD_ON_0300
      * @tc.name      testSystemLoadOn0003
      * @tc.desc      Verify duplicate registration is idempotent and one unregistration removes the callback.
      * @tc.size      MediumTest
@@ -277,7 +277,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0400
+     * @tc.number    SUB_SYSTEMLOAD_ON_0400
      * @tc.name      testSystemLoadOn0004
      * @tc.desc      Reject an invalid listener callback with error 401.
      * @tc.size      MediumTest
@@ -301,7 +301,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0500
+     * @tc.number    SUB_SYSTEMLOAD_ON_0500
      * @tc.name      testSystemLoadOn0005
      * @tc.desc      Repeat listener registration and unregistration to verify that no stale state remains.
      * @tc.size      MediumTest
@@ -328,7 +328,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ON_0600
+     * @tc.number    SUB_SYSTEMLOAD_ON_0600
      * @tc.name      testSystemLoadOn0006
      * @tc.desc      Repeat listener registration and unregistration for five full cycles.
      * @tc.size      MediumTest
@@ -355,7 +355,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0100
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0100
      * @tc.name      testSystemLoadOff0001
      * @tc.desc      Unregister a listener and verify that the same callback can be registered again.
      * @tc.size      MediumTest
@@ -380,7 +380,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0200
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0200
      * @tc.name      testSystemLoadOff0002
      * @tc.desc      Reject unregistration of a callback that was never registered with error 401.
      * @tc.size      MediumTest
@@ -403,7 +403,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0300
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0300
      * @tc.name      testSystemLoadOff0003
      * @tc.desc      Reject a second unregistration of the same callback with error 401.
      * @tc.size      MediumTest
@@ -425,7 +425,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0400
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0400
      * @tc.name      testSystemLoadOff0004
      * @tc.desc      Unregister all callbacks with targeted fallback and verify both can register again.
      * @tc.size      MediumTest
@@ -463,7 +463,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0500
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0500
      * @tc.name      testSystemLoadOff0005
      * @tc.desc      Reject an invalid callback during unregistration with error 401.
      * @tc.size      MediumTest
@@ -486,7 +486,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0600
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0600
      * @tc.name      testSystemLoadOff0006
      * @tc.desc      Register three callbacks, unregister one, and verify the remaining two are unaffected.
      * @tc.size      MediumTest
@@ -520,7 +520,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0700
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0700
      * @tc.name      testSystemLoadOff0007
      * @tc.desc      After unregister-all, re-register both callbacks and unregister them one by one.
      * @tc.size      MediumTest
@@ -564,7 +564,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0800
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0800
      * @tc.name      testSystemLoadOff0008
      * @tc.desc      Register three callbacks, unregister the middle one, then call unregister-all.
      * @tc.size      MediumTest
@@ -610,7 +610,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_0900
+     * @tc.number    SUB_SYSTEMLOAD_OFF_0900
      * @tc.name      testSystemLoadOff0009
      * @tc.desc      Call unregister-all with no registered listeners and verify error 401.
      * @tc.size      MediumTest
@@ -632,7 +632,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_1000
+     * @tc.number    SUB_SYSTEMLOAD_OFF_1000
      * @tc.name      testSystemLoadOff0010
      * @tc.desc      Call unregister-all twice with no registered listeners and verify both return 401.
      * @tc.size      MediumTest
@@ -658,7 +658,7 @@ export default function systemLoadSdkTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_OFF_1100
+     * @tc.number    SUB_SYSTEMLOAD_OFF_1100
      * @tc.name      testSystemLoadOff0011
      * @tc.desc      Register two callbacks, unregister all, then verify individual unregister returns 401.
      * @tc.size      MediumTest

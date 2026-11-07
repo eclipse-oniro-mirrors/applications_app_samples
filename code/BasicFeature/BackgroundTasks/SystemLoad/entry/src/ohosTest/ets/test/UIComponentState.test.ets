@@ -65,7 +65,7 @@ export default function uiComponentStateTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_UICOMPONENT_0100
+     * @tc.number    SUB_SYSTEMLOAD_UICOMPONENT_0100
      * @tc.name      testUiComponentLevelTextUpdate0001
      * @tc.desc      Verify level text updates correctly with level changes
      * @tc.size      MediumTest
@@ -93,15 +93,15 @@ export default function uiComponentStateTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UICOMPONENT_0200
-     * @tc.name      testUiComponentDescriptionUpdate0001
+     * @tc.number    SUB_SYSTEMLOAD_UICOMPONENT_0200
+     * @tc.name      testUiComponentDescriptionUpdate0002
      * @tc.desc      Verify description text updates correctly with level changes
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiComponentDescriptionUpdate0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiComponentDescriptionUpdate0001, begin`);
+    it('testUiComponentDescriptionUpdate0002', 0, async () => {
+      logger.info(`${BUNDLE}testUiComponentDescriptionUpdate0002, begin`);
 
       let levelDescription = 'unavailable';
       logger.info(`${BUNDLE}initial description: ${levelDescription}`);
@@ -121,15 +121,15 @@ export default function uiComponentStateTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UICOMPONENT_0300
-     * @tc.name      testUiComponentRecommendationUpdate0001
+     * @tc.number    SUB_SYSTEMLOAD_UICOMPONENT_0300
+     * @tc.name      testUiComponentRecommendationUpdate0003
      * @tc.desc      Verify recommendation text updates correctly with level changes
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiComponentRecommendationUpdate0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiComponentRecommendationUpdate0001, begin`);
+    it('testUiComponentRecommendationUpdate0003', 0, async () => {
+      logger.info(`${BUNDLE}testUiComponentRecommendationUpdate0003, begin`);
 
       let levelRecommendation = 'no recommendation';
       logger.info(`${BUNDLE}initial recommendation: ${levelRecommendation}`);
@@ -162,15 +162,15 @@ export default function uiComponentStateTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_MOCKCYCLE_0100
-     * @tc.name      testMockDataCycleThroughLevels0001
+     * @tc.number    SUB_SYSTEMLOAD_MOCKCYCLE_0100
+     * @tc.name      testMockDataCycleThroughLevels0004
      * @tc.desc      Verify mock data cycles through levels in order
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testMockDataCycleThroughLevels0001', 0, async () => {
-      logger.info(`${BUNDLE}testMockDataCycleThroughLevels0001, begin`);
+    it('testMockDataCycleThroughLevels0004', 0, async () => {
+      logger.info(`${BUNDLE}testMockDataCycleThroughLevels0004, begin`);
 
       let mockLevelIndex = 0;
       expect(mockLevelIndex).assertEqual(0);
@@ -198,15 +198,15 @@ export default function uiComponentStateTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_MOCKCYCLE_0200
-     * @tc.name      testMockDataReverseCycle0001
+     * @tc.number    SUB_SYSTEMLOAD_MOCKCYCLE_0200
+     * @tc.name      testMockDataReverseCycle0005
      * @tc.desc      Verify mock data can cycle in reverse order
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testMockDataReverseCycle0001', 0, async () => {
-      logger.info(`${BUNDLE}testMockDataReverseCycle0001, begin`);
+    it('testMockDataReverseCycle0005', 0, async () => {
+      logger.info(`${BUNDLE}testMockDataReverseCycle0005, begin`);
 
       let mockLevelIndex = 3;
       expect(mockLevelIndex).assertEqual(3);
@@ -234,19 +234,18 @@ export default function uiComponentStateTest() {
     });
 
     // ========================================================================
-    // 数据源切换增强测试
-    // ========================================================================
+    // 数据源切换增强测�?    // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_DATASOURCE_0100
-     * @tc.name      testDataSourceSwitchRealToMock0001
+     * @tc.number    SUB_SYSTEMLOAD_DATASOURCE_0100
+     * @tc.name      testDataSourceSwitchRealToMock0006
      * @tc.desc      Verify switch from real data source to mock data source
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchRealToMock0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchRealToMock0001, begin`);
+    it('testDataSourceSwitchRealToMock0006', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchRealToMock0006, begin`);
 
       let isMock = false;
       let sourceText = 'local data';
@@ -270,15 +269,15 @@ export default function uiComponentStateTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_DATASOURCE_0200
-     * @tc.name      testDataSourceSwitchMockToReal0001
+     * @tc.number    SUB_SYSTEMLOAD_DATASOURCE_0200
+     * @tc.name      testDataSourceSwitchMockToReal0007
      * @tc.desc      Verify switch from mock data source back to real data source
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceSwitchMockToReal0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceSwitchMockToReal0001, begin`);
+    it('testDataSourceSwitchMockToReal0007', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceSwitchMockToReal0007, begin`);
 
       let isMock = true;
       let sourceText = 'mock data';

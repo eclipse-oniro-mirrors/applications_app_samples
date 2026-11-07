@@ -64,7 +64,7 @@ export default function accessibilityPerformanceTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_ACCESSIBILITY_0100
+     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0100
      * @tc.name      testAccessibilityScreenReaderSupport0001
      * @tc.desc      Verify screen reader support
      * @tc.size      SmallTest
@@ -95,19 +95,19 @@ export default function accessibilityPerformanceTest() {
       expect(uiElements.length).assertEqual(7);
       logger.info(`${BUNDLE}all ${uiElements.length} ui elements support screen reader`);
 
-      logger.info(`${BUNDLE}accessibilityScreenReaderSupport_0001, end`);
+      logger.info(`${BUNDLE}screenReaderSupportTest_0001, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_ACCESSIBILITY_0200
-     * @tc.name      testAccessibilityKeyboardNavigation0001
+     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0200
+     * @tc.name      testAccessibilityKeyboardNavigation0002
      * @tc.desc      Verify keyboard navigation support
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testAccessibilityKeyboardNavigation0001', 0, async () => {
-      logger.info(`${BUNDLE}testAccessibilityKeyboardNavigation0001, begin`);
+    it('testAccessibilityKeyboardNavigation0002', 0, async () => {
+      logger.info(`${BUNDLE}testAccessibilityKeyboardNavigation0002, begin`);
 
       const focusableElements: string[] = [
         'mock_data_button',
@@ -133,7 +133,7 @@ export default function accessibilityPerformanceTest() {
       expect(focusableElements.length).assertEqual(10);
       logger.info(`${BUNDLE}all ${focusableElements.length} elements support keyboard navigation`);
 
-      logger.info(`${BUNDLE}accessibilityKeyboardNavigation_0001, end`);
+      logger.info(`${BUNDLE}keyboardNavigationTest_0002, end`);
     });
 
     // ========================================================================
@@ -141,15 +141,15 @@ export default function accessibilityPerformanceTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_PERFORMANCE_0100
-     * @tc.name      testPerformanceBaselineQuery0001
+     * @tc.number    SUB_SYSTEMLOAD_PERFORMANCE_0100
+     * @tc.name      testPerformanceBaselineQuery0003
      * @tc.desc      Establish query performance baseline
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testPerformanceBaselineQuery0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceBaselineQuery0001, begin`);
+    it('testPerformanceBaselineQuery0003', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceBaselineQuery0003, begin`);
 
       const iterations = 10;
       const timestamps: number[] = [];
@@ -177,19 +177,19 @@ export default function accessibilityPerformanceTest() {
       expect(timestamps.length).assertEqual(iterations);
       logger.info(`${BUNDLE}performance baseline established: ${avgTime}ms average`);
 
-      logger.info(`${BUNDLE}performanceBaselineQuery_0001, end`);
+      logger.info(`${BUNDLE}performanceBaselineQuery_0003, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PERFORMANCE_0200
-     * @tc.name      testPerformanceBaselineRegistration0001
+     * @tc.number    SUB_SYSTEMLOAD_PERFORMANCE_0200
+     * @tc.name      testPerformanceBaselineRegistration0004
      * @tc.desc      Establish registration performance baseline
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testPerformanceBaselineRegistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceBaselineRegistration0001, begin`);
+    it('testPerformanceBaselineRegistration0004', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceBaselineRegistration0004, begin`);
 
       const iterations = 10;
       const timestamps: number[] = [];
@@ -221,19 +221,19 @@ export default function accessibilityPerformanceTest() {
       expect(totalTime >= 0).assertTrue();
       logger.info(`${BUNDLE}performance baseline established: ${avgTime}ms average`);
 
-      logger.info(`${BUNDLE}performanceBaselineRegistration_0001, end`);
+      logger.info(`${BUNDLE}performanceBaselineRegistration_0004, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PERFORMANCE_0300
-     * @tc.name      testPerformanceMemoryBaseline0001
+     * @tc.number    SUB_SYSTEMLOAD_PERFORMANCE_0300
+     * @tc.name      testPerformanceMemoryBaseline0005
      * @tc.desc      Establish memory usage baseline
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testPerformanceMemoryBaseline0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceMemoryBaseline0001, begin`);
+    it('testPerformanceMemoryBaseline0005', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceMemoryBaseline0005, begin`);
 
       const initialCallbackCount = registeredCallbacks.length;
       logger.info(`${BUNDLE}initial callback count: ${initialCallbackCount}`);
@@ -266,7 +266,7 @@ export default function accessibilityPerformanceTest() {
       logger.info(`${BUNDLE}completed ${cycles} registration/unregistration cycles`);
       logger.info(`${BUNDLE}no callback leaks detected`);
 
-      logger.info(`${BUNDLE}performanceMemoryBaseline_0001, end`);
+      logger.info(`${BUNDLE}performanceMemoryBaseline_0005, end`);
     });
   });
 }

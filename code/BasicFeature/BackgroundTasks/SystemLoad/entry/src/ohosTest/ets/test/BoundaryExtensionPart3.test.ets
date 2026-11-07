@@ -64,7 +64,7 @@ export default function boundaryExtensionPart3Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1200
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1200
      * @tc.name      testLoadingStateTransition0001
      * @tc.desc      Verify isLoading state transitions correctly
      * @tc.size      SmallTest
@@ -92,15 +92,15 @@ export default function boundaryExtensionPart3Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1300
-     * @tc.name      testLoadingStateDuringMultipleQueries0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1300
+     * @tc.name      testLoadingStateDuringMultipleQueries0002
      * @tc.desc      Verify loading state during concurrent queries
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testLoadingStateDuringMultipleQueries0001', 0, async () => {
-      logger.info(`${BUNDLE}testLoadingStateDuringMultipleQueries0001, begin`);
+    it('testLoadingStateDuringMultipleQueries0002', 0, async () => {
+      logger.info(`${BUNDLE}testLoadingStateDuringMultipleQueries0002, begin`);
 
       let isLoading = false;
       const queryCount = 5;
@@ -129,15 +129,15 @@ export default function boundaryExtensionPart3Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1400
-     * @tc.name      testPageVisibilityWatcherTrigger0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1400
+     * @tc.name      testPageVisibilityWatcherTrigger0003
      * @tc.desc      Verify @Watch decorator triggers correctly
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testPageVisibilityWatcherTrigger0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageVisibilityWatcherTrigger0001, begin`);
+    it('testPageVisibilityWatcherTrigger0003', 0, async () => {
+      logger.info(`${BUNDLE}testPageVisibilityWatcherTrigger0003, begin`);
 
       let isPageVisible = true;
       let watcherTriggered = false;
@@ -167,15 +167,15 @@ export default function boundaryExtensionPart3Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1500
-     * @tc.name      testPageVisibilityMultipleChanges0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1500
+     * @tc.name      testPageVisibilityMultipleChanges0004
      * @tc.desc      Verify handling of multiple visibility changes
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testPageVisibilityMultipleChanges0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageVisibilityMultipleChanges0001, begin`);
+    it('testPageVisibilityMultipleChanges0004', 0, async () => {
+      logger.info(`${BUNDLE}testPageVisibilityMultipleChanges0004, begin`);
 
       let isPageVisible = true;
       let isActive = true;
@@ -217,15 +217,15 @@ export default function boundaryExtensionPart3Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1600
-     * @tc.name      testDataSourceFallbackOnFailure0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1600
+     * @tc.name      testDataSourceFallbackOnFailure0005
      * @tc.desc      Verify fallback to mock data when local data fails
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testDataSourceFallbackOnFailure0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceFallbackOnFailure0001, begin`);
+    it('testDataSourceFallbackOnFailure0005', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceFallbackOnFailure0005, begin`);
 
       let isMock = false;
       let sourceText = 'local_data';
@@ -252,15 +252,15 @@ export default function boundaryExtensionPart3Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1700
-     * @tc.name      testDataSourceFallbackListenerCleanup0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1700
+     * @tc.name      testDataSourceFallbackListenerCleanup0006
      * @tc.desc      Verify listener cleanup during fallback
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testDataSourceFallbackListenerCleanup0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceFallbackListenerCleanup0001, begin`);
+    it('testDataSourceFallbackListenerCleanup0006', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceFallbackListenerCleanup0006, begin`);
 
       let isPrimarySubscribed = false;
       let isSecondarySubscribed = false;
@@ -308,15 +308,15 @@ export default function boundaryExtensionPart3Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1800
-     * @tc.name      testDataSourceRecoveryAfterFallback0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1800
+     * @tc.name      testDataSourceRecoveryAfterFallback0007
      * @tc.desc      Verify recovery to real data after fallback
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testDataSourceRecoveryAfterFallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceRecoveryAfterFallback0001, begin`);
+    it('testDataSourceRecoveryAfterFallback0007', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceRecoveryAfterFallback0007, begin`);
 
       let isMock = true;
       let sourceText = 'mock_data';

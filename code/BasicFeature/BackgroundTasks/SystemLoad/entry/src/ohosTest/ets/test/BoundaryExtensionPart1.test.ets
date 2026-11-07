@@ -64,7 +64,7 @@ export default function boundaryExtensionPart1Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0100
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0100
      * @tc.name      testRequestIdOverflow0001
      * @tc.desc      Verify requestId behavior after reaching max value
      * @tc.size      SmallTest
@@ -96,15 +96,15 @@ export default function boundaryExtensionPart1Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0200
-     * @tc.name      testRequestIdResetOnDestroy0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0200
+     * @tc.name      testRequestIdResetOnDestroy0002
      * @tc.desc      Verify requestId increments correctly on page destroy
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testRequestIdResetOnDestroy0001', 0, async () => {
-      logger.info(`${BUNDLE}testRequestIdResetOnDestroy0001, begin`);
+    it('testRequestIdResetOnDestroy0002', 0, async () => {
+      logger.info(`${BUNDLE}testRequestIdResetOnDestroy0002, begin`);
 
       let requestId = 0;
       logger.info(`${BUNDLE}initial requestId: ${requestId}`);
@@ -125,7 +125,7 @@ export default function boundaryExtensionPart1Test() {
       expect(requestId).assertEqual(3);
       logger.info(`${BUNDLE}requestId correctly incremented through destroy`);
 
-      logger.info(`${BUNDLE}requestIdResetOnDestroy_0001, end`);
+      logger.info(`${BUNDLE}requestIdResetOnDestroy_0002, end`);
     });
 
     // ========================================================================
@@ -133,15 +133,15 @@ export default function boundaryExtensionPart1Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0300
-     * @tc.name      testCallbackRecordExactMaxCapacity0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0300
+     * @tc.name      testCallbackRecordExactMaxCapacity0003
      * @tc.desc      Verify handling when callback records reach exactly 6
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testCallbackRecordExactMaxCapacity0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordExactMaxCapacity0001, begin`);
+    it('testCallbackRecordExactMaxCapacity0003', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordExactMaxCapacity0003, begin`);
 
       const callbackRecords: string[] = [];
       expect(callbackRecords.length).assertEqual(0);
@@ -168,19 +168,19 @@ export default function boundaryExtensionPart1Test() {
       }
       logger.info(`${BUNDLE}all records in correct order`);
 
-      logger.info(`${BUNDLE}callbackRecordExactMaxCapacity_0001, end`);
+      logger.info(`${BUNDLE}callbackRecordExactMaxCapacity_0003, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0400
-     * @tc.name      testCallbackRecordClearOnModeSwitch0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0400
+     * @tc.name      testCallbackRecordClearOnModeSwitch0004
      * @tc.desc      Verify callback records cleared on mode switch
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testCallbackRecordClearOnModeSwitch0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordClearOnModeSwitch0001, begin`);
+    it('testCallbackRecordClearOnModeSwitch0004', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordClearOnModeSwitch0004, begin`);
 
       let callbackRecords: string[] = [];
       let isMock = false;
@@ -214,19 +214,19 @@ export default function boundaryExtensionPart1Test() {
       expect(callbackRecords.length).assertEqual(0);
       logger.info(`${BUNDLE}records correctly cleared on mode switch`);
 
-      logger.info(`${BUNDLE}callbackRecordClearOnModeSwitch_0001, end`);
+      logger.info(`${BUNDLE}callbackRecordClearOnModeSwitch_0004, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0500
-     * @tc.name      testCallbackRecordPersistence0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0500
+     * @tc.name      testCallbackRecordPersistence0005
      * @tc.desc      Verify callback record persistence through page lifecycle
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testCallbackRecordPersistence0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordPersistence0001, begin`);
+    it('testCallbackRecordPersistence0005', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordPersistence0005, begin`);
 
       const callbackRecords: string[] = [];
       
@@ -250,7 +250,7 @@ export default function boundaryExtensionPart1Test() {
       expect(firstRecord.length > 0).assertTrue();
       logger.info(`${BUNDLE}oldest record still accessible`);
 
-      logger.info(`${BUNDLE}callbackRecordPersistence_0001, end`);
+      logger.info(`${BUNDLE}callbackRecordPersistence_0005, end`);
     });
   });
 }

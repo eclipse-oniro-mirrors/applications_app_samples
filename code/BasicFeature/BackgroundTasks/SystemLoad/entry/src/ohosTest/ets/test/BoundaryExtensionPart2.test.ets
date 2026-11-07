@@ -64,7 +64,7 @@ export default function boundaryExtensionPart2Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0600
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0600
      * @tc.name      testListenerStatePrimarySecondaryIndependence0001
      * @tc.desc      Verify primary/secondary listener state independence
      * @tc.size      MediumTest
@@ -118,15 +118,15 @@ export default function boundaryExtensionPart2Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0700
-     * @tc.name      testListenerStateMultipleRegisterAttempts0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0700
+     * @tc.name      testListenerStateMultipleRegisterAttempts0002
      * @tc.desc      Verify handling of multiple registration attempts
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testListenerStateMultipleRegisterAttempts0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateMultipleRegisterAttempts0001, begin`);
+    it('testListenerStateMultipleRegisterAttempts0002', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateMultipleRegisterAttempts0002, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -157,15 +157,15 @@ export default function boundaryExtensionPart2Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0800
-     * @tc.name      testListenerStateUnregisterOrder0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0800
+     * @tc.name      testListenerStateUnregisterOrder0003
      * @tc.desc      Verify listener unregistration in different orders
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testListenerStateUnregisterOrder0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerStateUnregisterOrder0001, begin`);
+    it('testListenerStateUnregisterOrder0003', 0, async () => {
+      logger.info(`${BUNDLE}testListenerStateUnregisterOrder0003, begin`);
 
       const callback1: SystemLoadCallback = (level) => {
         logger.info(`${BUNDLE}callback1 received level: ${level}`);
@@ -227,15 +227,15 @@ export default function boundaryExtensionPart2Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_0900
-     * @tc.name      testOperationStatusTextAllScenarios0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_0900
+     * @tc.name      testOperationStatusTextAllScenarios0004
      * @tc.desc      Verify status text for all operation scenarios
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testOperationStatusTextAllScenarios0001', 0, async () => {
-      logger.info(`${BUNDLE}testOperationStatusTextAllScenarios0001, begin`);
+    it('testOperationStatusTextAllScenarios0004', 0, async () => {
+      logger.info(`${BUNDLE}testOperationStatusTextAllScenarios0004, begin`);
 
       const operationTexts: string[] = [
         'operation_ready',
@@ -271,15 +271,15 @@ export default function boundaryExtensionPart2Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1000
-     * @tc.name      testOperationStatusErrorFormat0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1000
+     * @tc.name      testOperationStatusErrorFormat0005
      * @tc.desc      Verify error status text formatting with error code
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testOperationStatusErrorFormat0001', 0, async () => {
-      logger.info(`${BUNDLE}testOperationStatusErrorFormat0001, begin`);
+    it('testOperationStatusErrorFormat0005', 0, async () => {
+      logger.info(`${BUNDLE}testOperationStatusErrorFormat0005, begin`);
 
       const errorCode = 401;
       const errorText = `operation_failed_${errorCode}`;
@@ -295,15 +295,15 @@ export default function boundaryExtensionPart2Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1100
-     * @tc.name      testOperationStatusTextConsistency0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1100
+     * @tc.name      testOperationStatusTextConsistency0006
      * @tc.desc      Verify operation status text consistency with actual operations
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testOperationStatusTextConsistency0001', 0, async () => {
-      logger.info(`${BUNDLE}testOperationStatusTextConsistency0001, begin`);
+    it('testOperationStatusTextConsistency0006', 0, async () => {
+      logger.info(`${BUNDLE}testOperationStatusTextConsistency0006, begin`);
 
       let operationText = 'operation_ready';
       logger.info(`${BUNDLE}initial state: ${operationText}`);

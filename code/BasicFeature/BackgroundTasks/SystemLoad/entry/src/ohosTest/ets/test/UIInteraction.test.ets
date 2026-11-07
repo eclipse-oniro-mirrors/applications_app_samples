@@ -74,7 +74,7 @@ export default function uiInteractionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0100
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0100
      * @tc.name      testUiInteractionPrimaryListenerButton0001
      * @tc.desc      Verify primary listener button: register, unregister, duplicate register
      * @tc.size      MediumTest
@@ -123,15 +123,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0200
-     * @tc.name      testUiInteractionSecondaryListenerButton0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0200
+     * @tc.name      testUiInteractionSecondaryListenerButton0002
      * @tc.desc      Verify secondary listener button: register, unregister, duplicate register
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiInteractionSecondaryListenerButton0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiInteractionSecondaryListenerButton0001, begin`);
+    it('testUiInteractionSecondaryListenerButton0002', 0, async () => {
+      logger.info(`${BUNDLE}testUiInteractionSecondaryListenerButton0002, begin`);
       
       const secondaryCallback: SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => {
         logger.info(`${BUNDLE}secondary callback received level ${level}`);
@@ -172,15 +172,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0300
-     * @tc.name      testUiInteractionUnregisterAllButton0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0300
+     * @tc.name      testUiInteractionUnregisterAllButton0003
      * @tc.desc      Verify unregister all button: unregister all listeners
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiInteractionUnregisterAllButton0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiInteractionUnregisterAllButton0001, begin`);
+    it('testUiInteractionUnregisterAllButton0003', 0, async () => {
+      logger.info(`${BUNDLE}testUiInteractionUnregisterAllButton0003, begin`);
       
       const callbackCount = 5;
       const callbacks: SystemLoadCallback[] = [];
@@ -216,15 +216,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0400
-     * @tc.name      testUiInteractionRefreshButton0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0400
+     * @tc.name      testUiInteractionRefreshButton0004
      * @tc.desc      Verify refresh button: re-query current level
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiInteractionRefreshButton0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiInteractionRefreshButton0001, begin`);
+    it('testUiInteractionRefreshButton0004', 0, async () => {
+      logger.info(`${BUNDLE}testUiInteractionRefreshButton0004, begin`);
       
       const refreshCount = 3;
       
@@ -258,15 +258,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0500
-     * @tc.name      testUiInteractionMockModeButton0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0500
+     * @tc.name      testUiInteractionMockModeButton0005
      * @tc.desc      Verify mock mode button: switch data source
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiInteractionMockModeButton0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiInteractionMockModeButton0001, begin`);
+    it('testUiInteractionMockModeButton0005', 0, async () => {
+      logger.info(`${BUNDLE}testUiInteractionMockModeButton0005, begin`);
       
       const realLevel = await systemLoad.getLevel();
       logger.info(`${BUNDLE}real mode query returned ${realLevel}`);
@@ -298,15 +298,15 @@ export default function uiInteractionTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0600
-     * @tc.name      testDataSourceLocalQuerySuccess0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0600
+     * @tc.name      testDataSourceLocalQuerySuccess0006
      * @tc.desc      Verify local data source query success
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceLocalQuerySuccess0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceLocalQuerySuccess0001, begin`);
+    it('testDataSourceLocalQuerySuccess0006', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceLocalQuerySuccess0006, begin`);
       
       const queryCount = 5;
       
@@ -334,15 +334,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0700
-     * @tc.name      testDataSourceLocalQueryFailure0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0700
+     * @tc.name      testDataSourceLocalQueryFailure0007
      * @tc.desc      Verify local query failure fallback to mock data
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceLocalQueryFailure0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceLocalQueryFailure0001, begin`);
+    it('testDataSourceLocalQueryFailure0007', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceLocalQueryFailure0007, begin`);
       
       try {
         const level = await systemLoad.getLevel();
@@ -362,15 +362,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0800
-     * @tc.name      testDataSourceMockFallback0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0800
+     * @tc.name      testDataSourceMockFallback0008
      * @tc.desc      Verify mock data fallback mechanism
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceMockFallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceMockFallback0001, begin`);
+    it('testDataSourceMockFallback0008', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceMockFallback0008, begin`);
       
       const mockLevels: systemLoad.SystemLoadLevel[] = [
         systemLoad.SystemLoadLevel.LOW,
@@ -404,15 +404,15 @@ export default function uiInteractionTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_UIINTERACT_0900
-     * @tc.name      testDataSourceStatePreservation0001
+     * @tc.number    SUB_SYSTEMLOAD_UIINTERACT_0900
+     * @tc.name      testDataSourceStatePreservation0009
      * @tc.desc      Verify state preservation after data source switch
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testDataSourceStatePreservation0001', 0, async () => {
-      logger.info(`${BUNDLE}testDataSourceStatePreservation0001, begin`);
+    it('testDataSourceStatePreservation0009', 0, async () => {
+      logger.info(`${BUNDLE}testDataSourceStatePreservation0009, begin`);
       
       const callback: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback);

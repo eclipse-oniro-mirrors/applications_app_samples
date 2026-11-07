@@ -78,7 +78,7 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0100
+     * @tc.number    SUB_SYSTEMLOAD_L3_0100
      * @tc.name      testConcurrentRegistrationOrder0001
      * @tc.desc      Verify sequential correctness of concurrent registration
      * @tc.size      MediumTest
@@ -112,15 +112,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0200
-     * @tc.name      testConcurrentQueryAndRegister0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0200
+     * @tc.name      testConcurrentQueryAndRegister0002
      * @tc.desc      Verify safety of concurrent query and registration
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testConcurrentQueryAndRegister0001', 0, async () => {
-      logger.info(`${BUNDLE}testConcurrentQueryAndRegister0001, begin`);
+    it('testConcurrentQueryAndRegister0002', 0, async () => {
+      logger.info(`${BUNDLE}testConcurrentQueryAndRegister0002, begin`);
       
       const queryPromises: Promise<systemLoad.SystemLoadLevel>[] = [];
       const queryCount = 5;
@@ -153,15 +153,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0300
-     * @tc.name      testRaceConditionLevelChange0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0300
+     * @tc.name      testRaceConditionLevelChange0003
      * @tc.desc      Verify race condition handling during level changes
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testRaceConditionLevelChange0001', 0, async () => {
-      logger.info(`${BUNDLE}testRaceConditionLevelChange0001, begin`);
+    it('testRaceConditionLevelChange0003', 0, async () => {
+      logger.info(`${BUNDLE}testRaceConditionLevelChange0003, begin`);
       
       const callback: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback);
@@ -195,15 +195,15 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0400
-     * @tc.name      testPerformanceQueryResponseTime0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0400
+     * @tc.name      testPerformanceQueryResponseTime0004
      * @tc.desc      Verify getLevel() response time within acceptable range
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceQueryResponseTime0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceQueryResponseTime0001, begin`);
+    it('testPerformanceQueryResponseTime0004', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceQueryResponseTime0004, begin`);
       
       const maxAcceptableTime = 1000;
       const startTime = Date.now();
@@ -222,15 +222,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0500
-     * @tc.name      testPerformanceRegistrationTime0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0500
+     * @tc.name      testPerformanceRegistrationTime0005
      * @tc.desc      Verify listener registration time
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceRegistrationTime0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceRegistrationTime0001, begin`);
+    it('testPerformanceRegistrationTime0005', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceRegistrationTime0005, begin`);
       
       const maxAcceptableTime = 500;
       const callback: SystemLoadCallback = () => {};
@@ -254,15 +254,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0600
-     * @tc.name      testPerformanceBatchOperations0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0600
+     * @tc.name      testPerformanceBatchOperations0006
      * @tc.desc      Verify batch operation performance
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceBatchOperations0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceBatchOperations0001, begin`);
+    it('testPerformanceBatchOperations0006', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceBatchOperations0006, begin`);
       
       const maxAcceptableTime = 2000;
       const batchCount = 10;
@@ -289,15 +289,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0700
-     * @tc.name      testPerformanceMemoryLeak0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0700
+     * @tc.name      testPerformanceMemoryLeak0007
      * @tc.desc      Verify no memory leak during long-running operations
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceMemoryLeak0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceMemoryLeak0001, begin`);
+    it('testPerformanceMemoryLeak0007', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceMemoryLeak0007, begin`);
       
       const iterationCount = 50;
       
@@ -326,15 +326,15 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0800
-     * @tc.name      testStressContinuousOperation0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0800
+     * @tc.name      testStressContinuousOperation0008
      * @tc.desc      Verify 100 continuous operations without crash
      * @tc.size      LargeTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testStressContinuousOperation0001', 0, async () => {
-      logger.info(`${BUNDLE}testStressContinuousOperation0001, begin`);
+    it('testStressContinuousOperation0008', 0, async () => {
+      logger.info(`${BUNDLE}testStressContinuousOperation0008, begin`);
       
       const operationCount = 100;
       let successCount = 0;
@@ -359,15 +359,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_0900
-     * @tc.name      testStressMassRegistration0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_0900
+     * @tc.name      testStressMassRegistration0009
      * @tc.desc      Verify registration of 100 listeners
      * @tc.size      LargeTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testStressMassRegistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testStressMassRegistration0001, begin`);
+    it('testStressMassRegistration0009', 0, async () => {
+      logger.info(`${BUNDLE}testStressMassRegistration0009, begin`);
       
       const listenerCount = 100;
       const callbacks: SystemLoadCallback[] = [];
@@ -393,15 +393,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1000
-     * @tc.name      testStressRapidModeSwitch0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1000
+     * @tc.name      testStressRapidModeSwitch0010
      * @tc.desc      Verify 50 rapid mode switches
      * @tc.size      LargeTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testStressRapidModeSwitch0001', 0, async () => {
-      logger.info(`${BUNDLE}testStressRapidModeSwitch0001, begin`);
+    it('testStressRapidModeSwitch0010', 0, async () => {
+      logger.info(`${BUNDLE}testStressRapidModeSwitch0010, begin`);
       
       const switchCount = 50;
       let successCount = 0;
@@ -439,15 +439,15 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1100
-     * @tc.name      testBoundaryAllLevels0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1100
+     * @tc.name      testBoundaryAllLevels0011
      * @tc.desc      Verify traversal of all 8 level boundaries
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testBoundaryAllLevels0001', 0, async () => {
-      logger.info(`${BUNDLE}testBoundaryAllLevels0001, begin`);
+    it('testBoundaryAllLevels0011', 0, async () => {
+      logger.info(`${BUNDLE}testBoundaryAllLevels0011, begin`);
       
       expect(VALID_LEVELS.length).assertEqual(8);
       
@@ -468,15 +468,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1200
-     * @tc.name      testBoundaryUnknownLevel0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1200
+     * @tc.name      testBoundaryUnknownLevel0012
      * @tc.desc      Verify handling of unknown level (default branch)
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testBoundaryUnknownLevel0001', 0, async () => {
-      logger.info(`${BUNDLE}testBoundaryUnknownLevel0001, begin`);
+    it('testBoundaryUnknownLevel0012', 0, async () => {
+      logger.info(`${BUNDLE}testBoundaryUnknownLevel0012, begin`);
       
       const level = await systemLoad.getLevel();
       logger.info(`${BUNDLE}received level ${level}`);
@@ -491,15 +491,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1300
-     * @tc.name      testBoundaryInvalidCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1300
+     * @tc.name      testBoundaryInvalidCallback0013
      * @tc.desc      Verify invalid callback object rejection
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testBoundaryInvalidCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testBoundaryInvalidCallback0001, begin`);
+    it('testBoundaryInvalidCallback0013', 0, async () => {
+      logger.info(`${BUNDLE}testBoundaryInvalidCallback0013, begin`);
       
       expect(registeredCallbacks.length).assertEqual(0);
       
@@ -535,15 +535,15 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1400
-     * @tc.name      testPageStateMockModeCallbackCount0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1400
+     * @tc.name      testPageStateMockModeCallbackCount0014
      * @tc.desc      Verify callback count in mock mode
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPageStateMockModeCallbackCount0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMockModeCallbackCount0001, begin`);
+    it('testPageStateMockModeCallbackCount0014', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMockModeCallbackCount0014, begin`);
       
       let callbackCount = 0;
       const callback: SystemLoadCallback = () => {
@@ -568,15 +568,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1500
-     * @tc.name      testPageStateRealModeCallbackCount0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1500
+     * @tc.name      testPageStateRealModeCallbackCount0015
      * @tc.desc      Verify callback count in real mode
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPageStateRealModeCallbackCount0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateRealModeCallbackCount0001, begin`);
+    it('testPageStateRealModeCallbackCount0015', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateRealModeCallbackCount0015, begin`);
       
       let callbackCount = 0;
       const callback: SystemLoadCallback = () => {
@@ -601,15 +601,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1600
-     * @tc.name      testPageStateMockToRealTransition0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1600
+     * @tc.name      testPageStateMockToRealTransition0016
      * @tc.desc      Verify transition from mock to real mode
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPageStateMockToRealTransition0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateMockToRealTransition0001, begin`);
+    it('testPageStateMockToRealTransition0016', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateMockToRealTransition0016, begin`);
       
       const callback1: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback1);
@@ -643,15 +643,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1700
-     * @tc.name      testPageStateRealToMockTransition0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1700
+     * @tc.name      testPageStateRealToMockTransition0017
      * @tc.desc      Verify transition from real to mock mode
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPageStateRealToMockTransition0001', 0, async () => {
-      logger.info(`${BUNDLE}testPageStateRealToMockTransition0001, begin`);
+    it('testPageStateRealToMockTransition0017', 0, async () => {
+      logger.info(`${BUNDLE}testPageStateRealToMockTransition0017, begin`);
       
       const callback1: SystemLoadCallback = () => {};
       systemLoad.on('systemLoadChange', callback1);
@@ -689,15 +689,15 @@ export default function level3ExtendedTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1800
-     * @tc.name      testUiStateLoadingIndicator0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1800
+     * @tc.name      testUiStateLoadingIndicator0018
      * @tc.desc      Verify loading indicator display during operation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiStateLoadingIndicator0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiStateLoadingIndicator0001, begin`);
+    it('testUiStateLoadingIndicator0018', 0, async () => {
+      logger.info(`${BUNDLE}testUiStateLoadingIndicator0018, begin`);
       
       let isLoading = true;
       
@@ -713,15 +713,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_1900
-     * @tc.name      testUiStateErrorDisplay0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_1900
+     * @tc.name      testUiStateErrorDisplay0019
      * @tc.desc      Verify error message display on failure
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiStateErrorDisplay0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiStateErrorDisplay0001, begin`);
+    it('testUiStateErrorDisplay0019', 0, async () => {
+      logger.info(`${BUNDLE}testUiStateErrorDisplay0019, begin`);
       
       let errorMessage = '';
       
@@ -746,15 +746,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_2000
-     * @tc.name      testUiStateDisabledButtons0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_2000
+     * @tc.name      testUiStateDisabledButtons0020
      * @tc.desc      Verify button disabled state during operations
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiStateDisabledButtons0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiStateDisabledButtons0001, begin`);
+    it('testUiStateDisabledButtons0020', 0, async () => {
+      logger.info(`${BUNDLE}testUiStateDisabledButtons0020, begin`);
       
       let buttonsEnabled = true;
       
@@ -773,15 +773,15 @@ export default function level3ExtendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_L3_2100
-     * @tc.name      testUiStateColorTheme0001
+     * @tc.number    SUB_SYSTEMLOAD_L3_2100
+     * @tc.name      testUiStateColorTheme0021
      * @tc.desc      Verify color theme mapping for different levels
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testUiStateColorTheme0001', 0, async () => {
-      logger.info(`${BUNDLE}testUiStateColorTheme0001, begin`);
+    it('testUiStateColorTheme0021', 0, async () => {
+      logger.info(`${BUNDLE}testUiStateColorTheme0021, begin`);
       
       const level = await systemLoad.getLevel();
       logger.info(`${BUNDLE}current level: ${level}`);

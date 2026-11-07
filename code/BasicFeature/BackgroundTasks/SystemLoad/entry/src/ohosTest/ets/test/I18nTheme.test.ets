@@ -48,7 +48,7 @@ export default function i18nThemeTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_I18N_0100
+     * @tc.number    SUB_SYSTEMLOAD_I18N_0100
      * @tc.name      testI18nChineseLocalization0001
      * @tc.desc      Verify Chinese localization resources
      * @tc.size      SmallTest
@@ -91,15 +91,15 @@ export default function i18nThemeTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_I18N_0200
-     * @tc.name      testI18nEnglishLocalization0001
+     * @tc.number    SUB_SYSTEMLOAD_I18N_0200
+     * @tc.name      testI18nEnglishLocalization0002
      * @tc.desc      Verify English localization resources
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 4
      */
-    it('testI18nEnglishLocalization0001', 0, async () => {
-      logger.info(`${BUNDLE}testI18nEnglishLocalization0001, begin`);
+    it('testI18nEnglishLocalization0002', 0, async () => {
+      logger.info(`${BUNDLE}testI18nEnglishLocalization0002, begin`);
 
       const englishStrings: string[] = [
         'System Load',
@@ -138,15 +138,15 @@ export default function i18nThemeTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_THEME_0100
-     * @tc.name      testThemeDarkMode0001
+     * @tc.number    SUB_SYSTEMLOAD_THEME_0100
+     * @tc.name      testThemeDarkMode0003
      * @tc.desc      Verify UI display in dark theme
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 4
      */
-    it('testThemeDarkMode0001', 0, async () => {
-      logger.info(`${BUNDLE}testThemeDarkMode0001, begin`);
+    it('testThemeDarkMode0003', 0, async () => {
+      logger.info(`${BUNDLE}testThemeDarkMode0003, begin`);
 
       const isDarkMode = true;
       logger.info(`${BUNDLE}dark mode enabled: ${isDarkMode}`);
@@ -166,15 +166,15 @@ export default function i18nThemeTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_THEME_0200
-     * @tc.name      testThemeLightMode0001
+     * @tc.number    SUB_SYSTEMLOAD_THEME_0200
+     * @tc.name      testThemeLightMode0004
      * @tc.desc      Verify UI display in light theme
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 4
      */
-    it('testThemeLightMode0001', 0, async () => {
-      logger.info(`${BUNDLE}testThemeLightMode0001, begin`);
+    it('testThemeLightMode0004', 0, async () => {
+      logger.info(`${BUNDLE}testThemeLightMode0004, begin`);
 
       const isDarkMode = false;
       logger.info(`${BUNDLE}light mode enabled: ${!isDarkMode}`);

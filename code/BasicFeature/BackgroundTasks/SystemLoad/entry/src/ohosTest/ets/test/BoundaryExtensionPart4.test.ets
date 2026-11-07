@@ -71,7 +71,7 @@ export default function boundaryExtensionPart4Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_1900
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_1900
      * @tc.name      testLevelUpdateDisplayConsistency0001
      * @tc.desc      Verify all display fields synchronized on level update
      * @tc.size      MediumTest
@@ -110,15 +110,15 @@ export default function boundaryExtensionPart4Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2000
-     * @tc.name      testLevelUpdateUnknownLevelHandling0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2000
+     * @tc.name      testLevelUpdateUnknownLevelHandling0002
      * @tc.desc      Verify display handling for unknown level
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testLevelUpdateUnknownLevelHandling0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelUpdateUnknownLevelHandling0001, begin`);
+    it('testLevelUpdateUnknownLevelHandling0002', 0, async () => {
+      logger.info(`${BUNDLE}testLevelUpdateUnknownLevelHandling0002, begin`);
 
       // Use a number instead of string to avoid type conversion error
       const unknownLevel = 999 as systemLoad.SystemLoadLevel;
@@ -143,19 +143,18 @@ export default function boundaryExtensionPart4Test() {
     });
 
     // ========================================================================
-    // 按钮交互状态测试
-    // ========================================================================
+    // 按钮交互状态测�?    // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2100
-     * @tc.name      testButtonStateMockModeButtons0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2100
+     * @tc.name      testButtonStateMockModeButtons0003
      * @tc.desc      Verify button states in mock mode
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testButtonStateMockModeButtons0001', 0, async () => {
-      logger.info(`${BUNDLE}testButtonStateMockModeButtons0001, begin`);
+    it('testButtonStateMockModeButtons0003', 0, async () => {
+      logger.info(`${BUNDLE}testButtonStateMockModeButtons0003, begin`);
 
       const isMock = true;
       logger.info(`${BUNDLE}in mock mode: ${isMock}`);
@@ -177,15 +176,15 @@ export default function boundaryExtensionPart4Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2200
-     * @tc.name      testButtonStateLoadingDisabled0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2200
+     * @tc.name      testButtonStateLoadingDisabled0004
      * @tc.desc      Verify button disabled state during loading
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testButtonStateLoadingDisabled0001', 0, async () => {
-      logger.info(`${BUNDLE}testButtonStateLoadingDisabled0001, begin`);
+    it('testButtonStateLoadingDisabled0004', 0, async () => {
+      logger.info(`${BUNDLE}testButtonStateLoadingDisabled0004, begin`);
 
       let isLoading = true;
       logger.info(`${BUNDLE}loading started: ${isLoading}`);
@@ -215,15 +214,15 @@ export default function boundaryExtensionPart4Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2300
-     * @tc.name      testButtonStateListenerControlButtons0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2300
+     * @tc.name      testButtonStateListenerControlButtons0005
      * @tc.desc      Verify listener control button states
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testButtonStateListenerControlButtons0001', 0, async () => {
-      logger.info(`${BUNDLE}testButtonStateListenerControlButtons0001, begin`);
+    it('testButtonStateListenerControlButtons0005', 0, async () => {
+      logger.info(`${BUNDLE}testButtonStateListenerControlButtons0005, begin`);
 
       let isPrimarySubscribed = false;
       let isSecondarySubscribed = false;
@@ -257,15 +256,15 @@ export default function boundaryExtensionPart4Test() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2400
-     * @tc.name      testMemoryUsageDuringLongRunning0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2400
+     * @tc.name      testMemoryUsageDuringLongRunning0006
      * @tc.desc      Verify memory usage during long-running operation
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testMemoryUsageDuringLongRunning0001', 0, async () => {
-      logger.info(`${BUNDLE}testMemoryUsageDuringLongRunning0001, begin`);
+    it('testMemoryUsageDuringLongRunning0006', 0, async () => {
+      logger.info(`${BUNDLE}testMemoryUsageDuringLongRunning0006, begin`);
 
       const callbackRecords: string[] = [];
       const iterations = 50;
@@ -296,15 +295,15 @@ export default function boundaryExtensionPart4Test() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_BOUNDARY_2500
-     * @tc.name      testPerformanceDegradationAfterCycles0001
+     * @tc.number    SUB_SYSTEMLOAD_BOUNDARY_2500
+     * @tc.name      testPerformanceDegradationAfterCycles0007
      * @tc.desc      Verify performance after multiple cycles
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 6
      */
-    it('testPerformanceDegradationAfterCycles0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceDegradationAfterCycles0001, begin`);
+    it('testPerformanceDegradationAfterCycles0007', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceDegradationAfterCycles0007, begin`);
 
       const cycles = 20;
       const timestamps: number[] = [];

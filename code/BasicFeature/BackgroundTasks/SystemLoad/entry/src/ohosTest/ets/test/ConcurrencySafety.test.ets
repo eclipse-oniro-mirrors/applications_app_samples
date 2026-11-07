@@ -65,7 +65,7 @@ export default function concurrencySafetyTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_CONCURRENCY_0100
+     * @tc.number    SUB_SYSTEMLOAD_CONCURRENCY_0100
      * @tc.name      testConcurrentRegistrationMultipleCallbacks0001
      * @tc.desc      Verify safety of concurrent registration of multiple callbacks
      * @tc.size      MediumTest
@@ -103,15 +103,15 @@ export default function concurrencySafetyTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_CONCURRENCY_0200
-     * @tc.name      testConcurrentQueryWithRegistration0001
+     * @tc.number    SUB_SYSTEMLOAD_CONCURRENCY_0200
+     * @tc.name      testConcurrentQueryWithRegistration0002
      * @tc.desc      Verify safety of concurrent query and registration
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testConcurrentQueryWithRegistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testConcurrentQueryWithRegistration0001, begin`);
+    it('testConcurrentQueryWithRegistration0002', 0, async () => {
+      logger.info(`${BUNDLE}testConcurrentQueryWithRegistration0002, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -149,15 +149,15 @@ export default function concurrencySafetyTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_RECOVERY_0100
-     * @tc.name      testRecoveryAfterInvalidCallback0001
+     * @tc.number    SUB_SYSTEMLOAD_RECOVERY_0100
+     * @tc.name      testRecoveryAfterInvalidCallback0003
      * @tc.desc      Verify recovery after invalid callback exception
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testRecoveryAfterInvalidCallback0001', 0, async () => {
-      logger.info(`${BUNDLE}testRecoveryAfterInvalidCallback0001, begin`);
+    it('testRecoveryAfterInvalidCallback0003', 0, async () => {
+      logger.info(`${BUNDLE}testRecoveryAfterInvalidCallback0003, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -197,15 +197,15 @@ export default function concurrencySafetyTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_RECOVERY_0200
-     * @tc.name      testRecoveryAfterMultipleErrors0001
+     * @tc.number    SUB_SYSTEMLOAD_RECOVERY_0200
+     * @tc.name      testRecoveryAfterMultipleErrors0004
      * @tc.desc      Verify recovery after multiple exceptions
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testRecoveryAfterMultipleErrors0001', 0, async () => {
-      logger.info(`${BUNDLE}testRecoveryAfterMultipleErrors0001, begin`);
+    it('testRecoveryAfterMultipleErrors0004', 0, async () => {
+      logger.info(`${BUNDLE}testRecoveryAfterMultipleErrors0004, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 

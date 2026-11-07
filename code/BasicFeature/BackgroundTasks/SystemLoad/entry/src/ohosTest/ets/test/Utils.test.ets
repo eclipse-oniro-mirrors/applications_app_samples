@@ -34,7 +34,7 @@ const BUNDLE: string = 'UtilsTest_';
 export default function utilsTest() {
   describe('StringUtilsTest', () => {
     /**
-     * @tc.number    UTILS_STRING_0100
+     * @tc.number    SUB_UTILS_STRING_0100
      * @tc.name      testStringUtilsIsEmpty0001
      * @tc.desc      Test isEmpty method for empty string validation
      * @tc.size      SmallTest
@@ -55,15 +55,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0200
-     * @tc.name      testStringUtilsIsBlank0001
+     * @tc.number    SUB_UTILS_STRING_0200
+     * @tc.name      testStringUtilsIsBlank0002
      * @tc.desc      Test isBlank method for whitespace string validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsIsBlank0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsIsBlank0001, begin`);
+    it('testStringUtilsIsBlank0002', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsIsBlank0002, begin`);
       // 测试空白字符串
       expect(StringUtils.isBlank('   ')).assertTrue();
       expect(StringUtils.isBlank('\t\n')).assertTrue();
@@ -75,15 +75,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0300
-     * @tc.name      testStringUtilsTruncate0001
+     * @tc.number    SUB_UTILS_STRING_0300
+     * @tc.name      testStringUtilsTruncate0003
      * @tc.desc      Test truncate method for string truncation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsTruncate0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsTruncate0001, begin`);
+    it('testStringUtilsTruncate0003', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsTruncate0003, begin`);
       // 测试截断
       expect(StringUtils.truncate('Hello World', 5)).assertEqual('Hello...');
       // 测试不截断
@@ -96,15 +96,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0400
-     * @tc.name      testStringUtilsCapitalize0001
+     * @tc.number    SUB_UTILS_STRING_0400
+     * @tc.name      testStringUtilsCapitalize0004
      * @tc.desc      Test capitalize method for first letter capitalization
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsCapitalize0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsCapitalize0001, begin`);
+    it('testStringUtilsCapitalize0004', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsCapitalize0004, begin`);
       // 测试首字母大写
       expect(StringUtils.capitalize('hello')).assertEqual('Hello');
       // 测试已大写
@@ -115,15 +115,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0500
-     * @tc.name      testStringUtilsReverse0001
+     * @tc.number    SUB_UTILS_STRING_0500
+     * @tc.name      testStringUtilsReverse0005
      * @tc.desc      Test reverse method for string reversal
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsReverse0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsReverse0001, begin`);
+    it('testStringUtilsReverse0005', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsReverse0005, begin`);
       // 测试反转
       expect(StringUtils.reverse('hello')).assertEqual('olleh');
       // 测试回文
@@ -134,15 +134,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0600
-     * @tc.name      testStringUtilsToCamelCase0001
+     * @tc.number    SUB_UTILS_STRING_0600
+     * @tc.name      testStringUtilsToCamelCase0006
      * @tc.desc      Test toCamelCase method for camelCase conversion
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsToCamelCase0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsToCamelCase0001, begin`);
+    it('testStringUtilsToCamelCase0006', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsToCamelCase0006, begin`);
       // 测试下划线转驼峰
       expect(StringUtils.toCamelCase('hello_world')).assertEqual('helloWorld');
       // 测试中划线转驼峰
@@ -155,15 +155,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0700
-     * @tc.name      testStringUtilsContains0001
+     * @tc.number    SUB_UTILS_STRING_0700
+     * @tc.name      testStringUtilsContains0007
      * @tc.desc      Test contains method for substring check
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsContains0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsContains0001, begin`);
+    it('testStringUtilsContains0007', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsContains0007, begin`);
       // 测试包含
       expect(StringUtils.contains('hello world', 'world')).assertTrue();
       // 测试不包含
@@ -174,15 +174,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_STRING_0800
-     * @tc.name      testStringUtilsPadLeft0001
+     * @tc.number    SUB_UTILS_STRING_0800
+     * @tc.name      testStringUtilsPadLeft0008
      * @tc.desc      Test padLeft method for left padding
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testStringUtilsPadLeft0001', 0, () => {
-      logger.info(`${BUNDLE}testStringUtilsPadLeft0001, begin`);
+    it('testStringUtilsPadLeft0008', 0, () => {
+      logger.info(`${BUNDLE}testStringUtilsPadLeft0008, begin`);
       // 测试左填充
       expect(StringUtils.padLeft('5', 3, '0')).assertEqual('005');
       // 测试无需填充
@@ -197,15 +197,15 @@ export default function utilsTest() {
 
   describe('DateUtilsTest', () => {
     /**
-     * @tc.number    UTILS_DATE_0100
-     * @tc.name      testDateUtilsFormat0001
+     * @tc.number    SUB_UTILS_DATE_0100
+     * @tc.name      testDateUtilsFormat0009
      * @tc.desc      Test format method for date formatting
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsFormat0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsFormat0001, begin`);
+    it('testDateUtilsFormat0009', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsFormat0009, begin`);
       // 创建测试日期
       const date = new Date(2026, 0, 15, 10, 30, 45);
       expect(date instanceof Date).assertTrue();
@@ -221,15 +221,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0200
-     * @tc.name      testDateUtilsIsToday0001
+     * @tc.number    SUB_UTILS_DATE_0200
+     * @tc.name      testDateUtilsIsToday0010
      * @tc.desc      Test isToday method for today check
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsIsToday0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsIsToday0001, begin`);
+    it('testDateUtilsIsToday0010', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsIsToday0010, begin`);
       // 测试今天
       const today = new Date();
       expect(DateUtils.isToday(today)).assertTrue();
@@ -246,15 +246,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0300
-     * @tc.name      testDateUtilsIsSameDay0001
+     * @tc.number    SUB_UTILS_DATE_0300
+     * @tc.name      testDateUtilsIsSameDay0011
      * @tc.desc      Test isSameDay method for same day check
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsIsSameDay0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsIsSameDay0001, begin`);
+    it('testDateUtilsIsSameDay0011', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsIsSameDay0011, begin`);
       // 测试同一天
       const date1 = new Date(2026, 0, 15, 10, 30);
       const date2 = new Date(2026, 0, 15, 20, 45);
@@ -270,15 +270,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0400
-     * @tc.name      testDateUtilsAddDays0001
+     * @tc.number    SUB_UTILS_DATE_0400
+     * @tc.name      testDateUtilsAddDays0012
      * @tc.desc      Test addDays method for adding days
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsAddDays0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsAddDays0001, begin`);
+    it('testDateUtilsAddDays0012', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsAddDays0012, begin`);
       // 测试增加天数
       const date = new Date(2026, 0, 15);
       expect(date instanceof Date).assertTrue();
@@ -295,15 +295,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0500
-     * @tc.name      testDateUtilsGetDaysBetween0001
+     * @tc.number    SUB_UTILS_DATE_0500
+     * @tc.name      testDateUtilsGetDaysBetween0013
      * @tc.desc      Test getDaysBetween method for days difference
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsGetDaysBetween0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsGetDaysBetween0001, begin`);
+    it('testDateUtilsGetDaysBetween0013', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsGetDaysBetween0013, begin`);
       // 测试天数差
       const date1 = new Date(2026, 0, 15);
       const date2 = new Date(2026, 0, 20);
@@ -316,15 +316,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0600
-     * @tc.name      testDateUtilsIsLeapYear0001
+     * @tc.number    SUB_UTILS_DATE_0600
+     * @tc.name      testDateUtilsIsLeapYear0014
      * @tc.desc      Test isLeapYear method for leap year check
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsIsLeapYear0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsIsLeapYear0001, begin`);
+    it('testDateUtilsIsLeapYear0014', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsIsLeapYear0014, begin`);
       // 测试闰年
       expect(DateUtils.isLeapYear(2024)).assertTrue();
       expect(DateUtils.isLeapYear(2000)).assertTrue();
@@ -335,15 +335,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DATE_0700
-     * @tc.name      testDateUtilsGetWeekDay0001
+     * @tc.number    SUB_UTILS_DATE_0700
+     * @tc.name      testDateUtilsGetWeekDay0015
      * @tc.desc      Test getWeekDay method for weekday name
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDateUtilsGetWeekDay0001', 0, () => {
-      logger.info(`${BUNDLE}testDateUtilsGetWeekDay0001, begin`);
+    it('testDateUtilsGetWeekDay0015', 0, () => {
+      logger.info(`${BUNDLE}testDateUtilsGetWeekDay0015, begin`);
       // 2026年1月15日是星期四
       const date = new Date(2026, 0, 15);
       const weekDay = DateUtils.getWeekDay(date);
@@ -358,15 +358,15 @@ export default function utilsTest() {
 
   describe('ValidationUtilsTest', () => {
     /**
-     * @tc.number    UTILS_VALIDATION_0100
-     * @tc.name      testValidationUtilsIsEmail0001
+     * @tc.number    SUB_UTILS_VALIDATION_0100
+     * @tc.name      testValidationUtilsIsEmail0016
      * @tc.desc      Test isEmail method for email validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsEmail0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsEmail0001, begin`);
+    it('testValidationUtilsIsEmail0016', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsEmail0016, begin`);
       // 测试有效邮箱
       expect(ValidationUtils.isEmail('test@example.com')).assertTrue();
       expect(ValidationUtils.isEmail('user.name@domain.co.uk')).assertTrue();
@@ -378,35 +378,33 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0200
-     * @tc.name      testValidationUtilsIsPhone0001
+     * @tc.number    SUB_UTILS_VALIDATION_0200
+     * @tc.name      testValidationUtilsIsPhone0017
      * @tc.desc      Test isPhone method for phone validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsPhone0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsPhone0001, begin`);
-      // 测试有效手机号
-      expect(ValidationUtils.isPhone('13800138000')).assertTrue();
+    it('testValidationUtilsIsPhone0017', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsPhone0017, begin`);
+      // 测试有效手机�?      expect(ValidationUtils.isPhone('13800138000')).assertTrue();
       expect(ValidationUtils.isPhone('15912345678')).assertTrue();
-      // 测试无效手机号
-      expect(ValidationUtils.isPhone('12345678901')).assertFalse();
+      // 测试无效手机�?      expect(ValidationUtils.isPhone('12345678901')).assertFalse();
       expect(ValidationUtils.isPhone('1380013800')).assertFalse();
       expect(ValidationUtils.isPhone('')).assertFalse();
       logger.info(`${BUNDLE}isPhone_0001, end`);
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0300
-     * @tc.name      testValidationUtilsIsUrl0001
+     * @tc.number    SUB_UTILS_VALIDATION_0300
+     * @tc.name      testValidationUtilsIsUrl0018
      * @tc.desc      Test isUrl method for URL validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsUrl0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsUrl0001, begin`);
+    it('testValidationUtilsIsUrl0018', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsUrl0018, begin`);
       // 测试有效URL
       expect(ValidationUtils.isUrl('https://www.example.com')).assertTrue();
       expect(ValidationUtils.isUrl('http://test.org/path')).assertTrue();
@@ -417,34 +415,32 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0400
-     * @tc.name      testValidationUtilsIsUsername0001
+     * @tc.number    SUB_UTILS_VALIDATION_0400
+     * @tc.name      testValidationUtilsIsUsername0019
      * @tc.desc      Test isUsername method for username validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsUsername0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsUsername0001, begin`);
-      // 测试有效用户名
-      expect(ValidationUtils.isUsername('user123')).assertTrue();
+    it('testValidationUtilsIsUsername0019', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsUsername0019, begin`);
+      // 测试有效用户�?      expect(ValidationUtils.isUsername('user123')).assertTrue();
       expect(ValidationUtils.isUsername('test_user')).assertTrue();
-      // 测试无效用户名
-      expect(ValidationUtils.isUsername('ab')).assertFalse(); // 太短
+      // 测试无效用户�?      expect(ValidationUtils.isUsername('ab')).assertFalse(); // 太短
       expect(ValidationUtils.isUsername('user@name')).assertFalse(); // 包含特殊字符
       logger.info(`${BUNDLE}isUsername_0001, end`);
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0500
-     * @tc.name      testValidationUtilsIsNumber0001
+     * @tc.number    SUB_UTILS_VALIDATION_0500
+     * @tc.name      testValidationUtilsIsNumber0020
      * @tc.desc      Test isNumber method for number validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsNumber0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsNumber0001, begin`);
+    it('testValidationUtilsIsNumber0020', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsNumber0020, begin`);
       // 测试有效数字
       expect(ValidationUtils.isNumber('123')).assertTrue();
       expect(ValidationUtils.isNumber('-45.67')).assertTrue();
@@ -456,15 +452,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0600
-     * @tc.name      testValidationUtilsIsInteger0001
+     * @tc.number    SUB_UTILS_VALIDATION_0600
+     * @tc.name      testValidationUtilsIsInteger0021
      * @tc.desc      Test isInteger method for integer validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsInteger0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsInteger0001, begin`);
+    it('testValidationUtilsIsInteger0021', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsInteger0021, begin`);
       // 测试有效整数
       expect(ValidationUtils.isInteger('123')).assertTrue();
       expect(ValidationUtils.isInteger('-456')).assertTrue();
@@ -475,15 +471,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0700
-     * @tc.name      testValidationUtilsValidate0001
+     * @tc.number    SUB_UTILS_VALIDATION_0700
+     * @tc.name      testValidationUtilsValidate0022
      * @tc.desc      Test validate method for generic validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsValidate0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsValidate0001, begin`);
+    it('testValidationUtilsValidate0022', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsValidate0022, begin`);
       // 测试邮箱校验
       const emailResult = ValidationUtils.validate('test@example.com', ValidationRule.EMAIL);
       expect(emailResult.valid).assertTrue();
@@ -496,19 +492,18 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_VALIDATION_0800
-     * @tc.name      testValidationUtilsIsLengthInRange0001
+     * @tc.number    SUB_UTILS_VALIDATION_0800
+     * @tc.name      testValidationUtilsIsLengthInRange0023
      * @tc.desc      Test isLengthInRange method for length range validation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testValidationUtilsIsLengthInRange0001', 0, () => {
-      logger.info(`${BUNDLE}testValidationUtilsIsLengthInRange0001, begin`);
+    it('testValidationUtilsIsLengthInRange0023', 0, () => {
+      logger.info(`${BUNDLE}testValidationUtilsIsLengthInRange0023, begin`);
       // 测试长度在范围内
       expect(ValidationUtils.isLengthInRange('hello', 3, 10)).assertTrue();
-      // 测试长度不在范围内
-      expect(ValidationUtils.isLengthInRange('hi', 3, 10)).assertFalse();
+      // 测试长度不在范围�?      expect(ValidationUtils.isLengthInRange('hi', 3, 10)).assertFalse();
       expect(ValidationUtils.isLengthInRange('hello world test', 3, 10)).assertFalse();
       logger.info(`${BUNDLE}isLengthInRange_0001, end`);
     });
@@ -516,15 +511,15 @@ export default function utilsTest() {
 
   describe('RandomUtilsTest', () => {
     /**
-     * @tc.number    UTILS_RANDOM_0100
-     * @tc.name      testRandomUtilsRandomInt0001
+     * @tc.number    SUB_UTILS_RANDOM_0100
+     * @tc.name      testRandomUtilsRandomInt0024
      * @tc.desc      Test randomInt method for random integer generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomInt0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomInt0001, begin`);
+    it('testRandomUtilsRandomInt0024', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomInt0024, begin`);
       // 测试随机整数在范围内
       const values: number[] = [];
       for (let i = 0; i < 10; i++) {
@@ -538,15 +533,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0200
-     * @tc.name      testRandomUtilsRandomFloat0001
+     * @tc.number    SUB_UTILS_RANDOM_0200
+     * @tc.name      testRandomUtilsRandomFloat0025
      * @tc.desc      Test randomFloat method for random float generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomFloat0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomFloat0001, begin`);
+    it('testRandomUtilsRandomFloat0025', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomFloat0025, begin`);
       // 测试随机浮点数在范围内
       const values: number[] = [];
       for (let i = 0; i < 10; i++) {
@@ -560,15 +555,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0300
-     * @tc.name      testRandomUtilsRandomBoolean0001
+     * @tc.number    SUB_UTILS_RANDOM_0300
+     * @tc.name      testRandomUtilsRandomBoolean0026
      * @tc.desc      Test randomBoolean method for random boolean generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomBoolean0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomBoolean0001, begin`);
+    it('testRandomUtilsRandomBoolean0026', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomBoolean0026, begin`);
       // 测试随机布尔值
       let trueCount = 0;
       let falseCount = 0;
@@ -589,15 +584,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0400
-     * @tc.name      testRandomUtilsRandomString0001
+     * @tc.number    SUB_UTILS_RANDOM_0400
+     * @tc.name      testRandomUtilsRandomString0027
      * @tc.desc      Test randomString method for random string generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomString0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomString0001, begin`);
+    it('testRandomUtilsRandomString0027', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomString0027, begin`);
       // 测试随机字符串长度
       const str1 = RandomUtils.randomString(10);
       expect(str1.length).assertEqual(10);
@@ -611,15 +606,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0500
-     * @tc.name      testRandomUtilsRandomNumeric0001
+     * @tc.number    SUB_UTILS_RANDOM_0500
+     * @tc.name      testRandomUtilsRandomNumeric0028
      * @tc.desc      Test randomNumeric method for random numeric string generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomNumeric0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomNumeric0001, begin`);
+    it('testRandomUtilsRandomNumeric0028', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomNumeric0028, begin`);
       // 测试随机数字字符串
       const num = RandomUtils.randomNumeric(6);
       expect(num.length).assertEqual(6);
@@ -632,15 +627,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0600
-     * @tc.name      testRandomUtilsRandomChoice0001
+     * @tc.number    SUB_UTILS_RANDOM_0600
+     * @tc.name      testRandomUtilsRandomChoice0029
      * @tc.desc      Test randomChoice method for random array selection
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomChoice0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomChoice0001, begin`);
+    it('testRandomUtilsRandomChoice0029', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomChoice0029, begin`);
       // 测试从数组选择
       const arr = [1, 2, 3, 4, 5];
       const choice = RandomUtils.randomChoice(arr);
@@ -655,15 +650,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0700
-     * @tc.name      testRandomUtilsRandomColor0001
+     * @tc.number    SUB_UTILS_RANDOM_0700
+     * @tc.name      testRandomUtilsRandomColor0030
      * @tc.desc      Test randomColor method for random color generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomColor0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomColor0001, begin`);
+    it('testRandomUtilsRandomColor0030', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomColor0030, begin`);
       // 测试随机颜色格式
       const color = RandomUtils.randomColor();
       expect(color.startsWith('#')).assertTrue();
@@ -675,15 +670,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0800
-     * @tc.name      testRandomUtilsRandomUUID0001
+     * @tc.number    SUB_UTILS_RANDOM_0800
+     * @tc.name      testRandomUtilsRandomUUID0031
      * @tc.desc      Test randomUUID method for UUID generation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsRandomUUID0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsRandomUUID0001, begin`);
+    it('testRandomUtilsRandomUUID0031', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsRandomUUID0031, begin`);
       // 测试UUID格式
       const uuid = RandomUtils.randomUUID();
       expect(uuid.length).assertEqual(36);
@@ -695,15 +690,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_RANDOM_0900
-     * @tc.name      testRandomUtilsShuffleArray0001
+     * @tc.number    SUB_UTILS_RANDOM_0900
+     * @tc.name      testRandomUtilsShuffleArray0032
      * @tc.desc      Test shuffleArray method for array shuffling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testRandomUtilsShuffleArray0001', 0, () => {
-      logger.info(`${BUNDLE}testRandomUtilsShuffleArray0001, begin`);
+    it('testRandomUtilsShuffleArray0032', 0, () => {
+      logger.info(`${BUNDLE}testRandomUtilsShuffleArray0032, begin`);
       // 测试数组打乱
       const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       const original = [...arr];
@@ -723,15 +718,15 @@ export default function utilsTest() {
 
   describe('DeviceUtilsTest', () => {
     /**
-     * @tc.number    UTILS_DEVICE_0100
-     * @tc.name      testDeviceUtilsGetBrand0001
+     * @tc.number    SUB_UTILS_DEVICE_0100
+     * @tc.name      testDeviceUtilsGetBrand0033
      * @tc.desc      Test getBrand method for device brand retrieval
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDeviceUtilsGetBrand0001', 0, () => {
-      logger.info(`${BUNDLE}testDeviceUtilsGetBrand0001, begin`);
+    it('testDeviceUtilsGetBrand0033', 0, () => {
+      logger.info(`${BUNDLE}testDeviceUtilsGetBrand0033, begin`);
       // 测试获取品牌
       const brand = DeviceUtils.getBrand();
       expect(typeof brand).assertEqual('string');
@@ -742,15 +737,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DEVICE_0200
-     * @tc.name      testDeviceUtilsGetModel0001
+     * @tc.number    SUB_UTILS_DEVICE_0200
+     * @tc.name      testDeviceUtilsGetModel0034
      * @tc.desc      Test getModel method for device model retrieval
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDeviceUtilsGetModel0001', 0, () => {
-      logger.info(`${BUNDLE}testDeviceUtilsGetModel0001, begin`);
+    it('testDeviceUtilsGetModel0034', 0, () => {
+      logger.info(`${BUNDLE}testDeviceUtilsGetModel0034, begin`);
       // 测试获取型号
       const model = DeviceUtils.getModel();
       expect(typeof model).assertEqual('string');
@@ -761,15 +756,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DEVICE_0300
-     * @tc.name      testDeviceUtilsGetOsVersion0001
+     * @tc.number    SUB_UTILS_DEVICE_0300
+     * @tc.name      testDeviceUtilsGetOsVersion0035
      * @tc.desc      Test getOsVersion method for OS version retrieval
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDeviceUtilsGetOsVersion0001', 0, () => {
-      logger.info(`${BUNDLE}testDeviceUtilsGetOsVersion0001, begin`);
+    it('testDeviceUtilsGetOsVersion0035', 0, () => {
+      logger.info(`${BUNDLE}testDeviceUtilsGetOsVersion0035, begin`);
       // 测试获取系统版本
       const version = DeviceUtils.getOsVersion();
       expect(typeof version).assertEqual('string');
@@ -780,15 +775,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DEVICE_0400
-     * @tc.name      testDeviceUtilsGetDeviceInfo0001
+     * @tc.number    SUB_UTILS_DEVICE_0400
+     * @tc.name      testDeviceUtilsGetDeviceInfo0036
      * @tc.desc      Test getDeviceInfo method for complete device info retrieval
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDeviceUtilsGetDeviceInfo0001', 0, () => {
-      logger.info(`${BUNDLE}testDeviceUtilsGetDeviceInfo0001, begin`);
+    it('testDeviceUtilsGetDeviceInfo0036', 0, () => {
+      logger.info(`${BUNDLE}testDeviceUtilsGetDeviceInfo0036, begin`);
       // 测试获取设备信息
       const info = DeviceUtils.getDeviceInfo();
       expect(info.brand.length > 0).assertTrue();
@@ -799,15 +794,15 @@ export default function utilsTest() {
     });
 
     /**
-     * @tc.number    UTILS_DEVICE_0500
-     * @tc.name      testDeviceUtilsGetDisplayInfo0001
+     * @tc.number    SUB_UTILS_DEVICE_0500
+     * @tc.name      testDeviceUtilsGetDisplayInfo0037
      * @tc.desc      Test getDisplayInfo method for display info retrieval
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testDeviceUtilsGetDisplayInfo0001', 0, () => {
-      logger.info(`${BUNDLE}testDeviceUtilsGetDisplayInfo0001, begin`);
+    it('testDeviceUtilsGetDisplayInfo0037', 0, () => {
+      logger.info(`${BUNDLE}testDeviceUtilsGetDisplayInfo0037, begin`);
       // 测试获取显示信息
       const displayInfo = DeviceUtils.getDisplayInfo();
       expect(typeof displayInfo).assertEqual('string');

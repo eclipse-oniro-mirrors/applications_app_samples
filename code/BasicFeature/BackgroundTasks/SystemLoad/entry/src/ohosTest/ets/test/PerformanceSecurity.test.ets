@@ -76,7 +76,7 @@ export default function performanceSecurityTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0100
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0100
      * @tc.name      testPerformanceResponseTimeSingle0001
      * @tc.desc      Verify single query response time < 200ms
      * @tc.size      MediumTest
@@ -101,15 +101,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0200
-     * @tc.name      testPerformanceResponseTimeMultiple0001
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0200
+     * @tc.name      testPerformanceResponseTimeMultiple0002
      * @tc.desc      Verify average response time of 100 queries < 100ms/query
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceResponseTimeMultiple0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceResponseTimeMultiple0001, begin`);
+    it('testPerformanceResponseTimeMultiple0002', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceResponseTimeMultiple0002, begin`);
 
       const queryCount = 100;
       const startTime = Date.now();
@@ -127,7 +127,7 @@ export default function performanceSecurityTest() {
       const avgTime = totalTime / queryCount;
 
       logger.info(`${BUNDLE}total time: ${totalTime}ms, average time: ${avgTime}ms`);
-      // 优化：将阈值从 500ms 调整为 100ms，更符合实际性能要求
+      // 优化：将阈值从 500ms 调整�?100ms，更符合实际性能要求
       expect(avgTime < 100).assertTrue();
       expect(totalTime >= 0).assertTrue();
 
@@ -139,15 +139,15 @@ export default function performanceSecurityTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0300
-     * @tc.name      testPerformanceMemoryStability0001
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0300
+     * @tc.name      testPerformanceMemoryStability0003
      * @tc.desc      Verify memory stability after 1000 queries
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceMemoryStability0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceMemoryStability0001, begin`);
+    it('testPerformanceMemoryStability0003', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceMemoryStability0003, begin`);
 
       const queryCount = 1000;
       let successCount = 0;
@@ -176,15 +176,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0400
-     * @tc.name      testPerformanceLongRunning0001
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0400
+     * @tc.name      testPerformanceLongRunning0004
      * @tc.desc      Verify long-running stability after 10 seconds of monitoring
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceLongRunning0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceLongRunning0001, begin`);
+    it('testPerformanceLongRunning0004', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceLongRunning0004, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -220,15 +220,15 @@ export default function performanceSecurityTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0500
-     * @tc.name      testPerformanceStressConcurrent0001
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0500
+     * @tc.name      testPerformanceStressConcurrent0005
      * @tc.desc      Verify concurrent stress with 10 concurrent queries
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceStressConcurrent0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceStressConcurrent0001, begin`);
+    it('testPerformanceStressConcurrent0005', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceStressConcurrent0005, begin`);
 
       const concurrentCount = 10;
       const promises: Promise<systemLoad.SystemLoadLevel>[] = [];
@@ -254,15 +254,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_PERF_0600
-     * @tc.name      testPerformanceStressRapidRegister0001
+     * @tc.number    SUB_SYSTEMLOAD_PERF_0600
+     * @tc.name      testPerformanceStressRapidRegister0006
      * @tc.desc      Verify rapid register/unregister stress 50 times within 1 second
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 3
      */
-    it('testPerformanceStressRapidRegister0001', 0, async () => {
-      logger.info(`${BUNDLE}testPerformanceStressRapidRegister0001, begin`);
+    it('testPerformanceStressRapidRegister0006', 0, async () => {
+      logger.info(`${BUNDLE}testPerformanceStressRapidRegister0006, begin`);
 
       const cycleCount = 50;
       let successCount = 0;
@@ -293,19 +293,18 @@ export default function performanceSecurityTest() {
     });
 
     // ========================================================================
-    // 安全与权限测试 - 权限检查
-    // ========================================================================
+    // 安全与权限测�?- 权限检�?    // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_SEC_0100
-     * @tc.name      testSecurityPermissionValid0001
+     * @tc.number    SUB_SYSTEMLOAD_SEC_0100
+     * @tc.name      testSecurityPermissionValid0007
      * @tc.desc      Verify valid permissions for normal systemLoad API calls
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSecurityPermissionValid0001', 0, async () => {
-      logger.info(`${BUNDLE}testSecurityPermissionValid0001, begin`);
+    it('testSecurityPermissionValid0007', 0, async () => {
+      logger.info(`${BUNDLE}testSecurityPermissionValid0007, begin`);
 
       const level = await systemLoad.getLevel();
       expect(isValidLevel(level)).assertTrue();
@@ -322,15 +321,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SEC_0200
-     * @tc.name      testSecurityDataValidation0001
+     * @tc.number    SUB_SYSTEMLOAD_SEC_0200
+     * @tc.name      testSecurityDataValidation0008
      * @tc.desc      Verify data validation for API input parameters
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSecurityDataValidation0001', 0, async () => {
-      logger.info(`${BUNDLE}testSecurityDataValidation0001, begin`);
+    it('testSecurityDataValidation0008', 0, async () => {
+      logger.info(`${BUNDLE}testSecurityDataValidation0008, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -363,15 +362,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SEC_0300
-     * @tc.name      testSecurityCallbackInjection0001
+     * @tc.number    SUB_SYSTEMLOAD_SEC_0300
+     * @tc.name      testSecurityCallbackInjection0009
      * @tc.desc      Verify callback injection protection
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSecurityCallbackInjection0001', 0, async () => {
-      logger.info(`${BUNDLE}testSecurityCallbackInjection0001, begin`);
+    it('testSecurityCallbackInjection0009', 0, async () => {
+      logger.info(`${BUNDLE}testSecurityCallbackInjection0009, begin`);
 
       let callbackInvoked = false;
       const originalCallback: SystemLoadCallback = (level) => {
@@ -393,15 +392,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SEC_0400
-     * @tc.name      testSecurityResourceCleanup0001
+     * @tc.number    SUB_SYSTEMLOAD_SEC_0400
+     * @tc.name      testSecurityResourceCleanup0010
      * @tc.desc      Verify resource cleanup after exception
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSecurityResourceCleanup0001', 0, async () => {
-      logger.info(`${BUNDLE}testSecurityResourceCleanup0001, begin`);
+    it('testSecurityResourceCleanup0010', 0, async () => {
+      logger.info(`${BUNDLE}testSecurityResourceCleanup0010, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -428,15 +427,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_SEC_0500
-     * @tc.name      testSecurityConcurrentAccess0001
+     * @tc.number    SUB_SYSTEMLOAD_SEC_0500
+     * @tc.name      testSecurityConcurrentAccess0011
      * @tc.desc      Verify concurrent safety without data races
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSecurityConcurrentAccess0001', 0, async () => {
-      logger.info(`${BUNDLE}testSecurityConcurrentAccess0001, begin`);
+    it('testSecurityConcurrentAccess0011', 0, async () => {
+      logger.info(`${BUNDLE}testSecurityConcurrentAccess0011, begin`);
 
       const concurrentCount = 5;
       const promises: Promise<systemLoad.SystemLoadLevel>[] = [];
@@ -463,15 +462,15 @@ export default function performanceSecurityTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_COMPAT_0100
-     * @tc.name      testCompatibilityAPIVersion0001
+     * @tc.number    SUB_SYSTEMLOAD_COMPAT_0100
+     * @tc.name      testCompatibilityAPIVersion0012
      * @tc.desc      Verify API version compatibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCompatibilityAPIVersion0001', 0, async () => {
-      logger.info(`${BUNDLE}testCompatibilityAPIVersion0001, begin`);
+    it('testCompatibilityAPIVersion0012', 0, async () => {
+      logger.info(`${BUNDLE}testCompatibilityAPIVersion0012, begin`);
 
       expect(typeof systemLoad.getLevel).assertEqual('function');
       const level = await systemLoad.getLevel();
@@ -484,15 +483,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMPAT_0200
-     * @tc.name      testCompatibilityCallbackSignature0001
+     * @tc.number    SUB_SYSTEMLOAD_COMPAT_0200
+     * @tc.name      testCompatibilityCallbackSignature0013
      * @tc.desc      Verify callback signature compatibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCompatibilityCallbackSignature0001', 0, async () => {
-      logger.info(`${BUNDLE}testCompatibilityCallbackSignature0001, begin`);
+    it('testCompatibilityCallbackSignature0013', 0, async () => {
+      logger.info(`${BUNDLE}testCompatibilityCallbackSignature0013, begin`);
 
       const callback: SystemLoadCallback = (level) => {
         logger.info(`${BUNDLE}callback received level: ${level}`);
@@ -512,15 +511,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMPAT_0300
-     * @tc.name      testCompatibilityEnumValues0001
+     * @tc.number    SUB_SYSTEMLOAD_COMPAT_0300
+     * @tc.name      testCompatibilityEnumValues0014
      * @tc.desc      Verify enum values compatibility and stability
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCompatibilityEnumValues0001', 0, async () => {
-      logger.info(`${BUNDLE}testCompatibilityEnumValues0001, begin`);
+    it('testCompatibilityEnumValues0014', 0, async () => {
+      logger.info(`${BUNDLE}testCompatibilityEnumValues0014, begin`);
 
       const enumValues = [
         systemLoad.SystemLoadLevel.LOW,
@@ -549,15 +548,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_COMPAT_0400
-     * @tc.name      testCompatibilityDeviceTypes0001
+     * @tc.number    SUB_SYSTEMLOAD_COMPAT_0400
+     * @tc.name      testCompatibilityDeviceTypes0015
      * @tc.desc      Verify device type compatibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCompatibilityDeviceTypes0001', 0, async () => {
-      logger.info(`${BUNDLE}testCompatibilityDeviceTypes0001, begin`);
+    it('testCompatibilityDeviceTypes0015', 0, async () => {
+      logger.info(`${BUNDLE}testCompatibilityDeviceTypes0015, begin`);
 
       const level = await systemLoad.getLevel();
       expect(isValidLevel(level)).assertTrue();
@@ -574,15 +573,15 @@ export default function performanceSecurityTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_LOCAL_0100
-     * @tc.name      testLocalizationEnumLabels0001
+     * @tc.number    SUB_SYSTEMLOAD_LOCAL_0100
+     * @tc.name      testLocalizationEnumLabels0016
      * @tc.desc      Verify enum labels localization
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testLocalizationEnumLabels0001', 0, async () => {
-      logger.info(`${BUNDLE}testLocalizationEnumLabels0001, begin`);
+    it('testLocalizationEnumLabels0016', 0, async () => {
+      logger.info(`${BUNDLE}testLocalizationEnumLabels0016, begin`);
 
       const level = await systemLoad.getLevel();
       logger.info(`${BUNDLE}current level: ${level}`);
@@ -601,15 +600,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_LOCAL_0200
-     * @tc.name      testLocalizationErrorMessages0001
+     * @tc.number    SUB_SYSTEMLOAD_LOCAL_0200
+     * @tc.name      testLocalizationErrorMessages0017
      * @tc.desc      Verify error messages localization
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testLocalizationErrorMessages0001', 0, async () => {
-      logger.info(`${BUNDLE}testLocalizationErrorMessages0001, begin`);
+    it('testLocalizationErrorMessages0017', 0, async () => {
+      logger.info(`${BUNDLE}testLocalizationErrorMessages0017, begin`);
 
       let errorCode = 0;
       let errorMessage = '';
@@ -640,15 +639,15 @@ export default function performanceSecurityTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_LOCAL_0300
-     * @tc.name      testLocalizationAPINaming0001
+     * @tc.number    SUB_SYSTEMLOAD_LOCAL_0300
+     * @tc.name      testLocalizationAPINaming0018
      * @tc.desc      Verify API naming localization conventions
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 1
      */
-    it('testLocalizationAPINaming0001', 0, async () => {
-      logger.info(`${BUNDLE}testLocalizationAPINaming0001, begin`);
+    it('testLocalizationAPINaming0018', 0, async () => {
+      logger.info(`${BUNDLE}testLocalizationAPINaming0018, begin`);
 
       expect(typeof systemLoad.getLevel).assertEqual('function');
       expect(typeof systemLoad.on).assertEqual('function');

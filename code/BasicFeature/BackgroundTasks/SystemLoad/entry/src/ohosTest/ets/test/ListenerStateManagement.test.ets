@@ -71,7 +71,7 @@ export default function listenerStateManagementTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_LISTENER_0100
+     * @tc.number    SUB_SYSTEMLOAD_LISTENER_0100
      * @tc.name      testListenerSubscriptionStatePrimary0001
      * @tc.desc      Verify primary listener isPrimarySubscribed state transition
      * @tc.size      MediumTest
@@ -112,15 +112,15 @@ export default function listenerStateManagementTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_LISTENER_0200
-     * @tc.name      testListenerSubscriptionStateSecondary0001
+     * @tc.number    SUB_SYSTEMLOAD_LISTENER_0200
+     * @tc.name      testListenerSubscriptionStateSecondary0002
      * @tc.desc      Verify secondary listener isSecondarySubscribed state transition
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerSubscriptionStateSecondary0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerSubscriptionStateSecondary0001, begin`);
+    it('testListenerSubscriptionStateSecondary0002', 0, async () => {
+      logger.info(`${BUNDLE}testListenerSubscriptionStateSecondary0002, begin`);
 
       let isSecondarySubscribed = false;
       logger.info(`${BUNDLE}initial state: isSecondarySubscribed = ${isSecondarySubscribed}`);
@@ -153,15 +153,15 @@ export default function listenerStateManagementTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_LISTENER_0300
-     * @tc.name      testListenerSubscriptionStateConsistency0001
+     * @tc.number    SUB_SYSTEMLOAD_LISTENER_0300
+     * @tc.name      testListenerSubscriptionStateConsistency0003
      * @tc.desc      Verify UI text matches actual subscription state
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testListenerSubscriptionStateConsistency0001', 0, async () => {
-      logger.info(`${BUNDLE}testListenerSubscriptionStateConsistency0001, begin`);
+    it('testListenerSubscriptionStateConsistency0003', 0, async () => {
+      logger.info(`${BUNDLE}testListenerSubscriptionStateConsistency0003, begin`);
 
       let isSubscribed = false;
       let listenerText = 'not_listening';
@@ -200,15 +200,15 @@ export default function listenerStateManagementTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_RECORD_0100
-     * @tc.name      testCallbackRecordOrder0001
+     * @tc.number    SUB_SYSTEMLOAD_RECORD_0100
+     * @tc.name      testCallbackRecordOrder0004
      * @tc.desc      Verify callback records in reverse chronological order
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCallbackRecordOrder0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordOrder0001, begin`);
+    it('testCallbackRecordOrder0004', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordOrder0004, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -246,15 +246,15 @@ export default function listenerStateManagementTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_RECORD_0200
-     * @tc.name      testCallbackRecordFormat0001
+     * @tc.number    SUB_SYSTEMLOAD_RECORD_0200
+     * @tc.name      testCallbackRecordFormat0005
      * @tc.desc      Verify callback record format is correct
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCallbackRecordFormat0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordFormat0001, begin`);
+    it('testCallbackRecordFormat0005', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordFormat0005, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -294,15 +294,15 @@ export default function listenerStateManagementTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_RECORD_0300
-     * @tc.name      testCallbackRecordDistinctListeners0001
+     * @tc.number    SUB_SYSTEMLOAD_RECORD_0300
+     * @tc.name      testCallbackRecordDistinctListeners0006
      * @tc.desc      Verify primary/secondary listener records are distinguishable
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testCallbackRecordDistinctListeners0001', 0, async () => {
-      logger.info(`${BUNDLE}testCallbackRecordDistinctListeners0001, begin`);
+    it('testCallbackRecordDistinctListeners0006', 0, async () => {
+      logger.info(`${BUNDLE}testCallbackRecordDistinctListeners0006, begin`);
 
       let primaryCount = 0;
       let secondaryCount = 0;
@@ -342,15 +342,15 @@ export default function listenerStateManagementTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SYSTEMLOAD_MAPPING_0100
-     * @tc.name      testLevelMappingAllEnums0001
+     * @tc.number    SUB_SYSTEMLOAD_MAPPING_0100
+     * @tc.name      testLevelMappingAllEnums0007
      * @tc.desc      Verify all 8 levels have correct name/description/recommendation mapping
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testLevelMappingAllEnums0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelMappingAllEnums0001, begin`);
+    it('testLevelMappingAllEnums0007', 0, async () => {
+      logger.info(`${BUNDLE}testLevelMappingAllEnums0007, begin`);
 
       const levelMappings: LevelMapping[] = [
         { level: systemLoad.SystemLoadLevel.LOW, name: 'LOW', description: 'low load' },
@@ -377,15 +377,15 @@ export default function listenerStateManagementTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_MAPPING_0200
-     * @tc.name      testLevelMappingUnknown0001
+     * @tc.number    SUB_SYSTEMLOAD_MAPPING_0200
+     * @tc.name      testLevelMappingUnknown0008
      * @tc.desc      Verify default handling for unknown level
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testLevelMappingUnknown0001', 0, async () => {
-      logger.info(`${BUNDLE}testLevelMappingUnknown0001, begin`);
+    it('testLevelMappingUnknown0008', 0, async () => {
+      logger.info(`${BUNDLE}testLevelMappingUnknown0008, begin`);
 
       const unknownLevel = 99 as systemLoad.SystemLoadLevel;
       logger.info(`${BUNDLE}unknown level value: ${unknownLevel}`);

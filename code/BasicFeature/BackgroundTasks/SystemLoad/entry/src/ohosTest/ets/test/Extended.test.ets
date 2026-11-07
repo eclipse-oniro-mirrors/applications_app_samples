@@ -68,7 +68,7 @@ export default function extendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_CONCURRENT_0100
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_CONCURRENT_0100
      * @tc.name      testConcurrentRegistration0001
      * @tc.desc      Verify concurrent registration of multiple listeners independence
      * @tc.size      MediumTest
@@ -108,15 +108,15 @@ export default function extendedTest() {
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_RAPIDQUERY_0100
-     * @tc.name      testRapidQuery0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_RAPIDQUERY_0100
+     * @tc.name      testRapidQuery0002
      * @tc.desc      Verify rapid query getLevel performance and stability
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testRapidQuery0001', 0, async () => {
-      logger.info(`${BUNDLE}testRapidQuery0001, begin`);
+    it('testRapidQuery0002', 0, async () => {
+      logger.info(`${BUNDLE}testRapidQuery0002, begin`);
       const queryCount = 10;
       const results: systemLoad.SystemLoadLevel[] = [];
 
@@ -134,19 +134,19 @@ export default function extendedTest() {
       }
 
       expect(results.length).assertEqual(queryCount);
-      logger.info(`${BUNDLE}testRapidQuery0001, end`);
+      logger.info(`${BUNDLE}testRapidQuery0002, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_MIXED_0100
-     * @tc.name      testMixedRegistrationUnregistration0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_MIXED_0100
+     * @tc.name      testMixedRegistrationUnregistration0003
      * @tc.desc      Verify mixed registration and unregistration state consistency
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMixedRegistrationUnregistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testMixedRegistrationUnregistration0001, begin`);
+    it('testMixedRegistrationUnregistration0003', 0, async () => {
+      logger.info(`${BUNDLE}testMixedRegistrationUnregistration0003, begin`);
       const callback1: SystemLoadCallback = () => {};
       const callback2: SystemLoadCallback = () => {};
       const callback3: SystemLoadCallback = () => {};
@@ -171,19 +171,19 @@ export default function extendedTest() {
       expect(registeredCallbacks.indexOf(callback2) >= 0).assertTrue();
       expect(registeredCallbacks.indexOf(callback3) >= 0).assertTrue();
 
-      logger.info(`${BUNDLE}testMixedRegistrationUnregistration0001, end`);
+      logger.info(`${BUNDLE}testMixedRegistrationUnregistration0003, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_INVALIDCALLBACK_0100
-     * @tc.name      testInvalidCallbackScenarios0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_INVALIDCALLBACK_0100
+     * @tc.name      testInvalidCallbackScenarios0004
      * @tc.desc      Verify invalid callback scenarios error handling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testInvalidCallbackScenarios0001', 0, async () => {
-      logger.info(`${BUNDLE}testInvalidCallbackScenarios0001, begin`);
+    it('testInvalidCallbackScenarios0004', 0, async () => {
+      logger.info(`${BUNDLE}testInvalidCallbackScenarios0004, begin`);
 
       expect(registeredCallbacks.length).assertEqual(0);
 
@@ -213,19 +213,19 @@ export default function extendedTest() {
       expect(level >= 0).assertTrue();
       logger.info(`${BUNDLE}system recovered after invalid callback error`);
 
-      logger.info(`${BUNDLE}testInvalidCallbackScenarios0001, end`);
+      logger.info(`${BUNDLE}testInvalidCallbackScenarios0004, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_DUPREGISTER_0100
-     * @tc.name      testDuplicateRegistration0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_DUPREGISTER_0100
+     * @tc.name      testDuplicateRegistration0005
      * @tc.desc      Verify duplicate registration same callback idempotent
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDuplicateRegistration0001', 0, async () => {
-      logger.info(`${BUNDLE}testDuplicateRegistration0001, begin`);
+    it('testDuplicateRegistration0005', 0, async () => {
+      logger.info(`${BUNDLE}testDuplicateRegistration0005, begin`);
       const callback: SystemLoadCallback = () => {};
 
       systemLoad.on('systemLoadChange', callback);
@@ -246,19 +246,19 @@ export default function extendedTest() {
       });
       expect(registeredCallbacks.length).assertEqual(0);
 
-      logger.info(`${BUNDLE}testDuplicateRegistration0001, end`);
+      logger.info(`${BUNDLE}testDuplicateRegistration0005, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_QUERYLISTENER_0100
-     * @tc.name      testQueryWithActiveListeners0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_QUERYLISTENER_0100
+     * @tc.name      testQueryWithActiveListeners0006
      * @tc.desc      Verify query with active listeners no interference
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testQueryWithActiveListeners0001', 0, async () => {
-      logger.info(`${BUNDLE}testQueryWithActiveListeners0001, begin`);
+    it('testQueryWithActiveListeners0006', 0, async () => {
+      logger.info(`${BUNDLE}testQueryWithActiveListeners0006, begin`);
       expect(registeredCallbacks.length).assertEqual(0);
 
       const callback1: SystemLoadCallback = () => {};
@@ -280,24 +280,24 @@ export default function extendedTest() {
       }
 
       expect(registeredCallbacks.length).assertEqual(2);
-      logger.info(`${BUNDLE}testQueryWithActiveListeners0001, end`);
+      logger.info(`${BUNDLE}testQueryWithActiveListeners0006, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_UNREGISTERNON_0100
-     * @tc.name      testUnregisterNonExistent0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_UNREGISTERNON_0100
+     * @tc.name      testUnregisterNonExistent0007
      * @tc.desc      Verify unregister non-existent callback error handling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testUnregisterNonExistent0001', 0, async () => {
-      logger.info(`${BUNDLE}testUnregisterNonExistent0001, begin`);
+    it('testUnregisterNonExistent0007', 0, async () => {
+      logger.info(`${BUNDLE}testUnregisterNonExistent0007, begin`);
       const nonExistentCallback: SystemLoadCallback = () => {};
 
       expect(registeredCallbacks.length).assertEqual(0);
 
-      // 验证注销未注册的回调返回错误码 401
+      // 验证注销未注册的回调返回错误�?401
       await assertParameterError(() => {
         systemLoad.off('systemLoadChange', nonExistentCallback);
       });
@@ -316,19 +316,19 @@ export default function extendedTest() {
       expect(level >= 0).assertTrue();
       logger.info(`${BUNDLE}system functional after unregister error`);
 
-      logger.info(`${BUNDLE}testUnregisterNonExistent0001, end`);
+      logger.info(`${BUNDLE}testUnregisterNonExistent0007, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_BATCHUNREGISTER_0100
-     * @tc.name      testBatchUnregister0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_BATCHUNREGISTER_0100
+     * @tc.name      testBatchUnregister0008
      * @tc.desc      Verify batch unregister performance
      * @tc.size      MediumTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testBatchUnregister0001', 0, async () => {
-      logger.info(`${BUNDLE}testBatchUnregister0001, begin`);
+    it('testBatchUnregister0008', 0, async () => {
+      logger.info(`${BUNDLE}testBatchUnregister0008, begin`);
       const callbackCount = 10;
       const callbacks: SystemLoadCallback[] = [];
 
@@ -355,19 +355,19 @@ export default function extendedTest() {
       logger.info(`${BUNDLE}unregistered all ${callbackCount} callbacks`);
       expect(registeredCallbacks.length).assertEqual(0);
 
-      logger.info(`${BUNDLE}testBatchUnregister0001, end`);
+      logger.info(`${BUNDLE}testBatchUnregister0008, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_QUERYAFTER_0100
-     * @tc.name      testQueryAfterUnregisterAll0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_QUERYAFTER_0100
+     * @tc.name      testQueryAfterUnregisterAll0009
      * @tc.desc      Verify query after unregister all no impact
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testQueryAfterUnregisterAll0001', 0, async () => {
-      logger.info(`${BUNDLE}testQueryAfterUnregisterAll0001, begin`);
+    it('testQueryAfterUnregisterAll0009', 0, async () => {
+      logger.info(`${BUNDLE}testQueryAfterUnregisterAll0009, begin`);
       const callback: SystemLoadCallback = () => {};
 
       expect(registeredCallbacks.length).assertEqual(0);
@@ -385,19 +385,19 @@ export default function extendedTest() {
       expect(isValidLevel(level)).assertTrue();
       expect(level >= 0).assertTrue();
 
-      logger.info(`${BUNDLE}testQueryAfterUnregisterAll0001, end`);
+      logger.info(`${BUNDLE}testQueryAfterUnregisterAll0009, end`);
     });
 
     /**
-     * @tc.number    SYSTEMLOAD_EXTENDED_MULTIPLEUNREG_0100
-     * @tc.name      testMultipleUnregisterAll0001
+     * @tc.number    SUB_SYSTEMLOAD_EXTENDED_MULTIPLEUNREG_0100
+     * @tc.name      testMultipleUnregisterAll0010
      * @tc.desc      Verify multiple unregister all calls error handling
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testMultipleUnregisterAll0001', 0, async () => {
-      logger.info(`${BUNDLE}testMultipleUnregisterAll0001, begin`);
+    it('testMultipleUnregisterAll0010', 0, async () => {
+      logger.info(`${BUNDLE}testMultipleUnregisterAll0010, begin`);
       expect(registeredCallbacks.length).assertEqual(0);
 
       await assertParameterError(() => {
@@ -415,7 +415,7 @@ export default function extendedTest() {
       registeredCallbacks.push(validCallback);
       expect(registeredCallbacks.length).assertEqual(1);
 
-      logger.info(`${BUNDLE}testMultipleUnregisterAll0001, end`);
+      logger.info(`${BUNDLE}testMultipleUnregisterAll0010, end`);
     });
   });
 }
