@@ -1530,6 +1530,7 @@ static napi_value RegisterMainThreadJankWatcher(napi_env env, napi_callback_info
 // [Start Sys_Native_Nullptr_Event_C++_Init]
 // [Start Pss_Leak_Init]
 // [Start AppEvent_C++_Init]
+// [Start ExternalLog_C++_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
@@ -1542,6 +1543,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude Sys_Native_Nullptr_Event_C++_Init]
         // [StartExclude Pss_Leak_Init]
         // [StartExclude MainThreadJank_Init]
+        // [StartExclude ExternalLog_C++_Init]
         {"registerWatcher", nullptr, RegisterWatcher, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude AppEvent_C++_Init]
         { "registerWatcherCrash", nullptr, RegisterWatcherCrash, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -1591,6 +1593,9 @@ static napi_value Init(napi_env env, napi_value exports)
         // 将HiCollieTestTimerNdk注册为ArkTS接口
         { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [End test_hicollie_set_timer]
+        // [EndExclude ExternalLog_C++_Init]
+        { "registerExternalLogMgr", nullptr, RegisterExternalLogMgr, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [StartExclude ExternalLog_C++_Init]
         // [EndExclude MainThreadJank_Init]
         // [Start MainThreadJank_Init]
         { "RegisterMainThreadJankWatcher", nullptr, RegisterMainThreadJankWatcher, nullptr, nullptr, nullptr,
@@ -1603,10 +1608,12 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Sys_Crash_Event_C++_Init]
         // [EndExclude Sys_Native_Nullptr_Event_C++_Init]
         // [EndExclude AppKillEvent_Init]
+        // [EndExclude ExternalLog_C++_Init]
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }
+// [End ExternalLog_C++_Init]
 // [End AppKillEvent_Init]
 // [End PssLeakEvent_Init]
 // [End AsanEventTS_Init]
