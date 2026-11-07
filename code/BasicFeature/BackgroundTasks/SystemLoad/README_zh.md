@@ -34,8 +34,22 @@ SystemLoad
 │       │   └── module.json5
 │       └── ohosTest/ets/test
 │           ├── Ability.test.ets
+│           ├── AccessibilityPerformance.test.ets
+│           ├── CallbackDataValidation.test.ets
+│           ├── Comprehensive.test.ets
+│           ├── ConcurrencySafety.test.ets
+│           ├── Extended.test.ets
+│           ├── I18nTheme.test.ets
+│           ├── Level2Extended.test.ets
+│           ├── Level3Extended.test.ets
+│           ├── ListenerStateManagement.test.ets
 │           ├── List.test.ets
-│           └── SystemLoadSdk.test.ets
+│           ├── PerformanceSecurity.test.ets
+│           ├── SkillCompletion.test.ets
+│           ├── SystemLoadSdk.test.ets
+│           ├── UIComponentState.test.ets
+│           ├── UIInteraction.test.ets
+│           └── Utils.test.ets
 └── library
     ├── Index.ets
     └── src/main/ets/systemload
@@ -48,11 +62,30 @@ SystemLoad
 1. [SystemLoadService.ets](library/src/main/ets/systemload/feature/SystemLoadService.ets) 直接封装 `getLevel()`、`on('systemLoadChange')`、指定回调的 `off()` 和无参的 `off()`，保留原始 SDK 异常，便于调用方和 XTS 验证接口契约。
 2. [SystemLoadPage.ets](entry/src/main/ets/systemload/SystemLoadPage.ets) 将 8 种档位映射为中英文说明和应用调度建议，提供防止重复操作、双回调记录、数据来源切换和生命周期清理。
 3. 通过请求 ID（Request ID）避免较早的异步查询结果覆盖用户后续选择。
-4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) 提供 8 条可复现的 UI/Mock 用例；[SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) 提供 12 条真实 SDK 用例，断言合法档位和精确错误码。
+4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) 提供 21 条可复现的 UI/Mock 用例；[SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) 提供 20 条真实 SDK 用例，断言合法档位和精确错误码；[Utils.test.ets](entry/src/ohosTest/ets/test/Utils.test.ets) 提供 38 条工具函数测试用例；[Extended.test.ets](entry/src/ohosTest/ets/test/Extended.test.ets) 提供 10 条高级测试用例，覆盖并发和边界场景；[SkillCompletion.test.ets](entry/src/ohosTest/ets/test/SkillCompletion.test.ets) 提供 12 条基于 Skill 规范的测试用例，覆盖生命周期、错误恢复、数据一致性和监听器状态管理；[Level3Extended.test.ets](entry/src/ohosTest/ets/test/Level3Extended.test.ets) 提供 21 条 Level 3 测试用例，覆盖并发、性能、压力测试、边界值、页面状态和 UI 状态；[Level2Extended.test.ets](entry/src/ohosTest/ets/test/Level2Extended.test.ets) 提供 8 条 Level 2 测试用例，覆盖错误处理和资源清理；[UIInteraction.test.ets](entry/src/ohosTest/ets/test/UIInteraction.test.ets) 提供 9 条 Level 3 测试用例，覆盖 UI 交互和数据源管理；[Comprehensive.test.ets](entry/src/ohosTest/ets/test/Comprehensive.test.ets) 提供 52 条综合测试用例，覆盖状态机、边界值、空数据、重复操作、生命周期和数据源切换；[PerformanceSecurity.test.ets](entry/src/ohosTest/ets/test/PerformanceSecurity.test.ets) 提供 18 条测试用例，覆盖性能、稳定性、安全性、权限、兼容性和本地化；[CallbackDataValidation.test.ets](entry/src/ohosTest/ets/test/CallbackDataValidation.test.ets) 提供 7 条测试用例，覆盖回调数据验证、页面状态同步和请求 ID 防重；[ListenerStateManagement.test.ets](entry/src/ohosTest/ets/test/ListenerStateManagement.test.ets) 提供 8 条测试用例，覆盖监听器订阅状态、回调记录管理和等级映射；[UIComponentState.test.ets](entry/src/ohosTest/ets/test/UIComponentState.test.ets) 提供 9 条测试用例，覆盖 UI 组件状态、模拟数据循环和数据源切换；[ConcurrencySafety.test.ets](entry/src/ohosTest/ets/test/ConcurrencySafety.test.ets) 提供 4 条测试用例，覆盖并发安全和异常恢复；[I18nTheme.test.ets](entry/src/ohosTest/ets/test/I18nTheme.test.ets) 提供 4 条测试用例，覆盖国际化和主题适配；[AccessibilityPerformance.test.ets](entry/src/ohosTest/ets/test/AccessibilityPerformance.test.ets) 提供 5 条测试用例，覆盖无障碍和性能基准。
 
 ## 测试
 
-默认 [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) 注册 12 条真实 SDK 用例和 8 条 UI/Mock 用例，先执行真实 SDK 套件，避免页面监听器干扰注销全部用例。不支持 `SystemCapability.ResourceSchedule.SystemLoad` 的系统镜像不要运行真实套件。
+默认 [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) 注册 248 条测试用例，分布在 16 个测试套件中：
+
+- **真实 SDK 套件**（20 条）：测试真实系统接口调用，断言合法档位和精确错误码
+- **UI/模拟套件**（25 条）：测试 UI 交互和模拟数据功能
+- **工具类套件**（38 条）：测试字符串、日期、验证、随机数和设备操作等工具函数
+- **扩展套件**（10 条）：测试并发和高频操作等高级场景
+- **Skill 补全套件**（12 条）：测试生命周期管理、错误恢复、数据一致性和监听器状态
+- **Level 3 扩展套件**（21 条）：测试并发、性能、压力测试、边界值、页面状态和 UI 状态
+- **Level 2 扩展套件**（8 条）：测试错误处理和资源清理
+- **UI 交互套件**（9 条）：测试 UI 交互和数据源管理
+- **综合测试套件**（52 条）：测试状态机、边界值、空数据、重复操作、生命周期和数据源切换
+- **性能与安全性套件**（18 条）：测试性能、稳定性、安全性、权限、兼容性和本地化
+- **回调数据验证套件**（7 条）：测试回调数据验证、页面状态同步和请求 ID 防重
+- **监听器状态管理套件**（8 条）：测试监听器订阅状态、回调记录管理和等级映射
+- **UI 组件状态套件**（9 条）：测试 UI 组件状态、模拟数据循环和数据源切换
+- **并发安全套件**（4 条）：测试并发安全和异常恢复
+- **国际化与主题套件**（4 条）：测试国际化和主题适配
+- **无障碍与性能套件**（5 条）：测试无障碍和性能基准
+
+先执行真实 SDK 套件，避免页面监听器干扰注销全部用例。不支持 `SystemCapability.ResourceSchedule.SystemLoad` 的系统镜像不要运行真实套件。
 
 真实用例直接调用系统接口，不假定固定设备档位，也不要求多次查询结果相等。监听用例验证真实注册和注销；由于自然发生的档位变化不可控，不强制等待初始回调，但会校验测试期间实际收到的回调档位。注销全部用例在无参 `off()` 返回 401 时，逐个注销已记录回调，再验证两个回调均能重新注册和正常注销。用例清单、执行结果和人工档位变化场景见 [ohosTest.md](ohosTest.md)。
 
