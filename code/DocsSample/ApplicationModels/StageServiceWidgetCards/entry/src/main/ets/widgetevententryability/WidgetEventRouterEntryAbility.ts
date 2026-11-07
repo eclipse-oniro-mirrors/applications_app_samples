@@ -43,12 +43,11 @@ export default class WidgetEventRouterEntryAbility extends UIAbility {
         let formMsg = formBindingData.createFormBindingData(formData);
         formProvider.updateForm(curFormId, formMsg).then(() => {
           hilog.info(DOMAIN_NUMBER, TAG, 'updateForm success.');
-        }).catch((error: BusinessError) => {
-          hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${error.code}, error message: ${error.message}`);
+        }).catch((err: BusinessError) => {
+          hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${err.code}, error message: ${err.message}`);
         });
-      } catch (e) {
-        hilog.error(DOMAIN_NUMBER, TAG, `handleFormRouterEvent catch error` + `,
-          code: ${e.code}, message: ${e.message}`);
+      } catch (err) {
+        hilog.error(DOMAIN_NUMBER, TAG, `handleFormRouterEvent catch error, code: ${err.code}, message: ${err.message}`);
       }
     }
   }

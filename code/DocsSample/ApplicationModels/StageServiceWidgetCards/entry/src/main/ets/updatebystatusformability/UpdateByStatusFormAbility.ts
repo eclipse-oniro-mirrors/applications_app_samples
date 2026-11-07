@@ -104,9 +104,8 @@ export default class UpdateByStatusFormAbility extends FormExtensionAbility {
           await storeDB.put('B' + formId, msg.selectB);
         }
         await storeDB.flush();
-      } catch (e) {
-        hilog.error(DOMAIN_NUMBER, TAG, `onFormEvent catch error` + `,
-          code: ${e.code}, message: ${e.message}`);
+      } catch (error) {
+        hilog.error(DOMAIN_NUMBER, TAG, `onFormEvent catch error, code: ${error.code}, message: ${error.message}`);
       }
     }).catch((error: BusinessError) => {
       hilog.error(DOMAIN_NUMBER, TAG, `Failed to get preferences. error code: ${error.code}, error message: ${error.message}`);
