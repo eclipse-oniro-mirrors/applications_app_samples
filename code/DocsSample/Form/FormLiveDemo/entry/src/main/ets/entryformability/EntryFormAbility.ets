@@ -26,13 +26,18 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 export default class EntryFormAbility extends FormExtensionAbility {
   async onFormEvent(formId: string, message: string) {
-    let shortMessage: string = JSON.parse(message)['message'];
+    try {
+      let shortMessage: string = JSON.parse(message)['message'];
 
-    // 当接收的message为requestOverflow，触发互动卡片动效
-    if (shortMessage === 'requestOverflow') {
-      let formRect: formInfo.Rect = await formProvider.getFormRect(formId);
-      this.requestOverflow(formId, formRect.width, formRect.height);
-      return;
+      // 当接收的message为requestOverflow，触发互动卡片动效
+      if (shortMessage === 'requestOverflow') {
+        let formRect: formInfo.Rect = await formProvider.getFormRect(formId);
+        this.requestOverflow(formId, formRect.width, formRect.height);
+        return;
+      }
+    } catch (e) {
+      hilog.error(DOMAIN_NUMBER, TAG, `onFormEvent catch error` + `,
+        code: ${e.code}, message: ${e.message}`);
     }
   }
 
