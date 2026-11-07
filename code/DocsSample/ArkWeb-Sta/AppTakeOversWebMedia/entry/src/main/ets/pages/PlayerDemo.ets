@@ -72,7 +72,7 @@ export class AVPlayerDemo {
       listener?.onSeekFinished();
       console.info(`AVPlayer seek succeeded, seek time is ${seekDoneTime}`);
     });
-    // error回调监听函数,当avPlayer在操作过程中出现错误时调用reset接口触发重置流程
+    // error回调监听函数，当avPlayer在操作过程中出现错误时调用reset接口触发重置流程
     avPlayer?.onError((err: BusinessError):void => {
       console.error(`Invoke avPlayer failed, code is ${err.code}, message is ${err.message}`);
       listener?.onError();
