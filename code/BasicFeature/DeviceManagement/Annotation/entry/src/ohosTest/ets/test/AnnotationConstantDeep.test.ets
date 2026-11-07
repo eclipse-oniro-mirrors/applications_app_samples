@@ -47,7 +47,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0100
      * @tc.name testAvailableMinApiVersionDeep0001
      * @tc.desc Deep validation of AVAILABLE_MIN_API_VERSION.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -73,7 +73,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0200
      * @tc.name testSuppressAnnotationSinceDeep0002
      * @tc.desc Deep validation of SUPPRESS_ANNOTATION_SINCE_API_VERSION.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -99,7 +99,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0300
      * @tc.name testFutureDemoApiVersionDeep0003
      * @tc.desc Deep validation of FUTURE_DEMO_API_VERSION.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -128,7 +128,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0400
      * @tc.name testConstantOrdering0004
      * @tc.desc Verify constant ordering relationships.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -160,7 +160,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0500
      * @tc.name testConstantImmutability0005
      * @tc.desc Verify constants remain immutable after operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -196,7 +196,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0600
      * @tc.name testConstantWithDeviceVersion0006
      * @tc.desc Verify constants relationship with device version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -226,7 +226,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0700
      * @tc.name testConstantMathematicalRelations0007
      * @tc.desc Verify mathematical relationships between constants.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -258,7 +258,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0800
      * @tc.name testConstantTypeValidation0008
      * @tc.desc Validate constant types thoroughly.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -290,7 +290,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_0900
      * @tc.name testConstantBoundaryValidation0009
      * @tc.desc Validate constants at boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -325,7 +325,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_1000
      * @tc.name testConstantConsistencyAcrossCalls0010
      * @tc.desc Verify constant consistency across multiple calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -390,7 +390,7 @@ export default function annotationConstantDeepTest() {
      * @tc.number SUB_ANNOTATION_CONST_1100
      * @tc.name testConstantWithMockVersion0011
      * @tc.desc Verify constants relationship with mock version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

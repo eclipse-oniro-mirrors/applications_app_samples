@@ -43,10 +43,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0100
+     * @tc.number SUB_MOCK_0100
      * @tc.name testMockApiVersionValue0001
      * @tc.desc Verify getMockApiVersion returns fixed value 21.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -61,10 +61,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0200
+     * @tc.number SUB_MOCK_0200
      * @tc.name testMockAvailableDemoReturnsFalse0002
      * @tc.desc Verify runMockAvailableDemo always returns false (21 < 22).
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -78,10 +78,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0300
+     * @tc.number SUB_MOCK_0300
      * @tc.name testMockSuppressWarningsDemoReturnsFalse0003
      * @tc.desc Verify runMockSuppressWarningsDemo always returns false (21 < 27).
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -95,10 +95,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0400
+     * @tc.number SUB_MOCK_0400
      * @tc.name testMockVersionBelowAvailableThreshold0004
      * @tc.desc Verify mock version is below Available threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -112,10 +112,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0500
+     * @tc.number SUB_MOCK_0500
      * @tc.name testMockVersionBelowFutureThreshold0005
      * @tc.desc Verify mock version is below SuppressWarnings threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -129,10 +129,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0600
+     * @tc.number SUB_MOCK_0600
      * @tc.name testMockVersionConsistency0006
      * @tc.desc Verify mock version remains consistent across multiple calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -148,10 +148,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0700
+     * @tc.number SUB_MOCK_0700
      * @tc.name testMockAvailableDemoConsistency0007
      * @tc.desc Verify runMockAvailableDemo returns consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -167,10 +167,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0800
+     * @tc.number SUB_MOCK_0800
      * @tc.name testMockSuppressWarningsDemoConsistency0008
      * @tc.desc Verify runMockSuppressWarningsDemo returns consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -186,10 +186,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_0900
+     * @tc.number SUB_MOCK_0900
      * @tc.name testMockVsLocalVersionDifference0009
      * @tc.desc Verify mock and local versions are different.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -206,10 +206,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1000
+     * @tc.number SUB_MOCK_1000
      * @tc.name testMockResultBooleanType0010
      * @tc.desc Verify mock demo results are boolean type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -225,10 +225,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1100
+     * @tc.number SUB_MOCK_1100
      * @tc.name testMockVersionIsNumber0011
      * @tc.desc Verify mock API version is number type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -242,10 +242,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1200
+     * @tc.number SUB_MOCK_1200
      * @tc.name testMockVersionIsPositive0012
      * @tc.desc Verify mock API version is positive.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -259,10 +259,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1300
+     * @tc.number SUB_MOCK_1300
      * @tc.name testMockVersionIsInteger0013
      * @tc.desc Verify mock API version is an integer.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -276,10 +276,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1400
+     * @tc.number SUB_MOCK_1400
      * @tc.name testMockBothDemosReturnFalse0014
      * @tc.desc Verify both mock demos return false in the same call sequence.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -295,10 +295,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1500
+     * @tc.number SUB_MOCK_1500
      * @tc.name testMockDemosIndependentExecution0015
      * @tc.desc Verify mock demos can be executed independently.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -315,10 +315,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1600
+     * @tc.number SUB_MOCK_1600
      * @tc.name testMockVersionStableAfterDemos0016
      * @tc.desc Verify mock version remains stable after running demos.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -337,10 +337,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1700
+     * @tc.number SUB_MOCK_1700
      * @tc.name testMockResultsStableAfterMultipleCalls0017
      * @tc.desc Verify mock results remain stable after multiple calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -358,10 +358,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1800
+     * @tc.number SUB_MOCK_1800
      * @tc.name testMockVersionNotAffectedByLocalCalls0018
      * @tc.desc Verify mock version is not affected by local API calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -377,10 +377,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_1900
+     * @tc.number SUB_MOCK_1900
      * @tc.name testLocalVersionNotAffectedByMockCalls0019
      * @tc.desc Verify local version is not affected by mock API calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -398,10 +398,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_2000
+     * @tc.number SUB_MOCK_2000
      * @tc.name testMockVersionMatchesExpected0020
      * @tc.desc Verify mock version matches expected constant value.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -417,10 +417,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_2100
+     * @tc.number SUB_MOCK_2100
      * @tc.name testMockAvailableResultMatchesCalculation0021
      * @tc.desc Verify mock Available result matches expected calculation.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -438,10 +438,10 @@ export default function mockEnvironmentTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_MOCK_2200
+     * @tc.number SUB_MOCK_2200
      * @tc.name testMockSuppressWarningsResultMatchesCalculation0022
      * @tc.desc Verify mock SuppressWarnings result matches expected calculation.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

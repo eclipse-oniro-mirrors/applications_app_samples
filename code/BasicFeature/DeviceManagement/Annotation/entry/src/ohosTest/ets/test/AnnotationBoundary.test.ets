@@ -47,7 +47,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0100
      * @tc.name testAvailableMinApiVersionMinusOne0001
      * @tc.desc Test behavior at AVAILABLE_MIN_API_VERSION - 1 (21).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -74,7 +74,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0200
      * @tc.name testAvailableMinApiVersionExact0002
      * @tc.desc Test behavior at AVAILABLE_MIN_API_VERSION (22).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -103,7 +103,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0300
      * @tc.name testAvailableMinApiVersionPlusOne0003
      * @tc.desc Test behavior at AVAILABLE_MIN_API_VERSION + 1 (23).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -129,7 +129,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0400
      * @tc.name testSuppressBoundaryMinusOne0004
      * @tc.desc Test behavior at SUPPRESS_ANNOTATION_SINCE_API_VERSION - 1 (22).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -155,7 +155,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0500
      * @tc.name testSuppressBoundaryExact0005
      * @tc.desc Test behavior at SUPPRESS_ANNOTATION_SINCE_API_VERSION (23).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -182,7 +182,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0600
      * @tc.name testSuppressBoundaryPlusOne0006
      * @tc.desc Test behavior at SUPPRESS_ANNOTATION_SINCE_API_VERSION + 1 (24).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -207,7 +207,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0700
      * @tc.name testFutureBoundaryMinusOne0007
      * @tc.desc Test behavior at FUTURE_DEMO_API_VERSION - 1 (26).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -232,7 +232,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0800
      * @tc.name testFutureBoundaryExact0008
      * @tc.desc Test behavior at FUTURE_DEMO_API_VERSION (27).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -260,7 +260,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_0900
      * @tc.name testFutureBoundaryPlusOne0009
      * @tc.desc Test behavior at FUTURE_DEMO_API_VERSION + 1 (28).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -284,7 +284,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1000
      * @tc.name testRulesArrayBoundary0010
      * @tc.desc Test rules array boundary conditions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -316,7 +316,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1100
      * @tc.name testVersionRelationshipBoundaries0011
      * @tc.desc Test version relationship boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -350,7 +350,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1200
      * @tc.name testZeroBoundary0012
      * @tc.desc Test zero boundary conditions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -376,7 +376,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1300
      * @tc.name testNegativeBoundary0013
      * @tc.desc Test that negative values are not used.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -400,7 +400,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1400
      * @tc.name testBooleanBoundary0014
      * @tc.desc Test boolean boundary conditions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -429,7 +429,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1500
      * @tc.name testStringEmptyBoundary0015
      * @tc.desc Test string empty boundary conditions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -456,7 +456,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1600
      * @tc.name testMaxSafeInteger0016
      * @tc.desc Test max safe integer boundary.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -480,7 +480,7 @@ export default function annotationBoundaryTest() {
      * @tc.number SUB_ANNOTATION_BOUNDARY_1700
      * @tc.name testDeviceVersionBoundary0017
      * @tc.desc Test device version boundary.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

@@ -47,7 +47,7 @@ export default function annotationIntegrationExtTest() {
      * @tc.number SUB_ANNOTATION_INTE_0100
      * @tc.name testCrossModuleDataFlow0001
      * @tc.desc Verify cross-module data flow integrity.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -77,7 +77,7 @@ export default function annotationIntegrationExtTest() {
      * @tc.number SUB_ANNOTATION_INTE_0200
      * @tc.name testMultiServiceCoordination0002
      * @tc.desc Verify multi-service coordination.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -108,7 +108,7 @@ export default function annotationIntegrationExtTest() {
      * @tc.number SUB_ANNOTATION_INTE_0300
      * @tc.name testDataPropagation0003
      * @tc.desc Verify data propagation across operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -174,7 +174,7 @@ export default function annotationIntegrationExtTest() {
      * @tc.number SUB_ANNOTATION_INTE_0500
      * @tc.name testErrorPropagation0005
      * @tc.desc Verify error propagation handling.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -258,7 +258,7 @@ export default function annotationIntegrationExtTest() {
      * @tc.number SUB_ANNOTATION_INTE_0700
      * @tc.name testModuleIsolation0007
      * @tc.desc Verify module isolation in integration.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

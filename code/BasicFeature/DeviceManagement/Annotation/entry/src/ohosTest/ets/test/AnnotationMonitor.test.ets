@@ -97,7 +97,7 @@ export default function annotationMonitorTest() {
      * @tc.number SUB_ANNOTATION_MON_0200
      * @tc.name testMemoryUsageMonitor0002
      * @tc.desc Monitor memory usage patterns.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -236,7 +236,7 @@ export default function annotationMonitorTest() {
      * @tc.number SUB_ANNOTATION_MON_0500
      * @tc.name testErrorRateMonitor0005
      * @tc.desc Monitor error rate.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -320,7 +320,7 @@ export default function annotationMonitorTest() {
      * @tc.number SUB_ANNOTATION_MON_0700
      * @tc.name testHealthCheckMonitor0007
      * @tc.desc Perform health check monitoring.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

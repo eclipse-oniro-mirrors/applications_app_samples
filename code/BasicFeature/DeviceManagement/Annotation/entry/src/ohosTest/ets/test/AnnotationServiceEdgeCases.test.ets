@@ -32,7 +32,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0100
      * @tc.name testApiVersionBoundary0001
      * @tc.desc Verify API version relationships at boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -52,7 +52,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0200
      * @tc.name testMockEnvironmentConsistency0002
      * @tc.desc Verify mock environment returns consistent results across calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -73,7 +73,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0300
      * @tc.name testSuppressionRulesImmutability0003
      * @tc.desc Verify that modifying returned rules array does not affect internal state.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -96,7 +96,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0400
      * @tc.name testAvailableDemoBoundaryBehavior0004
      * @tc.desc Verify Available demo behavior at API version boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -117,7 +117,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0500
      * @tc.name testSuppressWarningsDemoBoundaryBehavior0005
      * @tc.desc Verify SuppressWarnings demo behavior at API version boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -138,7 +138,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0600
      * @tc.name testVersionConstantsArePositive0006
      * @tc.desc Verify all version constants are positive numbers.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -157,7 +157,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0700
      * @tc.name testSuppressionRulesNotEmpty0007
      * @tc.desc Verify suppression rules array is not empty and contains valid types.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -176,7 +176,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0800
      * @tc.name testLocalAndMockVersionIndependence0008
      * @tc.desc Verify local and mock versions are independent.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -197,7 +197,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_0900
      * @tc.name testDemoExecutionOrderIndependence0009
      * @tc.desc Verify demo execution order does not affect results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -220,7 +220,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_1000
      * @tc.name testMockDemoExecutionOrderIndependence0010
      * @tc.desc Verify mock demo execution order does not affect results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -243,7 +243,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_1100
      * @tc.name testSuppressionRulesMultipleRetrievals0011
      * @tc.desc Verify multiple retrievals of suppression rules return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -264,7 +264,7 @@ export default function annotationEdgeCasesTest() {
      * @tc.number SUB_ANNOTATION_EDGE_1200
      * @tc.name testVersionRetrievalStability0012
      * @tc.desc Verify version retrieval is stable and does not change.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

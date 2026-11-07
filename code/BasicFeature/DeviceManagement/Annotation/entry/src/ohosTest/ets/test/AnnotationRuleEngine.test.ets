@@ -47,7 +47,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0100
      * @tc.name testRulePriorityOrder0001
      * @tc.desc Verify rule priority order is correct.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -70,7 +70,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0200
      * @tc.name testRuleConflictResolution0002
      * @tc.desc Verify rule conflict resolution mechanism.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -96,7 +96,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0300
      * @tc.name testDynamicRuleAddition0003
      * @tc.desc Verify dynamic rule addition behavior.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -121,7 +121,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0400
      * @tc.name testDynamicRuleDeletion0004
      * @tc.desc Verify dynamic rule deletion behavior.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -146,7 +146,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0500
      * @tc.name testRuleMatchingAlgorithm0005
      * @tc.desc Verify rule matching algorithm correctness.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -169,7 +169,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0600
      * @tc.name testRuleInheritanceOverride0006
      * @tc.desc Verify rule inheritance and override behavior.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -194,7 +194,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0700
      * @tc.name testRuleCombinationApplication0007
      * @tc.desc Verify rule combination application.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -219,7 +219,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0800
      * @tc.name testRuleConditionalBranch0008
      * @tc.desc Verify rule conditional branches.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -251,7 +251,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_0900
      * @tc.name testRuleDefaultBehavior0009
      * @tc.desc Verify rule default behavior.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -275,7 +275,7 @@ export default function annotationRuleEngineTest() {
      * @tc.number SUB_ANNOTATION_RULE_1000
      * @tc.name testRuleEngineStability0010
      * @tc.desc Verify rule engine stability under load.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */

@@ -47,7 +47,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0100
      * @tc.name testUIStateInitialization0001
      * @tc.desc Verify UI state initialization is correct.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -73,7 +73,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0200
      * @tc.name testUIStateTransition0002
      * @tc.desc Verify UI state transitions work correctly.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -109,7 +109,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0300
      * @tc.name testUIComponentInteraction0003
      * @tc.desc Verify UI component interactions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -177,7 +177,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0500
      * @tc.name testUIEventHandling0005
      * @tc.desc Verify UI event handling.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -211,7 +211,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0600
      * @tc.name testUIStateRecovery0006
      * @tc.desc Verify UI state recovery after errors.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -330,7 +330,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_0900
      * @tc.name testUIStateValidation0009
      * @tc.desc Validate UI state at multiple points.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -371,7 +371,7 @@ export default function annotationUIDeepTest() {
      * @tc.number SUB_ANNOTATION_UIDEEP_1000
      * @tc.name testUIConstantsValidation0010
      * @tc.desc Validate constants in UI context.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

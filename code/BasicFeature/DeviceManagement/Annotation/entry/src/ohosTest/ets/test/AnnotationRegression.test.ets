@@ -49,7 +49,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0100
      * @tc.name testCoreFunctionalityStability0001
      * @tc.desc Verify core functionality remains stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -73,7 +73,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0200
      * @tc.name testCriticalPathRegression0002
      * @tc.desc Verify critical path has no regression.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -98,7 +98,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0300
      * @tc.name testPerformanceNoRegression0003
      * @tc.desc Verify no performance regression.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Performance
      * @tc.level Level 2
      */
@@ -130,7 +130,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0400
      * @tc.name testCompatibilityNoRegression0004
      * @tc.desc Verify compatibility has no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -154,7 +154,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0500
      * @tc.name testBoundaryConditionRegression0005
      * @tc.desc Verify boundary conditions have no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -175,7 +175,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0600
      * @tc.name testExceptionHandlingRegression0006
      * @tc.desc Verify exception handling has no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -205,7 +205,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0700
      * @tc.name testStateMachineRegression0007
      * @tc.desc Verify state machine has no regression.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -228,7 +228,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0800
      * @tc.name testConstantValuesRegression0008
      * @tc.desc Verify constant values have no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -249,7 +249,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_0900
      * @tc.name testRulesArrayRegression0009
      * @tc.desc Verify rules array has no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -272,7 +272,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_1000
      * @tc.name testMockEnvironmentRegression0010
      * @tc.desc Verify mock environment has no regression.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -297,7 +297,7 @@ export default function annotationRegressionTest() {
      * @tc.number SUB_ANNOTATION_REGRESSION_1100
      * @tc.name testIntegrationPointsRegression0011
      * @tc.desc Verify integration points have no regression.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

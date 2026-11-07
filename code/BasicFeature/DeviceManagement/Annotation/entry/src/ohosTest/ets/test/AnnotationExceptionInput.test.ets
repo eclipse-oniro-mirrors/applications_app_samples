@@ -307,7 +307,7 @@ export default function annotationExceptionInputTest() {
      * @tc.number SUB_ANNOTATION_EXCEP_0700
      * @tc.name testEmptyInputHandling0007
      * @tc.desc Test handling of empty input scenarios.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -338,7 +338,7 @@ export default function annotationExceptionInputTest() {
      * @tc.number SUB_ANNOTATION_EXCEP_0800
      * @tc.name testSingleIterationBoundary0008
      * @tc.desc Test single iteration boundary case.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

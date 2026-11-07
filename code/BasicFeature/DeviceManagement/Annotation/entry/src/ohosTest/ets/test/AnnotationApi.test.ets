@@ -36,7 +36,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0100
      * @tc.name testAvailable0001
      * @tc.desc Verify that the local API version is obtained from deviceInfo.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -53,7 +53,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0200
      * @tc.name testAvailable0002
      * @tc.desc Verify that the Available example uses API 22 as its minimum version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -69,7 +69,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0300
      * @tc.name testAvailable0003
      * @tc.desc Verify that the mock environment is lower than the Available minimum version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -86,7 +86,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0400
      * @tc.name testAvailable0004
      * @tc.desc Verify that the Available example safely falls back in the API 21 mock environment.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -103,7 +103,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0500
      * @tc.name testAvailable0005
      * @tc.desc Verify that local Available execution follows the device API version guard.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -121,7 +121,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0600
      * @tc.name testAvailable0006
      * @tc.desc Verify that repeated Available calls are stable and do not change the local API version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -143,7 +143,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0700
      * @tc.name testSuppressWarnings0001
      * @tc.desc Verify the annotation starting version and the future example API version.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -160,7 +160,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0800
      * @tc.name testSuppressWarnings0002
      * @tc.desc Verify the documented value of the compatibility suppression rule.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -176,7 +176,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_0900
      * @tc.name testSuppressWarnings0003
      * @tc.desc Verify the documented value of the system capability suppression rule.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -192,7 +192,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1000
      * @tc.name testSuppressWarnings0004
      * @tc.desc Verify the documented value of the permission suppression rule.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -208,7 +208,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1100
      * @tc.name testSuppressWarnings0005
      * @tc.desc Verify that all suppression rules are returned in the example definition order.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -227,7 +227,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1200
      * @tc.name testSuppressWarnings0006
      * @tc.desc Verify that changing a returned rule array does not affect later queries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -246,7 +246,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1300
      * @tc.name testSuppressWarnings0007
      * @tc.desc Verify that warning suppression does not bypass the API 21 runtime fallback.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -263,7 +263,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1400
      * @tc.name testSuppressWarnings0008
      * @tc.desc Verify that local suppressed execution follows the future API version guard.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -281,7 +281,7 @@ export default function annotationApiTest() {
      * @tc.number SUB_ANNOTATION_API_1500
      * @tc.name testSuppressWarnings0009
      * @tc.desc Verify repeated suppressed calls and independence from the Available example.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

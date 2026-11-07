@@ -47,7 +47,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0100
      * @tc.name testApiVersionBoundaryValues0001
      * @tc.desc Verify API version boundary values are valid and in correct order.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -66,7 +66,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0200
      * @tc.name testDeviceApiVersionValidity0002
      * @tc.desc Verify device API version is within expected range.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -84,7 +84,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0300
      * @tc.name testDemoReturnTypeConsistency0003
      * @tc.desc Verify all demo methods return boolean type consistently.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -107,7 +107,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0400
      * @tc.name testVersionComparisonLogic0004
      * @tc.desc Verify version comparison logic is correct.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -128,7 +128,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0500
      * @tc.name testRulesArrayIntegrity0005
      * @tc.desc Verify suppression rules array maintains integrity.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -148,7 +148,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0600
      * @tc.name testMultipleCallsIdempotency0006
      * @tc.desc Verify multiple calls return same results (idempotency).
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -169,7 +169,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0700
      * @tc.name testMockEnvironmentIsolation0007
      * @tc.desc Verify mock environment is isolated from local environment.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -189,7 +189,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0800
      * @tc.name testStateConsistencyAfterOperations0008
      * @tc.desc Verify state consistency after various operations.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -210,7 +210,7 @@ export default function annotationExceptionTest() {
      * @tc.number SUB_ANNOTATION_EXCEPT_0900
      * @tc.name testCrossEnvironmentState0009
      * @tc.desc Verify state remains consistent across environment switches.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */

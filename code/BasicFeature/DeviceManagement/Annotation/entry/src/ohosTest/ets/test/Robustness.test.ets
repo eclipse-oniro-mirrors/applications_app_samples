@@ -45,10 +45,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0100
+     * @tc.number SUB_ROBUST_0100
      * @tc.name testSuppressionRulesArrayModification0001
      * @tc.desc Verify modifying returned rules array does not affect service state.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -68,10 +68,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0200
+     * @tc.number SUB_ROBUST_0200
      * @tc.name testSuppressionRulesArrayElementModification0002
      * @tc.desc Verify modifying array elements does not affect service state.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -88,10 +88,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0300
+     * @tc.number SUB_ROBUST_0300
      * @tc.name testSuppressionRulesArrayClear0003
      * @tc.desc Verify clearing returned array does not affect subsequent calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -108,10 +108,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0400
+     * @tc.number SUB_ROBUST_0400
      * @tc.name testRapidAvailableDemoCalls0004
      * @tc.desc Verify rapid consecutive calls to runAvailableDemo are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -131,10 +131,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0500
+     * @tc.number SUB_ROBUST_0500
      * @tc.name testRapidSuppressWarningsDemoCalls0005
      * @tc.desc Verify rapid consecutive calls to runSuppressWarningsDemo are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -154,10 +154,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0600
+     * @tc.number SUB_ROBUST_0600
      * @tc.name testRapidMockAvailableDemoCalls0006
      * @tc.desc Verify rapid consecutive calls to runMockAvailableDemo are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -176,10 +176,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0700
+     * @tc.number SUB_ROBUST_0700
      * @tc.name testRapidMockSuppressWarningsDemoCalls0007
      * @tc.desc Verify rapid consecutive calls to runMockSuppressWarningsDemo are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -198,10 +198,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0800
+     * @tc.number SUB_ROBUST_0800
      * @tc.name testRapidGetLocalApiVersionCalls0008
      * @tc.desc Verify rapid consecutive calls to getLocalApiVersion are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -220,10 +220,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_0900
+     * @tc.number SUB_ROBUST_0900
      * @tc.name testRapidGetMockApiVersionCalls0009
      * @tc.desc Verify rapid consecutive calls to getMockApiVersion are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -242,10 +242,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1000
+     * @tc.number SUB_ROBUST_1000
      * @tc.name testRapidGetSuppressionRulesCalls0010
      * @tc.desc Verify rapid consecutive calls to getSuppressionRules are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -262,10 +262,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1100
+     * @tc.number SUB_ROBUST_1100
      * @tc.name testCrossDemoInterleavedCalls0011
      * @tc.desc Verify interleaved calls to different demos are stable.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -283,10 +283,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1200
+     * @tc.number SUB_ROBUST_1200
      * @tc.name testCrossEnvironmentInterleavedCalls0012
      * @tc.desc Verify interleaved calls between local and mock environments.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -303,10 +303,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1300
+     * @tc.number SUB_ROBUST_1300
      * @tc.name testVersionCallsInterleavedWithDemos0013
      * @tc.desc Verify version queries remain stable when interleaved with demo calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -326,10 +326,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1400
+     * @tc.number SUB_ROBUST_1400
      * @tc.name testRulesCallsInterleavedWithDemos0014
      * @tc.desc Verify rules queries remain stable when interleaved with demo calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -347,10 +347,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1500
+     * @tc.number SUB_ROBUST_1500
      * @tc.name testMultipleArrayReferences0015
      * @tc.desc Verify multiple array references are independent.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -368,10 +368,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1600
+     * @tc.number SUB_ROBUST_1600
      * @tc.name testHighFrequencyCallStability0016
      * @tc.desc Verify service stability under high frequency calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -399,10 +399,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1700
+     * @tc.number SUB_ROBUST_1700
      * @tc.name testStatePreservationAfterModification0017
      * @tc.desc Verify service state is preserved after array modification attempts.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -423,10 +423,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1800
+     * @tc.number SUB_ROBUST_1800
      * @tc.name testDemoResultsNotAffectedByRules0018
      * @tc.desc Verify demo results are not affected by rules array operations.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -444,10 +444,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_1900
+     * @tc.number SUB_ROBUST_1900
      * @tc.name testVersionConsistencyAfterDemos0019
      * @tc.desc Verify version values remain consistent after demo executions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -470,10 +470,10 @@ export default function robustnessTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_ROBUST_2000
+     * @tc.number SUB_ROBUST_2000
      * @tc.name testRepeatedRulesRetrieval0020
      * @tc.desc Verify repeated rules retrieval returns consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

@@ -50,10 +50,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0100
+     * @tc.number SUB_BOUNDARY_0100
      * @tc.name testMockApiVersionBelowAvailable0001
      * @tc.desc Verify mock API version 21 is below Available threshold 22.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -68,10 +68,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0200
+     * @tc.number SUB_BOUNDARY_0200
      * @tc.name testMockApiVersionBelowFuture0002
      * @tc.desc Verify mock API version 21 is below SuppressWarnings threshold 27.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -86,10 +86,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0300
+     * @tc.number SUB_BOUNDARY_0300
      * @tc.name testLocalApiVersionAtBoundary0003
      * @tc.desc Verify local API version comparison with Available threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -106,10 +106,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0400
+     * @tc.number SUB_BOUNDARY_0400
      * @tc.name testLocalApiVersionAtFutureBoundary0004
      * @tc.desc Verify local API version comparison with SuppressWarnings threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -126,10 +126,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0500
+     * @tc.number SUB_BOUNDARY_0500
      * @tc.name testAvailableBoundaryValues0005
      * @tc.desc Verify Available boundary values are correctly defined.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -142,10 +142,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0600
+     * @tc.number SUB_BOUNDARY_0600
      * @tc.name testFutureBoundaryValues0006
      * @tc.desc Verify SuppressWarnings boundary values are correctly defined.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -158,10 +158,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0700
+     * @tc.number SUB_BOUNDARY_0700
      * @tc.name testMockApiVersionIsFixed0007
      * @tc.desc Verify mock API version remains constant at 21.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -177,10 +177,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0800
+     * @tc.number SUB_BOUNDARY_0800
      * @tc.name testLocalApiVersionIsConsistent0008
      * @tc.desc Verify local API version remains consistent across calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -197,10 +197,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_0900
+     * @tc.number SUB_BOUNDARY_0900
      * @tc.name testBoundaryRelationshipMockAvailable0009
      * @tc.desc Verify mock version is always below Available threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -215,10 +215,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1000
+     * @tc.number SUB_BOUNDARY_1000
      * @tc.name testBoundaryRelationshipMockFuture0010
      * @tc.desc Verify mock version is always below SuppressWarnings threshold.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -233,10 +233,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1100
+     * @tc.number SUB_BOUNDARY_1100
      * @tc.name testAvailableThresholdGap0011
      * @tc.desc Verify gap between Available and SuppressWarnings thresholds.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -252,10 +252,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1200
+     * @tc.number SUB_BOUNDARY_1200
      * @tc.name testMockResultConsistency0012
      * @tc.desc Verify mock demo results are consistent with boundary conditions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -274,10 +274,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1300
+     * @tc.number SUB_BOUNDARY_1300
      * @tc.name testLocalResultConsistency0013
      * @tc.desc Verify local demo results are consistent with boundary conditions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -296,10 +296,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1400
+     * @tc.number SUB_BOUNDARY_1400
      * @tc.name testBoundaryValuesPositive0014
      * @tc.desc Verify all boundary values are positive numbers.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -314,10 +314,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1500
+     * @tc.number SUB_BOUNDARY_1500
      * @tc.name testBoundaryOrdering0015
      * @tc.desc Verify correct ordering of all boundary values.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -333,10 +333,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1600
+     * @tc.number SUB_BOUNDARY_1600
      * @tc.name testMultipleBoundaryCalls0016
      * @tc.desc Verify boundary conditions remain stable across multiple calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -354,10 +354,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1700
+     * @tc.number SUB_BOUNDARY_1700
      * @tc.name testAvailableDemoReturnsBoolean0017
      * @tc.desc Verify runAvailableDemo returns boolean type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -371,10 +371,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1800
+     * @tc.number SUB_BOUNDARY_1800
      * @tc.name testSuppressWarningsDemoReturnsBoolean0018
      * @tc.desc Verify runSuppressWarningsDemo returns boolean type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -388,10 +388,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_1900
+     * @tc.number SUB_BOUNDARY_1900
      * @tc.name testMockAvailableDemoReturnsBoolean0019
      * @tc.desc Verify runMockAvailableDemo returns boolean type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -405,10 +405,10 @@ export default function apiVersionBoundaryTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_BOUNDARY_2000
+     * @tc.number SUB_BOUNDARY_2000
      * @tc.name testMockSuppressWarningsDemoReturnsBoolean0020
      * @tc.desc Verify runMockSuppressWarningsDemo returns boolean type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

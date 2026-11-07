@@ -46,14 +46,14 @@
 
 | 用例名称 | 操作步骤 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| Annotation_StartAbility_0001 | 启动 EntryAbility | 显示注解首页 | 未执行 |
-| Annotation_Environment_0002 | 查看环境及注解卡片 | 显示本机版本、API 22、API 23、API 27、三种规则及两个未执行状态 | 未执行 |
-| Annotation_MockData_0003 | 点击“模拟数据” | 显示模拟来源和 API 21，两个结果重置 | 未执行 |
-| Annotation_MockFallback_0004 | 在模拟环境运行两个示例并刷新 | 两个示例安全回退，刷新后结果重置 | 未执行 |
-| Annotation_LocalData_0005 | 切换本机信息并运行两个示例 | 根据本机 API 版本显示执行或安全回退 | 未执行 |
-| Annotation_RepeatedExecution_0006 | 重置后重复运行两个示例 | 结果稳定，Available 执行不修改 SuppressWarnings 状态 | 未执行 |
-| Annotation_EnvironmentSwitch_0007 | 在本机和模拟环境之间切换 | 数据来源正确，切换后两个执行结果均重置 | 未执行 |
-| Annotation_RefreshMock_0008 | 在模拟环境执行示例后刷新 | 保持模拟来源和 API 21，执行结果重置 | 未执行 |
+| testStartAbility0001 | 启动 EntryAbility | 显示注解首页 | 未执行 |
+| testEnvironment0002 | 查看环境及注解卡片 | 显示本机版本、API 22、API 23、API 27、三种规则及两个未执行状态 | 未执行 |
+| testMockData0003 | 点击“模拟数据” | 显示模拟来源和 API 21，两个结果重置 | 未执行 |
+| testMockFallback0004 | 在模拟环境运行两个示例并刷新 | 两个示例安全回退，刷新后结果重置 | 未执行 |
+| testLocalData0005 | 切换本机信息并运行两个示例 | 根据本机 API 版本显示执行或安全回退 | 未执行 |
+| testRepeatedExecution0006 | 重置后重复运行两个示例 | 结果稳定，Available 执行不修改 SuppressWarnings 状态 | 未执行 |
+| testEnvironmentSwitch0007 | 在本机和模拟环境之间切换 | 数据来源正确，切换后两个执行结果均重置 | 未执行 |
+| testRefreshMock0008 | 在模拟环境执行示例后刷新 | 保持模拟来源和 API 21，执行结果重置 | 未执行 |
 
 ## 常量验证 XTS 用例
 

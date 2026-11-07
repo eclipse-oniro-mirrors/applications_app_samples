@@ -237,7 +237,7 @@ export default function annotationIntegrationTest() {
      * @tc.number SUB_ANNOTATION_INTEG_0500
      * @tc.name testEnvironmentTransition0005
      * @tc.desc Verify smooth transitions between environments.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -327,7 +327,7 @@ export default function annotationIntegrationTest() {
      * @tc.number SUB_ANNOTATION_INTEG_0700
      * @tc.name testStatePreservation0007
      * @tc.desc Verify state preservation across complex operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -415,7 +415,7 @@ export default function annotationIntegrationTest() {
      * @tc.number SUB_ANNOTATION_INTEG_0900
      * @tc.name testWorkflowCompletion0009
      * @tc.desc Verify complete workflow completion.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

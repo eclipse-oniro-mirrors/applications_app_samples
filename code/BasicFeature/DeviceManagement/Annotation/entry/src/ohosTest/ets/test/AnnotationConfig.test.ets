@@ -180,7 +180,7 @@ export default function annotationConfigTest() {
      * @tc.number SUB_ANNOTATION_CONFIG_0400
      * @tc.name testVersionThresholdConfig0004
      * @tc.desc Verify version threshold configuration.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -217,7 +217,7 @@ export default function annotationConfigTest() {
      * @tc.number SUB_ANNOTATION_CONFIG_0500
      * @tc.name testRulesConfigStability0005
      * @tc.desc Verify rules configuration stability.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -338,7 +338,7 @@ export default function annotationConfigTest() {
      * @tc.number SUB_ANNOTATION_CONFIG_0800
      * @tc.name testConfigPersistence0008
      * @tc.desc Verify configuration persistence across operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -384,7 +384,7 @@ export default function annotationConfigTest() {
      * @tc.number SUB_ANNOTATION_CONFIG_0900
      * @tc.name testConfigValidation0009
      * @tc.desc Validate configuration values and types.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

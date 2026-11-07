@@ -47,7 +47,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0100
      * @tc.name testLocalToMockStateTransition0001
      * @tc.desc Verify state transition from local to mock environment.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -82,7 +82,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0200
      * @tc.name testMockToLocalStateTransition0002
      * @tc.desc Verify state transition from mock to local environment.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -170,7 +170,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0400
      * @tc.name testSuppressStateTransition0004
      * @tc.desc Verify suppress annotation state transition.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -200,7 +200,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0500
      * @tc.name testRulesStateConsistency0005
      * @tc.desc Verify rules state consistency across calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -291,7 +291,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0700
      * @tc.name testStateAfterOperations0007
      * @tc.desc Verify state preservation after various operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -387,7 +387,7 @@ export default function annotationStateMachineTest() {
      * @tc.number SUB_ANNOTATION_SM_0900
      * @tc.name testStateIsolation0009
      * @tc.desc Verify state isolation between environments.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

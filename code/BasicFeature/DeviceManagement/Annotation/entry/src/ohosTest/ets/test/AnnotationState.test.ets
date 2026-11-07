@@ -47,7 +47,7 @@ export default function annotationStateTest() {
      * @tc.number SUB_ANNOTATION_STATE_0100
      * @tc.name testInitialStateLocalAvailable0001
      * @tc.desc Verify initial state for local Available demo based on device API version.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -65,7 +65,7 @@ export default function annotationStateTest() {
      * @tc.number SUB_ANNOTATION_STATE_0200
      * @tc.name testInitialStateLocalSuppress0002
      * @tc.desc Verify initial state for local SuppressWarnings demo based on device API version.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -83,7 +83,7 @@ export default function annotationStateTest() {
      * @tc.number SUB_ANNOTATION_STATE_0300
      * @tc.name testInitialStateMockAvailable0003
      * @tc.desc Verify initial state for mock Available demo always returns false.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -100,7 +100,7 @@ export default function annotationStateTest() {
      * @tc.number SUB_ANNOTATION_STATE_0400
      * @tc.name testInitialStateMockSuppress0004
      * @tc.desc Verify initial state for mock SuppressWarnings demo always returns false.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -114,10 +114,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_0500
+     * @tc.number SUB_STATE_0500
      * @tc.name testStateTransitionLocalToMock0005
      * @tc.desc Verify state transition from local to mock environment.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -136,10 +136,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_0600
+     * @tc.number SUB_STATE_0600
      * @tc.name testStateTransitionMockToLocal0006
      * @tc.desc Verify state transition from mock to local environment.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -157,10 +157,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_0700
+     * @tc.number SUB_STATE_0700
      * @tc.name testRepeatedLocalExecution0007
      * @tc.desc Verify repeated local execution returns consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -178,10 +178,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_0800
+     * @tc.number SUB_STATE_0800
      * @tc.name testRepeatedMockExecution0008
      * @tc.desc Verify repeated mock execution returns consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -197,10 +197,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_0900
+     * @tc.number SUB_STATE_0900
      * @tc.name testIndependentStatesAvailableSuppress0009
      * @tc.desc Verify Available and SuppressWarnings states are independent.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -219,10 +219,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1000
+     * @tc.number SUB_STATE_1000
      * @tc.name testIndependentStatesMockAvailableSuppress0010
      * @tc.desc Verify mock Available and SuppressWarnings states are independent.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -239,10 +239,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1100
+     * @tc.number SUB_STATE_1100
      * @tc.name testStateAfterMultipleSwitches0011
      * @tc.desc Verify state correctness after multiple environment switches.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -261,10 +261,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1200
+     * @tc.number SUB_STATE_1200
      * @tc.name testSuppressStateAfterMultipleSwitches0012
      * @tc.desc Verify SuppressWarnings state correctness after multiple switches.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -283,10 +283,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1300
+     * @tc.number SUB_STATE_1300
      * @tc.name testMixedExecutionOrder0013
      * @tc.desc Verify results with mixed execution order.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -306,10 +306,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1400
+     * @tc.number SUB_STATE_1400
      * @tc.name testMockVersionAlwaysBelowThreshold0014
      * @tc.desc Verify mock version is always below both thresholds.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -324,10 +324,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1500
+     * @tc.number SUB_STATE_1500
      * @tc.name testStateConsistencyAcrossCalls0015
      * @tc.desc Verify state consistency across multiple API calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -346,10 +346,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1600
+     * @tc.number SUB_STATE_1600
      * @tc.name testAlternatingExecution0016
      * @tc.desc Verify results with alternating Available and SuppressWarnings execution.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -369,10 +369,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1700
+     * @tc.number SUB_STATE_1700
      * @tc.name testAlternatingMockExecution0017
      * @tc.desc Verify mock results with alternating execution.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -390,10 +390,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1800
+     * @tc.number SUB_STATE_1800
      * @tc.name testEnvironmentVersionIndependence0018
      * @tc.desc Verify local and mock versions are independent.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -408,10 +408,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_1900
+     * @tc.number SUB_STATE_1900
      * @tc.name testStateAfterRepeatedSwitches0019
      * @tc.desc Verify state remains correct after repeated environment switches.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -430,10 +430,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_2000
+     * @tc.number SUB_STATE_2000
      * @tc.name testBothDemosReturnConsistentResults0020
      * @tc.desc Verify both demos return consistent results across calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -453,10 +453,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_2100
+     * @tc.number SUB_STATE_2100
      * @tc.name testMockDemosReturnConsistentResults0021
      * @tc.desc Verify mock demos return consistent results across calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -481,10 +481,10 @@ export default function annotationStateTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_STATE_2200
+     * @tc.number SUB_STATE_2200
      * @tc.name testStateVersionCorrelation0022
      * @tc.desc Verify state results correlate correctly with API versions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */

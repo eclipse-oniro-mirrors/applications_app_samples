@@ -47,7 +47,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0100
      * @tc.name testVersionBoundaryZero0001
      * @tc.desc Verify behavior at version boundary zero.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -71,7 +71,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0200
      * @tc.name testNegativeVersionHandling0002
      * @tc.desc Verify negative version values are handled correctly.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -94,7 +94,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0300
      * @tc.name testLargeVersionHandling0003
      * @tc.desc Verify large version values are handled correctly.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -118,7 +118,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0400
      * @tc.name testNonIntegerVersionHandling0004
      * @tc.desc Verify non-integer version values are handled correctly.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -140,7 +140,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0500
      * @tc.name testUndefinedNullHandling0005
      * @tc.desc Verify undefined/null handling in API.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -165,7 +165,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0600
      * @tc.name testTypeMismatchHandling0006
      * @tc.desc Verify type mismatch handling.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -189,7 +189,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0700
      * @tc.name testExceptionPropagation0007
      * @tc.desc Verify exception propagation paths.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -219,7 +219,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0800
      * @tc.name testErrorRecoveryMechanism0008
      * @tc.desc Verify error recovery mechanism.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -252,7 +252,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_0900
      * @tc.name testBoundaryConditionException0009
      * @tc.desc Verify exceptions at boundary conditions.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -285,7 +285,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_1000
      * @tc.name testExceptionStackIntegrity0010
      * @tc.desc Verify exception stack integrity.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -314,7 +314,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_1100
      * @tc.name testErrorHandlingConsistency0011
      * @tc.desc Verify error handling consistency across calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -351,7 +351,7 @@ export default function annotationErrorBoundaryTest() {
      * @tc.number SUB_ANNOTATION_ERROR_BOUNDARY_1200
      * @tc.name testBoundaryErrorHandling0012
      * @tc.desc Verify error handling at extreme boundaries.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */

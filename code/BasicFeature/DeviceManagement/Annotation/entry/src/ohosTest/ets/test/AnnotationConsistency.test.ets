@@ -47,7 +47,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0100
      * @tc.name testVersionCalculationConsistency0001
      * @tc.desc Verify version calculation logic is consistent across calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -77,7 +77,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0200
      * @tc.name testRulesArrayContentStability0002
      * @tc.desc Verify rules array content remains stable across multiple calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -101,7 +101,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0300
      * @tc.name testDemoResultDeterminism0003
      * @tc.desc Verify demo results are deterministic for same input.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -125,7 +125,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0400
      * @tc.name testMockVersionConsistency0004
      * @tc.desc Verify mock version is always consistent.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -155,7 +155,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0500
      * @tc.name testEnvironmentIndependence0005
      * @tc.desc Verify local and mock environments are completely independent.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -178,7 +178,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0600
      * @tc.name testConstantValuesStability0006
      * @tc.desc Verify constant values remain stable throughout execution.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -197,7 +197,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0700
      * @tc.name testResultTypeConsistency0007
      * @tc.desc Verify result types are consistent across different calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -221,7 +221,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0800
      * @tc.name testCrossCallConsistency0008
      * @tc.desc Verify consistency across different API calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -244,7 +244,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_0900
      * @tc.name testRepeatedExecutionConsistency0009
      * @tc.desc Verify repeated execution produces consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -274,7 +274,7 @@ export default function annotationConsistencyTest() {
      * @tc.number SUB_ANNOTATION_CONSIST_1000
      * @tc.name testDataIntegrity0010
      * @tc.desc Verify data integrity across multiple operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */

@@ -96,7 +96,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_0200
      * @tc.name testResourceCleanupAfterCalls0002
      * @tc.desc Verify resources are properly cleaned up after API calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -129,7 +129,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_0300
      * @tc.name testArrayReturnIndependence0003
      * @tc.desc Verify returned arrays are independent copies.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -162,7 +162,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_0400
      * @tc.name testRepeatedObjectCreation0004
      * @tc.desc Verify repeated object creation doesn't cause issues.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -234,7 +234,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_0600
      * @tc.name testNoCircularReferences0006
      * @tc.desc Verify no circular references in returned objects.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -267,7 +267,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_0700
      * @tc.name testGCBehavior0007
      * @tc.desc Verify system behavior after garbage collection simulation.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -382,7 +382,7 @@ export default function annotationMemoryTest() {
      * @tc.number SUB_ANNOTATION_MEMORY_1000
      * @tc.name testResourceCleanupCompleteness0010
      * @tc.desc Verify completeness of resource cleanup.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

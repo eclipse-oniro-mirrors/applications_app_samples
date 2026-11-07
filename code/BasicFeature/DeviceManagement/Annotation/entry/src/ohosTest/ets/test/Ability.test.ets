@@ -46,7 +46,7 @@ async function findComponentWithScroll(driver: Driver, id: string): Promise<Obje
       logger.info(`${BUNDLE}findComponentWithScroll, not found on attempt ${attempt + 1} for ${id}, scrolling down`);
     }
     await driver.swipe(300, 800, 300, 800 - scrollDistance, 5);
-    // ✅ Reduced delay from 500ms to 100ms to avoid appfreeze (max 1s for 10 attempts)
+    // Reduced delay from 500ms to 100ms to avoid appfreeze (max 1s for 10 attempts)
     await driver.delayMs(100);
   }
   
@@ -54,7 +54,7 @@ async function findComponentWithScroll(driver: Driver, id: string): Promise<Obje
     try {
       logger.info(`${BUNDLE}findComponentWithScroll, scrolling up attempt ${attempt + 1} for ${id}`);
       await driver.swipe(300, 200, 300, 200 + scrollDistance, 5);
-      // ✅ Reduced delay from 500ms to 100ms to avoid appfreeze
+      // Reduced delay from 500ms to 100ms to avoid appfreeze
       await driver.delayMs(100);
       const component = await driver.findComponent(matcher);
       if (component !== null && component !== undefined) {
@@ -103,13 +103,13 @@ export default function abilityTest() {
   describe('AnnotationAbilityTest', () => {
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0100
-     * @tc.name Annotation_StartAbility_0001
+     * @tc.name testStartAbility0001
      * @tc.desc Start EntryAbility and verify that the Annotation home page is displayed.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_StartAbility_0001', 0, async (done: Function) => {
+    it('testStartAbility0001', 0, async (done: Function) => {
       logger.info(`${BUNDLE}StartAbility_0001, begin`);
       const testDriver = getDriver();
       const want: Want = {
@@ -130,13 +130,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0200
-     * @tc.name Annotation_Environment_0002
+     * @tc.name testEnvironment0002
      * @tc.desc Verify environment details, annotation versions, rules, and initial execution states.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_Environment_0002', 0, async (done: Function) => {
+    it('testEnvironment0002', 0, async (done: Function) => {
       logger.info(`${BUNDLE}Environment_0002, begin`);
       const testDriver = getDriver();
       const componentIds: string[] = [
@@ -183,13 +183,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0300
-     * @tc.name Annotation_MockData_0003
+     * @tc.name testMockData0003
      * @tc.desc Switch to the API 21 mock environment and verify that both execution states reset.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_MockData_0003', 0, async (done: Function) => {
+    it('testMockData0003', 0, async (done: Function) => {
       logger.info(`${BUNDLE}MockData_0003, begin`);
       const mockButton = await driver.findComponent(ON.id('mock_data_button'));
       await mockButton.click();
@@ -214,13 +214,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0400
-     * @tc.name Annotation_MockFallback_0004
+     * @tc.name testMockFallback0004
      * @tc.desc Verify API 21 fallback and refresh behavior for both annotation examples.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_MockFallback_0004', 0, async (done: Function) => {
+    it('testMockFallback0004', 0, async (done: Function) => {
       logger.info(`${BUNDLE}MockFallback_0004, begin`);
       const availableButton = await driver.findComponent(ON.id('available_run_button'));
       const suppressButton = await driver.findComponent(ON.id('suppress_run_button'));
@@ -248,13 +248,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0500
-     * @tc.name Annotation_LocalData_0005
+     * @tc.name testLocalData0005
      * @tc.desc Verify that local execution results match the device API version thresholds.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_LocalData_0005', 0, async (done: Function) => {
+    it('testLocalData0005', 0, async (done: Function) => {
       logger.info(`${BUNDLE}LocalData_0005, begin`);
       const localButton = await driver.findComponent(ON.id('local_data_button'));
       await localButton.click();
@@ -285,13 +285,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0600
-     * @tc.name Annotation_RepeatedExecution_0006
+     * @tc.name testRepeatedExecution0006
      * @tc.desc Verify repeated example execution and independent Available and SuppressWarnings states.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_RepeatedExecution_0006', 0, async (done: Function) => {
+    it('testRepeatedExecution0006', 0, async (done: Function) => {
       logger.info(`${BUNDLE}RepeatedExecution_0006, begin`);
       const localButton = await driver.findComponent(ON.id('local_data_button'));
       await localButton.click();
@@ -326,13 +326,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0700
-     * @tc.name Annotation_EnvironmentSwitch_0007
+     * @tc.name testEnvironmentSwitch0007
      * @tc.desc Verify that switching local and mock environments resets prior execution results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_EnvironmentSwitch_0007', 0, async (done: Function) => {
+    it('testEnvironmentSwitch0007', 0, async (done: Function) => {
       logger.info(`${BUNDLE}EnvironmentSwitch_0007, begin`);
       const mockButton = await driver.findComponent(ON.id('mock_data_button'));
       const localButton = await driver.findComponent(ON.id('local_data_button'));
@@ -365,13 +365,13 @@ export default function abilityTest() {
 
     /**
      * @tc.number SUB_ANNOTATION_ABILITY_0800
-     * @tc.name Annotation_RefreshMock_0008
+     * @tc.name testRefreshMock0008
      * @tc.desc Verify that refresh resets execution results without leaving the mock environment.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('Annotation_RefreshMock_0008', 0, async (done: Function) => {
+    it('testRefreshMock0008', 0, async (done: Function) => {
       logger.info(`${BUNDLE}RefreshMock_0008, begin`);
       const mockButton = await driver.findComponent(ON.id('mock_data_button'));
       const availableButton = await driver.findComponent(ON.id('available_run_button'));

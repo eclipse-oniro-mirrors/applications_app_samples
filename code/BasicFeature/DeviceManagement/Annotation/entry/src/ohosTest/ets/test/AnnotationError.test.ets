@@ -47,7 +47,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0100
      * @tc.name testApiVersionBoundaryHandling0001
      * @tc.desc Verify API version boundary values are handled correctly.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -79,7 +79,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0200
      * @tc.name testDeviceApiVersionValidation0002
      * @tc.desc Verify device API version is valid and within expected range.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -109,7 +109,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0300
      * @tc.name testNullUndefinedHandling0003
      * @tc.desc Verify handling of null and undefined scenarios.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -148,7 +148,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0400
      * @tc.name testConcurrentModificationSafety0004
      * @tc.desc Verify safety against concurrent modifications.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -186,7 +186,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0500
      * @tc.name testResourceCleanup0005
      * @tc.desc Verify resource cleanup after operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -223,7 +223,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0600
      * @tc.name testInvalidOperationHandling0006
      * @tc.desc Verify handling of invalid operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -264,7 +264,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0700
      * @tc.name testBoundaryConditionHandling0007
      * @tc.desc Verify handling of boundary conditions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -305,7 +305,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0800
      * @tc.name testErrorRecovery0008
      * @tc.desc Verify system can recover from error conditions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -342,7 +342,7 @@ export default function annotationErrorTest() {
      * @tc.number SUB_ANNOTATION_ERROR_0900
      * @tc.name testDefensiveProgramming0009
      * @tc.desc Verify defensive programming practices.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

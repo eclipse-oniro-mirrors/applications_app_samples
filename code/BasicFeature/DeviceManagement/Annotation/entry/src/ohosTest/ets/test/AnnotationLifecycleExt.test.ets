@@ -47,7 +47,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0100
      * @tc.name testInitializationState0001
      * @tc.desc Verify initialization state consistency.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -71,7 +71,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0200
      * @tc.name testStatePersistence0002
      * @tc.desc Verify state persistence across operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -105,7 +105,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0300
      * @tc.name testResourceCleanup0003
      * @tc.desc Verify resource cleanup after operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -135,7 +135,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0400
      * @tc.name testRepeatedInitialization0004
      * @tc.desc Verify repeated initialization doesn't cause issues.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -267,7 +267,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0700
      * @tc.name testLifecyclePhaseTransitions0007
      * @tc.desc Verify lifecycle phase transitions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -362,7 +362,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_0900
      * @tc.name testCleanupAfterMockOperations0009
      * @tc.desc Verify cleanup after mock operations.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -391,7 +391,7 @@ export default function annotationLifecycleExtTest() {
      * @tc.number SUB_ANNOTATION_LCE_1000
      * @tc.name testLongTermStability0010
      * @tc.desc Verify long term stability (100 operations).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */

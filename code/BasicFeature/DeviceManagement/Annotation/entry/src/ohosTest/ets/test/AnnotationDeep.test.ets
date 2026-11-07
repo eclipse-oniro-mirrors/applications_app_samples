@@ -47,7 +47,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0100
      * @tc.name testAvailableAnnotationMechanism0001
      * @tc.desc Verify @Available annotation mechanism controls function execution.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -68,7 +68,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0200
      * @tc.name testSuppressWarningsAnnotationMechanism0002
      * @tc.desc Verify @SuppressWarnings annotation mechanism controls warning suppression.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -89,7 +89,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0300
      * @tc.name testAnnotationParameterValidation0003
      * @tc.desc Verify annotation parameter validation and constraints.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -110,7 +110,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0400
      * @tc.name testSuppressionRulesApplication0004
      * @tc.desc Verify how suppression rules are applied in different scenarios.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -132,7 +132,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0500
      * @tc.name testAnnotationInheritance0005
      * @tc.desc Verify annotation inheritance behavior across versions.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -153,7 +153,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0600
      * @tc.name testVersionThresholdBehavior0006
      * @tc.desc Verify behavior at different version thresholds.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -175,7 +175,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0700
      * @tc.name testMockAnnotationBehavior0007
      * @tc.desc Verify mock annotation behavior differs from local.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -197,7 +197,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0800
      * @tc.name testAnnotationStateTransitions0008
      * @tc.desc Verify state transitions between local and mock environments.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -220,7 +220,7 @@ export default function annotationDeepTest() {
      * @tc.number SUB_ANNOTATION_DEEP_0900
      * @tc.name testAnnotationDemoDeterminism0009
      * @tc.desc Verify annotation demos produce deterministic results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

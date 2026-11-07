@@ -47,7 +47,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0100
      * @tc.name testPermissionValidation0001
      * @tc.desc Validate permission requirements are met.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -81,7 +81,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0200
      * @tc.name testSecurityBoundary0002
      * @tc.desc Verify security boundaries are maintained.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -114,7 +114,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0300
      * @tc.name testDataProtection0003
      * @tc.desc Verify data protection mechanisms.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -153,7 +153,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0400
      * @tc.name testAccessControlValidation0004
      * @tc.desc Validate access control mechanisms.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -187,7 +187,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0500
      * @tc.name testDataIntegrity0005
      * @tc.desc Verify data integrity is maintained.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -226,7 +226,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0600
      * @tc.name testEnvironmentSecurity0006
      * @tc.desc Verify environment security isolation.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -266,7 +266,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0700
      * @tc.name testConstantSecurity0007
      * @tc.desc Verify constants cannot be modified.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -297,7 +297,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0800
      * @tc.name testStateSecurity0008
      * @tc.desc Verify state security against unauthorized access.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -327,7 +327,7 @@ export default function annotationSecurityTest() {
      * @tc.number SUB_ANNOTATION_SECURITY_0900
      * @tc.name testOperationSecurity0009
      * @tc.desc Verify operations are secure and controlled.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

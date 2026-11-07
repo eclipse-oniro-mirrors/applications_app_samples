@@ -48,7 +48,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0100
      * @tc.name testConcurrentGetLocalApiVersion0001
      * @tc.desc Verify concurrent calls to getLocalApiVersion return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -76,7 +76,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0200
      * @tc.name testConcurrentGetMockApiVersion0002
      * @tc.desc Verify concurrent calls to getMockApiVersion return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -104,7 +104,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0300
      * @tc.name testConcurrentRunAvailableDemo0003
      * @tc.desc Verify concurrent calls to runAvailableDemo return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -133,7 +133,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0400
      * @tc.name testConcurrentRunMockAvailableDemo0004
      * @tc.desc Verify concurrent calls to runMockAvailableDemo return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -161,7 +161,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0500
      * @tc.name testConcurrentGetSuppressionRules0005
      * @tc.desc Verify concurrent calls to getSuppressionRules return consistent results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -190,7 +190,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0600
      * @tc.name testConcurrentMixedApiCalls0006
      * @tc.desc Verify concurrent mixed API calls maintain state consistency.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -245,7 +245,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0700
      * @tc.name testConcurrentEnvironmentSwitch0007
      * @tc.desc Verify concurrent environment switches maintain data integrity.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -289,7 +289,7 @@ export default function annotationConcurrencyTest() {
      * @tc.number SUB_ANNOTATION_CONCURRENCY_0800
      * @tc.name testConcurrentRulesAccess0008
      * @tc.desc Verify concurrent rules access returns independent arrays.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

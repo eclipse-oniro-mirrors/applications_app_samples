@@ -48,10 +48,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0100
+     * @tc.number SUB_CONSTANT_0100
      * @tc.name testAvailableMinApiVersionValue0001
      * @tc.desc Verify AVAILABLE_MIN_API_VERSION equals expected value 22.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -65,10 +65,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0200
+     * @tc.number SUB_CONSTANT_0200
      * @tc.name testSuppressAnnotationSinceApiVersionValue0002
      * @tc.desc Verify SUPPRESS_ANNOTATION_SINCE_API_VERSION equals expected value 23.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -82,10 +82,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0300
+     * @tc.number SUB_CONSTANT_0300
      * @tc.name testFutureDemoApiVersionValue0003
      * @tc.desc Verify FUTURE_DEMO_API_VERSION equals expected value 27.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -99,10 +99,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0400
+     * @tc.number SUB_CONSTANT_0400
      * @tc.name testApiVersionOrdering0004
      * @tc.desc Verify API version constants are in correct order (22 < 23 < 27).
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -115,10 +115,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0500
+     * @tc.number SUB_CONSTANT_0500
      * @tc.name testApiVersionPositiveValues0005
      * @tc.desc Verify all API version constants are positive numbers.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -131,10 +131,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0600
+     * @tc.number SUB_CONSTANT_0600
      * @tc.name testApiVersionReasonableRange0006
      * @tc.desc Verify API version constants are within reasonable range (1-100).
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -148,10 +148,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0700
+     * @tc.number SUB_CONSTANT_0700
      * @tc.name testSuppressWarningsTypeCompatibility0007
      * @tc.desc Verify SuppressWarningsType.COMPATIBILITY equals 'compatibility'.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -165,10 +165,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0800
+     * @tc.number SUB_CONSTANT_0800
      * @tc.name testSuppressWarningsTypeSyscap0008
      * @tc.desc Verify SuppressWarningsType.SYSCAP equals 'syscap'.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -182,10 +182,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_0900
+     * @tc.number SUB_CONSTANT_0900
      * @tc.name testSuppressWarningsTypePermission0009
      * @tc.desc Verify SuppressWarningsType.PERMISSION equals 'permission'.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -199,10 +199,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1000
+     * @tc.number SUB_CONSTANT_1000
      * @tc.name testSuppressWarningsTypeUniqueness0010
      * @tc.desc Verify all SuppressWarningsType values are unique.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -222,10 +222,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1100
+     * @tc.number SUB_CONSTANT_1100
      * @tc.name testGetSuppressionRulesLength0011
      * @tc.desc Verify getSuppressionRules returns array with correct length.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -240,10 +240,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1200
+     * @tc.number SUB_CONSTANT_1200
      * @tc.name testGetSuppressionRulesOrder0012
      * @tc.desc Verify getSuppressionRules returns rules in correct order.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -257,10 +257,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1300
+     * @tc.number SUB_CONSTANT_1300
      * @tc.name testGetSuppressionRulesContent0013
      * @tc.desc Verify getSuppressionRules returns array containing all expected types.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -274,10 +274,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1400
+     * @tc.number SUB_CONSTANT_1400
      * @tc.name testGetSuppressionRulesImmutability0014
      * @tc.desc Verify modifying returned array does not affect subsequent calls.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -296,10 +296,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1500
+     * @tc.number SUB_CONSTANT_1500
      * @tc.name testGetSuppressionRulesMultipleCalls0015
      * @tc.desc Verify multiple calls to getSuppressionRules return consistent results.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -318,10 +318,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1600
+     * @tc.number SUB_CONSTANT_1600
      * @tc.name testGetSuppressionRulesNonEmpty0016
      * @tc.desc Verify getSuppressionRules returns non-empty array.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -336,10 +336,10 @@ export default function constantValidationTest() {
     });
 
     /**
-     * @tc.number SUB_BASIC_SERVICES_ANNOTATION_CONSTANT_1700
+     * @tc.number SUB_CONSTANT_1700
      * @tc.name testGetSuppressionRulesStringType0017
      * @tc.desc Verify all rules returned are string type.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

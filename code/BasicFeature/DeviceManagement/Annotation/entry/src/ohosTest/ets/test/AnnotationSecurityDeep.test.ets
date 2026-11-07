@@ -47,7 +47,7 @@ export default function annotationSecurityDeepTest() {
      * @tc.number SUB_ANNOTATION_SECDEEP_0100
      * @tc.name testDataEncryptionValidation0001
      * @tc.desc Validate data encryption and protection mechanisms.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -79,7 +79,7 @@ export default function annotationSecurityDeepTest() {
      * @tc.number SUB_ANNOTATION_SECDEEP_0200
      * @tc.name testUnauthorizedAccessPrevention0002
      * @tc.desc Verify prevention of unauthorized access.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -162,7 +162,7 @@ export default function annotationSecurityDeepTest() {
      * @tc.number SUB_ANNOTATION_SECDEEP_0400
      * @tc.name testInputValidationSecurity0004
      * @tc.desc Verify input validation security.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -244,7 +244,7 @@ export default function annotationSecurityDeepTest() {
      * @tc.number SUB_ANNOTATION_SECDEEP_0600
      * @tc.name testPrivacyProtection0006
      * @tc.desc Verify privacy protection mechanisms.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -318,7 +318,7 @@ export default function annotationSecurityDeepTest() {
      * @tc.number SUB_ANNOTATION_SECDEEP_0800
      * @tc.name testSecurityConstantProtection0008
      * @tc.desc Verify security constant protection.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */

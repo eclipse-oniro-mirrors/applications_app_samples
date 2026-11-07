@@ -47,7 +47,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0100
      * @tc.name testServiceInitialization0001
      * @tc.desc Verify AnnotationService initialization and first access.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -68,7 +68,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0200
      * @tc.name testStatePersistenceAcrossCalls0002
      * @tc.desc Verify state persistence across multiple API calls.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -91,7 +91,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0300
      * @tc.name testEnvironmentSwitchPersistence0003
      * @tc.desc Verify environment switch state persistence.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -115,7 +115,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0400
      * @tc.name testRulesPersistence0004
      * @tc.desc Verify suppression rules persistence throughout lifecycle.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -139,7 +139,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0500
      * @tc.name testConstantPersistence0005
      * @tc.desc Verify constants remain unchanged throughout lifecycle.
-     * @tc.size SMALL
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
@@ -161,7 +161,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0600
      * @tc.name testVersionStability0006
      * @tc.desc Verify version stability throughout service lifecycle.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -188,7 +188,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0700
      * @tc.name testStateAfterHeavyUsage0007
      * @tc.desc Verify state integrity after heavy usage pattern.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
@@ -219,7 +219,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0800
      * @tc.name testInitializationOrder0008
      * @tc.desc Verify initialization order does not affect results.
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 2
      */
@@ -247,7 +247,7 @@ export default function annotationLifecycleTest() {
      * @tc.number SUB_ANNOTATION_LIFECYCLE_0900
      * @tc.name testCleanupBehavior0009
      * @tc.desc Verify cleanup behavior and state reset (if applicable).
-     * @tc.size MEDIUM
+     * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 3
      */
