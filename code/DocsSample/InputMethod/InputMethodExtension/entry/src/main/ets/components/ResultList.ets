@@ -41,7 +41,7 @@ export function rowOf(ok: boolean, title: string, detail: string): ResultRow {
 @Component
 export struct ResultList {
   @Prop rows: ResultRow[] = [];
-  @Prop emptyText: string = '还没有调用记录';
+  @Prop emptyText: ResourceStr = '';
   @Prop maxRows: number = 8;
 
   private visible(): ResultRow[] {

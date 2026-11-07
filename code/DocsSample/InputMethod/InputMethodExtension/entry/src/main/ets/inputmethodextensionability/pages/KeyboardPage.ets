@@ -25,6 +25,7 @@ import { AppSpacing, AppText } from '../../common/Theme';
 import { KEYBOARD_BUFFER_LIMIT } from '../../common/AppConstants';
 import { KeyEdit, KeySpec, KeyboardMode, applyKey, modeName } from '../../model/KeyboardModel';
 import { KeyboardPanel } from '../../components/KeyboardPanel';
+import { textOfResource } from '../../components/CommonWidgets';
 import { KeyboardBridge } from '../../utils/KeyboardBridge';
 import { Logger } from '../../utils/Logger';
 
@@ -41,7 +42,12 @@ struct KeyboardPage {
   @State forwardHint: string = KeyboardBridge.statusText();
 
   aboutToAppear(): void {
-    Logger.info(SOURCE, '页面', '键盘页已加载到面板');
+    Logger.info(SOURCE, 'Page', 'keyboard page loaded into panel');
+  }
+
+  /** forwardHint 是字符串，这里按资源 id 取出本地化文案 */
+  private textOf(res: Resource): string {
+    return textOfResource(this.getUIContext().getHostContext(), res);
   }
 
   private handleKey(key: KeySpec): void {
@@ -54,18 +60,22 @@ struct KeyboardPage {
   /** 有编辑框就转发，没有就只记缓冲；两种情况都写清楚，不假装已上屏 */
   private forwardEdit(edit: KeyEdit): void {
     if (!KeyboardBridge.hasClient()) {
-      this.forwardHint = '无编辑框连接：按键只改本地缓冲';
+      this.forwardHint = this.textOf($r('app.string.kb_hint_no_client'));
       return;
     }
     if (edit.inserted.length > 0) {
       KeyboardBridge.insertText(edit.inserted).then((accepted: boolean) => {
-        this.forwardHint = accepted ? `已上屏：${edit.inserted}` : '编辑框拒绝了这次插入';
+        this.forwardHint = accepted ?
+          this.textOf($r('app.string.kb_hint_inserted', edit.inserted)) :
+          this.textOf($r('app.string.kb_hint_insert_rejected'));
       });
       return;
     }
     if (edit.deleted > 0) {
       KeyboardBridge.deleteBackward(edit.deleted).then((accepted: boolean) => {
-        this.forwardHint = accepted ? '已删除 1 个字符' : '编辑框拒绝了这次删除';
+        this.forwardHint = accepted ?
+          this.textOf($r('app.string.kb_hint_deleted')) :
+          this.textOf($r('app.string.kb_hint_delete_rejected'));
       });
     }
   }
@@ -73,7 +83,7 @@ struct KeyboardPage {
   build() {
     Column({ space: AppSpacing.SM }) {
       Row({ space: AppSpacing.MD }) {
-        Text(`输入法面板 · ${modeName(this.mode)}`)
+        Text($r('app.string.kb_panel_title', modeName(this.mode)))
           .fontSize(AppText.SMALL)
           .fontColor(BODY_TEXT)
         Blank()
@@ -86,7 +96,7 @@ struct KeyboardPage {
       KeyboardPanel({
         text: this.text,
         mode: this.mode,
-        caption: '候选',
+        caption: $r('app.string.kb_caption_candidates'),
         onKey: (key: KeySpec) => {
           this.handleKey(key);
         }

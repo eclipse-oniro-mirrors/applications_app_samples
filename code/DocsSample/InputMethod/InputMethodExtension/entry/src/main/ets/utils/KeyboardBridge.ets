@@ -25,7 +25,8 @@
 import { inputMethodEngine } from '@kit.IMEKit';
 import { Logger } from './Logger';
 
-const SOURCE: string = '键盘';
+/** 日志来源标识；与 status 文本不同，它只进日志面板，不参与界面文案 */
+const SOURCE: string = 'Keyboard';
 
 export class KeyboardBridge {
   private static client: inputMethodEngine.InputClient | undefined = undefined;
@@ -59,7 +60,7 @@ export class KeyboardBridge {
     }
     try {
       const accepted = await current.insertText(text);
-      Logger.debug(SOURCE, 'insertText', `${accepted ? '已上屏' : '被拒绝'}：${text}`);
+      Logger.debug(SOURCE, 'insertText', `${accepted ? 'sent' : 'rejected'}: ${text}`);
       return accepted;
     } catch (err) {
       Logger.error(SOURCE, 'insertText', `${err}`);
@@ -74,7 +75,7 @@ export class KeyboardBridge {
     }
     try {
       const accepted = await current.deleteBackward(length);
-      Logger.debug(SOURCE, 'deleteBackward', `${accepted ? '已删除' : '被拒绝'}：${length} 个字符`);
+      Logger.debug(SOURCE, 'deleteBackward', `${accepted ? 'deleted' : 'rejected'}: ${length} chars`);
       return accepted;
     } catch (err) {
       Logger.error(SOURCE, 'deleteBackward', `${err}`);

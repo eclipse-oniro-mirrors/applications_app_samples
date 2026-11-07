@@ -25,23 +25,26 @@ import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../common/Th
 import { LogItem } from '../model/LogStore';
 import { FEATURES, FeatureEntry, FeatureId, filterFeatures, uncoveredSummary } from '../model/FeatureCatalog';
 import { Logger } from '../utils/Logger';
-import { ActionButton, StatusChip, WidgetTone } from '../components/CommonWidgets';
+import { ActionButton, StatusChip, WidgetTone, textOfResource } from '../components/CommonWidgets';
 import { LogPanel } from '../components/LogPanel';
 import { ExtraConfigDemo } from './demos/ExtraConfigDemo';
 import { InputMethodListDemo } from './demos/InputMethodListDemo';
 import { PanelDemo } from './demos/PanelDemo';
 
 const SYSCAP_NAME: string = 'SystemCapability.MiscServices.InputMethodFramework';
-const NAV_TITLE: string = '输入法扩展';
-const SUBTITLE: string = 'IME Kit：扩展信息、输入法列表与面板';
 
 @Entry
 @Component
 struct Index {
   navPathStack: NavPathStack = new NavPathStack();
   @State keyword: string = '';
-  @State syscapText: string = '未检测';
+  @State syscapText: ResourceStr = $r('app.string.index_syscap_untested');
   @State syscapTone: WidgetTone = WidgetTone.NEUTRAL;
+
+  /** Navigation / NavDestination 的 title 只接受字符串，这里按资源 id 取出本地化文案 */
+  private textOf(res: Resource): string {
+    return textOfResource(this.getUIContext().getHostContext(), res);
+  }
 
   private visibleFeatures(): FeatureEntry[] {
     return filterFeatures(this.keyword);
@@ -52,11 +55,11 @@ struct Index {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
     this.readSyscap();
-    Logger.info('首页', '生命周期', `首页显示，目录 ${FEATURES.length} 项`);
+    Logger.info('Home', 'Lifecycle', `page shown, catalog size ${FEATURES.length}`);
   }
 
   aboutToDisappear(): void {
-    Logger.info('首页', '生命周期', '首页销毁');
+    Logger.info('Home', 'Lifecycle', 'page destroyed');
   }
 
   /**
@@ -65,25 +68,25 @@ struct Index {
    */
   private readSyscap(): void {
     const supported: boolean = canIUse(SYSCAP_NAME);
-    this.syscapText = supported ? '已声明' : '未声明';
+    this.syscapText = supported ? $r('app.string.index_syscap_declared') : $r('app.string.index_syscap_undeclared');
     this.syscapTone = supported ? WidgetTone.SUCCESS : WidgetTone.DANGER;
-    Logger.info('首页', 'syscap', `canIUse(${SYSCAP_NAME}) = ${supported}`);
+    Logger.info('Home', 'syscap', `canIUse(${SYSCAP_NAME}) = ${supported}`);
   }
 
   private openDemo(item: FeatureEntry): void {
-    Logger.info('首页', '导航', `打开 ${item.title}`);
+    Logger.info('Home', 'Nav', `open ${item.title}`);
     this.navPathStack.pushPath({ name: item.id });
   }
 
   @Builder
   header() {
     Column({ space: AppSpacing.XS }) {
-      Text(NAV_TITLE)
+      Text($r('app.string.index_nav_title'))
         .fontSize(AppText.DISPLAY)
         .fontWeight(FontWeight.Bold)
         .fontColor(AppColors.TEXT_PRIMARY)
         .width('100%')
-      Text(SUBTITLE)
+      Text($r('app.string.index_subtitle'))
         .fontSize(AppText.LABEL)
         .fontColor(AppColors.TEXT_SECONDARY)
         .width('100%')
@@ -97,7 +100,7 @@ struct Index {
   overview() {
     Column({ space: AppSpacing.MD }) {
       Row({ space: AppSpacing.MD }) {
-        Text('系统能力')
+        Text($r('app.string.index_syscap_title'))
           .fontSize(AppText.SECTION)
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
@@ -110,13 +113,12 @@ struct Index {
         .fontSize(AppText.SMALL)
         .fontColor(AppColors.TEXT_TERTIARY)
         .width('100%')
-      Text('本模块不需要申请权限；module.json5 已注册 type 为 inputMethod 的扩展，' +
-        '但"被系统拉起为输入法"还要求用户在设置里启用它。')
+      Text($r('app.string.index_syscap_note'))
         .fontSize(AppText.CAPTION)
         .fontColor(AppColors.TEXT_MUTED)
         .width('100%')
       ActionButton({
-        label: '重新检测系统能力',
+        label: $r('app.string.index_recheck'),
         tone: WidgetTone.NEUTRAL,
         onAction: () => {
           this.readSyscap();
@@ -133,7 +135,7 @@ struct Index {
   @Builder
   searchBar() {
     Row({ space: AppSpacing.MD }) {
-      TextInput({ placeholder: '搜索能力，例如 扩展、列表、面板', text: this.keyword })
+      TextInput({ placeholder: $r('app.string.index_search_hint'), text: this.keyword })
         .fontSize(AppText.BODY)
         .height(AppSize.BUTTON_MD)
         .backgroundColor(AppColors.SUBTLE_BG)
@@ -142,7 +144,7 @@ struct Index {
         .onChange((value: string) => {
           this.keyword = value;
         })
-      Text(`${this.visibleFeatures().length} 项`)
+      Text($r('app.string.common_count_items', this.visibleFeatures().length))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_TERTIARY)
     }
@@ -164,7 +166,7 @@ struct Index {
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
           .layoutWeight(1)
-        Text('进入')
+        Text($r('app.string.index_enter'))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.PRIMARY)
       }
@@ -193,7 +195,7 @@ struct Index {
   @Builder
   uncoveredCard() {
     Column({ space: AppSpacing.XS }) {
-      Text('本示例未覆盖的部分')
+      Text($r('app.string.index_uncovered_title'))
         .fontSize(AppText.SECTION)
         .fontWeight(FontWeight.Medium)
         .fontColor(AppColors.TEXT_PRIMARY)
@@ -202,8 +204,7 @@ struct Index {
         .fontSize(AppText.CAPTION)
         .fontColor(AppColors.TEXT_TERTIARY)
         .width('100%')
-      Text('两项都需要"本应用已被启用为输入法并连上真实编辑框"，不是接口能否使用的问题，' +
-        '所以这里只写"未覆盖"和原因。')
+      Text($r('app.string.index_uncovered_note'))
         .fontSize(AppText.CAPTION)
         .fontColor(AppColors.TEXT_MUTED)
         .width('100%')
@@ -221,17 +222,17 @@ struct Index {
       NavDestination() {
         ExtraConfigDemo()
       }
-      .title('扩展信息')
+      .title(this.textOf($r('app.string.nav_extra_title')))
     } else if (name === FeatureId.LIST) {
       NavDestination() {
         InputMethodListDemo()
       }
-      .title('输入法列表')
+      .title(this.textOf($r('app.string.nav_list_title')))
     } else if (name === FeatureId.PANEL) {
       NavDestination() {
         PanelDemo()
       }
-      .title('面板与模式')
+      .title(this.textOf($r('app.string.nav_panel_title')))
     }
   }
 
@@ -249,7 +250,7 @@ struct Index {
             }, (item: FeatureEntry) => item.id)
 
             if (this.visibleFeatures().length === 0) {
-              Text('没有匹配的能力，试试清空搜索词')
+              Text($r('app.string.index_empty_search'))
                 .fontSize(AppText.LABEL)
                 .fontColor(AppColors.TEXT_MUTED)
                 .width('100%')
@@ -259,7 +260,7 @@ struct Index {
             }
 
             this.uncoveredCard()
-            LogPanel({ title: '首页事件', maxItems: HOME_LOG_LIMIT })
+            LogPanel({ title: $r('app.string.index_log_title'), maxItems: HOME_LOG_LIMIT })
           }
           .width('100%')
           .padding({ left: AppSpacing.PAGE, right: AppSpacing.PAGE, bottom: AppSpacing.PAGE })
@@ -272,7 +273,7 @@ struct Index {
       .height('100%')
       .backgroundColor(AppColors.PAGE_BG)
     }
-    .title(NAV_TITLE)
+    .title(this.textOf($r('app.string.index_nav_title')))
     .titleMode(NavigationTitleMode.Mini)
     .mode(NavigationMode.Stack)
     .navDestination(this.pageMap)

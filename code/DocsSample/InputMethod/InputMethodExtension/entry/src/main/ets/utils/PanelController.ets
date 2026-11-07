@@ -33,7 +33,8 @@ import { codeOfThrown, messageOfThrown } from './ErrorUtil';
 import { isTimeoutError, timeoutText, withTimeout } from './AsyncUtil';
 import { Logger } from './Logger';
 
-const SOURCE: string = '面板';
+/** 日志来源标识；面板状态文本进界面，这里只标识日志来源 */
+const SOURCE: string = 'Panel';
 const API_NAME: string = 'createPanel';
 /** 面板页的路径：与 main_pages.json 里登记的 src 一致，不带 .ets 后缀 */
 export const KEYBOARD_PAGE_PATH: string = 'inputmethodextensionability/pages/KeyboardPage';
@@ -59,7 +60,7 @@ export class PanelController {
    */
   async ensurePanel(context: common.BaseContext): Promise<CallOutcome> {
     if (this.panel !== undefined) {
-      Logger.info(SOURCE, '复用', '面板已存在，跳过 createPanel');
+      Logger.info(SOURCE, 'Reuse', 'panel exists, skip createPanel');
       return okOutcome(API_NAME, '复用已有面板', this.status, 0);
     }
     const start = Date.now();
@@ -78,7 +79,7 @@ export class PanelController {
       await withTimeout(panel.setUiContent(KEYBOARD_PAGE_PATH), API_TIMEOUT_MS);
       this.panel = panel;
       this.status = `面板已挂载 ${KEYBOARD_PAGE_PATH}（${size.width} × ${size.height} px）`;
-      Logger.info(SOURCE, '成功', this.status);
+      Logger.info(SOURCE, 'Success', this.status);
       return okOutcome(API_NAME, `面板已创建（${size.width} × ${size.height} px）`,
         `createPanel → resize → setUiContent('${KEYBOARD_PAGE_PATH}') 全部成功`, Date.now() - start);
     } catch (err) {
@@ -99,7 +100,7 @@ export class PanelController {
       const ability = inputMethodEngine.getInputMethodAbility();
       await ability.destroyPanel(current);
       this.status = '面板已销毁';
-      Logger.info(SOURCE, '销毁', this.status);
+      Logger.info(SOURCE, 'Destroy', this.status);
     } catch (err) {
       this.status = '面板销毁失败';
       Logger.error(SOURCE, 'destroyPanel', `${messageOfThrown(err)}`);
@@ -135,7 +136,7 @@ function panelSize(): PanelSize {
     return new PanelSize(info.width, height);
   } catch (err) {
     // 取不到屏幕信息时给一个保守尺寸：宁可面板偏窄，也不要因为建面板失败而让键盘不可见
-    Logger.warn(SOURCE, 'panelSize', `读取屏幕尺寸失败，使用默认尺寸：${err}`);
+    Logger.warn(SOURCE, 'panelSize', `read screen size failed, use default size: ${err}`);
     return new PanelSize(PANEL_FALLBACK_WIDTH, PANEL_FALLBACK_HEIGHT);
   }
 }

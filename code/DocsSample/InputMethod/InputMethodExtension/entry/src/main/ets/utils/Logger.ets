@@ -61,7 +61,7 @@ export class Logger {
       const next = appendLog(current, new LogItem(source, tag, detail, level), LOG_STORE_CAPACITY);
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, next);
     } catch (err) {
-      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] 写入 AppStorage 失败: ${err}`);
+      hilog.warn(HILOG_DOMAIN, HILOG_TAG, '%{public}s', `[Logger] write AppStorage failed: ${err}`);
     }
   }
 

@@ -18,6 +18,7 @@
  * tone 到颜色的映射做成纯函数，既方便页面复用，也能在本地单测里直接断言。
  */
 
+import { common } from '@kit.AbilityKit';
 import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../common/Theme';
 
 export enum WidgetTone {
@@ -59,6 +60,24 @@ export function toneSoftColor(tone: WidgetTone): string {
 }
 
 /**
+ * 把资源取成本地化字符串，给只接受 string 的接口用（Navigation/NavDestination 的 title、
+ * 需要拼进日志或结果行的文案）。带占位符的资源最多支持两个参数，够本示例使用。
+ */
+export function textOfResource(context: common.Context | undefined, res: Resource): string {
+  if (context === undefined) {
+    return '';
+  }
+  const args: Array<string | number> = res.params === undefined ? [] : res.params as Array<string | number>;
+  if (args.length === 0) {
+    return context.resourceManager.getStringSync(res.id);
+  }
+  if (args.length === 1) {
+    return context.resourceManager.getStringSync(res.id, args[0]);
+  }
+  return context.resourceManager.getStringSync(res.id, args[0], args[1]);
+}
+
+/**
  * 注意：这几个展示组件的入参必须是 @Prop（不能用常规成员变量）。
  * 常规成员变量只在组件创建时赋值一次，父组件的 @State 变化不会同步进来，
  * 表现就是页面上「探测结果 / 状态胶囊 / 按钮文案」停留在首帧、不再刷新。
@@ -67,9 +86,16 @@ export function toneSoftColor(tone: WidgetTone): string {
 /** 分组卡片：标题 + 可选副标题 + 自定义内容 */
 @Component
 export struct SectionCard {
-  @Prop title: string = '';
-  @Prop subtitle: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop subtitle: ResourceStr = '';
   @BuilderParam content: () => void;
+
+  private hasSubtitle(): boolean {
+    if (typeof this.subtitle === 'string') {
+      return this.subtitle.length > 0;
+    }
+    return true;
+  }
 
   build() {
     Column({ space: AppSpacing.MD }) {
@@ -79,7 +105,7 @@ export struct SectionCard {
           .fontWeight(FontWeight.Bold)
           .fontColor(AppColors.TEXT_PRIMARY)
         Blank()
-        if (this.subtitle.length > 0) {
+        if (this.hasSubtitle()) {
           Text(this.subtitle)
             .fontSize(AppText.SMALL)
             .fontColor(AppColors.TEXT_TERTIARY)
@@ -101,7 +127,7 @@ export struct SectionCard {
 /** 动作按钮：低饱和底色 + 高对比文字，避免一屏出现过多实心大按钮 */
 @Component
 export struct ActionButton {
-  @Prop label: string = '';
+  @Prop label: ResourceStr = '';
   @Prop tone: WidgetTone = WidgetTone.PRIMARY;
   @Prop actionEnabled: boolean = true;
   onAction: () => void = () => {
@@ -126,7 +152,7 @@ export struct ActionButton {
 /** 状态胶囊：用于展示 ProbeStatus / 权限 / 订阅状态 */
 @Component
 export struct StatusChip {
-  @Prop text: string = '';
+  @Prop text: ResourceStr = '';
   @Prop tone: WidgetTone = WidgetTone.NEUTRAL;
 
   build() {
@@ -147,8 +173,8 @@ export struct StatusChip {
 /** 键值行：左侧固定宽度标签，右侧展示值，mono 用于设备地址等需要等宽的文本 */
 @Component
 export struct KeyValueRow {
-  @Prop label: string = '';
-  @Prop value: string = '';
+  @Prop label: ResourceStr = '';
+  @Prop value: ResourceStr = '';
   @Prop mono: boolean = false;
   @Prop valueColor: string = AppColors.TEXT_STRONG;
 

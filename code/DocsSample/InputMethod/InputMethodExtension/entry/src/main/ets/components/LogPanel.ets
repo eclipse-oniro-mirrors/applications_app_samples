@@ -23,7 +23,7 @@ import { truncateMiddle } from '../utils/FormatUtil';
 export struct LogPanel {
   @StorageProp('appLogs') allLogs: LogItem[] = [];
   filterSource: string = '';
-  title: string = '事件日志';
+  title: ResourceStr = '';
   maxItems: number = PAGE_LOG_LIMIT;
 
   private visibleLogs(): LogItem[] {
@@ -58,11 +58,11 @@ export struct LogPanel {
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
         Blank()
-        Text(`${this.visibleLogs().length} 条`)
+        Text($r('app.string.component_log_count', this.visibleLogs().length))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_TERTIARY)
         if (this.visibleLogs().length > 0) {
-          Button('清空')
+          Button($r('app.string.component_log_clear'))
             .fontSize(AppText.SMALL)
             .height(AppSize.BUTTON_SM)
             .backgroundColor(AppColors.SOFT_BG)
@@ -75,7 +75,7 @@ export struct LogPanel {
       .width('100%')
 
       if (this.visibleLogs().length === 0) {
-        Text('暂无事件，调用本示例的按钮后将在这里看到记录')
+        Text($r('app.string.component_log_empty'))
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')

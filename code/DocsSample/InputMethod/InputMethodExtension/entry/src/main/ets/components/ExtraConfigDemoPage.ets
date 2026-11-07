@@ -51,7 +51,7 @@ export struct ExtraConfigDemoPage {
   aboutToAppear(): void {
     this.bytes = configByteLength(buildExtraConfig(this.entries));
     this.rows = outcomeRows([buildDefaultOutcome()]);
-    Logger.info(LOG_SOURCE, '页面', `扩展信息页显示，默认 ${this.entries.length} 项 / ${this.bytes} 字节`);
+    Logger.info(LOG_SOURCE, 'Page', `page shown, default ${this.entries.length} entries / ${this.bytes} bytes`);
   }
 
   private push(outcome: CallOutcome): void {
@@ -91,14 +91,14 @@ export struct ExtraConfigDemoPage {
     Column({ space: AppSpacing.MD }) {
       Row({ space: AppSpacing.MD }) {
         ActionButton({
-          label: '构造默认配置',
+          label: $r('app.string.extra_btn_default'),
           tone: WidgetTone.PRIMARY,
           onAction: () => {
             this.push(buildDefaultOutcome());
           }
         })
         ActionButton({
-          label: '读取打桩编辑框',
+          label: $r('app.string.extra_btn_read_stub'),
           tone: WidgetTone.PRIMARY,
           onAction: () => {
             this.push(readStubOutcome());
@@ -109,14 +109,14 @@ export struct ExtraConfigDemoPage {
 
       Row({ space: AppSpacing.MD }) {
         ActionButton({
-          label: '读取空扩展信息',
+          label: $r('app.string.extra_btn_read_absent'),
           tone: WidgetTone.NEUTRAL,
           onAction: () => {
             this.push(readAbsentOutcome());
           }
         })
         ActionButton({
-          label: '压线 32KB',
+          label: $r('app.string.extra_btn_near_limit'),
           tone: WidgetTone.NEUTRAL,
           onAction: () => {
             this.push(nearLimitOutcome());
@@ -127,14 +127,14 @@ export struct ExtraConfigDemoPage {
 
       Row({ space: AppSpacing.MD }) {
         ActionButton({
-          label: '越界 1 字节',
+          label: $r('app.string.extra_btn_oversized'),
           tone: WidgetTone.WARNING,
           onAction: () => {
             this.push(oversizedOutcome());
           }
         })
         ActionButton({
-          label: 'JSON 往返',
+          label: $r('app.string.extra_btn_round_trip'),
           tone: WidgetTone.NEUTRAL,
           onAction: () => {
             this.push(roundTripOutcome());
@@ -149,19 +149,23 @@ export struct ExtraConfigDemoPage {
   build() {
     Scroll() {
       Column({ space: AppSpacing.LG }) {
-        Text('编辑框设置 customSettings 后，系统在拉起输入法时把它交给输入法应用的 EditorAttribute.extraConfig。' +
-          '本应用是 UIAbility，拿不到"被拉起"那一刻，所以用打桩对象复现同样的数据形状。')
+        Text($r('app.string.extra_intro_note'))
           .fontSize(AppText.CAPTION)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')
 
-        SectionCard({ title: '当前键值', subtitle: `${this.entries.length} 项` }) {
+        SectionCard({ title: $r('app.string.extra_section_entries'),
+          subtitle: $r('app.string.common_count_items', this.entries.length) }) {
           Column({ space: AppSpacing.MD }) {
             ForEach(this.entries, (entry: ConfigEntry) => {
               this.entryRow(entry)
             }, (entry: ConfigEntry) => entry.key)
-            KeyValueRow({ label: '额度上限', value: `${this.bytes} 字节（32KB）`, mono: true })
-            Text(`值类型只能是 number / string / boolean，总长按 UTF-8 计算；超过 ${EXTRA_CONFIG_MAX_BYTES} 字节属于入参问题。`)
+            KeyValueRow({
+              label: $r('app.string.extra_bytes_limit'),
+              value: $r('app.string.extra_bytes_value', this.bytes),
+              mono: true
+            })
+            Text($r('app.string.extra_type_note', EXTRA_CONFIG_MAX_BYTES))
               .fontSize(AppText.CAPTION)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -169,15 +173,16 @@ export struct ExtraConfigDemoPage {
           .width('100%')
         }
 
-        SectionCard({ title: '调用', subtitle: '全部为本地计算，不访问系统服务' }) {
+        SectionCard({ title: $r('app.string.extra_section_call'), subtitle: $r('app.string.extra_call_subtitle') }) {
           this.callButtons()
         }
 
-        SectionCard({ title: '调用结果', subtitle: '最新在上' }) {
-          ResultList({ rows: this.rows, emptyText: '点上面的按钮开始调用' })
+        SectionCard({ title: $r('app.string.common_section_result'),
+          subtitle: $r('app.string.common_result_subtitle') }) {
+          ResultList({ rows: this.rows, emptyText: $r('app.string.extra_result_empty') })
         }
 
-        LogPanel({ title: '本页事件', filterSource: LOG_SOURCE })
+        LogPanel({ title: $r('app.string.page_log_title'), filterSource: LOG_SOURCE })
       }
       .width('100%')
       .padding(AppSpacing.PAGE)

@@ -30,7 +30,7 @@ import { AppColors, AppSpacing, AppText } from '../common/Theme';
 import { KEYBOARD_BUFFER_LIMIT } from '../common/AppConstants';
 import { KeyEdit, KeySpec, KeyboardMode, applyKey, charCount, modeName } from '../model/KeyboardModel';
 import { CallOutcome } from '../model/CallOutcome';
-import { ActionButton, KeyValueRow, SectionCard, StatusChip, WidgetTone } from './CommonWidgets';
+import { ActionButton, KeyValueRow, SectionCard, StatusChip, WidgetTone, textOfResource } from './CommonWidgets';
 import { ResultList, ResultRow } from './ResultList';
 import { LogPanel } from './LogPanel';
 import { KeyboardPreviewBox } from './KeyboardPanel';
@@ -44,29 +44,29 @@ const MAX_ROWS: number = 8;
 
 /** 四种面板组合：类型 × 状态，用于一次性把 createPanel 的真实返回攒齐 */
 interface ProbeSpec {
-  label: string;
+  label: Resource;
   type: inputMethodEngine.PanelType;
   flag: inputMethodEngine.PanelFlag;
 }
 
 const PROBE_SPECS: ProbeSpec[] = [
   {
-    label: '软键盘·固定',
+    label: $r('app.string.panel_btn_softkb_fixed'),
     type: inputMethodEngine.PanelType.SOFT_KEYBOARD,
     flag: inputMethodEngine.PanelFlag.FLG_FIXED
   },
   {
-    label: '状态栏·固定',
+    label: $r('app.string.panel_btn_statusbar_fixed'),
     type: inputMethodEngine.PanelType.STATUS_BAR,
     flag: inputMethodEngine.PanelFlag.FLG_FIXED
   },
   {
-    label: '软键盘·悬浮',
+    label: $r('app.string.panel_btn_softkb_floating'),
     type: inputMethodEngine.PanelType.SOFT_KEYBOARD,
     flag: inputMethodEngine.PanelFlag.FLG_FLOATING
   },
   {
-    label: '软键盘·候选',
+    label: $r('app.string.panel_btn_softkb_candidate'),
     type: inputMethodEngine.PanelType.SOFT_KEYBOARD,
     flag: inputMethodEngine.PanelFlag.FLAG_CANDIDATE
   }
@@ -75,15 +75,21 @@ const PROBE_SPECS: ProbeSpec[] = [
 @Component
 export struct PanelDemoPage {
   @State rows: ResultRow[] = [];
-  @State extText: string = '尚未检查';
+  @State extText: string = '';
   @State extTone: WidgetTone = WidgetTone.NEUTRAL;
   @State busy: boolean = false;
   @State keyboardText: string = '';
   @State keyboardMode: KeyboardMode = KeyboardMode.LETTER;
 
   aboutToAppear(): void {
-    Logger.info(LOG_SOURCE, '页面', '面板演示页显示');
+    Logger.info(LOG_SOURCE, 'Page', 'panel demo page shown');
+    this.extText = this.textOf($r('app.string.panel_ext_unchecked'));
     this.checkExtension();
+  }
+
+  /** 结果行与状态文本是字符串，这里按资源 id 取出本地化文案 */
+  private textOf(res: Resource): string {
+    return textOfResource(this.getUIContext().getHostContext(), res);
   }
 
   private push(row: ResultRow): void {
@@ -119,14 +125,14 @@ export struct PanelDemoPage {
       });
       const names = ime.map((item: bundleManager.ExtensionAbilityInfo) => item.name).join('、');
       this.extText = ime.length > 0 ?
-        `${info.hapModulesInfo.length} 个模块，已注册：${names}` :
-        `${info.hapModulesInfo.length} 个模块，未找到 inputMethod 扩展`;
+        this.textOf($r('app.string.panel_ext_registered', info.hapModulesInfo.length, names)) :
+        this.textOf($r('app.string.panel_ext_missing', info.hapModulesInfo.length));
       this.extTone = ime.length > 0 ? WidgetTone.SUCCESS : WidgetTone.DANGER;
-      Logger.info(LOG_SOURCE, '扩展注册', this.extText);
+      Logger.info(LOG_SOURCE, 'Extension', this.extText);
     } catch (err) {
-      this.extText = `读取失败：${messageOfThrown(err as Object)}`;
+      this.extText = this.textOf($r('app.string.panel_ext_read_failed', messageOfThrown(err as Object)));
       this.extTone = WidgetTone.DANGER;
-      Logger.error(LOG_SOURCE, '扩展注册', this.extText);
+      Logger.error(LOG_SOURCE, 'Extension', this.extText);
     }
   }
 
@@ -144,7 +150,7 @@ export struct PanelDemoPage {
     const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     for (let i = 0; i < PROBE_SPECS.length; i++) {
       const spec: ProbeSpec = PROBE_SPECS[i];
-      const outcome = await probePanelInfo(context, spec.type, spec.flag, spec.label);
+      const outcome = await probePanelInfo(context, spec.type, spec.flag, this.textOf(spec.label));
       this.pushOutcome(outcome);
     }
     this.busy = false;
@@ -161,9 +167,12 @@ export struct PanelDemoPage {
     Column({ space: AppSpacing.MD }) {
       KeyValueRow({ label: 'PanelType', value: `SOFT_KEYBOARD=${PanelType.SOFT_KEYBOARD}，STATUS_BAR=${PanelType.STATUS_BAR}`, mono: true })
       KeyValueRow({ label: 'PanelFlag', value: `FLAG_FIXED=${PanelFlag.FLAG_FIXED}，FLAG_FLOATING=${PanelFlag.FLAG_FLOATING}`, mono: true })
-      KeyValueRow({ label: 'FLAG_CANDIDATE', value: `${PanelFlag.FLAG_CANDIDATE}（API 15 起）`, mono: true })
-      Text('注意：kit 导出的枚举成员叫 FLAG_FIXED/FLAG_FLOATING，而 inputMethodEngine 命名空间内叫 ' +
-        'FLG_FIXED/FLG_FLOATING，两者不可混用；创建面板时用后者。')
+      KeyValueRow({
+        label: 'FLAG_CANDIDATE',
+        value: `${PanelFlag.FLAG_CANDIDATE}${this.textOf($r('app.string.panel_api15'))}`,
+        mono: true
+      })
+      Text($r('app.string.panel_flag_note'))
         .fontSize(AppText.CAPTION)
         .fontColor(AppColors.TEXT_MUTED)
         .width('100%')
@@ -174,33 +183,38 @@ export struct PanelDemoPage {
   build() {
     Scroll() {
       Column({ space: AppSpacing.LG }) {
-        Text('createPanel 的声明写明：只能在 InputMethodExtensionAbility 内调用，否则抛 12800004。' +
-          '本页在 UIAbility 里直接调用，把系统真实返回原样贴出来：抛错就贴错误码，返回面板就立即销毁。')
+        Text($r('app.string.panel_create_note'))
           .fontSize(AppText.CAPTION)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')
 
-        SectionCard({ title: '面板枚举', subtitle: 'inputMethodEngine 中的定义' }) {
+        SectionCard({ title: $r('app.string.panel_section_flags'),
+          subtitle: $r('app.string.panel_flags_subtitle') }) {
           this.enumRows()
         }
 
-        SectionCard({ title: '本应用扩展注册', subtitle: '安装为输入法的前提' }) {
+        SectionCard({ title: $r('app.string.panel_section_ext'),
+          subtitle: $r('app.string.panel_ext_subtitle') }) {
           Column({ space: AppSpacing.MD }) {
             Row({ space: AppSpacing.MD }) {
-              Text('inputMethod 扩展')
+              Text($r('app.string.panel_ext_type'))
                 .fontSize(AppText.BODY)
                 .fontColor(AppColors.TEXT_SECONDARY)
               Blank()
-              StatusChip({ text: this.extTone === WidgetTone.SUCCESS ? '已注册' : '未注册', tone: this.extTone })
+              StatusChip({
+                text: this.extTone === WidgetTone.SUCCESS ?
+                  $r('app.string.panel_registered') : $r('app.string.panel_unregistered'),
+                tone: this.extTone
+              })
             }
             .width('100%')
-            KeyValueRow({ label: '详情', value: this.extText })
-            Text('注册只说明清单里有它；要真正成为输入法，还需要在设置里启用，并聚焦编辑框才会被拉起。')
+            KeyValueRow({ label: $r('app.string.panel_detail'), value: this.extText })
+            Text($r('app.string.panel_ext_note'))
               .fontSize(AppText.CAPTION)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
             ActionButton({
-              label: '重新检查扩展注册',
+              label: $r('app.string.panel_btn_recheck_ext'),
               tone: WidgetTone.NEUTRAL,
               onAction: () => {
                 this.checkExtension();
@@ -210,11 +224,12 @@ export struct PanelDemoPage {
           .width('100%')
         }
 
-        SectionCard({ title: '调用实测', subtitle: '在 UIAbility 里调 createPanel' }) {
+        SectionCard({ title: $r('app.string.panel_section_live'),
+          subtitle: $r('app.string.panel_live_subtitle') }) {
           Column({ space: AppSpacing.MD }) {
             Row({ space: AppSpacing.MD }) {
               ActionButton({
-                label: '调用 createPanel',
+                label: $r('app.string.panel_btn_create'),
                 tone: WidgetTone.WARNING,
                 actionEnabled: !this.busy,
                 onAction: () => {
@@ -222,7 +237,7 @@ export struct PanelDemoPage {
                 }
               })
               ActionButton({
-                label: '四种组合都试',
+                label: $r('app.string.panel_btn_all'),
                 tone: WidgetTone.NEUTRAL,
                 actionEnabled: !this.busy,
                 onAction: () => {
@@ -231,9 +246,7 @@ export struct PanelDemoPage {
               })
             }
             .width('100%')
-            Text('文档写的是抛 12800004（not an input method application），但本机实测（OpenHarmony 7.1）' +
-              '返回了面板而非报错，说明该版本未校验调用身份。出现"意外创建成功"时已立即销毁；' +
-              '换到校验身份的版本，这里会显示 12800004 与处理建议。')
+            Text($r('app.string.panel_create_observed'))
               .fontSize(AppText.CAPTION)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -241,26 +254,27 @@ export struct PanelDemoPage {
           .width('100%')
         }
 
-        SectionCard({ title: '键盘预览', subtitle: `本地缓冲 ${charCount(this.keyboardText)}/${KEYBOARD_BUFFER_LIMIT}` }) {
+        SectionCard({ title: $r('app.string.panel_section_keyboard'),
+          subtitle: $r('app.string.panel_buffer_count', charCount(this.keyboardText), KEYBOARD_BUFFER_LIMIT) }) {
           Column({ space: AppSpacing.MD }) {
-            KeyValueRow({ label: '当前模式', value: modeName(this.keyboardMode) })
+            KeyValueRow({ label: $r('app.string.panel_current_mode'), value: modeName(this.keyboardMode) })
             KeyboardPreviewBox({
               text: this.keyboardText,
               mode: this.keyboardMode,
-              caption: '壳外预览',
+              caption: $r('app.string.panel_caption_preview'),
               onKey: (key: KeySpec) => {
                 this.onKey(key);
               }
             })
             ActionButton({
-              label: '清空缓冲',
+              label: $r('app.string.panel_btn_clear_buffer'),
               tone: WidgetTone.NEUTRAL,
               onAction: () => {
                 this.keyboardText = '';
-                Logger.info(LOG_SOURCE, '预览', '本地缓冲已清空');
+                Logger.info(LOG_SOURCE, 'Preview', 'local buffer cleared');
               }
             })
-            Text('预览没有编辑框连接，按键只改本地缓冲；系统面板里的同一个组件会通过 InputClient 写入真实编辑框。')
+            Text($r('app.string.panel_preview_note'))
               .fontSize(AppText.CAPTION)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -268,11 +282,12 @@ export struct PanelDemoPage {
           .width('100%')
         }
 
-        SectionCard({ title: '调用结果', subtitle: '最新在上' }) {
-          ResultList({ rows: this.rows, emptyText: '点"调用 createPanel"开始' })
+        SectionCard({ title: $r('app.string.common_section_result'),
+          subtitle: $r('app.string.common_result_subtitle') }) {
+          ResultList({ rows: this.rows, emptyText: $r('app.string.panel_result_empty') })
         }
 
-        LogPanel({ title: '本页事件', filterSource: LOG_SOURCE })
+        LogPanel({ title: $r('app.string.page_log_title'), filterSource: LOG_SOURCE })
       }
       .width('100%')
       .padding(AppSpacing.PAGE)

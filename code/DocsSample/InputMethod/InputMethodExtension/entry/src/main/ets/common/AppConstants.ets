@@ -18,8 +18,8 @@
  * 这里只放"纯数据"，不引用任何 SDK 类型，保证 model/utils 里的纯函数可以在本地单测直接跑。
  */
 
-/** 日志域。0x0C23 与本机其余示例的日志域错开，便于多套示例同时抓日志 */
-export const HILOG_DOMAIN: number = 0x0C23;
+/** 日志域。0xF811 为示例工程统一使用的日志域，按域过滤即可只看本示例的日志 */
+export const HILOG_DOMAIN: number = 0xF811;
 export const HILOG_TAG: string = 'InputMethodExt';
 
 /** 页面事件日志的容量上限与一屏展示条数 */

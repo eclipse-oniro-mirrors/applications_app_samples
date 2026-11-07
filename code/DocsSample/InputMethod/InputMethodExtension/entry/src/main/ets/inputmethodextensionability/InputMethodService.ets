@@ -41,7 +41,7 @@ export default class InputMethodService extends InputMethodExtensionAbility {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
-    Logger.info(SOURCE, 'onCreate', `输入法扩展被创建，want=${want.abilityName}`);
+    Logger.info(SOURCE, 'onCreate', `ime extension created, want=${want.abilityName}`);
     this.registerEvents();
   }
 
@@ -51,30 +51,30 @@ export default class InputMethodService extends InputMethodExtensionAbility {
       ability.on('inputStart', (controller: inputMethodEngine.KeyboardController,
         client: inputMethodEngine.InputClient) => {
         KeyboardBridge.attach(client);
-        Logger.info(SOURCE, 'inputStart', '编辑框已绑定，开始准备面板');
+        Logger.info(SOURCE, 'inputStart', 'editor bound, preparing panel');
         this.preparePanel();
       });
       ability.on('inputStop', () => {
         KeyboardBridge.detach();
         panelController.destroyPanel();
-        Logger.info(SOURCE, 'inputStop', '编辑框已解绑，面板销毁');
+        Logger.info(SOURCE, 'inputStop', 'editor unbound, panel destroyed');
       });
-      Logger.info(SOURCE, '注册', 'inputStart / inputStop 已注册');
+      Logger.info(SOURCE, 'Register', 'inputStart / inputStop registered');
     } catch (err) {
-      Logger.error(SOURCE, '注册', `事件注册失败：${err}`);
+      Logger.error(SOURCE, 'Register', `register events failed: ${err}`);
     }
   }
 
   private preparePanel(): void {
     panelController.ensurePanel(this.context).then((outcome: CallOutcome) => {
-      Logger.info(SOURCE, '面板', outcome.describe());
+      Logger.info(SOURCE, 'Panel', outcome.describe());
     }).catch((err: Object) => {
-      Logger.error(SOURCE, '面板', `创建面板异常：${err}`);
+      Logger.error(SOURCE, 'Panel', `create panel failed: ${err}`);
     });
   }
 
   onDestroy(): void {
-    Logger.info(SOURCE, 'onDestroy', '输入法扩展销毁');
+    Logger.info(SOURCE, 'onDestroy', 'ime extension destroyed');
     panelController.destroyPanel();
   }
 }

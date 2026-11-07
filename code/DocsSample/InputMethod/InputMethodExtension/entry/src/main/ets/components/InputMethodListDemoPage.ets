@@ -26,7 +26,7 @@
 
 import { InputMethodListDialog, Pattern } from '@kit.IMEKit';
 import { AppColors, AppSpacing, AppText } from '../common/Theme';
-import { ActionButton, KeyValueRow, SectionCard, WidgetTone } from './CommonWidgets';
+import { ActionButton, KeyValueRow, SectionCard, WidgetTone, textOfResource } from './CommonWidgets';
 import { ResultList, ResultRow } from './ResultList';
 import { LogPanel } from './LogPanel';
 import { PatternSpec, actionText, listSummary, patternSpecs } from '../utils/InputMethodListSession';
@@ -42,7 +42,7 @@ function buildPattern(icon: Resource): Pattern {
 
 @Component
 export struct InputMethodListDemoPage {
-  @State selectedText: string = '尚未选择';
+  @State selectedText: string = '';
   @State dialogOpen: boolean = false;
   @State rows: ResultRow[] = [];
   private specs: PatternSpec[] = patternSpecs();
@@ -67,7 +67,13 @@ export struct InputMethodListDemoPage {
   });
 
   aboutToAppear(): void {
-    Logger.info(LOG_SOURCE, '页面', `输入法列表页显示：${this.summary}`);
+    this.selectedText = this.textOf($r('app.string.list_not_selected'));
+    Logger.info(LOG_SOURCE, 'Page', `page shown: ${this.summary}`);
+  }
+
+  /** ResultRow 的 title / detail 是字符串，这里按资源 id 取出本地化文案 */
+  private textOf(res: Resource): string {
+    return textOfResource(this.getUIContext().getHostContext(), res);
   }
 
   private push(row: ResultRow): void {
@@ -83,20 +89,21 @@ export struct InputMethodListDemoPage {
     const text = actionText(index, this.specs);
     this.selectedText = text;
     Logger.info(LOG_SOURCE, 'action', text);
-    this.push(new ResultRow('action 回调', text, WidgetTone.SUCCESS));
+    this.push(new ResultRow(this.textOf($r('app.string.list_row_action_title')), text, WidgetTone.SUCCESS));
   }
 
   private openDialog(): void {
     try {
       this.dialogController.open();
       this.dialogOpen = true;
-      Logger.info(LOG_SOURCE, 'open', 'InputMethodListDialog 已打开');
-      this.push(new ResultRow('InputMethodListDialog.open()', '对话框已打开，点选列表项观察 action 回调',
-        WidgetTone.PRIMARY));
+      Logger.info(LOG_SOURCE, 'open', 'InputMethodListDialog opened');
+      this.push(new ResultRow('InputMethodListDialog.open()',
+        this.textOf($r('app.string.list_row_opened_detail')), WidgetTone.PRIMARY));
     } catch (err) {
       this.dialogOpen = false;
-      Logger.error(LOG_SOURCE, 'open', `打开失败：${err}`);
-      this.push(new ResultRow('InputMethodListDialog.open()', `打开失败：${err}`, WidgetTone.DANGER));
+      Logger.error(LOG_SOURCE, 'open', `open failed: ${err}`);
+      this.push(new ResultRow('InputMethodListDialog.open()',
+        this.textOf($r('app.string.list_row_failed_detail')) + `${err}`, WidgetTone.DANGER));
     }
   }
 
@@ -130,47 +137,46 @@ export struct InputMethodListDemoPage {
   build() {
     Scroll() {
       Column({ space: AppSpacing.LG }) {
-        Text('InputMethodListDialog 是系统提供的声明式组件：调用方只提供图标与回调，' +
-          '列表内容由系统按已安装输入法填充。本页用它切换中文/英文两个模式项。')
+        Text($r('app.string.list_intro_note'))
           .fontSize(AppText.CAPTION)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')
 
-        SectionCard({ title: '模式项', subtitle: `${this.specs.length} 项` }) {
+        SectionCard({ title: $r('app.string.list_section_patterns'),
+          subtitle: $r('app.string.common_count_items', this.specs.length) }) {
           Column({ space: AppSpacing.MD }) {
             ForEach(this.specs, (spec: PatternSpec) => {
               this.specRow(spec)
             }, (spec: PatternSpec) => spec.label)
-            KeyValueRow({ label: '默认选中', value: '第 1 项（中文输入）' })
-            KeyValueRow({ label: '最近选择', value: this.selectedText })
+            KeyValueRow({ label: $r('app.string.list_default_selected'),
+              value: $r('app.string.list_default_selected_value') })
+            KeyValueRow({ label: $r('app.string.list_recent'), value: this.selectedText })
           }
           .width('100%')
         }
 
-        SectionCard({ title: '操作', subtitle: '对话框由系统渲染' }) {
+        SectionCard({ title: $r('app.string.list_section_actions'),
+          subtitle: $r('app.string.list_actions_subtitle') }) {
           Column({ space: AppSpacing.MD }) {
             Row({ space: AppSpacing.MD }) {
               ActionButton({
-                label: '打开输入法列表',
+                label: $r('app.string.list_btn_open'),
                 tone: WidgetTone.PRIMARY,
                 onAction: () => {
                   this.openDialog();
                 }
               })
               ActionButton({
-                label: '重置选择',
+                label: $r('app.string.list_btn_reset'),
                 tone: WidgetTone.NEUTRAL,
                 onAction: () => {
-                  this.selectedText = '尚未选择';
-                  Logger.info(LOG_SOURCE, '重置', '最近选择已清空');
+                  this.selectedText = this.textOf($r('app.string.list_not_selected'));
+                  Logger.info(LOG_SOURCE, 'Reset', 'recent selection cleared');
                 }
               })
             }
             .width('100%')
-            Text('本机实测：对话框弹出的是系统输入法列表（kikaInput 与本应用的"输入法扩展"），两个模式项没有出现，' +
-              'action 回调也未触发。入口文档的限制是"本组件仅系统应用和输入法应用可调用，patternOptions 参数' +
-              '仅系统预置输入法支持"（d.ts 里同义写作 caller must be the current inputmethod），本应用两条都不满足，' +
-              '所以只见列表、不见模式项。')
+            Text($r('app.string.list_observed_note'))
               .fontSize(AppText.CAPTION)
               .fontColor(AppColors.TEXT_MUTED)
               .width('100%')
@@ -178,11 +184,12 @@ export struct InputMethodListDemoPage {
           .width('100%')
         }
 
-        SectionCard({ title: '调用结果', subtitle: '最新在上' }) {
-          ResultList({ rows: this.rows, emptyText: '点"打开输入法列表"开始' })
+        SectionCard({ title: $r('app.string.common_section_result'),
+          subtitle: $r('app.string.common_result_subtitle') }) {
+          ResultList({ rows: this.rows, emptyText: $r('app.string.list_result_empty') })
         }
 
-        LogPanel({ title: '本页事件', filterSource: LOG_SOURCE })
+        LogPanel({ title: $r('app.string.page_log_title'), filterSource: LOG_SOURCE })
       }
       .width('100%')
       .padding(AppSpacing.PAGE)

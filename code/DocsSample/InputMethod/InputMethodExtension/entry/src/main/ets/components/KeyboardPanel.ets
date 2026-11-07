@@ -49,7 +49,7 @@ const MAX_CANDIDATES: number = 3;
 export struct KeyboardPanel {
   @Prop text: string = '';
   @Prop mode: KeyboardMode = KeyboardMode.LETTER;
-  @Prop caption: string = '';
+  @Prop caption: ResourceStr = '';
   onKey: (key: KeySpec) => void = () => {
   };
 
@@ -80,7 +80,7 @@ export struct KeyboardPanel {
           .fontColor(CANDIDATE_EMPTY)
         Blank()
         if (this.candidates().length === 0) {
-          Text('输入后这里出现候选')
+          Text($r('app.string.component_candidate_placeholder'))
             .fontSize(AppText.SMALL)
             .fontColor(CANDIDATE_EMPTY)
         } else {
@@ -128,13 +128,13 @@ export struct KeyboardPanel {
 export struct KeyboardPreviewBox {
   @Prop text: string = '';
   @Prop mode: KeyboardMode = KeyboardMode.LETTER;
-  @Prop caption: string = '';
+  @Prop caption: ResourceStr = '';
   onKey: (key: KeySpec) => void = () => {
   };
 
   build() {
     Column({ space: AppSpacing.MD }) {
-      Text(this.text.length > 0 ? this.text : '（尚未输入）')
+      Text(this.text.length > 0 ? this.text : $r('app.string.component_keyboard_empty'))
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_STRONG)
         .width('100%')
