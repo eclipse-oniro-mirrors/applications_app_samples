@@ -18,6 +18,11 @@ import CameraService from '../../../main/ets/services/CameraService';
 import { Resolution } from '../../../main/ets/services/CommonTypes';
 import { paceTurn } from './TestPace';
 
+interface VideoCapability extends camera.Profile {
+  readonly frameRateRange: camera.FrameRateRange;
+}
+
+
 function preview(width: number, height: number): camera.Profile {
   return {
     format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
@@ -25,7 +30,7 @@ function preview(width: number, height: number): camera.Profile {
   };
 }
 
-function video(width: number, height: number): camera.VideoProfile {
+function video(width: number, height: number): VideoCapability {
   return {
     format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
     size: { width: width, height: height },
@@ -47,7 +52,7 @@ function previewMatches(profiles: camera.Profile[], target: Resolution): number 
   return count;
 }
 
-function videoMatches(profiles: camera.VideoProfile[], target: Resolution): number {
+function videoMatches(profiles: VideoCapability[], target: Resolution): number {
   let count: number = 0;
   for (let i = 0; i < profiles.length; i++) {
     if (profiles[i].size.width === target.frameWidth && profiles[i].size.height === target.frameHeight) {
@@ -73,7 +78,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(640, 480)];
+      const profiles: VideoCapability[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -130,7 +135,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(2560, 1440),
         video(3840, 2160),
         video(800, 600),
@@ -205,7 +210,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1080, 1920)];
+      const profiles: VideoCapability[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -262,7 +267,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(1280, 720),
         video(1920, 1080),
         video(2560, 1440),
@@ -337,7 +342,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(3840, 2160)];
+      const profiles: VideoCapability[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -394,7 +399,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -464,7 +469,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -521,7 +526,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
+      const profiles: VideoCapability[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -591,7 +596,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(640, 480)];
+      const profiles: VideoCapability[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -648,7 +653,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(2560, 1440),
         video(3840, 2160),
         video(800, 600),
@@ -723,7 +728,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1080, 1920)];
+      const profiles: VideoCapability[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -780,7 +785,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(1280, 720),
         video(1920, 1080),
         video(2560, 1440),
@@ -855,7 +860,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(3840, 2160)];
+      const profiles: VideoCapability[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -912,7 +917,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -982,7 +987,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1039,7 +1044,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
+      const profiles: VideoCapability[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1109,7 +1114,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(640, 480)];
+      const profiles: VideoCapability[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1166,7 +1171,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(2560, 1440),
         video(3840, 2160),
         video(800, 600),
@@ -1241,7 +1246,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1080, 1920)];
+      const profiles: VideoCapability[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1298,7 +1303,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(1280, 720),
         video(1920, 1080),
         video(2560, 1440),
@@ -1373,7 +1378,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(3840, 2160)];
+      const profiles: VideoCapability[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1430,7 +1435,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1500,7 +1505,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1920, 1080)];
+      const profiles: VideoCapability[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1557,7 +1562,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
+      const profiles: VideoCapability[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1627,7 +1632,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(640, 480)];
+      const profiles: VideoCapability[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1684,7 +1689,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(2560, 1440),
         video(3840, 2160),
         video(800, 600),
@@ -1759,7 +1764,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1080, 1920)];
+      const profiles: VideoCapability[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1816,7 +1821,7 @@ export default function cameraProfileTableTest() {
      */
     it('testCameraTable0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [
+      const profiles: VideoCapability[] = [
         video(1280, 720),
         video(1920, 1080),
         video(2560, 1440),

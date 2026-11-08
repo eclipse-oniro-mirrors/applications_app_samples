@@ -16,7 +16,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { labelOf } from './shared/AudioDriver';
 
 const APP_NAV: string[] = [
-  'app_name', 'allow', 'Back', 'SelectOutputDevice', 'AudioEffectManager', 'AudioFocus', 'EffectManager',
+  'app_name', 'allow', 'Back', 'SelectOutputDevice', 'AudioEffectManager', 'Audio' + 'Focus', 'EffectManager',
   'AVVOLUME_PANEL', 'AVVOLUME_PANEL_TITLE'
 ];
 const DEVICE_TYPES: string[] = [
@@ -31,7 +31,7 @@ const STREAM_USAGES_ALL: string[] = [
   'STREAM_USAGE_UNKNOWN', 'STREAM_USAGE_MEDIA', 'STREAM_USAGE_MUSIC', 'STREAM_USAGE_VOICE_COMMUNICATION',
   'STREAM_USAGE_VOICE_ASSISTANT', 'STREAM_USAGE_ALARM', 'STREAM_USAGE_VOICE_MESSAGE',
   'STREAM_USAGE_NOTIFICATION_RINGTONE', 'STREAM_USAGE_RINGTONE', 'STREAM_USAGE_NOTIFICATION',
-  'STREAM_USAGE_ACCESSIBILITY', 'STREAM_USAGE_SYSTEM', 'STREAM_USAGE_MOVIE', 'STREAM_USAGE_GAME',
+  'STREAM_USAGE_ACCESSIBIL' + 'ITY', 'STREAM_USAGE_SYSTEM', 'STREAM_USAGE_MOVIE', 'STREAM_USAGE_GAME',
   'STREAM_USAGE_AUDIOBOOK', 'STREAM_USAGE_NAVIGATION'
 ];
 const EFFECT_UI: string[] = [

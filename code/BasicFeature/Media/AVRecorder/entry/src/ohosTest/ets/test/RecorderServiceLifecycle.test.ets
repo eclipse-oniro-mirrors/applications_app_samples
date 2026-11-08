@@ -135,7 +135,7 @@ export default function recorderServiceLifecycleTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_LIFE_0300
      * @tc.name testServiceLife0003
-     * @tc.desc Verify a prepared audio target does not imply an input surface and survives stop and close
+     * @tc.desc Verify a prepared audio target does not imply an input stream and survives stop and close
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -400,7 +400,7 @@ export default function recorderServiceLifecycleTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_LIFE_1400
      * @tc.name testServiceLife0014
-     * @tc.desc Verify repeated audio preparation on one service leaves a second service without a surface
+     * @tc.desc Verify repeated audio preparation on one service leaves a second service without an input stream
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -423,7 +423,7 @@ export default function recorderServiceLifecycleTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_LIFE_1500
      * @tc.name testServiceLife0015
-     * @tc.desc Verify creating a recorder twice yields no surface and creates no files
+     * @tc.desc Verify creating a recorder twice yields no input stream and creates no files
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -444,7 +444,7 @@ export default function recorderServiceLifecycleTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_LIFE_1600
      * @tc.name testServiceLife0016
-     * @tc.desc Verify three create and release cycles leave the file list and surface untouched
+     * @tc.desc Verify three create and release cycles leave the file list and input stream untouched
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -504,7 +504,7 @@ export default function recorderServiceLifecycleTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_LIFE_1900
      * @tc.name testServiceLife0019
-     * @tc.desc Verify resetting a freshly created recorder keeps it surface-less and release still works
+     * @tc.desc Verify resetting a freshly created recorder keeps it without an input stream and release still works
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0

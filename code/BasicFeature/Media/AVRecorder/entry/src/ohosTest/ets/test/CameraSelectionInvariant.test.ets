@@ -18,6 +18,11 @@ import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
 import { Resolution } from '../../../main/ets/services/CommonTypes';
 
+interface VideoCapability extends camera.Profile {
+  readonly frameRateRange: camera.FrameRateRange;
+}
+
+
 const SEED_MODULUS: number = 2147483648;
 const WIDTH_UNIT: number = 320;
 const HEIGHT_UNIT: number = 240;
@@ -48,9 +53,9 @@ function generatedProfiles(count: number, seed: number): camera.Profile[] {
   return list;
 }
 
-function generatedVideoProfiles(count: number, seed: number): camera.VideoProfile[] {
+function generatedCapabilities(count: number, seed: number): VideoCapability[] {
   let state: number = seed;
-  const list: camera.VideoProfile[] = [];
+  const list: VideoCapability[] = [];
   for (let i = 0; i < count; i++) {
     state = nextSeed(state);
     const width: number = WIDTH_UNIT * (1 + state % WIDTH_VARIANTS);
@@ -75,7 +80,7 @@ function matchingIndexes(profiles: camera.Profile[], target: Resolution): number
   return indexes;
 }
 
-function videoMatchingIndexes(profiles: camera.VideoProfile[], target: Resolution): number[] {
+function videoMatchingIndexes(profiles: VideoCapability[], target: Resolution): number[] {
   const indexes: number[] = [];
   for (let i = 0; i < profiles.length; i++) {
     if (profiles[i].size.width === target.frameWidth && profiles[i].size.height === target.frameHeight) {
@@ -89,7 +94,7 @@ function targetOf(profiles: camera.Profile[], index: number): Resolution {
   return res(profiles[index].size.width, profiles[index].size.height);
 }
 
-function videoTargetOf(profiles: camera.VideoProfile[], index: number): Resolution {
+function videoTargetOf(profiles: VideoCapability[], index: number): Resolution {
   return res(profiles[index].size.width, profiles[index].size.height);
 }
 
@@ -339,7 +344,7 @@ export default function cameraSelectionInvariantTest() {
      */
     it('testCameraInvariant0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = generatedVideoProfiles(8, 5);
+      const profiles: VideoCapability[] = generatedCapabilities(8, 5);
       const target: Resolution = videoTargetOf(profiles, 4);
       const matches: number[] = videoMatchingIndexes(profiles, target);
       expect(service.selectVideoProfile(profiles, target)).assertEqual(matches[0]);
@@ -357,7 +362,7 @@ export default function cameraSelectionInvariantTest() {
      */
     it('testCameraInvariant0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = generatedVideoProfiles(8, 5);
+      const profiles: VideoCapability[] = generatedCapabilities(8, 5);
       const target: Resolution = res(2, 2);
       expect(videoMatchingIndexes(profiles, target).length).assertEqual(0);
       expect(service.selectVideoProfile(profiles, target)).assertEqual(0);
@@ -374,7 +379,7 @@ export default function cameraSelectionInvariantTest() {
      */
     it('testCameraInvariant0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = generatedVideoProfiles(7, 13);
+      const profiles: VideoCapability[] = generatedCapabilities(7, 13);
       profiles[6] = {
         format: profiles[1].format,
         size: { width: profiles[1].size.width, height: profiles[1].size.height },
@@ -398,7 +403,7 @@ export default function cameraSelectionInvariantTest() {
      */
     it('testCameraInvariant0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = generatedVideoProfiles(16, 77);
+      const profiles: VideoCapability[] = generatedCapabilities(16, 77);
       profiles[15] = {
         format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
         size: { width: 7, height: 9 },

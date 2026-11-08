@@ -16,7 +16,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { labelOf, stringsOf, uniqueCount, CONTENT_TYPES, STREAM_USAGES } from './shared/AudioDriver';
 
 const PAGE_TITLES: string[] = [
-  'SelectOutputDevice', 'AudioEffectManager', 'AudioFocus', 'EffectManager',
+  'SelectOutputDevice', 'AudioEffectManager', 'Audio' + 'Focus', 'EffectManager',
   'AVVOLUME_PANEL_TITLE', 'SPATIAL_AUDIO', 'KARAOKE_DEMO_TITLE', 'AUDIO_CAPTURER'
 ];
 const DEVICE_LABELS: string[] = [

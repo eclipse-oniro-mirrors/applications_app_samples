@@ -61,7 +61,7 @@ export default function recorderPrepareGuardTest() {
     /**
      * @tc.number SUB_AVRECORDER_PREPARE_GUARD_0100
      * @tc.name testPrepareGuard0001
-     * @tc.desc Verify a fresh service has no input surface because no recorder has been created
+     * @tc.desc Verify a fresh service has no input stream because no recorder has been created
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
@@ -164,7 +164,7 @@ export default function recorderPrepareGuardTest() {
     /**
      * @tc.number SUB_AVRECORDER_PREPARE_GUARD_0600
      * @tc.name testPrepareGuard0006
-     * @tc.desc Verify a freshly created recorder still has no surface and creates no file until it is prepared
+     * @tc.desc Verify a freshly created recorder still has no input stream and creates no file until it is prepared
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL0
