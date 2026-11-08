@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
@@ -82,7 +82,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0001', 0, () => {
+    it('testCameraProfile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080)];
       const target: Resolution = resolution(1920, 1080);
@@ -100,7 +100,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0002', 0, () => {
+    it('testCameraProfile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(640, 480)];
       const target: Resolution = resolution(1920, 1080);
@@ -118,7 +118,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0003', 0, () => {
+    it('testCameraProfile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(3840, 2160)];
       const target: Resolution = resolution(3840, 2160);
@@ -136,7 +136,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0004', 0, () => {
+    it('testCameraProfile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(640, 480)];
       const target: Resolution = resolution(1920, 1080);
@@ -154,7 +154,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0005', 0, () => {
+    it('testCameraProfile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [];
       expect(profiles.length).assertEqual(0);
@@ -170,7 +170,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0006', 0, () => {
+    it('testCameraProfile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1920, 720)];
       const target: Resolution = resolution(1920, 1080);
@@ -188,7 +188,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0007', 0, () => {
+    it('testCameraProfile0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 1080)];
       const target: Resolution = resolution(1920, 1080);
@@ -206,7 +206,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0008', 0, () => {
+    it('testCameraProfile0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1080, 1920), preview(1920, 1080)];
       expect(service.selectProfile(profiles, resolution(1920, 1080))).assertEqual(1);
@@ -223,7 +223,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0009', 0, () => {
+    it('testCameraProfile0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [
         preview(640, 480), preview(1920, 1080), preview(1280, 720), preview(1920, 1080)
@@ -243,7 +243,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0010', 0, () => {
+    it('testCameraProfile0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(0, 0)];
       expect(service.selectProfile(profiles, resolution(0, 0))).assertEqual(1);
@@ -260,7 +260,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0011', 0, () => {
+    it('testCameraProfile0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(3840, 2160)];
       expect(service.selectVideoProfile(profiles, resolution(1280, 720))).assertEqual(0);
@@ -276,7 +276,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0012', 0, () => {
+    it('testCameraProfile0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(640, 480)];
       const target: Resolution = resolution(1920, 1080);
@@ -294,7 +294,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0013', 0, () => {
+    it('testCameraProfile0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480), video(1920, 720), video(1280, 1080)];
       expect(service.selectVideoProfile(profiles, resolution(1920, 1080))).assertEqual(0);
@@ -311,7 +311,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0014', 0, () => {
+    it('testCameraProfile0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [];
       expect(profiles.length).assertEqual(0);
@@ -327,7 +327,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0015', 0, () => {
+    it('testCameraProfile0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [
         video(1920, 1080), video(1280, 720), video(1920, 1080)
@@ -345,7 +345,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0016', 0, () => {
+    it('testCameraProfile0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const rgba: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_RGBA_8888;
       const profiles: camera.Profile[] = [preview(1280, 720), previewWithFormat(1920, 1080, rgba)];
@@ -364,7 +364,7 @@ export default function cameraProfileSelectTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraProfile0017', 0, () => {
+    it('testCameraProfile0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), videoWithRate(1920, 1080, 15, 30)];
       const index: number = service.selectVideoProfile(profiles, resolution(1920, 1080));

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
 import { Resolution } from '../../../main/ets/services/CommonTypes';
@@ -71,7 +71,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0001', 0, () => {
+    it('testCameraTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
@@ -90,7 +90,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0002', 0, () => {
+    it('testCameraTable0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -109,7 +109,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0003', 0, () => {
+    it('testCameraTable0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -128,9 +128,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0004', 0, () => {
+    it('testCameraTable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(2560, 1440), video(3840, 2160), video(800, 600), video(1080, 1920)];
+      const profiles: camera.VideoProfile[] = [
+        video(2560, 1440),
+        video(3840, 2160),
+        video(800, 600),
+        video(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -147,9 +152,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0005', 0, () => {
+    it('testCameraTable0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(640, 480);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(4);
@@ -166,9 +177,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0006', 0, () => {
+    it('testCameraTable0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -185,7 +203,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0007', 0, () => {
+    it('testCameraTable0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -204,7 +222,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0008', 0, () => {
+    it('testCameraTable0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -223,7 +241,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0009', 0, () => {
+    it('testCameraTable0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -242,9 +260,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0010', 0, () => {
+    it('testCameraTable0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(2560, 1440), video(3840, 2160)];
+      const profiles: camera.VideoProfile[] = [
+        video(1280, 720),
+        video(1920, 1080),
+        video(2560, 1440),
+        video(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -261,9 +284,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0011', 0, () => {
+    it('testCameraTable0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(1920, 1080);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -280,9 +309,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0012', 0, () => {
+    it('testCameraTable0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -299,7 +335,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0013', 0, () => {
+    it('testCameraTable0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -318,7 +354,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0014', 0, () => {
+    it('testCameraTable0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(2048, 1536);
@@ -337,7 +373,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0015', 0, () => {
+    it('testCameraTable0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(640, 480);
@@ -356,7 +392,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0016', 0, () => {
+    it('testCameraTable0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -375,9 +411,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0017', 0, () => {
+    it('testCameraTable0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(1280, 720);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(1);
@@ -394,9 +436,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0018', 0, () => {
+    it('testCameraTable0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -413,7 +462,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0019', 0, () => {
+    it('testCameraTable0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -432,7 +481,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0020', 0, () => {
+    it('testCameraTable0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(2048, 1536);
@@ -451,7 +500,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0021', 0, () => {
+    it('testCameraTable0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -470,7 +519,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0022', 0, () => {
+    it('testCameraTable0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -489,9 +538,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0023', 0, () => {
+    it('testCameraTable0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(640, 480);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(2);
@@ -508,9 +563,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0024', 0, () => {
+    it('testCameraTable0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -527,7 +589,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0025', 0, () => {
+    it('testCameraTable0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
@@ -546,7 +608,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0026', 0, () => {
+    it('testCameraTable0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -565,7 +627,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0027', 0, () => {
+    it('testCameraTable0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -584,9 +646,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0028', 0, () => {
+    it('testCameraTable0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(2560, 1440), video(3840, 2160), video(800, 600), video(1080, 1920)];
+      const profiles: camera.VideoProfile[] = [
+        video(2560, 1440),
+        video(3840, 2160),
+        video(800, 600),
+        video(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -603,9 +670,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0029', 0, () => {
+    it('testCameraTable0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(4096, 2160);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(3);
@@ -622,9 +695,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0030', 0, () => {
+    it('testCameraTable0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -641,7 +721,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0031', 0, () => {
+    it('testCameraTable0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -660,7 +740,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0032', 0, () => {
+    it('testCameraTable0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -679,7 +759,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0033', 0, () => {
+    it('testCameraTable0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -698,9 +778,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0034', 0, () => {
+    it('testCameraTable0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(2560, 1440), video(3840, 2160)];
+      const profiles: camera.VideoProfile[] = [
+        video(1280, 720),
+        video(1920, 1080),
+        video(2560, 1440),
+        video(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -717,9 +802,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0035', 0, () => {
+    it('testCameraTable0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(4);
@@ -736,9 +827,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0036', 0, () => {
+    it('testCameraTable0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -755,7 +853,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0037', 0, () => {
+    it('testCameraTable0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -774,7 +872,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0038', 0, () => {
+    it('testCameraTable0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(2048, 1536);
@@ -793,7 +891,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0039', 0, () => {
+    it('testCameraTable0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(640, 480);
@@ -812,7 +910,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0040', 0, () => {
+    it('testCameraTable0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -831,9 +929,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0041', 0, () => {
+    it('testCameraTable0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(640, 480);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -850,9 +954,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0042', 0, () => {
+    it('testCameraTable0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -869,7 +980,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0043', 0, () => {
+    it('testCameraTable0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -888,7 +999,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0044', 0, () => {
+    it('testCameraTable0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(2048, 1536);
@@ -907,7 +1018,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0045', 0, () => {
+    it('testCameraTable0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -926,7 +1037,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0046', 0, () => {
+    it('testCameraTable0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -945,9 +1056,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0047', 0, () => {
+    it('testCameraTable0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(4096, 2160);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(1);
@@ -964,9 +1081,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0048', 0, () => {
+    it('testCameraTable0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -983,7 +1107,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0049', 0, () => {
+    it('testCameraTable0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
@@ -1002,7 +1126,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0050', 0, () => {
+    it('testCameraTable0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -1021,7 +1145,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0051', 0, () => {
+    it('testCameraTable0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -1040,9 +1164,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0052', 0, () => {
+    it('testCameraTable0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(2560, 1440), video(3840, 2160), video(800, 600), video(1080, 1920)];
+      const profiles: camera.VideoProfile[] = [
+        video(2560, 1440),
+        video(3840, 2160),
+        video(800, 600),
+        video(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1059,9 +1188,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0053', 0, () => {
+    it('testCameraTable0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(2);
@@ -1078,9 +1213,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0054', 0, () => {
+    it('testCameraTable0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1097,7 +1239,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0055', 0, () => {
+    it('testCameraTable0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -1116,7 +1258,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0056', 0, () => {
+    it('testCameraTable0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -1135,7 +1277,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0057', 0, () => {
+    it('testCameraTable0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -1154,9 +1296,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0058', 0, () => {
+    it('testCameraTable0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(2560, 1440), video(3840, 2160)];
+      const profiles: camera.VideoProfile[] = [
+        video(1280, 720),
+        video(1920, 1080),
+        video(2560, 1440),
+        video(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1173,9 +1320,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0059', 0, () => {
+    it('testCameraTable0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(800, 600);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(3);
@@ -1192,9 +1345,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0060', 0, () => {
+    it('testCameraTable0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1211,7 +1371,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0061', 0, () => {
+    it('testCameraTable0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -1230,7 +1390,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0062', 0, () => {
+    it('testCameraTable0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(2048, 1536);
@@ -1249,7 +1409,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0063', 0, () => {
+    it('testCameraTable0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(640, 480);
@@ -1268,7 +1428,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0064', 0, () => {
+    it('testCameraTable0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(4096, 2160), video(640, 480), video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -1287,9 +1447,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0065', 0, () => {
+    it('testCameraTable0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(3840, 2160);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(4);
@@ -1306,9 +1472,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0066', 0, () => {
+    it('testCameraTable0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1325,7 +1498,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0067', 0, () => {
+    it('testCameraTable0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -1344,7 +1517,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0068', 0, () => {
+    it('testCameraTable0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(2048, 1536);
@@ -1363,7 +1536,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0069', 0, () => {
+    it('testCameraTable0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -1382,7 +1555,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0070', 0, () => {
+    it('testCameraTable0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(800, 600), video(1080, 1920), video(4096, 2160), video(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -1401,9 +1574,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0071', 0, () => {
+    it('testCameraTable0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(1080, 1920);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1420,9 +1599,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0072', 0, () => {
+    it('testCameraTable0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
+      const profiles: camera.Profile[] = [
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1439,7 +1625,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0073', 0, () => {
+    it('testCameraTable0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480)];
       const target: Resolution = res(640, 480);
@@ -1458,7 +1644,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0074', 0, () => {
+    it('testCameraTable0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(2048, 1536);
@@ -1477,7 +1663,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0075', 0, () => {
+    it('testCameraTable0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160)];
       const target: Resolution = res(3840, 2160);
@@ -1496,9 +1682,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0076', 0, () => {
+    it('testCameraTable0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(2560, 1440), video(3840, 2160), video(800, 600), video(1080, 1920)];
+      const profiles: camera.VideoProfile[] = [
+        video(2560, 1440),
+        video(3840, 2160),
+        video(800, 600),
+        video(1080, 1920)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1515,9 +1706,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0077', 0, () => {
+    it('testCameraTable0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(800, 600);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(1);
@@ -1534,9 +1731,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0078', 0, () => {
+    it('testCameraTable0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1553,7 +1757,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0079', 0, () => {
+    it('testCameraTable0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1080, 1920)];
       const target: Resolution = res(1080, 1920);
@@ -1572,7 +1776,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0080', 0, () => {
+    it('testCameraTable0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(4096, 2160), preview(640, 480)];
       const target: Resolution = res(2048, 1536);
@@ -1591,7 +1795,7 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0081', 0, () => {
+    it('testCameraTable0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -1610,9 +1814,14 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0082', 0, () => {
+    it('testCameraTable0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(2560, 1440), video(3840, 2160)];
+      const profiles: camera.VideoProfile[] = [
+        video(1280, 720),
+        video(1920, 1080),
+        video(2560, 1440),
+        video(3840, 2160)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectVideoProfile(profiles, target);
       expect(index).assertEqual(0);
@@ -1629,9 +1838,15 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0083', 0, () => {
+    it('testCameraTable0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1920, 1080), preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920)];
+      const profiles: camera.Profile[] = [
+        preview(1920, 1080),
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920)
+      ];
       const target: Resolution = res(3840, 2160);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(2);
@@ -1648,9 +1863,16 @@ export default function cameraProfileTableTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraTable0084', 0, () => {
+    it('testCameraTable0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(2560, 1440), preview(3840, 2160), preview(800, 600), preview(1080, 1920), preview(4096, 2160), preview(640, 480)];
+      const profiles: camera.Profile[] = [
+        preview(2560, 1440),
+        preview(3840, 2160),
+        preview(800, 600),
+        preview(1080, 1920),
+        preview(4096, 2160),
+        preview(640, 480)
+      ];
       const target: Resolution = res(2048, 1536);
       const index: number = service.selectProfile(profiles, target);
       expect(index).assertEqual(0);

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
@@ -105,9 +105,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify selection on a generated capability list returns the first profile with the target size
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0001', 0, () => {
+    it('testCameraInvariant0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(8, 7);
       const target: Resolution = targetOf(profiles, 3);
@@ -124,9 +124,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify a generated list without the target size falls back to index zero
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0002', 0, () => {
+    it('testCameraInvariant0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(8, 7);
       const target: Resolution = res(2, 3);
@@ -141,9 +141,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify duplicated sizes resolve to the earliest matching index, never a later duplicate
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0003', 0, () => {
+    it('testCameraInvariant0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(6, 11);
       profiles[5] = {
@@ -164,9 +164,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify a matching first entry is reported as index zero and not as a fallback
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0004', 0, () => {
+    it('testCameraInvariant0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(5, 23);
       const target: Resolution = targetOf(profiles, 0);
@@ -182,9 +182,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify selection reaches the final entry of a long generated capability list
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0005', 0, () => {
+    it('testCameraInvariant0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(21, 99);
       profiles[20] = { format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP, size: { width: 3, height: 5 } };
@@ -202,9 +202,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify two generated lists resolve the same target according to their own contents
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0006', 0, () => {
+    it('testCameraInvariant0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const first: camera.Profile[] = generatedProfiles(9, 17);
       const second: camera.Profile[] = generatedProfiles(9, 29);
@@ -223,9 +223,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify an explicit zero-sized profile is still matched exactly at its own index
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0007', 0, () => {
+    it('testCameraInvariant0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(6, 3);
       profiles[4] = { format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP, size: { width: 0, height: 0 } };
@@ -241,9 +241,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify the returned index is always the smallest match or the fallback zero
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0008', 0, () => {
+    it('testCameraInvariant0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(12, 41);
       const targets: Resolution[] = [targetOf(profiles, 1), targetOf(profiles, 7), res(1, 1)];
@@ -262,9 +262,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify a target that only matches the height never scores a profile match
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0009', 0, () => {
+    it('testCameraInvariant0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(7, 53);
       const target: Resolution = res(1, profiles[0].size.height);
@@ -279,9 +279,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify a target that only matches the width never scores a profile match
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0010', 0, () => {
+    it('testCameraInvariant0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(7, 61);
       const target: Resolution = res(profiles[0].size.width, 1);
@@ -296,9 +296,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify a single-entry list distinguishes its one real match from a fallback
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0011', 0, () => {
+    it('testCameraInvariant0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [{
         format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
@@ -316,9 +316,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify the middle entry of a thirteen-profile list is selected exactly once
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0012', 0, () => {
+    it('testCameraInvariant0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = generatedProfiles(13, 31);
       profiles[6] = { format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP, size: { width: 5, height: 7 } };
@@ -335,9 +335,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify video selection on a generated list returns the earliest matching profile
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0013', 0, () => {
+    it('testCameraInvariant0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = generatedVideoProfiles(8, 5);
       const target: Resolution = videoTargetOf(profiles, 4);
@@ -353,9 +353,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify video selection falls back to zero when a generated list lacks the target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0014', 0, () => {
+    it('testCameraInvariant0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = generatedVideoProfiles(8, 5);
       const target: Resolution = res(2, 2);
@@ -370,9 +370,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify duplicated video sizes resolve to the earliest duplicate index
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0015', 0, () => {
+    it('testCameraInvariant0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = generatedVideoProfiles(7, 13);
       profiles[6] = {
@@ -394,9 +394,9 @@ export default function cameraSelectionInvariantTest() {
      * @tc.desc Verify video selection reaches the last entry of a long generated list
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testCameraInvariant0016', 0, () => {
+    it('testCameraInvariant0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = generatedVideoProfiles(16, 77);
       profiles[15] = {

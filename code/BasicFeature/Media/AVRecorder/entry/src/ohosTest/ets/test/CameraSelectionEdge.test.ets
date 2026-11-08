@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { camera } from '@kit.CameraKit';
 import CameraService from '../../../main/ets/services/CameraService';
@@ -89,7 +89,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0001', 0, () => {
+    it('testCameraEdge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480)];
       const target: Resolution = res(640, 480);
@@ -107,7 +107,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0002', 0, () => {
+    it('testCameraEdge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480)];
       const target: Resolution = res(800, 600);
@@ -124,7 +124,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0003', 0, () => {
+    it('testCameraEdge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -142,7 +142,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0004', 0, () => {
+    it('testCameraEdge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(1280, 720)];
       const target: Resolution = res(1920, 1080);
@@ -159,7 +159,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0005', 0, () => {
+    it('testCameraEdge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const index: number = service.selectProfile(profiles, res(1280, 720));
@@ -176,7 +176,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0006', 0, () => {
+    it('testCameraEdge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), preview(1920, 1080)];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
@@ -193,9 +193,14 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0007', 0, () => {
+    it('testCameraEdge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(800, 600), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(800, 600),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const index: number = service.selectProfile(profiles, res(1280, 720));
       expect(index).assertEqual(2);
       expect(profiles[index].size.width).assertEqual(1280);
@@ -210,9 +215,14 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0008', 0, () => {
+    it('testCameraEdge0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(800, 600), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(800, 600),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
       expect(index).assertEqual(3);
       expect(profiles[index].size.width).assertEqual(1920);
@@ -227,7 +237,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0009', 0, () => {
+    it('testCameraEdge0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [
         preview(640, 480), preview(800, 600), preview(1280, 720), preview(1920, 1080), preview(2560, 1440)
@@ -246,7 +256,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0010', 0, () => {
+    it('testCameraEdge0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [
         preview(320, 240), preview(640, 480), preview(800, 600), preview(1280, 720), preview(1920, 1080),
@@ -266,7 +276,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0011', 0, () => {
+    it('testCameraEdge0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [];
       for (let i = 0; i < 9; i++) {
@@ -287,7 +297,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0012', 0, () => {
+    it('testCameraEdge0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = eightProfiles();
       const index: number = service.selectProfile(profiles, res(2560, 1440));
@@ -304,7 +314,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0013', 0, () => {
+    it('testCameraEdge0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = eightProfiles();
       const target: Resolution = res(4096, 2160);
@@ -322,7 +332,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0014', 0, () => {
+    it('testCameraEdge0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = eightProfiles();
       const target: Resolution = res(1080, 1920);
@@ -340,7 +350,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0015', 0, () => {
+    it('testCameraEdge0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = eightProfiles();
       const index: number = service.selectProfile(profiles, res(3840, 2160));
@@ -357,9 +367,14 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0016', 0, () => {
+    it('testCameraEdge0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(640, 480), preview(1920, 1080), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(640, 480),
+        preview(1920, 1080),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
       expect(index).assertEqual(1);
       expect(previewMatches(profiles, res(1920, 1080))).assertEqual(2);
@@ -374,9 +389,14 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0017', 0, () => {
+    it('testCameraEdge0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.Profile[] = [preview(1920, 1080), preview(640, 480), preview(1280, 720), preview(1920, 1080)];
+      const profiles: camera.Profile[] = [
+        preview(1920, 1080),
+        preview(640, 480),
+        preview(1280, 720),
+        preview(1920, 1080)
+      ];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
       expect(index).assertEqual(0);
       expect(previewMatches(profiles, res(1920, 1080))).assertEqual(2);
@@ -391,7 +411,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0018', 0, () => {
+    it('testCameraEdge0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1280, 720), preview(1280, 720)];
       const index: number = service.selectProfile(profiles, res(1280, 720));
@@ -408,7 +428,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0019', 0, () => {
+    it('testCameraEdge0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(0, 0)];
       const index: number = service.selectProfile(profiles, res(0, 0));
@@ -425,7 +445,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0020', 0, () => {
+    it('testCameraEdge0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(640, 480)];
       expect(service.selectProfile(profiles, res(0, 0))).assertEqual(0);
@@ -441,7 +461,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0021', 0, () => {
+    it('testCameraEdge0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 720), preview(1920, 1080)];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
@@ -458,7 +478,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0022', 0, () => {
+    it('testCameraEdge0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 1080), preview(1920, 1080)];
       const index: number = service.selectProfile(profiles, res(1920, 1080));
@@ -475,7 +495,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0023', 0, () => {
+    it('testCameraEdge0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920.5, 1080);
@@ -492,7 +512,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0024', 0, () => {
+    it('testCameraEdge0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1079.5);
@@ -509,7 +529,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0025', 0, () => {
+    it('testCameraEdge0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(1280, 720)];
       expect(service.selectProfile(profiles, res(0, 1080))).assertEqual(0);
@@ -525,7 +545,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0026', 0, () => {
+    it('testCameraEdge0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(1280, 720)];
       expect(service.selectProfile(profiles, res(1920, 0))).assertEqual(0);
@@ -541,7 +561,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0027', 0, () => {
+    it('testCameraEdge0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = eightProfiles();
       const target: Resolution = res(7680, 4320);
@@ -558,7 +578,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0028', 0, () => {
+    it('testCameraEdge0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       expect(service.selectProfile(profiles, res(1, 1))).assertEqual(0);
@@ -574,7 +594,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0029', 0, () => {
+    it('testCameraEdge0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const jpeg: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_JPEG;
       const profiles: camera.Profile[] = [preview(640, 480), preview(1280, 720), previewFmt(1920, 1080, jpeg)];
@@ -592,7 +612,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0030', 0, () => {
+    it('testCameraEdge0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const rgba: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_RGBA_8888;
       const profiles: camera.Profile[] = [previewFmt(1920, 1080, rgba), preview(1920, 1080)];
@@ -610,7 +630,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0031', 0, () => {
+    it('testCameraEdge0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const jpeg: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_JPEG;
       const profiles: camera.Profile[] = [previewFmt(1280, 720, jpeg), preview(640, 480)];
@@ -628,7 +648,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0032', 0, () => {
+    it('testCameraEdge0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -645,7 +665,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0033', 0, () => {
+    it('testCameraEdge0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1280, 720);
@@ -667,7 +687,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0034', 0, () => {
+    it('testCameraEdge0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080), preview(3840, 2160)];
       expect(service.selectProfile(profiles, res(1280, 720))).assertEqual(0);
@@ -683,7 +703,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0035', 0, () => {
+    it('testCameraEdge0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: CameraService = new CameraService();
       const second: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(640, 480), preview(1920, 1080)];
@@ -700,7 +720,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0036', 0, () => {
+    it('testCameraEdge0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1280, 720), preview(1920, 1080)];
       const target: Resolution = res(1920, 1080);
@@ -717,7 +737,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0037', 0, () => {
+    it('testCameraEdge0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(1920, 1080), preview(1280, 720), preview(640, 480)];
       const index: number = service.selectProfile(profiles, res(640, 480));
@@ -734,7 +754,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0038', 0, () => {
+    it('testCameraEdge0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [];
       for (let i = 0; i < 19; i++) {
@@ -755,7 +775,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0039', 0, () => {
+    it('testCameraEdge0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [];
       for (let i = 0; i < 20; i++) {
@@ -774,7 +794,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0040', 0, () => {
+    it('testCameraEdge0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.Profile[] = [preview(0, 0)];
       expect(service.selectProfile(profiles, res(0, 0))).assertEqual(0);
@@ -790,7 +810,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0041', 0, () => {
+    it('testCameraEdge0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1920, 1080)];
       const index: number = service.selectVideoProfile(profiles, res(1920, 1080));
@@ -807,7 +827,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0042', 0, () => {
+    it('testCameraEdge0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(640, 480)];
       expect(service.selectVideoProfile(profiles, res(1920, 1080))).assertEqual(0);
@@ -823,7 +843,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0043', 0, () => {
+    it('testCameraEdge0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(3840, 2160)];
       const index: number = service.selectVideoProfile(profiles, res(1920, 1080));
@@ -840,7 +860,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0044', 0, () => {
+    it('testCameraEdge0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(3840, 2160)];
       const index: number = service.selectVideoProfile(profiles, res(3840, 2160));
@@ -857,7 +877,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0045', 0, () => {
+    it('testCameraEdge0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [
         video(320, 240), video(640, 480), video(1280, 720), video(1920, 1080), video(2560, 1440)
@@ -876,7 +896,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0046', 0, () => {
+    it('testCameraEdge0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [];
       for (let i = 0; i < 9; i++) {
@@ -897,9 +917,14 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0047', 0, () => {
+    it('testCameraEdge0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
-      const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(1280, 720), video(1920, 1080)];
+      const profiles: camera.VideoProfile[] = [
+        video(1280, 720),
+        video(1920, 1080),
+        video(1280, 720),
+        video(1920, 1080)
+      ];
       const index: number = service.selectVideoProfile(profiles, res(1920, 1080));
       expect(index).assertEqual(1);
       expect(videoMatches(profiles, res(1920, 1080))).assertEqual(2);
@@ -914,7 +939,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0048', 0, () => {
+    it('testCameraEdge0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1920, 1080), video(1920, 1080)];
       const index: number = service.selectVideoProfile(profiles, res(1920, 1080));
@@ -931,7 +956,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0049', 0, () => {
+    it('testCameraEdge0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(0, 0)];
       const index: number = service.selectVideoProfile(profiles, res(0, 0));
@@ -948,7 +973,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0050', 0, () => {
+    it('testCameraEdge0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080)];
       expect(service.selectVideoProfile(profiles, res(0, 0))).assertEqual(0);
@@ -964,7 +989,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0051', 0, () => {
+    it('testCameraEdge0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [videoRate(1920, 1080, 15, 30), videoRate(1920, 1080, 30, 60)];
       const index: number = service.selectVideoProfile(profiles, res(1920, 1080));
@@ -981,7 +1006,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0052', 0, () => {
+    it('testCameraEdge0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(720, 1280), video(1280, 720)];
       expect(service.selectVideoProfile(profiles, res(720, 1280))).assertEqual(0);
@@ -997,7 +1022,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0053', 0, () => {
+    it('testCameraEdge0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080)];
       const target: Resolution = res(1280.5, 720);
@@ -1014,7 +1039,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0054', 0, () => {
+    it('testCameraEdge0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080)];
       expect(service.selectVideoProfile(profiles, res(9999, 9999))).assertEqual(0);
@@ -1030,7 +1055,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0055', 0, () => {
+    it('testCameraEdge0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const service: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080), video(3840, 2160)];
       expect(service.selectVideoProfile(profiles, res(1280, 720))).assertEqual(0);
@@ -1046,7 +1071,7 @@ export default function cameraSelectionEdgeTest() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testCameraEdge0056', 0, () => {
+    it('testCameraEdge0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const first: CameraService = new CameraService();
       const second: CameraService = new CameraService();
       const profiles: camera.VideoProfile[] = [video(1280, 720), video(1920, 1080)];

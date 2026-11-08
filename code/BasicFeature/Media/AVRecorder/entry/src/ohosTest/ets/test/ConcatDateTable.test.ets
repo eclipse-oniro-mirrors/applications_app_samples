@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import DateTimeUtil from '../../../main/ets/utils/DateTimeUtil';
 import { paceTurn } from './TestPace';
 
@@ -28,9 +28,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 1 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0001', 0, () => {
+    it('testConcatDateTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 1, 9);
       expect(text).assertEqual('200019');
@@ -44,9 +44,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 1 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0002', 0, () => {
+    it('testConcatDateTable0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 1, 28);
       expect(text).assertEqual('2000128');
@@ -60,9 +60,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 2 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0003', 0, () => {
+    it('testConcatDateTable0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 2, 10);
       expect(text).assertEqual('2000210');
@@ -76,9 +76,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 2 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0004', 0, () => {
+    it('testConcatDateTable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 2, 30);
       expect(text).assertEqual('2000230');
@@ -92,9 +92,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 3 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0005', 0, () => {
+    it('testConcatDateTable0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 3, 28);
       expect(text).assertEqual('2000328');
@@ -108,9 +108,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 3 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0006', 0, () => {
+    it('testConcatDateTable0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 3, 31);
       expect(text).assertEqual('2000331');
@@ -124,9 +124,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 4 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0007', 0, () => {
+    it('testConcatDateTable0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 4, 30);
       expect(text).assertEqual('2000430');
@@ -140,9 +140,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 4 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0008', 0, () => {
+    it('testConcatDateTable0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 4, 1);
       expect(text).assertEqual('200041');
@@ -156,9 +156,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 5 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0009', 0, () => {
+    it('testConcatDateTable0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 5, 31);
       expect(text).assertEqual('2000531');
@@ -172,9 +172,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 5 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0010', 0, () => {
+    it('testConcatDateTable0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 5, 9);
       expect(text).assertEqual('200059');
@@ -188,9 +188,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 6 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0011', 0, () => {
+    it('testConcatDateTable0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 6, 1);
       expect(text).assertEqual('200061');
@@ -204,9 +204,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 6 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0012', 0, () => {
+    it('testConcatDateTable0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 6, 10);
       expect(text).assertEqual('2000610');
@@ -220,9 +220,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 7 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0013', 0, () => {
+    it('testConcatDateTable0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 7, 9);
       expect(text).assertEqual('200079');
@@ -236,9 +236,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 7 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0014', 0, () => {
+    it('testConcatDateTable0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 7, 28);
       expect(text).assertEqual('2000728');
@@ -252,9 +252,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 8 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0015', 0, () => {
+    it('testConcatDateTable0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 8, 10);
       expect(text).assertEqual('2000810');
@@ -268,9 +268,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 8 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0016', 0, () => {
+    it('testConcatDateTable0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 8, 30);
       expect(text).assertEqual('2000830');
@@ -284,9 +284,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 9 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0017', 0, () => {
+    it('testConcatDateTable0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 9, 28);
       expect(text).assertEqual('2000928');
@@ -300,9 +300,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 9 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0018', 0, () => {
+    it('testConcatDateTable0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 9, 31);
       expect(text).assertEqual('2000931');
@@ -316,9 +316,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 10 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0019', 0, () => {
+    it('testConcatDateTable0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 10, 30);
       expect(text).assertEqual('20001030');
@@ -332,9 +332,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 10 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0020', 0, () => {
+    it('testConcatDateTable0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 10, 1);
       expect(text).assertEqual('2000101');
@@ -348,9 +348,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 11 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0021', 0, () => {
+    it('testConcatDateTable0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 11, 31);
       expect(text).assertEqual('20001131');
@@ -364,9 +364,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 11 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0022', 0, () => {
+    it('testConcatDateTable0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 11, 9);
       expect(text).assertEqual('2000119');
@@ -380,9 +380,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 12 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0023', 0, () => {
+    it('testConcatDateTable0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 12, 1);
       expect(text).assertEqual('2000121');
@@ -396,9 +396,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2000, 12 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0024', 0, () => {
+    it('testConcatDateTable0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2000, 12, 10);
       expect(text).assertEqual('20001210');
@@ -412,9 +412,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 1 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0025', 0, () => {
+    it('testConcatDateTable0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 1, 10);
       expect(text).assertEqual('2024110');
@@ -428,9 +428,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 1 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0026', 0, () => {
+    it('testConcatDateTable0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 1, 30);
       expect(text).assertEqual('2024130');
@@ -444,9 +444,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 2 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0027', 0, () => {
+    it('testConcatDateTable0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 2, 28);
       expect(text).assertEqual('2024228');
@@ -460,9 +460,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 2 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0028', 0, () => {
+    it('testConcatDateTable0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 2, 31);
       expect(text).assertEqual('2024231');
@@ -476,9 +476,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 3 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0029', 0, () => {
+    it('testConcatDateTable0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 3, 30);
       expect(text).assertEqual('2024330');
@@ -492,9 +492,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 3 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0030', 0, () => {
+    it('testConcatDateTable0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 3, 1);
       expect(text).assertEqual('202431');
@@ -508,9 +508,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 4 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0031', 0, () => {
+    it('testConcatDateTable0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 4, 31);
       expect(text).assertEqual('2024431');
@@ -524,9 +524,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 4 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0032', 0, () => {
+    it('testConcatDateTable0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 4, 9);
       expect(text).assertEqual('202449');
@@ -540,9 +540,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 5 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0033', 0, () => {
+    it('testConcatDateTable0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 5, 1);
       expect(text).assertEqual('202451');
@@ -556,9 +556,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 5 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0034', 0, () => {
+    it('testConcatDateTable0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 5, 10);
       expect(text).assertEqual('2024510');
@@ -572,9 +572,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 6 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0035', 0, () => {
+    it('testConcatDateTable0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 6, 9);
       expect(text).assertEqual('202469');
@@ -588,9 +588,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 6 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0036', 0, () => {
+    it('testConcatDateTable0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 6, 28);
       expect(text).assertEqual('2024628');
@@ -604,9 +604,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 7 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0037', 0, () => {
+    it('testConcatDateTable0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 7, 10);
       expect(text).assertEqual('2024710');
@@ -620,9 +620,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 7 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0038', 0, () => {
+    it('testConcatDateTable0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 7, 30);
       expect(text).assertEqual('2024730');
@@ -636,9 +636,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 8 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0039', 0, () => {
+    it('testConcatDateTable0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 8, 28);
       expect(text).assertEqual('2024828');
@@ -652,9 +652,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 8 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0040', 0, () => {
+    it('testConcatDateTable0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 8, 31);
       expect(text).assertEqual('2024831');
@@ -668,9 +668,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 9 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0041', 0, () => {
+    it('testConcatDateTable0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 9, 30);
       expect(text).assertEqual('2024930');
@@ -684,9 +684,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 9 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0042', 0, () => {
+    it('testConcatDateTable0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 9, 1);
       expect(text).assertEqual('202491');
@@ -700,9 +700,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 10 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0043', 0, () => {
+    it('testConcatDateTable0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 10, 31);
       expect(text).assertEqual('20241031');
@@ -716,9 +716,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 10 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0044', 0, () => {
+    it('testConcatDateTable0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 10, 9);
       expect(text).assertEqual('2024109');
@@ -732,9 +732,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 11 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0045', 0, () => {
+    it('testConcatDateTable0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 11, 1);
       expect(text).assertEqual('2024111');
@@ -748,9 +748,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 11 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0046', 0, () => {
+    it('testConcatDateTable0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 11, 10);
       expect(text).assertEqual('20241110');
@@ -764,9 +764,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 12 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0047', 0, () => {
+    it('testConcatDateTable0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 12, 9);
       expect(text).assertEqual('2024129');
@@ -780,9 +780,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2024, 12 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0048', 0, () => {
+    it('testConcatDateTable0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2024, 12, 28);
       expect(text).assertEqual('20241228');
@@ -796,9 +796,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 1 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0049', 0, () => {
+    it('testConcatDateTable0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 1, 28);
       expect(text).assertEqual('2026128');
@@ -812,9 +812,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 1 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0050', 0, () => {
+    it('testConcatDateTable0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 1, 31);
       expect(text).assertEqual('2026131');
@@ -828,9 +828,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 2 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0051', 0, () => {
+    it('testConcatDateTable0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 2, 30);
       expect(text).assertEqual('2026230');
@@ -844,9 +844,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 2 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0052', 0, () => {
+    it('testConcatDateTable0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 2, 1);
       expect(text).assertEqual('202621');
@@ -860,9 +860,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 3 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0053', 0, () => {
+    it('testConcatDateTable0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 3, 31);
       expect(text).assertEqual('2026331');
@@ -876,9 +876,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 3 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0054', 0, () => {
+    it('testConcatDateTable0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 3, 9);
       expect(text).assertEqual('202639');
@@ -892,9 +892,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 4 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0055', 0, () => {
+    it('testConcatDateTable0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 4, 1);
       expect(text).assertEqual('202641');
@@ -908,9 +908,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 4 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0056', 0, () => {
+    it('testConcatDateTable0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 4, 10);
       expect(text).assertEqual('2026410');
@@ -924,9 +924,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 5 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0057', 0, () => {
+    it('testConcatDateTable0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 5, 9);
       expect(text).assertEqual('202659');
@@ -940,9 +940,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 5 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0058', 0, () => {
+    it('testConcatDateTable0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 5, 28);
       expect(text).assertEqual('2026528');
@@ -956,9 +956,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 6 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0059', 0, () => {
+    it('testConcatDateTable0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 6, 10);
       expect(text).assertEqual('2026610');
@@ -972,9 +972,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 6 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0060', 0, () => {
+    it('testConcatDateTable0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 6, 30);
       expect(text).assertEqual('2026630');
@@ -988,9 +988,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 7 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0061', 0, () => {
+    it('testConcatDateTable0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 7, 28);
       expect(text).assertEqual('2026728');
@@ -1004,9 +1004,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 7 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0062', 0, () => {
+    it('testConcatDateTable0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 7, 31);
       expect(text).assertEqual('2026731');
@@ -1020,9 +1020,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 8 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0063', 0, () => {
+    it('testConcatDateTable0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 8, 30);
       expect(text).assertEqual('2026830');
@@ -1036,9 +1036,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 8 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0064', 0, () => {
+    it('testConcatDateTable0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 8, 1);
       expect(text).assertEqual('202681');
@@ -1052,9 +1052,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 9 and 31 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0065', 0, () => {
+    it('testConcatDateTable0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 9, 31);
       expect(text).assertEqual('2026931');
@@ -1068,9 +1068,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 9 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0066', 0, () => {
+    it('testConcatDateTable0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 9, 9);
       expect(text).assertEqual('202699');
@@ -1084,9 +1084,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 10 and 1 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0067', 0, () => {
+    it('testConcatDateTable0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 10, 1);
       expect(text).assertEqual('2026101');
@@ -1100,9 +1100,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 10 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0068', 0, () => {
+    it('testConcatDateTable0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 10, 10);
       expect(text).assertEqual('20261010');
@@ -1116,9 +1116,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 11 and 9 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0069', 0, () => {
+    it('testConcatDateTable0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 11, 9);
       expect(text).assertEqual('2026119');
@@ -1132,9 +1132,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 11 and 28 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0070', 0, () => {
+    it('testConcatDateTable0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 11, 28);
       expect(text).assertEqual('20261128');
@@ -1148,9 +1148,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 12 and 10 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0071', 0, () => {
+    it('testConcatDateTable0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 12, 10);
       expect(text).assertEqual('20261210');
@@ -1164,9 +1164,9 @@ export default function concatDateTableTest() {
      * @tc.desc Verify concatDate joins 2026, 12 and 30 without padding
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testConcatDateTable0072', 0, () => {
+    it('testConcatDateTable0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatDate(2026, 12, 30);
       expect(text).assertEqual('20261230');

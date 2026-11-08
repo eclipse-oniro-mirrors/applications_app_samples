@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { paceTurn } from './TestPace';
 import DateTimeUtil, { getShownTimer, dateTime } from '../../../main/ets/utils/DateTimeUtil';
@@ -34,7 +34,7 @@ export default function AVRecorderLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVRecorderLogic01Chapter0001', 0, () => {
+    it('testAVRecorderLogic01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.fill(5)).assertEqual('05');
       expect(util.fill(10)).assertEqual('10');
@@ -50,7 +50,7 @@ export default function AVRecorderLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVRecorderLogic01Chapter0002', 0, () => {
+    it('testAVRecorderLogic01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       hilog.info(DOMAIN, TAG, 'concatTime=%{public}s', util.concatTime(1, 2, 3));
       expect(util.concatTime(1, 2, 3)).assertEqual('010203');
@@ -66,7 +66,7 @@ export default function AVRecorderLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVRecorderLogic01Chapter0003', 0, () => {
+    it('testAVRecorderLogic01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const time: string = util.getTime();
       expect(time.length).assertEqual(6);
@@ -87,7 +87,7 @@ export default function AVRecorderLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVRecorderLogic01Chapter0004', 0, () => {
+    it('testAVRecorderLogic01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const shown: string = getShownTimer(65000);
       hilog.info(DOMAIN, TAG, 'shownTimer=%{public}s', shown);
       expect(shown).assertEqual('1:5');
@@ -104,7 +104,7 @@ export default function AVRecorderLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVRecorderLogic01Chapter0005', 0, () => {
+    it('testAVRecorderLogic01Chapter0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(dateTime(65)).assertEqual('01:05');
       expect(dateTime(9)).assertEqual('00:09');
       expect(dateTime(0)).assertEqual('00:00');
