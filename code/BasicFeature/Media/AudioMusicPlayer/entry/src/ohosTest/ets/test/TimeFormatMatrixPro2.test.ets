@@ -1963,6 +1963,158 @@ export default function TimeFormatMatrixPro2Test() {
       expect(parts.length >= 2).assertTrue();
     });
 
+    /**
+     * @tc.number SUB_TIME_PRO2_14000
+     * @tc.name testTimePro20140
+     * @tc.desc Verify msToCountdownTime(60818) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(60818)).assertEqual('01:00');
+      let parts: string[] = MediaTools.msToCountdownTime(60818).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
 
+    /**
+     * @tc.number SUB_TIME_PRO2_14100
+     * @tc.name testTimePro20141
+     * @tc.desc Verify msToCountdownTime(35570806) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(35570806)).assertEqual('09:52:50');
+      let parts: string[] = MediaTools.msToCountdownTime(35570806).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14200
+     * @tc.name testTimePro20142
+     * @tc.desc Verify msToCountdownTime(277480010) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(277480010)).assertEqual('03:05:04:40');
+      let parts: string[] = MediaTools.msToCountdownTime(277480010).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14300
+     * @tc.name testTimePro20143
+     * @tc.desc Verify msToCountdownTime(-47669033) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(-47669033)).assertEqual('-1:-14:-15:-30');
+      let parts: string[] = MediaTools.msToCountdownTime(-47669033).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14400
+     * @tc.name testTimePro20144
+     * @tc.desc Verify msToCountdownTime(636751) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(636751)).assertEqual('10:36');
+      let parts: string[] = MediaTools.msToCountdownTime(636751).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14500
+     * @tc.name testTimePro20145
+     * @tc.desc Verify msToCountdownTime(59400) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(59400)).assertEqual('00:59');
+      let parts: string[] = MediaTools.msToCountdownTime(59400).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14600
+     * @tc.name testTimePro20146
+     * @tc.desc Verify msToCountdownTime(9253038) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(9253038)).assertEqual('02:34:13');
+      let parts: string[] = MediaTools.msToCountdownTime(9253038).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14700
+     * @tc.name testTimePro20147
+     * @tc.desc Verify msToCountdownTime(351313934) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(351313934)).assertEqual('04:01:35:13');
+      let parts: string[] = MediaTools.msToCountdownTime(351313934).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14800
+     * @tc.name testTimePro20148
+     * @tc.desc Verify msToCountdownTime(-2246487) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(-2246487)).assertEqual('-1:-1:-38:-27');
+      let parts: string[] = MediaTools.msToCountdownTime(-2246487).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_14900
+     * @tc.name testTimePro20149
+     * @tc.desc Verify msToCountdownTime(1127645) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(1127645)).assertEqual('18:47');
+      let parts: string[] = MediaTools.msToCountdownTime(1127645).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TIME_PRO2_15000
+     * @tc.name testTimePro20150
+     * @tc.desc Verify msToCountdownTime(60378) matches the independent oracle
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testTimePro20150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      expect(MediaTools.msToCountdownTime(60378)).assertEqual('01:00');
+      let parts: string[] = MediaTools.msToCountdownTime(60378).split(':');
+      expect(parts.length >= 2).assertTrue();
+    });
   });
 }
