@@ -145,8 +145,8 @@ export default function KrcWordMatrixTest() {
       let insideLine: LrcEntry[] = parseKrcLyric(buildWordLine(1000, 2000, ['a', 'b', 'c'], 500));
       let overLine: LrcEntry[] = parseKrcLyric(buildWordLine(1000, 1000, ['a', 'b', 'c'], 500));
       hilog.info(DOMAIN, TAG, '%{public}s',
-        `正常行词时长和=${sumDurations(insideLine[0])}/${insideLine[0].lineDuration}, `
-          + `超长行词时长和=${sumDurations(overLine[0])}/${overLine[0].lineDuration}`);
+        `正常行词时长和=${sumDurations(insideLine[0])}/${insideLine[0].lineDuration}, ` +
+          `超长行词时长和=${sumDurations(overLine[0])}/${overLine[0].lineDuration}`);
       expect(insideLine[0].lineDuration).assertEqual(2000);
       expect(sumDurations(insideLine[0])).assertEqual(1500);
       expect(sumDurations(insideLine[0]) <= insideLine[0].lineDuration).assertTrue();
