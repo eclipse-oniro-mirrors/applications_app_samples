@@ -452,6 +452,23 @@ void OHAudioPlayer::ReconfigurePlayer()
     OH_LOG_INFO(LOG_APP, "Reconfiguring player: sampleRate=%{public}u, channels=%{public}u, bitsPerSample=%{public}u",
         audioFileOprInfo->sampleRate, audioFileOprInfo->channels, audioFileOprInfo->bitsPerSample);
 
+    // A renderer cannot be generated from an incomplete format, otherwise duration stays 0.
+    if (audioFileOprInfo->sampleRate == 0 || audioFileOprInfo->channels == 0 ||
+        audioFileOprInfo->bitsPerSample == 0) {
+        OH_LOG_ERROR(LOG_APP, "Skip reconfigure, invalid audio params: rate=%{public}u, channels=%{public}u, "
+            "bits=%{public}u", audioFileOprInfo->sampleRate, audioFileOprInfo->channels,
+            audioFileOprInfo->bitsPerSample);
+        return;
+    }
+
+    if (rendererBuilder == nullptr) {
+        rendererBuilder = CreateAudioStreamBuilder();
+    }
+    if (rendererBuilder == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "Skip reconfigure, renderer builder is null");
+        return;
+    }
+
     if (audioRenderer != nullptr) {
         OH_AudioRenderer_Release(audioRenderer);
         audioRenderer = nullptr;
@@ -491,6 +508,11 @@ void OHAudioPlayer::ReconfigurePlayer()
 
 static AudioFileOprInfo* InitAudioFileOprInfo(uint32_t songFd, uint32_t songFileSize, uint32_t songFileOffset)
 {
+    if (songFd == static_cast<uint32_t>(-1) || songFileSize == 0) {
+        OH_LOG_ERROR(LOG_APP, "Invalid song resource: fd=%{public}d, size=%{public}u", static_cast<int32_t>(songFd),
+            songFileSize);
+        return nullptr;
+    }
     AudioFileOprInfo* info = new AudioFileOprInfo();
     info->songFd = songFd;
     info->songFileSize = songFileSize;
@@ -513,8 +535,13 @@ static bool HandleWavFile(uint32_t songFd, AudioFileOprInfo* info, uint32_t song
     info->isWavFile = true;
     uint32_t dataSize = songFileSize - info->wavDataOffset;
     info->songFileSize = dataSize;
-    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataSize=%{public}u",
-        songFileSize, dataSize);
+    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataOffset=%{public}u, dataSize=%{public}u",
+        songFileSize, info->wavDataOffset, dataSize);
+    if (info->wavDataOffset >= songFileSize) {
+        OH_LOG_ERROR(LOG_APP, "Invalid WAV data chunk: dataOffset=%{public}u, fileSize=%{public}u",
+            info->wavDataOffset, songFileSize);
+        return false;
+    }
 
     uint32_t correctOffset = songFileOffset + info->wavDataOffset;
     lseek(songFd, correctOffset, SEEK_SET);
@@ -573,6 +600,10 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
 {
     ReleaseCurrentSong();
     audioFileOprInfo = InitAudioFileOprInfo(songFd, songFileSize, songFileOffset);
+    if (audioFileOprInfo == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "LoadSongInfo aborted, invalid song info");
+        return;
+    }
 
     const char* fileExt = GetFileExtension(fileName);
     if (fileExt == nullptr) {
@@ -586,6 +617,10 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
         ReconfigurePlayer();
     } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
         OH_LOG_INFO(LOG_APP, "Detected PCM file format");
+        // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
+        audioFileOprInfo->sampleRate = DEFAULT_SAMPLE_RATE;
+        audioFileOprInfo->channels = DEFAULT_CHANNEL_COUNT;
+        audioFileOprInfo->bitsPerSample = BITS_PER_SAMPLE_16;
         ReconfigurePlayer();
         success = true;
     } else {
@@ -594,7 +629,7 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
     }
 
     if (!success) {
-        ReconfigurePlayer();
+        OH_LOG_ERROR(LOG_APP, "Load song failed, file may be truncated: %{public}s", fileName);
     }
 
     CalculateSongDuration(audioFileOprInfo);
@@ -669,6 +704,12 @@ void OHAudioPlayer::StopSong()
 
     if (audioFileOprInfo && audioFileOprInfo->audioBufferQueue) {
         audioFileOprInfo->audioBufferQueue->StopProducer();
+    }
+
+    // An explicit stop must not be reported as a natural completion, otherwise a status callback may be
+    // posted while the player is being torn down.
+    if (audioFileOprInfo) {
+        audioFileOprInfo->isCompletionCallbackTriggered.store(true);
     }
 
     auto ret = OH_AudioRenderer_Stop(audioRenderer);

@@ -32,19 +32,22 @@ export class ColorConversion {
     let max = Math.max(Math.max(rRGB, gRGB), bRGB);
     let min = Math.min(Math.min(rRGB, gRGB), bRGB);
     let sHSB = max === 0 ? 0 : (max - min) / max;
-    let bHSB = max / 255;
+    // 0~255 通道值归一化到 0~1 的 HSB 亮度。
+    let bHSB = max / 256;
     let hHSB = 0;
-    if (max === rRGB && gRGB >= bRGB) {
-      hHSB = 60 * (gRGB - bRGB) / (max - min) + 0;
-    }
-    if (max === rRGB && gRGB < bRGB) {
-      hHSB = 60 * (gRGB - bRGB) / (max - min) + 360;
-    }
-    if (max === gRGB) {
-      hHSB = 60 * (bRGB - rRGB) / (max - min) + 120;
-    }
-    if (max === bRGB) {
-      hHSB = 60 * (rRGB - gRGB) / (max - min) + 240;
+    if (max !== min) {
+      if (max === rRGB && gRGB >= bRGB) {
+        hHSB = 60 * (gRGB - bRGB) / (max - min) + 0;
+      }
+      if (max === rRGB && gRGB < bRGB) {
+        hHSB = 60 * (gRGB - bRGB) / (max - min) + 360;
+      }
+      if (max === gRGB) {
+        hHSB = 60 * (bRGB - rRGB) / (max - min) + 120;
+      }
+      if (max === bRGB) {
+        hHSB = 60 * (rRGB - gRGB) / (max - min) + 240;
+      }
     }
 
     if (bHSB >= 0.4) {

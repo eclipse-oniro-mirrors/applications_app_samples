@@ -310,6 +310,22 @@ export struct ControlAreaComponent {
     }
   }
 
+  /**
+   * Get a safe reuse id for a playlist item.
+   * Falls back to the song index when the resource lookup fails,
+   * so a resource error can never crash the playlist rendering.
+   */
+  getSongReuseId(item: SongItem): string {
+    try {
+      if (item.title && this.context) {
+        return this.context.resourceManager.getStringSync(item.title.id);
+      }
+    } catch (err) {
+      Logger.error(TAG, `getSongReuseId failed: ${JSON.stringify(err)}`);
+    }
+    return `song_${item.index}`;
+  }
+
   @Builder
   musicListBuilder() {
     Column() {
@@ -318,7 +334,7 @@ export struct ControlAreaComponent {
         LazyForEach(new SongDataSource(this.songList), (item: SongItem, index: number) => {
           ListItem() {
             MusicListContainer({ item: item, index: index })
-              .reuseId(this.context?.resourceManager.getStringSync(item.title?.id));
+              .reuseId(this.getSongReuseId(item));
           }
         }, (item: SongItem, index: number) => item.toString() + index.toString())
       }
