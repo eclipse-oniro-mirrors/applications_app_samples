@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { fileIo } from '@kit.CoreFileKit';
@@ -60,9 +60,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareAudio-closeFd leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0001', 0, async () => {
+    it('testServiceSequence0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -95,9 +95,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence start-prepareAudio-closeFd leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0002', 0, async () => {
+    it('testServiceSequence0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -131,9 +131,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareAudio-closeFd-stop leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0003', 0, async () => {
+    it('testServiceSequence0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -167,9 +167,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareVideo-closeFd leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0004', 0, async () => {
+    it('testServiceSequence0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -202,9 +202,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence pause-prepareVideo-closeFd leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0005', 0, async () => {
+    it('testServiceSequence0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -238,9 +238,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareVideo-closeFd-reset leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0006', 0, async () => {
+    it('testServiceSequence0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -274,9 +274,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareAudio leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0007', 0, async () => {
+    it('testServiceSequence0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -308,9 +308,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence resume-prepareAudio leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0008', 0, async () => {
+    it('testServiceSequence0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -343,9 +343,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareAudio-release leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0009', 0, async () => {
+    it('testServiceSequence0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -378,9 +378,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareVideo leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0010', 0, async () => {
+    it('testServiceSequence0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -412,9 +412,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence stop-prepareVideo leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0011', 0, async () => {
+    it('testServiceSequence0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -447,9 +447,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence prepareVideo-closeFd leaves video_example.mp4 and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0012', 0, async () => {
+    it('testServiceSequence0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -479,12 +479,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1300
      * @tc.name testServiceSequence0013
-     * @tc.desc Verify the sequence prepareAudio-prepareVideo-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 prepareAudio-prepareVideo-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0013', 0, async () => {
+    it('testServiceSequence0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -516,12 +516,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1400
      * @tc.name testServiceSequence0014
-     * @tc.desc Verify the sequence reset-prepareAudio-prepareVideo-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 reset-prepareAudio-prepareVideo-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0014', 0, async () => {
+    it('testServiceSequence0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -554,12 +554,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1500
      * @tc.name testServiceSequence0015
-     * @tc.desc Verify the sequence prepareAudio-prepareVideo-closeFd-reset leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 prepareAudio-prepareVideo-closeFd-reset 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0015', 0, async () => {
+    it('testServiceSequence0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -592,12 +592,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1600
      * @tc.name testServiceSequence0016
-     * @tc.desc Verify the sequence prepareVideo-prepareAudio-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 prepareVideo-prepareAudio-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0016', 0, async () => {
+    it('testServiceSequence0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -629,12 +629,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1700
      * @tc.name testServiceSequence0017
-     * @tc.desc Verify the sequence release-prepareVideo-prepareAudio-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 release-prepareVideo-prepareAudio-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0017', 0, async () => {
+    it('testServiceSequence0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -667,12 +667,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_1800
      * @tc.name testServiceSequence0018
-     * @tc.desc Verify the sequence prepareVideo-prepareAudio-closeFd-pause leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 prepareVideo-prepareAudio-closeFd-pause 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0018', 0, async () => {
+    it('testServiceSequence0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -708,9 +708,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-prepareAudio-closeFd leaves audio_example.m4a and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0019', 0, async () => {
+    it('testServiceSequence0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -741,12 +741,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2000
      * @tc.name testServiceSequence0020
-     * @tc.desc Verify the sequence closeFd-create-prepareAudio-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 closeFd-create-prepareAudio-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0020', 0, async () => {
+    it('testServiceSequence0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -778,12 +778,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2100
      * @tc.name testServiceSequence0021
-     * @tc.desc Verify the sequence create-prepareAudio-closeFd-resume leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-closeFd-resume 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0021', 0, async () => {
+    it('testServiceSequence0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -815,12 +815,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2200
      * @tc.name testServiceSequence0022
-     * @tc.desc Verify the sequence create-prepareVideo-stop-closeFd leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 create-prepareVideo-stop-closeFd 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0022', 0, async () => {
+    it('testServiceSequence0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -852,12 +852,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2300
      * @tc.name testServiceSequence0023
-     * @tc.desc Verify the sequence start-create-prepareVideo-stop-closeFd leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 start-create-prepareVideo-stop-closeFd 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0023', 0, async () => {
+    it('testServiceSequence0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -890,12 +890,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2400
      * @tc.name testServiceSequence0024
-     * @tc.desc Verify the sequence create-prepareVideo-stop-closeFd-stop leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 create-prepareVideo-stop-closeFd-stop 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0024', 0, async () => {
+    it('testServiceSequence0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -928,12 +928,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2500
      * @tc.name testServiceSequence0025
-     * @tc.desc Verify the sequence create-prepareAudio-pause-resume-stop-release-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-pause-resume-stop-release-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0025', 0, async () => {
+    it('testServiceSequence0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -968,12 +968,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2600
      * @tc.name testServiceSequence0026
-     * @tc.desc Verify the sequence pause-create-prepareAudio-pause-resume-stop-release-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 pause-create-prepareAudio-pause-resume-stop-release-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0026', 0, async () => {
+    it('testServiceSequence0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1009,12 +1009,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2700
      * @tc.name testServiceSequence0027
-     * @tc.desc Verify the sequence create-prepareAudio-pause-resume-stop-release-closeFd-reset leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-pause-resume-stop-release-closeFd-reset 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0027', 0, async () => {
+    it('testServiceSequence0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1050,12 +1050,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2800
      * @tc.name testServiceSequence0028
-     * @tc.desc Verify the sequence create-prepareVideo-reset-release-closeFd leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 create-prepareVideo-reset-release-closeFd 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0028', 0, async () => {
+    it('testServiceSequence0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1088,12 +1088,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_2900
      * @tc.name testServiceSequence0029
-     * @tc.desc Verify the sequence resume-create-prepareVideo-reset-release-closeFd leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 resume-create-prepareVideo-reset-release-closeFd 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0029', 0, async () => {
+    it('testServiceSequence0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1127,12 +1127,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3000
      * @tc.name testServiceSequence0030
-     * @tc.desc Verify the sequence create-prepareVideo-reset-release-closeFd-release leaves video_example.mp4 and completes without exception
+     * @tc.desc 验证序列 create-prepareVideo-reset-release-closeFd-release 后生成 video_example.mp4 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0030', 0, async () => {
+    it('testServiceSequence0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1166,12 +1166,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3100
      * @tc.name testServiceSequence0031
-     * @tc.desc Verify the sequence create-release-prepareAudio-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-release-prepareAudio-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0031', 0, async () => {
+    it('testServiceSequence0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1203,12 +1203,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3200
      * @tc.name testServiceSequence0032
-     * @tc.desc Verify the sequence stop-create-release-prepareAudio-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 stop-create-release-prepareAudio-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0032', 0, async () => {
+    it('testServiceSequence0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1241,12 +1241,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3300
      * @tc.name testServiceSequence0033
-     * @tc.desc Verify the sequence create-release-prepareAudio-closeFd-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-release-prepareAudio-closeFd-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0033', 0, async () => {
+    it('testServiceSequence0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1279,12 +1279,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3400
      * @tc.name testServiceSequence0034
-     * @tc.desc Verify the sequence create-prepareAudio-create-prepareVideo-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-create-prepareVideo-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0034', 0, async () => {
+    it('testServiceSequence0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1318,12 +1318,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3500
      * @tc.name testServiceSequence0035
-     * @tc.desc Verify the sequence reset-create-prepareAudio-create-prepareVideo-closeFd leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 reset-create-prepareAudio-create-prepareVideo-closeFd 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0035', 0, async () => {
+    it('testServiceSequence0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1358,12 +1358,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_3600
      * @tc.name testServiceSequence0036
-     * @tc.desc Verify the sequence create-prepareAudio-create-prepareVideo-closeFd-reset leaves both recorder targets and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-create-prepareVideo-closeFd-reset 后同时生成音频与视频目标文件且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0036', 0, async () => {
+    it('testServiceSequence0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1401,9 +1401,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence start leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0037', 0, async () => {
+    it('testServiceSequence0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1434,9 +1434,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence pause leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0038', 0, async () => {
+    it('testServiceSequence0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1467,9 +1467,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence resume leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0039', 0, async () => {
+    it('testServiceSequence0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1500,9 +1500,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence stop leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0040', 0, async () => {
+    it('testServiceSequence0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1533,9 +1533,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence reset leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0041', 0, async () => {
+    it('testServiceSequence0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1566,9 +1566,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence release leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0042', 0, async () => {
+    it('testServiceSequence0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1599,9 +1599,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence closeFd leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0043', 0, async () => {
+    it('testServiceSequence0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1632,9 +1632,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-start leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0044', 0, async () => {
+    it('testServiceSequence0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1666,9 +1666,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-pause leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0045', 0, async () => {
+    it('testServiceSequence0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1700,9 +1700,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-resume leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0046', 0, async () => {
+    it('testServiceSequence0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1734,9 +1734,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-stop leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0047', 0, async () => {
+    it('testServiceSequence0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1768,9 +1768,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-reset leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0048', 0, async () => {
+    it('testServiceSequence0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1802,9 +1802,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-release leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0049', 0, async () => {
+    it('testServiceSequence0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1836,9 +1836,9 @@ export default function recorderServiceSequenceTest() {
      * @tc.desc Verify the sequence create-closeFd leaves no recorder target and completes without exception
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0050', 0, async () => {
+    it('testServiceSequence0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1867,12 +1867,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5100
      * @tc.name testServiceSequence0051
-     * @tc.desc Verify the sequence create-prepareAudio-reset-pause leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-reset-pause 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0051', 0, async () => {
+    it('testServiceSequence0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1904,12 +1904,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5200
      * @tc.name testServiceSequence0052
-     * @tc.desc Verify the sequence create-prepareAudio-pause-resume leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-pause-resume 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0052', 0, async () => {
+    it('testServiceSequence0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1941,12 +1941,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5300
      * @tc.name testServiceSequence0053
-     * @tc.desc Verify the sequence create-prepareAudio-resume-stop leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-resume-stop 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0053', 0, async () => {
+    it('testServiceSequence0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -1978,12 +1978,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5400
      * @tc.name testServiceSequence0054
-     * @tc.desc Verify the sequence create-prepareAudio-stop-reset leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-stop-reset 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0054', 0, async () => {
+    it('testServiceSequence0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -2015,12 +2015,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5500
      * @tc.name testServiceSequence0055
-     * @tc.desc Verify the sequence create-prepareAudio-reset-release leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-reset-release 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0055', 0, async () => {
+    it('testServiceSequence0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -2052,12 +2052,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5600
      * @tc.name testServiceSequence0056
-     * @tc.desc Verify the sequence create-prepareAudio-release-closeFd leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-release-closeFd 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0056', 0, async () => {
+    it('testServiceSequence0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;
@@ -2089,12 +2089,12 @@ export default function recorderServiceSequenceTest() {
     /**
      * @tc.number SUB_AVRECORDER_SVC_SEQ_5700
      * @tc.name testServiceSequence0057
-     * @tc.desc Verify the sequence create-prepareAudio-closeFd-reset leaves audio_example.m4a and completes without exception
+     * @tc.desc 验证序列 create-prepareAudio-closeFd-reset 后生成 audio_example.m4a 且不抛异常
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServiceSequence0057', 0, async () => {
+    it('testServiceSequence0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       let ok: boolean = true;

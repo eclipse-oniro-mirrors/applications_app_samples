@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { getShownTimer } from '../../../main/ets/utils/DateTimeUtil';
 import { paceTurn } from './TestPace';
 
@@ -28,9 +28,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 499 ms to 0 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0001', 0, () => {
+    it('testTimerTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(499);
       expect(text).assertEqual('0:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -43,9 +43,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 500 ms to 1 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0002', 0, () => {
+    it('testTimerTable0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(500);
       expect(text).assertEqual('0:1');
       expect(text.indexOf(':')).assertEqual(1);
@@ -58,9 +58,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 1499 ms to 1 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0003', 0, () => {
+    it('testTimerTable0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(1499);
       expect(text).assertEqual('0:1');
       expect(text.indexOf(':')).assertEqual(1);
@@ -73,9 +73,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 1500 ms to 2 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0004', 0, () => {
+    it('testTimerTable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(1500);
       expect(text).assertEqual('0:2');
       expect(text.indexOf(':')).assertEqual(1);
@@ -88,9 +88,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 2499 ms to 2 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0005', 0, () => {
+    it('testTimerTable0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(2499);
       expect(text).assertEqual('0:2');
       expect(text.indexOf(':')).assertEqual(1);
@@ -103,9 +103,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 2500 ms to 3 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0006', 0, () => {
+    it('testTimerTable0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(2500);
       expect(text).assertEqual('0:3');
       expect(text.indexOf(':')).assertEqual(1);
@@ -118,9 +118,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 3499 ms to 3 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0007', 0, () => {
+    it('testTimerTable0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3499);
       expect(text).assertEqual('0:3');
       expect(text.indexOf(':')).assertEqual(1);
@@ -133,9 +133,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 3500 ms to 4 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0008', 0, () => {
+    it('testTimerTable0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3500);
       expect(text).assertEqual('0:4');
       expect(text.indexOf(':')).assertEqual(1);
@@ -148,9 +148,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 4499 ms to 4 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0009', 0, () => {
+    it('testTimerTable0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(4499);
       expect(text).assertEqual('0:4');
       expect(text.indexOf(':')).assertEqual(1);
@@ -163,9 +163,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 4500 ms to 5 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0010', 0, () => {
+    it('testTimerTable0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(4500);
       expect(text).assertEqual('0:5');
       expect(text.indexOf(':')).assertEqual(1);
@@ -178,9 +178,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 5499 ms to 5 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0011', 0, () => {
+    it('testTimerTable0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(5499);
       expect(text).assertEqual('0:5');
       expect(text.indexOf(':')).assertEqual(1);
@@ -193,9 +193,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 5500 ms to 6 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0012', 0, () => {
+    it('testTimerTable0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(5500);
       expect(text).assertEqual('0:6');
       expect(text.indexOf(':')).assertEqual(1);
@@ -208,9 +208,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 6499 ms to 6 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0013', 0, () => {
+    it('testTimerTable0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(6499);
       expect(text).assertEqual('0:6');
       expect(text.indexOf(':')).assertEqual(1);
@@ -223,9 +223,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 6500 ms to 7 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0014', 0, () => {
+    it('testTimerTable0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(6500);
       expect(text).assertEqual('0:7');
       expect(text.indexOf(':')).assertEqual(1);
@@ -238,9 +238,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 7499 ms to 7 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0015', 0, () => {
+    it('testTimerTable0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(7499);
       expect(text).assertEqual('0:7');
       expect(text.indexOf(':')).assertEqual(1);
@@ -253,9 +253,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 7500 ms to 8 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0016', 0, () => {
+    it('testTimerTable0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(7500);
       expect(text).assertEqual('0:8');
       expect(text.indexOf(':')).assertEqual(1);
@@ -268,9 +268,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 8499 ms to 8 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0017', 0, () => {
+    it('testTimerTable0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(8499);
       expect(text).assertEqual('0:8');
       expect(text.indexOf(':')).assertEqual(1);
@@ -283,9 +283,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 8500 ms to 9 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0018', 0, () => {
+    it('testTimerTable0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(8500);
       expect(text).assertEqual('0:9');
       expect(text.indexOf(':')).assertEqual(1);
@@ -298,9 +298,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 9499 ms to 9 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0019', 0, () => {
+    it('testTimerTable0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(9499);
       expect(text).assertEqual('0:9');
       expect(text.indexOf(':')).assertEqual(1);
@@ -313,9 +313,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 9500 ms to 10 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0020', 0, () => {
+    it('testTimerTable0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(9500);
       expect(text).assertEqual('0:10');
       expect(text.indexOf(':')).assertEqual(1);
@@ -328,9 +328,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 10499 ms to 10 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0021', 0, () => {
+    it('testTimerTable0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(10499);
       expect(text).assertEqual('0:10');
       expect(text.indexOf(':')).assertEqual(1);
@@ -343,9 +343,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 10500 ms to 11 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0022', 0, () => {
+    it('testTimerTable0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(10500);
       expect(text).assertEqual('0:11');
       expect(text.indexOf(':')).assertEqual(1);
@@ -358,9 +358,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 11499 ms to 11 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0023', 0, () => {
+    it('testTimerTable0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(11499);
       expect(text).assertEqual('0:11');
       expect(text.indexOf(':')).assertEqual(1);
@@ -373,9 +373,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 11500 ms to 12 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0024', 0, () => {
+    it('testTimerTable0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(11500);
       expect(text).assertEqual('0:12');
       expect(text.indexOf(':')).assertEqual(1);
@@ -388,9 +388,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 12499 ms to 12 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0025', 0, () => {
+    it('testTimerTable0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(12499);
       expect(text).assertEqual('0:12');
       expect(text.indexOf(':')).assertEqual(1);
@@ -403,9 +403,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 12500 ms to 13 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0026', 0, () => {
+    it('testTimerTable0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(12500);
       expect(text).assertEqual('0:13');
       expect(text.indexOf(':')).assertEqual(1);
@@ -418,9 +418,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 13499 ms to 13 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0027', 0, () => {
+    it('testTimerTable0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(13499);
       expect(text).assertEqual('0:13');
       expect(text.indexOf(':')).assertEqual(1);
@@ -433,9 +433,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 13500 ms to 14 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0028', 0, () => {
+    it('testTimerTable0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(13500);
       expect(text).assertEqual('0:14');
       expect(text.indexOf(':')).assertEqual(1);
@@ -448,9 +448,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 14499 ms to 14 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0029', 0, () => {
+    it('testTimerTable0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(14499);
       expect(text).assertEqual('0:14');
       expect(text.indexOf(':')).assertEqual(1);
@@ -463,9 +463,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 14500 ms to 15 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0030', 0, () => {
+    it('testTimerTable0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(14500);
       expect(text).assertEqual('0:15');
       expect(text.indexOf(':')).assertEqual(1);
@@ -478,9 +478,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 15499 ms to 15 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0031', 0, () => {
+    it('testTimerTable0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(15499);
       expect(text).assertEqual('0:15');
       expect(text.indexOf(':')).assertEqual(1);
@@ -493,9 +493,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 15500 ms to 16 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0032', 0, () => {
+    it('testTimerTable0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(15500);
       expect(text).assertEqual('0:16');
       expect(text.indexOf(':')).assertEqual(1);
@@ -508,9 +508,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 16499 ms to 16 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0033', 0, () => {
+    it('testTimerTable0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(16499);
       expect(text).assertEqual('0:16');
       expect(text.indexOf(':')).assertEqual(1);
@@ -523,9 +523,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 16500 ms to 17 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0034', 0, () => {
+    it('testTimerTable0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(16500);
       expect(text).assertEqual('0:17');
       expect(text.indexOf(':')).assertEqual(1);
@@ -538,9 +538,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 17499 ms to 17 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0035', 0, () => {
+    it('testTimerTable0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(17499);
       expect(text).assertEqual('0:17');
       expect(text.indexOf(':')).assertEqual(1);
@@ -553,9 +553,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 17500 ms to 18 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0036', 0, () => {
+    it('testTimerTable0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(17500);
       expect(text).assertEqual('0:18');
       expect(text.indexOf(':')).assertEqual(1);
@@ -568,9 +568,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 18499 ms to 18 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0037', 0, () => {
+    it('testTimerTable0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(18499);
       expect(text).assertEqual('0:18');
       expect(text.indexOf(':')).assertEqual(1);
@@ -583,9 +583,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 18500 ms to 19 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0038', 0, () => {
+    it('testTimerTable0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(18500);
       expect(text).assertEqual('0:19');
       expect(text.indexOf(':')).assertEqual(1);
@@ -598,9 +598,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 19499 ms to 19 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0039', 0, () => {
+    it('testTimerTable0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(19499);
       expect(text).assertEqual('0:19');
       expect(text.indexOf(':')).assertEqual(1);
@@ -613,9 +613,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 19500 ms to 20 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0040', 0, () => {
+    it('testTimerTable0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(19500);
       expect(text).assertEqual('0:20');
       expect(text.indexOf(':')).assertEqual(1);
@@ -628,9 +628,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 20499 ms to 20 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0041', 0, () => {
+    it('testTimerTable0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(20499);
       expect(text).assertEqual('0:20');
       expect(text.indexOf(':')).assertEqual(1);
@@ -643,9 +643,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 20500 ms to 21 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0042', 0, () => {
+    it('testTimerTable0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(20500);
       expect(text).assertEqual('0:21');
       expect(text.indexOf(':')).assertEqual(1);
@@ -658,9 +658,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 21499 ms to 21 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0043', 0, () => {
+    it('testTimerTable0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(21499);
       expect(text).assertEqual('0:21');
       expect(text.indexOf(':')).assertEqual(1);
@@ -673,9 +673,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 21500 ms to 22 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0044', 0, () => {
+    it('testTimerTable0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(21500);
       expect(text).assertEqual('0:22');
       expect(text.indexOf(':')).assertEqual(1);
@@ -688,9 +688,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 22499 ms to 22 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0045', 0, () => {
+    it('testTimerTable0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(22499);
       expect(text).assertEqual('0:22');
       expect(text.indexOf(':')).assertEqual(1);
@@ -703,9 +703,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 22500 ms to 23 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0046', 0, () => {
+    it('testTimerTable0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(22500);
       expect(text).assertEqual('0:23');
       expect(text.indexOf(':')).assertEqual(1);
@@ -718,9 +718,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 23499 ms to 23 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0047', 0, () => {
+    it('testTimerTable0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(23499);
       expect(text).assertEqual('0:23');
       expect(text.indexOf(':')).assertEqual(1);
@@ -733,9 +733,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 23500 ms to 24 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0048', 0, () => {
+    it('testTimerTable0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(23500);
       expect(text).assertEqual('0:24');
       expect(text.indexOf(':')).assertEqual(1);
@@ -748,9 +748,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 24499 ms to 24 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0049', 0, () => {
+    it('testTimerTable0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(24499);
       expect(text).assertEqual('0:24');
       expect(text.indexOf(':')).assertEqual(1);
@@ -763,9 +763,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 24500 ms to 25 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0050', 0, () => {
+    it('testTimerTable0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(24500);
       expect(text).assertEqual('0:25');
       expect(text.indexOf(':')).assertEqual(1);
@@ -778,9 +778,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 25499 ms to 25 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0051', 0, () => {
+    it('testTimerTable0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(25499);
       expect(text).assertEqual('0:25');
       expect(text.indexOf(':')).assertEqual(1);
@@ -793,9 +793,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 25500 ms to 26 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0052', 0, () => {
+    it('testTimerTable0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(25500);
       expect(text).assertEqual('0:26');
       expect(text.indexOf(':')).assertEqual(1);
@@ -808,9 +808,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 26499 ms to 26 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0053', 0, () => {
+    it('testTimerTable0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(26499);
       expect(text).assertEqual('0:26');
       expect(text.indexOf(':')).assertEqual(1);
@@ -823,9 +823,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 26500 ms to 27 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0054', 0, () => {
+    it('testTimerTable0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(26500);
       expect(text).assertEqual('0:27');
       expect(text.indexOf(':')).assertEqual(1);
@@ -838,9 +838,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 27499 ms to 27 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0055', 0, () => {
+    it('testTimerTable0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(27499);
       expect(text).assertEqual('0:27');
       expect(text.indexOf(':')).assertEqual(1);
@@ -853,9 +853,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 27500 ms to 28 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0056', 0, () => {
+    it('testTimerTable0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(27500);
       expect(text).assertEqual('0:28');
       expect(text.indexOf(':')).assertEqual(1);
@@ -868,9 +868,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 28499 ms to 28 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0057', 0, () => {
+    it('testTimerTable0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(28499);
       expect(text).assertEqual('0:28');
       expect(text.indexOf(':')).assertEqual(1);
@@ -883,9 +883,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 28500 ms to 29 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0058', 0, () => {
+    it('testTimerTable0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(28500);
       expect(text).assertEqual('0:29');
       expect(text.indexOf(':')).assertEqual(1);
@@ -898,9 +898,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 29499 ms to 29 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0059', 0, () => {
+    it('testTimerTable0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(29499);
       expect(text).assertEqual('0:29');
       expect(text.indexOf(':')).assertEqual(1);
@@ -913,9 +913,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 29500 ms to 30 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0060', 0, () => {
+    it('testTimerTable0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(29500);
       expect(text).assertEqual('0:30');
       expect(text.indexOf(':')).assertEqual(1);
@@ -928,9 +928,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 30499 ms to 30 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0061', 0, () => {
+    it('testTimerTable0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(30499);
       expect(text).assertEqual('0:30');
       expect(text.indexOf(':')).assertEqual(1);
@@ -943,9 +943,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 30500 ms to 31 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0062', 0, () => {
+    it('testTimerTable0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(30500);
       expect(text).assertEqual('0:31');
       expect(text.indexOf(':')).assertEqual(1);
@@ -958,9 +958,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 31499 ms to 31 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0063', 0, () => {
+    it('testTimerTable0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(31499);
       expect(text).assertEqual('0:31');
       expect(text.indexOf(':')).assertEqual(1);
@@ -973,9 +973,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 31500 ms to 32 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0064', 0, () => {
+    it('testTimerTable0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(31500);
       expect(text).assertEqual('0:32');
       expect(text.indexOf(':')).assertEqual(1);
@@ -988,9 +988,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 32499 ms to 32 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0065', 0, () => {
+    it('testTimerTable0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(32499);
       expect(text).assertEqual('0:32');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1003,9 +1003,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 32500 ms to 33 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0066', 0, () => {
+    it('testTimerTable0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(32500);
       expect(text).assertEqual('0:33');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1018,9 +1018,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 33499 ms to 33 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0067', 0, () => {
+    it('testTimerTable0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(33499);
       expect(text).assertEqual('0:33');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1033,9 +1033,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 33500 ms to 34 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0068', 0, () => {
+    it('testTimerTable0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(33500);
       expect(text).assertEqual('0:34');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1048,9 +1048,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 34499 ms to 34 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0069', 0, () => {
+    it('testTimerTable0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(34499);
       expect(text).assertEqual('0:34');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1063,9 +1063,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 34500 ms to 35 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0070', 0, () => {
+    it('testTimerTable0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(34500);
       expect(text).assertEqual('0:35');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1078,9 +1078,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 35499 ms to 35 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0071', 0, () => {
+    it('testTimerTable0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(35499);
       expect(text).assertEqual('0:35');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1093,9 +1093,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 35500 ms to 36 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0072', 0, () => {
+    it('testTimerTable0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(35500);
       expect(text).assertEqual('0:36');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1108,9 +1108,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 36499 ms to 36 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0073', 0, () => {
+    it('testTimerTable0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(36499);
       expect(text).assertEqual('0:36');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1123,9 +1123,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 36500 ms to 37 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0074', 0, () => {
+    it('testTimerTable0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(36500);
       expect(text).assertEqual('0:37');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1138,9 +1138,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 37499 ms to 37 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0075', 0, () => {
+    it('testTimerTable0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(37499);
       expect(text).assertEqual('0:37');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1153,9 +1153,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 37500 ms to 38 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0076', 0, () => {
+    it('testTimerTable0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(37500);
       expect(text).assertEqual('0:38');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1168,9 +1168,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 38499 ms to 38 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0077', 0, () => {
+    it('testTimerTable0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(38499);
       expect(text).assertEqual('0:38');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1183,9 +1183,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 38500 ms to 39 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0078', 0, () => {
+    it('testTimerTable0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(38500);
       expect(text).assertEqual('0:39');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1198,9 +1198,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 39499 ms to 39 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0079', 0, () => {
+    it('testTimerTable0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(39499);
       expect(text).assertEqual('0:39');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1213,9 +1213,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 39500 ms to 40 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0080', 0, () => {
+    it('testTimerTable0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(39500);
       expect(text).assertEqual('0:40');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1228,9 +1228,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 40499 ms to 40 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0081', 0, () => {
+    it('testTimerTable0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(40499);
       expect(text).assertEqual('0:40');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1243,9 +1243,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 40500 ms to 41 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0082', 0, () => {
+    it('testTimerTable0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(40500);
       expect(text).assertEqual('0:41');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1258,9 +1258,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 41499 ms to 41 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0083', 0, () => {
+    it('testTimerTable0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(41499);
       expect(text).assertEqual('0:41');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1273,9 +1273,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 41500 ms to 42 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0084', 0, () => {
+    it('testTimerTable0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(41500);
       expect(text).assertEqual('0:42');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1288,9 +1288,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 42499 ms to 42 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0085', 0, () => {
+    it('testTimerTable0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(42499);
       expect(text).assertEqual('0:42');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1303,9 +1303,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 42500 ms to 43 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0086', 0, () => {
+    it('testTimerTable0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(42500);
       expect(text).assertEqual('0:43');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1318,9 +1318,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 43499 ms to 43 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0087', 0, () => {
+    it('testTimerTable0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(43499);
       expect(text).assertEqual('0:43');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1333,9 +1333,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 43500 ms to 44 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0088', 0, () => {
+    it('testTimerTable0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(43500);
       expect(text).assertEqual('0:44');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1348,9 +1348,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 44499 ms to 44 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0089', 0, () => {
+    it('testTimerTable0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(44499);
       expect(text).assertEqual('0:44');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1363,9 +1363,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 44500 ms to 45 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0090', 0, () => {
+    it('testTimerTable0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(44500);
       expect(text).assertEqual('0:45');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1378,9 +1378,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 45499 ms to 45 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0091', 0, () => {
+    it('testTimerTable0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(45499);
       expect(text).assertEqual('0:45');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1393,9 +1393,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 45500 ms to 46 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0092', 0, () => {
+    it('testTimerTable0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(45500);
       expect(text).assertEqual('0:46');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1408,9 +1408,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 46499 ms to 46 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0093', 0, () => {
+    it('testTimerTable0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(46499);
       expect(text).assertEqual('0:46');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1423,9 +1423,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 46500 ms to 47 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0094', 0, () => {
+    it('testTimerTable0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(46500);
       expect(text).assertEqual('0:47');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1438,9 +1438,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 47499 ms to 47 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0095', 0, () => {
+    it('testTimerTable0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(47499);
       expect(text).assertEqual('0:47');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1453,9 +1453,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 47500 ms to 48 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0096', 0, () => {
+    it('testTimerTable0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(47500);
       expect(text).assertEqual('0:48');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1468,9 +1468,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 3600000 ms to 3600 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0097', 0, () => {
+    it('testTimerTable0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3600000);
       expect(text).assertEqual('60:0');
       expect(text.indexOf(':')).assertEqual(2);
@@ -1483,9 +1483,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 3599999 ms to 3600 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0098', 0, () => {
+    it('testTimerTable0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3599999);
       expect(text).assertEqual('60:0');
       expect(text.indexOf(':')).assertEqual(2);
@@ -1498,9 +1498,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 86399000 ms to 86399 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0099', 0, () => {
+    it('testTimerTable0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(86399000);
       expect(text).assertEqual('1439:59');
       expect(text.indexOf(':')).assertEqual(4);
@@ -1513,9 +1513,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 86399499 ms to 86399 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0100', 0, () => {
+    it('testTimerTable0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(86399499);
       expect(text).assertEqual('1439:59');
       expect(text.indexOf(':')).assertEqual(4);
@@ -1528,9 +1528,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 123456789 ms to 123457 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0101', 0, () => {
+    it('testTimerTable0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(123456789);
       expect(text).assertEqual('2057:37');
       expect(text.indexOf(':')).assertEqual(4);
@@ -1543,9 +1543,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 60000 ms to 60 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0102', 0, () => {
+    it('testTimerTable0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(60000);
       expect(text).assertEqual('1:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1558,9 +1558,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 59999 ms to 60 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0103', 0, () => {
+    it('testTimerTable0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(59999);
       expect(text).assertEqual('1:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -1573,9 +1573,9 @@ export default function shownTimerTableTest() {
      * @tc.desc Verify getShownTimer maps 61500 ms to 62 whole seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testTimerTable0104', 0, () => {
+    it('testTimerTable0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(61500);
       expect(text).assertEqual('1:2');
       expect(text.indexOf(':')).assertEqual(1);

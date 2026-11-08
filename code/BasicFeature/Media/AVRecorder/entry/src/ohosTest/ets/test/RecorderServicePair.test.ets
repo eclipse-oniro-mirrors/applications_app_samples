@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
@@ -76,9 +76,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify two services preparing different targets keep both files after either close
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0001', 0, async () => {
+    it('testServicePair0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioService: AVRecorderService = new AVRecorderService();
       const videoService: AVRecorderService = new AVRecorderService();
@@ -98,9 +98,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify releasing recorders on two services never deletes prepared targets
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0002', 0, async () => {
+    it('testServicePair0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const audioService: AVRecorderService = new AVRecorderService();
       const videoService: AVRecorderService = new AVRecorderService();
       await audioService.prepareAudioRecorder(appContext());
@@ -120,9 +120,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify creating a recorder between prepare and close leaves the audio target intact
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0003', 0, async () => {
+    it('testServicePair0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
       await service.createRecorder();
@@ -139,9 +139,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify stop, reset and release around a prepared target are harmless no-ops
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0004', 0, async () => {
+    it('testServicePair0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
       await service.stopRecorder();
@@ -159,9 +159,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify double closing one service does not disturb the shared audio target of another
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0005', 0, async () => {
+    it('testServicePair0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const first: AVRecorderService = new AVRecorderService();
       const second: AVRecorderService = new AVRecorderService();
@@ -182,9 +182,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify closing after audio then video preparation targets the most recent descriptor
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0006', 0, async () => {
+    it('testServicePair0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
       await service.prepareVideoRecorder(appContext());
@@ -201,9 +201,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify closing after video then audio preparation leaves the earlier video target alone
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0007', 0, async () => {
+    it('testServicePair0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareVideoRecorder(appContext());
       await service.prepareAudioRecorder(appContext());
@@ -220,9 +220,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify the same service can close a video target and then prepare a fresh audio target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0008', 0, async () => {
+    it('testServicePair0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareVideoRecorder(appContext());
       await service.closeFd();
@@ -240,9 +240,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify two services preparing audio moments apart still share one empty target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0009', 0, async () => {
+    it('testServicePair0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const first: AVRecorderService = new AVRecorderService();
       const second: AVRecorderService = new AVRecorderService();
@@ -263,9 +263,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify preparing audio again after deleting the target recreates the same path
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0010', 0, async () => {
+    it('testServicePair0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
       removeQuietly(AUDIO_TARGET);
@@ -283,9 +283,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify releasing before any preparation does not prevent later audio preparation
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0011', 0, async () => {
+    it('testServicePair0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.releaseRecorder();
       expect((await service.getInputSurface()) === undefined).assertTrue();
@@ -302,9 +302,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify preparing a twice-created recorder allocates exactly one empty video target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0012', 0, async () => {
+    it('testServicePair0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const service: AVRecorderService = new AVRecorderService();
       await service.createRecorder();
@@ -326,9 +326,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify a registered callback is never invoked by preparation, stop or close
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0013', 0, async () => {
+    it('testServicePair0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       let callbackCount: number = 0;
       service.setCallback(() => {
@@ -349,9 +349,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify two services preparing different targets and closing in reverse order keep both files
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0014', 0, async () => {
+    it('testServicePair0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const audioService: AVRecorderService = new AVRecorderService();
       const videoService: AVRecorderService = new AVRecorderService();
       await audioService.prepareAudioRecorder(appContext());
@@ -369,9 +369,9 @@ export default function recorderServicePairTest() {
      * @tc.desc Verify the full guarded action chain around a prepared target neither throws nor changes the file
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testServicePair0015', 0, async () => {
+    it('testServicePair0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
       const sizeBefore: number = fileIo.statSync(pathOf(AUDIO_TARGET)).size;
