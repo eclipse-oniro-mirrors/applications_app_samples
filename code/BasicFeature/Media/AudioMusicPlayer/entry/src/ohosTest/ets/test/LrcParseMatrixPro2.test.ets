@@ -1955,6 +1955,165 @@ export default function LrcParseMatrixPro2Test() {
       expect(ordered).assertTrue();
     });
 
+    /**
+     * @tc.number SUB_LRC_PRO2_9400
+     * @tc.name testLrcPro20094
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:07.00][00:07.50]line");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(7000);
+      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineStartTime).assertEqual(7500);
+      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
 
+    /**
+     * @tc.number SUB_LRC_PRO2_9500
+     * @tc.name testLrcPro20095
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:07.50][00:08.00] chorus");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(7500);
+      expect(entries[0].lineWords.trim()).assertEqual("chorus");
+      expect(entries[1].lineStartTime).assertEqual(8000);
+      expect(entries[1].lineWords.trim()).assertEqual("chorus");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_LRC_PRO2_9600
+     * @tc.name testLrcPro20096
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:08.00][00:08.50]\u4e2d\u6587\u6b4c\u8bcd");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(8000);
+      expect(entries[0].lineWords.trim()).assertEqual("\u4e2d\u6587\u6b4c\u8bcd");
+      expect(entries[1].lineStartTime).assertEqual(8500);
+      expect(entries[1].lineWords.trim()).assertEqual("\u4e2d\u6587\u6b4c\u8bcd");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_LRC_PRO2_9700
+     * @tc.name testLrcPro20097
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:08.50][00:09.00]a");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(8500);
+      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineStartTime).assertEqual(9000);
+      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_LRC_PRO2_9800
+     * @tc.name testLrcPro20098
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:09.00][00:09.50] b");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(9000);
+      expect(entries[0].lineWords.trim()).assertEqual("b");
+      expect(entries[1].lineStartTime).assertEqual(9500);
+      expect(entries[1].lineWords.trim()).assertEqual("b");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_LRC_PRO2_9900
+     * @tc.name testLrcPro20099
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:09.50][00:10.00]\u4f60\u597d");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(9500);
+      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineStartTime).assertEqual(10000);
+      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_LRC_PRO2_10000
+     * @tc.name testLrcPro20100
+     * @tc.desc Verify parseLrcLyric parses 2 sorted entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL0
+     */
+    it('testLrcPro20100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      const entries: LrcEntry[] = parseLrcLyric("[00:10.00][00:10.50]x y z");
+      expect(entries.length).assertEqual(2);
+      expect(entries[0].lineStartTime).assertEqual(10000);
+      expect(entries[0].lineWords.trim()).assertEqual("x y z");
+      expect(entries[1].lineStartTime).assertEqual(10500);
+      expect(entries[1].lineWords.trim()).assertEqual("x y z");
+      expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
+      let ordered: boolean = true;
+      for (let i = 1; i < entries.length; i++) {
+        if (entries[i].lineStartTime < entries[i - 1].lineStartTime) { ordered = false; }
+      }
+      expect(ordered).assertTrue();
+    });
   });
 }
