@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { fileIo } from '@kit.CoreFileKit';
@@ -64,9 +64,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify createAudioFile returns a descriptor and an empty m4a file
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0001', 0, async () => {
+    it('testFileContract0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createAudioFile(appContext());
       const added: string[] = addedNames(before);
@@ -88,9 +88,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify createVideoFile returns a descriptor and an empty mp4 file
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0002', 0, async () => {
+    it('testFileContract0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createVideoFile(appContext());
       const added: string[] = addedNames(before);
@@ -112,9 +112,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify an audio file keeps zero bytes after its descriptor is closed
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0003', 0, async () => {
+    it('testFileContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createAudioFile(appContext());
       fileIo.closeSync(fd);
@@ -134,9 +134,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify a video file keeps zero bytes after its descriptor is closed
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0004', 0, async () => {
+    it('testFileContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createVideoFile(appContext());
       fileIo.closeSync(fd);
@@ -156,9 +156,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify an audio file can be reopened read-only after creation
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0005', 0, async () => {
+    it('testFileContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createAudioFile(appContext());
       fileIo.closeSync(fd);
@@ -183,9 +183,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify a video file can be reopened read-only after creation
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0006', 0, async () => {
+    it('testFileContract0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createVideoFile(appContext());
       fileIo.closeSync(fd);
@@ -210,9 +210,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify the audio and video creators allocate two distinct targets
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0007', 0, async () => {
+    it('testFileContract0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await RecorderFileUtil.createAudioFile(appContext());
       const videoFd: number = await RecorderFileUtil.createVideoFile(appContext());
@@ -236,9 +236,9 @@ export default function recorderFileContractTest() {
      * @tc.desc Verify the audio name carries both unpadded date and padded time
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileContract0008', 0, async () => {
+    it('testFileContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await RecorderFileUtil.createAudioFile(appContext());
       const added: string[] = addedNames(before);

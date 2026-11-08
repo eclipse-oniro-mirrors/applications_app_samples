@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
@@ -64,9 +64,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify a fresh service has no input surface because no recorder has been created
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0001', 0, async () => {
+    it('testPrepareGuard0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const service: AVRecorderService = new AVRecorderService();
       const surfaceId: string | undefined = await service.getInputSurface();
       expect(surfaceId === undefined).assertTrue();
@@ -81,9 +81,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify prepareAudioRecorder without a recorder still creates the target file and closeFd releases it
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0002', 0, async () => {
+    it('testPrepareGuard0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       resetScratch(AUDIO_SCRATCH);
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
@@ -100,9 +100,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify prepareVideoRecorder without a recorder creates the video target file with no content
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0003', 0, async () => {
+    it('testPrepareGuard0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       resetScratch(VIDEO_SCRATCH);
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareVideoRecorder(appContext());
@@ -121,9 +121,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify start, pause, resume, stop, reset and release are safe no-ops before a recorder exists
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0004', 0, async () => {
+    it('testPrepareGuard0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = sortedNames();
       const service: AVRecorderService = new AVRecorderService();
       await service.startRecorder();
@@ -145,9 +145,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify closing the prepared audio target twice keeps the file readable and does not throw
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0005', 0, async () => {
+    it('testPrepareGuard0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       resetScratch(AUDIO_SCRATCH);
       const service: AVRecorderService = new AVRecorderService();
       await service.prepareAudioRecorder(appContext());
@@ -167,9 +167,9 @@ export default function recorderPrepareGuardTest() {
      * @tc.desc Verify a freshly created recorder still has no surface and creates no file until it is prepared
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testPrepareGuard0006', 0, async () => {
+    it('testPrepareGuard0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = sortedNames();
       const service: AVRecorderService = new AVRecorderService();
       await service.createRecorder();

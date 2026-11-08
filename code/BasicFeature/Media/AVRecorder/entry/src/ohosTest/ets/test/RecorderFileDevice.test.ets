@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
@@ -60,9 +60,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify createAudioFile opens a new .m4a file under filesDir and returns a positive fd
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0001', 0, async () => {
+    it('testRecorderFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createAudioFile(appContext());
       expect(fd > 0).assertTrue();
@@ -80,9 +80,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify createVideoFile opens a new .mp4 file under filesDir and returns a positive fd
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0002', 0, async () => {
+    it('testRecorderFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       expect(fd > 0).assertTrue();
@@ -100,9 +100,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify the returned fd can persist content that is readable from the created file path
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0003', 0, async () => {
+    it('testRecorderFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createAudioFile(appContext());
       const written: number = fileIo.writeSync(fd, PAYLOAD);
@@ -128,9 +128,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify audio and video recording targets differ in both name prefix and extension
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0004', 0, async () => {
+    it('testRecorderFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       const videoFd: number = await recorderFile.createVideoFile(appContext());
@@ -156,9 +156,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify audio files created in different seconds receive distinct names and usable descriptors
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0005', 0, async () => {
+    it('testRecorderFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const firstFd: number = await recorderFile.createAudioFile(appContext());
       await new Promise<void>((resolve: (value: void) => void) => {
@@ -188,9 +188,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify a descriptor closed after creation can no longer be written
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0006', 0, async () => {
+    it('testRecorderFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createAudioFile(appContext());
       const created: string[] = addedNames(before);
@@ -215,9 +215,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify the generated name carries the unpadded date and the six-digit time before the extension
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0007', 0, async () => {
+    it('testRecorderFile0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       fileIo.closeSync(fd);
@@ -237,9 +237,9 @@ export default function recorderFileDeviceTest() {
      * @tc.desc Verify the date segment of a new audio target equals the current clock date
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testRecorderFile0008', 0, async () => {
+    it('testRecorderFile0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const beforeNames: string[] = listNames();
       const beforeDate: string = util.getDate();

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import DateTimeUtil, { getShownTimer, dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -56,9 +56,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify fill agrees with a two-digit pad on both sides of the single-digit boundary
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0001', 0, () => {
+    it('testDateTimeOracle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const values: number[] = [0, 1, 2, 3, 8, 9, 10, 11, 19, 20, 58, 59, 69, 88, 89, 98, 99];
       for (let i = 0; i < values.length; i++) {
@@ -75,9 +75,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify fill leaves every value above ninety-nine with its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0002', 0, () => {
+    it('testDateTimeOracle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       for (let value = 100; value <= 1000; value += 37) {
         const text: string = util.fill(value);
@@ -93,9 +93,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify concatTime equals the padded concatenation of three clock fields
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0003', 0, () => {
+    it('testDateTimeOracle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const hours: number[] = [0, 7, 12, MAX_HOUR];
       const minutes: number[] = [0, 9, 10, 59];
@@ -118,9 +118,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify concatTime pads every minute of the hour inside a fixed hour slot
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0004', 0, () => {
+    it('testDateTimeOracle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       for (let minute = 0; minute <= MAX_MINUTE; minute++) {
         const text: string = util.concatTime(7, minute, 9);
@@ -136,9 +136,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify concatDate always equals the unpadded concatenation of year, month and day
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0005', 0, () => {
+    it('testDateTimeOracle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const years: number[] = [2000, 2026];
       const months: number[] = [1, 2, 9, 10, 11, 12];
@@ -161,9 +161,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify dateTime matches an independent clock formatter across the first hour
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0006', 0, () => {
+    it('testDateTimeOracle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const secondsInMinute: number[] = [0, 9, 10, 59];
       for (let minute = 0; minute <= MAX_MINUTE; minute += 7) {
         for (let i = 0; i < secondsInMinute.length; i++) {
@@ -182,9 +182,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify dateTime matches the clock oracle across later hours of the day
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0007', 0, () => {
+    it('testDateTimeOracle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let hour = 1; hour <= 23; hour++) {
         const seconds: number = hour * SECONDS_PER_HOUR + 59 * SECONDS_PER_MINUTE + 59;
         const text: string = dateTime(seconds);
@@ -200,9 +200,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify dateTime wraps to zero minutes at every whole hour
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0008', 0, () => {
+    it('testDateTimeOracle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let hour = 0; hour <= 24; hour++) {
         const text: string = dateTime(hour * SECONDS_PER_HOUR);
         expect(text).assertEqual('00:00');
@@ -217,9 +217,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify the minute advances exactly when the second counter crosses sixty
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0009', 0, () => {
+    it('testDateTimeOracle0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const samples: number[] = [59, 60, 119, 120, 3599, 3600, 86399, 86400];
       const expected: string[] = ['00:59', '01:00', '01:59', '02:00', '59:59', '00:00', '59:59', '00:00'];
       for (let i = 0; i < samples.length; i++) {
@@ -235,9 +235,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify dateTime is stable when the same value is formatted repeatedly
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0010', 0, () => {
+    it('testDateTimeOracle0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const samples: number[] = [0, 61, 600, 3599, 3600, 43200, 86399];
       for (let i = 0; i < samples.length; i++) {
         const first: string = dateTime(samples[i]);
@@ -254,9 +254,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getShownTimer matches the rounding oracle over the first five seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0011', 0, () => {
+    it('testDateTimeOracle0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let ms = 0; ms <= 5000; ms += 125) {
         const text: string = getShownTimer(ms);
         expect(text).assertEqual(timerOracle(ms));
@@ -271,9 +271,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getShownTimer matches the rounding oracle across two minutes
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0012', 0, () => {
+    it('testDateTimeOracle0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let ms = 0; ms <= 120000; ms += 1750) {
         const text: string = getShownTimer(ms);
         expect(text).assertEqual(timerOracle(ms));
@@ -288,12 +288,13 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify a half-second remainder always rounds up to the next whole second
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0013', 0, () => {
+    it('testDateTimeOracle0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let second = 0; second <= 20; second++) {
         const ms: number = second * MS_PER_SECOND + 500;
-        expect(getShownTimer(ms)).assertEqual(`${Math.floor((second + 1) / SECONDS_PER_MINUTE)}:${(second + 1) % SECONDS_PER_MINUTE}`);
+        const minutes: number = Math.floor((second + 1) / SECONDS_PER_MINUTE);
+        expect(getShownTimer(ms)).assertEqual(`${minutes}:${(second + 1) % SECONDS_PER_MINUTE}`);
         expect(getShownTimer(ms)).assertEqual(timerOracle(ms));
         expect(getShownTimer(ms).split(':')[1]).assertEqual(`${(second + 1) % SECONDS_PER_MINUTE}`);
       }
@@ -305,14 +306,15 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify a remainder just below half a second still counts as the current second
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0014', 0, () => {
+    it('testDateTimeOracle0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let second = 0; second <= 20; second++) {
         const ms: number = second * MS_PER_SECOND + 499;
+        const minutes: number = Math.floor(second / SECONDS_PER_MINUTE);
         expect(getShownTimer(ms)).assertEqual(timerOracle(ms));
         expect(getShownTimer(ms).split(':')[1]).assertEqual(`${second % SECONDS_PER_MINUTE}`);
-        expect(getShownTimer(ms)).assertEqual(`${Math.floor(second / SECONDS_PER_MINUTE)}:${second % SECONDS_PER_MINUTE}`);
+        expect(getShownTimer(ms)).assertEqual(`${minutes}:${second % SECONDS_PER_MINUTE}`);
       }
     })
 
@@ -322,9 +324,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getShownTimer carries into the next minute around the one-minute boundary
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0015', 0, () => {
+    it('testDateTimeOracle0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getShownTimer(59000)).assertEqual('0:59');
       expect(getShownTimer(59500)).assertEqual('1:0');
       expect(getShownTimer(59999)).assertEqual('1:0');
@@ -338,9 +340,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getShownTimer matches the oracle for whole-hour durations up to one day
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0016', 0, () => {
+    it('testDateTimeOracle0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let hours = 1; hours <= 24; hours++) {
         const ms: number = hours * SECONDS_PER_HOUR * MS_PER_SECOND;
         const text: string = getShownTimer(ms);
@@ -356,9 +358,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getShownTimer never reports a negative minute or a second of sixty or more
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0017', 0, () => {
+    it('testDateTimeOracle0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let ms = 0; ms <= 10000; ms += 250) {
         const parts: string[] = colonParts(getShownTimer(ms));
         expect(Number(parts[0]) >= 0).assertTrue();
@@ -373,9 +375,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify every dateTime value in a day has one colon and five characters
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0018', 0, () => {
+    it('testDateTimeOracle0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let seconds = 0; seconds <= 86399; seconds += 997) {
         const text: string = dateTime(seconds);
         expect(text.length).assertEqual(5);
@@ -390,9 +392,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getDate equals concatDate for the year, month and day observed around the call
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0019', 0, () => {
+    it('testDateTimeOracle0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const before: Date = new Date();
       const actual: string = util.getDate();
@@ -412,9 +414,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify getTime equals a concatTime sample taken around the call
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0020', 0, () => {
+    it('testDateTimeOracle0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const before: Date = new Date();
       const actual: string = util.getTime();
@@ -434,9 +436,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify concatTime output contains only digits over a sampled clock grid
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0021', 0, () => {
+    it('testDateTimeOracle0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const hours: number[] = [0, 1, 9, 10, 22, 23];
       const minutes: number[] = [0, 1, 9, 10, 58, 59];
@@ -456,9 +458,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify concatDate output contains only digits over a sampled date grid
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0022', 0, () => {
+    it('testDateTimeOracle0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const months: number[] = [1, 2, 10, 11, 12];
       const days: number[] = [1, 2, 9, 10, 11, 29, 30, 31];
@@ -478,9 +480,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify fill output contains only digits for every sampled non-negative value
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0023', 0, () => {
+    it('testDateTimeOracle0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       for (let value = 0; value <= 1234; value += 7) {
         const text: string = util.fill(value);
@@ -496,9 +498,9 @@ export default function dateTimeOracleTest() {
      * @tc.desc Verify advancing by one minute shifts the minute field by one with a wrap at the hour
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeOracle0024', 0, () => {
+    it('testDateTimeOracle0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let seconds = 0; seconds <= 3500; seconds += 60) {
         const current: string[] = colonParts(dateTime(seconds));
         const next: string[] = colonParts(dateTime(seconds + SECONDS_PER_MINUTE));

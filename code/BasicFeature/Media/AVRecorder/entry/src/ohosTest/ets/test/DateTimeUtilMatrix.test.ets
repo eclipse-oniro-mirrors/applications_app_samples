@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import DateTimeUtil, { getShownTimer, dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -36,9 +36,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify fill prefixes a zero for every single-digit value
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0001', 0, () => {
+    it('testDateTimeUtil0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.fill(0)).assertEqual('00');
       expect(util.fill(1)).assertEqual('01');
@@ -51,9 +51,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify fill leaves values of ten and above unchanged
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0002', 0, () => {
+    it('testDateTimeUtil0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.fill(TEN)).assertEqual('10');
       expect(util.fill(59)).assertEqual('59');
@@ -67,9 +67,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify concatDate joins year, month and day without adding separators
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0003', 0, () => {
+    it('testDateTimeUtil0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.concatDate(2026, 1, 2)).assertEqual('202612');
       expect(util.concatDate(2026, 11, 4)).assertEqual('2026114');
@@ -83,9 +83,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify concatDate always equals the plain concatenation of its three arguments
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0004', 0, () => {
+    it('testDateTimeUtil0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const years: number[] = [2000, 2026];
       const months: number[] = [1, 10, 12];
@@ -108,9 +108,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify concatTime zero-pads single-digit hour, minute and second values
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0005', 0, () => {
+    it('testDateTimeUtil0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.concatTime(0, 0, 0)).assertEqual('000000');
       expect(util.concatTime(1, 2, 3)).assertEqual('010203');
@@ -123,9 +123,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify concatTime keeps two-digit values as-is and mixes padded and plain parts correctly
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0006', 0, () => {
+    it('testDateTimeUtil0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       expect(util.concatTime(TEN, TEN, TEN)).assertEqual('101010');
       expect(util.concatTime(23, 59, 59)).assertEqual('235959');
@@ -139,9 +139,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify concatTime returns exactly six digits for every in-range time
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0007', 0, () => {
+    it('testDateTimeUtil0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const hours: number[] = [0, 9, 23];
       const minutes: number[] = [0, 10, 59];
@@ -164,9 +164,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getTime returns the padded hour-minute-second of the current clock
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0008', 0, () => {
+    it('testDateTimeUtil0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const before: Date = new Date();
       const actual: string = util.getTime();
@@ -186,9 +186,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getDate concatenates the current year, month and day without separators
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0009', 0, () => {
+    it('testDateTimeUtil0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const now: Date = new Date();
       const actual: string = util.getDate();
@@ -203,9 +203,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getShownTimer rounds milliseconds to the nearest whole second
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0010', 0, () => {
+    it('testDateTimeUtil0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getShownTimer(0)).assertEqual('0:0');
       expect(getShownTimer(499)).assertEqual('0:0');
       expect(getShownTimer(500)).assertEqual('0:1');
@@ -219,9 +219,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getShownTimer rolls over to the next minute once rounding reaches sixty seconds
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0011', 0, () => {
+    it('testDateTimeUtil0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getShownTimer(59999)).assertEqual('1:0');
       expect(getShownTimer(60000)).assertEqual('1:0');
       expect(getShownTimer(61000)).assertEqual('1:1');
@@ -235,9 +235,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getShownTimer keeps minute and second parts without zero padding for long durations
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0012', 0, () => {
+    it('testDateTimeUtil0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getShownTimer(3599000)).assertEqual('59:59');
       expect(getShownTimer(3600000)).assertEqual('60:0');
       expect(getShownTimer(123456789)).assertEqual('2057:37');
@@ -249,9 +249,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getShownTimer always renders exactly one colon and non-negative parts
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0013', 0, () => {
+    it('testDateTimeUtil0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       for (let i = 0; i < SAMPLE_DURATIONS.length; i++) {
         const text: string = getShownTimer(SAMPLE_DURATIONS[i]);
         const parts: string[] = clockParts(text);
@@ -268,9 +268,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify dateTime zero-pads both fields and carries the second into the minute
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0014', 0, () => {
+    it('testDateTimeUtil0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(dateTime(0)).assertEqual('00:00');
       expect(dateTime(9)).assertEqual('00:09');
       expect(dateTime(59)).assertEqual('00:59');
@@ -286,9 +286,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify dateTime drops whole hours and continues from zero at each hour boundary
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0015', 0, () => {
+    it('testDateTimeUtil0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(dateTime(3599)).assertEqual('59:59');
       expect(dateTime(3600)).assertEqual('00:00');
       expect(dateTime(3661)).assertEqual('01:01');
@@ -303,9 +303,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify dateTime always returns two digits per field within the valid second range
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0016', 0, () => {
+    it('testDateTimeUtil0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const samples: number[] = [0, 1, 9, 59, 60, 61, 599, 3599, 3600, 86399];
       for (let i = 0; i < samples.length; i++) {
         const text: string = dateTime(samples[i]);
@@ -322,9 +322,9 @@ export default function dateTimeUtilMatrixTest() {
      * @tc.desc Verify getShownTimer rounds a half second up and still keeps the second field below sixty
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testDateTimeUtil0017', 0, () => {
+    it('testDateTimeUtil0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       expect(getShownTimer(1499)).assertEqual('0:1');
       expect(getShownTimer(1500)).assertEqual('0:2');
       expect(getShownTimer(2499)).assertEqual('0:2');

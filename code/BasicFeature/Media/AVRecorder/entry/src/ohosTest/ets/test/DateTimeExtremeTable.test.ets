@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import DateTimeUtil, { getShownTimer, dateTime } from '../../../main/ets/utils/DateTimeUtil';
 import { paceTurn } from './TestPace';
 
@@ -28,9 +28,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value -1
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0001', 0, () => {
+    it('testExtremeTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(-1);
       expect(text).assertEqual('0-1');
@@ -44,9 +44,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value -5
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0002', 0, () => {
+    it('testExtremeTable0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(-5);
       expect(text).assertEqual('0-5');
@@ -60,9 +60,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value -10
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0003', 0, () => {
+    it('testExtremeTable0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(-10);
       expect(text).assertEqual('0-10');
@@ -76,9 +76,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value -99
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0004', 0, () => {
+    it('testExtremeTable0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(-99);
       expect(text).assertEqual('0-99');
@@ -92,9 +92,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value -100
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0005', 0, () => {
+    it('testExtremeTable0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(-100);
       expect(text).assertEqual('0-100');
@@ -108,9 +108,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value 65535
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0006', 0, () => {
+    it('testExtremeTable0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(65535);
       expect(text).assertEqual('65535');
@@ -124,9 +124,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value 100000
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0007', 0, () => {
+    it('testExtremeTable0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(100000);
       expect(text).assertEqual('100000');
@@ -140,9 +140,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value 1000000
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0008', 0, () => {
+    it('testExtremeTable0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(1000000);
       expect(text).assertEqual('1000000');
@@ -156,9 +156,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify fill keeps a deterministic rendering for the out-of-range value 2147483647
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0009', 0, () => {
+    it('testExtremeTable0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(2147483647);
       expect(text).assertEqual('2147483647');
@@ -172,9 +172,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for -1, 0, 0
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0010', 0, () => {
+    it('testExtremeTable0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(-1, 0, 0);
       expect(text).assertEqual('0-10000');
@@ -188,9 +188,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 0, -1, 0
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0011', 0, () => {
+    it('testExtremeTable0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(0, -1, 0);
       expect(text).assertEqual('000-100');
@@ -204,9 +204,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 0, 0, -1
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0012', 0, () => {
+    it('testExtremeTable0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(0, 0, -1);
       expect(text).assertEqual('00000-1');
@@ -220,9 +220,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for -1, -1, -1
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0013', 0, () => {
+    it('testExtremeTable0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(-1, -1, -1);
       expect(text).assertEqual('0-10-10-1');
@@ -236,9 +236,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 99, 99, 99
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0014', 0, () => {
+    it('testExtremeTable0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(99, 99, 99);
       expect(text).assertEqual('999999');
@@ -252,9 +252,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 100, 59, 59
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0015', 0, () => {
+    it('testExtremeTable0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(100, 59, 59);
       expect(text).assertEqual('1005959');
@@ -268,9 +268,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 9, 100, 9
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0016', 0, () => {
+    it('testExtremeTable0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(9, 100, 9);
       expect(text).assertEqual('0910009');
@@ -284,9 +284,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 1000, 1000, 1000
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0017', 0, () => {
+    it('testExtremeTable0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(1000, 1000, 1000);
       expect(text).assertEqual('100010001000');
@@ -300,9 +300,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify concatTime keeps every out-of-range field for 65, 65, 65
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0018', 0, () => {
+    it('testExtremeTable0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.concatTime(65, 65, 65);
       expect(text).assertEqual('656565');
@@ -316,9 +316,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration -1 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0019', 0, () => {
+    it('testExtremeTable0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(-1);
       expect(text).assertEqual('0:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -331,9 +331,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration -499 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0020', 0, () => {
+    it('testExtremeTable0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(-499);
       expect(text).assertEqual('0:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -346,9 +346,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration -500 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0021', 0, () => {
+    it('testExtremeTable0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(-500);
       expect(text).assertEqual('0:0');
       expect(text.indexOf(':')).assertEqual(1);
@@ -361,9 +361,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration -1000 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0022', 0, () => {
+    it('testExtremeTable0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(-1000);
       expect(text).assertEqual('0:-1');
       expect(text.indexOf(':')).assertEqual(1);
@@ -376,9 +376,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration -61000 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0023', 0, () => {
+    it('testExtremeTable0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(-61000);
       expect(text).assertEqual('-1:-1');
       expect(text.indexOf(':')).assertEqual(2);
@@ -391,9 +391,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration 3600001 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0024', 0, () => {
+    it('testExtremeTable0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3600001);
       expect(text).assertEqual('60:0');
       expect(text.indexOf(':')).assertEqual(2);
@@ -406,9 +406,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration 3599999 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0025', 0, () => {
+    it('testExtremeTable0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(3599999);
       expect(text).assertEqual('60:0');
       expect(text.indexOf(':')).assertEqual(2);
@@ -421,9 +421,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration 86400000 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0026', 0, () => {
+    it('testExtremeTable0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(86400000);
       expect(text).assertEqual('1440:0');
       expect(text.indexOf(':')).assertEqual(4);
@@ -436,9 +436,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify getShownTimer keeps a deterministic split for the out-of-range duration 999999999 ms
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0027', 0, () => {
+    it('testExtremeTable0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = getShownTimer(999999999);
       expect(text).assertEqual('16666:40');
       expect(text.indexOf(':')).assertEqual(5);
@@ -451,9 +451,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second -1
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0028', 0, () => {
+    it('testExtremeTable0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(-1);
       expect(text).assertEqual('0-1:0-1');
       expect(text.indexOf(':')).assertEqual(3);
@@ -466,9 +466,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second -59
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0029', 0, () => {
+    it('testExtremeTable0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(-59);
       expect(text).assertEqual('0-1:0-59');
       expect(text.indexOf(':')).assertEqual(3);
@@ -481,9 +481,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second -60
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0030', 0, () => {
+    it('testExtremeTable0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(-60);
       expect(text).assertEqual('0-1:00');
       expect(text.indexOf(':')).assertEqual(3);
@@ -496,9 +496,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second -61
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0031', 0, () => {
+    it('testExtremeTable0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(-61);
       expect(text).assertEqual('0-2:0-1');
       expect(text.indexOf(':')).assertEqual(3);
@@ -511,9 +511,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second -3600
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0032', 0, () => {
+    it('testExtremeTable0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(-3600);
       expect(text).assertEqual('00:00');
       expect(text.indexOf(':')).assertEqual(2);
@@ -526,9 +526,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second 86400
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0033', 0, () => {
+    it('testExtremeTable0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(86400);
       expect(text).assertEqual('00:00');
       expect(text.indexOf(':')).assertEqual(2);
@@ -541,9 +541,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second 86459
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0034', 0, () => {
+    it('testExtremeTable0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(86459);
       expect(text).assertEqual('00:59');
       expect(text.indexOf(':')).assertEqual(2);
@@ -556,9 +556,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second 1000000
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0035', 0, () => {
+    it('testExtremeTable0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(1000000);
       expect(text).assertEqual('46:40');
       expect(text.indexOf(':')).assertEqual(2);
@@ -571,9 +571,9 @@ export default function dateTimeExtremeTableTest() {
      * @tc.desc Verify dateTime keeps a deterministic clock string for the out-of-range second 3599999
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testExtremeTable0036', 0, () => {
+    it('testExtremeTable0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const text: string = dateTime(3599999);
       expect(text).assertEqual('59:59');
       expect(text.indexOf(':')).assertEqual(2);

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import DateTimeUtil from '../../../main/ets/utils/DateTimeUtil';
 import { paceTurn } from './TestPace';
 
@@ -28,9 +28,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 100 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0001', 0, () => {
+    it('testFillWide0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(100);
       expect(text).assertEqual('100');
@@ -44,9 +44,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 101 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0002', 0, () => {
+    it('testFillWide0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(101);
       expect(text).assertEqual('101');
@@ -60,9 +60,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 102 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0003', 0, () => {
+    it('testFillWide0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(102);
       expect(text).assertEqual('102');
@@ -76,9 +76,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 103 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0004', 0, () => {
+    it('testFillWide0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(103);
       expect(text).assertEqual('103');
@@ -92,9 +92,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 104 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0005', 0, () => {
+    it('testFillWide0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(104);
       expect(text).assertEqual('104');
@@ -108,9 +108,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 105 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0006', 0, () => {
+    it('testFillWide0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(105);
       expect(text).assertEqual('105');
@@ -124,9 +124,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 106 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0007', 0, () => {
+    it('testFillWide0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(106);
       expect(text).assertEqual('106');
@@ -140,9 +140,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 107 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0008', 0, () => {
+    it('testFillWide0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(107);
       expect(text).assertEqual('107');
@@ -156,9 +156,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 108 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0009', 0, () => {
+    it('testFillWide0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(108);
       expect(text).assertEqual('108');
@@ -172,9 +172,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 109 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0010', 0, () => {
+    it('testFillWide0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(109);
       expect(text).assertEqual('109');
@@ -188,9 +188,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 110 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0011', 0, () => {
+    it('testFillWide0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(110);
       expect(text).assertEqual('110');
@@ -204,9 +204,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 111 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0012', 0, () => {
+    it('testFillWide0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(111);
       expect(text).assertEqual('111');
@@ -220,9 +220,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 112 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0013', 0, () => {
+    it('testFillWide0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(112);
       expect(text).assertEqual('112');
@@ -236,9 +236,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 113 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0014', 0, () => {
+    it('testFillWide0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(113);
       expect(text).assertEqual('113');
@@ -252,9 +252,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 114 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0015', 0, () => {
+    it('testFillWide0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(114);
       expect(text).assertEqual('114');
@@ -268,9 +268,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 115 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0016', 0, () => {
+    it('testFillWide0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(115);
       expect(text).assertEqual('115');
@@ -284,9 +284,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 116 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0017', 0, () => {
+    it('testFillWide0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(116);
       expect(text).assertEqual('116');
@@ -300,9 +300,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 117 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0018', 0, () => {
+    it('testFillWide0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(117);
       expect(text).assertEqual('117');
@@ -316,9 +316,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 118 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0019', 0, () => {
+    it('testFillWide0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(118);
       expect(text).assertEqual('118');
@@ -332,9 +332,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 119 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0020', 0, () => {
+    it('testFillWide0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(119);
       expect(text).assertEqual('119');
@@ -348,9 +348,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 120 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0021', 0, () => {
+    it('testFillWide0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(120);
       expect(text).assertEqual('120');
@@ -364,9 +364,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 121 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0022', 0, () => {
+    it('testFillWide0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(121);
       expect(text).assertEqual('121');
@@ -380,9 +380,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 122 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0023', 0, () => {
+    it('testFillWide0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(122);
       expect(text).assertEqual('122');
@@ -396,9 +396,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 123 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0024', 0, () => {
+    it('testFillWide0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(123);
       expect(text).assertEqual('123');
@@ -412,9 +412,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 124 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0025', 0, () => {
+    it('testFillWide0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(124);
       expect(text).assertEqual('124');
@@ -428,9 +428,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 125 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0026', 0, () => {
+    it('testFillWide0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(125);
       expect(text).assertEqual('125');
@@ -444,9 +444,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 126 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0027', 0, () => {
+    it('testFillWide0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(126);
       expect(text).assertEqual('126');
@@ -460,9 +460,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 127 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0028', 0, () => {
+    it('testFillWide0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(127);
       expect(text).assertEqual('127');
@@ -476,9 +476,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 128 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0029', 0, () => {
+    it('testFillWide0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(128);
       expect(text).assertEqual('128');
@@ -492,9 +492,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 129 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0030', 0, () => {
+    it('testFillWide0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(129);
       expect(text).assertEqual('129');
@@ -508,9 +508,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 130 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0031', 0, () => {
+    it('testFillWide0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(130);
       expect(text).assertEqual('130');
@@ -524,9 +524,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 131 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0032', 0, () => {
+    it('testFillWide0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(131);
       expect(text).assertEqual('131');
@@ -540,9 +540,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 132 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0033', 0, () => {
+    it('testFillWide0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(132);
       expect(text).assertEqual('132');
@@ -556,9 +556,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 133 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0034', 0, () => {
+    it('testFillWide0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(133);
       expect(text).assertEqual('133');
@@ -572,9 +572,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 134 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0035', 0, () => {
+    it('testFillWide0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(134);
       expect(text).assertEqual('134');
@@ -588,9 +588,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 135 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0036', 0, () => {
+    it('testFillWide0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(135);
       expect(text).assertEqual('135');
@@ -604,9 +604,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 136 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0037', 0, () => {
+    it('testFillWide0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(136);
       expect(text).assertEqual('136');
@@ -620,9 +620,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 137 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0038', 0, () => {
+    it('testFillWide0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(137);
       expect(text).assertEqual('137');
@@ -636,9 +636,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 138 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0039', 0, () => {
+    it('testFillWide0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(138);
       expect(text).assertEqual('138');
@@ -652,9 +652,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 139 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0040', 0, () => {
+    it('testFillWide0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(139);
       expect(text).assertEqual('139');
@@ -668,9 +668,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 140 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0041', 0, () => {
+    it('testFillWide0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(140);
       expect(text).assertEqual('140');
@@ -684,9 +684,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 141 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0042', 0, () => {
+    it('testFillWide0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(141);
       expect(text).assertEqual('141');
@@ -700,9 +700,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 142 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0043', 0, () => {
+    it('testFillWide0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(142);
       expect(text).assertEqual('142');
@@ -716,9 +716,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 143 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0044', 0, () => {
+    it('testFillWide0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(143);
       expect(text).assertEqual('143');
@@ -732,9 +732,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 144 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0045', 0, () => {
+    it('testFillWide0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(144);
       expect(text).assertEqual('144');
@@ -748,9 +748,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 145 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0046', 0, () => {
+    it('testFillWide0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(145);
       expect(text).assertEqual('145');
@@ -764,9 +764,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 146 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0047', 0, () => {
+    it('testFillWide0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(146);
       expect(text).assertEqual('146');
@@ -780,9 +780,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 147 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0048', 0, () => {
+    it('testFillWide0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(147);
       expect(text).assertEqual('147');
@@ -796,9 +796,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 148 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0049', 0, () => {
+    it('testFillWide0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(148);
       expect(text).assertEqual('148');
@@ -812,9 +812,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 149 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0050', 0, () => {
+    it('testFillWide0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(149);
       expect(text).assertEqual('149');
@@ -828,9 +828,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 150 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0051', 0, () => {
+    it('testFillWide0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(150);
       expect(text).assertEqual('150');
@@ -844,9 +844,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 151 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0052', 0, () => {
+    it('testFillWide0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(151);
       expect(text).assertEqual('151');
@@ -860,9 +860,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 152 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0053', 0, () => {
+    it('testFillWide0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(152);
       expect(text).assertEqual('152');
@@ -876,9 +876,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 153 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0054', 0, () => {
+    it('testFillWide0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(153);
       expect(text).assertEqual('153');
@@ -892,9 +892,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 154 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0055', 0, () => {
+    it('testFillWide0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(154);
       expect(text).assertEqual('154');
@@ -908,9 +908,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 155 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0056', 0, () => {
+    it('testFillWide0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(155);
       expect(text).assertEqual('155');
@@ -924,9 +924,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 156 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0057', 0, () => {
+    it('testFillWide0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(156);
       expect(text).assertEqual('156');
@@ -940,9 +940,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 157 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0058', 0, () => {
+    it('testFillWide0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(157);
       expect(text).assertEqual('157');
@@ -956,9 +956,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 158 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0059', 0, () => {
+    it('testFillWide0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(158);
       expect(text).assertEqual('158');
@@ -972,9 +972,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 159 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0060', 0, () => {
+    it('testFillWide0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(159);
       expect(text).assertEqual('159');
@@ -988,9 +988,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 160 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0061', 0, () => {
+    it('testFillWide0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(160);
       expect(text).assertEqual('160');
@@ -1004,9 +1004,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 161 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0062', 0, () => {
+    it('testFillWide0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(161);
       expect(text).assertEqual('161');
@@ -1020,9 +1020,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 162 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0063', 0, () => {
+    it('testFillWide0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(162);
       expect(text).assertEqual('162');
@@ -1036,9 +1036,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 163 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0064', 0, () => {
+    it('testFillWide0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(163);
       expect(text).assertEqual('163');
@@ -1052,9 +1052,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 164 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0065', 0, () => {
+    it('testFillWide0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(164);
       expect(text).assertEqual('164');
@@ -1068,9 +1068,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 165 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0066', 0, () => {
+    it('testFillWide0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(165);
       expect(text).assertEqual('165');
@@ -1084,9 +1084,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 166 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0067', 0, () => {
+    it('testFillWide0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(166);
       expect(text).assertEqual('166');
@@ -1100,9 +1100,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 167 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0068', 0, () => {
+    it('testFillWide0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(167);
       expect(text).assertEqual('167');
@@ -1116,9 +1116,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 168 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0069', 0, () => {
+    it('testFillWide0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(168);
       expect(text).assertEqual('168');
@@ -1132,9 +1132,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 169 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0070', 0, () => {
+    it('testFillWide0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(169);
       expect(text).assertEqual('169');
@@ -1148,9 +1148,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 170 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0071', 0, () => {
+    it('testFillWide0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(170);
       expect(text).assertEqual('170');
@@ -1164,9 +1164,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 171 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0072', 0, () => {
+    it('testFillWide0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(171);
       expect(text).assertEqual('171');
@@ -1180,9 +1180,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 172 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0073', 0, () => {
+    it('testFillWide0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(172);
       expect(text).assertEqual('172');
@@ -1196,9 +1196,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 173 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0074', 0, () => {
+    it('testFillWide0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(173);
       expect(text).assertEqual('173');
@@ -1212,9 +1212,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 174 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0075', 0, () => {
+    it('testFillWide0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(174);
       expect(text).assertEqual('174');
@@ -1228,9 +1228,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 175 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0076', 0, () => {
+    it('testFillWide0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(175);
       expect(text).assertEqual('175');
@@ -1244,9 +1244,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 176 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0077', 0, () => {
+    it('testFillWide0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(176);
       expect(text).assertEqual('176');
@@ -1260,9 +1260,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 177 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0078', 0, () => {
+    it('testFillWide0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(177);
       expect(text).assertEqual('177');
@@ -1276,9 +1276,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 178 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0079', 0, () => {
+    it('testFillWide0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(178);
       expect(text).assertEqual('178');
@@ -1292,9 +1292,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 179 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0080', 0, () => {
+    it('testFillWide0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(179);
       expect(text).assertEqual('179');
@@ -1308,9 +1308,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 180 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0081', 0, () => {
+    it('testFillWide0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(180);
       expect(text).assertEqual('180');
@@ -1324,9 +1324,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 181 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0082', 0, () => {
+    it('testFillWide0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(181);
       expect(text).assertEqual('181');
@@ -1340,9 +1340,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 182 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0083', 0, () => {
+    it('testFillWide0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(182);
       expect(text).assertEqual('182');
@@ -1356,9 +1356,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 183 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0084', 0, () => {
+    it('testFillWide0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(183);
       expect(text).assertEqual('183');
@@ -1372,9 +1372,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 184 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0085', 0, () => {
+    it('testFillWide0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(184);
       expect(text).assertEqual('184');
@@ -1388,9 +1388,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 185 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0086', 0, () => {
+    it('testFillWide0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(185);
       expect(text).assertEqual('185');
@@ -1404,9 +1404,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 186 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0087', 0, () => {
+    it('testFillWide0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(186);
       expect(text).assertEqual('186');
@@ -1420,9 +1420,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 187 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0088', 0, () => {
+    it('testFillWide0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(187);
       expect(text).assertEqual('187');
@@ -1436,9 +1436,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 188 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0089', 0, () => {
+    it('testFillWide0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(188);
       expect(text).assertEqual('188');
@@ -1452,9 +1452,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 189 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0090', 0, () => {
+    it('testFillWide0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(189);
       expect(text).assertEqual('189');
@@ -1468,9 +1468,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 190 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0091', 0, () => {
+    it('testFillWide0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(190);
       expect(text).assertEqual('190');
@@ -1484,9 +1484,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 191 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0092', 0, () => {
+    it('testFillWide0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(191);
       expect(text).assertEqual('191');
@@ -1500,9 +1500,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 192 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0093', 0, () => {
+    it('testFillWide0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(192);
       expect(text).assertEqual('192');
@@ -1516,9 +1516,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 193 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0094', 0, () => {
+    it('testFillWide0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(193);
       expect(text).assertEqual('193');
@@ -1532,9 +1532,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 194 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0095', 0, () => {
+    it('testFillWide0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(194);
       expect(text).assertEqual('194');
@@ -1548,9 +1548,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 195 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0096', 0, () => {
+    it('testFillWide0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(195);
       expect(text).assertEqual('195');
@@ -1564,9 +1564,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 196 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0097', 0, () => {
+    it('testFillWide0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(196);
       expect(text).assertEqual('196');
@@ -1580,9 +1580,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 197 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0098', 0, () => {
+    it('testFillWide0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(197);
       expect(text).assertEqual('197');
@@ -1596,9 +1596,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 198 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0099', 0, () => {
+    it('testFillWide0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(198);
       expect(text).assertEqual('198');
@@ -1612,9 +1612,9 @@ export default function dateTimeFillWideTableTest() {
      * @tc.desc Verify fill keeps the three-digit value 199 at its natural width
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFillWide0100', 0, () => {
+    it('testFillWide0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       const util: DateTimeUtil = new DateTimeUtil();
       const text: string = util.fill(199);
       expect(text).assertEqual('199');

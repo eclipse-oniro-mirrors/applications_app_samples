@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeEach, it, expect } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { paceTurn } from './TestPace';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
@@ -90,9 +90,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify two writes through one descriptor accumulate in order
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0001', 0, async () => {
+    it('testFileSequence0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createAudioFile(appContext());
       expect(fileIo.writeSync(fd, 'first')).assertEqual(5);
@@ -111,9 +111,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify audio and video descriptors written back-to-back keep separate contents
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0002', 0, async () => {
+    it('testFileSequence0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       const videoFd: number = await recorderFile.createVideoFile(appContext());
@@ -138,9 +138,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify both targets remain readable after they are created and closed in sequence
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0003', 0, async () => {
+    it('testFileSequence0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       fileIo.writeSync(audioFd, 'audio-first');
@@ -166,9 +166,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify deleting an audio target before creating a video target leaves only the video file
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0004', 0, async () => {
+    it('testFileSequence0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       fileIo.writeSync(audioFd, 'discard');
@@ -191,9 +191,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify audio targets created in different seconds are distinct while both stay empty
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0005', 0, async () => {
+    it('testFileSequence0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const firstFd: number = await recorderFile.createAudioFile(appContext());
       fileIo.closeSync(firstFd);
@@ -216,9 +216,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify a four-byte symbol payload is stored at its encoded byte length
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0006', 0, async () => {
+    it('testFileSequence0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       const written: number = fileIo.writeSync(fd, '🎬');
@@ -236,9 +236,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify three consecutive writes concatenate exactly in write order
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0007', 0, async () => {
+    it('testFileSequence0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       expect(fileIo.writeSync(fd, 'a')).assertEqual(1);
@@ -257,9 +257,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify creating an audio target adds one file and no video target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0008', 0, async () => {
+    it('testFileSequence0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createAudioFile(appContext());
       fileIo.closeSync(fd);
@@ -276,9 +276,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify creating a video target adds one file and no audio target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0009', 0, async () => {
+    it('testFileSequence0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       fileIo.closeSync(fd);
@@ -295,9 +295,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify removing both created targets restores the original sandbox listing
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0010', 0, async () => {
+    it('testFileSequence0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       const videoFd: number = await recorderFile.createVideoFile(appContext());
@@ -318,9 +318,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify audio targets from different seconds keep their own payloads after both are closed
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0011', 0, async () => {
+    it('testFileSequence0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const firstFd: number = await recorderFile.createAudioFile(appContext());
       fileIo.writeSync(firstFd, 'older');
@@ -343,9 +343,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify recreating a video target after deletion produces a new empty file
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0012', 0, async () => {
+    it('testFileSequence0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const firstFd: number = await recorderFile.createVideoFile(appContext());
       fileIo.writeSync(firstFd, 'obsolete');
@@ -368,9 +368,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify a partial read returns only the requested leading bytes of a video target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0013', 0, async () => {
+    it('testFileSequence0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const fd: number = await recorderFile.createVideoFile(appContext());
       fileIo.writeSync(fd, 'framepayload');
@@ -393,9 +393,9 @@ export default function recorderFileSequenceTest() {
      * @tc.desc Verify deleting the audio target does not affect the payload of a previously created video target
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level LEVEL0
      */
-    it('testFileSequence0014', 0, async () => {
+    it('testFileSequence0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const before: string[] = listNames();
       const audioFd: number = await recorderFile.createAudioFile(appContext());
       fileIo.writeSync(audioFd, 'temp');
