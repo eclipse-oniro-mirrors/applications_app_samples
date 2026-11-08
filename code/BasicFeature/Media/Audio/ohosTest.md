@@ -167,7 +167,7 @@
 
 ### 测试环境
 
-- 设备：具备麦克风/音频输出的 HarmonyOS 手机或模拟器（bundle `com.samples.audio`）
+- 设备：具备麦克风/音频输出的手机或模拟器（bundle `com.samples.audio`）
 - 工程 SDK：OpenHarmony `compileSdkVersion: "26.0.0"`，`compatibleSdkVersion: 21`
 - 测试套件：`AudioIndexNav` 等 24 个套件 + `shared/AudioDriver.ets`
 - 测试目录：`entry/src/ohosTest/ets/test/`
@@ -175,14 +175,14 @@
 
 运行方式：
 
-使用 DevEco Studio 或 hdc 以 `entry_test` 模块运行 `List.test.ets`，指定运行器 `OpenHarmonyTestRunner` 与测试 Ability `TestAbility`；也可按套件运行，例如 `aa test -b com.samples.audio -m entry_test -s unittest OpenHarmonyTestRunner -s class audioResourceTypesTest`。运行前需解锁设备并授予麦克风权限，执行 `power-shell timeout -o 600000`。
+使用 DevEco Studio 或 hdc 以 `entry_test` 模块运行 `List.test.ets`，指定运行器 `OpenHarmonyTestRunner` 与测试 Ability `TestAbility`；也可按套件运行，例如通过 `-s class audioResourceTypesTest` 指定套件。运行前需解锁设备并授予麦克风权限，执行 `power-shell timeout -o 600000`。
 
 ### 手工用例表
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 测试结果 |
 |---|---|---|---|---|
 | 拉起应用 | 应用已安装 | 以 bundle `com.samples.audio`、ability `EntryAbility` 启动 | 应用启动，显示首页入口 | Pass |
-| 允许权限 | 首次启动弹出麦克风权限框 | 点击“允许” | 授权后成功进入首页 | Pass |
+| 允许权限 | 初次启动弹出麦克风权限框 | 点击“允许” | 授权后成功进入首页 | Pass |
 | 主页展示 | 设备正常运行 | 无 | 展示发声设备、音频焦点、音效管理、音频录制、音量、空间音频、卡拉 OK 七个入口 | Pass |
 | 发声设备查询 | 位于发声设备页 | 打开页面 | 展示当前首选输出设备名称（未知设备显示 Invalid） | Pass |
 | 音频焦点-音乐播放 | 位于音频焦点页 | 点击音乐播放器卡片 | 音乐开始播放，卡片状态切换 | Pass |

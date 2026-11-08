@@ -85,7 +85,7 @@
 - 纯函数与矩阵用例不依赖 UI/原生/时序，可重复执行。
 - 状态类用例使用 `StorageSnapshot` 在用例结束前恢复 AppStorage。
 - 偏好类用例使用测试专用键并在结束时清理。
-- UI/原生相关的不稳定用例已从注册列表移除，避免影响其他套件。
+- UI/原生相关的不稳定用例已从注册列表移除，避免影响其余套件。
 
 ### 4.5 可维护性
 
@@ -147,13 +147,13 @@
 
 ### 测试环境
 
-- 设备：支持音频播放的 HarmonyOS 设备或模拟器（bundle `com.example.audiomusicplayer`）。
+- 设备：支持音频播放的手机或模拟器（bundle `com.example.audiomusicplayer`）。
 - 测试目录：`entry/src/ohosTest/ets/test/`。
 - 用例格式：`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.size` / `@tc.type` / `@tc.level`。
 
 运行方式：
 
-使用 DevEco Studio 或 hdc 运行 `List.test.ets`，指定运行器 `OpenHarmonyTestRunner` 与测试 Ability `TestAbility`；也可按套件运行，例如 `aa test -b com.example.audiomusicplayer -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class TimeFormatMatrixProTest -s timeout 15000`。运行前建议解锁设备并延长息屏时间。
+使用 DevEco Studio 或 hdc 运行 `List.test.ets`，指定运行器 `OpenHarmonyTestRunner` 与测试 Ability `TestAbility`；也可按套件运行，例如通过 `-s class TimeFormatMatrixProTest` 指定套件。运行前建议解锁设备并延长息屏时间。
 
 ### 手工用例表
 

@@ -443,6 +443,26 @@ static OH_AudioStream_SampleFormat GetSampleFormat(uint16_t bitsPerSample)
     return AUDIOSTREAM_SAMPLE_S16LE;
 }
 
+static void ApplyRendererPostConfig(OH_AudioRenderer* renderer, int32_t& audioLatencyNs, bool silentMode)
+{
+    int32_t latencyNs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(renderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    if (latencyRet == AUDIOSTREAM_SUCCESS) {
+        audioLatencyNs = latencyNs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}lld ns", (long long)latencyNs);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
+    }
+    if (silentMode) {
+        auto silentRet = OH_AudioRenderer_SetSilentModeAndMixWithOthers(renderer, silentMode);
+        if (silentRet != AUDIOSTREAM_SUCCESS) {
+            OH_LOG_ERROR(LOG_APP, "Restore silent mode failed, ret: %{public}d", silentRet);
+        } else {
+            OH_LOG_INFO(LOG_APP, "Restored silent mode: %{public}d", silentMode);
+        }
+    }
+}
+
 void OHAudioPlayer::ReconfigurePlayer()
 {
     if (!audioFileOprInfo) {
@@ -487,23 +507,7 @@ void OHAudioPlayer::ReconfigurePlayer()
         return;
     }
 
-    int32_t latencyNs = 0;
-    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
-    if (latencyRet == AUDIOSTREAM_SUCCESS) {
-        audioLatencyNs = latencyNs;
-        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}lld ns", (long long)latencyNs);
-    } else {
-        OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
-    }
-
-    if (isSilentMode) {
-        auto silentRet = OH_AudioRenderer_SetSilentModeAndMixWithOthers(audioRenderer, isSilentMode);
-        if (silentRet != AUDIOSTREAM_SUCCESS) {
-            OH_LOG_ERROR(LOG_APP, "Restore silent mode failed, ret: %{public}d", silentRet);
-        } else {
-            OH_LOG_INFO(LOG_APP, "Restored silent mode: %{public}d", isSilentMode);
-        }
-    }
+    ApplyRendererPostConfig(audioRenderer, audioLatencyNs, isSilentMode);
 }
 
 static AudioFileOprInfo* InitAudioFileOprInfo(uint32_t songFd, uint32_t songFileSize, uint32_t songFileOffset)
