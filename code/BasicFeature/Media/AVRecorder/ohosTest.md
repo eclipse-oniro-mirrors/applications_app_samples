@@ -160,7 +160,7 @@
 
 ### 测试环境
 
-- 设备：支持麦克风与相机的 HarmonyOS 手机（`deviceTypes: phone`）
+- 设备：支持麦克风与相机的手机（`deviceTypes: phone`）
 - 工程 SDK：`compileSdkVersion` / `compatibleSdkVersion` = `6.1.1(24)`
 - 测试套件：`AVRecorderLogicTest01` 等 22 个套件
 - 测试目录：`entry/src/ohosTest/ets/test/`

@@ -108,8 +108,8 @@ export default function LrcFormatMatrixTest() {
           }
         }
         hilog.info(DOMAIN, TAG, '%{public}s',
-          `${sample.name}: 输入=${line}, 解析=${entries.length === 1 ? entries[0].lineStartTime : 'N/A'}, `
-            + `基准=${scanner.times[0]}`);
+          `${sample.name}: 输入=${line}, 解析=${entries.length === 1 ? entries[0].lineStartTime : 'N/A'}, ` +
+            `基准=${scanner.times[0]}`);
       }
       expect(FORMAT_SAMPLES.length).assertEqual(7);
       expect(passed).assertEqual(7);

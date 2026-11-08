@@ -1,13 +1,13 @@
 /*
 * Copyright (C) 2023 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License");
+* Licensed under the Apache License, Version 2.0 (the 'License');
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
 *
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 * Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
+* distributed under the License is distributed on an 'AS IS' BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
@@ -238,7 +238,7 @@ struct RealtimeAudioEffectQuery {
       try {
         this.audioRenderer.stop();
         this.audioRenderer.release();
-        console.info("release:SUCCEED");
+        console.info('release:SUCCEED');
       } catch (err) {
         let error = err as BusinessError;
         console.error(`audioRenderer release ,Error: ${JSON.stringify(error)}`);
@@ -264,7 +264,7 @@ struct RealtimeAudioEffectQuery {
     let index2Content = new Map([
       [0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5]
     ]);
-    console.info("get content type:" + index2Content.get(index));
+    console.info('get content type:' + index2Content.get(index));
     return index2Content.get(index);
   }
 
@@ -274,7 +274,7 @@ struct RealtimeAudioEffectQuery {
       [0, 0], [1, 1], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6],
       [8, 6], [9, 7], [10, 8], [11, 10], [12, 11], [13, 12], [14, 13]
     ]);
-    console.info("get stream usage:" + index2Usage.get(index));
+    console.info('get stream usage:' + index2Usage.get(index));
     return index2Usage.get(index);
   }
 
@@ -295,7 +295,7 @@ struct RealtimeAudioEffectQuery {
       };
     try {
       this.audioRenderer = await audio.createAudioRenderer(audioRendererOptions);
-      console.info("createAudioRenderer:SUCCEED");
+      console.info('createAudioRenderer:SUCCEED');
     } catch (err) {
       let error = err as BusinessError;
       console.error(`audioRenderer create ,Error: ${JSON.stringify(error)}`);
@@ -304,7 +304,7 @@ struct RealtimeAudioEffectQuery {
 
     try {
       await this.audioRenderer.setAudioEffectMode(this.audioEffectModeSettingIndex);
-      console.info(" audioRenderer.setAudioEffectMode:SUCCEED");
+      console.info(' audioRenderer.setAudioEffectMode:SUCCEED');
     } catch (err) {
       let error = err as BusinessError;
       console.error(`audioRenderer setAudioEffectMode ,Error: ${JSON.stringify(error)}`);
@@ -313,7 +313,7 @@ struct RealtimeAudioEffectQuery {
 
     try {
       await this.audioRenderer.start();
-      console.info(" audioRenderer.start:SUCCEED");
+      console.info(' audioRenderer.start:SUCCEED');
     } catch (err) {
       let error = err as BusinessError;
       console.error(`audioRenderer start ,Error: ${JSON.stringify(error)}`);
@@ -323,13 +323,13 @@ struct RealtimeAudioEffectQuery {
     let bufferSize : number = 0;
     try {
       bufferSize = await this.audioRenderer.getBufferSize();
-      console.info(" get Buffer Size:SUCCEED");
+      console.info(' get Buffer Size:SUCCEED');
     } catch (err) {
       let error = err as BusinessError;
       console.error(`get Buffer Size ,Error: ${JSON.stringify(error)}`);
       return;
     }
-    console.info("buffer size:" + bufferSize);
+    console.info('buffer size:' + bufferSize);
     await this.getStageFileDescriptor(this.audioSource).then((res) => {
       this.fileDescriptor = res;
     })
@@ -383,8 +383,8 @@ struct RealtimeAudioEffectQuery {
         let previousARInfo : audio.AudioRendererInfo = await this.audioRenderer.getRendererInfo();
         let previousContent = previousARInfo.content;
         let previousUsage = previousARInfo.usage;
-        if (this.mapContentIndexToType(this.contentTypeIndex) != previousContent
-          || this.mapStreamIndexToUsage(this.streamUsageIndex) != previousUsage) {
+        if (this.mapContentIndexToType(this.contentTypeIndex) != previousContent ||
+          this.mapStreamIndexToUsage(this.streamUsageIndex) != previousUsage) {
           try {
             await this.audioRenderer.stop();
             await this.audioRenderer.release();
@@ -437,7 +437,7 @@ struct RealtimeAudioEffectQuery {
               NavDestination() {
               }
             }.onStateChange(async (isActivated: boolean) => {
-              console.info("hello");
+              console.info('hello');
               if (this.audioRenderer !== undefined) {
                 try {
                   await this.audioRenderer.stop();
@@ -645,8 +645,8 @@ struct RealtimeAudioEffectQuery {
                 this.showSelector_2 = false;
                 this.showSelector_3 = false;
                 if (this.audioRenderer !== undefined) {
-                  if (this.audioRenderer.state === audio.AudioState.STATE_RUNNING
-                    || this.audioRenderer.state === audio.AudioState.STATE_PAUSED) {
+                  if (this.audioRenderer.state === audio.AudioState.STATE_RUNNING ||
+                    this.audioRenderer.state === audio.AudioState.STATE_PAUSED) {
                     console.info('Cur audio effect query Button onClick')
                     let audioEffectMode = 1;
                     try {

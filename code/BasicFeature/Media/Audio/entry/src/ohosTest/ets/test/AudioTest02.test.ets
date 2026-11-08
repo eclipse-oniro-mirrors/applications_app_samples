@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -47,29 +47,29 @@ export default function audioTest02() {
       await driver.delayMs(1000);
       const resMgr = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       const normalText: Component | null = await driver.findComponent(ON.text(await resMgr.getStringValue({
-        "id": 33554482,
-        "type": 10003,
+        'id': 33554482,
+        'type': 10003,
         params: [],
-        "bundleName": "com.samples.audio",
-        "moduleName": "entry_test"
+        'bundleName': 'com.samples.audio',
+        'moduleName': 'entry_test'
       })));
       hilog.info(DOMAIN, TAG, 'normal capturer entry exists: %{public}s', String(normalText !== null));
       expect(normalText !== null).assertTrue();
       const parallelText: Component | null = await driver.findComponent(ON.text(await resMgr.getStringValue({
-        "id": 33554484,
-        "type": 10003,
+        'id': 33554484,
+        'type': 10003,
         params: [],
-        "bundleName": "com.samples.audio",
-        "moduleName": "entry_test"
+        'bundleName': 'com.samples.audio',
+        'moduleName': 'entry_test'
       })));
       hilog.info(DOMAIN, TAG, 'parallel capturer entry exists: %{public}s', String(parallelText !== null));
       expect(parallelText !== null).assertTrue();
       const liveText: Component | null = await driver.findComponent(ON.text(await resMgr.getStringValue({
-        "id": 33554480,
-        "type": 10003,
+        'id': 33554480,
+        'type': 10003,
         params: [],
-        "bundleName": "com.samples.audio",
-        "moduleName": "entry_test"
+        'bundleName': 'com.samples.audio',
+        'moduleName': 'entry_test'
       })));
       hilog.info(DOMAIN, TAG, 'live capturer entry exists: %{public}s', String(liveText !== null));
       expect(liveText !== null).assertTrue();

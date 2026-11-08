@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -27,10 +27,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.00]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -44,10 +44,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.00] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -61,10 +61,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.00]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -78,10 +78,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.00]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.00]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10000);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -95,10 +95,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:21.50]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:21.50]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(21500);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -112,10 +112,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.00]line");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.00]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60000);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -129,10 +129,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.00]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -146,10 +146,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.00] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -163,10 +163,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.00]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -180,10 +180,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.25]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.25]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -197,10 +197,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.25]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.25]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1250);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -214,10 +214,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.25]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.25]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -231,10 +231,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.25]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.25]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10250);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -248,10 +248,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:21.75] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:21.75] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(21750);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -265,10 +265,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.25]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.25]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60250);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -282,10 +282,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.25]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.25]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -299,10 +299,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.25]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.25]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120250);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -316,10 +316,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.25]line");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.25]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -333,10 +333,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.50]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.50]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -350,10 +350,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.50] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.50] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1500);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -367,10 +367,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.50]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.50]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -384,10 +384,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.50]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.50]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10500);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -401,10 +401,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:22.00]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:22.00]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(22000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -418,10 +418,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.50]line");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.50]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60500);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -435,10 +435,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.50]a");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.50]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -452,10 +452,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.50] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.50] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120500);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -469,10 +469,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.50]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.50]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -486,10 +486,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.75]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.75]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -503,10 +503,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.75]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.75]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1750);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -520,10 +520,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.75]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.75]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5750);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -537,10 +537,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.75]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.75]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10750);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -554,10 +554,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:22.25] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:22.25] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(22250);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -571,10 +571,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.75]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.75]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60750);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -588,10 +588,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.75]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.75]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -605,10 +605,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.75]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.75]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120750);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -622,10 +622,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.75]line");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.75]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599750);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -639,10 +639,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.00]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -656,10 +656,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.00] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -673,10 +673,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.00]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -690,10 +690,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.00]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.00]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10000);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -707,10 +707,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:21.50]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:21.50]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(21500);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -724,10 +724,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.00]line");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.00]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60000);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -741,10 +741,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.00]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -758,10 +758,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.00] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -775,10 +775,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.00]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -792,10 +792,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.25]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.25]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -809,10 +809,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.25]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.25]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1250);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -826,10 +826,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.25]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.25]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -843,10 +843,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.25]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.25]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10250);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -860,10 +860,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:21.75] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:21.75] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(21750);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -877,10 +877,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.25]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.25]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60250);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -894,10 +894,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:01.25]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[01:01.25]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(61250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -911,10 +911,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[02:00.25]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[02:00.25]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(120250);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -928,10 +928,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.25]line");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.25]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -945,10 +945,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.50]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.50]a');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -962,10 +962,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.50] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.50] hello');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(1500);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -979,10 +979,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.50]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.50]\u4f60\u597d');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(5500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -996,10 +996,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.50]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.50]x y');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(10500);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -1013,10 +1013,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:22.00]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:22.00]OpenHarmony');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(22000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -1030,10 +1030,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[01:00.50]line");
+      const entries: LrcEntry[] = parseLrcLyric('[01:00.50]line');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(60500);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -1047,13 +1047,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:07.25] hello\n[00:00.00]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:07.25] hello\n[00:00.00]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(7250);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1074,16 +1074,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:15.75]x y\n[00:08.50]\u4f60\u597d\n[00:01.25] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:15.75]x y\n[00:08.50]\u4f60\u597d\n[00:01.25] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(1250);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(8500);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(15750);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1104,19 +1104,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:23.25]line\n[00:16.00]OpenHarmony\n[00:09.75]x y\n[00:02.50]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:23.25]line\n[00:16.00]OpenHarmony\n[00:09.75]x y\n[00:02.50]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(2500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(9750);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(16000);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(23250);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1137,13 +1137,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.00]OpenHarmony\n[00:03.75]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.00]OpenHarmony\n[00:03.75]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(3750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(10000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1164,16 +1164,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:18.50]a\n[00:11.25]line\n[00:04.00]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:18.50]a\n[00:11.25]line\n[00:04.00]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(4000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(11250);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(18500);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1194,19 +1194,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:26.00]\u4f60\u597d\n[00:19.75] hello\n[00:12.50]a\n[00:05.25]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:26.00]\u4f60\u597d\n[00:19.75] hello\n[00:12.50]a\n[00:05.25]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(5250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(12500);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(19750);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(26000);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1227,13 +1227,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:13.75] hello\n[00:06.50]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:13.75] hello\n[00:06.50]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(6500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(13750);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1254,16 +1254,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:21.25]x y\n[00:14.00]\u4f60\u597d\n[00:07.75] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:21.25]x y\n[00:14.00]\u4f60\u597d\n[00:07.75] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(7750);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(14000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(21250);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1284,19 +1284,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:29.75]line\n[00:22.50]OpenHarmony\n[00:15.25]x y\n[00:08.00]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:29.75]line\n[00:22.50]OpenHarmony\n[00:15.25]x y\n[00:08.00]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(8000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(15250);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(22500);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(29750);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1317,13 +1317,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:16.50]OpenHarmony\n[00:09.25]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:16.50]OpenHarmony\n[00:09.25]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(9250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(16500);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1344,16 +1344,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:24.00]a\n[00:17.75]line\n[00:10.50]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:24.00]a\n[00:17.75]line\n[00:10.50]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(10500);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(17750);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(24000);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1374,19 +1374,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:32.50]\u4f60\u597d\n[00:25.25] hello\n[00:18.00]a\n[00:11.75]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:32.50]\u4f60\u597d\n[00:25.25] hello\n[00:18.00]a\n[00:11.75]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(11750);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(18000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(25250);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(32500);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1407,13 +1407,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:19.25] hello\n[00:12.00]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:19.25] hello\n[00:12.00]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(12000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(19250);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1434,16 +1434,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:27.75]x y\n[00:20.50]\u4f60\u597d\n[00:13.25] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:27.75]x y\n[00:20.50]\u4f60\u597d\n[00:13.25] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(13250);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(20500);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(27750);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1464,19 +1464,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:35.25]line\n[00:28.00]OpenHarmony\n[00:21.75]x y\n[00:14.50]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:35.25]line\n[00:28.00]OpenHarmony\n[00:21.75]x y\n[00:14.50]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(14500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(21750);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(28000);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(35250);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1497,13 +1497,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:22.00]OpenHarmony\n[00:15.75]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:22.00]OpenHarmony\n[00:15.75]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(15750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(22000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1524,16 +1524,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:30.50]a\n[00:23.25]line\n[00:16.00]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:30.50]a\n[00:23.25]line\n[00:16.00]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(16000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(23250);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(30500);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1554,19 +1554,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:38.00]\u4f60\u597d\n[00:31.75] hello\n[00:24.50]a\n[00:17.25]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:38.00]\u4f60\u597d\n[00:31.75] hello\n[00:24.50]a\n[00:17.25]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(17250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(24500);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(31750);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(38000);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1587,13 +1587,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:25.75] hello\n[00:18.50]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:25.75] hello\n[00:18.50]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(18500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(25750);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1614,16 +1614,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:33.25]x y\n[00:26.00]\u4f60\u597d\n[00:19.75] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:33.25]x y\n[00:26.00]\u4f60\u597d\n[00:19.75] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(19750);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(26000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(33250);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1644,19 +1644,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:41.75]line\n[00:34.50]OpenHarmony\n[00:27.25]x y\n[00:20.00]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:41.75]line\n[00:34.50]OpenHarmony\n[00:27.25]x y\n[00:20.00]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(20000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(27250);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(34500);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(41750);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1677,13 +1677,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:28.50]OpenHarmony\n[00:21.25]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:28.50]OpenHarmony\n[00:21.25]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(21250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(28500);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1704,16 +1704,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:36.00]a\n[00:29.75]line\n[00:22.50]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:36.00]a\n[00:29.75]line\n[00:22.50]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(22500);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(29750);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(36000);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1734,19 +1734,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:44.50]\u4f60\u597d\n[00:37.25] hello\n[00:30.00]a\n[00:23.75]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:44.50]\u4f60\u597d\n[00:37.25] hello\n[00:30.00]a\n[00:23.75]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(23750);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(30000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(37250);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(44500);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1767,13 +1767,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:31.25] hello\n[00:24.00]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:31.25] hello\n[00:24.00]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(24000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(31250);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1794,16 +1794,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:39.75]x y\n[00:32.50]\u4f60\u597d\n[00:25.25] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:39.75]x y\n[00:32.50]\u4f60\u597d\n[00:25.25] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(25250);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(32500);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(39750);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1824,19 +1824,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:47.25]line\n[00:40.00]OpenHarmony\n[00:33.75]x y\n[00:26.50]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:47.25]line\n[00:40.00]OpenHarmony\n[00:33.75]x y\n[00:26.50]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(26500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(33750);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(40000);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(47250);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1857,13 +1857,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:34.00]OpenHarmony\n[00:27.75]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:34.00]OpenHarmony\n[00:27.75]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(27750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(34000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1884,16 +1884,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:42.50]a\n[00:35.25]line\n[00:28.00]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:42.50]a\n[00:35.25]line\n[00:28.00]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(28000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(35250);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(42500);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1914,19 +1914,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:50.00]\u4f60\u597d\n[00:43.75] hello\n[00:36.50]a\n[00:29.25]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:50.00]\u4f60\u597d\n[00:43.75] hello\n[00:36.50]a\n[00:29.25]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(29250);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(36500);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(43750);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(50000);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1947,13 +1947,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:37.75] hello\n[00:30.50]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:37.75] hello\n[00:30.50]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(30500);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(37750);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -1974,16 +1974,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:45.25]x y\n[00:38.00]\u4f60\u597d\n[00:31.75] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:45.25]x y\n[00:38.00]\u4f60\u597d\n[00:31.75] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(31750);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(38000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(45250);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2004,19 +2004,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:53.75]line\n[00:46.50]OpenHarmony\n[00:39.25]x y\n[00:32.00]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:53.75]line\n[00:46.50]OpenHarmony\n[00:39.25]x y\n[00:32.00]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(32000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(39250);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(46500);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(53750);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2037,13 +2037,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:40.50]OpenHarmony\n[00:33.25]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:40.50]OpenHarmony\n[00:33.25]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(33250);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(40500);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2064,16 +2064,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:48.00]a\n[00:41.75]line\n[00:34.50]OpenHarmony\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:48.00]a\n[00:41.75]line\n[00:34.50]OpenHarmony\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(34500);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(41750);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(48000);
-      expect(entries[2].lineWords.trim()).assertEqual("a");
+      expect(entries[2].lineWords.trim()).assertEqual('a');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2094,19 +2094,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:56.50]\u4f60\u597d\n[00:49.25] hello\n[00:42.00]a\n[00:35.75]line\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:56.50]\u4f60\u597d\n[00:49.25] hello\n[00:42.00]a\n[00:35.75]line\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(35750);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(42000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(49250);
-      expect(entries[2].lineWords.trim()).assertEqual("hello");
+      expect(entries[2].lineWords.trim()).assertEqual('hello');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(56500);
-      expect(entries[3].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[3].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2127,13 +2127,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:43.25] hello\n[00:36.00]a\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:43.25] hello\n[00:36.00]a\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(36000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(43250);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2154,16 +2154,16 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:51.75]x y\n[00:44.50]\u4f60\u597d\n[00:37.25] hello\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:51.75]x y\n[00:44.50]\u4f60\u597d\n[00:37.25] hello\n');
       expect(entries.length).assertEqual(3);
       expect(entries[0].lineStartTime).assertEqual(37250);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(44500);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(51750);
-      expect(entries[2].lineWords.trim()).assertEqual("x y");
+      expect(entries[2].lineWords.trim()).assertEqual('x y');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[2].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2184,19 +2184,19 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:59.25]line\n[00:52.00]OpenHarmony\n[00:45.75]x y\n[00:38.50]\u4f60\u597d\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:59.25]line\n[00:52.00]OpenHarmony\n[00:45.75]x y\n[00:38.50]\u4f60\u597d\n');
       expect(entries.length).assertEqual(4);
       expect(entries[0].lineStartTime).assertEqual(38500);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(45750);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[2].lineStartTime).assertEqual(52000);
-      expect(entries[2].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[2].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[2].words.length).assertEqual(0);
       expect(entries[3].lineStartTime).assertEqual(59250);
-      expect(entries[3].lineWords.trim()).assertEqual("line");
+      expect(entries[3].lineWords.trim()).assertEqual('line');
       expect(entries[3].words.length).assertEqual(0);
       expect(entries[3].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2217,13 +2217,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:46.00]OpenHarmony\n[00:39.75]x y\n");
+      const entries: LrcEntry[] = parseLrcLyric('[00:46.00]OpenHarmony\n[00:39.75]x y\n');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(39750);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(46000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2244,13 +2244,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:01.00][00:02.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:01.00][00:02.00]a');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(1000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(2000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2271,13 +2271,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:02.00][00:03.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:02.00][00:03.00] hello');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(2000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(3000);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2298,13 +2298,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:03.00][00:04.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:03.00][00:04.00]\u4f60\u597d');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(3000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(4000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2325,13 +2325,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:04.00][00:05.00]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:04.00][00:05.00]x y');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(4000);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(5000);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2352,13 +2352,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:05.00][00:06.00]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:05.00][00:06.00]OpenHarmony');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(5000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(6000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2379,13 +2379,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:06.00][00:07.00]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:06.00][00:07.00]line');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(6000);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(7000);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2406,13 +2406,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:07.00][00:08.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:07.00][00:08.00]a');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(7000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(8000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2433,13 +2433,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:08.00][00:09.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:08.00][00:09.00] hello');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(8000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(9000);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2460,13 +2460,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:09.00][00:10.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:09.00][00:10.00]\u4f60\u597d');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(9000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(10000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2487,13 +2487,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:10.00][00:11.00]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:10.00][00:11.00]x y');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(10000);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(11000);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2514,13 +2514,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:11.00][00:12.00]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:11.00][00:12.00]OpenHarmony');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(11000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(12000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2541,13 +2541,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:12.00][00:13.00]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:12.00][00:13.00]line');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(12000);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(13000);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2568,13 +2568,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:13.00][00:14.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:13.00][00:14.00]a');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(13000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(14000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2595,13 +2595,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:14.00][00:15.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:14.00][00:15.00] hello');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(14000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(15000);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2622,13 +2622,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:15.00][00:16.00]\u4f60\u597d");
+      const entries: LrcEntry[] = parseLrcLyric('[00:15.00][00:16.00]\u4f60\u597d');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(15000);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(16000);
-      expect(entries[1].lineWords.trim()).assertEqual("\u4f60\u597d");
+      expect(entries[1].lineWords.trim()).assertEqual('\u4f60\u597d');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2649,13 +2649,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:16.00][00:17.00]x y");
+      const entries: LrcEntry[] = parseLrcLyric('[00:16.00][00:17.00]x y');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(16000);
-      expect(entries[0].lineWords.trim()).assertEqual("x y");
+      expect(entries[0].lineWords.trim()).assertEqual('x y');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(17000);
-      expect(entries[1].lineWords.trim()).assertEqual("x y");
+      expect(entries[1].lineWords.trim()).assertEqual('x y');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2676,13 +2676,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:17.00][00:18.00]OpenHarmony");
+      const entries: LrcEntry[] = parseLrcLyric('[00:17.00][00:18.00]OpenHarmony');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(17000);
-      expect(entries[0].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[0].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(18000);
-      expect(entries[1].lineWords.trim()).assertEqual("OpenHarmony");
+      expect(entries[1].lineWords.trim()).assertEqual('OpenHarmony');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2703,13 +2703,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:18.00][00:19.00]line");
+      const entries: LrcEntry[] = parseLrcLyric('[00:18.00][00:19.00]line');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(18000);
-      expect(entries[0].lineWords.trim()).assertEqual("line");
+      expect(entries[0].lineWords.trim()).assertEqual('line');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(19000);
-      expect(entries[1].lineWords.trim()).assertEqual("line");
+      expect(entries[1].lineWords.trim()).assertEqual('line');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2730,13 +2730,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:19.00][00:20.00]a");
+      const entries: LrcEntry[] = parseLrcLyric('[00:19.00][00:20.00]a');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(19000);
-      expect(entries[0].lineWords.trim()).assertEqual("a");
+      expect(entries[0].lineWords.trim()).assertEqual('a');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(20000);
-      expect(entries[1].lineWords.trim()).assertEqual("a");
+      expect(entries[1].lineWords.trim()).assertEqual('a');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2757,13 +2757,13 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:20.00][00:21.00] hello");
+      const entries: LrcEntry[] = parseLrcLyric('[00:20.00][00:21.00] hello');
       expect(entries.length).assertEqual(2);
       expect(entries[0].lineStartTime).assertEqual(20000);
-      expect(entries[0].lineWords.trim()).assertEqual("hello");
+      expect(entries[0].lineWords.trim()).assertEqual('hello');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[1].lineStartTime).assertEqual(21000);
-      expect(entries[1].lineWords.trim()).assertEqual("hello");
+      expect(entries[1].lineWords.trim()).assertEqual('hello');
       expect(entries[1].words.length).assertEqual(0);
       expect(entries[1].lineDuration).assertEqual(Number.MAX_VALUE);
       let sorted: boolean = true;
@@ -2784,10 +2784,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.00]zero");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.00]zero');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("zero");
+      expect(entries[0].lineWords.trim()).assertEqual('zero');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -2801,10 +2801,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.00] zero");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.00] zero');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("zero");
+      expect(entries[0].lineWords.trim()).assertEqual('zero');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -2818,10 +2818,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[00:00.00]\u4f60\u597d\u4e16\u754c");
+      const entries: LrcEntry[] = parseLrcLyric('[00:00.00]\u4f60\u597d\u4e16\u754c');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(0);
-      expect(entries[0].lineWords.trim()).assertEqual("\u4f60\u597d\u4e16\u754c");
+      expect(entries[0].lineWords.trim()).assertEqual('\u4f60\u597d\u4e16\u754c');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
@@ -2835,10 +2835,10 @@ export default function LrcParseMatrixProTest() {
      * @tc.level LEVEL0
      */
     it('testLrcPro0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      const entries: LrcEntry[] = parseLrcLyric("[59:59.75]tail");
+      const entries: LrcEntry[] = parseLrcLyric('[59:59.75]tail');
       expect(entries.length).assertEqual(1);
       expect(entries[0].lineStartTime).assertEqual(3599750);
-      expect(entries[0].lineWords.trim()).assertEqual("tail");
+      expect(entries[0].lineWords.trim()).assertEqual('tail');
       expect(entries[0].words.length).assertEqual(0);
       expect(entries[0].lineDuration).assertEqual(Number.MAX_VALUE);
     });
