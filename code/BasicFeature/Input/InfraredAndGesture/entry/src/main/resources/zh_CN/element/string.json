@@ -1,0 +1,688 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "会议室场景中控与编排"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "会议室场景中控与编排"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "会议室场景控制"
+    },
+    {
+      "name": "phone_entering_console",
+      "value": "正在进入中控台…"
+    },
+    {
+      "name": "phone_console_title",
+      "value": "中控台"
+    },
+    {
+      "name": "phone_no_room",
+      "value": "尚未配置房间"
+    },
+    {
+      "name": "phone_devices_title",
+      "value": "设备"
+    },
+    {
+      "name": "phone_no_devices",
+      "value": "暂无设备"
+    },
+    {
+      "name": "phone_room_config",
+      "value": "房间配置"
+    },
+    {
+      "name": "phone_scene_editor",
+      "value": "场景编排"
+    },
+    {
+      "name": "phone_settings",
+      "value": "设置"
+    },
+    {
+      "name": "phone_back",
+      "value": "返回"
+    },
+    {
+      "name": "phone_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "phone_correct_title",
+      "value": "将 %s 的预期状态校正为"
+    },
+    {
+      "name": "phone_expect_on",
+      "value": "预期开"
+    },
+    {
+      "name": "phone_expect_off",
+      "value": "预期关"
+    },
+    {
+      "name": "phone_rooms_title",
+      "value": "房间"
+    },
+    {
+      "name": "phone_new_room_hint",
+      "value": "新房间名称"
+    },
+    {
+      "name": "phone_create_room",
+      "value": "新建"
+    },
+    {
+      "name": "phone_enter_room",
+      "value": "进入"
+    },
+    {
+      "name": "phone_delete_room",
+      "value": "删除房间"
+    },
+    {
+      "name": "phone_delete_device",
+      "value": "删除设备"
+    },
+    {
+      "name": "phone_current_room",
+      "value": "当前房间：%s"
+    },
+    {
+      "name": "phone_new_device_hint",
+      "value": "设备名称"
+    },
+    {
+      "name": "phone_add_device",
+      "value": "添加设备"
+    },
+    {
+      "name": "phone_select_device",
+      "value": "选择设备"
+    },
+    {
+      "name": "phone_keys_title",
+      "value": "键位"
+    },
+    {
+      "name": "phone_select_device_first",
+      "value": "请先在设备列表中选择设备"
+    },
+    {
+      "name": "phone_no_keys",
+      "value": "暂无键位"
+    },
+    {
+      "name": "phone_library_empty",
+      "value": "码库为空，无法绑定键位"
+    },
+    {
+      "name": "phone_semantic_label",
+      "value": "键位语义"
+    },
+    {
+      "name": "phone_brand_label",
+      "value": "码库品牌"
+    },
+    {
+      "name": "phone_code_label",
+      "value": "码库条目"
+    },
+    {
+      "name": "phone_bind_key",
+      "value": "绑定键位"
+    },
+    {
+      "name": "phone_test_send",
+      "value": "测试发送"
+    },
+    {
+      "name": "phone_read_only_hint",
+      "value": "只读设备，无法发送红外码"
+    },
+    {
+      "name": "phone_config_package",
+      "value": "配置包"
+    },
+    {
+      "name": "phone_export_room",
+      "value": "导出本房间"
+    },
+    {
+      "name": "phone_import_hint",
+      "value": "配置文件路径"
+    },
+    {
+      "name": "phone_import",
+      "value": "导入"
+    },
+    {
+      "name": "phone_scenes_title",
+      "value": "场景"
+    },
+    {
+      "name": "phone_no_scenes",
+      "value": "暂无场景"
+    },
+    {
+      "name": "phone_new_scene",
+      "value": "新建场景"
+    },
+    {
+      "name": "phone_steps_title",
+      "value": "场景步骤：%s"
+    },
+    {
+      "name": "phone_step_no",
+      "value": "第 %d 步"
+    },
+    {
+      "name": "phone_step_delay",
+      "value": "间隔 %d ms"
+    },
+    {
+      "name": "phone_add_step",
+      "value": "添加步骤"
+    },
+    {
+      "name": "phone_remove_step",
+      "value": "删除"
+    },
+    {
+      "name": "phone_move_up",
+      "value": "上移"
+    },
+    {
+      "name": "phone_move_down",
+      "value": "下移"
+    },
+    {
+      "name": "phone_enable",
+      "value": "启用"
+    },
+    {
+      "name": "phone_disable",
+      "value": "停用"
+    },
+    {
+      "name": "phone_validate",
+      "value": "校验"
+    },
+    {
+      "name": "phone_select_key",
+      "value": "选择键位"
+    },
+    {
+      "name": "phone_send_logs",
+      "value": "发送日志"
+    },
+    {
+      "name": "tablet_app_title",
+      "value": "会议室设备编排"
+    },
+    {
+      "name": "tablet_read_only_notice",
+      "value": "编排端 · 本机不可发射，仅用于配置与导入导出"
+    },
+    {
+      "name": "tablet_config_transfer",
+      "value": "配置包"
+    },
+    {
+      "name": "tablet_rooms_title",
+      "value": "房间"
+    },
+    {
+      "name": "tablet_room_list_empty",
+      "value": "暂无房间，先新建一个房间"
+    },
+    {
+      "name": "tablet_device_count",
+      "value": "设备 %d"
+    },
+    {
+      "name": "tablet_scene_count",
+      "value": "场景 %d"
+    },
+    {
+      "name": "tablet_enter_room",
+      "value": "进入配置"
+    },
+    {
+      "name": "tablet_new_room_hint",
+      "value": "房间名称"
+    },
+    {
+      "name": "tablet_create_room",
+      "value": "新建房间"
+    },
+    {
+      "name": "tablet_back",
+      "value": "返回"
+    },
+    {
+      "name": "tablet_room_config",
+      "value": "房间配置"
+    },
+    {
+      "name": "tablet_scene_editor",
+      "value": "场景编排"
+    },
+    {
+      "name": "tablet_room_info",
+      "value": "房间信息"
+    },
+    {
+      "name": "tablet_room_name_hint",
+      "value": "房间名称"
+    },
+    {
+      "name": "tablet_room_note_hint",
+      "value": "房间备注（可选）"
+    },
+    {
+      "name": "tablet_save",
+      "value": "保存"
+    },
+    {
+      "name": "tablet_delete_room",
+      "value": "删除房间"
+    },
+    {
+      "name": "tablet_devices_title",
+      "value": "设备"
+    },
+    {
+      "name": "tablet_no_devices",
+      "value": "暂无设备，先添加一台"
+    },
+    {
+      "name": "tablet_edit_device",
+      "value": "编辑"
+    },
+    {
+      "name": "tablet_new_device_hint",
+      "value": "设备名称"
+    },
+    {
+      "name": "tablet_add_device",
+      "value": "添加设备"
+    },
+    {
+      "name": "tablet_device_detail",
+      "value": "设备信息"
+    },
+    {
+      "name": "tablet_device_brand_hint",
+      "value": "品牌，例如 Demo"
+    },
+    {
+      "name": "tablet_device_model_hint",
+      "value": "型号，例如 Demo-PJ-01"
+    },
+    {
+      "name": "tablet_save_device",
+      "value": "保存设备"
+    },
+    {
+      "name": "tablet_apply_template",
+      "value": "套用模板"
+    },
+    {
+      "name": "tablet_delete_device",
+      "value": "删除设备"
+    },
+    {
+      "name": "tablet_template_none",
+      "value": "暂无模板"
+    },
+    {
+      "name": "tablet_keys_title",
+      "value": "键位绑定"
+    },
+    {
+      "name": "tablet_select_device_first",
+      "value": "先选择上面的设备"
+    },
+    {
+      "name": "tablet_no_keys",
+      "value": "该设备还没有键位，可套用模板或手动绑定"
+    },
+    {
+      "name": "tablet_key_unbound",
+      "value": "未绑定红外码"
+    },
+    {
+      "name": "tablet_unbind_key",
+      "value": "解绑"
+    },
+    {
+      "name": "tablet_key_brand",
+      "value": "码库品牌"
+    },
+    {
+      "name": "tablet_key_code",
+      "value": "码库条目"
+    },
+    {
+      "name": "tablet_library_empty",
+      "value": "码库为空，无法选择码条目"
+    },
+    {
+      "name": "tablet_bind_key",
+      "value": "绑定到该键位"
+    },
+    {
+      "name": "tablet_scenes_title",
+      "value": "场景"
+    },
+    {
+      "name": "tablet_no_scenes",
+      "value": "暂无场景，先新建一个"
+    },
+    {
+      "name": "tablet_select",
+      "value": "选择"
+    },
+    {
+      "name": "tablet_delete",
+      "value": "删除"
+    },
+    {
+      "name": "tablet_scene_name_hint",
+      "value": "场景名称"
+    },
+    {
+      "name": "tablet_rename",
+      "value": "重命名"
+    },
+    {
+      "name": "tablet_new_scene",
+      "value": "新建场景"
+    },
+    {
+      "name": "tablet_steps_title",
+      "value": "步骤"
+    },
+    {
+      "name": "tablet_no_steps",
+      "value": "还没有步骤"
+    },
+    {
+      "name": "tablet_step_no",
+      "value": "第 %d 步"
+    },
+    {
+      "name": "tablet_step_delay",
+      "value": "间隔 %d ms"
+    },
+    {
+      "name": "tablet_step_enabled",
+      "value": "启用中"
+    },
+    {
+      "name": "tablet_step_disabled",
+      "value": "已停用"
+    },
+    {
+      "name": "tablet_delay_minus",
+      "value": "间隔 -100"
+    },
+    {
+      "name": "tablet_delay_plus",
+      "value": "间隔 +100"
+    },
+    {
+      "name": "tablet_move_up",
+      "value": "上移"
+    },
+    {
+      "name": "tablet_move_down",
+      "value": "下移"
+    },
+    {
+      "name": "tablet_add_step",
+      "value": "添加步骤"
+    },
+    {
+      "name": "tablet_save_and_validate",
+      "value": "保存并校验"
+    },
+    {
+      "name": "tablet_select_key",
+      "value": "选择键位"
+    },
+    {
+      "name": "tablet_config_transfer_title",
+      "value": "配置包导入导出"
+    },
+    {
+      "name": "tablet_export_title",
+      "value": "导出"
+    },
+    {
+      "name": "tablet_export_hint",
+      "value": "勾选要导出的房间，生成的文件可在手机端导入"
+    },
+    {
+      "name": "tablet_selected",
+      "value": "已选"
+    },
+    {
+      "name": "tablet_export",
+      "value": "导出配置包"
+    },
+    {
+      "name": "tablet_import_title",
+      "value": "导入"
+    },
+    {
+      "name": "tablet_import_warning",
+      "value": "导入会覆盖本机现有配置，导入前会自动备份数据库"
+    },
+    {
+      "name": "tablet_import_hint",
+      "value": "配置文件完整路径"
+    },
+    {
+      "name": "tablet_import",
+      "value": "导入配置包"
+    },
+    {
+      "name": "tablet_import_failed_title",
+      "value": "失败条目"
+    },
+    {
+      "name": "msg_operation_failed",
+      "value": "操作失败"
+    },
+    {
+      "name": "msg_room_name_required",
+      "value": "请输入房间名称"
+    },
+    {
+      "name": "msg_room_created",
+      "value": "房间已创建"
+    },
+    {
+      "name": "msg_room_saved",
+      "value": "房间信息已保存"
+    },
+    {
+      "name": "msg_room_deleted",
+      "value": "房间已删除"
+    },
+    {
+      "name": "msg_room_not_exist",
+      "value": "房间不存在"
+    },
+    {
+      "name": "msg_no_room_hint",
+      "value": "暂无房间，请先在编排首页创建房间"
+    },
+    {
+      "name": "msg_select_room_first",
+      "value": "请先选择房间"
+    },
+    {
+      "name": "msg_enter_device_name",
+      "value": "请输入设备名称"
+    },
+    {
+      "name": "msg_device_added",
+      "value": "设备已添加"
+    },
+    {
+      "name": "msg_device_saved",
+      "value": "设备信息已保存"
+    },
+    {
+      "name": "msg_device_deleted",
+      "value": "设备已删除"
+    },
+    {
+      "name": "msg_device_deleted_with_keys",
+      "value": "设备及其键位已删除"
+    },
+    {
+      "name": "msg_select_device_first",
+      "value": "请先选择设备"
+    },
+    {
+      "name": "msg_select_library_code",
+      "value": "请先选择码库条目"
+    },
+    {
+      "name": "msg_no_template_for_type",
+      "value": "该类型没有可用模板"
+    },
+    {
+      "name": "msg_no_library_code",
+      "value": "码库中没有可用码条目"
+    },
+    {
+      "name": "msg_template_keys_created",
+      "value": "已按模板补建 %d 个键位"
+    },
+    {
+      "name": "msg_key_bound",
+      "value": "键位已绑定"
+    },
+    {
+      "name": "msg_key_rebound",
+      "value": "键位已重新绑定"
+    },
+    {
+      "name": "msg_key_unbound",
+      "value": "键位已解绑红外码"
+    },
+    {
+      "name": "msg_select_key_first",
+      "value": "请先选择键位"
+    },
+    {
+      "name": "msg_key_not_exist",
+      "value": "键位不存在"
+    },
+    {
+      "name": "msg_key_no_ir_code",
+      "value": "该键位未绑定红外码"
+    },
+    {
+      "name": "msg_enter_config_path",
+      "value": "请输入配置文件路径"
+    },
+    {
+      "name": "msg_select_at_least_one_room",
+      "value": "请至少选择一个房间"
+    },
+    {
+      "name": "msg_export_summary",
+      "value": "房间 %d · 设备 %d"
+    },
+    {
+      "name": "msg_import_summary",
+      "value": "导入完成：房间 %d，设备 %d，键位 %d，场景 %d"
+    },
+    {
+      "name": "msg_import_summary_dots",
+      "value": "导入完成：房间 %d · 设备 %d · 键位 %d · 场景 %d"
+    },
+    {
+      "name": "msg_import_failed_items",
+      "value": "%s，失败条目 %d"
+    },
+    {
+      "name": "msg_import_backup_suffix",
+      "value": "%s（导入前已备份）"
+    },
+    {
+      "name": "msg_new_scene_name",
+      "value": "新场景"
+    },
+    {
+      "name": "msg_scene_created",
+      "value": "场景已创建"
+    },
+    {
+      "name": "msg_scene_saved",
+      "value": "场景已保存"
+    },
+    {
+      "name": "msg_scene_saved_with_issues",
+      "value": "场景已保存，但存在缺失项"
+    },
+    {
+      "name": "msg_scene_deleted",
+      "value": "场景已删除"
+    },
+    {
+      "name": "msg_scene_not_exist",
+      "value": "场景不存在"
+    },
+    {
+      "name": "msg_scene_name_saved",
+      "value": "场景名称已保存"
+    },
+    {
+      "name": "msg_select_scene_first",
+      "value": "请先选择场景"
+    },
+    {
+      "name": "msg_select_scene_and_name",
+      "value": "请先选择场景并输入名称"
+    },
+    {
+      "name": "msg_select_device_and_key",
+      "value": "请先选择设备和键位"
+    },
+    {
+      "name": "msg_step_added",
+      "value": "步骤已添加"
+    },
+    {
+      "name": "msg_step_deleted",
+      "value": "步骤已删除"
+    },
+    {
+      "name": "msg_step_delay_updated",
+      "value": "步骤间隔已调整"
+    },
+    {
+      "name": "msg_validation_passed",
+      "value": "校验通过"
+    },
+    {
+      "name": "msg_scene_invalid",
+      "value": "场景配置无效"
+    },
+    {
+      "name": "msg_load_room_config_failed",
+      "value": "加载房间配置失败"
+    }
+  ]
+}
