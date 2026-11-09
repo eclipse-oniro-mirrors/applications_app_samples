@@ -64,7 +64,7 @@ export class TestDataGenerator {
 
   public generateSingleSkillQuery(bundleName: string, moduleName: string,
     skillName: string, flagIndex: number): GeneratedTestCase {
-    const id = this.nextId('SINGLE');
+    const id: string = this.nextId('SINGLE');
     return {
       id: id,
       name: `testSingleSkillQuery${id}`,
@@ -85,10 +85,10 @@ export class TestDataGenerator {
 
   public generateAllModuleCombinations(skillName: string, flagIndex: number): GeneratedTestCase[] {
     const cases: GeneratedTestCase[] = [];
-    for (let i = 0; i < MODULE_NAME_ARRAY.length; i++) {
-      const moduleName = MODULE_NAME_ARRAY[i];
-      const id = this.nextId('MODULE_COMBO');
-      const expectedSuccess = moduleName === DEFAULT_MODULE_NAME;
+    for (let i: number = 0; i < MODULE_NAME_ARRAY.length; i++) {
+      const moduleName: string = MODULE_NAME_ARRAY[i];
+      const id: string = this.nextId('MODULE_COMBO');
+      const expectedSuccess: boolean = moduleName === DEFAULT_MODULE_NAME;
       const testCase: GeneratedTestCase = {
         id: id,
         name: `testModuleCombo${id}`,
@@ -113,10 +113,10 @@ export class TestDataGenerator {
   public generateAllBundleCombinations(moduleName: string, skillName: string,
     flagIndex: number): GeneratedTestCase[] {
     const cases: GeneratedTestCase[] = [];
-    for (let i = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
-      const bundleName = BUNDLE_NAME_ARRAY[i];
-      const id = this.nextId('BUNDLE_COMBO');
-      const expectedSuccess = bundleName === DEFAULT_BUNDLE_NAME;
+    for (let i: number = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
+      const bundleName: string = BUNDLE_NAME_ARRAY[i];
+      const id: string = this.nextId('BUNDLE_COMBO');
+      const expectedSuccess: boolean = bundleName === DEFAULT_BUNDLE_NAME;
       const testCase: GeneratedTestCase = {
         id: id,
         name: `testBundleCombo${id}`,
@@ -141,8 +141,8 @@ export class TestDataGenerator {
   public generateAllFlagCombinations(bundleName: string, moduleName: string,
     skillName: string): GeneratedTestCase[] {
     const cases: GeneratedTestCase[] = [];
-    for (let i = 0; i < FLAG_LABELS.length; i++) {
-      const id = this.nextId('FLAG_COMBO');
+    for (let i: number = 0; i < FLAG_LABELS.length; i++) {
+      const id: string = this.nextId('FLAG_COMBO');
       const testCase: GeneratedTestCase = {
         id: id,
         name: `testFlagCombo${id}`,
@@ -167,10 +167,10 @@ export class TestDataGenerator {
   public generateAllSkillCombinations(bundleName: string, moduleName: string,
     flagIndex: number): GeneratedTestCase[] {
     const cases: GeneratedTestCase[] = [];
-    for (let i = 0; i < SKILL_ARRAY.length; i++) {
-      const skillName = SKILL_ARRAY[i];
-      const id = this.nextId('SKILL_COMBO');
-      const expectedSuccess = skillName !== 'skill-nonexistent';
+    for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
+      const skillName: string = SKILL_ARRAY[i];
+      const id: string = this.nextId('SKILL_COMBO');
+      const expectedSuccess: boolean = skillName !== 'skill-nonexistent';
       const testCase: GeneratedTestCase = {
         id: id,
         name: `testSkillCombo${id}`,
@@ -273,29 +273,29 @@ export class TestDataGenerator {
   public generateFullCombinationSuite(): GeneratedTestSuite {
     const allCases: GeneratedTestCase[] = [];
 
-    for (let i = 0; i < SKILL_ARRAY.length; i++) {
-      const skillName = SKILL_ARRAY[i];
-      const moduleCases = this.generateAllModuleCombinations(skillName, 0);
-      for (let j = 0; j < moduleCases.length; j++) {
+    for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
+      const skillName: string = SKILL_ARRAY[i];
+      const moduleCases: GeneratedTestCase[] = this.generateAllModuleCombinations(skillName, 0);
+      for (let j: number = 0; j < moduleCases.length; j++) {
         allCases.push(moduleCases[j]);
       }
     }
 
-    const flagCases = this.generateAllFlagCombinations(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME);
-    for (let i = 0; i < flagCases.length; i++) {
+    const flagCases: GeneratedTestCase[] = this.generateAllFlagCombinations(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME);
+    for (let i: number = 0; i < flagCases.length; i++) {
       allCases.push(flagCases[i]);
     }
 
-    const emptyCases = this.generateEmptyParamCases();
-    for (let i = 0; i < emptyCases.length; i++) {
+    const emptyCases: GeneratedTestCase[] = this.generateEmptyParamCases();
+    for (let i: number = 0; i < emptyCases.length; i++) {
       allCases.push(emptyCases[i]);
     }
 
     const categories: string[] = [];
-    for (let i = 0; i < allCases.length; i++) {
-      const cat = allCases[i].category;
-      let found = false;
-      for (let j = 0; j < categories.length; j++) {
+    for (let i: number = 0; i < allCases.length; i++) {
+      const cat: string = allCases[i].category;
+      let found: boolean = false;
+      for (let j: number = 0; j < categories.length; j++) {
         if (categories[j] === cat) {
           found = true;
           break;
@@ -321,7 +321,7 @@ export class TestDataGenerator {
   public generateBoundaryCases(): GeneratedTestCase[] {
     const cases: GeneratedTestCase[] = [];
 
-    const longBundleName = 'com.'.repeat(50) + 'test';
+    const longBundleName: string = 'com.'.repeat(50) + 'test';
     const longBundle: GeneratedTestCase = {
       id: this.nextId('BOUNDARY'),
       name: `testLongBundleName`,
@@ -340,7 +340,7 @@ export class TestDataGenerator {
     };
     cases.push(longBundle);
 
-    const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    const specialChars: string = '!@#$%^&*()_+-=[]{}|;:,.<>?';
     const specialSkill: GeneratedTestCase = {
       id: this.nextId('BOUNDARY'),
       name: `testSpecialCharSkill`,

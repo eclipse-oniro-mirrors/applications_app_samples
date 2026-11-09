@@ -96,12 +96,12 @@ export class TestMetricsCollector {
   }
 
   public incrementCounter(name: string, category: string): void {
-    const existing = this.getLatestValue(name, category);
+    const existing: number = this.getLatestValue(name, category);
     this.recordMetric(name, existing + 1, category);
   }
 
   public getLatestValue(name: string, category: string): number {
-    for (let i = this.dataPoints.length - 1; i >= 0; i--) {
+    for (let i: number = this.dataPoints.length - 1; i >= 0; i--) {
       if (this.dataPoints[i].name === name && this.dataPoints[i].category === category) {
         return this.dataPoints[i].value;
       }
@@ -111,8 +111,8 @@ export class TestMetricsCollector {
 
   public getDataPoints(): MetricDataPoint[] {
     const result: MetricDataPoint[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const dp = this.dataPoints[i];
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
+      const dp: MetricDataPoint = this.dataPoints[i];
       const tags: Map<string, string> = new Map();
       dp.tags.forEach((value: string, key: string) => {
         tags.set(key, value);
@@ -131,7 +131,7 @@ export class TestMetricsCollector {
 
   public getDataPointsByCategory(category: string): MetricDataPoint[] {
     const result: MetricDataPoint[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
       if (this.dataPoints[i].category === category) {
         result.push(this.dataPoints[i]);
       }
@@ -141,7 +141,7 @@ export class TestMetricsCollector {
 
   public getDataPointsByName(name: string): MetricDataPoint[] {
     const result: MetricDataPoint[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
       if (this.dataPoints[i].name === name) {
         result.push(this.dataPoints[i]);
       }
@@ -150,15 +150,15 @@ export class TestMetricsCollector {
   }
 
   public getMetricSummary(name: string, category: string): MetricSummary {
-    let count = 0;
-    let sum = 0;
-    let min = Number.MAX_VALUE;
-    let max = Number.MIN_VALUE;
-    let latest = 0;
-    let latestTimestamp = 0;
+    let count: number = 0;
+    let sum: number = 0;
+    let min: number = Number.MAX_VALUE;
+    let max: number = Number.MIN_VALUE;
+    let latest: number = 0;
+    let latestTimestamp: number = 0;
 
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const dp = this.dataPoints[i];
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
+      const dp: MetricDataPoint = this.dataPoints[i];
       if (dp.name === name && dp.category === category) {
         count++;
         sum += dp.value;
@@ -175,7 +175,7 @@ export class TestMetricsCollector {
       }
     }
 
-    const average = count > 0 ? Math.round((sum / count) * 100) / 100 : 0;
+    const average: number = count > 0 ? Math.round((sum / count) * 100) / 100 : 0;
 
     return {
       name: name,
@@ -191,10 +191,10 @@ export class TestMetricsCollector {
 
   public getCategorySummaries(): CategorySummary[] {
     const categories: string[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const cat = this.dataPoints[i].category;
-      let found = false;
-      for (let j = 0; j < categories.length; j++) {
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
+      const cat: string = this.dataPoints[i].category;
+      let found: boolean = false;
+      for (let j: number = 0; j < categories.length; j++) {
         if (categories[j] === cat) {
           found = true;
           break;
@@ -206,19 +206,19 @@ export class TestMetricsCollector {
     }
 
     const summaries: CategorySummary[] = [];
-    for (let i = 0; i < categories.length; i++) {
-      const cat = categories[i];
-      let metricCount = 0;
-      let totalPoints = 0;
-      let totalValue = 0;
+    for (let i: number = 0; i < categories.length; i++) {
+      const cat: string = categories[i];
+      let metricCount: number = 0;
+      let totalPoints: number = 0;
+      let totalValue: number = 0;
       const metricNames: string[] = [];
 
-      for (let j = 0; j < this.dataPoints.length; j++) {
+      for (let j: number = 0; j < this.dataPoints.length; j++) {
         if (this.dataPoints[j].category === cat) {
           totalPoints++;
           totalValue += this.dataPoints[j].value;
-          let nameFound = false;
-          for (let k = 0; k < metricNames.length; k++) {
+          let nameFound: boolean = false;
+          for (let k: number = 0; k < metricNames.length; k++) {
             if (metricNames[k] === this.dataPoints[j].name) {
               nameFound = true;
               break;
@@ -231,7 +231,7 @@ export class TestMetricsCollector {
         }
       }
 
-      const avgValue = totalPoints > 0 ? Math.round((totalValue / totalPoints) * 100) / 100 : 0;
+      const avgValue: number = totalPoints > 0 ? Math.round((totalValue / totalPoints) * 100) / 100 : 0;
       const summary: CategorySummary = {
         category: cat,
         metricCount: metricCount,
@@ -246,10 +246,10 @@ export class TestMetricsCollector {
 
   public getAllMetricNames(): string[] {
     const names: string[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const name = this.dataPoints[i].name;
-      let found = false;
-      for (let j = 0; j < names.length; j++) {
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
+      const name: string = this.dataPoints[i].name;
+      let found: boolean = false;
+      for (let j: number = 0; j < names.length; j++) {
         if (names[j] === name) {
           found = true;
           break;
@@ -264,10 +264,10 @@ export class TestMetricsCollector {
 
   public getAllCategories(): string[] {
     const categories: string[] = [];
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const cat = this.dataPoints[i].category;
-      let found = false;
-      for (let j = 0; j < categories.length; j++) {
+    for (let i: number = 0; i < this.dataPoints.length; i++) {
+      const cat: string = this.dataPoints[i].category;
+      let found: boolean = false;
+      for (let j: number = 0; j < categories.length; j++) {
         if (categories[j] === cat) {
           found = true;
           break;
@@ -285,12 +285,12 @@ export class TestMetricsCollector {
     lines.push('=== Test Metrics Summary Report ===');
     lines.push(`Total data points: ${this.dataPoints.length}`);
 
-    const categories = this.getCategorySummaries();
+    const categories: CategorySummary[] = this.getCategorySummaries();
     if (categories.length > 0) {
       lines.push('');
       lines.push('--- By Category ---');
-      for (let i = 0; i < categories.length; i++) {
-        const cat = categories[i];
+      for (let i: number = 0; i < categories.length; i++) {
+        const cat: CategorySummary = categories[i];
         lines.push(`  [${cat.category}]`);
         lines.push(`    Metrics: ${cat.metricCount}`);
         lines.push(`    Data points: ${cat.totalDataPoints}`);
@@ -298,15 +298,15 @@ export class TestMetricsCollector {
       }
     }
 
-    const metricNames = this.getAllMetricNames();
+    const metricNames: string[] = this.getAllMetricNames();
     if (metricNames.length > 0) {
       lines.push('');
       lines.push('--- By Metric ---');
-      for (let i = 0; i < metricNames.length; i++) {
-        const name = metricNames[i];
-        const catList = this.getAllCategories();
-        for (let j = 0; j < catList.length; j++) {
-          const summary = this.getMetricSummary(name, catList[j]);
+      for (let i: number = 0; i < metricNames.length; i++) {
+        const name: string = metricNames[i];
+        const catList: string[] = this.getAllCategories();
+        for (let j: number = 0; j < catList.length; j++) {
+          const summary: MetricSummary = this.getMetricSummary(name, catList[j]);
           if (summary.count > 0) {
             lines.push(`  ${name} [${catList[j]}]: count=${summary.count} avg=${summary.average} min=${summary.min} max=${summary.max}`);
           }

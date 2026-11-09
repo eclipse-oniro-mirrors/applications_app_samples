@@ -19,6 +19,18 @@
     {
       "name": "result_text",
       "value": "#0A59F7"
+    },
+    {
+      "name": "success_color",
+      "value": "#4CAF50"
+    },
+    {
+      "name": "error_color",
+      "value": "#F44336"
+    },
+    {
+      "name": "warning_color",
+      "value": "#FF9800"
     }
   ]
 }

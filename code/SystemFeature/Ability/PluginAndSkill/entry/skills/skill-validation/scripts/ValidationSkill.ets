@@ -17,14 +17,14 @@ import { scriptManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0001;
-const TAG = '[Sample_PluginAndSkill]';
-const SUCCESS_CODE = 0;
-const FAILURE_CODE = -1;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
+const SUCCESS_CODE: number = 0;
+const FAILURE_CODE: number = -1;
 
 export default class ValidationSkill {
   public async validateText(info: scriptManager.ArkTSScriptInfo, ...argv: string[]): Promise<void> {
-    const text = argv.length > 0 ? argv[0].trim() : '';
+    const text: string = argv.length > 0 ? argv[0].trim() : '';
     if (text.length === 0) {
       const payload: Record<string, Object> = {
         'type': 'result',
@@ -52,7 +52,7 @@ export default class ValidationSkill {
     try {
       await scriptManager.completeArkTSScriptInApp(info.context, info.requestCode, result);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       hilog.error(DOMAIN, TAG, 'Failed to complete validation skill. Code: %{public}d, message: %{public}s',
         err.code, err.message);
     }

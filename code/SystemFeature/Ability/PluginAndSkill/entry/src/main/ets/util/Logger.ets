@@ -15,7 +15,7 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0x0001;
+const DOMAIN: number = 0xF811;
 const PREFIX: string = '[Sample_PluginAndSkill]';
 const FORMAT: string = '%{public}s';
 

@@ -95,7 +95,7 @@ export class TestReportGenerator {
 
   public addPassedEntry(caseId: string, caseName: string, suiteName: string,
     duration: number, assertionCount: number): void {
-    const now = Date.now();
+    const now: number = Date.now();
     const tags: string[] = [];
     tags.push('passed');
     this.addEntry(caseId, caseName, `Test ${caseName}`, suiteName, 'passed',
@@ -104,7 +104,7 @@ export class TestReportGenerator {
 
   public addFailedEntry(caseId: string, caseName: string, suiteName: string,
     duration: number, errorMessage: string, assertionCount: number): void {
-    const now = Date.now();
+    const now: number = Date.now();
     const tags: string[] = [];
     tags.push('failed');
     this.addEntry(caseId, caseName, `Test ${caseName}`, suiteName, 'failed',
@@ -113,10 +113,10 @@ export class TestReportGenerator {
 
   private collectSuiteNames(): string[] {
     const suites: string[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
-      const suite = this.entries[i].suiteName;
-      let found = false;
-      for (let j = 0; j < suites.length; j++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
+      const suite: string = this.entries[i].suiteName;
+      let found: boolean = false;
+      for (let j: number = 0; j < suites.length; j++) {
         if (suites[j] === suite) {
           found = true;
           break;
@@ -130,14 +130,14 @@ export class TestReportGenerator {
   }
 
   private buildSuiteSection(suiteName: string): SuiteReportSection {
-    let total = 0;
-    let passed = 0;
-    let failed = 0;
-    let skipped = 0;
-    let totalDuration = 0;
-    let totalAssertions = 0;
+    let total: number = 0;
+    let passed: number = 0;
+    let failed: number = 0;
+    let skipped: number = 0;
+    let totalDuration: number = 0;
+    let totalAssertions: number = 0;
 
-    for (let i = 0; i < this.entries.length; i++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].suiteName === suiteName) {
         total++;
         totalDuration += this.entries[i].duration;
@@ -152,8 +152,8 @@ export class TestReportGenerator {
       }
     }
 
-    const passRate = total > 0 ? Math.round((passed / total) * 100) : 0;
-    const assertionDensity = total > 0 ? Math.round((totalAssertions / total) * 10) / 10 : 0;
+    const passRate: number = total > 0 ? Math.round((passed / total) * 100) : 0;
+    const assertionDensity: number = total > 0 ? Math.round((totalAssertions / total) * 10) / 10 : 0;
 
     return {
       suiteName: suiteName,
@@ -172,9 +172,9 @@ export class TestReportGenerator {
     if (totalCases === 0) {
       return 0;
     }
-    const passRateScore = (totalPassed / totalCases) * 50;
-    const coverageScore = Math.min(avgAssertions / 5, 1) * 30;
-    const reliabilityScore = totalFailed === 0 ? 20 : Math.max(0, 20 - totalFailed * 5);
+    const passRateScore: number = (totalPassed / totalCases) * 50;
+    const coverageScore: number = Math.min(avgAssertions / 5, 1) * 30;
+    const reliabilityScore: number = totalFailed === 0 ? 20 : Math.max(0, 20 - totalFailed * 5);
     return Math.round(passRateScore + coverageScore + reliabilityScore);
   }
 
@@ -192,30 +192,30 @@ export class TestReportGenerator {
   }
 
   private formatTimestamp(timestamp: number): string {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const date: Date = new Date(timestamp);
+    const year: number = date.getFullYear();
+    const month: string = String(date.getMonth() + 1).padStart(2, '0');
+    const day: string = String(date.getDate()).padStart(2, '0');
+    const hours: string = String(date.getHours()).padStart(2, '0');
+    const minutes: string = String(date.getMinutes()).padStart(2, '0');
+    const seconds: string = String(date.getSeconds()).padStart(2, '0');
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   public generateReport(): FullTestReport {
-    const suiteNames = this.collectSuiteNames();
+    const suiteNames: string[] = this.collectSuiteNames();
     const sections: SuiteReportSection[] = [];
-    for (let i = 0; i < suiteNames.length; i++) {
+    for (let i: number = 0; i < suiteNames.length; i++) {
       sections.push(this.buildSuiteSection(suiteNames[i]));
     }
 
-    let totalPassed = 0;
-    let totalFailed = 0;
-    let totalSkipped = 0;
-    let totalDuration = 0;
-    let totalAssertions = 0;
+    let totalPassed: number = 0;
+    let totalFailed: number = 0;
+    let totalSkipped: number = 0;
+    let totalDuration: number = 0;
+    let totalAssertions: number = 0;
 
-    for (let i = 0; i < this.entries.length; i++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].status === 'passed') {
         totalPassed++;
       } else if (this.entries[i].status === 'failed') {
@@ -227,10 +227,10 @@ export class TestReportGenerator {
       totalAssertions += this.entries[i].assertionCount;
     }
 
-    const totalCases = this.entries.length;
-    const overallPassRate = totalCases > 0 ? Math.round((totalPassed / totalCases) * 100) : 0;
-    const avgAssertions = totalCases > 0 ? totalAssertions / totalCases : 0;
-    const qualityScore = this.calculateQualityScore(totalPassed, totalFailed, totalCases, avgAssertions);
+    const totalCases: number = this.entries.length;
+    const overallPassRate: number = totalCases > 0 ? Math.round((totalPassed / totalCases) * 100) : 0;
+    const avgAssertions: number = totalCases > 0 ? totalAssertions / totalCases : 0;
+    const qualityScore: number = this.calculateQualityScore(totalPassed, totalFailed, totalCases, avgAssertions);
 
     return {
       reportTitle: this.reportTitle,
@@ -252,10 +252,10 @@ export class TestReportGenerator {
 
   private getEntriesCopy(): TestCaseReportEntry[] {
     const copy: TestCaseReportEntry[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
-      const e = this.entries[i];
+    for (let i: number = 0; i < this.entries.length; i++) {
+      const e: TestCaseReportEntry = this.entries[i];
       const tags: string[] = [];
-      for (let j = 0; j < e.tags.length; j++) {
+      for (let j: number = 0; j < e.tags.length; j++) {
         tags.push(e.tags[j]);
       }
       const entryCopy: TestCaseReportEntry = {
@@ -279,7 +279,7 @@ export class TestReportGenerator {
   }
 
   public generateTextReport(): string {
-    const report = this.generateReport();
+    const report: FullTestReport = this.generateReport();
     const lines: string[] = [];
     lines.push('========================================');
     lines.push(`  ${report.reportTitle}`);
@@ -299,8 +299,8 @@ export class TestReportGenerator {
 
     if (report.suiteSections.length > 0) {
       lines.push('--- Suite Details ---');
-      for (let i = 0; i < report.suiteSections.length; i++) {
-        const section = report.suiteSections[i];
+      for (let i: number = 0; i < report.suiteSections.length; i++) {
+        const section: SuiteReportSection = report.suiteSections[i];
         lines.push(`  [${section.suiteName}]`);
         lines.push(`    Cases: ${section.totalCases} (Pass: ${section.passedCases}, Fail: ${section.failedCases})`);
         lines.push(`    Pass Rate: ${section.passRate}%`);
@@ -312,8 +312,8 @@ export class TestReportGenerator {
 
     if (report.totalFailed > 0) {
       lines.push('--- Failed Cases ---');
-      for (let i = 0; i < report.caseEntries.length; i++) {
-        const entry = report.caseEntries[i];
+      for (let i: number = 0; i < report.caseEntries.length; i++) {
+        const entry: TestCaseReportEntry = report.caseEntries[i];
         if (entry.status === 'failed') {
           lines.push(`  [FAIL] ${entry.caseName}: ${entry.errorMessage}`);
         }

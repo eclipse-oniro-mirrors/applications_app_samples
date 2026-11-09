@@ -443,6 +443,159 @@
         {
             "name": "skill_batch_button",
             "value": "Batch Operations"
+        },
+        {
+            "name": "execution_label_module",
+            "value": "Module:"
+        },
+        {
+            "name": "execution_label_duration",
+            "value": "Duration:"
+        },
+        {
+            "name": "execution_label_result",
+            "value": "Result:"
+        },
+        {
+            "name": "execution_label_error",
+            "value": "Error:"
+        },
+        {
+            "name": "status_success",
+            "value": "SUCCESS"
+        },
+        {
+            "name": "status_failed",
+            "value": "FAILED"
+        },
+        {
+            "name": "status_running",
+            "value": "RUNNING"
+        },
+        {
+            "name": "status_idle",
+            "value": "IDLE"
+        },
+        {
+            "name": "status_pending",
+            "value": "PENDING"
+        },
+        {
+            "name": "batch_label_select_all",
+            "value": "Select All"
+        },
+        {
+            "name": "batch_label_bundle",
+            "value": "Bundle:"
+        },
+        {
+            "name": "batch_label_type",
+            "value": "Type:"
+        },
+        {
+            "name": "batch_label_path",
+            "value": "Path:"
+        },
+        {
+            "name": "batch_label_total",
+            "value": "Total:"
+        },
+        {
+            "name": "batch_label_success",
+            "value": "Success:"
+        },
+        {
+            "name": "batch_label_failed",
+            "value": "Failed:"
+        },
+        {
+            "name": "batch_label_total_time",
+            "value": "Total Time:"
+        },
+        {
+            "name": "history_label_bundle",
+            "value": "Bundle:",
+            "description": "Bundle label in history record"
+        },
+        {
+            "name": "history_label_module",
+            "value": "Module:",
+            "description": "Module label in history record"
+        },
+        {
+            "name": "history_label_time",
+            "value": "Time:",
+            "description": "Time label in history record"
+        },
+        {
+            "name": "history_label_duration",
+            "value": "Duration:",
+            "description": "Duration label in history record"
+        },
+        {
+            "name": "history_label_type",
+            "value": "Type:",
+            "description": "Type label in history record"
+        },
+        {
+            "name": "history_label_path",
+            "value": "Path:",
+            "description": "Path label in history record"
+        },
+        {
+            "name": "history_label_error",
+            "value": "Error:",
+            "description": "Error label in history record"
+        },
+        {
+            "name": "history_filter_success",
+            "value": "Success",
+            "description": "Success filter label in history page"
+        },
+        {
+            "name": "history_filter_failed",
+            "value": "Failed",
+            "description": "Failed filter label in history page"
+        },
+        {
+            "name": "history_stats_total",
+            "value": "Total Queries:",
+            "description": "Total queries label in history statistics"
+        },
+        {
+            "name": "history_stats_successful",
+            "value": "Successful:",
+            "description": "Successful label in history statistics"
+        },
+        {
+            "name": "history_stats_failed",
+            "value": "Failed:",
+            "description": "Failed label in history statistics"
+        },
+        {
+            "name": "history_stats_avg_duration",
+            "value": "Avg Duration:",
+            "description": "Average duration label in history statistics"
+        },
+        {
+            "name": "compare_stats_total_fields",
+            "value": "Total Fields:",
+            "description": "Total fields label in compare summary"
+        },
+        {
+            "name": "compare_stats_same",
+            "value": "Same:",
+            "description": "Same count label in compare summary"
+        },
+        {
+            "name": "compare_stats_different",
+            "value": "Different:",
+            "description": "Different count label in compare summary"
+        },
+        {
+            "name": "compare_stats_match_rate",
+            "value": "Match Rate:",
+            "description": "Match rate label in compare summary"
         }
     ]
 }

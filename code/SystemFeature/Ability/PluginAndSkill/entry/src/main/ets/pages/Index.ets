@@ -23,16 +23,16 @@ import {
   CONTENT_MAX_WIDTH
 } from '../util/Constant';
 
-const BUTTON_HEIGHT = 48;
+const BUTTON_HEIGHT: number = 48;
 
 @Entry
 @Component
 struct Index {
-  private async navigateTo(url: string): Promise<void> {
+  private async navigateTo(url: string): Promise < void> {
     try {
       await this.getUIContext().getRouter().pushUrl({ url: url });
-    } catch (error) {
-      const err = error as BusinessError;
+    } catch(error) {
+      const err: BusinessError = error as BusinessError;
       Logger.error('Failed to open feature page: ' + err.code + ', ' + err.message);
     }
   }

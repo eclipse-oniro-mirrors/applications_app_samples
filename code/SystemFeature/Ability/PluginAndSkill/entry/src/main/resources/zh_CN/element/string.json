@@ -443,6 +443,159 @@
         {
             "name": "skill_batch_button",
             "value": "批量操作"
+        },
+        {
+            "name": "execution_label_module",
+            "value": "模块："
+        },
+        {
+            "name": "execution_label_duration",
+            "value": "耗时："
+        },
+        {
+            "name": "execution_label_result",
+            "value": "结果："
+        },
+        {
+            "name": "execution_label_error",
+            "value": "错误："
+        },
+        {
+            "name": "status_success",
+            "value": "成功"
+        },
+        {
+            "name": "status_failed",
+            "value": "失败"
+        },
+        {
+            "name": "status_running",
+            "value": "运行中"
+        },
+        {
+            "name": "status_idle",
+            "value": "空闲"
+        },
+        {
+            "name": "status_pending",
+            "value": "等待中"
+        },
+        {
+            "name": "batch_label_select_all",
+            "value": "全选"
+        },
+        {
+            "name": "batch_label_bundle",
+            "value": "包名："
+        },
+        {
+            "name": "batch_label_type",
+            "value": "类型："
+        },
+        {
+            "name": "batch_label_path",
+            "value": "路径："
+        },
+        {
+            "name": "batch_label_total",
+            "value": "总计："
+        },
+        {
+            "name": "batch_label_success",
+            "value": "成功："
+        },
+        {
+            "name": "batch_label_failed",
+            "value": "失败："
+        },
+        {
+            "name": "batch_label_total_time",
+            "value": "总耗时："
+        },
+        {
+            "name": "history_label_bundle",
+            "value": "包名：",
+            "description": "历史记录中的包名标签"
+        },
+        {
+            "name": "history_label_module",
+            "value": "模块：",
+            "description": "历史记录中的模块标签"
+        },
+        {
+            "name": "history_label_time",
+            "value": "时间：",
+            "description": "历史记录中的时间标签"
+        },
+        {
+            "name": "history_label_duration",
+            "value": "耗时：",
+            "description": "历史记录中的耗时标签"
+        },
+        {
+            "name": "history_label_type",
+            "value": "类型：",
+            "description": "历史记录中的类型标签"
+        },
+        {
+            "name": "history_label_path",
+            "value": "路径：",
+            "description": "历史记录中的路径标签"
+        },
+        {
+            "name": "history_label_error",
+            "value": "错误：",
+            "description": "历史记录中的错误标签"
+        },
+        {
+            "name": "history_filter_success",
+            "value": "成功",
+            "description": "历史页面中的成功筛选项标签"
+        },
+        {
+            "name": "history_filter_failed",
+            "value": "失败",
+            "description": "历史页面中的失败筛选项标签"
+        },
+        {
+            "name": "history_stats_total",
+            "value": "查询总数：",
+            "description": "历史统计中的查询总数标签"
+        },
+        {
+            "name": "history_stats_successful",
+            "value": "成功：",
+            "description": "历史统计中的成功数量标签"
+        },
+        {
+            "name": "history_stats_failed",
+            "value": "失败：",
+            "description": "历史统计中的失败数量标签"
+        },
+        {
+            "name": "history_stats_avg_duration",
+            "value": "平均耗时：",
+            "description": "历史统计中的平均耗时标签"
+        },
+        {
+            "name": "compare_stats_total_fields",
+            "value": "字段总数：",
+            "description": "对比摘要中的字段总数标签"
+        },
+        {
+            "name": "compare_stats_same",
+            "value": "相同：",
+            "description": "对比摘要中的相同字段数量标签"
+        },
+        {
+            "name": "compare_stats_different",
+            "value": "不同：",
+            "description": "对比摘要中的不同字段数量标签"
+        },
+        {
+            "name": "compare_stats_match_rate",
+            "value": "匹配率：",
+            "description": "对比摘要中的匹配率标签"
         }
     ]
 }

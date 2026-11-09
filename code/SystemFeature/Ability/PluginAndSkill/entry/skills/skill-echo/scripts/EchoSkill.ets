@@ -17,9 +17,9 @@ import { scriptManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0001;
-const TAG = '[Sample_PluginAndSkill]';
-const SUCCESS_CODE = 0;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
+const SUCCESS_CODE: number = 0;
 
 export default class EchoSkill {
   public async echoArguments(info: scriptManager.ArkTSScriptInfo, ...argv: string[]): Promise<void> {
@@ -36,7 +36,7 @@ export default class EchoSkill {
     try {
       await scriptManager.completeArkTSScriptInApp(info.context, info.requestCode, result);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       hilog.error(DOMAIN, TAG, 'Failed to complete echo skill. Code: %{public}d, message: %{public}s',
         err.code, err.message);
     }

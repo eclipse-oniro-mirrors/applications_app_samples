@@ -17,12 +17,12 @@ import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
 import Logger from '../util/Logger';
 
 export default class EntryBackupAbility extends BackupExtensionAbility {
-  async onBackup() {
+  async onBackup(): Promise<void> {
     Logger.info('onBackup ok');
     await Promise.resolve();
   }
 
-  async onRestore(bundleVersion: BundleVersion) {
+  async onRestore(bundleVersion: BundleVersion): Promise<void> {
     Logger.info('onRestore ok ' + JSON.stringify(bundleVersion));
     await Promise.resolve();
   }

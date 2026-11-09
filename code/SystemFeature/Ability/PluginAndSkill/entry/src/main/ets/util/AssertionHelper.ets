@@ -72,8 +72,8 @@ export class AssertionHelper {
   }
 
   public assertEqual(actual: string, expected: string, message: string = ''): AssertionResult {
-    const passed = actual === expected;
-    const result = this.createResult(
+    const passed: boolean = actual === expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${expected}' but got '${actual}'`,
       expected,
@@ -85,8 +85,8 @@ export class AssertionHelper {
   }
 
   public assertNotEqual(actual: string, expected: string, message: string = ''): AssertionResult {
-    const passed = actual !== expected;
-    const result = this.createResult(
+    const passed: boolean = actual !== expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected not '${expected}'`,
       `not ${expected}`,
@@ -98,8 +98,8 @@ export class AssertionHelper {
   }
 
   public assertTrue(value: boolean, message: string = ''): AssertionResult {
-    const passed = value === true;
-    const result = this.createResult(
+    const passed: boolean = value === true;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected true but got ${value}`,
       'true',
@@ -111,8 +111,8 @@ export class AssertionHelper {
   }
 
   public assertFalse(value: boolean, message: string = ''): AssertionResult {
-    const passed = value === false;
-    const result = this.createResult(
+    const passed: boolean = value === false;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected false but got ${value}`,
       'false',
@@ -124,8 +124,8 @@ export class AssertionHelper {
   }
 
   public assertContains(text: string, substring: string, message: string = ''): AssertionResult {
-    const passed = text.includes(substring);
-    const result = this.createResult(
+    const passed: boolean = text.includes(substring);
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${text}' to contain '${substring}'`,
       `contains '${substring}'`,
@@ -137,8 +137,8 @@ export class AssertionHelper {
   }
 
   public assertNotContains(text: string, substring: string, message: string = ''): AssertionResult {
-    const passed = !text.includes(substring);
-    const result = this.createResult(
+    const passed: boolean = !text.includes(substring);
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${text}' to not contain '${substring}'`,
       `not contains '${substring}'`,
@@ -150,8 +150,8 @@ export class AssertionHelper {
   }
 
   public assertGreaterThan(actual: number, expected: number, message: string = ''): AssertionResult {
-    const passed = actual > expected;
-    const result = this.createResult(
+    const passed: boolean = actual > expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected ${actual} > ${expected}`,
       `> ${expected}`,
@@ -163,8 +163,8 @@ export class AssertionHelper {
   }
 
   public assertGreaterOrEqual(actual: number, expected: number, message: string = ''): AssertionResult {
-    const passed = actual >= expected;
-    const result = this.createResult(
+    const passed: boolean = actual >= expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected ${actual} >= ${expected}`,
       `>= ${expected}`,
@@ -176,8 +176,8 @@ export class AssertionHelper {
   }
 
   public assertLessThan(actual: number, expected: number, message: string = ''): AssertionResult {
-    const passed = actual < expected;
-    const result = this.createResult(
+    const passed: boolean = actual < expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected ${actual} < ${expected}`,
       `< ${expected}`,
@@ -189,8 +189,8 @@ export class AssertionHelper {
   }
 
   public assertLessOrEqual(actual: number, expected: number, message: string = ''): AssertionResult {
-    const passed = actual <= expected;
-    const result = this.createResult(
+    const passed: boolean = actual <= expected;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected ${actual} <= ${expected}`,
       `<= ${expected}`,
@@ -202,8 +202,8 @@ export class AssertionHelper {
   }
 
   public assertNotEmpty(value: string, message: string = ''): AssertionResult {
-    const passed = value.length > 0;
-    const result = this.createResult(
+    const passed: boolean = value.length > 0;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected non-empty but got '${value}'`,
       'non-empty',
@@ -215,8 +215,8 @@ export class AssertionHelper {
   }
 
   public assertEmpty(value: string, message: string = ''): AssertionResult {
-    const passed = value.length === 0;
-    const result = this.createResult(
+    const passed: boolean = value.length === 0;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected empty but got '${value}'`,
       'empty',
@@ -228,8 +228,8 @@ export class AssertionHelper {
   }
 
   public assertNull(value: string | undefined | null, message: string = ''): AssertionResult {
-    const passed = value === null || value === undefined;
-    const result = this.createResult(
+    const passed: boolean = value === null || value === undefined;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected null but got '${value}'`,
       'null',
@@ -241,8 +241,8 @@ export class AssertionHelper {
   }
 
   public assertNotNull(value: string | undefined | null, message: string = ''): AssertionResult {
-    const passed = value !== null && value !== undefined;
-    const result = this.createResult(
+    const passed: boolean = value !== null && value !== undefined;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected non-null but got null/undefined`,
       'non-null',
@@ -254,9 +254,9 @@ export class AssertionHelper {
   }
 
   public assertMatchesPattern(text: string, pattern: string, message: string = ''): AssertionResult {
-    const regex = new RegExp(pattern);
-    const passed = regex.test(text);
-    const result = this.createResult(
+    const regex: RegExp = new RegExp(pattern);
+    const passed: boolean = regex.test(text);
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${text}' to match /${pattern}/`,
       `matches /${pattern}/`,
@@ -268,8 +268,8 @@ export class AssertionHelper {
   }
 
   public assertStartsWith(text: string, prefix: string, message: string = ''): AssertionResult {
-    const passed = text.indexOf(prefix) === 0;
-    const result = this.createResult(
+    const passed: boolean = text.indexOf(prefix) === 0;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${text}' to start with '${prefix}'`,
       `starts with '${prefix}'`,
@@ -281,9 +281,9 @@ export class AssertionHelper {
   }
 
   public assertEndsWith(text: string, suffix: string, message: string = ''): AssertionResult {
-    const startIndex = text.length - suffix.length;
-    const passed = startIndex >= 0 && text.indexOf(suffix, startIndex) === startIndex;
-    const result = this.createResult(
+    const startIndex: number = text.length - suffix.length;
+    const passed: boolean = startIndex >= 0 && text.indexOf(suffix, startIndex) === startIndex;
+    const result: AssertionResult = this.createResult(
       passed,
       message.length > 0 ? message : `Expected '${text}' to end with '${suffix}'`,
       `ends with '${suffix}'`,
@@ -296,8 +296,8 @@ export class AssertionHelper {
 
   public getResults(): AssertionResult[] {
     const copy: AssertionResult[] = [];
-    for (let i = 0; i < this.results.length; i++) {
-      const r = this.results[i];
+    for (let i: number = 0; i < this.results.length; i++) {
+      const r: AssertionResult = this.results[i];
       const resultCopy: AssertionResult = {
         passed: r.passed,
         message: r.message,
@@ -313,7 +313,7 @@ export class AssertionHelper {
 
   public getFailedResults(): AssertionResult[] {
     const failed: AssertionResult[] = [];
-    for (let i = 0; i < this.results.length; i++) {
+    for (let i: number = 0; i < this.results.length; i++) {
       if (!this.results[i].passed) {
         failed.push(this.results[i]);
       }
@@ -322,14 +322,14 @@ export class AssertionHelper {
   }
 
   public summarize(): AssertionSummary {
-    let passedCount = 0;
-    for (let i = 0; i < this.results.length; i++) {
+    let passedCount: number = 0;
+    for (let i: number = 0; i < this.results.length; i++) {
       if (this.results[i].passed) {
         passedCount++;
       }
     }
-    const failedCount = this.results.length - passedCount;
-    const passRate = this.results.length > 0
+    const failedCount: number = this.results.length - passedCount;
+    const passRate: number = this.results.length > 0
       ? Math.round((passedCount / this.results.length) * 100)
       : 0;
 
@@ -343,7 +343,7 @@ export class AssertionHelper {
   }
 
   public generateReport(): string {
-    const summary = this.summarize();
+    const summary: AssertionSummary = this.summarize();
     const lines: string[] = [];
     lines.push('=== Assertion Report ===');
     lines.push(`Total assertions: ${summary.totalAssertions}`);
@@ -354,9 +354,9 @@ export class AssertionHelper {
     if (summary.failedAssertions > 0) {
       lines.push('');
       lines.push('--- Failed Assertions ---');
-      const failed = this.getFailedResults();
-      for (let i = 0; i < failed.length; i++) {
-        const f = failed[i];
+      const failed: AssertionResult[] = this.getFailedResults();
+      for (let i: number = 0; i < failed.length; i++) {
+        const f: AssertionResult = failed[i];
         lines.push(`  [${f.assertionType}] ${f.message}`);
         lines.push(`    Expected: ${f.expected}`);
         lines.push(`    Actual: ${f.actual}`);
@@ -377,8 +377,8 @@ export class AssertionHelper {
   }
 
   public getPassCount(): number {
-    let count = 0;
-    for (let i = 0; i < this.results.length; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < this.results.length; i++) {
       if (this.results[i].passed) {
         count++;
       }

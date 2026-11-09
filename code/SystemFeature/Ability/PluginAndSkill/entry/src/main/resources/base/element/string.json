@@ -554,6 +554,176 @@
       "name": "skill_batch_button",
       "value": "Batch Operations",
       "description": "Navigation button for skill batch page"
+    },
+    {
+      "name": "execution_label_module",
+      "value": "Module:",
+      "description": "Module label in execution record"
+    },
+    {
+      "name": "execution_label_duration",
+      "value": "Duration:",
+      "description": "Duration label in execution record"
+    },
+    {
+      "name": "execution_label_result",
+      "value": "Result:",
+      "description": "Result label in execution record"
+    },
+    {
+      "name": "execution_label_error",
+      "value": "Error:",
+      "description": "Error label in execution record"
+    },
+    {
+      "name": "status_success",
+      "value": "SUCCESS",
+      "description": "Success status text"
+    },
+    {
+      "name": "status_failed",
+      "value": "FAILED",
+      "description": "Failed status text"
+    },
+    {
+      "name": "status_running",
+      "value": "RUNNING",
+      "description": "Running status text"
+    },
+    {
+      "name": "status_idle",
+      "value": "IDLE",
+      "description": "Idle status text"
+    },
+    {
+      "name": "status_pending",
+      "value": "PENDING",
+      "description": "Pending status text"
+    },
+    {
+      "name": "batch_label_select_all",
+      "value": "Select All",
+      "description": "Select all toggle label"
+    },
+    {
+      "name": "batch_label_bundle",
+      "value": "Bundle:",
+      "description": "Bundle label in batch record"
+    },
+    {
+      "name": "batch_label_type",
+      "value": "Type:",
+      "description": "Type label in batch record"
+    },
+    {
+      "name": "batch_label_path",
+      "value": "Path:",
+      "description": "Path label in batch record"
+    },
+    {
+      "name": "batch_label_total",
+      "value": "Total:",
+      "description": "Total label in batch summary"
+    },
+    {
+      "name": "batch_label_success",
+      "value": "Success:",
+      "description": "Success label in batch summary"
+    },
+    {
+      "name": "batch_label_failed",
+      "value": "Failed:",
+      "description": "Failed label in batch summary"
+    },
+    {
+      "name": "batch_label_total_time",
+      "value": "Total Time:",
+      "description": "Total time label in batch summary"
+    },
+    {
+      "name": "history_label_bundle",
+      "value": "Bundle:",
+      "description": "Bundle label in history record"
+    },
+    {
+      "name": "history_label_module",
+      "value": "Module:",
+      "description": "Module label in history record"
+    },
+    {
+      "name": "history_label_time",
+      "value": "Time:",
+      "description": "Time label in history record"
+    },
+    {
+      "name": "history_label_duration",
+      "value": "Duration:",
+      "description": "Duration label in history record"
+    },
+    {
+      "name": "history_label_type",
+      "value": "Type:",
+      "description": "Type label in history record"
+    },
+    {
+      "name": "history_label_path",
+      "value": "Path:",
+      "description": "Path label in history record"
+    },
+    {
+      "name": "history_label_error",
+      "value": "Error:",
+      "description": "Error label in history record"
+    },
+    {
+      "name": "history_filter_success",
+      "value": "Success",
+      "description": "Success filter label in history page"
+    },
+    {
+      "name": "history_filter_failed",
+      "value": "Failed",
+      "description": "Failed filter label in history page"
+    },
+    {
+      "name": "history_stats_total",
+      "value": "Total Queries:",
+      "description": "Total queries label in history statistics"
+    },
+    {
+      "name": "history_stats_successful",
+      "value": "Successful:",
+      "description": "Successful label in history statistics"
+    },
+    {
+      "name": "history_stats_failed",
+      "value": "Failed:",
+      "description": "Failed label in history statistics"
+    },
+    {
+      "name": "history_stats_avg_duration",
+      "value": "Avg Duration:",
+      "description": "Average duration label in history statistics"
+    },
+    {
+      "name": "compare_stats_total_fields",
+      "value": "Total Fields:",
+      "description": "Total fields label in compare summary"
+    },
+    {
+      "name": "compare_stats_same",
+      "value": "Same:",
+      "description": "Same count label in compare summary"
+    },
+    {
+      "name": "compare_stats_different",
+      "value": "Different:",
+      "description": "Different count label in compare summary"
+    },
+    {
+      "name": "compare_stats_match_rate",
+      "value": "Match Rate:",
+      "description": "Match rate label in compare summary"
     }
   ]
 }

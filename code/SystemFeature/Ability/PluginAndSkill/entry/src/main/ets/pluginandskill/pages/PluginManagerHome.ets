@@ -18,16 +18,16 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { fileIo, fileUri, picker } from '@kit.CoreFileKit';
 import Logger from '../../util/Logger';
 import {
-  PAGE_PADDING,
-  SECTION_SPACING,
-  ITEM_SPACING,
-  TITLE_FONT_SIZE,
-  SUBTITLE_FONT_SIZE,
   BODY_FONT_SIZE,
-  CONTENT_MAX_WIDTH,
   BUTTON_HEIGHT,
   CARD_RADIUS,
-  HSP_FILE_FILTER
+  CONTENT_MAX_WIDTH,
+  HSP_FILE_FILTER,
+  ITEM_SPACING,
+  PAGE_PADDING,
+  SECTION_SPACING,
+  SUBTITLE_FONT_SIZE,
+  TITLE_FONT_SIZE
 } from '../../util/Constant';
 
 @Entry
@@ -51,20 +51,20 @@ struct PluginManagerHome {
   private async selectPlugin(): Promise<void> {
     this.isOperating = true;
     try {
-      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      const options = new picker.DocumentSelectOptions();
+      const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      const options: picker.DocumentSelectOptions = new picker.DocumentSelectOptions();
       options.maxSelectNumber = 1;
       options.fileSuffixFilters = [HSP_FILE_FILTER];
-      const documentPicker = new picker.DocumentViewPicker(context);
-      const selectedUris = await documentPicker.select(options);
+      const documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker(context);
+      const selectedUris: string[] = await documentPicker.select(options);
       if (selectedUris.length === 0) {
         return;
       }
-      const selectedUri = selectedUris[0];
+      const selectedUri: string = selectedUris[0];
       let sourceFile: fileIo.File | undefined = undefined;
       try {
         sourceFile = fileIo.openSync(selectedUri, fileIo.OpenMode.READ_ONLY);
-        const sandboxPath = `${context.cacheDir}/${new fileUri.FileUri(selectedUri).name}`;
+        const sandboxPath: string = `${context.cacheDir}/${new fileUri.FileUri(selectedUri).name}`;
         fileIo.copyFileSync(sourceFile.fd, sandboxPath);
         this.pluginFilePath = sandboxPath;
         this.operationResult = $r('app.string.select_success');
@@ -81,7 +81,7 @@ struct PluginManagerHome {
   }
 
   private async installPlugin(): Promise<void> {
-    const pluginFilePath = this.pluginFilePath.trim();
+    const pluginFilePath: string = this.pluginFilePath.trim();
     if (!pluginFilePath) {
       this.operationResult = $r('app.string.path_required');
       return;
@@ -99,7 +99,7 @@ struct PluginManagerHome {
   }
 
   private async uninstallPlugin(): Promise<void> {
-    const pluginBundleName = this.pluginBundleName.trim();
+    const pluginBundleName: string = this.pluginBundleName.trim();
     if (!pluginBundleName) {
       this.operationResult = $r('app.string.bundle_required');
       return;

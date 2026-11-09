@@ -17,8 +17,8 @@ import { scriptManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0001;
-const TAG = '[Sample_PluginAndSkill]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
 
 export default class TestSkill {
   public async getTestMessage(info: scriptManager.ArkTSScriptInfo, ...argv: string[]): Promise<void> {
@@ -35,7 +35,7 @@ export default class TestSkill {
     try {
       await scriptManager.completeArkTSScriptInApp(info.context, info.requestCode, result);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       hilog.error(DOMAIN, TAG, 'Failed to complete test skill. Code: %{public}d, message: %{public}s',
         err.code, err.message);
     }

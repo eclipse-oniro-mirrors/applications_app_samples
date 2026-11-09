@@ -92,8 +92,8 @@ export class TestLogAnalyzer {
 
   public getEntries(): LogEntry[] {
     const result: LogEntry[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
-      const entry = this.entries[i];
+    for (let i: number = 0; i < this.entries.length; i++) {
+      const entry: LogEntry = this.entries[i];
       const copy: LogEntry = {
         timestamp: entry.timestamp,
         level: entry.level,
@@ -108,7 +108,7 @@ export class TestLogAnalyzer {
 
   public getEntriesByLevel(level: LogLevel): LogEntry[] {
     const result: LogEntry[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].level === level) {
         result.push(this.entries[i]);
       }
@@ -118,7 +118,7 @@ export class TestLogAnalyzer {
 
   public getEntriesByTag(tag: string): LogEntry[] {
     const result: LogEntry[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].tag === tag) {
         result.push(this.entries[i]);
       }
@@ -128,7 +128,7 @@ export class TestLogAnalyzer {
 
   public getEntriesByTimeRange(startTime: number, endTime: number): LogEntry[] {
     const result: LogEntry[] = [];
-    for (let i = 0; i < this.entries.length; i++) {
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].timestamp >= startTime && this.entries[i].timestamp <= endTime) {
         result.push(this.entries[i]);
       }
@@ -138,8 +138,8 @@ export class TestLogAnalyzer {
 
   public searchEntries(keyword: string): LogEntry[] {
     const result: LogEntry[] = [];
-    const lowerKeyword = keyword.toLowerCase();
-    for (let i = 0; i < this.entries.length; i++) {
+    const lowerKeyword: string = keyword.toLowerCase();
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].message.toLowerCase().includes(lowerKeyword) ||
         this.entries[i].tag.toLowerCase().includes(lowerKeyword)) {
         result.push(this.entries[i]);
@@ -149,18 +149,18 @@ export class TestLogAnalyzer {
   }
 
   public analyze(): LogAnalysisResult {
-    let errorCount = 0;
-    let warningCount = 0;
-    let infoCount = 0;
-    let debugCount = 0;
+    let errorCount: number = 0;
+    let warningCount: number = 0;
+    let infoCount: number = 0;
+    let debugCount: number = 0;
     const tagSet: Set<string> = new Set();
     const errorsByTag: Map<string, number> = new Map();
     const testCaseResults: Map<string, boolean> = new Map();
-    let minTime = Number.MAX_VALUE;
-    let maxTime = 0;
+    let minTime: number = Number.MAX_VALUE;
+    let maxTime: number = 0;
 
-    for (let i = 0; i < this.entries.length; i++) {
-      const entry = this.entries[i];
+    for (let i: number = 0; i < this.entries.length; i++) {
+      const entry: LogEntry = this.entries[i];
       tagSet.add(entry.tag);
 
       if (entry.timestamp < minTime) {
@@ -173,7 +173,7 @@ export class TestLogAnalyzer {
       switch (entry.level) {
         case LogLevel.ERROR:
           errorCount++;
-          const currentErrorCount = errorsByTag.get(entry.tag);
+          const currentErrorCount: number | undefined = errorsByTag.get(entry.tag);
           if (currentErrorCount !== undefined) {
             errorsByTag.set(entry.tag, currentErrorCount + 1);
           } else {
@@ -193,23 +193,23 @@ export class TestLogAnalyzer {
           break;
       }
 
-      const beginPattern = new RegExp('^(\\w+) begin$');
-      const beginMatch = entry.message.match(beginPattern);
+      const beginPattern: RegExp = new RegExp('^(\\w+) begin$');
+      const beginMatch: RegExpMatchArray | null = entry.message.match(beginPattern);
       if (beginMatch !== null && beginMatch.length > 1) {
-        const caseName = beginMatch[1];
+        const caseName: string = beginMatch[1];
         if (!testCaseResults.has(caseName)) {
           testCaseResults.set(caseName, true);
         }
       }
 
-      const failPattern = new RegExp('^(\\w+) failed');
-      const failMatch = entry.message.match(failPattern);
+      const failPattern: RegExp = new RegExp('^(\\w+) failed');
+      const failMatch: RegExpMatchArray | null = entry.message.match(failPattern);
       if (failMatch !== null && failMatch.length > 1) {
         testCaseResults.set(failMatch[1], false);
       }
     }
 
-    const timeSpan = (minTime === Number.MAX_VALUE) ? 0 : (maxTime - minTime);
+    const timeSpan: number = (minTime === Number.MAX_VALUE) ? 0 : (maxTime - minTime);
 
     const result: LogAnalysisResult = {
       totalEntries: this.entries.length,
@@ -227,12 +227,12 @@ export class TestLogAnalyzer {
   }
 
   public getTestPassRate(): number {
-    const analysis = this.analyze();
-    const total = analysis.testCaseResults.size;
+    const analysis: LogAnalysisResult = this.analyze();
+    const total: number = analysis.testCaseResults.size;
     if (total === 0) {
       return 0;
     }
-    let passed = 0;
+    let passed: number = 0;
     analysis.testCaseResults.forEach((value: boolean, key: string) => {
       if (value) {
         passed++;
@@ -250,8 +250,8 @@ export class TestLogAnalyzer {
   }
 
   public getErrorCount(): number {
-    let count = 0;
-    for (let i = 0; i < this.entries.length; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].level === LogLevel.ERROR) {
         count++;
       }
@@ -260,8 +260,8 @@ export class TestLogAnalyzer {
   }
 
   public getWarningCount(): number {
-    let count = 0;
-    for (let i = 0; i < this.entries.length; i++) {
+    let count: number = 0;
+    for (let i: number = 0; i < this.entries.length; i++) {
       if (this.entries[i].level === LogLevel.WARN) {
         count++;
       }
@@ -270,7 +270,7 @@ export class TestLogAnalyzer {
   }
 
   public generateReport(): string {
-    const analysis = this.analyze();
+    const analysis: LogAnalysisResult = this.analyze();
     const lines: string[] = [];
     lines.push('=== Test Log Analysis Report ===');
     lines.push(`Total entries: ${analysis.totalEntries}`);
@@ -294,7 +294,7 @@ export class TestLogAnalyzer {
       lines.push('');
       lines.push('--- Test Case Results ---');
       analysis.testCaseResults.forEach((passed: boolean, name: string) => {
-        const status = passed ? 'PASS' : 'FAIL';
+        const status: string = passed ? 'PASS' : 'FAIL';
         lines.push(`  ${name}: ${status}`);
       });
     }

@@ -21,7 +21,6 @@ import {
   BUTTON_HEIGHT,
   CARD_RADIUS,
   CONTENT_MAX_WIDTH,
-  EMPTY_VALUE,
   ITEM_SPACING,
   LABEL_WIDTH,
   MODULE_NAME_ARRAY,
@@ -59,17 +58,17 @@ struct SkillExecutionPage {
   @State private currentResult: string = '';
 
   private formatDuration(startTime: number, endTime: number): string {
-    const duration = endTime - startTime;
+    const duration: number = endTime - startTime;
     if (duration < 1000) {
       return `${duration}ms`;
     }
-    const seconds = Math.floor(duration / 1000);
-    const millis = duration % 1000;
+    const seconds: number = Math.floor(duration / 1000);
+    const millis: number = duration % 1000;
     if (seconds < 60) {
       return `${seconds}s ${millis}ms`;
     }
-    const minutes = Math.floor(seconds / 60);
-    const remainSeconds = seconds % 60;
+    const minutes: number = Math.floor(seconds / 60);
+    const remainSeconds: number = seconds % 60;
     return `${minutes}m ${remainSeconds}s`;
   }
 
@@ -98,7 +97,7 @@ struct SkillExecutionPage {
     }
     this.isOperating = true;
     this.executionStatus = EXECUTION_STATUS_RUNNING;
-    const record = this.createEmptyRecord(this.selectedSkill, this.selectedModule);
+    const record: ExecutionRecord = this.createEmptyRecord(this.selectedSkill, this.selectedModule);
     record.startTime = Date.now();
     record.status = EXECUTION_STATUS_RUNNING;
     try {
@@ -116,7 +115,7 @@ struct SkillExecutionPage {
       record.endTime = Date.now();
       record.duration = record.endTime - record.startTime;
       record.status = EXECUTION_STATUS_FAILED;
-      const bizError = error as BusinessError;
+      const bizError: BusinessError = error as BusinessError;
       record.errorMessage = `${bizError.code}: ${bizError.message}`;
       this.currentResult = `Execution failed: ${bizError.code}: ${bizError.message}`;
       this.executionStatus = EXECUTION_STATUS_FAILED;
@@ -127,15 +126,15 @@ struct SkillExecutionPage {
     }
   }
 
-  private getExecutionStatusText(status: string): string {
+  private getExecutionStatusText(status: string): Resource {
     if (status === EXECUTION_STATUS_SUCCESS) {
-      return 'SUCCESS';
+      return $r('app.string.status_success');
     } else if (status === EXECUTION_STATUS_FAILED) {
-      return 'FAILED';
+      return $r('app.string.status_failed');
     } else if (status === EXECUTION_STATUS_RUNNING) {
-      return 'RUNNING';
+      return $r('app.string.status_running');
     }
-    return 'IDLE';
+    return $r('app.string.status_idle');
   }
 
   @Builder
@@ -152,12 +151,13 @@ struct SkillExecutionPage {
           .layoutWeight(1)
         Text(this.getExecutionStatusText(record.status))
           .fontSize(BODY_FONT_SIZE)
-          .fontColor(record.status === EXECUTION_STATUS_SUCCESS ? '#4CAF50' : '#F44336')
+          .fontColor(
+            record.status === EXECUTION_STATUS_SUCCESS ? $r('app.color.success_color') : $r('app.color.error_color'))
       }
       .width('100%')
 
       Row() {
-        Text('Module:')
+        Text($r('app.string.execution_label_module'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -168,7 +168,7 @@ struct SkillExecutionPage {
       .width('100%')
 
       Row() {
-        Text('Duration:')
+        Text($r('app.string.execution_label_duration'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -180,7 +180,7 @@ struct SkillExecutionPage {
 
       if (record.resultMessage.length > 0) {
         Row() {
-          Text('Result:')
+          Text($r('app.string.execution_label_result'))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width(LABEL_WIDTH)
@@ -195,13 +195,13 @@ struct SkillExecutionPage {
 
       if (record.errorMessage.length > 0) {
         Row() {
-          Text('Error:')
+          Text($r('app.string.execution_label_error'))
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .width(LABEL_WIDTH)
           Text(record.errorMessage)
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .layoutWeight(1)
             .maxLines(3)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -294,7 +294,7 @@ struct SkillExecutionPage {
           ForEach(this.executionRecords, (record: ExecutionRecord, index: number) => {
             this.executionRecordCard(record, index);
           }, (record: ExecutionRecord, index: number) =>
-            `${record.skillName}_${record.moduleName}_${index}_${record.status}`)
+          `${record.skillName}_${record.moduleName}_${index}_${record.status}`)
         }
       }
       .width('100%')

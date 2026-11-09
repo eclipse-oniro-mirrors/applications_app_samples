@@ -22,8 +22,6 @@ import {
   CARD_RADIUS,
   CONTENT_MAX_WIDTH,
   DEFAULT_BUNDLE_NAME,
-  DEFAULT_MODULE_NAME,
-  EMPTY_VALUE,
   FLAG_VALUES,
   ITEM_SPACING,
   LABEL_WIDTH,
@@ -67,12 +65,12 @@ struct SkillBatchPage {
 
   private initializeBatchRecords(): void {
     this.batchRecords = [];
-    const skillsToProcess = this.selectedSkillIndices.length > 0
+    const skillsToProcess: number[] = this.selectedSkillIndices.length > 0
       ? this.selectedSkillIndices
       : this.getAllSkillIndices();
 
-    for (let i = 0; i < skillsToProcess.length; i++) {
-      const skillIndex = skillsToProcess[i];
+    for (let i: number = 0; i < skillsToProcess.length; i++) {
+      const skillIndex: number = skillsToProcess[i];
       const record: BatchOperationRecord = {
         skillName: SKILL_ARRAY[skillIndex],
         moduleName: this.selectedModule,
@@ -93,7 +91,7 @@ struct SkillBatchPage {
 
   private getAllSkillIndices(): number[] {
     const indices: number[] = [];
-    for (let i = 0; i < SKILL_ARRAY.length; i++) {
+    for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
       indices.push(i);
     }
     return indices;
@@ -105,19 +103,19 @@ struct SkillBatchPage {
     }
     this.isOperating = true;
     this.initializeBatchRecords();
-    const batchStartTime = Date.now();
+    const batchStartTime: number = Date.now();
 
     try {
-      for (let i = 0; i < this.batchRecords.length; i++) {
-        const record = this.batchRecords[i];
+      for (let i: number = 0; i < this.batchRecords.length; i++) {
+        const record: BatchOperationRecord = this.batchRecords[i];
         record.status = BATCH_STATUS_RUNNING;
 
-        const recordStartTime = Date.now();
+        const recordStartTime: number = Date.now();
         try {
           Logger.info(`Batch querying skill: ${record.skillName} from module: ${record.moduleName}`);
           const skillInfo: skillManager.SkillInfo =
             await skillManager.getSkillInfoForSelf(record.moduleName, record.skillName, FLAG_VALUES[0]);
-          const recordEndTime = Date.now();
+          const recordEndTime: number = Date.now();
 
           record.status = BATCH_STATUS_SUCCESS;
           record.duration = recordEndTime - recordStartTime;
@@ -128,8 +126,8 @@ struct SkillBatchPage {
           this.pendingBatchCount--;
           Logger.info(`Batch skill ${record.skillName} succeeded in ${record.duration}ms`);
         } catch (error) {
-          const recordEndTime = Date.now();
-          const bizError = error as BusinessError;
+          const recordEndTime: number = Date.now();
+          const bizError: BusinessError = error as BusinessError;
           record.status = BATCH_STATUS_FAILED;
           record.duration = recordEndTime - recordStartTime;
           record.errorMessage = `${bizError.code}: ${bizError.message}`;
@@ -139,13 +137,13 @@ struct SkillBatchPage {
         }
       }
 
-      const batchEndTime = Date.now();
+      const batchEndTime: number = Date.now();
       this.totalBatchTime = batchEndTime - batchStartTime;
       this.operationResult =
         `Batch completed: ${this.successBatchCount} success, ${this.failedBatchCount} failed in ${this.totalBatchTime}ms`;
       Logger.info(`Batch operation completed in ${this.totalBatchTime}ms`);
     } catch (error) {
-      const bizError = error as BusinessError;
+      const bizError: BusinessError = error as BusinessError;
       this.operationResult = `Batch error: ${bizError.code}: ${bizError.message}`;
       Logger.error('Batch operation error: ' + JSON.stringify(error));
     } finally {
@@ -165,8 +163,8 @@ struct SkillBatchPage {
 
   private toggleSkillSelection(index: number): void {
     const newIndices: number[] = [];
-    let found = false;
-    for (let i = 0; i < this.selectedSkillIndices.length; i++) {
+    let found: boolean = false;
+    for (let i: number = 0; i < this.selectedSkillIndices.length; i++) {
       if (this.selectedSkillIndices[i] === index) {
         found = true;
       } else {
@@ -190,15 +188,15 @@ struct SkillBatchPage {
     }
   }
 
-  private getStatusText(status: string): string {
+  private getStatusText(status: string): Resource {
     if (status === BATCH_STATUS_SUCCESS) {
-      return 'SUCCESS';
+      return $r('app.string.status_success');
     } else if (status === BATCH_STATUS_FAILED) {
-      return 'FAILED';
+      return $r('app.string.status_failed');
     } else if (status === BATCH_STATUS_RUNNING) {
-      return 'RUNNING';
+      return $r('app.string.status_running');
     }
-    return 'PENDING';
+    return $r('app.string.status_pending');
   }
 
   @Builder
@@ -216,13 +214,13 @@ struct SkillBatchPage {
         Text(this.getStatusText(record.status))
           .id(`batch_status_${index}`)
           .fontSize(BODY_FONT_SIZE)
-          .fontColor(record.status === BATCH_STATUS_SUCCESS ? '#4CAF50' :
-            (record.status === BATCH_STATUS_FAILED ? '#F44336' : '#FF9800'))
+          .fontColor(record.status === BATCH_STATUS_SUCCESS ? $r('app.color.success_color') :
+            (record.status === BATCH_STATUS_FAILED ? $r('app.color.error_color') : $r('app.color.warning_color')))
       }
       .width('100%')
 
       Row() {
-        Text('Module:')
+        Text($r('app.string.execution_label_module'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -234,7 +232,7 @@ struct SkillBatchPage {
       .width('100%')
 
       Row() {
-        Text('Bundle:')
+        Text($r('app.string.batch_label_bundle'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -246,7 +244,7 @@ struct SkillBatchPage {
       .width('100%')
 
       Row() {
-        Text('Duration:')
+        Text($r('app.string.execution_label_duration'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -259,7 +257,7 @@ struct SkillBatchPage {
 
       if (record.skillType >= 0) {
         Row() {
-          Text('Type:')
+          Text($r('app.string.batch_label_type'))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width(LABEL_WIDTH)
@@ -273,7 +271,7 @@ struct SkillBatchPage {
 
       if (record.skillPath.length > 0) {
         Row() {
-          Text('Path:')
+          Text($r('app.string.batch_label_path'))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width(LABEL_WIDTH)
@@ -289,14 +287,14 @@ struct SkillBatchPage {
 
       if (record.errorMessage.length > 0) {
         Row() {
-          Text('Error:')
+          Text($r('app.string.execution_label_error'))
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .width(LABEL_WIDTH)
           Text(record.errorMessage)
             .id(`batch_error_${index}`)
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .layoutWeight(1)
             .maxLines(2)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -354,15 +352,17 @@ struct SkillBatchPage {
             .onChange((isOn: boolean): void => {
               this.toggleSelectAll();
             })
-          Text('Select All')
+          Text($r('app.string.batch_label_select_all'))
             .fontSize(BODY_FONT_SIZE)
         }
         .width('100%')
 
         ForEach(SKILL_ARRAY, (skillName: string, index: number) => {
           Row({ space: ITEM_SPACING }) {
-            Toggle({ type: ToggleType.Checkbox,
-              isOn: this.selectedSkillIndices.indexOf(index) >= 0 })
+            Toggle({
+              type: ToggleType.Checkbox,
+              isOn: this.selectedSkillIndices.indexOf(index) >= 0
+            })
               .id(`batch_skill_toggle_${index}`)
               .onChange((isOn: boolean): void => {
                 this.toggleSkillSelection(index);
@@ -410,7 +410,7 @@ struct SkillBatchPage {
               .fontWeight(FontWeight.Medium)
 
             Row() {
-              Text('Total:')
+              Text($r('app.string.batch_label_total'))
                 .fontSize(BODY_FONT_SIZE)
                 .fontColor($r('app.color.secondary_text'))
                 .width(LABEL_WIDTH)
@@ -421,31 +421,31 @@ struct SkillBatchPage {
             .width('100%')
 
             Row() {
-              Text('Success:')
+              Text($r('app.string.batch_label_success'))
                 .fontSize(BODY_FONT_SIZE)
-                .fontColor('#4CAF50')
+                .fontColor($r('app.color.success_color'))
                 .width(LABEL_WIDTH)
               Text(`${this.successBatchCount}`)
                 .id('batch_success_count')
                 .fontSize(BODY_FONT_SIZE)
-                .fontColor('#4CAF50')
+                .fontColor($r('app.color.success_color'))
             }
             .width('100%')
 
             Row() {
-              Text('Failed:')
+              Text($r('app.string.batch_label_failed'))
                 .fontSize(BODY_FONT_SIZE)
-                .fontColor('#F44336')
+                .fontColor($r('app.color.error_color'))
                 .width(LABEL_WIDTH)
               Text(`${this.failedBatchCount}`)
                 .id('batch_failed_count')
                 .fontSize(BODY_FONT_SIZE)
-                .fontColor('#F44336')
+                .fontColor($r('app.color.error_color'))
             }
             .width('100%')
 
             Row() {
-              Text('Total Time:')
+              Text($r('app.string.batch_label_total_time'))
                 .fontSize(BODY_FONT_SIZE)
                 .fontColor($r('app.color.secondary_text'))
                 .width(LABEL_WIDTH)
@@ -471,7 +471,7 @@ struct SkillBatchPage {
           ForEach(this.batchRecords, (record: BatchOperationRecord, index: number) => {
             this.batchRecordCard(record, index);
           }, (record: BatchOperationRecord, index: number) =>
-            `${record.skillName}_${record.moduleName}_${index}_${record.status}`)
+          `${record.skillName}_${record.moduleName}_${index}_${record.status}`)
         }
       }
       .width('100%')

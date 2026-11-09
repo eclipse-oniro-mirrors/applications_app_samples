@@ -23,20 +23,19 @@ import {
   CARD_RADIUS,
   CONTENT_MAX_WIDTH,
   DEFAULT_BUNDLE_NAME,
+  DEFAULT_FLAG_INDEX,
   DEFAULT_MODULE_NAME,
   DEFAULT_OPTION_INDEX,
-  DEFAULT_SKILL_NAME,
   EMPTY_OPTION_INDEX,
   EMPTY_VALUE,
+  FLAG_LABELS,
+  FLAG_VALUES,
   ITEM_SPACING,
   LABEL_WIDTH,
   MODULE_NAME_ARRAY,
   PAGE_PADDING,
   SECTION_SPACING,
   SKILL_ARRAY,
-  FLAG_LABELS,
-  FLAG_VALUES,
-  DEFAULT_FLAG_INDEX,
   SUBTITLE_FONT_SIZE,
   TITLE_FONT_SIZE
 } from '../../util/Constant';
@@ -84,7 +83,7 @@ struct BundleSkillQueryPage {
   private async showSkill(query: () => Promise<skillManager.SkillInfo>): Promise<void> {
     this.isOperating = true;
     try {
-      const skill = await query();
+      const skill: skillManager.SkillInfo = await query();
       this.skills = [skill];
       this.operationResult = $r('app.string.skill_query_success');
     } catch (error) {

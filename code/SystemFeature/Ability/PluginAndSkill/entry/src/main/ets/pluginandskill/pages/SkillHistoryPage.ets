@@ -22,8 +22,6 @@ import {
   CARD_RADIUS,
   CONTENT_MAX_WIDTH,
   DEFAULT_BUNDLE_NAME,
-  DEFAULT_MODULE_NAME,
-  EMPTY_VALUE,
   FLAG_VALUES,
   ITEM_SPACING,
   LABEL_WIDTH,
@@ -62,13 +60,13 @@ struct SkillHistoryPage {
   @State private averageDuration: number = 0;
 
   private formatTimestamp(timestamp: number): string {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const date: Date = new Date(timestamp);
+    const year: number = date.getFullYear();
+    const month: string = String(date.getMonth() + 1).padStart(2, '0');
+    const day: string = String(date.getDate()).padStart(2, '0');
+    const hours: string = String(date.getHours()).padStart(2, '0');
+    const minutes: string = String(date.getMinutes()).padStart(2, '0');
+    const seconds: string = String(date.getSeconds()).padStart(2, '0');
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
@@ -76,17 +74,17 @@ struct SkillHistoryPage {
     if (duration < 1000) {
       return `${duration}ms`;
     }
-    const seconds = Math.floor(duration / 1000);
-    const millis = duration % 1000;
+    const seconds: number = Math.floor(duration / 1000);
+    const millis: number = duration % 1000;
     return `${seconds}s ${millis}ms`;
   }
 
   private recalculateStats(): void {
     this.totalQueryCount = this.historyRecords.length;
-    let successCount = 0;
-    let failedCount = 0;
-    let totalDuration = 0;
-    for (let i = 0; i < this.historyRecords.length; i++) {
+    let successCount: number = 0;
+    let failedCount: number = 0;
+    let totalDuration: number = 0;
+    for (let i: number = 0; i < this.historyRecords.length; i++) {
       if (this.historyRecords[i].success) {
         successCount++;
       } else {
@@ -104,14 +102,14 @@ struct SkillHistoryPage {
   private async queryAllSkills(): Promise<void> {
     this.isOperating = true;
     try {
-      for (let i = 0; i < SKILL_ARRAY.length; i++) {
-        const skillName = SKILL_ARRAY[i];
-        const moduleName = MODULE_NAME_ARRAY[0];
-        const startTime = Date.now();
+      for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
+        const skillName: string = SKILL_ARRAY[i];
+        const moduleName: string = MODULE_NAME_ARRAY[0];
+        const startTime: number = Date.now();
         try {
           const skillInfo: skillManager.SkillInfo =
             await skillManager.getSkillInfoForSelf(moduleName, skillName, FLAG_VALUES[0]);
-          const endTime = Date.now();
+          const endTime: number = Date.now();
           const record: SkillHistoryRecord = {
             skillName: skillInfo.skillName,
             moduleName: skillInfo.moduleName,
@@ -126,8 +124,8 @@ struct SkillHistoryPage {
           this.historyRecords.push(record);
           Logger.info(`History query success: ${skillName} in ${endTime - startTime}ms`);
         } catch (error) {
-          const endTime = Date.now();
-          const bizError = error as BusinessError;
+          const endTime: number = Date.now();
+          const bizError: BusinessError = error as BusinessError;
           const record: SkillHistoryRecord = {
             skillName: skillName,
             moduleName: moduleName,
@@ -146,7 +144,7 @@ struct SkillHistoryPage {
       this.recalculateStats();
       this.operationResult = $r('app.string.skill_query_success');
     } catch (error) {
-      const bizError = error as BusinessError;
+      const bizError: BusinessError = error as BusinessError;
       this.operationResult = `${bizError.code}: ${bizError.message}`;
       Logger.error('History query failed: ' + JSON.stringify(error));
     } finally {
@@ -166,8 +164,8 @@ struct SkillHistoryPage {
 
   private getFilteredRecords(): SkillHistoryRecord[] {
     const filtered: SkillHistoryRecord[] = [];
-    for (let i = 0; i < this.historyRecords.length; i++) {
-      const record = this.historyRecords[i];
+    for (let i: number = 0; i < this.historyRecords.length; i++) {
+      const record: SkillHistoryRecord = this.historyRecords[i];
       if (this.filterModule.length > 0 && record.moduleName !== this.filterModule) {
         continue;
       }
@@ -194,14 +192,14 @@ struct SkillHistoryPage {
           .fontSize(BODY_FONT_SIZE)
           .fontWeight(FontWeight.Medium)
           .layoutWeight(1)
-        Text(record.success ? 'SUCCESS' : 'FAILED')
+        Text(record.success ? $r('app.string.status_success') : $r('app.string.status_failed'))
           .fontSize(BODY_FONT_SIZE)
-          .fontColor(record.success ? '#4CAF50' : '#F44336')
+          .fontColor(record.success ? $r('app.color.success_color') : $r('app.color.error_color'))
       }
       .width('100%')
 
       Row() {
-        Text('Bundle:')
+        Text($r('app.string.history_label_bundle'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -215,7 +213,7 @@ struct SkillHistoryPage {
       .width('100%')
 
       Row() {
-        Text('Module:')
+        Text($r('app.string.history_label_module'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -227,7 +225,7 @@ struct SkillHistoryPage {
       .width('100%')
 
       Row() {
-        Text('Time:')
+        Text($r('app.string.history_label_time'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -239,7 +237,7 @@ struct SkillHistoryPage {
       .width('100%')
 
       Row() {
-        Text('Duration:')
+        Text($r('app.string.history_label_duration'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -251,7 +249,7 @@ struct SkillHistoryPage {
       .width('100%')
 
       Row() {
-        Text('Type:')
+        Text($r('app.string.history_label_type'))
           .fontSize(BODY_FONT_SIZE)
           .fontColor($r('app.color.secondary_text'))
           .width(LABEL_WIDTH)
@@ -264,7 +262,7 @@ struct SkillHistoryPage {
 
       if (record.skillPath.length > 0) {
         Row() {
-          Text('Path:')
+          Text($r('app.string.history_label_path'))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width(LABEL_WIDTH)
@@ -280,14 +278,14 @@ struct SkillHistoryPage {
 
       if (record.errorMessage.length > 0) {
         Row() {
-          Text('Error:')
+          Text($r('app.string.history_label_error'))
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .width(LABEL_WIDTH)
           Text(record.errorMessage)
             .id(`history_error_${index}`)
             .fontSize(BODY_FONT_SIZE)
-            .fontColor('#F44336')
+            .fontColor($r('app.color.error_color'))
             .layoutWeight(1)
             .maxLines(2)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -352,7 +350,7 @@ struct SkillHistoryPage {
                 this.filterFailedOnly = false;
               }
             })
-          Text('Success')
+          Text($r('app.string.history_filter_success'))
             .fontSize(BODY_FONT_SIZE)
 
           Toggle({ type: ToggleType.Checkbox, isOn: this.filterFailedOnly })
@@ -363,7 +361,7 @@ struct SkillHistoryPage {
                 this.filterSuccessOnly = false;
               }
             })
-          Text('Failed')
+          Text($r('app.string.history_filter_failed'))
             .fontSize(BODY_FONT_SIZE)
         }
         .width('100%')
@@ -376,7 +374,7 @@ struct SkillHistoryPage {
             .fontWeight(FontWeight.Medium)
 
           Row() {
-            Text('Total Queries:')
+            Text($r('app.string.history_stats_total'))
               .fontSize(BODY_FONT_SIZE)
               .fontColor($r('app.color.secondary_text'))
               .width(LABEL_WIDTH)
@@ -387,31 +385,31 @@ struct SkillHistoryPage {
           .width('100%')
 
           Row() {
-            Text('Successful:')
+            Text($r('app.string.history_stats_successful'))
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#4CAF50')
+              .fontColor($r('app.color.success_color'))
               .width(LABEL_WIDTH)
             Text(`${this.successQueryCount}`)
               .id('history_success_count')
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#4CAF50')
+              .fontColor($r('app.color.success_color'))
           }
           .width('100%')
 
           Row() {
-            Text('Failed:')
+            Text($r('app.string.history_stats_failed'))
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#F44336')
+              .fontColor($r('app.color.error_color'))
               .width(LABEL_WIDTH)
             Text(`${this.failedQueryCount}`)
               .id('history_failed_count')
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#F44336')
+              .fontColor($r('app.color.error_color'))
           }
           .width('100%')
 
           Row() {
-            Text('Avg Duration:')
+            Text($r('app.string.history_stats_avg_duration'))
               .fontSize(BODY_FONT_SIZE)
               .fontColor($r('app.color.secondary_text'))
               .width(LABEL_WIDTH)
@@ -449,7 +447,7 @@ struct SkillHistoryPage {
           ForEach(this.getFilteredRecords(), (record: SkillHistoryRecord, index: number) => {
             this.historyRecordCard(record, index);
           }, (record: SkillHistoryRecord, index: number) =>
-            `${record.skillName}_${record.moduleName}_${index}_${record.queryTime}`)
+          `${record.skillName}_${record.moduleName}_${index}_${record.queryTime}`)
         }
       }
       .width('100%')

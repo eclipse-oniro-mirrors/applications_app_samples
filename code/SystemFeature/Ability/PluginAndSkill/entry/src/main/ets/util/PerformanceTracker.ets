@@ -61,13 +61,13 @@ export class PerformanceTracker {
 
   public stopTimer(name: string, category: string = 'default',
     success: boolean = true, errorMessage: string = ''): PerformanceMetric | undefined {
-    const startTime = this.activeTimers.get(name);
+    const startTime: number | undefined = this.activeTimers.get(name);
     if (startTime === undefined) {
       hilog.warn(DOMAIN, TAG, 'Timer not found: %{public}s', name);
       return undefined;
     }
-    const endTime = Date.now();
-    const duration = endTime - startTime;
+    const endTime: number = Date.now();
+    const duration: number = endTime - startTime;
     this.activeTimers.delete(name);
 
     const tags: Map<string, string> = new Map();
@@ -97,7 +97,7 @@ export class PerformanceTracker {
 
   public recordMetric(name: string, duration: number, category: string = 'default',
     success: boolean = true, errorMessage: string = ''): void {
-    const now = Date.now();
+    const now: number = Date.now();
     const tags: Map<string, string> = new Map();
     tags.set('name', name);
     tags.set('category', category);
@@ -121,8 +121,8 @@ export class PerformanceTracker {
 
   public getMetrics(): PerformanceMetric[] {
     const result: PerformanceMetric[] = [];
-    for (let i = 0; i < this.metrics.length; i++) {
-      const m = this.metrics[i];
+    for (let i: number = 0; i < this.metrics.length; i++) {
+      const m: PerformanceMetric = this.metrics[i];
       const tags: Map<string, string> = new Map();
       m.tags.forEach((value: string, key: string) => {
         tags.set(key, value);
@@ -144,7 +144,7 @@ export class PerformanceTracker {
 
   public getMetricsByCategory(category: string): PerformanceMetric[] {
     const result: PerformanceMetric[] = [];
-    for (let i = 0; i < this.metrics.length; i++) {
+    for (let i: number = 0; i < this.metrics.length; i++) {
       if (this.metrics[i].category === category) {
         result.push(this.metrics[i]);
       }
@@ -154,7 +154,7 @@ export class PerformanceTracker {
 
   public getMetricsByName(name: string): PerformanceMetric[] {
     const result: PerformanceMetric[] = [];
-    for (let i = 0; i < this.metrics.length; i++) {
+    for (let i: number = 0; i < this.metrics.length; i++) {
       if (this.metrics[i].name === name) {
         result.push(this.metrics[i]);
       }
@@ -164,7 +164,7 @@ export class PerformanceTracker {
 
   public getFailedMetrics(): PerformanceMetric[] {
     const result: PerformanceMetric[] = [];
-    for (let i = 0; i < this.metrics.length; i++) {
+    for (let i: number = 0; i < this.metrics.length; i++) {
       if (!this.metrics[i].success) {
         result.push(this.metrics[i]);
       }
@@ -174,13 +174,13 @@ export class PerformanceTracker {
 
   private sortDurations(durations: number[]): number[] {
     const sorted: number[] = [];
-    for (let i = 0; i < durations.length; i++) {
+    for (let i: number = 0; i < durations.length; i++) {
       sorted.push(durations[i]);
     }
-    for (let i = 0; i < sorted.length - 1; i++) {
-      for (let j = 0; j < sorted.length - 1 - i; j++) {
+    for (let i: number = 0; i < sorted.length - 1; i++) {
+      for (let j: number = 0; j < sorted.length - 1 - i; j++) {
         if (sorted[j] > sorted[j + 1]) {
-          const temp = sorted[j];
+          const temp: number = sorted[j];
           sorted[j] = sorted[j + 1];
           sorted[j + 1] = temp;
         }
@@ -193,7 +193,7 @@ export class PerformanceTracker {
     if (sorted.length === 0) {
       return 0;
     }
-    const index = Math.ceil((p / 100) * sorted.length) - 1;
+    const index: number = Math.ceil((p / 100) * sorted.length) - 1;
     return sorted[Math.max(0, index)];
   }
 
@@ -215,14 +215,14 @@ export class PerformanceTracker {
     }
 
     const durations: number[] = [];
-    let totalDuration = 0;
-    let minDuration = Number.MAX_VALUE;
-    let maxDuration = 0;
-    let successCount = 0;
+    let totalDuration: number = 0;
+    let minDuration: number = Number.MAX_VALUE;
+    let maxDuration: number = 0;
+    let successCount: number = 0;
     const categoryCounts: Map<string, number> = new Map();
 
-    for (let i = 0; i < this.metrics.length; i++) {
-      const m = this.metrics[i];
+    for (let i: number = 0; i < this.metrics.length; i++) {
+      const m: PerformanceMetric = this.metrics[i];
       durations.push(m.duration);
       totalDuration += m.duration;
       if (m.duration < minDuration) {
@@ -234,7 +234,7 @@ export class PerformanceTracker {
       if (m.success) {
         successCount++;
       }
-      const currentCount = categoryCounts.get(m.category);
+      const currentCount: number | undefined = categoryCounts.get(m.category);
       if (currentCount !== undefined) {
         categoryCounts.set(m.category, currentCount + 1);
       } else {
@@ -242,30 +242,30 @@ export class PerformanceTracker {
       }
     }
 
-    const sorted = this.sortDurations(durations);
-    const average = totalDuration / this.metrics.length;
-    const median = this.percentile(sorted, 50);
-    const p90 = this.percentile(sorted, 90);
-    const p95 = this.percentile(sorted, 95);
-    const p99 = this.percentile(sorted, 99);
-    const successRate = Math.round((successCount / this.metrics.length) * 100);
+    const sorted: number[] = this.sortDurations(durations);
+    const average: number = totalDuration / this.metrics.length;
+    const median: number = this.percentile(sorted, 50);
+    const p90: number = this.percentile(sorted, 90);
+    const p95: number = this.percentile(sorted, 95);
+    const p99: number = this.percentile(sorted, 99);
+    const successRate: number = Math.round((successCount / this.metrics.length) * 100);
 
     const slowest: PerformanceMetric[] = [];
     const sortedByDuration: PerformanceMetric[] = [];
-    for (let i = 0; i < this.metrics.length; i++) {
+    for (let i: number = 0; i < this.metrics.length; i++) {
       sortedByDuration.push(this.metrics[i]);
     }
-    for (let i = 0; i < sortedByDuration.length - 1; i++) {
-      for (let j = 0; j < sortedByDuration.length - 1 - i; j++) {
+    for (let i: number = 0; i < sortedByDuration.length - 1; i++) {
+      for (let j: number = 0; j < sortedByDuration.length - 1 - i; j++) {
         if (sortedByDuration[j].duration < sortedByDuration[j + 1].duration) {
-          const temp = sortedByDuration[j];
+          const temp: PerformanceMetric = sortedByDuration[j];
           sortedByDuration[j] = sortedByDuration[j + 1];
           sortedByDuration[j + 1] = temp;
         }
       }
     }
-    const topCount = Math.min(10, sortedByDuration.length);
-    for (let i = 0; i < topCount; i++) {
+    const topCount: number = Math.min(10, sortedByDuration.length);
+    for (let i: number = 0; i < topCount; i++) {
       slowest.push(sortedByDuration[i]);
     }
 
@@ -285,7 +285,7 @@ export class PerformanceTracker {
   }
 
   public generateReport(): string {
-    const summary = this.summarize();
+    const summary: PerformanceSummary = this.summarize();
     const lines: string[] = [];
     lines.push('=== Performance Report ===');
     lines.push(`Total metrics: ${summary.totalMetrics}`);
@@ -309,8 +309,8 @@ export class PerformanceTracker {
     if (summary.slowestMetrics.length > 0) {
       lines.push('');
       lines.push('--- Top 10 Slowest ---');
-      for (let i = 0; i < summary.slowestMetrics.length; i++) {
-        const m = summary.slowestMetrics[i];
+      for (let i: number = 0; i < summary.slowestMetrics.length; i++) {
+        const m: PerformanceMetric = summary.slowestMetrics[i];
         lines.push(`  #${i + 1} ${m.name}: ${m.duration}ms [${m.category}]`);
       }
     }

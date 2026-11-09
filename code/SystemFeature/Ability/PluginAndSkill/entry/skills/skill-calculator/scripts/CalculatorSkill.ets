@@ -17,11 +17,11 @@ import { scriptManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0F811;
-const TAG = '[Sample_PluginAndSkill]';
-const SUCCESS_CODE = 0;
-const FAILURE_CODE = -1;
-const EXPECTED_ARGUMENT_COUNT = 2;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
+const SUCCESS_CODE: number = 0;
+const FAILURE_CODE: number = -1;
+const EXPECTED_ARGUMENT_COUNT: number = 2;
 
 export default class CalculatorSkill {
   public async addNumbers(info: scriptManager.ArkTSScriptInfo, ...argv: string[]): Promise<void> {
@@ -29,8 +29,8 @@ export default class CalculatorSkill {
       await this.reportInvalidParams(info, 'Exactly two numeric arguments are required');
       return;
     }
-    const left = Number(argv[0]);
-    const right = Number(argv[1]);
+    const left: number = Number(argv[0]);
+    const right: number = Number(argv[1]);
     if (!Number.isFinite(left) || !Number.isFinite(right)) {
       await this.reportInvalidParams(info, 'Both arguments must be finite numbers');
       return;
@@ -62,7 +62,7 @@ export default class CalculatorSkill {
     try {
       await scriptManager.completeArkTSScriptInApp(info.context, info.requestCode, result);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       hilog.error(DOMAIN, TAG, 'Failed to complete calculator skill. Code: %{public}d, message: %{public}s',
         err.code, err.message);
     }

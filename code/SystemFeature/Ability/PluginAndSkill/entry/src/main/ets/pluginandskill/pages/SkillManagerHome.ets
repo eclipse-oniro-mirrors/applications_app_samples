@@ -15,15 +15,9 @@
 
 import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../../util/Logger';
-import {
-  PAGE_PADDING,
-  SECTION_SPACING,
-  TITLE_FONT_SIZE,
-  BODY_FONT_SIZE,
-  CONTENT_MAX_WIDTH
-} from '../../util/Constant';
+import { BODY_FONT_SIZE, CONTENT_MAX_WIDTH, PAGE_PADDING, SECTION_SPACING, TITLE_FONT_SIZE } from '../../util/Constant';
 
-const BUTTON_HEIGHT = 48;
+const BUTTON_HEIGHT: number = 48;
 
 @Entry
 @Component
@@ -32,7 +26,7 @@ struct SkillManagerHome {
     try {
       await this.getUIContext().getRouter().pushUrl({ url: url });
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.error('Failed to open skill page: ' + err.code + ', ' + err.message);
     }
   }

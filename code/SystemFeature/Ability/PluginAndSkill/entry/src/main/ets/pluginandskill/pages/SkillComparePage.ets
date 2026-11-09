@@ -19,12 +19,9 @@ import Logger from '../../util/Logger';
 import {
   BODY_FONT_SIZE,
   BUTTON_HEIGHT,
-  CARD_RADIUS,
   CONTENT_MAX_WIDTH,
-  DEFAULT_MODULE_NAME,
   EMPTY_VALUE,
   FLAG_VALUES,
-  ITEM_SPACING,
   LABEL_WIDTH,
   MODULE_NAME_ARRAY,
   PAGE_PADDING,
@@ -84,7 +81,7 @@ struct SkillComparePage {
       return await skillManager.getSkillInfoForSelf(moduleName, skillName,
         FLAG_VALUES[0]);
     } catch (error) {
-      const bizError = error as BusinessError;
+      const bizError: BusinessError = error as BusinessError;
       Logger.error(`Failed to query skill ${skillName}: ${bizError.code}: ${bizError.message}`);
       return undefined;
     }
@@ -95,8 +92,8 @@ struct SkillComparePage {
     if (this.skillInfoA === undefined || this.skillInfoB === undefined) {
       return;
     }
-    const infoA = this.skillInfoA;
-    const infoB = this.skillInfoB;
+    const infoA: skillManager.SkillInfo = this.skillInfoA;
+    const infoB: skillManager.SkillInfo = this.skillInfoB;
 
     const nameCompare: SkillCompareResult = {
       field: 'Skill Name',
@@ -206,15 +203,15 @@ struct SkillComparePage {
   }
 
   private updateSummary(): void {
-    const total = this.compareResults.length;
-    let sameCount = 0;
-    for (let i = 0; i < total; i++) {
+    const total: number = this.compareResults.length;
+    let sameCount: number = 0;
+    for (let i: number = 0; i < total; i++) {
       if (this.compareResults[i].isSame) {
         sameCount++;
       }
     }
-    const diffCount = total - sameCount;
-    const percentage = total > 0 ? Math.round((sameCount / total) * 100) : 0;
+    const diffCount: number = total - sameCount;
+    const percentage: number = total > 0 ? Math.round((sameCount / total) * 100) : 0;
     this.compareSummary = {
       totalFields: total,
       sameFields: sameCount,
@@ -243,7 +240,7 @@ struct SkillComparePage {
         this.operationResult = $r('app.string.skill_query_success');
       }
     } catch (error) {
-      const bizError = error as BusinessError;
+      const bizError: BusinessError = error as BusinessError;
       this.operationResult = `${bizError.code}: ${bizError.message}`;
       Logger.error('Skill compare failed: ' + JSON.stringify(error));
     } finally {
@@ -262,17 +259,18 @@ struct SkillComparePage {
         Text(result.valueA)
           .id(`compare_a_${index}`)
           .fontSize(BODY_FONT_SIZE)
-          .fontColor(result.isSame ? '#4CAF50' : '#FF9800')
+          .fontColor(result.isSame ? $r('app.color.success_color') : $r('app.color.warning_color'))
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
       .layoutWeight(1)
       .alignItems(HorizontalAlign.Start)
+
       Column() {
         Text(result.valueB)
           .id(`compare_b_${index}`)
           .fontSize(BODY_FONT_SIZE)
-          .fontColor(result.isSame ? '#4CAF50' : '#FF9800')
+          .fontColor(result.isSame ? $r('app.color.success_color') : $r('app.color.warning_color'))
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
@@ -389,7 +387,7 @@ struct SkillComparePage {
             .fontWeight(FontWeight.Medium)
 
           Row() {
-            Text('Total Fields:')
+            Text($r('app.string.compare_stats_total_fields'))
               .fontSize(BODY_FONT_SIZE)
               .fontColor($r('app.color.secondary_text'))
               .width(LABEL_WIDTH)
@@ -400,31 +398,31 @@ struct SkillComparePage {
           .width('100%')
 
           Row() {
-            Text('Same:')
+            Text($r('app.string.compare_stats_same'))
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#4CAF50')
+              .fontColor($r('app.color.success_color'))
               .width(LABEL_WIDTH)
             Text(`${this.compareSummary.sameFields}`)
               .id('compare_same_count')
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#4CAF50')
+              .fontColor($r('app.color.success_color'))
           }
           .width('100%')
 
           Row() {
-            Text('Different:')
+            Text($r('app.string.compare_stats_different'))
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#FF9800')
+              .fontColor($r('app.color.warning_color'))
               .width(LABEL_WIDTH)
             Text(`${this.compareSummary.diffFields}`)
               .id('compare_diff_count')
               .fontSize(BODY_FONT_SIZE)
-              .fontColor('#FF9800')
+              .fontColor($r('app.color.warning_color'))
           }
           .width('100%')
 
           Row() {
-            Text('Match Rate:')
+            Text($r('app.string.compare_stats_match_rate'))
               .fontSize(BODY_FONT_SIZE)
               .fontColor($r('app.color.secondary_text'))
               .width(LABEL_WIDTH)
@@ -439,7 +437,7 @@ struct SkillComparePage {
           ForEach(this.compareResults, (result: SkillCompareResult, index: number) => {
             this.compareRow(result, index);
           }, (result: SkillCompareResult, index: number) =>
-            `${result.field}_${index}`)
+          `${result.field}_${index}`)
         }
       }
       .width('100%')

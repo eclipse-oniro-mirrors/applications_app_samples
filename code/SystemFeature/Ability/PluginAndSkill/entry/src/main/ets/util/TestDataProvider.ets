@@ -111,7 +111,7 @@ export class TestDataProvider {
 
   public getAllSkillNames(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < SKILL_ARRAY.length; i++) {
+    for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
       result.push(SKILL_ARRAY[i]);
     }
     return result;
@@ -119,7 +119,7 @@ export class TestDataProvider {
 
   public getValidSkillNames(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < SKILL_ARRAY.length; i++) {
+    for (let i: number = 0; i < SKILL_ARRAY.length; i++) {
       if (SKILL_ARRAY[i] !== 'skill-nonexistent') {
         result.push(SKILL_ARRAY[i]);
       }
@@ -129,7 +129,7 @@ export class TestDataProvider {
 
   public getAllModuleNames(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < MODULE_NAME_ARRAY.length; i++) {
+    for (let i: number = 0; i < MODULE_NAME_ARRAY.length; i++) {
       result.push(MODULE_NAME_ARRAY[i]);
     }
     return result;
@@ -137,7 +137,7 @@ export class TestDataProvider {
 
   public getAllBundleNames(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
+    for (let i: number = 0; i < BUNDLE_NAME_ARRAY.length; i++) {
       result.push(BUNDLE_NAME_ARRAY[i]);
     }
     return result;
@@ -145,7 +145,7 @@ export class TestDataProvider {
 
   public getAllFlagLabels(): string[] {
     const result: string[] = [];
-    for (let i = 0; i < FLAG_LABELS.length; i++) {
+    for (let i: number = 0; i < FLAG_LABELS.length; i++) {
       result.push(FLAG_LABELS[i]);
     }
     return result;
@@ -153,7 +153,7 @@ export class TestDataProvider {
 
   public getAllFlagValues(): number[] {
     const result: number[] = [];
-    for (let i = 0; i < FLAG_VALUES.length; i++) {
+    for (let i: number = 0; i < FLAG_VALUES.length; i++) {
       result.push(FLAG_VALUES[i]);
     }
     return result;
@@ -175,10 +175,10 @@ export class TestDataProvider {
 
   public generateSelfSkillTestCases(): TestCaseDefinition[] {
     const cases: TestCaseDefinition[] = [];
-    const validSkills = this.getValidSkillNames();
+    const validSkills: string[] = this.getValidSkillNames();
 
-    for (let i = 0; i < validSkills.length; i++) {
-      const skillName = validSkills[i];
+    for (let i: number = 0; i < validSkills.length; i++) {
+      const skillName: string = validSkills[i];
       const caseDef: TestCaseDefinition = {
         id: `SELF_SKILL_SUCCESS_${1000 + i * 100}`,
         name: `testSelfSkillSuccess${String(i + 1).padStart(4, '0')}`,
@@ -201,10 +201,10 @@ export class TestDataProvider {
 
   public generateBundleSkillTestCases(): TestCaseDefinition[] {
     const cases: TestCaseDefinition[] = [];
-    const validSkills = this.getValidSkillNames();
+    const validSkills: string[] = this.getValidSkillNames();
 
-    for (let i = 0; i < validSkills.length; i++) {
-      const skillName = validSkills[i];
+    for (let i: number = 0; i < validSkills.length; i++) {
+      const skillName: string = validSkills[i];
       const caseDef: TestCaseDefinition = {
         id: `BUNDLE_SKILL_SUCCESS_${1000 + i * 100}`,
         name: `testBundleSkillSuccess${String(i + 1).padStart(4, '0')}`,
@@ -228,7 +228,7 @@ export class TestDataProvider {
   public generateFlagCombinationCases(): TestCaseDefinition[] {
     const cases: TestCaseDefinition[] = [];
 
-    for (let i = 0; i < FLAG_LABELS.length; i++) {
+    for (let i: number = 0; i < FLAG_LABELS.length; i++) {
       const caseDef: TestCaseDefinition = {
         id: `FLAG_COMBO_${1000 + i * 100}`,
         name: `testFlagCombo${String(i + 1).padStart(4, '0')}`,
@@ -305,21 +305,21 @@ export class TestDataProvider {
 
   public generateAllTestCases(): TestCaseDefinition[] {
     const allCases: TestCaseDefinition[] = [];
-    const selfCases = this.generateSelfSkillTestCases();
-    const bundleCases = this.generateBundleSkillTestCases();
-    const flagCases = this.generateFlagCombinationCases();
-    const errorCases = this.generateErrorTestCases();
+    const selfCases: TestCaseDefinition[] = this.generateSelfSkillTestCases();
+    const bundleCases: TestCaseDefinition[] = this.generateBundleSkillTestCases();
+    const flagCases: TestCaseDefinition[] = this.generateFlagCombinationCases();
+    const errorCases: TestCaseDefinition[] = this.generateErrorTestCases();
 
-    for (let i = 0; i < selfCases.length; i++) {
+    for (let i: number = 0; i < selfCases.length; i++) {
       allCases.push(selfCases[i]);
     }
-    for (let i = 0; i < bundleCases.length; i++) {
+    for (let i: number = 0; i < bundleCases.length; i++) {
       allCases.push(bundleCases[i]);
     }
-    for (let i = 0; i < flagCases.length; i++) {
+    for (let i: number = 0; i < flagCases.length; i++) {
       allCases.push(flagCases[i]);
     }
-    for (let i = 0; i < errorCases.length; i++) {
+    for (let i: number = 0; i < errorCases.length; i++) {
       allCases.push(errorCases[i]);
     }
 
@@ -331,9 +331,9 @@ export class TestDataProvider {
   }
 
   public getCaseCountByCategory(category: string): number {
-    const allCases = this.generateAllTestCases();
-    let count = 0;
-    for (let i = 0; i < allCases.length; i++) {
+    const allCases: TestCaseDefinition[] = this.generateAllTestCases();
+    let count: number = 0;
+    for (let i: number = 0; i < allCases.length; i++) {
       if (allCases[i].category === category) {
         count++;
       }

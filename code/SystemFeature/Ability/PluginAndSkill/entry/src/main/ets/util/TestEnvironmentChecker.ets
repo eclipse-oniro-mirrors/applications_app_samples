@@ -84,7 +84,7 @@ export class TestEnvironmentChecker {
   }
 
   public checkConstantsConfiguration(): void {
-    const bundleValid = DEFAULT_BUNDLE_NAME.length > 0;
+    const bundleValid: boolean = DEFAULT_BUNDLE_NAME.length > 0;
     this.addResult(this.createResult(
       'DefaultBundleName',
       bundleValid,
@@ -93,7 +93,7 @@ export class TestEnvironmentChecker {
       `DEFAULT_BUNDLE_NAME = "${DEFAULT_BUNDLE_NAME}"`
     ));
 
-    const moduleValid = DEFAULT_MODULE_NAME.length > 0;
+    const moduleValid: boolean = DEFAULT_MODULE_NAME.length > 0;
     this.addResult(this.createResult(
       'DefaultModuleName',
       moduleValid,
@@ -102,7 +102,7 @@ export class TestEnvironmentChecker {
       `DEFAULT_MODULE_NAME = "${DEFAULT_MODULE_NAME}"`
     ));
 
-    const skillValid = DEFAULT_SKILL_NAME.length > 0;
+    const skillValid: boolean = DEFAULT_SKILL_NAME.length > 0;
     this.addResult(this.createResult(
       'DefaultSkillName',
       skillValid,
@@ -111,7 +111,7 @@ export class TestEnvironmentChecker {
       `DEFAULT_SKILL_NAME = "${DEFAULT_SKILL_NAME}"`
     ));
 
-    const bundleArrayValid = BUNDLE_NAME_ARRAY.length > 0;
+    const bundleArrayValid: boolean = BUNDLE_NAME_ARRAY.length > 0;
     this.addResult(this.createResult(
       'BundleNameArray',
       bundleArrayValid,
@@ -120,7 +120,7 @@ export class TestEnvironmentChecker {
       `BUNDLE_NAME_ARRAY length = ${BUNDLE_NAME_ARRAY.length}`
     ));
 
-    const moduleArrayValid = MODULE_NAME_ARRAY.length > 0;
+    const moduleArrayValid: boolean = MODULE_NAME_ARRAY.length > 0;
     this.addResult(this.createResult(
       'ModuleNameArray',
       moduleArrayValid,
@@ -129,7 +129,7 @@ export class TestEnvironmentChecker {
       `MODULE_NAME_ARRAY length = ${MODULE_NAME_ARRAY.length}`
     ));
 
-    const skillArrayValid = SKILL_ARRAY.length > 0;
+    const skillArrayValid: boolean = SKILL_ARRAY.length > 0;
     this.addResult(this.createResult(
       'SkillArray',
       skillArrayValid,
@@ -138,7 +138,7 @@ export class TestEnvironmentChecker {
       `SKILL_ARRAY length = ${SKILL_ARRAY.length}`
     ));
 
-    const flagLabelsValid = FLAG_LABELS.length > 0;
+    const flagLabelsValid: boolean = FLAG_LABELS.length > 0;
     this.addResult(this.createResult(
       'FlagLabels',
       flagLabelsValid,
@@ -147,7 +147,7 @@ export class TestEnvironmentChecker {
       `FLAG_LABELS length = ${FLAG_LABELS.length}`
     ));
 
-    const flagValuesValid = FLAG_VALUES.length > 0;
+    const flagValuesValid: boolean = FLAG_VALUES.length > 0;
     this.addResult(this.createResult(
       'FlagValues',
       flagValuesValid,
@@ -156,7 +156,7 @@ export class TestEnvironmentChecker {
       `FLAG_VALUES length = ${FLAG_VALUES.length}`
     ));
 
-    const flagMatch = FLAG_LABELS.length === FLAG_VALUES.length;
+    const flagMatch: boolean = FLAG_LABELS.length === FLAG_VALUES.length;
     this.addResult(this.createResult(
       'FlagConsistency',
       flagMatch,
@@ -167,7 +167,7 @@ export class TestEnvironmentChecker {
   }
 
   public checkDefaultValuesExist(): void {
-    const bundleInArray = BUNDLE_NAME_ARRAY.indexOf(DEFAULT_BUNDLE_NAME) >= 0;
+    const bundleInArray: boolean = BUNDLE_NAME_ARRAY.indexOf(DEFAULT_BUNDLE_NAME) >= 0;
     this.addResult(this.createResult(
       'DefaultBundleInArray',
       bundleInArray,
@@ -176,7 +176,7 @@ export class TestEnvironmentChecker {
       `DEFAULT_BUNDLE_NAME in BUNDLE_NAME_ARRAY: ${bundleInArray}`
     ));
 
-    const moduleInArray = MODULE_NAME_ARRAY.indexOf(DEFAULT_MODULE_NAME) >= 0;
+    const moduleInArray: boolean = MODULE_NAME_ARRAY.indexOf(DEFAULT_MODULE_NAME) >= 0;
     this.addResult(this.createResult(
       'DefaultModuleInArray',
       moduleInArray,
@@ -185,7 +185,7 @@ export class TestEnvironmentChecker {
       `DEFAULT_MODULE_NAME in MODULE_NAME_ARRAY: ${moduleInArray}`
     ));
 
-    const skillInArray = SKILL_ARRAY.indexOf(DEFAULT_SKILL_NAME) >= 0;
+    const skillInArray: boolean = SKILL_ARRAY.indexOf(DEFAULT_SKILL_NAME) >= 0;
     this.addResult(this.createResult(
       'DefaultSkillInArray',
       skillInArray,
@@ -196,7 +196,7 @@ export class TestEnvironmentChecker {
   }
 
   public checkDataIntegrity(): void {
-    const noDuplicatesInModules = this.checkNoDuplicates(MODULE_NAME_ARRAY);
+    const noDuplicatesInModules: boolean = this.checkNoDuplicates(MODULE_NAME_ARRAY);
     this.addResult(this.createResult(
       'ModuleNoDuplicates',
       noDuplicatesInModules,
@@ -205,7 +205,7 @@ export class TestEnvironmentChecker {
       `MODULE_NAME_ARRAY unique check: ${noDuplicatesInModules}`
     ));
 
-    const noDuplicatesInBundles = this.checkNoDuplicates(BUNDLE_NAME_ARRAY);
+    const noDuplicatesInBundles: boolean = this.checkNoDuplicates(BUNDLE_NAME_ARRAY);
     this.addResult(this.createResult(
       'BundleNoDuplicates',
       noDuplicatesInBundles,
@@ -214,7 +214,7 @@ export class TestEnvironmentChecker {
       `BUNDLE_NAME_ARRAY unique check: ${noDuplicatesInBundles}`
     ));
 
-    const noDuplicatesInSkills = this.checkNoDuplicates(SKILL_ARRAY);
+    const noDuplicatesInSkills: boolean = this.checkNoDuplicates(SKILL_ARRAY);
     this.addResult(this.createResult(
       'SkillNoDuplicates',
       noDuplicatesInSkills,
@@ -223,7 +223,7 @@ export class TestEnvironmentChecker {
       `SKILL_ARRAY unique check: ${noDuplicatesInSkills}`
     ));
 
-    const noEmptyModules = this.checkNoEmptyStrings(MODULE_NAME_ARRAY);
+    const noEmptyModules: boolean = this.checkNoEmptyStrings(MODULE_NAME_ARRAY);
     this.addResult(this.createResult(
       'NoEmptyModules',
       noEmptyModules,
@@ -232,7 +232,7 @@ export class TestEnvironmentChecker {
       `MODULE_NAME_ARRAY empty check: ${noEmptyModules}`
     ));
 
-    const noEmptySkills = this.checkNoEmptyStrings(SKILL_ARRAY);
+    const noEmptySkills: boolean = this.checkNoEmptyStrings(SKILL_ARRAY);
     this.addResult(this.createResult(
       'NoEmptySkills',
       noEmptySkills,
@@ -243,8 +243,8 @@ export class TestEnvironmentChecker {
   }
 
   private checkNoDuplicates(arr: string[]): boolean {
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = i + 1; j < arr.length; j++) {
+    for (let i: number = 0; i < arr.length; i++) {
+      for (let j: number = i + 1; j < arr.length; j++) {
         if (arr[i] === arr[j]) {
           return false;
         }
@@ -254,7 +254,7 @@ export class TestEnvironmentChecker {
   }
 
   private checkNoEmptyStrings(arr: string[]): boolean {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i: number = 0; i < arr.length; i++) {
       if (arr[i].length === 0) {
         return false;
       }
@@ -271,11 +271,11 @@ export class TestEnvironmentChecker {
   }
 
   public getSummary(): EnvironmentSummary {
-    let passed = 0;
-    let failed = 0;
-    let warnings = 0;
+    let passed: number = 0;
+    let failed: number = 0;
+    let warnings: number = 0;
 
-    for (let i = 0; i < this.results.length; i++) {
+    for (let i: number = 0; i < this.results.length; i++) {
       if (this.results[i].passed) {
         passed++;
       } else if (this.results[i].severity === 'error') {
@@ -285,9 +285,9 @@ export class TestEnvironmentChecker {
       }
     }
 
-    const total = this.results.length;
-    const readinessPercentage = total > 0 ? Math.round((passed / total) * 100) : 0;
-    let readinessGrade = 'F';
+    const total: number = this.results.length;
+    const readinessPercentage: number = total > 0 ? Math.round((passed / total) * 100) : 0;
+    let readinessGrade: string = 'F';
     if (readinessPercentage >= 95) {
       readinessGrade = 'A';
     } else if (readinessPercentage >= 85) {
@@ -311,8 +311,8 @@ export class TestEnvironmentChecker {
 
   public getResults(): CheckResult[] {
     const copy: CheckResult[] = [];
-    for (let i = 0; i < this.results.length; i++) {
-      const r = this.results[i];
+    for (let i: number = 0; i < this.results.length; i++) {
+      const r: CheckResult = this.results[i];
       const resultCopy: CheckResult = {
         checkName: r.checkName,
         passed: r.passed,
@@ -328,7 +328,7 @@ export class TestEnvironmentChecker {
 
   public getFailedResults(): CheckResult[] {
     const failed: CheckResult[] = [];
-    for (let i = 0; i < this.results.length; i++) {
+    for (let i: number = 0; i < this.results.length; i++) {
       if (!this.results[i].passed) {
         failed.push(this.results[i]);
       }
@@ -337,7 +337,7 @@ export class TestEnvironmentChecker {
   }
 
   public generateCheckReport(): string {
-    const summary = this.getSummary();
+    const summary: EnvironmentSummary = this.getSummary();
     const lines: string[] = [];
     lines.push('=== Environment Check Report ===');
     lines.push(`Total checks: ${summary.totalChecks}`);
@@ -350,9 +350,9 @@ export class TestEnvironmentChecker {
 
     if (this.results.length > 0) {
       lines.push('--- Detailed Results ---');
-      for (let i = 0; i < this.results.length; i++) {
-        const r = this.results[i];
-        const status = r.passed ? 'PASS' : 'FAIL';
+      for (let i: number = 0; i < this.results.length; i++) {
+        const r: CheckResult = this.results[i];
+        const status: string = r.passed ? 'PASS' : 'FAIL';
         lines.push(`  [${status}] ${r.checkName}: ${r.message}`);
         if (!r.passed && r.details.length > 0) {
           lines.push(`         Details: ${r.details}`);
