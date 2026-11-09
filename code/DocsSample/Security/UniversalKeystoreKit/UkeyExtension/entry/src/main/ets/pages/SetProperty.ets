@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [set_property_arkts]
+// [Start set_property_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -29,4 +29,4 @@ async function setProperty(resourceId: string, propertyId: string): Promise<void
     console.error('promise: setProperty input arg invalid.');
   }
 }
-// [set_property_arkts]
+// [End set_property_arkts]

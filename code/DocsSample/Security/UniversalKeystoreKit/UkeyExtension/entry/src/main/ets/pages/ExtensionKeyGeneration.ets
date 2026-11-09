@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [extension_key_generation_arkts]
+// [Start extension_key_generation_arkts]
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -106,4 +106,4 @@ async function extensionKeyGeneration(): Promise<void> {
     console.error('promise: extensionKeyGeneration input arg invalid.');
   }
 }
-// [extension_key_generation_arkts]
+// [End extension_key_generation_arkts]

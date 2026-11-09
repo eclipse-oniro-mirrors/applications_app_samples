@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [get_property_arkts]
+// [Start get_property_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -44,4 +44,4 @@ async function getDeviceInfo(): Promise<void> {
     console.error('promise: getProperty input arg invalid.');
   }
 }
-// [get_property_arkts]
+// [End get_property_arkts]

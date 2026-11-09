@@ -14,7 +14,7 @@
  */
 
 {
-  "name": "libibrary.so",
+  "name": "liblibrary.so",
   "types": "./index.d.ts",
   "version": "",
   "description": "Please describe the basic information."

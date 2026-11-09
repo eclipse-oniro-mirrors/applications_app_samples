@@ -47,7 +47,7 @@ export class PlayerPictureInPictureController {
     return this.active || this.resumePlaybackAfterStart;
   }
 
-  /** 启动 PiP；失败时恢复普通后台播放策略并返回 false。 */
+  /** 启动PiP；失败时恢复普通后台播放策略并返回false。 */
   async start(context: common.Context | undefined, componentController: XComponentController): Promise<boolean> {
     if (context === undefined) {
       return false;
@@ -69,7 +69,7 @@ export class PlayerPictureInPictureController {
 
       this.resumePlaybackAfterStart = player.getState() === player.PlayerState.PLAYING;
       this.setActive(true);
-      // PiP 存续期间继续解码；否则页面进入后台时可能暂停播放。
+      // PiP存续期间继续解码；否则页面进入后台时可能暂停播放。
       player.setBackgroundPlaybackEnabled(true);
       this.lastSyncedPlaybackState = -1;
       await this.pipController.startPiP();
@@ -136,7 +136,7 @@ export class PlayerPictureInPictureController {
     this.pipController.on('stateChange', (state: PiPWindow.PiPState) => {
       this.setActive(state === PiPWindow.PiPState.STARTED);
       if (state === PiPWindow.PiPState.STARTED) {
-        // 启动回调可能晚于 Ability 后台回调，及时恢复 PiP 的后台播放状态。
+        // 启动回调可能晚于Ability后台回调，及时恢复PiP的后台播放状态。
         player.setBackgroundPlaybackEnabled(true);
         this.resumePlaybackIfNeeded();
         this.lastSyncedPlaybackState = -1;

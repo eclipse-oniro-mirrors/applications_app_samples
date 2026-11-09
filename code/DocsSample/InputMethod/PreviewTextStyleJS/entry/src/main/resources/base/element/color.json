@@ -1,0 +1,36 @@
+{
+  "color": [
+    {
+      "name": "page_background",
+      "value": "#F4F6FA"
+    },
+    {
+      "name": "panel_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "text_primary",
+      "value": "#172238"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#53627A"
+    },
+    {
+      "name": "accent",
+      "value": "#2563EB"
+    },
+    {
+      "name": "c_editor_background",
+      "value": "#F8FAFF"
+    },
+    {
+      "name": "c_editor_border",
+      "value": "#CBD5E6"
+    },
+    {
+      "name": "c_editor_hint",
+      "value": "#667085"
+    }
+  ]
+}

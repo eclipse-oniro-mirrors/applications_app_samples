@@ -152,12 +152,14 @@ export struct AlarmClockSetting {
 
       Row() {
         Button($r('app.string.cancel'))
+          .id('alarmSettingCancel')
           .fontSize(24)
           .margin({ right: 12 })
           .onClick(() => {
             this.controller.close()
           })
         Button($r('app.string.confirm'))
+          .id('alarmSettingConfirm')
           .fontSize(24)
           .margin({ left: 12 })
           .onClick(async () => {

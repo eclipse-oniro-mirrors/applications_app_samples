@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [query_auth_state_arkts]
+// [Start query_auth_state_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -54,4 +54,4 @@ async function testGetUkeyPinAuthState() {
 
   console.info('getUkeyPinAuthState success.');
 }
-// [query_auth_state_arkts]
+// [End query_auth_state_arkts]

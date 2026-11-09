@@ -65,7 +65,7 @@ import { LibraryPage } from './LibraryPage'
 import { DeviceDiagnosticsPage } from './DeviceDiagnosticsPage'
 import { TranscodePage } from './TranscodePage'
 import { TranscodeModel } from '../model/TranscodeModel'
-import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
+import { bufferProfileCameraCheck, encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
   getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
@@ -206,7 +206,7 @@ export struct Player {
     this.isAdvancedRecorderSupported = apiVersion >= 26;
     if (this.isSmartFluencySupported) {
       player.setSmartFluencyEnabled(true);
-      // 注册温控回调，当设备过热时自动切入 UNIFORM 低比例模式降低负载
+      // 注册温控回调，当设备过热时自动切入UNIFORM低比例模式降低负载
       thermal.registerThermalLevelCallback((level: number) => {
         if (level >= thermal.ThermalLevel.OVERHEATED) {
           this.thermalWarningActive = true;
@@ -294,9 +294,9 @@ export struct Player {
   }
 
   /**
-   * 将 Vulkan 管线需要的 SPIR-V 文件写入应用沙箱。
-   * Native 层没有 ResourceManager，不能直接读取 rawfile；这里在页面初始化时把资源复制到
-   * files/rawfile，VulkanVideoSink 再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧 shader。
+   * 将Vulkan管线需要的SPIR-V文件写入应用沙箱。
+   * Native层没有ResourceManager，不能直接读取rawfile；这里在页面初始化时把资源复制到
+   * files/rawfile，VulkanVideoSink再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧shader。
    */
   private prepareVulkanShaders(): void {
     const hostContext: common.Context | undefined = this.getUIContext().getHostContext();
@@ -364,7 +364,7 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
-    // 进入系统 PiP 时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
+    // 进入系统PiP时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
     if (this.isPictureInPictureHoldingPlayback()) {
       this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
       return;
@@ -434,7 +434,7 @@ export struct Player {
     if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
       return;
     }
-    // 常规进度按 2 秒粒度落盘；停止和后台等收尾场景通过 force 写入最后位置，
+    // 常规进度按2秒粒度落盘；停止和后台等收尾场景通过force写入最后位置，
     // 避免高频持久化影响播放期间的界面响应。
     this.lastHistoryPositionUs = positionUs;
     await this.playbackHistory.update(this.selectFilePath, getPlaybackTitle(this.selectFilePath),
@@ -1055,7 +1055,7 @@ export struct Player {
 
   private startAbLoopMonitor(): void {
     this.stopAbLoopMonitor();
-    // 每 50 ms 检查 A-B 点，避免界面刷新间隔越过 B 点。
+    // 每50 ms检查A-B点，避免界面刷新间隔越过B点。
     this.abLoopTimer = setInterval(() => {
       if (this.isAbLoopEnabled) {
         this.checkAbLoop(this.currentPlaybackPositionUs());
@@ -1077,16 +1077,16 @@ export struct Player {
     if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
-    // A-B 循环以 Native 状态和时钟为准，避免 ViewModel 刷新延迟漏掉 B 点。
+    // A-B循环以Native状态和时钟为准，避免ViewModel刷新延迟漏掉B点。
     const info = player.getPlaybackInfo();
     if (info.state !== player.PlayerState.PLAYING) {
       return;
     }
-    // 回调位置可能过期，使用 Native 时钟。
+    // 回调位置可能过期，使用Native时钟。
     positionUs = Math.max(0, Math.min(info.durationUs, info.positionUs));
     const toleranceUs = 150000;
     if (this.abLoopSeekPending) {
-      // 跳转可能落在同步帧后，回到 A-B 区间即清除待跳转标记。
+      // 跳转可能落在同步帧后，回到A-B区间即清除待跳转标记。
       if (positionUs + toleranceUs < this.abLoopEndUs) {
         this.abLoopSeekPending = false;
       }
@@ -1278,7 +1278,7 @@ export struct Player {
   }
 
   private startSelectedFilePlayback(selectedPath: string): void {
-    // 等待 XComponent 布局稳定后再创建 Native 输出目标。
+    // 等待XComponent布局稳定后再创建Native输出目标。
     setTimeout((): void => {
       if (this.selectFilePath === selectedPath) {
         this.play();
@@ -1549,7 +1549,7 @@ export struct Player {
             void this.continuePendingQueuePlayback();
             return;
           }
-          // 切换音轨触发的 stop() 不视为播放失败。
+          // 切换音轨触发的stop() 不视为播放失败。
           if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
             failurePromptShown = true;
             this.getUIContext().getPromptAction().showToast({
@@ -1705,6 +1705,14 @@ export struct Player {
       Logger.error(TAG, 'camera.getCameraManager error!');
     }
 
+    if (this.cameraData.bufferInput) {
+      if (bufferProfileCameraCheck(cameraManager, this.cameraData) === undefined) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.recorder_buffer_profile_unavailable'), duration: 5000
+        });
+      }
+      return;
+    }
     let encoderProfile = await encoderProfileCameraCheck(cameraManager, this.cameraData);
     if (!encoderProfile) {
       Logger.error(TAG, 'encoderProfile is not found');
@@ -1944,8 +1952,9 @@ export struct Player {
       videoDumpEnabled: this.recorderDraft.videoDump,
       stopOnLowSpace: this.recorderDraft.stopOnLowSpace,
       onStorageProtectionChanged: (enabled: boolean): void => { this.recorderDraft.stopOnLowSpace = enabled; },
-      advancedOptionsSupported: this.isAdvancedRecorderSupported,
-      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.recorderDraft.frameRate > 0,
+      advancedOptionsSupported: this.isAdvancedRecorderSupported && this.recorderDraft.inputMode === 0,
+      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.recorderDraft.inputMode === 0 &&
+        this.recorderDraft.frameRate > 0,
       outputFormatText: Const.OUTPUT_FORMAT[this.recorderDraft.outputFormat],
       videoCodecText: MediaSettingsLabels.getRecorderCodecLabels()[this.recorderDraft.codec],
       videoResolutionText: MediaSettingsLabels.getResolutionLabels()[this.recorderDraft.resolution],
@@ -2463,7 +2472,7 @@ export struct Player {
     })
   }
 
-  // 页面插槽使用具名 Builder 方法，确保 ArkUI 按 Builder 上下文创建自定义组件。
+  // 页面插槽使用具名Builder方法，确保ArkUI按Builder上下文创建自定义组件。
   @Builder
   PlayerPageContent() {
     PlayerPageShell({

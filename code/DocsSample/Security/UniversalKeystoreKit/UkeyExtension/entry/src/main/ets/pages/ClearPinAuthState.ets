@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [clear_pin_auth_state_arkts]
+// [Start clear_pin_auth_state_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -30,4 +30,4 @@ async function clearUkeyPinAuthState(resourceId: string): Promise<void> {
     console.error('promise: clearUkeyPinAuthState input arg invalid.');
   }
 }
-// [clear_pin_auth_state_arkts]
+// [End clear_pin_auth_state_arkts]

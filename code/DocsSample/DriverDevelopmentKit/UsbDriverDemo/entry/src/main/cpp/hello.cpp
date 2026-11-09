@@ -19,6 +19,7 @@
 #include "hilog/log.h"
 #include "data_parser.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <js_native_api.h>
 #include <js_native_api_types.h>
@@ -39,6 +40,8 @@ uint16_t g_maxPktSize = 0;
 bool g_stopIo = false;
 UsbDeviceMemMap *devMmap = nullptr;
 DDK_Ashmem *ashmem = nullptr;
+uint8_t *g_devMemBuffer = nullptr;
+uint8_t g_dataEpOut = 0;
 constexpr size_t BTN_MAPPING_INFO_SIZE = 4;
 constexpr size_t PRODUCT_DESC_MAX_LEN = 100;
 constexpr unsigned long long TIME_CONVERSION_NS_S = 1000000000ULL;
@@ -47,6 +50,7 @@ constexpr int NUM_THREE = 3;
 constexpr int BIT_THIRTY_TWO = 32;
 constexpr int BIT_EIGHT = 8;
 constexpr int BIT_SEVEN = 7;
+constexpr uint32_t PIPE_TIMEOUT_MS = 5000;
 
 // 将unicode编码形式的字符串转化为ASCII码
 std::string UnicodeToAsc(unsigned char *in, int inLen)
@@ -86,6 +90,38 @@ static std::tuple<bool, uint8_t, uint8_t, uint16_t> GetInfoFromEndpoint(struct U
         }
     }
     return {false, {}, {}, {}};
+}
+
+static bool IsInterfaceOut(struct UsbEndpointDescriptor epDesc)
+{
+    return (((epDesc.bEndpointAddress >> BIT_SEVEN) & 1) == 0) && ((epDesc.bmAttributes & 0x03) == 0x03);
+}
+
+static std::tuple<bool, uint8_t, uint16_t> GetOutEndpointFromInterface(struct UsbDdkEndpointDescriptor *epDesc,
+    uint32_t numEp)
+{
+    for (uint32_t epIdx = 0; epIdx < numEp; ++epIdx) {
+        struct UsbEndpointDescriptor endpointDescriptor = epDesc[epIdx].endpointDescriptor;
+        if (IsInterfaceOut(endpointDescriptor)) {
+            OH_LOG_INFO(LOG_APP, "OUT bEndpointAddress: %{public}u\n", endpointDescriptor.bEndpointAddress);
+            return {true, endpointDescriptor.bEndpointAddress, endpointDescriptor.wMaxPacketSize};
+        }
+    }
+    return {false, {}, {}};
+}
+
+static std::tuple<bool, uint8_t, uint16_t> GetOutInterfaceAndEndpoint(const struct UsbDdkConfigDescriptor *config)
+{
+    for (uint32_t intIdx = 0; intIdx < config->configDescriptor.bNumInterfaces; ++intIdx) {
+        struct UsbDdkInterfaceDescriptor *intDesc = config->interface[intIdx].altsetting;
+        uint32_t numSetting = config->interface[intIdx].numAltsetting;
+        for (uint32_t setIdx = 0; setIdx < numSetting; ++setIdx) {
+            uint32_t numEp = intDesc[setIdx].interfaceDescriptor.bNumEndpoints;
+            struct UsbDdkEndpointDescriptor *epDesc = intDesc[setIdx].endPoint;
+            return GetOutEndpointFromInterface(epDesc, numEp);
+        }
+    }
+    return {false, {}, {}};
 }
 
 // 获取手写板的接口和端点
@@ -447,6 +483,166 @@ static napi_value ReleaseResource(napi_env env, napi_callback_info info)
     return nullptr;
 }
 
+static auto g_getKeyboardExecuteWithBuffer = [](napi_env env, void *data) {
+    AsyncContext *asyncContext = reinterpret_cast<AsyncContext *>(data);
+    uint32_t bufferSize = g_maxPktSize;
+    // [Start driver_usb_step8]
+    // 使用OH_Usb_CreateDeviceMemBuffer创建设备内存缓冲区
+    UsbDdkErrCode ret = OH_Usb_CreateDeviceMemBuffer(g_devHandle, bufferSize, &g_devMemBuffer);
+    // [End driver_usb_step8]
+    if (ret != USB_DDK_SUCCESS || g_devMemBuffer == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_CreateDeviceMemBuffer failed, ret=%{public}d", ret);
+        asyncContext->status = napi_generic_failure;
+        return;
+    }
+
+    DataParser &parser = DataParser::GetInstance();
+    parser.StartWork();
+    OH_LOG_INFO(LOG_APP, "parser.StartWork");
+    g_stopIo = false;
+    while (!g_stopIo) {
+        OH_LOG_INFO(LOG_APP, "excute OH_Usb_ReadPipe start");
+
+        // [Start driver_usb_step10]
+        struct UsbRequestPipe pipe;
+        pipe.interfaceHandle = g_interfaceHandle;
+        pipe.endpoint = g_dataEp;
+        pipe.timeout = 4; // 中断传输超时时间，保持和手写板bInterval保持一致
+        // 使用OH_Usb_ReadPipe读取手写板数据
+        uint32_t transferredLength = 0;
+        ret = OH_Usb_ReadPipe(&pipe, g_devMemBuffer, bufferSize, 0, bufferSize, &transferredLength);
+        // [End driver_usb_step10]
+        if (ret != USB_DDK_SUCCESS) {
+            OH_LOG_ERROR(LOG_APP, "OH_Usb_ReadPipe failed, ret=%{public}d", ret);
+            continue;
+        }
+
+        // 处理读取到的数据
+        parser.ParseData(g_devMemBuffer, transferredLength);
+    }
+    OH_LOG_ERROR(LOG_APP, "g_stopIo end");
+    if (ret == USB_DDK_SUCCESS) {
+        asyncContext->status = napi_ok;
+    } else {
+        asyncContext->status = napi_generic_failure;
+    }
+};
+
+static auto g_getKeyboardCompleteWithBuffer = [](napi_env env, napi_status status, void *data) {
+    AsyncContext *asyncContext = reinterpret_cast<AsyncContext *>(data);
+    if (asyncContext->deferred) {
+        napi_value result = nullptr;
+        napi_create_int32(env, 0, &result);
+        if (asyncContext->status == napi_ok) {
+            napi_resolve_deferred(env, asyncContext->deferred, result);
+        } else {
+            napi_reject_deferred(env, asyncContext->deferred, result);
+        }
+    }
+
+    napi_delete_async_work(env, asyncContext->work);
+    delete asyncContext;
+};
+
+// 使用OH_Usb_CreateDeviceMemBuffer和OH_Usb_ReadPipe获取手写板输入
+static napi_value GetBoardInputWithBuffer(napi_env env, napi_callback_info info)
+{
+    OH_LOG_INFO(LOG_APP, "enter GetBoardInputWithBuffer\n");
+
+    auto asyncContext = new (std::nothrow) AsyncContext();
+    asyncContext->env = env;
+    asyncContext->status = napi_ok;
+
+    napi_value result = nullptr;
+    napi_create_promise(env, &asyncContext->deferred, &result);
+    napi_value resource = nullptr;
+    napi_create_string_utf8(env, "GetKbdInputWithBuffer", NAPI_AUTO_LENGTH, &resource);
+    // 创建异步任务
+    napi_status status = napi_create_async_work(env, nullptr, resource, g_getKeyboardExecuteWithBuffer,
+        g_getKeyboardCompleteWithBuffer, reinterpret_cast<void *>(asyncContext), &asyncContext->work);
+    if (status != napi_ok) {
+        OH_LOG_ERROR(LOG_APP, "%{public}s create async work failed", __func__);
+        return result;
+    }
+    napi_queue_async_work(env, asyncContext->work);
+    return result;
+}
+
+// 使用OH_Usb_WritePipe向设备的OUT端点写入数据
+static napi_value WritePipeWithBuffer(napi_env env, napi_callback_info info)
+{
+    OH_LOG_INFO(LOG_APP, "enter WritePipeWithBuffer\n");
+
+    // 查找OUT端点
+    struct UsbDdkConfigDescriptor *config = nullptr;
+    int32_t ret = OH_Usb_GetConfigDescriptor(g_devHandle, 1, &config);
+    if (ret != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "get config desc failed:%{public}d", ret);
+        return nullptr;
+    }
+    auto [res, outEndpoint, outMaxPktSize] = GetOutInterfaceAndEndpoint(config);
+    OH_Usb_FreeConfigDescriptor(config);
+    if (!res) {
+        OH_LOG_ERROR(LOG_APP, "no OUT endpoint found");
+        return nullptr;
+    }
+    g_dataEpOut = outEndpoint;
+
+    uint32_t bufferSize = outMaxPktSize;
+    uint8_t *writeBuffer = nullptr;
+    // 创建设备内存缓冲区用于写入
+    UsbDdkErrCode errCode = OH_Usb_CreateDeviceMemBuffer(g_devHandle, bufferSize, &writeBuffer);
+    if (errCode != USB_DDK_SUCCESS || writeBuffer == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_CreateDeviceMemBuffer failed, ret=%{public}d", errCode);
+        return nullptr;
+    }
+
+    // 准备要写入的数据
+    uint8_t writeData[] = {0x01, 0x02, 0x03, 0x04};
+    std::copy_n(writeData, sizeof(writeData), writeBuffer);
+
+    // [Start driver_usb_step9]
+    // 使用OH_Usb_WritePipe向OUT端点写入数据
+    struct UsbRequestPipe pipe;
+    pipe.interfaceHandle = g_interfaceHandle;
+    pipe.endpoint = g_dataEpOut;
+    pipe.timeout = PIPE_TIMEOUT_MS;
+    uint32_t transferredLength = 0;
+    errCode = OH_Usb_WritePipe(&pipe, writeBuffer, bufferSize, 0, sizeof(writeData), &transferredLength);
+    // [End driver_usb_step9]
+    if (errCode != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_WritePipe failed, ret=%{public}d", errCode);
+    } else {
+        OH_LOG_INFO(LOG_APP, "OH_Usb_WritePipe success, transferredLength=%{public}u", transferredLength);
+    }
+
+    // 销毁写入缓冲区
+    OH_Usb_DestroyDeviceMemBuffer(&writeBuffer);
+    return nullptr;
+}
+
+// 使用OH_Usb_DestroyDeviceMemBuffer释放设备内存缓冲区
+static napi_value ReleaseResourceWithBuffer(napi_env env, napi_callback_info info)
+{
+    OH_LOG_INFO(LOG_APP, "enter ReleaseResourceWithBuffer\n");
+    g_stopIo = true;
+    // [Start driver_usb_step11]
+    // 销毁设备内存缓冲区
+    UsbDdkErrCode ret = OH_Usb_DestroyDeviceMemBuffer(&g_devMemBuffer);
+    if (ret != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_DestroyDeviceMemBuffer failed, ret=%{public}d", ret);
+    }
+    // 释放接口
+    int32_t releaseRet = OH_Usb_ReleaseInterface(g_interfaceHandle);
+    if (releaseRet != 0) {
+        OH_LOG_ERROR(LOG_APP, "ReleaseInterface failed %{public}d", releaseRet);
+    }
+    // 释放USB DDK
+    OH_Usb_Release();
+    // [End driver_usb_step11]
+    return nullptr;
+}
+
 // 设置屏幕分辨率，方便后续坐标标准化
 static napi_value SetDisplayInfo(napi_env env, napi_callback_info info)
 {
@@ -575,6 +771,10 @@ static napi_value Init(napi_env env, napi_value exports)
         {"setOneButtonMapping", nullptr, SetOneButtonMapping, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setDirection", nullptr, SetDirection, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getDirection", nullptr, GetDirection, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getBoardInputWithBuffer", nullptr, GetBoardInputWithBuffer, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"writePipeWithBuffer", nullptr, WritePipeWithBuffer, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"releaseResourceWithBuffer", nullptr, ReleaseResourceWithBuffer, nullptr, nullptr, nullptr, napi_default,
+            nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;

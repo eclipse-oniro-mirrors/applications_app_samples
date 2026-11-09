@@ -41,24 +41,24 @@ public:
     // 从主编码器创建副编码器。调用方必须先销毁副编码器，再销毁主编码器。
     int32_t CreateSecondaryFromPrimary(VideoEncoder &primaryEncoder);
     int32_t Config(SampleInfo &sampleInfo, CodecUserData *codecUserData, bool getInputSurface = true);
-    // 在 Configure 成功后申请内部资源；通常由 Config 统一完成，无需业务侧重复调用。
+    // 在Configure成功后申请内部资源；通常由Config统一完成，无需业务侧重复调用。
     int32_t Prepare();
     int32_t Start();
-    // 清空已排队但尚未处理的输入、输出和编码参数；Flush 后此前取得的 Buffer 索引均不可继续使用。
+    // 清空已排队但尚未处理的输入、输出和编码参数；Flush后此前取得的Buffer索引均不可继续使用。
     int32_t Flush();
-    // 使编码器回到初始状态。Reset 后必须重新 Configure、Prepare 后才能再次 Start。
+    // 使编码器回到初始状态。Reset后必须重新Configure、Prepare后才能再次Start。
     int32_t Reset();
-    // 运行期间动态更新编码参数。format 的创建和销毁仍由调用方负责。
+    // 运行期间动态更新编码参数。format的创建和销毁仍由调用方负责。
     int32_t SetParameter(OH_AVFormat *format);
-    // surface 模式下为指定输入帧提交参数；索引只能来自已注册的参数回调。
+    // surface模式下为指定输入帧提交参数；索引只能来自已注册的参数回调。
     int32_t PushInputParameter(uint32_t bufferIndex);
-    // 注册 surface 模式的逐帧参数回调。userData 必须在停止回调并释放编码器前始终有效。
+    // 注册surface模式的逐帧参数回调。userData必须在停止回调并释放编码器前始终有效。
     int32_t RegisterParameterCallback(OH_VideoEncoder_OnNeedInputParameter callback, void *userData);
-    // 查询空闲输入 Buffer 的索引。查询成功后，该索引只能用于对应的 GetInputBuffer 和 PushInputBuffer。
+    // 查询空闲输入Buffer的索引。查询成功后，该索引只能用于对应的GetInputBuffer和PushInputBuffer。
     int32_t QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
-    // 同步模式下取得一个空闲输入 Buffer，并将同一 Buffer 与索引写入 info。
+    // 同步模式下取得一个空闲输入Buffer，并将同一Buffer与索引写入info。
     OH_AVBuffer *GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // 查询已编码输出 Buffer 的索引。输出处理完成后必须调用 FreeOutputBuffer 归还该索引。
+    // 查询已编码输出Buffer的索引。输出处理完成后必须调用FreeOutputBuffer归还该索引。
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t PushInputBuffer(CodecBufferInfo &info);
@@ -66,11 +66,11 @@ public:
     int32_t NotifyEndOfStream();
     int32_t Stop();
     int32_t Release();
-    // 返回编码输出描述。调用方必须在不再使用时调用 OH_AVFormat_Destroy 释放返回对象。
+    // 返回编码输出描述。调用方必须在不再使用时调用OH_AVFormat_Destroy释放返回对象。
     OH_AVFormat *GetOutputDescription();
-    // 返回编码输入描述。调用方必须在不再使用时调用 OH_AVFormat_Destroy 释放返回对象。
+    // 返回编码输入描述。调用方必须在不再使用时调用OH_AVFormat_Destroy释放返回对象。
     OH_AVFormat *GetInputDescription();
-    // 查询编码器服务是否仍然有效；只有返回成功时 isValid 才具有有效含义。
+    // 查询编码器服务是否仍然有效；只有返回成功时isValid才具有有效含义。
     int32_t IsValid(bool &isValid);
 
 private:

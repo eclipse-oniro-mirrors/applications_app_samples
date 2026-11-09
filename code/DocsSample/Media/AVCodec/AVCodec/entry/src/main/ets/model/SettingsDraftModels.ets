@@ -74,6 +74,7 @@ export class PlayerSettingsDraft {
 
 @Observed
 export class RecorderSettingsDraft {
+  public inputMode: number = 0;
   public codec: number = 1;
   public outputFormat: number = 0;
   public resolution: number = 1;
@@ -99,6 +100,7 @@ export class RecorderSettingsDraft {
   public segmentMiB: number = 0;
 
   load(data: CameraDataModel, advanced: boolean): void {
+    this.inputMode = data.bufferInput ? 1 : 0;
     this.outputFormat = data.outputFormat === Const.FORMAT_FLV ? 1 : 0;
     this.codec = data.isHDRVivid === Const.TRUE ? 0 :
       data.videoCodecMime === Const.MIME_VIDEO_AVC ? 1 : 2;
@@ -134,6 +136,10 @@ export class RecorderSettingsDraft {
   }
 
   apply(data: CameraDataModel): boolean {
+    if (this.inputMode === 1 && (this.codec === 0 || this.resolution === 0 || this.frameRate !== 0 ||
+      this.preprocMode !== 0 || this.dropFrameRate !== 0 || this.dualOutput !== 0)) {
+      return false;
+    }
     const values: string[] = [
       Const.OUTPUT_FORMAT[this.outputFormat],
       Const.VIDEO_MIMETYPE[this.codec],
@@ -156,6 +162,7 @@ export class RecorderSettingsDraft {
       return false;
     }
     data.enableVideoDump = this.videoDump;
+    data.bufferInput = this.inputMode === 1;
     data.stopOnLowSpace = this.stopOnLowSpace;
     data.segmentSeconds = this.outputFormat === 0 ? this.segmentSeconds : 0;
     data.segmentMiB = this.outputFormat === 0 ? this.segmentMiB : 0;

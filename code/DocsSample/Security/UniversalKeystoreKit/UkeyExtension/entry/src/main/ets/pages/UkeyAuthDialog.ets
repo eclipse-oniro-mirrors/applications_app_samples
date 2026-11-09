@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [open_ukey_auth_dialog_ets]
+// [Start open_ukey_auth_dialog_ets]
 import { certificateManagerDialog } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
@@ -51,4 +51,4 @@ struct UkeyAuthDialogPage {
     }
   }
 }
-// [open_ukey_auth_dialog_ets]
+// [End open_ukey_auth_dialog_ets]

@@ -61,6 +61,8 @@ struct TranscodeOptions {
     int32_t audioChannels = 0;
     int64_t audioBitrate = 128000;
     int32_t audioResampler = 0;
+    bool deepValidation = false;
+    bool remuxAllAudioTracks = false;
 };
 
 struct TranscodeSnapshot {
@@ -96,12 +98,14 @@ struct TranscodeSnapshot {
     std::string sourceMime;
     std::vector<std::string> audioTracks;
     std::vector<int32_t> audioTrackIds;
+    std::vector<std::string> subtitleTracks;
     int64_t minBitrate = 0;
     int64_t maxBitrate = 0;
     int64_t audioBytes = 0;
     int32_t audioMode = 0;
     int64_t outputDurationUs = 0;
     std::string outputValidation;
+    std::string sampleValidation;
     std::vector<std::string> validationNotes;
     int64_t expectedDurationUs = 0;
     int32_t previewWidth = 0;
@@ -135,6 +139,7 @@ public:
 private:
     using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
     bool ReadTracks(int32_t trackCount);
+    bool ReadAudioTrack(int32_t index, OH_AVFormat *track);
     bool ValidateSourceColor();
     bool ConnectSurface();
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
@@ -167,15 +172,23 @@ private:
     bool SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced);
     bool DrainEncoder(bool &advanced);
     bool CopyAudio(bool &advanced);
+    bool CopyRemuxAudio(bool &advanced);
+    bool CopyRemuxAudioSample(size_t index);
+    bool InitializeRemuxAudioTracks();
     bool WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr);
     bool ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layout);
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
     bool FinalizeOutput();
     bool ValidateOutput();
-    bool ValidateOutputTrack(OH_AVFormat *format, int32_t type);
+    bool ReadOutputDescription(OH_AVSource *output, int32_t &count, int64_t &duration);
+    bool ValidateOutputDecodeSamples(OH_AVSource *output, int32_t count, int64_t duration);
+    bool ValidateOutputSamples(int32_t videoTrack, int64_t durationUs);
+    bool ValidateOutputSampleAt(int32_t videoTrack, int64_t targetUs, int64_t durationUs, std::string &failure);
+    bool ValidateOutputTrack(OH_AVFormat *format, int32_t type, int32_t audioOrdinal);
     bool ValidateOutputTracks(OH_AVSource *source, int32_t count, int32_t expectedTracks);
-    void ValidateOutputMetadata(OH_AVFormat *format, int32_t type);
+    void ValidateOutputMetadata(OH_AVFormat *format, int32_t type, int32_t audioOrdinal);
+    void ValidateOutputAudioMetadata(OH_AVFormat *format, int32_t audioOrdinal);
     void AddValidationNote(const std::string &note);
     bool ConfigureTimeRange();
     bool DiscardOutsideRange(bool &advanced);
@@ -213,6 +226,10 @@ private:
     Format audioFormat_ { nullptr, OH_AVFormat_Destroy };
     int32_t videoTrack_ = -1;
     int32_t audioTrack_ = -1;
+    std::vector<int32_t> remuxAudioSourceTracks_;
+    std::vector<int32_t> remuxAudioMuxTracks_;
+    std::vector<Format> remuxAudioFormats_;
+    std::vector<uint8_t> remuxAudioDone_;
     int32_t muxVideoTrack_ = -1;
     int32_t muxAudioTrack_ = -1;
     int64_t durationUs_ = 0;
@@ -238,7 +255,7 @@ private:
     bool muxStarted_ = false;
     bool decoderStarted_ = false;
     bool encoderStarted_ = false;
-    // 只借用 codec 输出。等待编码器空闲输入时暂存一帧，限制内存和缓冲积压。
+    // 只借用codec输出。等待编码器空闲输入时暂存一帧，限制内存和缓冲积压。
     OH_AVBuffer *pendingDecoded_ = nullptr;
     uint32_t pendingDecodedIndex_ = 0;
     OH_AVCodecBufferAttr pendingDecodedAttr_ {};

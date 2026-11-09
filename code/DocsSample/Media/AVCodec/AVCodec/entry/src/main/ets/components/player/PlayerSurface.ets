@@ -34,7 +34,7 @@ export struct PlayerSurface {
     }
     const rotation: number = ((this.sourceRotation % 360) + 360) % 360;
     const sourceQuarterTurn: boolean = rotation === 90 || rotation === 270;
-    // NativeWindow 的旋转/翻转组合中，以下六种包含一次 90/270 度旋转。
+    // NativeWindow的旋转/翻转组合中，以下六种包含一次90/270度旋转。
     const transformQuarterTurn: boolean = this.transformType === 1 || this.transformType === 3 ||
       this.transformType === 6 || this.transformType === 7 || this.transformType === 10 ||
       this.transformType === 11;

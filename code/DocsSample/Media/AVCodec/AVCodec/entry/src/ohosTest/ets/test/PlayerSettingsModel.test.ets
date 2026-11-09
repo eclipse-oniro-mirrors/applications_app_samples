@@ -141,7 +141,7 @@ export default function playerSettingsModelTest(): void {
           ])).assertTrue();
           const available = index === Const.VIDEO_DECODER_RUN_MODE_BUFFER;
           expect(model.enableVideoDump).assertEqual(available);
-          // 即使调用方绕过设置面板直接赋值，非 Buffer 模式也不能启用解码帧 Dump。
+          // 即使调用方绕过设置面板直接赋值，非Buffer模式也不能启用解码帧Dump。
           model.enableVideoDump = true;
           const options = model.createPlayOptions({
             inputFileFd: 1, inputFileOffset: 0, inputFileSize: 1, isSmartFluencySupported: false
