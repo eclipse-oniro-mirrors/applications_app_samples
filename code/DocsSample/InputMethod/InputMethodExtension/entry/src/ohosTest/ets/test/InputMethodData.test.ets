@@ -14,6 +14,8 @@
  */
 
 import { describe, expect, it } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bindResourceManager } from '../../../main/ets/common/L10n';
 import {
   EXTRA_CONFIG_MAX_BYTES,
   KEY_CANDIDATE_LIMIT,
@@ -90,6 +92,10 @@ class CodedError {
 }
 
 export default function inputMethodDataTest() {
+  // 模型层只产出资源名，用例断言的是真实文案：这里是 testsuite() 第一个注册的套件，
+  // 先把测试进程的资源管理器交给 L10n，后续所有套件的 text() 才能取到本地化文本。
+  // 放在本文件而不是 List.test.ets：入口文件只允许 import *.test 模块，否则 DevEco 静态扫描会认作“未注册”。
+  bindResourceManager(abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager);
   describe('InputMethodExtraConfigDataTest', () => {
     /**
      * @tc.number SUB_INPUT_METHOD_DATA_0100
@@ -379,12 +385,12 @@ export default function inputMethodDataTest() {
     it('testData0015', 0, () => {
       const specs = patternSpecs();
       expect(specs.length).assertEqual(LIST_PATTERN_COUNT);
-      expect(specs[0].label).assertEqual('中文输入');
-      expect(specs[1].label).assertEqual('英文输入');
+      expect(specs[0].labelText()).assertEqual('中文输入');
+      expect(specs[1].labelText()).assertEqual('英文输入');
       expect(clampSelected(-1, 2)).assertEqual(0);
       expect(clampSelected(2, 2)).assertEqual(0);
       expect(clampSelected(1, 2)).assertEqual(1);
-      expect(specAt(1)?.label).assertEqual('英文输入');
+      expect(specAt(1)?.labelText()).assertEqual('英文输入');
       expect(listSummary().includes('2 个模式项')).assertTrue();
       expect(actionText(1).includes('英文输入')).assertTrue();
       expect(actionText(0, []).includes('列表为空')).assertTrue();

@@ -21,6 +21,8 @@
  * 并明确写成"页面不再等待"，不宣称底层调用已经结束。
  */
 
+import { text } from '../common/L10n';
+
 export const TIMEOUT_FLAG: string = 'LOCAL_TIMEOUT';
 
 export function timeoutPromise<T>(ms: number): Promise<T> {
@@ -42,5 +44,5 @@ export function isTimeoutError(err: Object): boolean {
 }
 
 export function timeoutText(ms: number): string {
-  return `等待超过 ${ms} ms 仍未回调`;
+  return text('err_timeout', ms);
 }

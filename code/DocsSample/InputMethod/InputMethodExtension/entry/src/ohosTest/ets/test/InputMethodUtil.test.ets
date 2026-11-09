@@ -327,7 +327,7 @@ export default function inputMethodUtilTest() {
      * @tc.level Level 2
      */
     it('testUtil0012', 0, () => {
-      expect(featureById(FeatureId.LIST).title).assertEqual('输入法列表');
+      expect(featureById(FeatureId.LIST).titleText()).assertEqual('输入法列表');
       expect(featureById(FeatureId.PANEL).apis.includes('createPanel')).assertTrue();
       let sum = 0;
       FEATURES.forEach((item: FeatureEntry) => {

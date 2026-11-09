@@ -23,6 +23,7 @@
  */
 
 import { InputMethodExtraConfig } from '@kit.IMEKit';
+import { text } from '../common/L10n';
 
 /** 扩展信息允许的三种值类型，与 d.ts 的 CustomValueType（number | string | boolean）一致 */
 export type ConfigValue = number | string | boolean;
@@ -47,7 +48,7 @@ export class ConfigEntry {
   }
 
   display(): string {
-    return `${this.key} = ${this.value}（${this.typeName()}）`;
+    return text('config_entry_display', this.key, `${this.value}`, this.typeName());
   }
 }
 
@@ -55,7 +56,7 @@ export class ConfigEntry {
 export function defaultEntries(): ConfigEntry[] {
   return [
     new ConfigEntry('theme.color', '#0A59F7'),
-    new ConfigEntry('input.habit', '双拼 · 中文优先'),
+    new ConfigEntry('input.habit', text('config_demo_habit')),
     new ConfigEntry('voice.enabled', false),
     new ConfigEntry('candidate.limit', 8)
   ];
@@ -161,11 +162,15 @@ export function readExtraConfig(attribute: EditorAttributeLike | undefined): Con
     return [];
   }
   const settings = config.customSettings;
+  if (settings === undefined || settings === null) {
+    return [];
+  }
   return Object.keys(settings).sort().map((key: string) => new ConfigEntry(key, settings[key]));
 }
 
 export function describeEntries(entries: ConfigEntry[], limit: number = 6): string {
   const shown = entries.slice(0, limit).map((entry: ConfigEntry) => entry.display());
   const rest = entries.length - shown.length;
-  return rest > 0 ? `${shown.join('；')}；…共 ${entries.length} 项` : shown.join('；');
+  const joined = shown.join(text('config_join'));
+  return rest > 0 ? text('config_entries_more', joined, entries.length) : joined;
 }

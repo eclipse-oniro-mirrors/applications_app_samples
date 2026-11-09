@@ -280,7 +280,7 @@ export default function inputMethodBoundaryTest() {
       expect(actionText(0, []).includes('列表为空')).assertTrue();
       expect(specAt(2) === undefined).assertTrue();
       expect(specAt(-1) === undefined).assertTrue();
-      expect(specAt(1)?.label).assertEqual('英文输入');
+      expect(specAt(1)?.labelText()).assertEqual('英文输入');
       expect(patternSpecs(0).length).assertEqual(0);
       expect(patternSpecs(1).length).assertEqual(1);
       expect(listSummary([])).assertEqual('没有模式项');

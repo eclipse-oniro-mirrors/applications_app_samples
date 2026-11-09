@@ -65,9 +65,12 @@ export class Logger {
     }
   }
 
+  /** 统计指定来源 + 指定 tag 的日志条数；source 传空串表示只看 tag、不限来源 */
   static count(source: string, tag: string): number {
     const current: LogItem[] = AppStorage.get<LogItem[]>(StorageKeys.APP_LOGS) ?? [];
-    return countByTag(current, tag);
+    const scoped: LogItem[] = source === '' ? current
+      : current.filter((item: LogItem) => item.source === source);
+    return countByTag(scoped, tag);
   }
 
   static clear(): void {

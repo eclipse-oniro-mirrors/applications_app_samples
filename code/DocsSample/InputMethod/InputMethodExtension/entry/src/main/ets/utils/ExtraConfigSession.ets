@@ -33,6 +33,7 @@ import {
   okOutcome
 } from '../model/CallOutcome';
 import { EXTRA_CONFIG_MAX_BYTES } from '../common/AppConstants';
+import { text } from '../common/L10n';
 import {
   ConfigEntry,
   StubEditorAttribute,
@@ -62,8 +63,8 @@ export function buildDefaultOutcome(): CallOutcome {
   const config: InputMethodExtraConfig = buildExtraConfig(entries);
   const bytes = configByteLength(config);
   const keyCount = Object.keys(config.customSettings).length;
-  const detail = `${describeEntries(entries)}；JSON 共 ${bytes} 字节`;
-  return okOutcome(API_BUILD, `${keyCount} 个键，${bytes} 字节`, detail, Date.now() - start);
+  const detail = text('session_detail_json', describeEntries(entries), bytes);
+  return okOutcome(API_BUILD, text('session_summary_keys', keyCount, bytes), detail, Date.now() - start);
 }
 
 /** 输入法侧的读取路径：从打桩的 EditorAttribute 里取回 customSettings */
@@ -77,12 +78,12 @@ export function readStubOutcome(): CallOutcome {
   const sameKeys = sameCount && read.every((item: ConfigEntry, index: number) => item.key === expected[index].key);
   const detail = sameCount && sameKeys ?
     describeEntries(read) :
-    `读取到 ${read.length} 项，构造时写入 ${expected.length} 项`;
+    text('session_summary_read_counts', read.length, expected.length);
   if (!sameCount || !sameKeys) {
     return failedOutcome(API_READ, ApiStatus.INTERNAL, ERROR_CODE_LOCAL_UNEXPECTED_THROW,
-      '读取结果与写入不一致', detail, Date.now() - start);
+      text('session_summary_mismatch'), detail, Date.now() - start);
   }
-  return okOutcome(API_READ, `${read.length} 项`, detail, Date.now() - start);
+  return okOutcome(API_READ, text('session_summary_read', read.length), detail, Date.now() - start);
 }
 
 /** 编辑框没有设置扩展信息时的读取结果：应为空数组，不能凭空给默认值 */
@@ -90,12 +91,12 @@ export function readAbsentOutcome(): CallOutcome {
   const start = Date.now();
   const attribute = new StubEditorAttribute(STUB_INPUT_PATTERN, STUB_BUNDLE);
   const read = readExtraConfig(attribute);
-  const detail = 'StubEditorAttribute 未携带 extraConfig，读取结果应为空';
+  const detail = text('session_detail_absent');
   if (read.length !== 0) {
     return failedOutcome(API_READ, ApiStatus.INTERNAL, ERROR_CODE_LOCAL_UNEXPECTED_THROW,
-      `意外读到 ${read.length} 项`, detail, Date.now() - start);
+      text('session_summary_unexpected_items', read.length), detail, Date.now() - start);
   }
-  return okOutcome(API_READ, '0 项（未提供扩展信息）', detail, Date.now() - start);
+  return okOutcome(API_READ, text('session_summary_absent'), detail, Date.now() - start);
 }
 
 /** 压线：正好 32768 字节，仍然在额度内 */
@@ -103,12 +104,12 @@ export function nearLimitOutcome(): CallOutcome {
   const start = Date.now();
   const config = buildExtraConfig(paddedEntries(EXTRA_CONFIG_MAX_BYTES));
   const bytes = configByteLength(config);
-  const detail = `目标 ${EXTRA_CONFIG_MAX_BYTES} 字节，实测 ${bytes} 字节；d.ts 约定总长不超过 32KB`;
+  const detail = text('session_detail_budget', EXTRA_CONFIG_MAX_BYTES, bytes);
   if (bytes > EXTRA_CONFIG_MAX_BYTES) {
     return failedOutcome(API_PADDED, ApiStatus.INVALID_INPUT, ERROR_CODE_INVALID_PARAM,
-      `压线构造反而超出 ${bytes - EXTRA_CONFIG_MAX_BYTES} 字节`, detail, Date.now() - start);
+      text('session_summary_over_budget', bytes - EXTRA_CONFIG_MAX_BYTES), detail, Date.now() - start);
   }
-  return okOutcome(API_PADDED, `${bytes} 字节，未越界`, detail, Date.now() - start);
+  return okOutcome(API_PADDED, text('session_summary_within_budget', bytes), detail, Date.now() - start);
 }
 
 /**
@@ -120,14 +121,13 @@ export function oversizedOutcome(): CallOutcome {
   const target = EXTRA_CONFIG_MAX_BYTES + 1;
   const config = buildExtraConfig(paddedEntries(target));
   const bytes = configByteLength(config);
-  const detail = `构造到 ${bytes} 字节，上限 ${EXTRA_CONFIG_MAX_BYTES} 字节；` +
-    '文档约定超出部分不传递，这里在写入前按入参问题拦下';
+  const detail = text('session_detail_oversized', bytes, EXTRA_CONFIG_MAX_BYTES);
   if (bytes <= EXTRA_CONFIG_MAX_BYTES) {
     return failedOutcome(API_PADDED, ApiStatus.INTERNAL, ERROR_CODE_LOCAL_UNEXPECTED_THROW,
-      `未达到越界目标（${bytes} 字节）`, detail, Date.now() - start);
+      text('session_summary_undersized', bytes), detail, Date.now() - start);
   }
   return failedOutcome(API_PADDED, ApiStatus.INVALID_INPUT, ERROR_CODE_INVALID_PARAM,
-    `超出 ${bytes - EXTRA_CONFIG_MAX_BYTES} 字节`, detail, Date.now() - start);
+    text('session_summary_oversized', bytes - EXTRA_CONFIG_MAX_BYTES), detail, Date.now() - start);
 }
 
 /** JSON 往返：输入法若要把配置转存，就得能原样还原 */
@@ -135,21 +135,23 @@ export function roundTripOutcome(): CallOutcome {
   const start = Date.now();
   const entries = defaultEntries();
   const config = buildExtraConfig(entries);
-  const text = configJson(config);
-  const restored = configFromJson(text);
-  const detailText = text.length > 80 ? `${text.substring(0, 80)}…` : text;
+  const jsonText = configJson(config);
+  const restored = configFromJson(jsonText);
+  const detailText = jsonText.length > 80 ? `${jsonText.substring(0, 80)}…` : jsonText;
   if (restored === undefined) {
     return failedOutcome(API_JSON, ApiStatus.INTERNAL, ERROR_CODE_LOCAL_UNEXPECTED_THROW,
-      '还原失败', `原文 ${detailText}`, Date.now() - start);
+      text('session_summary_restore_failed'), text('session_detail_original', detailText), Date.now() - start);
   }
   const before = configByteLength(config);
   const after = configByteLength(restored);
-  const same = configJson(restored) === text;
+  const same = configJson(restored) === jsonText;
   if (!same || before !== after) {
     return failedOutcome(API_JSON, ApiStatus.INTERNAL, ERROR_CODE_LOCAL_UNEXPECTED_THROW,
-      '往返后内容不一致', `往返前 ${before} 字节，往返后 ${after} 字节`, Date.now() - start);
+      text('session_summary_roundtrip_mismatch'), text('session_detail_roundtrip', before, after),
+      Date.now() - start);
   }
-  return okOutcome(API_JSON, `${before} 字节，内容一致`, `原文 ${detailText}`, Date.now() - start);
+  return okOutcome(API_JSON, text('session_summary_roundtrip_ok', before),
+    text('session_detail_original', detailText), Date.now() - start);
 }
 
 /** 页面首屏直接铺开的一组结果，顺序与按钮顺序一致 */

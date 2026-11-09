@@ -26,6 +26,7 @@
 import { common } from '@kit.AbilityKit';
 import { inputMethodEngine } from '@kit.IMEKit';
 import { API_TIMEOUT_MS } from '../common/AppConstants';
+import { text } from '../common/L10n';
 import { ApiStatus, CallOutcome, classifyErrorCode, failedOutcome, okOutcome } from '../model/CallOutcome';
 import { codeOfThrown, messageOfThrown } from './ErrorUtil';
 import { isTimeoutError, timeoutText, withTimeout } from './AsyncUtil';
@@ -35,7 +36,7 @@ const API_NAME: string = 'createPanel';
 /** 默认的负向实测：软键盘 + 固定面板，与面板演示页的按钮一致 */
 export async function probeCreatePanel(context: common.BaseContext): Promise<CallOutcome> {
   return probePanelInfo(context, inputMethodEngine.PanelType.SOFT_KEYBOARD,
-    inputMethodEngine.PanelFlag.FLG_FIXED, '软键盘·固定');
+    inputMethodEngine.PanelFlag.FLG_FIXED, text('probe_label_soft_fixed'));
 }
 
 /**
@@ -59,27 +60,28 @@ export async function probePanelInfo(context: common.BaseContext, type: inputMet
     } catch (err) {
       destroyed = false;
     }
-    return okOutcome(API_NAME, `意外创建成功（${label}）`,
-      `当前进程被当作输入法应用；已立即销毁面板（${destroyed ? '销毁成功' : '销毁失败'}）`,
+    return okOutcome(API_NAME, text('probe_summary_unexpected', label),
+      text('probe_detail_unexpected',
+        destroyed ? text('probe_destroyed_ok') : text('probe_destroyed_failed')),
       Date.now() - start);
   } catch (err) {
     if (isTimeoutError(err)) {
       return failedOutcome(API_NAME, ApiStatus.EMPTY_RESULT, -3, timeoutText(API_TIMEOUT_MS),
-        '等待上限内没有回调，页面不再等待；这不代表底层调用已经结束', Date.now() - start);
+        text('probe_detail_timeout'), Date.now() - start);
     }
     const code = codeOfThrown(err);
     const status = classifyErrorCode(code);
-    return failedOutcome(API_NAME, status, code, `（${label}）${messageOfThrown(err)}`,
+    return failedOutcome(API_NAME, status, code, text('probe_summary_labelled', label, messageOfThrown(err)),
       statusHintText(status), Date.now() - start);
   }
 }
 
 function statusHintText(status: ApiStatus): string {
   if (status === ApiStatus.INPUT_METHOD) {
-    return '符合预期：UIAbility 不是输入法应用，面板只能在 InputMethodExtensionAbility 内创建';
+    return text('probe_hint_expected');
   }
   if (status === ApiStatus.UNSUPPORTED) {
-    return '设备未声明输入法框架能力，换设备复验';
+    return text('probe_hint_unsupported');
   }
-  return '未登记的错误码，先看 hilog 里 createPanel 前后的调用顺序';
+  return text('probe_hint_unknown');
 }

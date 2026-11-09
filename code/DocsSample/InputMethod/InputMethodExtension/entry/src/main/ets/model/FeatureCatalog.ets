@@ -16,7 +16,12 @@
 /**
  * 首页目录的数据源：每个条目对应一个演示页，条目里列出该页覆盖的接口。
  * 目录与页面必须一一对应，"列在目录里但页面没实现"是本示例刻意避免的。
+ *
+ * title / subtitle 存的是 string.json 里的资源名（静态常量在模块加载时求值，那时资源管理器
+ * 还没绑定，所以不能直接存文案）；渲染与搜索统一走 titleText() / subtitleText()。
  */
+
+import { text } from '../common/L10n';
 
 export enum FeatureId {
   EXTRA = 'extra',
@@ -39,8 +44,16 @@ export class FeatureEntry {
     this.route = route;
   }
 
+  titleText(): string {
+    return text(this.title);
+  }
+
+  subtitleText(): string {
+    return text(this.subtitle);
+  }
+
   apiSummary(): string {
-    return this.apis.join('、');
+    return this.apis.join(text('feature_api_join'));
   }
 
   apiCount(): number {
@@ -49,16 +62,13 @@ export class FeatureEntry {
 }
 
 export const FEATURES: FeatureEntry[] = [
-  new FeatureEntry(FeatureId.EXTRA, '扩展信息',
-    'ArkUI 编辑框拉起输入法时携带的 customSettings：构造、32KB 额度、打桩读取',
+  new FeatureEntry(FeatureId.EXTRA, 'feature_extra_title', 'feature_extra_subtitle',
     ['InputMethodExtraConfig', 'customSettings', 'CustomValueType', 'EditorAttribute.extraConfig'],
     'pages/demos/ExtraConfigDemo'),
-  new FeatureEntry(FeatureId.LIST, '输入法列表',
-    '系统输入法切换列表控件：显示默认输入法子类型与三方输入法，可带模式选项',
+  new FeatureEntry(FeatureId.LIST, 'feature_list_title', 'feature_list_subtitle',
     ['InputMethodListDialog', 'PatternOptions', 'Pattern'],
     'pages/demos/InputMethodListDemo'),
-  new FeatureEntry(FeatureId.PANEL, '面板与模式',
-    '面板类型/状态枚举、软键盘面板预览，以及跨进程 createPanel 的真实返回',
+  new FeatureEntry(FeatureId.PANEL, 'feature_panel_title', 'feature_panel_subtitle',
     ['PanelType', 'PanelFlag', 'getInputMethodAbility', 'createPanel'],
     'pages/demos/PanelDemo')
 ];
@@ -80,10 +90,8 @@ export class UncoveredApi {
 }
 
 export const UNCOVERED_APIS: UncoveredApi[] = [
-  new UncoveredApi('InputMethodExtensionAbility 真实输入',
-    '安装为输入法并在设置中启用、聚焦编辑框后才会被拉起，示例不自动改系统输入法设置'),
-  new UncoveredApi('inputMethodEngine 输入回调（insertText 等）',
-    '需要输入法身份与真实编辑框连接，自动化环境拿不到该连接，页面只做面板预览')
+  new UncoveredApi('uncovered_ime_name', 'uncovered_ime_reason'),
+  new UncoveredApi('uncovered_engine_name', 'uncovered_engine_reason')
 ];
 
 export function featureById(id: FeatureId): FeatureEntry {
@@ -102,8 +110,8 @@ export function filterFeatures(keyword: string, items: FeatureEntry[] = FEATURES
     return items;
   }
   return items.filter((item: FeatureEntry) => {
-    return item.title.toLowerCase().includes(normalized) ||
-      item.subtitle.toLowerCase().includes(normalized) ||
+    return item.titleText().toLowerCase().includes(normalized) ||
+      item.subtitleText().toLowerCase().includes(normalized) ||
       item.apiSummary().toLowerCase().includes(normalized);
   });
 }
@@ -114,5 +122,6 @@ export function declaredApiCount(): number {
 }
 
 export function uncoveredSummary(): string {
-  return UNCOVERED_APIS.map((item: UncoveredApi) => `${item.name}（${item.reason}）`).join('；');
+  return UNCOVERED_APIS.map((item: UncoveredApi) => text('uncovered_item', text(item.name), text(item.reason)))
+    .join(text('uncovered_join'));
 }

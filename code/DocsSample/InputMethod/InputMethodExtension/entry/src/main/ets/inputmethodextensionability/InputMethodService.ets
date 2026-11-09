@@ -28,6 +28,7 @@
 import { Want } from '@kit.AbilityKit';
 import { InputMethodExtensionAbility, inputMethodEngine } from '@kit.IMEKit';
 import { StorageKeys } from '../common/AppConstants';
+import { bindResourceManager } from '../common/L10n';
 import { LogItem } from '../model/LogStore';
 import { CallOutcome } from '../model/CallOutcome';
 import { Logger } from '../utils/Logger';
@@ -41,6 +42,8 @@ export default class InputMethodService extends InputMethodExtensionAbility {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
+    // 面板页与 KeyboardBridge 的文案都来自 string.json，先绑定本进程的资源管理器
+    bindResourceManager(this.context.resourceManager);
     Logger.info(SOURCE, 'onCreate', `ime extension created, want=${want.abilityName}`);
     this.registerEvents();
   }
@@ -56,8 +59,11 @@ export default class InputMethodService extends InputMethodExtensionAbility {
       });
       ability.on('inputStop', () => {
         KeyboardBridge.detach();
-        panelController.destroyPanel();
-        Logger.info(SOURCE, 'inputStop', 'editor unbound, panel destroyed');
+        Logger.info(SOURCE, 'inputStop', 'editor unbound, panel destroy requested');
+        // 回调签名为 void，无法 await：销毁结果在 destroyPanel 内部落日志，这里只兜住异常
+        panelController.destroyPanel().then(() => {
+          Logger.info(SOURCE, 'inputStop', `panel teardown finished: ${panelController.statusText()}`);
+        });
       });
       Logger.info(SOURCE, 'Register', 'inputStart / inputStop registered');
     } catch (err) {
@@ -73,8 +79,9 @@ export default class InputMethodService extends InputMethodExtensionAbility {
     });
   }
 
-  onDestroy(): void {
-    Logger.info(SOURCE, 'onDestroy', 'ime extension destroyed');
-    panelController.destroyPanel();
+  /** 扩展销毁前先把面板异步销毁做完，避免进程被系统回收时面板资源还没释放 */
+  async onDestroy(): Promise<void> {
+    await panelController.destroyPanel();
+    Logger.info(SOURCE, 'onDestroy', 'ime extension destroyed, panel teardown finished');
   }
 }

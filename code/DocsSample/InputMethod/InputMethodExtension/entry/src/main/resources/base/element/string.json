@@ -399,6 +399,386 @@
     {
       "name": "kb_caption_candidates",
       "value": "候选"
+    },
+    {
+      "name": "outcome_status_ok",
+      "value": "成功"
+    },
+    {
+      "name": "outcome_status_invalid",
+      "value": "入参无效"
+    },
+    {
+      "name": "outcome_status_unsupported",
+      "value": "能力不支持"
+    },
+    {
+      "name": "outcome_status_input_method",
+      "value": "输入法身份不符"
+    },
+    {
+      "name": "outcome_status_empty",
+      "value": "无返回结果"
+    },
+    {
+      "name": "outcome_status_internal",
+      "value": "内部错误"
+    },
+    {
+      "name": "outcome_summary_empty",
+      "value": "接口返回 undefined 且未抛异常"
+    },
+    {
+      "name": "outcome_summary_invalid",
+      "value": "本地校验未通过"
+    },
+    {
+      "name": "outcome_line_summary",
+      "value": "%s：%s"
+    },
+    {
+      "name": "outcome_line_code",
+      "value": "%s（%d）"
+    },
+    {
+      "name": "err_hint_invalid",
+      "value": "入参不合法：确认键名非空、值仅为 number/string/boolean，扩展信息总长不超过 32KB"
+    },
+    {
+      "name": "err_hint_unsupported",
+      "value": "设备或系统不支持该能力：先在设置中启用输入法框架，再换设备复验，勿据此断定接口不可用"
+    },
+    {
+      "name": "err_hint_input_method",
+      "value": "调用身份不符：createPanel 等接口只能在 InputMethodExtensionAbility 进程内调用，UIAbility 侧调用会抛 12800004"
+    },
+    {
+      "name": "err_hint_empty",
+      "value": "接口返回 undefined 却没有错误码，失败没有上报出来；先按 hilog 里的 tag 定位底层实现"
+    },
+    {
+      "name": "err_hint_internal",
+      "value": "内部错误：先检查输入法服务是否已启动，并用 hilog 过滤本示例 tag 查看调用顺序"
+    },
+    {
+      "name": "err_hint_ok",
+      "value": "调用正常完成"
+    },
+    {
+      "name": "err_unknown",
+      "value": "未知错误"
+    },
+    {
+      "name": "err_format_code",
+      "value": "%s失败（%d）：%s"
+    },
+    {
+      "name": "err_format",
+      "value": "%s失败：%s"
+    },
+    {
+      "name": "err_line",
+      "value": "%s；%s"
+    },
+    {
+      "name": "err_timeout",
+      "value": "等待超过 %d ms 仍未回调"
+    },
+    {
+      "name": "config_demo_habit",
+      "value": "双拼 · 中文优先"
+    },
+    {
+      "name": "config_entry_display",
+      "value": "%s = %s（%s）"
+    },
+    {
+      "name": "config_join",
+      "value": "；"
+    },
+    {
+      "name": "config_entries_more",
+      "value": "%s；…共 %d 项"
+    },
+    {
+      "name": "session_detail_json",
+      "value": "%s；JSON 共 %d 字节"
+    },
+    {
+      "name": "session_summary_keys",
+      "value": "%d 个键，%d 字节"
+    },
+    {
+      "name": "session_summary_read",
+      "value": "%d 项"
+    },
+    {
+      "name": "session_summary_mismatch",
+      "value": "读取结果与写入不一致"
+    },
+    {
+      "name": "session_summary_read_counts",
+      "value": "读取到 %d 项，构造时写入 %d 项"
+    },
+    {
+      "name": "session_detail_absent",
+      "value": "StubEditorAttribute 未携带 extraConfig，读取结果应为空"
+    },
+    {
+      "name": "session_summary_unexpected_items",
+      "value": "意外读到 %d 项"
+    },
+    {
+      "name": "session_summary_absent",
+      "value": "0 项（未提供扩展信息）"
+    },
+    {
+      "name": "session_detail_budget",
+      "value": "目标 %d 字节，实测 %d 字节；d.ts 约定总长不超过 32KB"
+    },
+    {
+      "name": "session_summary_over_budget",
+      "value": "压线构造反而超出 %d 字节"
+    },
+    {
+      "name": "session_summary_within_budget",
+      "value": "%d 字节，未越界"
+    },
+    {
+      "name": "session_detail_oversized",
+      "value": "构造到 %d 字节，上限 %d 字节；文档约定超出部分不传递，这里在写入前按入参问题拦下"
+    },
+    {
+      "name": "session_summary_undersized",
+      "value": "未达到越界目标（%d 字节）"
+    },
+    {
+      "name": "session_summary_oversized",
+      "value": "超出 %d 字节"
+    },
+    {
+      "name": "session_summary_restore_failed",
+      "value": "还原失败"
+    },
+    {
+      "name": "session_detail_original",
+      "value": "原文 %s"
+    },
+    {
+      "name": "session_summary_roundtrip_mismatch",
+      "value": "往返后内容不一致"
+    },
+    {
+      "name": "session_detail_roundtrip",
+      "value": "往返前 %d 字节，往返后 %d 字节"
+    },
+    {
+      "name": "session_summary_roundtrip_ok",
+      "value": "%d 字节，内容一致"
+    },
+    {
+      "name": "feature_extra_title",
+      "value": "扩展信息"
+    },
+    {
+      "name": "feature_extra_subtitle",
+      "value": "ArkUI 编辑框拉起输入法时携带的 customSettings：构造、32KB 额度、打桩读取"
+    },
+    {
+      "name": "feature_list_title",
+      "value": "输入法列表"
+    },
+    {
+      "name": "feature_list_subtitle",
+      "value": "系统输入法切换列表控件：显示默认输入法子类型与三方输入法，可带模式选项"
+    },
+    {
+      "name": "feature_panel_title",
+      "value": "面板与模式"
+    },
+    {
+      "name": "feature_panel_subtitle",
+      "value": "面板类型/状态枚举、软键盘面板预览，以及跨进程 createPanel 的真实返回"
+    },
+    {
+      "name": "feature_api_join",
+      "value": "、"
+    },
+    {
+      "name": "uncovered_ime_name",
+      "value": "InputMethodExtensionAbility 真实输入"
+    },
+    {
+      "name": "uncovered_ime_reason",
+      "value": "安装为输入法并在设置中启用、聚焦编辑框后才会被拉起，示例不自动改系统输入法设置"
+    },
+    {
+      "name": "uncovered_engine_name",
+      "value": "inputMethodEngine 输入回调（insertText 等）"
+    },
+    {
+      "name": "uncovered_engine_reason",
+      "value": "需要输入法身份与真实编辑框连接，自动化环境拿不到该连接，页面只做面板预览"
+    },
+    {
+      "name": "uncovered_item",
+      "value": "%s（%s）"
+    },
+    {
+      "name": "uncovered_join",
+      "value": "；"
+    },
+    {
+      "name": "kb_key_space",
+      "value": "空格"
+    },
+    {
+      "name": "kb_mode_number",
+      "value": "数字与符号"
+    },
+    {
+      "name": "kb_mode_letter",
+      "value": "字母"
+    },
+    {
+      "name": "kb_candidate_suffix_hao",
+      "value": "好"
+    },
+    {
+      "name": "kb_candidate_suffix_de",
+      "value": "的"
+    },
+    {
+      "name": "panel_status_none",
+      "value": "尚未创建面板"
+    },
+    {
+      "name": "panel_status_mounted",
+      "value": "面板已挂载 %s（%d × %d px）"
+    },
+    {
+      "name": "panel_status_destroyed",
+      "value": "面板已销毁"
+    },
+    {
+      "name": "panel_status_destroy_failed",
+      "value": "面板销毁失败"
+    },
+    {
+      "name": "panel_summary_reuse",
+      "value": "复用已有面板"
+    },
+    {
+      "name": "panel_summary_created",
+      "value": "面板已创建（%d × %d px）"
+    },
+    {
+      "name": "panel_detail_created",
+      "value": "createPanel → resize → setUiContent('%s') 全部成功"
+    },
+    {
+      "name": "panel_detail_timeout",
+      "value": "等待上限内没有回调，面板不可用；这不代表底层调用已经结束"
+    },
+    {
+      "name": "panel_detail_register_hint",
+      "value": "确认本调用发生在 InputMethodExtensionAbility 进程内，且扩展已在 module.json5 注册"
+    },
+    {
+      "name": "bridge_status_disconnected",
+      "value": "未连接编辑框（壳外预览）"
+    },
+    {
+      "name": "bridge_status_connected",
+      "value": "已连接编辑框，输入将写入真实编辑框"
+    },
+    {
+      "name": "bridge_status_detached",
+      "value": "编辑框已解绑，回到壳外预览"
+    },
+    {
+      "name": "probe_label_soft_fixed",
+      "value": "软键盘·固定"
+    },
+    {
+      "name": "probe_summary_unexpected",
+      "value": "意外创建成功（%s）"
+    },
+    {
+      "name": "probe_detail_unexpected",
+      "value": "当前进程被当作输入法应用；已立即销毁面板（%s）"
+    },
+    {
+      "name": "probe_destroyed_ok",
+      "value": "销毁成功"
+    },
+    {
+      "name": "probe_destroyed_failed",
+      "value": "销毁失败"
+    },
+    {
+      "name": "probe_detail_timeout",
+      "value": "等待上限内没有回调，页面不再等待；这不代表底层调用已经结束"
+    },
+    {
+      "name": "probe_summary_labelled",
+      "value": "（%s）%s"
+    },
+    {
+      "name": "probe_hint_expected",
+      "value": "符合预期：UIAbility 不是输入法应用，面板只能在 InputMethodExtensionAbility 内创建"
+    },
+    {
+      "name": "probe_hint_unsupported",
+      "value": "设备未声明输入法框架能力，换设备复验"
+    },
+    {
+      "name": "probe_hint_unknown",
+      "value": "未登记的错误码，先看 hilog 里 createPanel 前后的调用顺序"
+    },
+    {
+      "name": "list_pattern_zh_label",
+      "value": "中文输入"
+    },
+    {
+      "name": "list_pattern_zh_hint",
+      "value": "拼音候选，适用于文本编辑框"
+    },
+    {
+      "name": "list_pattern_en_label",
+      "value": "英文输入"
+    },
+    {
+      "name": "list_pattern_en_hint",
+      "value": "直接上屏，适用于密码外的普通输入"
+    },
+    {
+      "name": "list_pattern_display",
+      "value": "%d. %s（%s）"
+    },
+    {
+      "name": "list_summary_empty",
+      "value": "没有模式项"
+    },
+    {
+      "name": "list_summary",
+      "value": "%d 个模式项：%s；默认选中第 %d 项"
+    },
+    {
+      "name": "list_action_empty",
+      "value": "回调下标 %d：列表为空，无可选项"
+    },
+    {
+      "name": "list_action_out_of_range",
+      "value": "回调下标 %d：超出范围（共 %d 项）"
+    },
+    {
+      "name": "list_action_hit",
+      "value": "回调下标 %d：%s"
+    },
+    {
+      "name": "list_join",
+      "value": "、"
     }
   ]
 }

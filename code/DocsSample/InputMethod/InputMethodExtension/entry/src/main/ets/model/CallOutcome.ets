@@ -22,6 +22,8 @@
  * 0 始终只代表成功。
  */
 
+import { text } from '../common/L10n';
+
 /** 问题类别。页面据此选颜色，用例据此挑断言分支 */
 export enum ApiStatus {
   OK = 'ok',
@@ -76,17 +78,17 @@ export function classifyErrorCode(code: number): ApiStatus {
 export function apiStatusName(status: ApiStatus): string {
   switch (status) {
     case ApiStatus.OK:
-      return '成功';
+      return text('outcome_status_ok');
     case ApiStatus.INVALID_INPUT:
-      return '入参无效';
+      return text('outcome_status_invalid');
     case ApiStatus.UNSUPPORTED:
-      return '能力不支持';
+      return text('outcome_status_unsupported');
     case ApiStatus.INPUT_METHOD:
-      return '输入法身份不符';
+      return text('outcome_status_input_method');
     case ApiStatus.EMPTY_RESULT:
-      return '无返回结果';
+      return text('outcome_status_empty');
     default:
-      return '内部错误';
+      return text('outcome_status_internal');
   }
 }
 
@@ -116,11 +118,11 @@ export class CallOutcome {
   /** 形如「buildExtraConfig → 成功：4 个键，共 118 字节」 */
   describe(): string {
     const head = `${this.api} → ${apiStatusName(this.status)}`;
-    const body = this.summary.length > 0 ? `${head}：${this.summary}` : head;
+    const body = this.summary.length > 0 ? text('outcome_line_summary', head, this.summary) : head;
     if (this.code === 0) {
       return body;
     }
-    return `${body}（${this.code}）`;
+    return text('outcome_line_code', body, this.code);
   }
 
   /** 详细说明放在第二行，页面用小字展示，避免主行过长 */
@@ -141,11 +143,11 @@ export function failedOutcome(api: string, status: ApiStatus, code: number, summ
 /** 同步接口返回 undefined：必须与成功区分开，code 用本地占位码而不是 0 */
 export function emptyOutcome(api: string, detail: string, durationMs: number): CallOutcome {
   return new CallOutcome(api, ApiStatus.EMPTY_RESULT, ERROR_CODE_LOCAL_EMPTY_RESULT,
-    '接口返回 undefined 且未抛异常', detail, durationMs);
+    text('outcome_summary_empty'), detail, durationMs);
 }
 
 /** 本地入参校验不通过：不打到设备上，直接给出原因 */
 export function invalidOutcome(api: string, detail: string): CallOutcome {
   return new CallOutcome(api, ApiStatus.INVALID_INPUT, ERROR_CODE_INVALID_PARAM,
-    '本地校验未通过', detail, 0);
+    text('outcome_summary_invalid'), detail, 0);
 }

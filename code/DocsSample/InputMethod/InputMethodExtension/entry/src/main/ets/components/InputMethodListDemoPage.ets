@@ -31,6 +31,7 @@ import { ResultList, ResultRow } from './ResultList';
 import { LogPanel } from './LogPanel';
 import { PatternSpec, actionText, listSummary, patternSpecs } from '../utils/InputMethodListSession';
 import { Logger } from '../utils/Logger';
+import { text } from '../common/L10n';
 
 const LOG_SOURCE: string = 'List';
 const MAX_ROWS: number = 8;
@@ -86,10 +87,10 @@ export struct InputMethodListDemoPage {
 
   /** action 回调：下标由系统给出，页面只翻译成"第几项、叫什么" */
   private onPattern(index: number): void {
-    const text = actionText(index, this.specs);
-    this.selectedText = text;
-    Logger.info(LOG_SOURCE, 'action', text);
-    this.push(new ResultRow(this.textOf($r('app.string.list_row_action_title')), text, WidgetTone.SUCCESS));
+    const message = actionText(index, this.specs);
+    this.selectedText = message;
+    Logger.info(LOG_SOURCE, 'action', message);
+    this.push(new ResultRow(this.textOf($r('app.string.list_row_action_title')), message, WidgetTone.SUCCESS));
   }
 
   private openDialog(): void {
@@ -103,7 +104,7 @@ export struct InputMethodListDemoPage {
       this.dialogOpen = false;
       Logger.error(LOG_SOURCE, 'open', `open failed: ${err}`);
       this.push(new ResultRow('InputMethodListDialog.open()',
-        this.textOf($r('app.string.list_row_failed_detail')) + `${err}`, WidgetTone.DANGER));
+        text('list_row_failed_detail', `${err}`), WidgetTone.DANGER));
     }
   }
 
@@ -118,11 +119,11 @@ export struct InputMethodListDemoPage {
         .width(20)
         .textAlign(TextAlign.Center)
       Column({ space: 2 }) {
-        Text(spec.label)
+        Text(spec.labelText())
           .fontSize(AppText.BODY)
           .fontColor(AppColors.TEXT_STRONG)
           .width('100%')
-        Text(spec.hint)
+        Text(spec.hintText())
           .fontSize(AppText.CAPTION)
           .fontColor(AppColors.TEXT_MUTED)
           .width('100%')

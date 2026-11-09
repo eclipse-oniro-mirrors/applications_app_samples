@@ -74,7 +74,7 @@ struct Index {
   }
 
   private openDemo(item: FeatureEntry): void {
-    Logger.info('Home', 'Nav', `open ${item.title}`);
+    Logger.info('Home', 'Nav', `open ${item.titleText()}`);
     this.navPathStack.pushPath({ name: item.id });
   }
 
@@ -161,7 +161,7 @@ struct Index {
           .backgroundColor(AppColors.PRIMARY_SOFT)
           .borderRadius(AppRadius.TAG)
           .padding({ left: 6, right: 6, top: 2, bottom: 2 })
-        Text(item.title)
+        Text(item.titleText())
           .fontSize(AppText.SECTION)
           .fontWeight(FontWeight.Medium)
           .fontColor(AppColors.TEXT_PRIMARY)
@@ -173,7 +173,7 @@ struct Index {
       .width('100%')
       .alignItems(VerticalAlign.Center)
 
-      Text(item.subtitle)
+      Text(item.subtitleText())
         .fontSize(AppText.BODY)
         .fontColor(AppColors.TEXT_SECONDARY)
         .width('100%')

@@ -66,10 +66,10 @@ export default function inputMethodListMatrixTest() {
     it('testListMatrix0002', 0, () => {
       const specs = patternSpecs();
       expect(specs[0].index).assertEqual(0);
-      expect(specs[0].label).assertEqual('中文输入');
+      expect(specs[0].labelText()).assertEqual('中文输入');
       expect(specs[1].index).assertEqual(1);
-      expect(specs[1].label).assertEqual('英文输入');
-      expect(specs[1].hint.includes('直接上屏')).assertTrue();
+      expect(specs[1].labelText()).assertEqual('英文输入');
+      expect(specs[1].hintText().includes('直接上屏')).assertTrue();
     });
 
     /**
@@ -83,7 +83,7 @@ export default function inputMethodListMatrixTest() {
     it('testListMatrix0003', 0, () => {
       expect(patternSpecs(3).length).assertEqual(2);
       expect(patternSpecs(99).length).assertEqual(2);
-      expect(patternSpecs(3)[1].label).assertEqual('英文输入');
+      expect(patternSpecs(3)[1].labelText()).assertEqual('英文输入');
     });
 
     /**
@@ -96,7 +96,7 @@ export default function inputMethodListMatrixTest() {
      */
     it('testListMatrix0004', 0, () => {
       expect(patternSpecs(-1).length).assertEqual(1);
-      expect(patternSpecs(-1)[0].label).assertEqual('中文输入');
+      expect(patternSpecs(-1)[0].labelText()).assertEqual('中文输入');
       expect(patternSpecs(-5).length).assertEqual(0);
     });
 
@@ -153,8 +153,8 @@ export default function inputMethodListMatrixTest() {
      * @tc.level Level 2
      */
     it('testListMatrix0008', 0, () => {
-      expect(specAt(0)?.label).assertEqual('中文输入');
-      expect(specAt(1)?.label).assertEqual('英文输入');
+      expect(specAt(0)?.labelText()).assertEqual('中文输入');
+      expect(specAt(1)?.labelText()).assertEqual('英文输入');
       expect(specAt(2) === undefined).assertTrue();
       expect(specAt(-1) === undefined).assertTrue();
       expect(specAt(0, []) === undefined).assertTrue();
@@ -260,9 +260,9 @@ export default function inputMethodListMatrixTest() {
      * @tc.level Level 2
      */
     it('testListMatrix0015', 0, () => {
-      expect(featureById(FeatureId.EXTRA).title).assertEqual('扩展信息');
-      expect(featureById(FeatureId.PANEL).title).assertEqual('面板与模式');
-      expect(featureById('unknown' as FeatureId).title).assertEqual('扩展信息');
+      expect(featureById(FeatureId.EXTRA).titleText()).assertEqual('扩展信息');
+      expect(featureById(FeatureId.PANEL).titleText()).assertEqual('面板与模式');
+      expect(featureById('unknown' as FeatureId).titleText()).assertEqual('扩展信息');
     });
 
     /**

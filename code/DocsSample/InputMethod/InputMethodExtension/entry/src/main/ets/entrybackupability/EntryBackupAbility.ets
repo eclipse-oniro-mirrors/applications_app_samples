@@ -18,14 +18,14 @@ import { Logger } from '../utils/Logger';
 
 export default class EntryBackupAbility extends BackupExtensionAbility {
   async onBackup(): Promise<void> {
-    Logger.info('Backup', 'backup', 'onBackup 开始');
+    Logger.info('Backup', 'backup', 'onBackup started');
     await Promise.resolve();
-    Logger.info('Backup', 'backup', 'onBackup 完成');
+    Logger.info('Backup', 'backup', 'onBackup finished');
   }
 
   async onRestore(bundleVersion: BundleVersion): Promise<void> {
-    Logger.info('Backup', 'restore', `onRestore 开始：${JSON.stringify(bundleVersion)}`);
+    Logger.info('Backup', 'restore', `onRestore started: ${JSON.stringify(bundleVersion)}`);
     await Promise.resolve();
-    Logger.info('Backup', 'restore', 'onRestore 完成');
+    Logger.info('Backup', 'restore', 'onRestore finished');
   }
 }

@@ -65,6 +65,7 @@ InputMethodExtension
 │   ├── ets
 │   │   ├── common
 │   │   │   ├── AppConstants.ets         32KB 额度、键名、日志 domain/tag、超时
+│   │   │   ├── L10n.ets                 按资源名取本地化文案（model / utils 层共用）
 │   │   │   └── Theme.ets                颜色、间距、圆角、字号常量
 │   │   ├── model
 │   │   │   ├── ExtraConfigModel.ets     ConfigEntry / customSettings 构造 / UTF-8 字节数 / 打桩 EditorAttribute
@@ -82,7 +83,7 @@ InputMethodExtension
 │   │   │   ├── ErrorUtil.ets            错误码分类提示、异常对象取码
 │   │   │   ├── FormatUtil.ets           时长/文本格式化
 │   │   │   └── Logger.ets               hilog 封装 + AppStorage 共享日志
-│   │   ├── components                   三个演示页、KeyboardPanel、ResultList、LogPanel、CommonWidgets
+│   │   ├── components                   三个演示页、KeyboardPanel、OutcomeView、ResultList、LogPanel、CommonWidgets
 │   │   ├── pages/Index.ets              Navigation 外壳与首页
 │   │   ├── pages/demos                  ExtraConfigDemo / InputMethodListDemo / PanelDemo
 │   │   ├── inputmethodextensionability  InputMethodService + pages/KeyboardPage
@@ -104,7 +105,7 @@ InputMethodExtension
 整仓体积较大，只需要本示例时可以用稀疏检出：
 
 ```bash
-git clone --filter=blob:none --no-checkout https://gitee.com/openharmony/applications_app_samples.git
+git clone --filter=blob:none --no-checkout https://gitcode.com/openharmony/applications_app_samples.git
 cd applications_app_samples
 git sparse-checkout init --cone
 git sparse-checkout set code/DocsSample/InputMethod/InputMethodExtension
@@ -247,17 +248,21 @@ hdc shell hilog -x -T InputMethodExt
 
 13. **界面文案统一走 `resources/base/element/string.json`**：页面与组件里不再写字面量，自定义组件属性用
     `ResourceStr`；`Navigation.title` / `NavDestination.title` 只接受 `string`，用
-    `CommonWidgets.ets` 里的 `textOfResource()` 取本地化文本。hilog 的 source / tag / detail 一律英文，
-    便于按 `domain 0xF811` + `tag InputMethodExt` 过滤。
+    `CommonWidgets.ets` 里的 `textOfResource()` 取本地化文本。model / utils 层用不了 `$r()`（它要求编译期
+    字面量），统一经 `common/L10n.ets` 的 `text(资源名, 参数…)` 在运行时按名取串：模块级常量只存资源名
+    （如 `PatternSpec.label`、`FeatureEntry.title`），要展示时再调 `labelText()` / `titleText()`；
+    资源管理器由 `EntryAbility.onCreate` 与 `InputMethodService.onCreate` 绑定，ohosTest 在第一个注册的
+    套件（`InputMethodData.test.ets`）入口处绑定，未绑定前 `text()` 原样返回资源名，便于第一时间发现初始化遗漏。
+    hilog 的 source / tag / detail 一律英文，便于按 `domain 0xF811` + `tag InputMethodExt` 过滤。
 
 ## 参考资料
 
 本示例的两个主体接口以 OpenHarmony 官方文档为准，并与本地 SDK 声明逐条对照：
 
 - `@ohos.inputMethod.ExtraConfig`（输入法扩展信息）：
-  https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethod-extraconfig.md
+  https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethod-extraconfig.md
 - `@ohos.inputMethodList`（输入法切换列表控件）：
-  https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodlist.md
+  https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodlist.md
 
 配套声明的本地路径（`%DEVECO_SDK_HOME%/default/openharmony/ets/api/`）：
 `@ohos.inputMethod.ExtraConfig.d.ts`、`@ohos.inputMethodList.d.ets`、`@ohos.inputMethodEngine.d.ts`、

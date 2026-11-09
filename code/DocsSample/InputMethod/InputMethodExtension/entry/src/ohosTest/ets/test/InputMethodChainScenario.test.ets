@@ -293,15 +293,15 @@ export default function inputMethodChainScenarioTest() {
      */
     it('testChainScenario0010', 0, () => {
       Logger.clear();
-      Logger.info('链路', 'chain', '写入一条');
+      Logger.info('Chain', 'chain', 'write one');
       const logs: LogItem[] = storedLogs();
       expect(logs.length).assertEqual(1);
-      expect(logs[0].source).assertEqual('链路');
+      expect(logs[0].source).assertEqual('Chain');
       expect(logs[0].level).assertEqual(LogLevel.INFO);
-      const hits: LogItem[] = queryLogs(logs, '链路', LogLevel.INFO, 'chain', 10);
+      const hits: LogItem[] = queryLogs(logs, 'Chain', LogLevel.INFO, 'chain', 10);
       expect(hits.length).assertEqual(1);
-      expect(hits[0].detail).assertEqual('写入一条');
-      expect(Logger.count('链路', 'chain')).assertEqual(1);
+      expect(hits[0].detail).assertEqual('write one');
+      expect(Logger.count('Chain', 'chain')).assertEqual(1);
       Logger.clear();
       expect(storedLogs().length).assertEqual(0);
     });

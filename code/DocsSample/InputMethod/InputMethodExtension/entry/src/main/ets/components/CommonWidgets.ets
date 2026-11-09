@@ -20,6 +20,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../common/Theme';
+import { Logger } from '../utils/Logger';
 
 export enum WidgetTone {
   NEUTRAL = 'neutral',
@@ -68,13 +69,18 @@ export function textOfResource(context: common.Context | undefined, res: Resourc
     return '';
   }
   const args: (string | number)[] = res.params === undefined ? [] : res.params as (string | number)[];
-  if (args.length === 0) {
-    return context.resourceManager.getStringSync(res.id);
+  try {
+    if (args.length === 0) {
+      return context.resourceManager.getStringSync(res.id);
+    }
+    if (args.length === 1) {
+      return context.resourceManager.getStringSync(res.id, args[0]);
+    }
+    return context.resourceManager.getStringSync(res.id, args[0], args[1]);
+  } catch (err) {
+    Logger.warn('Widgets', 'textOfResource', `getStringSync failed: ${err}`);
+    return '';
   }
-  if (args.length === 1) {
-    return context.resourceManager.getStringSync(res.id, args[0]);
-  }
-  return context.resourceManager.getStringSync(res.id, args[0], args[1]);
 }
 
 /**

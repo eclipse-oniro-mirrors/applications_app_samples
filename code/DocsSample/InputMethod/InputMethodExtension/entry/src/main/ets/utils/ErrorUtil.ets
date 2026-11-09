@@ -20,6 +20,7 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
+import { text } from '../common/L10n';
 import {
   ApiStatus,
   ERROR_CODE_LOCAL_TIMEOUT,
@@ -31,32 +32,32 @@ import {
 export function apiStatusHint(status: ApiStatus): string {
   switch (status) {
     case ApiStatus.INVALID_INPUT:
-      return '入参不合法：确认键名非空、值仅为 number/string/boolean，扩展信息总长不超过 32KB';
+      return text('err_hint_invalid');
     case ApiStatus.UNSUPPORTED:
-      return '设备或系统不支持该能力：先在设置中启用输入法框架，再换设备复验，勿据此断定接口不可用';
+      return text('err_hint_unsupported');
     case ApiStatus.INPUT_METHOD:
-      return '调用身份不符：createPanel 等接口只能在 InputMethodExtensionAbility 进程内调用，UIAbility 侧调用会抛 12800004';
+      return text('err_hint_input_method');
     case ApiStatus.EMPTY_RESULT:
-      return '接口返回 undefined 却没有错误码，失败没有上报出来；先按 hilog 里的 tag 定位底层实现';
+      return text('err_hint_empty');
     case ApiStatus.INTERNAL:
-      return '内部错误：先检查输入法服务是否已启动，并用 hilog 过滤本示例 tag 查看调用顺序';
+      return text('err_hint_internal');
     default:
-      return '调用正常完成';
+      return text('err_hint_ok');
   }
 }
 
 export function formatError(action: string, code: number, message: string): string {
-  const detail = message.length > 0 ? message : '未知错误';
+  const detail = message.length > 0 ? message : text('err_unknown');
   if (code !== 0) {
-    return `${action}失败（${code}）：${detail}`;
+    return text('err_format_code', action, code, detail);
   }
-  return `${action}失败：${detail}`;
+  return text('err_format', action, detail);
 }
 
 /** 页面上一行文案：动作 + 错误码 + 原始描述 + 处理建议 */
 export function describeThrown(action: string, code: number, message: string): string {
   const status = code === ERROR_CODE_LOCAL_TIMEOUT ? ApiStatus.EMPTY_RESULT : classifyErrorCode(code);
-  return `${formatError(action, code, message)}；${apiStatusHint(status)}`;
+  return text('err_line', formatError(action, code, message), apiStatusHint(status));
 }
 
 /**

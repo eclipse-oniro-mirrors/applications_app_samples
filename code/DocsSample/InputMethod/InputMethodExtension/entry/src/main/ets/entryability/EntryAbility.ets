@@ -17,6 +17,7 @@ import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want 
 import { window } from '@kit.ArkUI';
 import { LogItem } from '../model/LogStore';
 import { StorageKeys } from '../common/AppConstants';
+import { bindResourceManager } from '../common/L10n';
 import { Logger } from '../utils/Logger';
 
 export default class EntryAbility extends UIAbility {
@@ -24,51 +25,53 @@ export default class EntryAbility extends UIAbility {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
-    Logger.info('Ability', '生命周期',
+    // 页面与模型层都从 string.json 取文案，这里先把本进程的资源管理器交给 L10n
+    bindResourceManager(this.context.resourceManager);
+    Logger.info('Ability', 'Lifecycle',
       `onCreate launchReason=${launchParam.launchReason} ability=${want.abilityName}`);
   }
 
   onDestroy(): void {
-    Logger.info('Ability', '生命周期', 'onDestroy');
+    Logger.info('Ability', 'Lifecycle', 'onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    Logger.info('Ability', '生命周期', 'onWindowStageCreate');
+    Logger.info('Ability', 'Lifecycle', 'onWindowStageCreate');
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        Logger.error('Ability', '生命周期', `加载 pages/Index 失败：${err.code} ${err.message}`);
+        Logger.error('Ability', 'Lifecycle', `load pages/Index failed: ${err.code} ${err.message}`);
         return;
       }
-      Logger.info('Ability', '生命周期', 'pages/Index 加载完成');
+      Logger.info('Ability', 'Lifecycle', 'pages/Index loaded');
     });
 
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
-      Logger.debug('Ability', '配置', '颜色模式跟随系统');
+      Logger.debug('Ability', 'Config', 'color mode follows system');
     } catch (err) {
-      Logger.error('Ability', '配置', `设置颜色模式失败：${JSON.stringify(err)}`);
+      Logger.error('Ability', 'Config', `set color mode failed: ${JSON.stringify(err)}`);
     }
   }
 
   onWindowStageDestroy(): void {
-    Logger.info('Ability', '生命周期', 'onWindowStageDestroy');
+    Logger.info('Ability', 'Lifecycle', 'onWindowStageDestroy');
   }
 
   onForeground(): void {
-    Logger.info('Ability', '生命周期', 'onForeground');
+    Logger.info('Ability', 'Lifecycle', 'onForeground');
   }
 
   onBackground(): void {
-    Logger.info('Ability', '生命周期', 'onBackground');
+    Logger.info('Ability', 'Lifecycle', 'onBackground');
   }
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    Logger.info('Ability', '生命周期',
+    Logger.info('Ability', 'Lifecycle',
       `onNewWant launchReason=${launchParam.launchReason} ability=${want.abilityName}`);
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {
-    Logger.info('Ability', '配置',
+    Logger.info('Ability', 'Config',
       `onConfigurationUpdate direction=${newConfig.direction} colorMode=${newConfig.colorMode}`);
   }
 }

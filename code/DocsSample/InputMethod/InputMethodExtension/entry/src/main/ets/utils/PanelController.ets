@@ -28,6 +28,7 @@ import { common } from '@kit.AbilityKit';
 import { display } from '@kit.ArkUI';
 import { inputMethodEngine } from '@kit.IMEKit';
 import { API_TIMEOUT_MS } from '../common/AppConstants';
+import { text } from '../common/L10n';
 import { ApiStatus, CallOutcome, failedOutcome, okOutcome } from '../model/CallOutcome';
 import { codeOfThrown, messageOfThrown } from './ErrorUtil';
 import { isTimeoutError, timeoutText, withTimeout } from './AsyncUtil';
@@ -45,14 +46,15 @@ const PANEL_FALLBACK_HEIGHT: number = 360;
 
 export class PanelController {
   private panel: inputMethodEngine.Panel | undefined = undefined;
-  private status: string = '尚未创建面板';
+  /** 空串表示"尚未创建面板"：初始值在资源管理器绑定前就写死，只能在读取时再取文案 */
+  private status: string = '';
 
   hasPanel(): boolean {
     return this.panel !== undefined;
   }
 
   statusText(): string {
-    return this.status;
+    return this.status === '' ? text('panel_status_none') : this.status;
   }
 
   /**
@@ -61,7 +63,7 @@ export class PanelController {
   async ensurePanel(context: common.BaseContext): Promise<CallOutcome> {
     if (this.panel !== undefined) {
       Logger.info(SOURCE, 'Reuse', 'panel exists, skip createPanel');
-      return okOutcome(API_NAME, '复用已有面板', this.status, 0);
+      return okOutcome(API_NAME, text('panel_summary_reuse'), this.statusText(), 0);
     }
     const start = Date.now();
     let step: string = 'createPanel';
@@ -78,10 +80,10 @@ export class PanelController {
       step = 'setUiContent';
       await withTimeout(panel.setUiContent(KEYBOARD_PAGE_PATH), API_TIMEOUT_MS);
       this.panel = panel;
-      this.status = `面板已挂载 ${KEYBOARD_PAGE_PATH}（${size.width} × ${size.height} px）`;
+      this.status = text('panel_status_mounted', KEYBOARD_PAGE_PATH, size.width, size.height);
       Logger.info(SOURCE, 'Success', this.status);
-      return okOutcome(API_NAME, `面板已创建（${size.width} × ${size.height} px）`,
-        `createPanel → resize → setUiContent('${KEYBOARD_PAGE_PATH}') 全部成功`, Date.now() - start);
+      return okOutcome(API_NAME, text('panel_summary_created', size.width, size.height),
+        text('panel_detail_created', KEYBOARD_PAGE_PATH), Date.now() - start);
     } catch (err) {
       const outcome = this.failureOutcome(step, err, start);
       Logger.error(SOURCE, step, outcome.describe());
@@ -99,10 +101,10 @@ export class PanelController {
     try {
       const ability = inputMethodEngine.getInputMethodAbility();
       await ability.destroyPanel(current);
-      this.status = '面板已销毁';
+      this.status = text('panel_status_destroyed');
       Logger.info(SOURCE, 'Destroy', this.status);
     } catch (err) {
-      this.status = '面板销毁失败';
+      this.status = text('panel_status_destroy_failed');
       Logger.error(SOURCE, 'destroyPanel', `${messageOfThrown(err)}`);
     }
   }
@@ -110,11 +112,11 @@ export class PanelController {
   private failureOutcome(step: string, err: Object, start: number): CallOutcome {
     if (isTimeoutError(err)) {
       return failedOutcome(`${API_NAME}·${step}`, ApiStatus.EMPTY_RESULT, -3, timeoutText(API_TIMEOUT_MS),
-        '等待上限内没有回调，面板不可用；这不代表底层调用已经结束', Date.now() - start);
+        text('panel_detail_timeout'), Date.now() - start);
     }
     const code = codeOfThrown(err);
     return failedOutcome(`${API_NAME}·${step}`, ApiStatus.INTERNAL, code, messageOfThrown(err),
-      '确认本调用发生在 InputMethodExtensionAbility 进程内，且扩展已在 module.json5 注册', Date.now() - start);
+      text('panel_detail_register_hint'), Date.now() - start);
   }
 }
 

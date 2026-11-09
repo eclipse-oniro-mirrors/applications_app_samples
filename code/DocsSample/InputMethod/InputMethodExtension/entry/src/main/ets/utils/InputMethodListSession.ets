@@ -22,10 +22,13 @@
  */
 
 import { LIST_PATTERN_COUNT } from '../common/AppConstants';
+import { text } from '../common/L10n';
 
 export class PatternSpec {
   public index: number;
+  /** 资源名（如 list_pattern_zh_label）：模块级常量在绑定资源管理器前就已构造，只能存名字 */
   public label: string;
+  /** 资源名（如 list_pattern_zh_hint），理由同上 */
   public hint: string;
 
   constructor(index: number, label: string, hint: string) {
@@ -34,16 +37,24 @@ export class PatternSpec {
     this.hint = hint;
   }
 
+  labelText(): string {
+    return text(this.label);
+  }
+
+  hintText(): string {
+    return text(this.hint);
+  }
+
   display(): string {
-    return `${this.index + 1}. ${this.label}（${this.hint}）`;
+    return text('list_pattern_display', this.index + 1, this.labelText(), this.hintText());
   }
 }
 
 /** 与 LIST_PATTERN_COUNT 对齐的模式项：中文输入 / 英文输入 */
 export function patternSpecs(count: number = LIST_PATTERN_COUNT): PatternSpec[] {
   const all: PatternSpec[] = [
-    new PatternSpec(0, '中文输入', '拼音候选，适用于文本编辑框'),
-    new PatternSpec(1, '英文输入', '直接上屏，适用于密码外的普通输入')
+    new PatternSpec(0, 'list_pattern_zh_label', 'list_pattern_zh_hint'),
+    new PatternSpec(1, 'list_pattern_en_label', 'list_pattern_en_hint')
   ];
   return all.slice(0, count);
 }
@@ -67,18 +78,18 @@ export function specAt(index: number, specs: PatternSpec[] = patternSpecs()): Pa
 /** 页面标题与日志用：一眼看清列表里有什么 */
 export function listSummary(specs: PatternSpec[] = patternSpecs()): string {
   if (specs.length === 0) {
-    return '没有模式项';
+    return text('list_summary_empty');
   }
-  const labels = specs.map((item: PatternSpec) => item.label).join('、');
-  return `${specs.length} 个模式项：${labels}；默认选中第 ${clampSelected(0, specs.length) + 1} 项`;
+  const labels = specs.map((item: PatternSpec) => item.labelText()).join(text('list_join'));
+  return text('list_summary', specs.length, labels, clampSelected(0, specs.length) + 1);
 }
 
 /** 观察 action 回调：把下标翻译成"用户点了哪一项" */
 export function actionText(index: number, specs: PatternSpec[] = patternSpecs()): string {
   const spec = specAt(index, specs);
   if (spec === undefined) {
-    return specs.length === 0 ? `回调下标 ${index}：列表为空，无可选项`
-      : `回调下标 ${index}：超出范围（共 ${specs.length} 项）`;
+    return specs.length === 0 ? text('list_action_empty', index)
+      : text('list_action_out_of_range', index, specs.length);
   }
-  return `回调下标 ${index}：${spec.label}`;
+  return text('list_action_hit', index, spec.labelText());
 }

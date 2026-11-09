@@ -23,6 +23,7 @@
  */
 
 import { inputMethodEngine } from '@kit.IMEKit';
+import { text } from '../common/L10n';
 import { Logger } from './Logger';
 
 /** 日志来源标识；与 status 文本不同，它只进日志面板，不参与界面文案 */
@@ -30,18 +31,19 @@ const SOURCE: string = 'Keyboard';
 
 export class KeyboardBridge {
   private static client: inputMethodEngine.InputClient | undefined = undefined;
-  private static status: string = '未连接编辑框（壳外预览）';
+  /** 当前状态的资源名：类加载早于资源管理器绑定，不能在这里存已解析的文案 */
+  private static status: string = 'bridge_status_disconnected';
 
   static attach(client: inputMethodEngine.InputClient): void {
     KeyboardBridge.client = client;
-    KeyboardBridge.status = '已连接编辑框，输入将写入真实编辑框';
-    Logger.info(SOURCE, 'inputStart', KeyboardBridge.status);
+    KeyboardBridge.status = 'bridge_status_connected';
+    Logger.info(SOURCE, 'inputStart', KeyboardBridge.statusText());
   }
 
   static detach(): void {
     KeyboardBridge.client = undefined;
-    KeyboardBridge.status = '编辑框已解绑，回到壳外预览';
-    Logger.info(SOURCE, 'inputStop', KeyboardBridge.status);
+    KeyboardBridge.status = 'bridge_status_detached';
+    Logger.info(SOURCE, 'inputStop', KeyboardBridge.statusText());
   }
 
   static hasClient(): boolean {
@@ -49,18 +51,18 @@ export class KeyboardBridge {
   }
 
   static statusText(): string {
-    return KeyboardBridge.status;
+    return text(KeyboardBridge.status);
   }
 
   /** 返回 true 表示编辑框接受了文本；false 表示当前没有编辑框或编辑框拒绝 */
-  static async insertText(text: string): Promise<boolean> {
+  static async insertText(value: string): Promise<boolean> {
     const current = KeyboardBridge.client;
     if (current === undefined) {
       return false;
     }
     try {
-      const accepted = await current.insertText(text);
-      Logger.debug(SOURCE, 'insertText', `${accepted ? 'sent' : 'rejected'}: ${text}`);
+      const accepted = await current.insertText(value);
+      Logger.debug(SOURCE, 'insertText', `${accepted ? 'sent' : 'rejected'}: ${value}`);
       return accepted;
     } catch (err) {
       Logger.error(SOURCE, 'insertText', `${err}`);

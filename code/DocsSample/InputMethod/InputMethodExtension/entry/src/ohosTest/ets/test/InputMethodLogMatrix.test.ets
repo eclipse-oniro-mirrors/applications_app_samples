@@ -412,12 +412,12 @@ export default function inputMethodLogMatrixTest() {
      * @tc.level Level 2
      */
     it('testLogMatrix0021', 0, () => {
-      Logger.info('page', 'buildExtraConfig', '4 个键，125 字节');
+      Logger.info('page', 'buildExtraConfig', '4 keys, 125 bytes');
       const logs = storedLogs();
       expect(logs.length).assertEqual(1);
       expect(logs[0].source).assertEqual('page');
       expect(logs[0].tag).assertEqual('buildExtraConfig');
-      expect(logs[0].detail).assertEqual('4 个键，125 字节');
+      expect(logs[0].detail).assertEqual('4 keys, 125 bytes');
       expect(logs[0].level).assertEqual(LogLevel.INFO);
     });
 

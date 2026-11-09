@@ -19,6 +19,8 @@
  * 这里把布局与编辑逻辑抽成纯函数，页面只管画，用例可以逐条断言。
  */
 
+import { text } from '../common/L10n';
+
 export enum KeyboardMode {
   LETTER = 'letter',
   NUMBER = 'number'
@@ -74,7 +76,7 @@ export function buildRows(mode: KeyboardMode): KeySpec[][] {
 export function buildFunctionRow(mode: KeyboardMode): KeySpec[] {
   return [
     new KeySpec(mode === KeyboardMode.NUMBER ? 'abc' : '123', ACTION_MODE, true),
-    new KeySpec('空格', ACTION_SPACE, true),
+    new KeySpec(text('kb_key_space'), ACTION_SPACE, true),
     new KeySpec('↵', ACTION_ENTER, true)
   ];
 }
@@ -101,15 +103,15 @@ export function switchMode(mode: KeyboardMode): KeyboardMode {
 }
 
 export function modeName(mode: KeyboardMode): string {
-  return mode === KeyboardMode.NUMBER ? '数字与符号' : '字母';
+  return mode === KeyboardMode.NUMBER ? text('kb_mode_number') : text('kb_mode_letter');
 }
 
 /** 演示用候选：不做词库，只把已输入文本拼上常用后缀，保证候选栏有可观测内容 */
-export function candidatesFor(text: string): string[] {
-  if (text.length === 0) {
+export function candidatesFor(text0: string): string[] {
+  if (text0.length === 0) {
     return [];
   }
-  return [text, `${text}好`, `${text}的`];
+  return [text0, `${text0}${text('kb_candidate_suffix_hao')}`, `${text0}${text('kb_candidate_suffix_de')}`];
 }
 
 /** 按 Unicode 码点计数：缓冲额度与页面上显示的 n/64 都走这里，emoji 算 1 个 */
