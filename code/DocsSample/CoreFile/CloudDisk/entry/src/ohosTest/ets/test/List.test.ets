@@ -23,6 +23,8 @@ import cloudDiskContractExtra2Test from './CloudDiskContractExtra2.test';
 import cloudDiskApiExtra3Test from './CloudDiskApiExtra3.test';
 import cloudDiskBundleInfoResidualTest from './CloudDiskBundleInfoResidual.test';
 import cloudDiskBundleFormatResidualTest from './CloudDiskBundleFormatResidual.test';
+import cloudDiskBundleBulkResidualTest from './CloudDiskBundleBulkResidual.test';
+import cloudDiskBundleBulkResidual2Test from './CloudDiskBundleBulkResidual2.test';
 
 export default function testsuite() {
   cloudDiskBundleInfoTest();
@@ -35,4 +37,6 @@ export default function testsuite() {
   cloudDiskApiExtra3Test();
   cloudDiskBundleInfoResidualTest();
   cloudDiskBundleFormatResidualTest();
+  cloudDiskBundleBulkResidualTest();
+  cloudDiskBundleBulkResidual2Test();
 }
