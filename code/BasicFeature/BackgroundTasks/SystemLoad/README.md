@@ -79,7 +79,7 @@ The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers
 - **UI Component State Suite** (9 cases): Tests UI component state, mock data cycling, and data source switching
 - **Concurrency Safety Suite** (4 cases): Tests concurrent safety and exception recovery
 - **I18n & Theme Suite** (4 cases): Tests internationalization and theme adaptation
-- **Accessibility & Performance Suite** (5 cases): Tests accessibility features and performance baselines
+- **无障碍功能 & Performance Suite** (5 cases): Tests 无障碍功能 and performance baselines
 
 The real SDK suite runs first so that page listeners cannot interfere with the unregister-all coverage. Do not run the real suite on a system that does not support `SystemCapability.ResourceSchedule.SystemLoad`.
 
