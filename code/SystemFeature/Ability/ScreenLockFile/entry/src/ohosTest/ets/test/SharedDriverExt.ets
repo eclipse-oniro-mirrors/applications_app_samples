@@ -31,13 +31,13 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-interface PairingCounts {
+export interface PairingCounts {
   acquire: number;
   release: number;
   pending: number;
 }
 
-interface HistoryEntry {
+export interface HistoryEntry {
   timestamp: string;
   operation: string;
   result: string;
@@ -117,18 +117,18 @@ export class SharedDriverExt {
   }
 
   async verifyResultContains(expected: string): Promise<boolean> {
-    const resultText = await this.getOperationResult();
+    const resultText: string = await this.getOperationResult();
     return resultText.includes(expected);
   }
 
   async verifyResultNotContains(unexpected: string): Promise<boolean> {
-    const resultText = await this.getOperationResult();
+    const resultText: string = await this.getOperationResult();
     return !resultText.includes(unexpected);
   }
 
   async getResultTextBeforeAndAfter(buttonId: string): Promise<string[]> {
-    const beforeText = await this.getOperationResult();
-    const afterText = await this.driver.clickAndGetResult(buttonId, ID_OPERATION_RESULT);
+    const beforeText: string = await this.getOperationResult();
+    const afterText: string = await this.driver.clickAndGetResult(buttonId, ID_OPERATION_RESULT);
     const results: string[] = [];
     results.push(beforeText);
     results.push(afterText);
@@ -136,24 +136,24 @@ export class SharedDriverExt {
   }
 
   async parsePairingCounts(): Promise<PairingCounts> {
-    const pairingText = await this.getPairingStatusText();
+    const pairingText: string = await this.getPairingStatusText();
     const counts: PairingCounts = { acquire: 0, release: 0, pending: 0 };
 
-    const acquireMatch = new RegExp('Acquire:\\s*(\\d+)');
-    const releaseMatch = new RegExp('Release:\\s*(\\d+)');
-    const pendingMatch = new RegExp('Pending:\\s*(\\d+)');
+    const acquireMatch: RegExp = new RegExp('Acquire:\\s*(\\d+)');
+    const releaseMatch: RegExp = new RegExp('Release:\\s*(\\d+)');
+    const pendingMatch: RegExp = new RegExp('Pending:\\s*(\\d+)');
 
-    const acquireExec = acquireMatch.exec(pairingText);
+    const acquireExec: string[] | null = acquireMatch.exec(pairingText);
     if (acquireExec !== null && acquireExec.length > 1) {
       counts.acquire = parseInt(acquireExec[1]);
     }
 
-    const releaseExec = releaseMatch.exec(pairingText);
+    const releaseExec: string[] | null = releaseMatch.exec(pairingText);
     if (releaseExec !== null && releaseExec.length > 1) {
       counts.release = parseInt(releaseExec[1]);
     }
 
-    const pendingExec = pendingMatch.exec(pairingText);
+    const pendingExec: string[] | null = pendingMatch.exec(pairingText);
     if (pendingExec !== null && pendingExec.length > 1) {
       counts.pending = parseInt(pendingExec[1]);
     }
@@ -162,8 +162,8 @@ export class SharedDriverExt {
   }
 
   async verifyPairingCounts(expectedAcquire: number, expectedRelease: number): Promise<boolean> {
-    const counts = await this.parsePairingCounts();
-    const expectedPending = expectedAcquire - expectedRelease >= 0 ? expectedAcquire - expectedRelease : 0;
+    const counts: PairingCounts = await this.parsePairingCounts();
+    const expectedPending: number = expectedAcquire - expectedRelease >= 0 ? expectedAcquire - expectedRelease : 0;
     return counts.acquire === expectedAcquire &&
       counts.release === expectedRelease &&
       counts.pending === expectedPending;
@@ -174,19 +174,19 @@ export class SharedDriverExt {
   }
 
   async getHistoryEntryCount(): Promise<number> {
-    const isEmpty = await this.isHistoryEmpty();
+    const isEmpty: boolean = await this.isHistoryEmpty();
     if (isEmpty) {
       return 0;
     }
-    const driver = Driver.create();
-    const allComponents = await driver.findComponents(ON.type('Text'));
+    const driver: Driver = Driver.create();
+    const allComponents: Component[] = await driver.findComponents(ON.type('Text'));
     return allComponents.length;
   }
 
   async performMultipleQueries(count: number): Promise<string[]> {
     const results: string[] = [];
-    for (let i = 0; i < count; i++) {
-      const result = await this.clickQueryButton();
+    for (let i: number = 0; i < count; i++) {
+      const result: string = await this.clickQueryButton();
       results.push(result);
       await this.driver.waitUiIdle();
     }
@@ -195,8 +195,8 @@ export class SharedDriverExt {
 
   async performMultipleAcquires(count: number): Promise<string[]> {
     const results: string[] = [];
-    for (let i = 0; i < count; i++) {
-      const result = await this.clickAcquireButton();
+    for (let i: number = 0; i < count; i++) {
+      const result: string = await this.clickAcquireButton();
       results.push(result);
       await this.driver.waitUiIdle();
     }
@@ -205,8 +205,8 @@ export class SharedDriverExt {
 
   async performMultipleReleases(count: number): Promise<string[]> {
     const results: string[] = [];
-    for (let i = 0; i < count; i++) {
-      const result = await this.clickReleaseButton();
+    for (let i: number = 0; i < count; i++) {
+      const result: string = await this.clickReleaseButton();
       results.push(result);
       await this.driver.waitUiIdle();
     }
@@ -214,17 +214,17 @@ export class SharedDriverExt {
   }
 
   async measureOperationLatency(buttonId: string): Promise<number> {
-    const startTime = Date.now();
+    const startTime: number = Date.now();
     await this.driver.clickId(buttonId);
     await this.driver.waitUiIdle();
-    const endTime = Date.now();
+    const endTime: number = Date.now();
     return endTime - startTime;
   }
 
   async measureMultipleLatencies(buttonId: string, count: number): Promise<number[]> {
     const latencies: number[] = [];
-    for (let i = 0; i < count; i++) {
-      const latency = await this.measureOperationLatency(buttonId);
+    for (let i: number = 0; i < count; i++) {
+      const latency: number = await this.measureOperationLatency(buttonId);
       latencies.push(latency);
     }
     return latencies;
@@ -234,8 +234,8 @@ export class SharedDriverExt {
     if (latencies.length === 0) {
       return 0;
     }
-    let sum = 0;
-    for (let i = 0; i < latencies.length; i++) {
+    let sum: number = 0;
+    for (let i: number = 0; i < latencies.length; i++) {
       sum = sum + latencies[i];
     }
     return sum / latencies.length;
@@ -243,10 +243,10 @@ export class SharedDriverExt {
 
   async verifyComponentHasText(id: string, expectedText: string): Promise<boolean> {
     try {
-      const text = await this.driver.getTextById(id);
+      const text: string = await this.driver.getTextById(id);
       return text === expectedText;
     } catch (error) {
-      const err = error as Error;
+      const err: Error = error as Error;
       hilog.warn(DOMAIN, TAG, 'verifyComponentHasText failed for %{public}s: %{public}s', id, err.message);
       return false;
     }
@@ -254,19 +254,19 @@ export class SharedDriverExt {
 
   async verifyComponentContainsText(id: string, expectedSubstring: string): Promise<boolean> {
     try {
-      const text = await this.driver.getTextById(id);
+      const text: string = await this.driver.getTextById(id);
       return text.includes(expectedSubstring);
     } catch (error) {
-      const err = error as Error;
+      const err: Error = error as Error;
       hilog.warn(DOMAIN, TAG, 'verifyComponentContainsText failed for %{public}s: %{public}s', id, err.message);
       return false;
     }
   }
 
   async waitForComponentVisible(id: string, maxWaitMs: number): Promise<boolean> {
-    const startTime = Date.now();
+    const startTime: number = Date.now();
     while (Date.now() - startTime < maxWaitMs) {
-      const exists = await this.existsId(id);
+      const exists: boolean = await this.existsId(id);
       if (exists) {
         return true;
       }
@@ -276,9 +276,9 @@ export class SharedDriverExt {
   }
 
   async waitForComponentHidden(id: string, maxWaitMs: number): Promise<boolean> {
-    const startTime = Date.now();
+    const startTime: number = Date.now();
     while (Date.now() - startTime < maxWaitMs) {
-      const exists = await this.existsId(id);
+      const exists: boolean = await this.existsId(id);
       if (!exists) {
         return true;
       }
@@ -289,14 +289,14 @@ export class SharedDriverExt {
 
   async fullWorkflowQuery(): Promise<string> {
     await this.clearHistoryAndWait();
-    const result = await this.clickQueryButton();
+    const result: string = await this.clickQueryButton();
     return result;
   }
 
   async fullWorkflowAcquireRelease(): Promise<string[]> {
     await this.clearHistoryAndWait();
-    const acquireResult = await this.clickAcquireButton();
-    const releaseResult = await this.clickReleaseButton();
+    const acquireResult: string = await this.clickAcquireButton();
+    const releaseResult: string = await this.clickReleaseButton();
     const results: string[] = [];
     results.push(acquireResult);
     results.push(releaseResult);
@@ -305,43 +305,43 @@ export class SharedDriverExt {
 
   async fullWorkflowMultipleOps(queryCount: number, acquireCount: number, releaseCount: number): Promise<void> {
     await this.clearHistoryAndWait();
-    for (let i = 0; i < queryCount; i++) {
+    for (let i: number = 0; i < queryCount; i++) {
       await this.clickQueryButton();
     }
-    for (let i = 0; i < acquireCount; i++) {
+    for (let i: number = 0; i < acquireCount; i++) {
       await this.clickAcquireButton();
     }
-    for (let i = 0; i < releaseCount; i++) {
+    for (let i: number = 0; i < releaseCount; i++) {
       await this.clickReleaseButton();
     }
     await this.driver.waitTimeout();
   }
 
   async verifyQueryAllResult(): Promise<boolean> {
-    const result = await this.clickQueryAllButton();
-    const hasKeyState = result.includes(TEXT_KEY_STATE);
-    const hasAcquire = result.includes(TEXT_ACQUIRE);
-    const hasRelease = result.includes(TEXT_RELEASE);
-    const hasPending = result.includes(TEXT_PENDING);
+    const result: string = await this.clickQueryAllButton();
+    const hasKeyState: boolean = result.includes(TEXT_KEY_STATE);
+    const hasAcquire: boolean = result.includes(TEXT_ACQUIRE);
+    const hasRelease: boolean = result.includes(TEXT_RELEASE);
+    const hasPending: boolean = result.includes(TEXT_PENDING);
     return hasKeyState && hasAcquire && hasRelease && hasPending;
   }
 
   async verifyHistoryMaxSize(): Promise<boolean> {
     await this.clearHistoryAndWait();
-    for (let i = 0; i < MAX_HISTORY_SIZE + 5; i++) {
+    for (let i: number = 0; i < MAX_HISTORY_SIZE + 5; i++) {
       await this.clickQueryButton();
     }
     await this.driver.waitTimeout();
-    const isEmpty = await this.isHistoryEmpty();
+    const isEmpty: boolean = await this.isHistoryEmpty();
     return !isEmpty;
   }
 
   async getPairingStatusAfterOperations(acquireOps: number, releaseOps: number): Promise<PairingCounts> {
     await this.clearHistoryAndWait();
-    for (let i = 0; i < acquireOps; i++) {
+    for (let i: number = 0; i < acquireOps; i++) {
       await this.clickAcquireButton();
     }
-    for (let i = 0; i < releaseOps; i++) {
+    for (let i: number = 0; i < releaseOps; i++) {
       await this.clickReleaseButton();
     }
     await this.driver.waitTimeout();

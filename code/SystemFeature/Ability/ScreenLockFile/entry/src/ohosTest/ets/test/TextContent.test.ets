@@ -22,8 +22,8 @@ import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
   DOMAIN, TAG, ID_OPERATION_RESULT, TEXT_QUERY_RESULT, TEXT_ACQUIRE_RESULT, TEXT_RELEASE_RESULT
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function textContentTest(): void {
   describe('TextContentTest', (): void => {
@@ -42,7 +42,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0001');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       expect(result.includes('Ready') || result.includes('就绪') || result.includes('queryAppKeyState') ||
@@ -62,7 +62,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0002');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.includes('Release:')).assertTrue();
       expect(pairing.length).assertLarger(0);
@@ -81,7 +81,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0003');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryKeyStateButton', ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult('queryKeyStateButton', ID_OPERATION_RESULT);
       expect(result.includes(TEXT_QUERY_RESULT)).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(5);
@@ -100,7 +100,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0004');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('acquireAccessButton', ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult('acquireAccessButton', ID_OPERATION_RESULT);
       expect(result.includes(TEXT_ACQUIRE_RESULT)).assertTrue();
       expect(result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(5);
@@ -119,7 +119,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0005');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('releaseAccessButton', ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult('releaseAccessButton', ID_OPERATION_RESULT);
       expect(result.includes(TEXT_RELEASE_RESULT)).assertTrue();
       expect(result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(5);
@@ -138,7 +138,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0006');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('|')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -159,7 +159,7 @@ export default function textContentTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -178,8 +178,8 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0008');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
-      const sections = pairing.split('|');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
+      const sections: string[] = pairing.split('|');
       expect(sections.length).assertEqual(3);
       expect(sections[0].includes('Acquire')).assertTrue();
       expect(sections[1].includes('Release')).assertTrue();
@@ -198,7 +198,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0009');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryKeyStateButton', ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult('queryKeyStateButton', ID_OPERATION_RESULT);
       expect(result.includes('(')).assertTrue();
       expect(result.includes(')')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -217,7 +217,7 @@ export default function textContentTest(): void {
       sharedDriver.hilogBegin('testTextContent0010');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(typeof result.length).assertEqual('number');

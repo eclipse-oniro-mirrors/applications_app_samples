@@ -20,7 +20,7 @@
 
 import { Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON, Rect } from '@kit.TestKit';
 import { expect } from '@ohos/hypium';
 
 const DOMAIN: number = 0xF811;
@@ -168,7 +168,7 @@ export async function scrollToTop(): Promise<void> {
 
 export async function swipeOnId(id: string, fromRatio: number = 0.75, toRatio: number = 0.25): Promise<void> {
   const component: Component = await waitId(id);
-  const bounds = await component.getBounds();
+  const bounds: Rect = await component.getBounds();
   const centerX: number = (bounds.left + bounds.right) / 2;
   const fromY: number = bounds.top + (bounds.bottom - bounds.top) * fromRatio;
   const toY: number = bounds.top + (bounds.bottom - bounds.top) * toRatio;
@@ -189,7 +189,7 @@ export async function assertTextExists(testName: string, expected: string): Prom
 export async function quickClick(id: string): Promise<void> {
   // 先等待组件存在，避免点击null
   await waitId(id);
-  const component = await getDriver().findComponent(ON.id(id));
+  const component: Component = await getDriver().findComponent(ON.id(id));
   await component.click();
 }
 
@@ -250,7 +250,7 @@ export async function assertTextEquals(id: string, expected: string, testName: s
 
 export async function getComponentBounds(id: string): Promise<Record<string, number>> {
   const component: Component = await waitId(id);
-  const bounds = await component.getBounds();
+  const bounds: Rect = await component.getBounds();
   const result: Record<string, number> = {};
   result['left'] = bounds.left;
   result['top'] = bounds.top;

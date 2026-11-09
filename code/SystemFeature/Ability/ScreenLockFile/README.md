@@ -8,7 +8,13 @@ After the application declares `ohos.permission.PROTECT_SCREEN_LOCK_DATA`, the s
 
 ### Preview
 
-No device screenshots are currently available. No non-device mockups are provided.
+| Home page | Query app key state |
+|:---:|:---:|
+| <img src="screenshots/index.svg" alt="Home page" width="240" height="427"> | <img src="screenshots/querySelf.svg" alt="Query app key state" width="240" height="427"> |
+
+| Acquire access | Release access |
+|:---:|:---:|
+| <img src="screenshots/queryPermission.svg" alt="Acquire access" width="240" height="427"> | <img src="screenshots/unlinkPermission.svg" alt="Release access" width="240" height="427"> |
 
 ### Instructions
 
@@ -17,7 +23,7 @@ No device screenshots are currently available. No non-device mockups are provide
 3. When the key state is `KEY_EXIST`, tap **Acquire access**. The result area displays `ACCESS_GRANTED` or `ACCESS_DENIED`. The pairing status area updates the acquire count.
 4. After a successful request, tap **Release access**. The result area displays `RELEASE_GRANTED` or `RELEASE_DENIED`. The pairing status area updates the release count and pending count.
 5. Tap **Query all states** to view a summary of the current key state, acquire count, release count, and pending count in a single line.
-6. The operation history area records the last 10 operations with timestamps. Tap **Clear history** to reset all counters and history.
+6. The operation history area records the last 10 operations with timestamps. Tap **Clear history** to clear only the history. The acquire, release, and pending counts are retained to stay consistent with the system key reference count.
 7. If the system capability is unavailable, protection is not enabled, or the call order is invalid, the result area displays the actual `BusinessError` code and message.
 
 ### Project Structure

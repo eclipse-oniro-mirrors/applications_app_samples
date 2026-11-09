@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { StateSnapshot, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -27,10 +27,10 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT, ID_PAIRING_STATUS,
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function stateConsistencyTest(): void {
   describe('StateConsistencyTest', (): void => {
@@ -47,8 +47,8 @@ export default function stateConsistencyTest(): void {
      */
     it('testStateConsistency0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0001');
-      const s1 = screenLockFileManager.queryAppKeyState();
-      const s2 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(s1).assertEqual(s2);
       expect(testHelper.isValidKeyStatus(s1)).assertTrue();
       expect(typeof s1).assertEqual('number');
@@ -65,9 +65,9 @@ export default function stateConsistencyTest(): void {
      */
     it('testStateConsistency0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0002');
-      const s1 = screenLockFileManager.queryAppKeyState();
-      const s2 = screenLockFileManager.queryAppKeyState();
-      const s3 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s3: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(s1).assertEqual(s2);
       expect(s2).assertEqual(s3);
       expect(testHelper.isValidKeyStatus(s3)).assertTrue();
@@ -85,8 +85,8 @@ export default function stateConsistencyTest(): void {
     it('testStateConsistency0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0003');
       testHelper.acquireAccess();
-      const s1 = screenLockFileManager.queryAppKeyState();
-      const s2 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(s1).assertEqual(s2);
       expect(testHelper.isValidKeyStatus(s1)).assertTrue();
       expect(typeof s1).assertEqual('number');
@@ -105,8 +105,8 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0004');
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const s1 = screenLockFileManager.queryAppKeyState();
-      const s2 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(s1).assertEqual(s2);
       expect(testHelper.isValidKeyStatus(s1)).assertTrue();
       expect(typeof s2).assertEqual('number');
@@ -125,11 +125,11 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0005');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const initial = screenLockFileManager.queryAppKeyState();
+      const initial: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const afterClear = screenLockFileManager.queryAppKeyState();
+      const afterClear: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(initial)).assertTrue();
       expect(testHelper.isValidKeyStatus(afterClear)).assertTrue();
       expect(typeof afterClear).assertEqual('number');
@@ -148,10 +148,10 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0006');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testStateConsistency0006');
     });
@@ -168,13 +168,13 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0007');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(typeof counts.acquire).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0007');
@@ -193,17 +193,17 @@ export default function stateConsistencyTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_RELEASE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.release).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0008');
@@ -221,8 +221,8 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0009');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const apiStatus = screenLockFileManager.queryAppKeyState();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const apiStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(testHelper.isValidKeyStatus(apiStatus)).assertTrue();
@@ -244,8 +244,8 @@ export default function stateConsistencyTest(): void {
       await extDriver.clearHistoryAndWait();
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const p1 = await extDriver.parsePairingCounts();
-      const p2 = await extDriver.parsePairingCounts();
+      const p1: PairingCounts = await extDriver.parsePairingCounts();
+      const p2: PairingCounts = await extDriver.parsePairingCounts();
       expect(p1.acquire).assertEqual(p2.acquire);
       expect(p1.release).assertEqual(p2.release);
       expect(p1.pending).assertEqual(p2.pending);
@@ -264,8 +264,8 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0011');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const apiStatus = screenLockFileManager.queryAppKeyState();
-      const allResult = await extDriver.clickQueryAllButton();
+      const apiStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const allResult: string = await extDriver.clickQueryAllButton();
       expect(allResult.includes('KeyState:')).assertTrue();
       expect(allResult.includes('|')).assertTrue();
       expect(testHelper.isValidKeyStatus(apiStatus)).assertTrue();
@@ -282,11 +282,11 @@ export default function stateConsistencyTest(): void {
      */
     it('testStateConsistency0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0012');
-      const status = screenLockFileManager.queryAppKeyState();
-      const name = testHelper.getKeyStatusName(status);
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const name: string = testHelper.getKeyStatusName(status);
       const validNames: string[] = ['KEY_NOT_EXIST', 'KEY_RELEASED', 'KEY_EXIST'];
-      let found = false;
-      for (let i = 0; i < validNames.length; i++) {
+      let found: boolean = false;
+      for (let i: number = 0; i < validNames.length; i++) {
         if (name === validNames[i]) {
           found = true;
         }
@@ -309,8 +309,8 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0013');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const snap1 = await testHelper.captureStateSnapshot();
-      const snap2 = await testHelper.captureStateSnapshot();
+      const snap1: StateSnapshot = await testHelper.captureStateSnapshot();
+      const snap2: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(snap1.keyStatus).assertEqual(snap2.keyStatus);
       expect(typeof snap1.operationResult).assertEqual('string');
       expect(typeof snap2.pairingText).assertEqual('string');
@@ -334,9 +334,9 @@ export default function stateConsistencyTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(typeof counts.acquire).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0014');
@@ -358,9 +358,9 @@ export default function stateConsistencyTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0015');
@@ -377,8 +377,8 @@ export default function stateConsistencyTest(): void {
     it('testStateConsistency0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0016');
       const names: string[] = [];
-      for (let i = 0; i < 5; i++) {
-        const s = screenLockFileManager.queryAppKeyState();
+      for (let i: number = 0; i < 5; i++) {
+        const s: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         names.push(testHelper.getKeyStatusName(s));
       }
       expect(names[0]).assertEqual(names[4]);
@@ -397,8 +397,8 @@ export default function stateConsistencyTest(): void {
      */
     it('testStateConsistency0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0017');
-      const n1 = testHelper.getAccessStatusName(0);
-      const n2 = testHelper.getAccessStatusName(0);
+      const n1: string = testHelper.getAccessStatusName(0);
+      const n2: string = testHelper.getAccessStatusName(0);
       expect(n1).assertEqual(n2);
       expect(n1).assertEqual('ACCESS_GRANTED');
       expect(typeof n1).assertEqual('string');
@@ -415,8 +415,8 @@ export default function stateConsistencyTest(): void {
      */
     it('testStateConsistency0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testStateConsistency0018');
-      const n1 = testHelper.getReleaseStatusName(0);
-      const n2 = testHelper.getReleaseStatusName(0);
+      const n1: string = testHelper.getReleaseStatusName(0);
+      const n2: string = testHelper.getReleaseStatusName(0);
       expect(n1).assertEqual(n2);
       expect(n1).assertEqual('RELEASE_GRANTED');
       expect(typeof n1).assertEqual('string');
@@ -436,11 +436,11 @@ export default function stateConsistencyTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const result = await testHelper.performAcquireReleaseCycle();
+      const result: boolean = await testHelper.performAcquireReleaseCycle();
       expect(typeof result).assertEqual('boolean');
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testStateConsistency0019');
     });
@@ -458,11 +458,11 @@ export default function stateConsistencyTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
-        const valid = await testHelper.verifyStateConsistency();
+      for (let i: number = 0; i < 3; i++) {
+        const valid: boolean = await testHelper.verifyStateConsistency();
         expect(valid).assertTrue();
       }
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0020');
@@ -480,10 +480,10 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0021');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const symm = await testHelper.verifyPairingSymmetry();
+      const symm: boolean = await testHelper.verifyPairingSymmetry();
       expect(symm).assertTrue();
       expect(typeof symm).assertEqual('boolean');
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       sharedDriver.hilogEnd('testStateConsistency0021');
     });
@@ -502,8 +502,8 @@ export default function stateConsistencyTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1).assertEqual(r2);
       expect(r1.includes('KEY_')).assertTrue();
       expect(r1.length).assertLarger(0);
@@ -523,8 +523,8 @@ export default function stateConsistencyTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await sharedDriver.waitUiIdle();
-      const p1 = await sharedDriver.getTextById(ID_PAIRING_STATUS);
-      const p2 = await sharedDriver.getTextById(ID_PAIRING_STATUS);
+      const p1: string = await sharedDriver.getTextById(ID_PAIRING_STATUS);
+      const p2: string = await sharedDriver.getTextById(ID_PAIRING_STATUS);
       expect(p1).assertEqual(p2);
       expect(p1.includes('Acquire:')).assertTrue();
       expect(p1.includes('Release:')).assertTrue();
@@ -543,10 +543,10 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0024');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const valid = await testHelper.verifyHistoryLimit();
+      const valid: boolean = await testHelper.verifyHistoryLimit();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       sharedDriver.hilogEnd('testStateConsistency0024');
     });
@@ -563,9 +563,9 @@ export default function stateConsistencyTest(): void {
       sharedDriver.hilogBegin('testStateConsistency0025');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const stable = await testHelper.waitForStableState(2000);
+      const stable: boolean = await testHelper.waitForStableState(2000);
       expect(stable).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testStateConsistency0025');

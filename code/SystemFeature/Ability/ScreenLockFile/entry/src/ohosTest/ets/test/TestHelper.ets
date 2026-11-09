@@ -22,7 +22,7 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import {
   DOMAIN, TAG,
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST,
@@ -31,21 +31,21 @@ import {
   MAX_HISTORY_SIZE, API_CALL_INTERVAL, STRESS_TEST_ITERATIONS
 } from './TestConstants';
 
-interface ApiCallResult {
+export interface ApiCallResult {
   success: boolean;
   errorCode: number;
   errorMessage: string;
   timestamp: number;
 }
 
-interface StateSnapshot {
+export interface StateSnapshot {
   keyStatus: number;
   operationResult: string;
   pairingText: string;
   historyEmpty: boolean;
 }
 
-interface LatencyStats {
+export interface LatencyStats {
   min: number;
   max: number;
   avg: number;
@@ -85,7 +85,7 @@ export class TestHelper {
       result.errorMessage = `KeyStatus=${status}`;
       hilog.info(DOMAIN, TAG, 'queryKeyState succeeded: status=%{public}d', status);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.errorCode = err.code;
       result.errorMessage = err.message;
@@ -108,7 +108,7 @@ export class TestHelper {
       result.errorMessage = `AccessStatus=${status}`;
       hilog.info(DOMAIN, TAG, 'acquireAccess succeeded: status=%{public}d', status);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.errorCode = err.code;
       result.errorMessage = err.message;
@@ -131,7 +131,7 @@ export class TestHelper {
       result.errorMessage = `ReleaseStatus=${status}`;
       hilog.info(DOMAIN, TAG, 'releaseAccess succeeded: status=%{public}d', status);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.errorCode = err.code;
       result.errorMessage = err.message;
@@ -211,21 +211,21 @@ export class TestHelper {
   }
 
   async performAcquireReleaseCycle(): Promise<boolean> {
-    const acquireResult = this.acquireAccess();
+    const acquireResult: ApiCallResult = this.acquireAccess();
     if (!acquireResult.success || acquireResult.errorCode !== 0) {
       hilog.info(DOMAIN, TAG, 'acquireAccess denied or failed, skipping release');
       return false;
     }
-    const releaseResult = this.releaseAccess();
+    const releaseResult: ApiCallResult = this.releaseAccess();
     return releaseResult.success;
   }
 
   async measureApiLatency(apiCall: () => void, iterations: number): Promise<LatencyStats> {
     const latencies: number[] = [];
-    for (let i = 0; i < iterations; i++) {
-      const start = Date.now();
+    for (let i: number = 0; i < iterations; i++) {
+      const start: number = Date.now();
       apiCall();
-      const end = Date.now();
+      const end: number = Date.now();
       latencies.push(end - start);
     }
     return this.calculateLatencyStats(latencies);
@@ -236,10 +236,10 @@ export class TestHelper {
     if (latencies.length === 0) {
       return stats;
     }
-    let minVal = latencies[0];
-    let maxVal = latencies[0];
-    let sum = 0;
-    for (let i = 0; i < latencies.length; i++) {
+    let minVal: number = latencies[0];
+    let maxVal: number = latencies[0];
+    let sum: number = 0;
+    for (let i: number = 0; i < latencies.length; i++) {
       if (latencies[i] < minVal) {
         minVal = latencies[i];
       }
@@ -255,9 +255,9 @@ export class TestHelper {
   }
 
   async stressTestQuery(iterations: number): Promise<boolean> {
-    let allValid = true;
-    for (let i = 0; i < iterations; i++) {
-      const result = this.queryKeyState();
+    let allValid: boolean = true;
+    for (let i: number = 0; i < iterations; i++) {
+      const result: ApiCallResult = this.queryKeyState();
       if (!result.success) {
         allValid = false;
         hilog.error(DOMAIN, TAG, 'stressTestQuery failed at iteration %{public}d', i);
@@ -268,14 +268,14 @@ export class TestHelper {
   }
 
   async stressTestAcquireRelease(iterations: number): Promise<boolean> {
-    let allValid = true;
-    for (let i = 0; i < iterations; i++) {
-      const acquireResult = this.acquireAccess();
+    let allValid: boolean = true;
+    for (let i: number = 0; i < iterations; i++) {
+      const acquireResult: ApiCallResult = this.acquireAccess();
       if (!acquireResult.success) {
         allValid = false;
         break;
       }
-      const releaseResult = this.releaseAccess();
+      const releaseResult: ApiCallResult = this.releaseAccess();
       if (!releaseResult.success) {
         allValid = false;
         break;
@@ -285,57 +285,57 @@ export class TestHelper {
   }
 
   async verifyStateConsistency(): Promise<boolean> {
-    const status1 = screenLockFileManager.queryAppKeyState();
-    const status2 = screenLockFileManager.queryAppKeyState();
+    const status1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+    const status2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
     return status1 === status2 && this.isValidKeyStatus(status1);
   }
 
   async verifyHistoryLimit(): Promise<boolean> {
     await this.extDriver.clearHistoryAndWait();
-    for (let i = 0; i < MAX_HISTORY_SIZE + 5; i++) {
+    for (let i: number = 0; i < MAX_HISTORY_SIZE + 5; i++) {
       await this.extDriver.clickQueryButton();
     }
     await this.extDriver.waitTimeout();
-    const isEmpty = await this.extDriver.isHistoryEmpty();
+    const isEmpty: boolean = await this.extDriver.isHistoryEmpty();
     return !isEmpty;
   }
 
   async verifyPairingSymmetry(): Promise<boolean> {
     await this.extDriver.clearHistoryAndWait();
-    for (let i = 0; i < 3; i++) {
+    for (let i: number = 0; i < 3; i++) {
       this.acquireAccess();
     }
-    for (let i = 0; i < 3; i++) {
+    for (let i: number = 0; i < 3; i++) {
       this.releaseAccess();
     }
     await this.extDriver.waitTimeout();
-    const counts = await this.extDriver.parsePairingCounts();
+    const counts: PairingCounts = await this.extDriver.parsePairingCounts();
     return counts.pending === 0;
   }
 
   generateTestData(count: number): string[] {
     const data: string[] = [];
-    for (let i = 0; i < count; i++) {
+    for (let i: number = 0; i < count; i++) {
       data.push(`test_data_${i}_${Date.now()}`);
     }
     return data;
   }
 
   formatTimestamp(): string {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const now: Date = new Date();
+    const hours: string = now.getHours().toString().padStart(2, '0');
+    const minutes: string = now.getMinutes().toString().padStart(2, '0');
+    const seconds: string = now.getSeconds().toString().padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
   }
 
   async waitForStableState(maxWaitMs: number): Promise<boolean> {
-    const startTime = Date.now();
-    let lastStatus = KEY_STATUS_NOT_EXIST;
-    let stableCount = 0;
+    const startTime: number = Date.now();
+    let lastStatus: number = KEY_STATUS_NOT_EXIST;
+    let stableCount: number = 0;
     while (Date.now() - startTime < maxWaitMs) {
       try {
-        const currentStatus = screenLockFileManager.queryAppKeyState();
+        const currentStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         if (currentStatus === lastStatus) {
           stableCount = stableCount + 1;
           if (stableCount >= 3) {

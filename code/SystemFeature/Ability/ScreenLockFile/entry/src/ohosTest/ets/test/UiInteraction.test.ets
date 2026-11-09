@@ -18,8 +18,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function uiInteractionTest(): void {
   describe('UiInteractionTest', (): void => {
@@ -38,8 +38,8 @@ export default function uiInteractionTest(): void {
       sharedDriver.hilogBegin('testUiInteraction0001');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const beforeText = await sharedDriver.getTextById('operationResult');
-      const afterText = await sharedDriver.clickAndGetResult('queryKeyStateButton', 'operationResult');
+      const beforeText: string = await sharedDriver.getTextById('operationResult');
+      const afterText: string = await sharedDriver.clickAndGetResult('queryKeyStateButton', 'operationResult');
       sharedDriver.hilogAssert('testUiInteraction0001', 'result changed', (beforeText !== afterText).toString());
       expect(beforeText !== afterText).assertTrue();
       sharedDriver.hilogEnd('testUiInteraction0001');
@@ -57,8 +57,8 @@ export default function uiInteractionTest(): void {
       sharedDriver.hilogBegin('testUiInteraction0002');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const beforeText = await sharedDriver.getTextById('operationResult');
-      const afterText = await sharedDriver.clickAndGetResult('acquireAccessButton', 'operationResult');
+      const beforeText: string = await sharedDriver.getTextById('operationResult');
+      const afterText: string = await sharedDriver.clickAndGetResult('acquireAccessButton', 'operationResult');
       sharedDriver.hilogAssert('testUiInteraction0002', 'result changed', (beforeText !== afterText).toString());
       expect(beforeText !== afterText).assertTrue();
       sharedDriver.hilogEnd('testUiInteraction0002');
@@ -76,8 +76,8 @@ export default function uiInteractionTest(): void {
       sharedDriver.hilogBegin('testUiInteraction0003');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const beforeText = await sharedDriver.getTextById('operationResult');
-      const afterText = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const beforeText: string = await sharedDriver.getTextById('operationResult');
+      const afterText: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
       sharedDriver.hilogAssert('testUiInteraction0003', 'result changed', (beforeText !== afterText).toString());
       expect(beforeText !== afterText).assertTrue();
       sharedDriver.hilogEnd('testUiInteraction0003');
@@ -95,8 +95,8 @@ export default function uiInteractionTest(): void {
       sharedDriver.hilogBegin('testUiInteraction0004');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const afterText = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
-      const containsKeyState = afterText.includes('KeyState');
+      const afterText: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const containsKeyState: boolean = afterText.includes('KeyState');
       sharedDriver.hilogAssert('testUiInteraction0004', 'result contains KeyState', containsKeyState.toString());
       expect(containsKeyState).assertTrue();
       sharedDriver.hilogEnd('testUiInteraction0004');
@@ -115,10 +115,10 @@ export default function uiInteractionTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('queryKeyStateButton');
-      const beforeClear = await sharedDriver.getTextById('operationResult');
+      const beforeClear: string = await sharedDriver.getTextById('operationResult');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const afterClear = await sharedDriver.getTextById('operationResult');
+      const afterClear: string = await sharedDriver.getTextById('operationResult');
       sharedDriver.hilogAssert('testUiInteraction0005', 'before clear', beforeClear);
       sharedDriver.hilogAssert('testUiInteraction0005', 'after clear', afterClear);
       expect(beforeClear !== afterClear).assertTrue();
@@ -139,12 +139,12 @@ export default function uiInteractionTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const noHistoryExists = await sharedDriver.existsId('noHistoryText');
+      const noHistoryExists: boolean = await sharedDriver.existsId('noHistoryText');
       sharedDriver.hilogAssert('testUiInteraction0006', 'noHistoryText visible before query', noHistoryExists.toString());
       expect(noHistoryExists).assertTrue();
       await sharedDriver.clickId('queryKeyStateButton');
       await sharedDriver.waitUiIdle();
-      const stillNoHistory = await sharedDriver.existsId('noHistoryText');
+      const stillNoHistory: boolean = await sharedDriver.existsId('noHistoryText');
       sharedDriver.hilogAssert('testUiInteraction0006', 'noHistoryText hidden after query', (!stillNoHistory).toString());
       expect(stillNoHistory).assertFalse();
       sharedDriver.hilogEnd('testUiInteraction0006');
@@ -162,10 +162,10 @@ export default function uiInteractionTest(): void {
       sharedDriver.hilogBegin('testUiInteraction0007');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const pairingText = await sharedDriver.getTextById('pairingStatus');
-      const containsAcquire = pairingText.includes('Acquire');
-      const containsRelease = pairingText.includes('Release');
-      const containsPending = pairingText.includes('Pending');
+      const pairingText: string = await sharedDriver.getTextById('pairingStatus');
+      const containsAcquire: boolean = pairingText.includes('Acquire');
+      const containsRelease: boolean = pairingText.includes('Release');
+      const containsPending: boolean = pairingText.includes('Pending');
       sharedDriver.hilogAssert('testUiInteraction0007', 'pairing text', pairingText);
       expect(containsAcquire).assertTrue();
       expect(containsRelease).assertTrue();

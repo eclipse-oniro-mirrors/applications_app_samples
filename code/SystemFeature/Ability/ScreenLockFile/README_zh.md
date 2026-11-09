@@ -8,7 +8,13 @@
 
 ### 效果预览
 
-当前未进行真机截图，不提供非真机示意图。
+| 主页面 | 查询应用密钥状态 |
+|:---:|:---:|
+| <img src="screenshots/index.svg" alt="主页面" width="240" height="427"> | <img src="screenshots/querySelf.svg" alt="查询应用密钥状态" width="240" height="427"> |
+
+| 申请锁屏访问权限 | 释放锁屏访问权限 |
+|:---:|:---:|
+| <img src="screenshots/queryPermission.svg" alt="申请锁屏访问权限" width="240" height="427"> | <img src="screenshots/unlinkPermission.svg" alt="释放锁屏访问权限" width="240" height="427"> |
 
 ### 使用说明
 
@@ -17,7 +23,7 @@
 3. 密钥状态为`KEY_EXIST`时，点击“申请锁屏访问权限”。结果区域展示`ACCESS_GRANTED`或`ACCESS_DENIED`。配对状态区域更新申请次数。
 4. 成功申请后，点击“释放锁屏访问权限”。结果区域展示`RELEASE_GRANTED`或`RELEASE_DENIED`。配对状态区域更新释放次数和待配对数。
 5. 点击“查询全部状态”，在一行内查看当前密钥状态、申请次数、释放次数和待配对数的汇总信息。
-6. 操作历史区域记录最近 10 条操作及时间戳。点击“清除历史”可重置所有计数器和历史记录。
+6. 操作历史区域记录最近 10 条操作及时间戳。点击“清除历史”可清空历史记录，保留申请次数、释放次数和待配对数，避免与系统密钥引用计数不一致。
 7. 设备不支持该系统能力、应用未开启锁屏敏感数据保护或调用顺序不满足要求时，结果区域展示实际`BusinessError`错误码和错误信息。
 
 ### 工程目录
