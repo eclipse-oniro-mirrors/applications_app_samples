@@ -1,6 +1,56 @@
-# 上传测试用例归档
+# 上传下载测试说明
 
-## 用例表
+## 自动化测试概览
+
+当前 ohosTest 共 **892 条用例**，覆盖 UI、文件模型、常量、URL 持久化、文件目录、数据源订阅、缓存复制和下载清理：
+
+| 套件 | 用例数 | 职责 |
+|---|---:|---|
+| `UploadDownloadCustomDataSourceBehaviorTest` | 17 | 下载列表数据源的构造、索引、订阅、通知与插入行为 |
+| `UploadDownloadFileAlbumCatalogTest` | 10 | 下载目录相册创建、幂等、文件保留与清理边界 |
+| `UploadDownloadUrlUtilsBoundaryTest` | 10 | 服务器地址空值、空白、长地址、中文与控制字符边界 |
+| `AbilityTest` | 6 | 应用启动、授权、上传/下载页面与文件列表 |
+| `UploadDownloadFileModelMatrixTest` | 40 | 文件类型、文件夹、扩展名和名称矩阵 |
+| `UploadDownloadFileModelExtraTest` | 40 | 扩展名补充矩阵 |
+| `UploadDownloadFileModelExtra2Test` | 15 | 扩展名长尾矩阵 |
+| `UploadDownloadFileModelExtra3Test` | 15 | 文档与字体后缀补充 |
+| `UploadDownloadFileModelResidualTest` | 20 | 大小写、多点后缀、Unicode 和空名称残留场景 |
+| `UploadDownloadFileUtilsExtra4Test` | 10 | 目录生命周期补充 |
+| `UploadDownloadFileUtilsResidualTest` | 15 | 尾斜杠、幂等初始化、缺失目录和 Unicode 文件 |
+| `UploadDownloadFileUtilsErrorResidualTest` | 10 | 文件路径冲突、嵌套目录、点文件和长文件名错误分支 |
+| `UploadDownloadCleanResidualTest` | 10 | 缺失文件、目录路径、重复清理和特殊文件名 |
+| `UploadDownloadMediaUtilsResidualTest` | 15 | 缓存复制、覆盖、缺失源/缓存目录、Unicode 和大文件 |
+| `UploadDownloadConstantsContractTest` | 15 | 常量、枚举和关系契约 |
+| `UploadDownloadUrlUtilsStorageTest` | 30 | 服务器 URL 保存、读取、默认值和覆盖 |
+| `UploadDownloadUrlUtilsExtraTest` | 20 | URL 协议、端口、路径和特殊字符补充 |
+| `UploadDownloadUrlUtilsExtra2Test` | 15 | URL 路径与编码补充 |
+| `UploadDownloadUrlUtilsExtra3Test` | 10 | URL 补充矩阵 |
+| `UploadDownloadRequestInvalidExtraTest` | 10 | 非法下载 URL 拒绝 |
+| `UploadDownloadUploadInvalidExtraTest` | 10 | 非法上传配置拒绝 |
+| `UploadDownloadFileTypeCatalogTest` | 105 | 文件类型目录与文件名场景 |
+| `UploadDownloadServerConfigTest` | 105 | 服务器 URL 配置场景 |
+| `UploadDownloadDirectoryScenarioTest` | 90 | 下载目录初始化、列表与清理场景 |
+| `UploadDownloadCleanupPathScenarioTest` | 80 | 缓存文件清理路径场景 |
+| `UploadDownloadFinalEdgeCaseTest` | 5 | 最终扩展名边界补充 |
+| `UploadDownloadFileUtilsMatrixTest` | 40 | 下载目录初始化、文件列表和清空 |
+| `UploadDownloadFileUtilsExtraTest` | 25 | 目录幂等、空目录和多文件补充 |
+| `UploadDownloadFileUtilsExtra2Test` | 20 | 嵌套目录、清空和多文件补充 |
+| `UploadDownloadDownloadCleanMatrixTest` | 25 | `clearExistFile` 文件清理与缺失路径 |
+| `UploadDownloadDownloadCleanExtraTest` | 15 | 特殊文件名清理补充 |
+| `UploadDownloadDownloadCleanExtra2Test` | 10 | 清理文件名长尾补充 |
+| `UploadDownloadDownloadCleanExtra3Test` | 12 | 清理文件补充矩阵 |
+| `UploadDownloadDownloadCleanExtra4Test` | 10 | 清理文件最终补充 |
+| `UploadDownloadFuncTest` | 7 | URL、目录、清理和非法下载参数 |
+
+质量门禁：
+
+- 用例名统一 `testUploadDownloadXxxNNNN`；
+- `@tc.number`、`@tc.name`、`@tc.desc`、`@tc.type`、`@tc.size`、`@tc.level` 全量存在；
+- 用例名与 `@tc.number` 全局唯一；
+- 每条用例至少 3 个断言；
+- 全量执行结果：**892/892 通过**（本轮新增 8 条单独执行 **17/17 通过**）。
+
+## 手工用例表
 
 | 测试功能    | 预置条件                                                                 | 输入                                                                       | 预期输出                                                    |是否自动|测试结果|
 |---------|----------------------------------------------------------------------|--------------------------------------------------------------------------|---------------------------------------------------------|--------------------------------|--------------------------------|
