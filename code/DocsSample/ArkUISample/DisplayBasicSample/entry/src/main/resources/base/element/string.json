@@ -11,6 +11,114 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "page_title",
+      "value": "DMS示例功能"
+    },
+    {
+      "name": "button_get_display_object",
+      "value": "获取Display对象"
+    },
+    {
+      "name": "button_get_display_attributes",
+      "value": "获取Display对象属性"
+    },
+    {
+      "name": "button_get_cutout_info",
+      "value": "获取挖孔信息"
+    },
+    {
+      "name": "button_get_captured_status",
+      "value": "获取截录屏状态"
+    },
+    {
+      "name": "button_test_display_listener",
+      "value": "测试Display监听机制"
+    },
+    {
+      "name": "button_foldable_device_check",
+      "value": "折叠设备判断"
+    },
+    {
+      "name": "button_get_all_source_mode",
+      "value": "获取所有屏幕显示模式"
+    },
+    {
+      "name": "button_get_source_mode_by_id",
+      "value": "获取指定屏幕显示模式"
+    },
+    {
+      "name": "button_listen_source_mode_change",
+      "value": "监听屏幕显示模式变化"
+    },
+    {
+      "name": "button_get_global_position",
+      "value": "获取扩展屏全局坐标"
+    },
+    {
+      "name": "button_relative_to_global",
+      "value": "相对坐标转全局坐标"
+    },
+    {
+      "name": "button_global_to_relative",
+      "value": "全局坐标转相对坐标"
+    },
+    {
+      "name": "button_get_display_id_by_position",
+      "value": "判断全局坐标所在屏幕"
+    },
+    {
+      "name": "toast_get_display_class",
+      "value": "调用getDisplayClass方法"
+    },
+    {
+      "name": "toast_get_display_info",
+      "value": "调用getDisplayInfo方法"
+    },
+    {
+      "name": "toast_get_cutout_info",
+      "value": "调用getCutoutInfo方法"
+    },
+    {
+      "name": "toast_get_captured_status",
+      "value": "调用getDisplayCaptured方法"
+    },
+    {
+      "name": "toast_deal_listen_callback",
+      "value": "调用dealListenCallback方法"
+    },
+    {
+      "name": "toast_deal_foldable_device",
+      "value": "调用dealFoldableDevice方法"
+    },
+    {
+      "name": "toast_get_all_source_mode",
+      "value": "调用getAllDisplaysSourceMode方法"
+    },
+    {
+      "name": "toast_get_source_mode_by_id",
+      "value": "调用getDisplaySourceModeById方法"
+    },
+    {
+      "name": "toast_listen_source_mode_change",
+      "value": "调用listenSourceModeChange方法"
+    },
+    {
+      "name": "toast_get_global_position",
+      "value": "调用getDisplayGlobalPosition方法"
+    },
+    {
+      "name": "toast_relative_to_global",
+      "value": "调用convertRelativeToGlobal方法"
+    },
+    {
+      "name": "toast_global_to_relative",
+      "value": "调用convertGlobalToRelative方法"
+    },
+    {
+      "name": "toast_display_id_by_position",
+      "value": "调用getDisplayIdByGlobalPosition方法"
     }
   ]
 }
