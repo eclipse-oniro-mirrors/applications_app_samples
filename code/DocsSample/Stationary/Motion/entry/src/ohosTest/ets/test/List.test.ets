@@ -13,8 +13,22 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import motionApiContractTest from './MotionApiContract.test';
+import motionUiMatrixTest from './MotionUiMatrix.test';
+import motionApiRobustTest from './MotionApiRobust.test';
+import motionApiInterleaveTest from './MotionApiInterleave.test';
+import motionUiSequenceMatrixTest from './MotionUiSequenceMatrix.test';
+import motionUiRepeatTest from './MotionUiRepeat.test';
+import motionUiLabelTest from './MotionUiLabel.test';
+import motionLifecycleTest from './MotionLifecycle.test';
 
 export default function testsuite() {
-  abilityTest();
+  motionApiContractTest();
+  motionUiMatrixTest();
+  motionApiRobustTest();
+  motionApiInterleaveTest();
+  motionUiSequenceMatrixTest();
+  motionUiRepeatTest();
+  motionUiLabelTest();
+  motionLifecycleTest();
 }
