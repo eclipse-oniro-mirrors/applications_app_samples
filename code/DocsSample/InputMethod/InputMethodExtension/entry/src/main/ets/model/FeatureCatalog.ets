@@ -21,7 +21,7 @@
  * 还没绑定，所以不能直接存文案）；渲染与搜索统一走 titleText() / subtitleText()。
  */
 
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 export enum FeatureId {
   EXTRA = 'extra',

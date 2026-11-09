@@ -22,7 +22,7 @@
  */
 
 import { LIST_PATTERN_COUNT } from '../common/AppConstants';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 export class PatternSpec {
   public index: number;

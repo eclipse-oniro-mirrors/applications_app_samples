@@ -23,7 +23,7 @@
  */
 
 import { inputMethodEngine } from '@kit.IMEKit';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 import { Logger } from './Logger';
 
 /** 日志来源标识；与 status 文本不同，它只进日志面板，不参与界面文案 */

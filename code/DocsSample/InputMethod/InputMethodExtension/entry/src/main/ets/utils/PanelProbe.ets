@@ -26,7 +26,7 @@
 import { common } from '@kit.AbilityKit';
 import { inputMethodEngine } from '@kit.IMEKit';
 import { API_TIMEOUT_MS } from '../common/AppConstants';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 import { ApiStatus, CallOutcome, classifyErrorCode, failedOutcome, okOutcome } from '../model/CallOutcome';
 import { codeOfThrown, messageOfThrown } from './ErrorUtil';
 import { isTimeoutError, timeoutText, withTimeout } from './AsyncUtil';

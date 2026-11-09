@@ -31,7 +31,7 @@ import { ResultList, ResultRow } from './ResultList';
 import { LogPanel } from './LogPanel';
 import { PatternSpec, actionText, listSummary, patternSpecs } from '../utils/InputMethodListSession';
 import { Logger } from '../utils/Logger';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 const LOG_SOURCE: string = 'List';
 const MAX_ROWS: number = 8;

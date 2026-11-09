@@ -23,7 +23,7 @@
  */
 
 import { InputMethodExtraConfig } from '@kit.IMEKit';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 /** 扩展信息允许的三种值类型，与 d.ts 的 CustomValueType（number | string | boolean）一致 */
 export type ConfigValue = number | string | boolean;

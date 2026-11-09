@@ -28,7 +28,7 @@
 import { Want } from '@kit.AbilityKit';
 import { InputMethodExtensionAbility, inputMethodEngine } from '@kit.IMEKit';
 import { StorageKeys } from '../common/AppConstants';
-import { bindResourceManager } from '../common/L10n';
+import { bindResourceManager } from '../common/StringResource';
 import { LogItem } from '../model/LogStore';
 import { CallOutcome } from '../model/CallOutcome';
 import { Logger } from '../utils/Logger';

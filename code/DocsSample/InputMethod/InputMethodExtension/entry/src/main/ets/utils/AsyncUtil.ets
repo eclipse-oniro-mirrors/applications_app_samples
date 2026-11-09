@@ -21,7 +21,7 @@
  * 并明确写成"页面不再等待"，不宣称底层调用已经结束。
  */
 
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 export const TIMEOUT_FLAG: string = 'LOCAL_TIMEOUT';
 

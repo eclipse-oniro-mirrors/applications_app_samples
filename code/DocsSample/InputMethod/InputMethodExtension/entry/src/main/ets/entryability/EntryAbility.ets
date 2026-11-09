@@ -17,7 +17,7 @@ import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want 
 import { window } from '@kit.ArkUI';
 import { LogItem } from '../model/LogStore';
 import { StorageKeys } from '../common/AppConstants';
-import { bindResourceManager } from '../common/L10n';
+import { bindResourceManager } from '../common/StringResource';
 import { Logger } from '../utils/Logger';
 
 export default class EntryAbility extends UIAbility {
@@ -25,7 +25,7 @@ export default class EntryAbility extends UIAbility {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
-    // 页面与模型层都从 string.json 取文案，这里先把本进程的资源管理器交给 L10n
+    // 页面与模型层都从 string.json 取文本，这里先把本进程的资源管理器交给 StringResource
     bindResourceManager(this.context.resourceManager);
     Logger.info('Ability', 'Lifecycle',
       `onCreate launchReason=${launchParam.launchReason} ability=${want.abilityName}`);

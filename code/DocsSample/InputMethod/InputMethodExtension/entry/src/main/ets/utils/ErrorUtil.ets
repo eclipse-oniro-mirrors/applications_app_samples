@@ -20,7 +20,7 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 import {
   ApiStatus,
   ERROR_CODE_LOCAL_TIMEOUT,

@@ -19,7 +19,7 @@
  * 这里把布局与编辑逻辑抽成纯函数，页面只管画，用例可以逐条断言。
  */
 
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 export enum KeyboardMode {
   LETTER = 'letter',

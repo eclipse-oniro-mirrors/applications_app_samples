@@ -15,7 +15,7 @@
 
 import { describe, expect, it } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { bindResourceManager } from '../../../main/ets/common/L10n';
+import { bindResourceManager } from '../../../main/ets/common/StringResource';
 import {
   EXTRA_CONFIG_MAX_BYTES,
   KEY_CANDIDATE_LIMIT,
@@ -93,7 +93,7 @@ class CodedError {
 
 export default function inputMethodDataTest() {
   // 模型层只产出资源名称，用例断言的是真实文案：这里是 testsuite() 第一个注册的套件，
-  // 先把测试进程的资源管理器交给 L10n，后续所有套件的 text() 才能取到本地化文本。
+  // 先把测试进程的资源管理器交给 StringResource，后续所有套件的 text() 才能取到本地化文本。
   // 放在本文件而不是 List.test.ets：入口文件只允许 import *.test 模块，否则 DevEco 静态扫描会认作“未注册”。
   bindResourceManager(abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager);
   describe('InputMethodExtraConfigDataTest', () => {

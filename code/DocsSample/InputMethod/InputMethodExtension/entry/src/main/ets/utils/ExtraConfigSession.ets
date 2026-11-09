@@ -33,7 +33,7 @@ import {
   okOutcome
 } from '../model/CallOutcome';
 import { EXTRA_CONFIG_MAX_BYTES } from '../common/AppConstants';
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 import {
   ConfigEntry,
   StubEditorAttribute,

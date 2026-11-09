@@ -65,7 +65,7 @@ InputMethodExtension
 │   ├── ets
 │   │   ├── common
 │   │   │   ├── AppConstants.ets         32KB 额度、键名、日志 domain/tag、超时
-│   │   │   ├── L10n.ets                 多语言字符串读取（model / utils 层共用）
+│   │   │   ├── StringResource.ets       多语言字符串读取（model / utils 层共用）
 │   │   │   └── Theme.ets                颜色、间距、圆角、字号常量
 │   │   ├── model
 │   │   │   ├── ExtraConfigModel.ets     ConfigEntry / customSettings 构造 / UTF-8 字节数 / 打桩 EditorAttribute
@@ -249,7 +249,7 @@ hdc shell hilog -x -T InputMethodExt
 13. **界面文案统一走 `resources/base/element/string.json`**：页面与组件里不再写字面量，自定义组件属性用
     `ResourceStr`；`Navigation.title` / `NavDestination.title` 只接受 `string`，用
     `CommonWidgets.ets` 里的 `textOfResource()` 解析本地化文本。model / utils 层用不了 `$r()`（它要求编译期
-    字面量），统一经 `common/L10n.ets` 的 `text(资源名称, 参数…)` 在运行时解析：模块级常量只保存资源名称
+    字面量），统一经 `common/StringResource.ets` 的 `text(资源名称, 参数…)` 在运行时解析：模块级常量只保存资源名称
     （如 `PatternSpec.label`、`FeatureEntry.title`），要展示时再调 `labelText()` / `titleText()`；
     资源管理器由 `EntryAbility.onCreate` 与 `InputMethodService.onCreate` 绑定，ohosTest 在第一个注册的
     套件（`InputMethodData.test.ets`）入口处绑定，未绑定前 `text()` 原样返回传入的名称，便于第一时间发现

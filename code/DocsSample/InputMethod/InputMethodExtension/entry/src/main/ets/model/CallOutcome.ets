@@ -22,7 +22,7 @@
  * 0 始终只代表成功。
  */
 
-import { text } from '../common/L10n';
+import { text } from '../common/StringResource';
 
 /** 问题类别。页面据此选颜色，用例据此挑断言分支 */
 export enum ApiStatus {
