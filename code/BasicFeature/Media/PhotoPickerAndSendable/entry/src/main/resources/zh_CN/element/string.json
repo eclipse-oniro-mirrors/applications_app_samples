@@ -1,0 +1,484 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "相册选择与跨线程访问示例",
+      "description": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "相册选择与跨线程访问示例",
+      "description": "入口元能力描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "相册选择与跨线程访问",
+      "description": "入口元能力名称"
+    },
+    {
+      "name": "pp_permission_reason_read_imagevideo",
+      "value": "用于浏览全量图库",
+      "description": "申请媒体读取权限时展示的理由"
+    },
+    {
+      "name": "pp_app_title",
+      "value": "相册选择与跨线程访问",
+      "description": "首页标题"
+    },
+    {
+      "name": "pp_home_subtitle",
+      "value": "相册选择、最近照片、全量图库与跨线程编辑",
+      "description": "首页副标题"
+    },
+    {
+      "name": "pp_home_selected",
+      "value": "已选择：%d",
+      "description": "首页展示已选择数量"
+    },
+    {
+      "name": "pp_home_clear",
+      "value": "清空",
+      "description": "首页清空选择按钮"
+    },
+    {
+      "name": "pp_home_section_scenes",
+      "value": "场景",
+      "description": "场景列表标题"
+    },
+    {
+      "name": "pp_home_scene_picker_title",
+      "value": "相册选择",
+      "description": "相册选择场景标题"
+    },
+    {
+      "name": "pp_home_scene_picker_desc",
+      "value": "通过系统全屏选择器挑选图片和视频，无需媒体读权限",
+      "description": "相册选择场景说明"
+    },
+    {
+      "name": "pp_home_scene_recent_title",
+      "value": "最近照片",
+      "description": "最近照片场景标题"
+    },
+    {
+      "name": "pp_home_scene_recent_desc",
+      "value": "RecentPhotoComponent 支持时间范围与来源筛选",
+      "description": "最近照片场景说明"
+    },
+    {
+      "name": "pp_home_scene_gallery_title",
+      "value": "全量图库",
+      "description": "全量图库场景标题"
+    },
+    {
+      "name": "pp_home_scene_gallery_desc",
+      "value": "通过 getAssets 读取媒体库（需 ACL 签名）",
+      "description": "全量图库场景说明"
+    },
+    {
+      "name": "pp_home_scene_edit_title",
+      "value": "跨线程编辑",
+      "description": "跨线程编辑场景标题"
+    },
+    {
+      "name": "pp_home_scene_edit_desc",
+      "value": "在 TaskPool 中裁剪、旋转、滤镜、加水印与压缩",
+      "description": "跨线程编辑场景说明"
+    },
+    {
+      "name": "pp_home_scene_cache_title",
+      "value": "沙箱缓存",
+      "description": "沙箱缓存场景标题"
+    },
+    {
+      "name": "pp_home_scene_cache_desc",
+      "value": "查看、导出与清理处理结果",
+      "description": "沙箱缓存场景说明"
+    },
+    {
+      "name": "pp_picker_hint",
+      "value": "最多可选 %d 项",
+      "description": "选择器可选取数量提示"
+    },
+    {
+      "name": "pp_picker_selected",
+      "value": "已选 %d 项",
+      "description": "选择器已选数量"
+    },
+    {
+      "name": "pp_picker_empty_selection",
+      "value": "尚未选择图片",
+      "description": "选择器空选择提示"
+    },
+    {
+      "name": "pp_picker_clear",
+      "value": "清空选择",
+      "description": "选择器清空选择按钮"
+    },
+    {
+      "name": "pp_picker_confirm",
+      "value": "使用所选",
+      "description": "选择器确认按钮"
+    },
+    {
+      "name": "pp_picker_open",
+      "value": "选择图片和视频",
+      "description": "打开系统选择器的按钮"
+    },
+    {
+      "name": "pp_picker_open_failed",
+      "value": "打开相册选择器失败",
+      "description": "系统选择器无法打开时的提示"
+    },
+    {
+      "name": "pp_picker_guide",
+      "value": "系统相册选择器以全屏方式打开。选中的文件通过 URI 授权在本应用中直接读取，无需申请媒体权限。",
+      "description": "选择场景的说明文案"
+    },
+    {
+      "name": "pp_picker_confirmed",
+      "value": "已就绪，可编辑 %d 项",
+      "description": "确认选择后的提示"
+    },
+    {
+      "name": "pp_picker_confirm_failed",
+      "value": "读取选择结果失败",
+      "description": "读取选择结果失败提示"
+    },
+    {
+      "name": "pp_picker_exceed",
+      "value": "已达到最多可选数量",
+      "description": "超出选择上限提示"
+    },
+    {
+      "name": "pp_picker_loading",
+      "value": "读取中...",
+      "description": "选择器读取中提示"
+    },
+    {
+      "name": "pp_picker_meta_summary",
+      "value": "%s · %s",
+      "description": "第一张已选图片的名称与大小"
+    },
+    {
+      "name": "pp_recent_period_label",
+      "value": "时间范围",
+      "description": "最近照片时间范围标签"
+    },
+    {
+      "name": "pp_recent_period_1h",
+      "value": "1 小时",
+      "description": "最近照片时间范围一小时"
+    },
+    {
+      "name": "pp_recent_period_6h",
+      "value": "6 小时",
+      "description": "最近照片时间范围六小时"
+    },
+    {
+      "name": "pp_recent_period_24h",
+      "value": "24 小时",
+      "description": "最近照片时间范围一天"
+    },
+    {
+      "name": "pp_recent_source_label",
+      "value": "照片来源",
+      "description": "最近照片来源标签"
+    },
+    {
+      "name": "pp_recent_source_all",
+      "value": "全部",
+      "description": "最近照片来源为全部"
+    },
+    {
+      "name": "pp_recent_source_camera",
+      "value": "相机",
+      "description": "最近照片来源为相机"
+    },
+    {
+      "name": "pp_recent_source_screenshot",
+      "value": "截图",
+      "description": "最近照片来源为截图"
+    },
+    {
+      "name": "pp_recent_autorefresh",
+      "value": "自动刷新",
+      "description": "最近照片自动刷新开关标签"
+    },
+    {
+      "name": "pp_recent_hint",
+      "value": "点击最近照片可加入选择",
+      "description": "最近照片检测前的提示"
+    },
+    {
+      "name": "pp_recent_exists",
+      "value": "存在最近照片",
+      "description": "存在最近照片的结果"
+    },
+    {
+      "name": "pp_recent_missing",
+      "value": "该时间范围内没有最近照片",
+      "description": "不存在最近照片的结果"
+    },
+    {
+      "name": "pp_recent_info",
+      "value": "拍摄时间：%s\n标识：%s",
+      "description": "最近照片的拍摄时间与标识"
+    },
+    {
+      "name": "pp_recent_query",
+      "value": "查询最近照片信息",
+      "description": "查询最近照片信息按钮"
+    },
+    {
+      "name": "pp_recent_fallback_title",
+      "value": "该时间范围内最新一项",
+      "description": "最近照片场景兜底卡片标题"
+    },
+    {
+      "name": "pp_recent_fallback_use",
+      "value": "使用这一项",
+      "description": "把兜底项加入选择的按钮"
+    },
+    {
+      "name": "pp_recent_picked",
+      "value": "已选择 %d 项",
+      "description": "选择最近照片后的提示"
+    },
+    {
+      "name": "pp_recent_clicked",
+      "value": "已加入最近照片，共 %d 项",
+      "description": "点击最近照片后的状态"
+    },
+    {
+      "name": "pp_gallery_permission_title",
+      "value": "需要权限",
+      "description": "图库权限卡片标题"
+    },
+    {
+      "name": "pp_gallery_permission_desc",
+      "value": "浏览全量图库需调用 getAssets 并申请 ohos.permission.READ_IMAGEVIDEO。该权限为 system_basic 级受限权限，应用需配置 ACL 签名。",
+      "description": "图库权限说明"
+    },
+    {
+      "name": "pp_gallery_request",
+      "value": "申请权限",
+      "description": "申请图库权限按钮"
+    },
+    {
+      "name": "pp_gallery_acl_tip",
+      "value": "该权限需要配置 ACL 签名，未配置时安装或授权会失败；仅调试其余场景时可临时移除权限声明。",
+      "description": "图库场景 ACL 提示"
+    },
+    {
+      "name": "pp_gallery_count",
+      "value": "已加载 %d 项",
+      "description": "图库已加载数量"
+    },
+    {
+      "name": "pp_gallery_selected",
+      "value": "已选 %d 项",
+      "description": "图库已选数量"
+    },
+    {
+      "name": "pp_gallery_loading",
+      "value": "加载中...",
+      "description": "图库加载中提示"
+    },
+    {
+      "name": "pp_gallery_end",
+      "value": "已加载全部",
+      "description": "图库全部加载完成的提示"
+    },
+    {
+      "name": "pp_gallery_load_failed",
+      "value": "读取媒体库失败",
+      "description": "读取媒体库失败提示"
+    },
+    {
+      "name": "pp_edit_no_source",
+      "value": "请先在选择器或图库场景选择一张图片",
+      "description": "编辑器无源图时的提示"
+    },
+    {
+      "name": "pp_edit_crop",
+      "value": "在预览图上拖动可裁剪",
+      "description": "裁剪手势提示"
+    },
+    {
+      "name": "pp_edit_crop_active",
+      "value": "已设置裁剪区域，再次拖动可调整",
+      "description": "已设置裁剪区域后的提示"
+    },
+    {
+      "name": "pp_edit_crop_reset",
+      "value": "重置裁剪",
+      "description": "重置裁剪按钮"
+    },
+    {
+      "name": "pp_edit_rotation",
+      "value": "旋转",
+      "description": "旋转选项标签"
+    },
+    {
+      "name": "pp_edit_filter",
+      "value": "滤镜",
+      "description": "滤镜选项标签"
+    },
+    {
+      "name": "pp_filter_original",
+      "value": "原图",
+      "description": "保持原色的预设滤镜"
+    },
+    {
+      "name": "pp_filter_gray",
+      "value": "黑白",
+      "description": "转为灰度的预设滤镜"
+    },
+    {
+      "name": "pp_filter_invert",
+      "value": "反色",
+      "description": "颜色反转的预设滤镜"
+    },
+    {
+      "name": "pp_filter_warm",
+      "value": "暖色",
+      "description": "偏暖色调的预设滤镜"
+    },
+    {
+      "name": "pp_filter_cool",
+      "value": "冷色",
+      "description": "偏冷色调的预设滤镜"
+    },
+    {
+      "name": "pp_filter_high_contrast",
+      "value": "高对比",
+      "description": "高对比度的预设滤镜"
+    },
+    {
+      "name": "pp_edit_brightness",
+      "value": "亮度 %d",
+      "description": "亮度滑块标签"
+    },
+    {
+      "name": "pp_edit_contrast",
+      "value": "对比度 %d",
+      "description": "对比度滑块标签"
+    },
+    {
+      "name": "pp_edit_saturation",
+      "value": "饱和度 %d",
+      "description": "饱和度滑块标签"
+    },
+    {
+      "name": "pp_edit_watermark",
+      "value": "水印",
+      "description": "水印输入框标签"
+    },
+    {
+      "name": "pp_edit_watermark_placeholder",
+      "value": "PhotoPickerAndSendable",
+      "description": "水印输入框占位提示"
+    },
+    {
+      "name": "pp_edit_quality",
+      "value": "JPEG 质量 %d",
+      "description": "压缩质量滑块标签"
+    },
+    {
+      "name": "pp_edit_max_edge",
+      "value": "最长边（px）",
+      "description": "最长边选项标签"
+    },
+    {
+      "name": "pp_edit_process",
+      "value": "在 TaskPool 中处理",
+      "description": "开始跨线程处理的按钮"
+    },
+    {
+      "name": "pp_edit_processing",
+      "value": "处理中...",
+      "description": "处理中的提示"
+    },
+    {
+      "name": "pp_edit_process_failed",
+      "value": "图片处理失败",
+      "description": "图片处理失败提示"
+    },
+    {
+      "name": "pp_edit_result_title",
+      "value": "处理结果",
+      "description": "处理结果卡片标题"
+    },
+    {
+      "name": "pp_edit_stats",
+      "value": "工作线程 %d ms · 解码 %d ms",
+      "description": "工作线程与解码耗时"
+    },
+    {
+      "name": "pp_edit_size",
+      "value": "%s → %s（%s）",
+      "description": "源文件大小、输出大小与比例"
+    },
+    {
+      "name": "pp_edit_dims",
+      "value": "%d × %d px",
+      "description": "结果的像素尺寸"
+    },
+    {
+      "name": "pp_edit_save",
+      "value": "保存到沙箱",
+      "description": "保存结果到沙箱的按钮"
+    },
+    {
+      "name": "pp_edit_saved",
+      "value": "已保存至 %s",
+      "description": "结果保存路径"
+    },
+    {
+      "name": "pp_edit_saved_toast",
+      "value": "已保存到沙箱",
+      "description": "保存成功提示"
+    },
+    {
+      "name": "pp_cache_total",
+      "value": "总大小 %s",
+      "description": "缓存文件总大小"
+    },
+    {
+      "name": "pp_cache_count",
+      "value": "共 %d 个缓存文件",
+      "description": "缓存文件数量"
+    },
+    {
+      "name": "pp_cache_export",
+      "value": "导出所选原图",
+      "description": "导出所选原图到沙箱的按钮"
+    },
+    {
+      "name": "pp_cache_clear",
+      "value": "清空全部",
+      "description": "清空缓存目录的按钮"
+    },
+    {
+      "name": "pp_cache_delete",
+      "value": "删除",
+      "description": "删除单个缓存文件的按钮"
+    },
+    {
+      "name": "pp_cache_empty",
+      "value": "暂无缓存文件",
+      "description": "缓存场景空状态"
+    },
+    {
+      "name": "pp_cache_export_done",
+      "value": "已导出 %d 个文件",
+      "description": "导出原图的结果"
+    },
+    {
+      "name": "pp_cache_export_none",
+      "value": "请先选择图片再导出",
+      "description": "未选择图片时的导出提示"
+    }
+  ]
+}
