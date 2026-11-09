@@ -23,7 +23,7 @@ import testsuite from '../test/List.test';
 const ON_DESTROY_ERROR = -2;
 
 export default class TestAbility extends UIAbility {
-  abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
   private hasStarted: boolean = false;
 
   constructor() {
