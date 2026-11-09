@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { FileModel, FileType } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SampleTest';
 
 export default function fileModelResidualTest(): void {
   describe('UploadDownloadFileModelResidualTest', () => {
@@ -30,6 +34,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('photo.jpeg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('photo.jpeg');
@@ -52,6 +57,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('photo.JPG', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('photo.JPG');
@@ -74,6 +80,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('archive.tar.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('archive.tar.mp4');
@@ -96,6 +103,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('song.MP3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('song.MP3');
@@ -118,6 +126,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('clip.mp4.bak', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('clip.mp4.bak');
@@ -140,6 +149,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.jpg');
@@ -162,6 +172,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.mp3');
@@ -184,6 +195,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.mp4');
@@ -206,6 +218,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('file.', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.');
@@ -228,6 +241,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('noextension', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('noextension');
@@ -250,6 +264,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('图片.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('图片.jpg');
@@ -272,6 +287,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel(' image.jpg ', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual(' image.jpg ');
@@ -294,6 +310,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('file.verylongextension', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.verylongextension');
@@ -316,6 +333,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('dir/image.png', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('dir/image.png');
@@ -338,6 +356,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('folder.jpg', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('folder.jpg');
@@ -360,6 +379,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('');
@@ -382,6 +402,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('file.pdf', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.pdf');
@@ -404,6 +425,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('file.png', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.png');
@@ -426,6 +448,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('file.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.mp4');
@@ -448,6 +471,7 @@ export default function fileModelResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('folder.txt', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('folder.txt');

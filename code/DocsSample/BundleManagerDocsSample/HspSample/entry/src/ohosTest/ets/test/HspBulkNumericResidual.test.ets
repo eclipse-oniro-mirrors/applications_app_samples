@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add, minus, nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SampleTest';
 
 export default function hspBulkNumericResidualTest(): void {
   describe('HspBulkNumericResidualTest', () => {
@@ -30,6 +34,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(7, 3);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(10);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -52,6 +57,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(0, 0);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -74,6 +80,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(1, 1);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(1);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -96,6 +103,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-1, 1);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -118,6 +126,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(10, 5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -140,6 +149,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-10, 5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-50);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -162,6 +172,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(100, 25);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(125);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -184,6 +195,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-100, -25);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-75);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -206,6 +218,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(2.5, 4);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(10.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -228,6 +241,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(0.5, 2);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(2.5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -250,6 +264,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(1.5, 2);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-0.5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -272,6 +287,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-1.5, 2);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-3.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -294,6 +310,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(12, 12);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(24);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -316,6 +333,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-12, 12);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-24);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -338,6 +356,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(999, 1);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(999);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -360,6 +379,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-999, 1);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-998);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -382,6 +402,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(1000, -1);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(1001);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -404,6 +425,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(64, 8);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(512);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -426,6 +448,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-64, 8);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-56);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -448,6 +471,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(3, 7);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-4);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -470,6 +494,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-3, -7);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(21);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -492,6 +517,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(123, 456);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(579);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -514,6 +540,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-123, 456);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-579);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -536,6 +563,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(1000.0, 2);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(2000.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -558,6 +586,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-1000.0, 2);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-998.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -580,6 +609,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(1000000.0, 3);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(999997.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -602,6 +632,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-1000000.0, 3);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-3000000.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -624,6 +655,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(5, 0);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -646,6 +678,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-5, 0);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -668,6 +701,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(0, 5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -690,6 +724,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(0, -5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -712,6 +747,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(17, 13);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(4);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -734,6 +770,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-17, 13);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-221);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -756,6 +793,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(23, 19);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(42);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -778,6 +816,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-23, -19);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-4);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -800,6 +839,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(2, 0.5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(1.0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -822,6 +862,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-2, 0.5);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-1.5);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -844,6 +885,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(9, 3);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(6);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -866,6 +908,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-9, 3);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-27);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -888,6 +931,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(11, 11);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(22);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -910,6 +954,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(-11, 11);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-22);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -932,6 +977,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(100, 100);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(10000);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -954,6 +1000,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(-100, 100);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(0);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -976,6 +1023,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = minus(45, 9);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(36);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -998,6 +1046,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = nativeMulti(-45, 9);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(-405);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');
@@ -1020,6 +1069,7 @@ export default function hspBulkNumericResidualTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const result: number = add(81, 9);
+          hilog.info(DOMAIN, TAG, 'result: %{public}d', result);
           expect(result).assertEqual(90);
           expect(Number.isFinite(result)).assertTrue();
           expect(typeof result).assertEqual('number');

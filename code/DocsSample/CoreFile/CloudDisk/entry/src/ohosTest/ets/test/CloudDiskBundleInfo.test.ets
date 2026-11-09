@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { BundleInfo, getBundleInfo } from '../../../main/ets/common/Utils';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SampleTest';
 
 const BUNDLE_NAME: string = 'com.samples.clouddisk';
 const ABILITY_NAME: string = 'EntryAbility';
@@ -33,6 +37,7 @@ export default function cloudDiskBundleInfoTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo | undefined = getBundleInfo();
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info !== undefined).assertTrue();
           expect(info?.bundleName).assertEqual(BUNDLE_NAME);
           expect(info?.abilityName).assertEqual(ABILITY_NAME);
@@ -80,6 +85,7 @@ export default function cloudDiskBundleInfoTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo | undefined = getBundleInfo();
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info?.bundleName).assertEqual(BUNDLE_NAME);
           expect(info?.abilityName).assertEqual(ABILITY_NAME);
           expect(info?.bundleName === info?.abilityName).assertFalse();
@@ -102,6 +108,7 @@ export default function cloudDiskBundleInfoTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           const keys: string[] = Object.keys(info).sort();
           expect(keys.length).assertEqual(2);
           expect(keys[0]).assertEqual('abilityName');
@@ -125,6 +132,7 @@ export default function cloudDiskBundleInfoTest(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo | undefined = getBundleInfo();
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           const bundleName: string = info?.bundleName ?? '';
           const abilityName: string = info?.abilityName ?? '';
           expect(bundleName).assertEqual(bundleName.trim());

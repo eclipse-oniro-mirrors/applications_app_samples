@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { FileModel, FileType } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SampleTest';
 
 export default function uploadDownloadBulkResidual3Test(): void {
   describe('UploadDownloadBulkResidual3Test', () => {
@@ -30,6 +34,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_00.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_00.jpg');
@@ -52,6 +57,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_01.png', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_01.png');
@@ -74,6 +80,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_02.jpeg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_02.jpeg');
@@ -96,6 +103,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_03.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_03.jpg');
@@ -118,6 +126,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_04.png', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_04.png');
@@ -140,6 +149,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_05.jpeg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_05.jpeg');
@@ -162,6 +172,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_06.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_06.jpg');
@@ -184,6 +195,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_img_07.png', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_img_07.png');
@@ -206,6 +218,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_00.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_00.mp3');
@@ -228,6 +241,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_01.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_01.mp3');
@@ -250,6 +264,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_02.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_02.mp3');
@@ -272,6 +287,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_03.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_03.mp3');
@@ -294,6 +310,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_04.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_04.mp3');
@@ -316,6 +333,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_05.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_05.mp3');
@@ -338,6 +356,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_06.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_06.mp3');
@@ -360,6 +379,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_audio_07.mp3', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.MUSIC);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_audio_07.mp3');
@@ -382,6 +402,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_00.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_00.mp4');
@@ -404,6 +425,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_01.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_01.mp4');
@@ -426,6 +448,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_02.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_02.mp4');
@@ -448,6 +471,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_03.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_03.mp4');
@@ -470,6 +494,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_04.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_04.mp4');
@@ -492,6 +517,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_05.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_05.mp4');
@@ -514,6 +540,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_06.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_06.mp4');
@@ -536,6 +563,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_video_07.mp4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.Video);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_video_07.mp4');
@@ -558,6 +586,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_00.txt', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_00.txt');
@@ -580,6 +609,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_01.pdf', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_01.pdf');
@@ -602,6 +632,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_02.doc', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_02.doc');
@@ -624,6 +655,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_03.zip', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_03.zip');
@@ -646,6 +678,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_04.txt', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_04.txt');
@@ -668,6 +701,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_05.pdf', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_05.pdf');
@@ -690,6 +724,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_06.doc', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_06.doc');
@@ -712,6 +747,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_doc_07.zip', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3_doc_07.zip');
@@ -734,6 +770,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_dir_00.png', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('bulk3_dir_00.png');
@@ -756,6 +793,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_dir_01.png', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('bulk3_dir_01.png');
@@ -778,6 +816,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_dir_02.png', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('bulk3_dir_02.png');
@@ -800,6 +839,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3_dir_03.png', true, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.FOLDER);
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('bulk3_dir_03.png');
@@ -822,6 +862,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('BULK3.MP4', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('BULK3.MP4');
@@ -844,6 +885,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('bulk3noext', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('bulk3noext');
@@ -866,6 +908,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('.bulk3.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.bulk3.jpg');
@@ -888,6 +931,7 @@ export default function uploadDownloadBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const model: FileModel = new FileModel('批量3.jpg', false, []);
+          hilog.info(DOMAIN, TAG, 'model: %{public}s', model.name);
           expect(model.fileType).assertEqual(FileType.IMAGE);
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('批量3.jpg');

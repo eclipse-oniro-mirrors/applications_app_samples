@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { BundleInfo, getBundleInfo } from '../../../main/ets/common/Utils';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SampleTest';
 
 export default function cloudDiskBundleBulkResidual3Test(): void {
   describe('CloudDiskBundleBulkResidual3Test', () => {
@@ -30,6 +34,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -52,6 +57,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -74,6 +80,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -96,6 +103,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -118,6 +126,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -140,6 +149,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -162,6 +172,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -184,6 +195,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -206,6 +218,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -228,6 +241,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -250,6 +264,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -272,6 +287,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -294,6 +310,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -316,6 +333,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -338,6 +356,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -360,6 +379,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -382,6 +402,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -404,6 +425,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -426,6 +448,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -448,6 +471,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -470,6 +494,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
@@ -492,6 +517,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.split('.').length).assertEqual(3);
           expect(info.bundleName.startsWith('com.')).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -514,6 +540,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName).assertEqual(info.bundleName.toLowerCase());
           expect(info.abilityName.includes('.')).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
@@ -536,6 +563,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName === info.abilityName).assertFalse();
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
@@ -558,6 +586,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -580,6 +609,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -602,6 +632,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -624,6 +655,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -646,6 +678,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -668,6 +701,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -690,6 +724,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -712,6 +747,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -734,6 +770,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -756,6 +793,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -778,6 +816,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -800,6 +839,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -822,6 +862,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -844,6 +885,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -866,6 +908,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
@@ -888,6 +931,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
+          hilog.info(DOMAIN, TAG, 'bundle: %{public}s', info?.bundleName ?? '');
           expect(info.bundleName.length > 0).assertTrue();
           expect(info.abilityName.length > 0).assertTrue();
           expect(info.bundleName === info.abilityName).assertFalse();
