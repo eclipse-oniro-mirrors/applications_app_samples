@@ -2,7 +2,7 @@
 
 ## 自动化测试概览
 
-当前 ohosTest 共 **366 条用例**，测试代码 **8,917 行**：
+当前 ohosTest 共 **406 条用例**，测试代码 **9,821 行**：
 | 套件 | 用例数 | 职责 |
 |---|---:|---|
 | `CloudDiskBundleInfoTest` | 5 | 应用自身 bundleName、EntryAbility 名称及结果字段稳定性 |
@@ -10,6 +10,7 @@
 | `CloudDiskBundleFormatResidualTest` | 6 | 包名段数、前缀、序列化和多次调用稳定性 |
 | `CloudDiskBundleBulkResidualTest` | 40 | bundle/ability 字段契约批量场景 |
 | `CloudDiskBundleBulkResidual2Test` | 55 | bundle 契约批量补充场景 |
+| `CloudDiskBundleBulkResidual3Test` | 40 | bundle 契约批量补充场景二 |
 | `CloudDiskTest` | 20 | 主页面、Tab、同步根、占位符、子页面和 801 行为 |
 | `CloudDiskApiExtraTest` | 49 | 同步根与占位符 API 路径/参数矩阵 |
 | `CloudDiskApiExtraPart2Test` | 51 | API 路径/参数矩阵补充 |
@@ -24,7 +25,7 @@
 - `@tc.*` 元数据全量存在；
 - 用例名和编号全局唯一；
 - 每条用例至少 3 个断言；
-- 全量执行结果：**366/366 通过**（需解锁并唤醒设备，连续两轮 `Failure: 0`）。
+- 全量执行结果：**406/406 通过**（需解锁并唤醒设备，连续两轮 `Failure: 0`）。
 
 ## 用例表
 

@@ -25,6 +25,7 @@ import cloudDiskBundleInfoResidualTest from './CloudDiskBundleInfoResidual.test'
 import cloudDiskBundleFormatResidualTest from './CloudDiskBundleFormatResidual.test';
 import cloudDiskBundleBulkResidualTest from './CloudDiskBundleBulkResidual.test';
 import cloudDiskBundleBulkResidual2Test from './CloudDiskBundleBulkResidual2.test';
+import cloudDiskBundleBulkResidual3Test from './CloudDiskBundleBulkResidual3.test';
 
 export default function testsuite() {
   cloudDiskBundleInfoTest();
@@ -39,4 +40,5 @@ export default function testsuite() {
   cloudDiskBundleFormatResidualTest();
   cloudDiskBundleBulkResidualTest();
   cloudDiskBundleBulkResidual2Test();
+  cloudDiskBundleBulkResidual3Test();
 }
