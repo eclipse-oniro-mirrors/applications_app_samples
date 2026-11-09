@@ -1649,7 +1649,7 @@ Camera_ErrorCode NDKCamera::GetCameraDevices(Camera_Manager* cameraManager, Came
         OH_LOG_INFO(LOG_APP, "cameraType = %{public}d ", (*cameras)[index].cameraType);          // 获取相机类型。
         OH_LOG_INFO(LOG_APP, "connectionType = %{public}d ", (*cameras)[index].connectionType);  // 获取相机连接类型。
         bool isLogical = false;
-        ret = OH_CameraDevice_IsLogicalCamera(cameras[index], &isLogical);
+        ret = OH_CameraDevice_IsLogicalCamera(&(*cameras)[index], &isLogical);
         if (ret != CAMERA_OK) {
             OH_LOG_ERROR(LOG_APP, "OH_CameraDevice_IsLogicalCamera failed.");
             continue;
