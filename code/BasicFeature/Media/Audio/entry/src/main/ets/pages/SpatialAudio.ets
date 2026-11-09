@@ -187,9 +187,9 @@ struct SpatialAudio {
       let audioDeviceDescriptors: audio.AudioDeviceDescriptors =
         this.audioRoutingManager.getPreferredOutputDeviceForRendererInfoSync(this.audioRendererOptions[0].rendererInfo);
       audioDeviceDescriptors.forEach(audioDeviceDescriptor => {
-        Logger.info('Device Role:' + audioDeviceDescriptor.deviceRole + ', device Type:' +
-        audioDeviceDescriptor.deviceType + ', Macaddress:' + audioDeviceDescriptor.address +
-        ', Support:' + audioDeviceDescriptor.spatializationSupported);
+        Logger.info("Device Role:" + audioDeviceDescriptor.deviceRole + ", device Type:" +
+        audioDeviceDescriptor.deviceType + ", Macaddress:" + audioDeviceDescriptor.address +
+        ", Support:" + audioDeviceDescriptor.spatializationSupported);
       })
 
       let isSpaSupported: boolean = false;
@@ -239,7 +239,7 @@ struct SpatialAudio {
       rendererFlags: 0
     }
     if (this.audioRoutingManager) {
-      this.audioRoutingManager.on('preferOutputDeviceChangeForRendererInfo', t_audioRendererInfo, () => {
+      this.audioRoutingManager.on("preferOutputDeviceChangeForRendererInfo", t_audioRendererInfo, () => {
         Logger.info('Output device changed');
         this.updateSupportStateUI();
         if (this.audioRenderers[1] && this.audioRenderers[1].state === audio.AudioState.STATE_RUNNING) {
@@ -249,7 +249,7 @@ struct SpatialAudio {
       })
     }
     if (this.audioSpatializationManager) {
-      this.audioSpatializationManager.on('spatializationEnabledChangeForCurrentDevice', (res) => {
+      this.audioSpatializationManager.on("spatializationEnabledChangeForCurrentDevice", (res) => {
         this.spatializationEnabled = res;
         this.showToastBySpatialEnabled();
       })
@@ -271,11 +271,11 @@ struct SpatialAudio {
     this.audioRenderers = [];
 
     if (this.audioRoutingManager) {
-      this.audioRoutingManager.off('deviceChange');
+      this.audioRoutingManager.off("deviceChange");
     }
 
     if (this.audioSpatializationManager) {
-      this.audioSpatializationManager.off('spatializationEnabledChangeForCurrentDevice');
+      this.audioSpatializationManager.off("spatializationEnabledChangeForCurrentDevice");
     }
   }
 
@@ -295,7 +295,7 @@ struct SpatialAudio {
     }
 
     let buf = new ArrayBuffer(bufferSize);
-    let filePath: string = '';
+    let filePath: string = "";
     if (this.appContext) {
       filePath = this.appContext.filesDir + this.audioSources[index];
     }

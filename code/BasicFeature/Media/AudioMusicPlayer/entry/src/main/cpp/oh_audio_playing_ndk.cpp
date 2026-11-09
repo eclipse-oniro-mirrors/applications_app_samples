@@ -319,9 +319,6 @@ static napi_value ReleasePlayerNDK(napi_env env, napi_callback_info info)
     return nullptr;
 }
 
-static napi_value NAPI_Global_setEffectMode(napi_env env, napi_callback_info info)
-{
-}
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {

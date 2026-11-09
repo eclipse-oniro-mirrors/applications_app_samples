@@ -793,8 +793,13 @@ uint32_t OHAudioPlayer::GetRemainingTime()
     int64_t timestamp;
     OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &currentFramePosition, &timestamp);
     
-    uint64_t remainingFrames = audioFileOprInfo->currentFramesWritten.load() - currentFramePosition;
-    remainingFrames = remainingFrames < 0 ? 0 : remainingFrames;
+    uint64_t framesWritten = audioFileOprInfo->currentFramesWritten.load();
+    // After a seek, framesWritten is reset to 0 while the renderer may still report the pre-seek
+    // frame position, so the subtraction has to be guarded in signed space before the unsigned cast.
+    if (currentFramePosition < 0 || static_cast<uint64_t>(currentFramePosition) >= framesWritten) {
+        return 0;
+    }
+    uint64_t remainingFrames = framesWritten - static_cast<uint64_t>(currentFramePosition);
     uint32_t remainingTime = static_cast<uint32_t>((remainingFrames * MILLIS_PER_SECOND) / sampleRate);
     OH_LOG_INFO(LOG_APP, "remaining time: %{public}u", remainingTime);
     return remainingTime;

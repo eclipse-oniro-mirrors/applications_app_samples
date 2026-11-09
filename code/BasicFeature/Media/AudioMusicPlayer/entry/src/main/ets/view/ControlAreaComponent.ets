@@ -377,16 +377,6 @@ Slider({
           .layoutWeight(1)
           .onChange((value: number, mode: SliderChangeMode) => {
             this.volume = value;
-            if (this.volume === 0) {
-              this.isSilentMode = true
-            } else {
-              this.isSilentMode = false;
-            }
-          })
-          .showTips(false)
-          .layoutWeight(1)
-          .onChange((value: number, mode: SliderChangeMode) => {
-            this.volume = value;
             // [StartExclude VolumeSlider]
             if (this.volume === 0) {
               this.isSilentMode = true
