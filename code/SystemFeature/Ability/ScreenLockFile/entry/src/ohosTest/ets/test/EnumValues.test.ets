@@ -43,7 +43,7 @@ export default function enumValuesTest(): void {
       expect(KEY_STATUS_NOT_EXIST).assertEqual(0);
       expect(KEY_STATUS_RELEASED).assertEqual(1);
       expect(KEY_STATUS_EXIST).assertEqual(2);
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(status).assertLarger(-1);
       hilog.info(DOMAIN, TAG, 'testEnumValues0001 end');
     });
@@ -93,9 +93,9 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0004', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0004 begin');
-      const ksNotExist = screenLockFileManager.KeyStatus.KEY_NOT_EXIST;
-      const ksReleased = screenLockFileManager.KeyStatus.KEY_RELEASED;
-      const ksExist = screenLockFileManager.KeyStatus.KEY_EXIST;
+      const ksNotExist: screenLockFileManager.KeyStatus = screenLockFileManager.KeyStatus.KEY_NOT_EXIST;
+      const ksReleased: screenLockFileManager.KeyStatus = screenLockFileManager.KeyStatus.KEY_RELEASED;
+      const ksExist: screenLockFileManager.KeyStatus = screenLockFileManager.KeyStatus.KEY_EXIST;
       expect(ksNotExist !== KEY_STATUS_NOT_EXIST).assertTrue();
       expect(ksReleased !== KEY_STATUS_RELEASED).assertTrue();
       expect(ksExist !== KEY_STATUS_EXIST).assertTrue();
@@ -113,8 +113,8 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0005', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0005 begin');
-      const acGranted = screenLockFileManager.AccessStatus.ACCESS_GRANTED;
-      const acDenied = screenLockFileManager.AccessStatus.ACCESS_DENIED;
+      const acGranted: screenLockFileManager.AccessStatus = screenLockFileManager.AccessStatus.ACCESS_GRANTED;
+      const acDenied: screenLockFileManager.AccessStatus = screenLockFileManager.AccessStatus.ACCESS_DENIED;
       expect(acGranted).assertEqual(ACCESS_STATUS_GRANTED);
       expect(acDenied).assertEqual(ACCESS_STATUS_DENIED);
       expect(typeof acGranted).assertEqual('number');
@@ -132,8 +132,8 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0006', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0006 begin');
-      const relGranted = screenLockFileManager.ReleaseStatus.RELEASE_GRANTED;
-      const relDenied = screenLockFileManager.ReleaseStatus.RELEASE_DENIED;
+      const relGranted: screenLockFileManager.ReleaseStatus = screenLockFileManager.ReleaseStatus.RELEASE_GRANTED;
+      const relDenied: screenLockFileManager.ReleaseStatus = screenLockFileManager.ReleaseStatus.RELEASE_DENIED;
       expect(relGranted).assertEqual(RELEASE_STATUS_GRANTED);
       expect(relDenied !== RELEASE_STATUS_DENIED).assertTrue();
       expect(typeof relGranted).assertEqual('number');
@@ -156,7 +156,7 @@ export default function enumValuesTest(): void {
       allKeyStatus.push(screenLockFileManager.KeyStatus.KEY_RELEASED);
       allKeyStatus.push(screenLockFileManager.KeyStatus.KEY_EXIST);
       expect(allKeyStatus.length).assertEqual(3);
-      for (let i = 0; i < allKeyStatus.length; i++) {
+      for (let i: number = 0; i < allKeyStatus.length; i++) {
         expect(typeof allKeyStatus[i]).assertEqual('number');
       }
       expect(allKeyStatus[0] !== allKeyStatus[2]).assertTrue();
@@ -214,10 +214,10 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0010', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0010 begin');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       const enumValues: number[] = [KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST];
-      let found = false;
-      for (let i = 0; i < enumValues.length; i++) {
+      let found: boolean = false;
+      for (let i: number = 0; i < enumValues.length; i++) {
         if (status === enumValues[i]) { found = true; }
       }
       expect(found).assertTrue();
@@ -291,12 +291,9 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0014', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0014 begin');
-      const keyStatus = screenLockFileManager.KeyStatus;
-      const accessStatus = screenLockFileManager.AccessStatus;
-      const releaseStatus = screenLockFileManager.ReleaseStatus;
-      expect(typeof keyStatus).assertEqual('object');
-      expect(typeof accessStatus).assertEqual('object');
-      expect(typeof releaseStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.KeyStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.AccessStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.ReleaseStatus).assertEqual('object');
       hilog.info(DOMAIN, TAG, 'testEnumValues0014 end');
     });
 
@@ -365,7 +362,7 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0018', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0018 begin');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(status === KEY_STATUS_NOT_EXIST || status === KEY_STATUS_RELEASED ||
         status === KEY_STATUS_EXIST).assertTrue();
       expect(typeof status).assertEqual('number');
@@ -401,10 +398,9 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0020', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0020 begin');
-      const keyEnum = screenLockFileManager.KeyStatus;
-      expect(typeof keyEnum.KEY_NOT_EXIST).assertEqual('number');
-      expect(typeof keyEnum.KEY_RELEASED).assertEqual('number');
-      expect(typeof keyEnum.KEY_EXIST).assertEqual('number');
+      expect(typeof screenLockFileManager.KeyStatus.KEY_NOT_EXIST).assertEqual('number');
+      expect(typeof screenLockFileManager.KeyStatus.KEY_RELEASED).assertEqual('number');
+      expect(typeof screenLockFileManager.KeyStatus.KEY_EXIST).assertEqual('number');
       hilog.info(DOMAIN, TAG, 'testEnumValues0020 end');
     });
 
@@ -419,10 +415,10 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0021', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0021 begin');
-      const accessEnum = screenLockFileManager.AccessStatus;
-      expect(typeof accessEnum.ACCESS_GRANTED).assertEqual('number');
-      expect(typeof accessEnum.ACCESS_DENIED).assertEqual('number');
-      expect((accessEnum.ACCESS_GRANTED as number) !== (accessEnum.ACCESS_DENIED as number)).assertTrue();
+      expect(typeof screenLockFileManager.AccessStatus.ACCESS_GRANTED).assertEqual('number');
+      expect(typeof screenLockFileManager.AccessStatus.ACCESS_DENIED).assertEqual('number');
+      expect((screenLockFileManager.AccessStatus.ACCESS_GRANTED as number) !==
+        (screenLockFileManager.AccessStatus.ACCESS_DENIED as number)).assertTrue();
       hilog.info(DOMAIN, TAG, 'testEnumValues0021 end');
     });
 
@@ -437,10 +433,10 @@ export default function enumValuesTest(): void {
 
     it('testEnumValues0022', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, 'testEnumValues0022 begin');
-      const releaseEnum = screenLockFileManager.ReleaseStatus;
-      expect(typeof releaseEnum.RELEASE_GRANTED).assertEqual('number');
-      expect(typeof releaseEnum.RELEASE_DENIED).assertEqual('number');
-      expect((releaseEnum.RELEASE_GRANTED as number) !== (releaseEnum.RELEASE_DENIED as number)).assertTrue();
+      expect(typeof screenLockFileManager.ReleaseStatus.RELEASE_GRANTED).assertEqual('number');
+      expect(typeof screenLockFileManager.ReleaseStatus.RELEASE_DENIED).assertEqual('number');
+      expect((screenLockFileManager.ReleaseStatus.RELEASE_GRANTED as number) !==
+        (screenLockFileManager.ReleaseStatus.RELEASE_DENIED as number)).assertTrue();
       hilog.info(DOMAIN, TAG, 'testEnumValues0022 end');
     });
 

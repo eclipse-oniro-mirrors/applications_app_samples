@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -28,10 +28,10 @@ import {
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function foregroundBackgroundTest(): void {
   describe('ForegroundBackgroundTest', (): void => {
@@ -59,7 +59,7 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0001');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       expect(status).assertLarger(-1);
@@ -80,7 +80,7 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -101,7 +101,7 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -123,7 +123,7 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -140,9 +140,9 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0005');
-      const s1 = screenLockFileManager.queryAppKeyState();
-      const s2 = screenLockFileManager.queryAppKeyState();
-      const s3 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const s3: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(s1).assertEqual(s2);
       expect(s2).assertEqual(s3);
       expect(testHelper.isValidKeyStatus(s1)).assertTrue();
@@ -161,8 +161,8 @@ export default function foregroundBackgroundTest(): void {
       sharedDriver.hilogBegin('testForegroundBackground0006');
       await extDriver.clearHistoryAndWait();
       testHelper.acquireAccess();
-      const p1 = await extDriver.parsePairingCounts();
-      const p2 = await extDriver.parsePairingCounts();
+      const p1: PairingCounts = await extDriver.parsePairingCounts();
+      const p2: PairingCounts = await extDriver.parsePairingCounts();
       expect(p1.acquire).assertEqual(p2.acquire);
       expect(p1.pending).assertEqual(p2.pending);
       expect(typeof p1.acquire).assertEqual('number');
@@ -181,11 +181,11 @@ export default function foregroundBackgroundTest(): void {
       sharedDriver.hilogBegin('testForegroundBackground0007');
       await extDriver.clearHistoryAndWait();
       await scrollToId(ID_OPERATION_RESULT)
-      const before = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const before: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(before.includes('ready')).assertFalse();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const after = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const after: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(after.includes('queryAppKeyState')).assertTrue();
       expect(before !== after).assertTrue();
       sharedDriver.hilogEnd('testForegroundBackground0007');
@@ -204,9 +204,9 @@ export default function foregroundBackgroundTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testForegroundBackground0008');
@@ -226,9 +226,9 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testForegroundBackground0009');
@@ -248,7 +248,7 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_QUERY_ALL_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('|')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -265,7 +265,7 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0011');
-      const snapshot = await testHelper.captureStateSnapshot();
+      const snapshot: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(testHelper.isValidKeyStatus(snapshot.keyStatus)).assertTrue();
       expect(typeof snapshot.operationResult).assertEqual('string');
       expect(typeof snapshot.pairingText).assertEqual('string');
@@ -282,10 +282,10 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0012');
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testForegroundBackground0012');
     });
@@ -301,11 +301,11 @@ export default function foregroundBackgroundTest(): void {
     it('testForegroundBackground0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0013');
       await extDriver.clearHistoryAndWait();
-      const result = await testHelper.performAcquireReleaseCycle();
+      const result: boolean = await testHelper.performAcquireReleaseCycle();
       expect(typeof result).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       sharedDriver.hilogEnd('testForegroundBackground0013');
     });
@@ -321,18 +321,18 @@ export default function foregroundBackgroundTest(): void {
     it('testForegroundBackground0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0014');
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await scrollToId(ID_QUERY_BUTTON);
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
         await scrollToId(ID_OPERATION_RESULT);
-        const r = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+        const r: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
         expect(r.includes('queryAppKeyState')).assertTrue();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testForegroundBackground0014');
     });
@@ -347,9 +347,9 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0015');
-      const n0 = testHelper.getKeyStatusName(KEY_STATUS_NOT_EXIST);
-      const n1 = testHelper.getKeyStatusName(KEY_STATUS_RELEASED);
-      const n2 = testHelper.getKeyStatusName(KEY_STATUS_EXIST);
+      const n0: string = testHelper.getKeyStatusName(KEY_STATUS_NOT_EXIST);
+      const n1: string = testHelper.getKeyStatusName(KEY_STATUS_RELEASED);
+      const n2: string = testHelper.getKeyStatusName(KEY_STATUS_EXIST);
       expect(n0).assertEqual('KEY_NOT_EXIST');
       expect(n1).assertEqual('KEY_RELEASED');
       expect(n2).assertEqual('KEY_EXIST');
@@ -370,8 +370,8 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
-      const colonIdx = r1.indexOf(':');
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const colonIdx: number = r1.indexOf(':');
       expect(colonIdx).assertLarger(0);
       expect(r1.substring(0, colonIdx)).assertEqual('queryAppKeyState');
       expect(r1.length).assertLarger(colonIdx + 1);
@@ -388,7 +388,7 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0017');
-      const pairing = await extDriver.getPairingStatusText();
+      const pairing: string = await extDriver.getPairingStatusText();
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.includes('Release:')).assertTrue();
       expect(pairing.includes('Pending:')).assertTrue();
@@ -405,8 +405,8 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0018');
-      const pairing = await extDriver.getPairingStatusText();
-      const sections = pairing.split('|');
+      const pairing: string = await extDriver.getPairingStatusText();
+      const sections: string[] = pairing.split('|');
       expect(sections.length).assertEqual(3);
       expect(sections[0].includes('Acquire')).assertTrue();
       expect(sections[1].includes('Release')).assertTrue();
@@ -427,13 +427,13 @@ export default function foregroundBackgroundTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1.includes('Error')).assertFalse();
       await scrollToId(ID_ACQUIRE_BUTTON);
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r2.includes('Error')).assertFalse();
       expect(r1 !== r2).assertTrue();
       sharedDriver.hilogEnd('testForegroundBackground0019');
@@ -452,9 +452,9 @@ export default function foregroundBackgroundTest(): void {
       const ids: string[] = ['queryKeyStateButton', 'acquireAccessButton', 'releaseAccessButton', 'queryAllStatesButton', 'clearHistoryButton'];
       expect(ids.length).assertEqual(5);
       const unique: string[] = [];
-      for (let i = 0; i < ids.length; i++) {
-        let found = false;
-        for (let j = 0; j < unique.length; j++) {
+      for (let i: number = 0; i < ids.length; i++) {
+        let found: boolean = false;
+        for (let j: number = 0; j < unique.length; j++) {
           if (ids[i] === unique[j]) { found = true; }
         }
         if (!found) { unique.push(ids[i]); }
@@ -475,9 +475,9 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0021', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0021');
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -494,11 +494,11 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0022');
-      const qa = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
-      const cl = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const qa: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const cl: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(qa).assertTrue();
       expect(cl).assertTrue();
-      const res = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const res: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(res).assertTrue();
       sharedDriver.hilogEnd('testForegroundBackground0022');
     });
@@ -513,7 +513,7 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0023');
-      const qr = testHelper.queryKeyState();
+      const qr: ApiCallResult = testHelper.queryKeyState();
       expect(typeof qr.success).assertEqual('boolean');
       expect(typeof qr.errorCode).assertEqual('number');
       expect(typeof qr.errorMessage).assertEqual('string');
@@ -530,7 +530,7 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0024');
-      const ar = testHelper.acquireAccess();
+      const ar: ApiCallResult = testHelper.acquireAccess();
       expect(typeof ar.success).assertEqual('boolean');
       expect(typeof ar.errorCode).assertEqual('number');
       expect(ar.timestamp).assertLarger(0);
@@ -547,9 +547,9 @@ export default function foregroundBackgroundTest(): void {
      */
     it('testForegroundBackground0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testForegroundBackground0025');
-      const isValid = await testHelper.verifyStateConsistency();
+      const isValid: boolean = await testHelper.verifyStateConsistency();
       expect(isValid).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testForegroundBackground0025');

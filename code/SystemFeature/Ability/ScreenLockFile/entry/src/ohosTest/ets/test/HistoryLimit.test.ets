@@ -20,9 +20,9 @@ import { SharedDriver } from './SharedDriver';
 import { SharedDriverExt } from './SharedDriverExt';
 import { DOMAIN, TAG, MAX_HISTORY_SIZE, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function historyLimitTest(): void {
   describe('HistoryLimitTest', (): void => {
@@ -43,14 +43,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 3;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 3;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0001');
@@ -70,14 +70,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 4;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 4;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0002');
@@ -97,14 +97,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 5;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 5;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0003');
@@ -124,14 +124,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 6;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 6;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0004');
@@ -151,14 +151,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 7;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 7;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0005');
@@ -178,14 +178,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 8;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 8;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0006');
@@ -205,14 +205,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 9;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 9;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0007');
@@ -232,14 +232,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 10;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 10;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0008');
@@ -259,14 +259,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 11;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 11;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0009');
@@ -286,14 +286,14 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      const opCount = 12;
-      for (let i = 0; i < opCount; i++) {
+      const opCount: number = 12;
+      for (let i: number = 0; i < opCount; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryLimit0010');
@@ -313,13 +313,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0011');
@@ -339,13 +339,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0012');
@@ -365,13 +365,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0013');
@@ -391,13 +391,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0014');
@@ -417,13 +417,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0015');
@@ -443,13 +443,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0016');
@@ -469,13 +469,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0017');
@@ -495,13 +495,13 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickQueryButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryLimit0018');
@@ -521,19 +521,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0019');
     });
@@ -552,19 +552,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0020');
     });
@@ -583,19 +583,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0021');
     });
@@ -614,19 +614,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0022');
     });
@@ -645,19 +645,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0023');
     });
@@ -676,19 +676,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0024');
     });
@@ -707,19 +707,19 @@ export default function historyLimitTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistory();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickQueryButton();
       }
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await extDriver.clickAcquireButton();
       }
-      for (let i = 0; i < 1; i++) {
+      for (let i: number = 0; i < 1; i++) {
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryLimit0025');
     });

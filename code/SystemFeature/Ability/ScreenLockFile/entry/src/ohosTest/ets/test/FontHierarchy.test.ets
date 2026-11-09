@@ -25,8 +25,8 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function fontHierarchyTest(): void {
   describe('FontHierarchyTest', (): void => {
@@ -153,8 +153,8 @@ export default function fontHierarchyTest(): void {
      */
     it('testFontHierarchy0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testFontHierarchy0007');
-      const ratio1 = TITLE_FONT_SIZE / SUBTITLE_FONT_SIZE;
-      const ratio2 = SUBTITLE_FONT_SIZE / BODY_FONT_SIZE;
+      const ratio1: number = TITLE_FONT_SIZE / SUBTITLE_FONT_SIZE;
+      const ratio2: number = SUBTITLE_FONT_SIZE / BODY_FONT_SIZE;
       expect(ratio1).assertLarger(1);
       expect(ratio2).assertLarger(1);
       expect(typeof ratio1).assertEqual('number');
@@ -223,7 +223,7 @@ export default function fontHierarchyTest(): void {
       sharedDriver.hilogBegin('testFontHierarchy0011');
       const fonts: number[] = [TITLE_FONT_SIZE, SUBTITLE_FONT_SIZE, BODY_FONT_SIZE, SMALL_FONT_SIZE];
       expect(fonts.length).assertEqual(4);
-      for (let i = 0; i < fonts.length; i++) {
+      for (let i: number = 0; i < fonts.length; i++) {
         expect(typeof fonts[i]).assertEqual('number');
         expect(fonts[i]).assertLarger(0);
       }
@@ -241,7 +241,7 @@ export default function fontHierarchyTest(): void {
     it('testFontHierarchy0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testFontHierarchy0012');
       const fonts: number[] = [TITLE_FONT_SIZE, SUBTITLE_FONT_SIZE, BODY_FONT_SIZE, SMALL_FONT_SIZE];
-      for (let i = 1; i < fonts.length; i++) {
+      for (let i: number = 1; i < fonts.length; i++) {
         expect(fonts[i - 1]).assertLarger(fonts[i]);
       }
       expect(fonts[0]).assertLarger(fonts[3]);
@@ -259,7 +259,7 @@ export default function fontHierarchyTest(): void {
      */
     it('testFontHierarchy0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testFontHierarchy0013');
-      const sum = TITLE_FONT_SIZE + SUBTITLE_FONT_SIZE + BODY_FONT_SIZE + SMALL_FONT_SIZE;
+      const sum: number = TITLE_FONT_SIZE + SUBTITLE_FONT_SIZE + BODY_FONT_SIZE + SMALL_FONT_SIZE;
       expect(sum).assertEqual(78);
       expect(sum).assertLarger(0);
       expect(typeof sum).assertEqual('number');
@@ -277,7 +277,7 @@ export default function fontHierarchyTest(): void {
     it('testFontHierarchy0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testFontHierarchy0014');
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       expect(typeof result.length).assertEqual('number');

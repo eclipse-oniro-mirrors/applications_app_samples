@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
@@ -28,10 +28,10 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT,
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function errorRecoveryTest(): void {
   describe('ErrorRecoveryTest', (): void => {
@@ -62,10 +62,10 @@ export default function errorRecoveryTest(): void {
       await extDriver.clearHistoryAndWait();
       testHelper.releaseAccess();
       testHelper.acquireAccess();
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testErrorRecovery0001');
     });
@@ -81,13 +81,13 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0002');
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         testHelper.acquireAccess();
       }
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         testHelper.releaseAccess();
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertEqual(counts.release);
       expect(typeof counts.acquire).assertEqual('number');
@@ -105,13 +105,13 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0003');
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         testHelper.releaseAccess();
       }
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       sharedDriver.hilogEnd('testErrorRecovery0003');
     });
@@ -129,7 +129,7 @@ export default function errorRecoveryTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -150,7 +150,7 @@ export default function errorRecoveryTest(): void {
       await extDriver.clearHistoryAndWait();
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -169,9 +169,9 @@ export default function errorRecoveryTest(): void {
       sharedDriver.hilogBegin('testErrorRecovery0006');
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testErrorRecovery0006');
@@ -188,9 +188,9 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0007');
       testHelper.releaseAccess();
-      const result = await testHelper.performAcquireReleaseCycle();
+      const result: boolean = await testHelper.performAcquireReleaseCycle();
       expect(typeof result).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testErrorRecovery0007');
@@ -209,7 +209,7 @@ export default function errorRecoveryTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const snapshot = await testHelper.captureStateSnapshot();
+      const snapshot: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(testHelper.isValidKeyStatus(snapshot.keyStatus)).assertTrue();
       expect(typeof snapshot.operationResult).assertEqual('string');
       expect(snapshot.historyEmpty).assertTrue();
@@ -227,10 +227,10 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0009', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0009');
       await extDriver.clearHistoryAndWait();
-      const valid = await testHelper.verifyHistoryLimit();
+      const valid: boolean = await testHelper.verifyHistoryLimit();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       sharedDriver.hilogEnd('testErrorRecovery0009');
     });
@@ -247,10 +247,10 @@ export default function errorRecoveryTest(): void {
       sharedDriver.hilogBegin('testErrorRecovery0010');
       testHelper.acquireAccess();
       await extDriver.clearHistoryAndWait();
-      const symm = await testHelper.verifyPairingSymmetry();
+      const symm: boolean = await testHelper.verifyPairingSymmetry();
       expect(symm).assertTrue();
       expect(typeof symm).assertEqual('boolean');
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       sharedDriver.hilogEnd('testErrorRecovery0010');
     });
@@ -268,9 +268,9 @@ export default function errorRecoveryTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const stable = await testHelper.waitForStableState(2000);
+      const stable: boolean = await testHelper.waitForStableState(2000);
       expect(stable).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testErrorRecovery0011');
@@ -288,7 +288,7 @@ export default function errorRecoveryTest(): void {
       sharedDriver.hilogBegin('testErrorRecovery0012');
       testHelper.acquireAccess();
       await extDriver.clearHistoryAndWait();
-      const valid = await extDriver.verifyQueryAllResult();
+      const valid: boolean = await extDriver.verifyQueryAllResult();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorRecovery0012');
@@ -304,10 +304,10 @@ export default function errorRecoveryTest(): void {
      */
     it('testErrorRecovery0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0013');
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         testHelper.acquireAccess();
         await extDriver.clearHistoryAndWait();
-        const counts = await extDriver.parsePairingCounts();
+        const counts: PairingCounts = await extDriver.parsePairingCounts();
         expect(counts.acquire).assertEqual(0);
         expect(counts.pending).assertEqual(0);
       }
@@ -325,7 +325,7 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0014');
       await extDriver.clearHistoryAndWait();
-      const results = await extDriver.fullWorkflowAcquireRelease();
+      const results: string[] = await extDriver.fullWorkflowAcquireRelease();
       expect(results.length).assertEqual(2);
       expect(results[0].includes('acquireAccess')).assertTrue();
       expect(results[1].includes('releaseAccess')).assertTrue();
@@ -343,9 +343,9 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0015');
       await extDriver.clearHistoryAndWait();
-      const qExists = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const aExists = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const rExists = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const qExists: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const aExists: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const rExists: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(qExists).assertTrue();
       expect(aExists).assertTrue();
       expect(rExists).assertTrue();
@@ -365,7 +365,7 @@ export default function errorRecoveryTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -385,9 +385,9 @@ export default function errorRecoveryTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
-      const noHistExists = await sharedDriver.existsId('noHistoryText');
+      const noHistExists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistExists).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorRecovery0017');
@@ -404,7 +404,7 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0018');
       await extDriver.clearHistoryAndWait();
-      const results = await extDriver.performMultipleQueries(3);
+      const results: string[] = await extDriver.performMultipleQueries(3);
       expect(results.length).assertEqual(3);
       expect(results[0].includes('queryAppKeyState')).assertTrue();
       expect(typeof results[0]).assertEqual('string');
@@ -422,7 +422,7 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0019');
       await extDriver.clearHistoryAndWait();
-      const results = await extDriver.performMultipleAcquires(3);
+      const results: string[] = await extDriver.performMultipleAcquires(3);
       expect(results.length).assertEqual(3);
       expect(results[0].includes('acquireAccess')).assertTrue();
       expect(typeof results[0]).assertEqual('string');
@@ -440,8 +440,8 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0020');
       await extDriver.clearHistoryAndWait();
-      const status = screenLockFileManager.queryAppKeyState();
-      const name = testHelper.getKeyStatusName(status);
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const name: string = testHelper.getKeyStatusName(status);
       expect(name.length).assertLarger(0);
       expect(typeof name).assertEqual('string');
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
@@ -459,10 +459,10 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0021', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0021');
       await extDriver.clearHistoryAndWait();
-      const valid = await extDriver.verifyHistoryMaxSize();
+      const valid: boolean = await extDriver.verifyHistoryMaxSize();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       sharedDriver.hilogEnd('testErrorRecovery0021');
     });
@@ -478,7 +478,7 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0022');
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.getPairingStatusAfterOperations(3, 3);
+      const counts: PairingCounts = await extDriver.getPairingStatusAfterOperations(3, 3);
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertEqual(counts.release);
       expect(typeof counts.acquire).assertEqual('number');
@@ -496,7 +496,7 @@ export default function errorRecoveryTest(): void {
     it('testErrorRecovery0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0023');
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.getPairingStatusAfterOperations(5, 2);
+      const counts: PairingCounts = await extDriver.getPairingStatusAfterOperations(5, 2);
       expect(counts.acquire).assertLarger(counts.release);
       expect(counts.pending).assertLarger(0);
       expect(typeof counts.pending).assertEqual('number');
@@ -513,7 +513,7 @@ export default function errorRecoveryTest(): void {
      */
     it('testErrorRecovery0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorRecovery0024');
-      const result = await extDriver.fullWorkflowQuery();
+      const result: string = await extDriver.fullWorkflowQuery();
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -532,7 +532,7 @@ export default function errorRecoveryTest(): void {
       sharedDriver.hilogBegin('testErrorRecovery0025');
       await extDriver.clearHistoryAndWait();
       await extDriver.fullWorkflowMultipleOps(2, 2, 2);
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
       expect(typeof counts.pending).assertEqual('number');

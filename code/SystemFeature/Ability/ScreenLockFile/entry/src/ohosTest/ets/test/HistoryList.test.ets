@@ -24,9 +24,9 @@ import {
   DOMAIN, TAG, ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON,
   ID_CLEAR_HISTORY_BUTTON, MAX_HISTORY_SIZE
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function historyListTest(): void {
   describe('HistoryListTest', (): void => {
@@ -47,9 +47,9 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
-      const noHistExists = await sharedDriver.existsId('noHistoryText');
+      const noHistExists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistExists).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryList0001');
@@ -71,9 +71,9 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const noHistExists = await sharedDriver.existsId('noHistoryText');
+      const noHistExists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistExists).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryList0002');
@@ -95,7 +95,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -120,7 +120,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -143,9 +143,9 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
-      const noHistExists = await sharedDriver.existsId('noHistoryText');
+      const noHistExists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistExists).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryList0005');
@@ -171,7 +171,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -192,11 +192,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < MAX_HISTORY_SIZE + 5; i++) {
+      for (let i: number = 0; i < MAX_HISTORY_SIZE + 5; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(MAX_HISTORY_SIZE).assertEqual(10);
@@ -217,7 +217,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const exists = await sharedDriver.existsId('noHistoryText');
+      const exists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(exists).assertTrue();
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertEqual(true);
@@ -240,7 +240,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const exists = await sharedDriver.existsId('noHistoryText');
+      const exists: boolean = await sharedDriver.existsId('noHistoryText');
       expect(exists).assertFalse();
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertEqual(false);
@@ -259,7 +259,7 @@ export default function historyListTest(): void {
       sharedDriver.hilogBegin('testHistoryList0010');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const exists = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const exists: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(exists).assertTrue();
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertEqual(true);
@@ -284,7 +284,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -306,11 +306,11 @@ export default function historyListTest(): void {
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
       const buttons: string[] = [ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON];
-      for (let i = 0; i < buttons.length; i++) {
+      for (let i: number = 0; i < buttons.length; i++) {
         await sharedDriver.clickId(buttons[i]);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -335,7 +335,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(true);
@@ -358,7 +358,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('queryAllStatesButton');
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -379,11 +379,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < MAX_HISTORY_SIZE; i++) {
+      for (let i: number = 0; i < MAX_HISTORY_SIZE; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(MAX_HISTORY_SIZE).assertEqual(10);
@@ -404,11 +404,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < MAX_HISTORY_SIZE + 3; i++) {
+      for (let i: number = 0; i < MAX_HISTORY_SIZE + 3; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -427,13 +427,13 @@ export default function historyListTest(): void {
       sharedDriver.hilogBegin('testHistoryList0017');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(true);
@@ -456,11 +456,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const emptyBefore = await extDriver.isHistoryEmpty();
+      const emptyBefore: boolean = await extDriver.isHistoryEmpty();
       expect(emptyBefore).assertTrue();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const emptyAfter = await extDriver.isHistoryEmpty();
+      const emptyAfter: boolean = await extDriver.isHistoryEmpty();
       expect(emptyAfter).assertFalse();
       expect(typeof emptyAfter).assertEqual('boolean');
       sharedDriver.hilogEnd('testHistoryList0018');
@@ -482,7 +482,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -505,7 +505,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -528,7 +528,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire: 0')).assertTrue();
       expect(pairing.includes('Release: 0')).assertTrue();
       expect(pairing.length).assertLarger(0);
@@ -549,11 +549,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -580,7 +580,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -601,11 +601,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const before = await extDriver.isHistoryEmpty();
+      const before: boolean = await extDriver.isHistoryEmpty();
       expect(before).assertFalse();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const after = await extDriver.isHistoryEmpty();
+      const after: boolean = await extDriver.isHistoryEmpty();
       expect(after).assertTrue();
       expect(before !== after).assertTrue();
       sharedDriver.hilogEnd('testHistoryList0024');
@@ -627,9 +627,9 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertFalse();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testHistoryList0025');
@@ -651,7 +651,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -676,7 +676,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -699,7 +699,7 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('queryAllStatesButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('KeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -722,10 +722,10 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const e1 = await extDriver.isHistoryEmpty();
+      const e1: boolean = await extDriver.isHistoryEmpty();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const e2 = await extDriver.isHistoryEmpty();
+      const e2: boolean = await extDriver.isHistoryEmpty();
       expect(e1).assertEqual(e2);
       expect(e1).assertTrue();
       expect(typeof e1).assertEqual('boolean');
@@ -746,11 +746,11 @@ export default function historyListTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const empty = await extDriver.isHistoryEmpty();
+      const empty: boolean = await extDriver.isHistoryEmpty();
       expect(empty).assertTrue();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const notEmpty = await extDriver.isHistoryEmpty();
+      const notEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(notEmpty).assertFalse();
       expect(empty !== notEmpty).assertTrue();
       sharedDriver.hilogEnd('testHistoryList0030');

@@ -18,15 +18,15 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_CLEAR_HISTORY_BUTTON} from './TestConstants';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { quickClick, scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const driver = Driver.create();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const driver: Driver = Driver.create();
 
 export default function counterOverflowTest(): void {
   describe('CounterOverflowTest', (): void => {
@@ -59,12 +59,12 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       // 批量点击，不等待
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       // 一次性等待UI稳定
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -84,11 +84,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0002');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -108,11 +108,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0003');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -132,11 +132,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0004');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -156,11 +156,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0005');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -180,11 +180,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0006');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -204,11 +204,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0007');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -228,11 +228,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0008');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -252,11 +252,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0009');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -276,11 +276,11 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0010');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -300,12 +300,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0011');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -325,12 +325,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0012');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -350,12 +350,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0013');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -375,12 +375,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0014');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -400,12 +400,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0015');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -425,12 +425,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0016');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -450,12 +450,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0017');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -475,12 +475,12 @@ export default function counterOverflowTest(): void {
       sharedDriver.hilogBegin('testCounterOverflow0018');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await quickClick(ID_ACQUIRE_BUTTON);
         await quickClick(ID_RELEASE_BUTTON);
       }
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
@@ -502,15 +502,15 @@ export default function counterOverflowTest(): void {
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
       // 直接调用API，不走UI
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0019');
@@ -530,15 +530,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0020');
@@ -558,15 +558,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0021');
@@ -586,15 +586,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0022');
@@ -614,15 +614,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0023');
@@ -642,15 +642,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0024');
@@ -670,15 +670,15 @@ export default function counterOverflowTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
       await quickClick(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         try {
           screenLockFileManager.acquireAccess();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
         }
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testCounterOverflow0025');

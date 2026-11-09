@@ -19,7 +19,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
 import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -31,10 +31,10 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function errorInfoValidationTest(): void {
   describe('ErrorInfoValidationTest', (): void => {
@@ -62,7 +62,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0001');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.errorCode).assertEqual('number');
       expect(result.errorCode).assertLarger(-1);
       expect(typeof result.success).assertEqual('boolean');
@@ -79,7 +79,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0002');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.errorMessage).assertEqual('string');
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.errorCode).assertEqual('number');
@@ -96,7 +96,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0003');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(typeof result.errorCode).assertEqual('number');
       expect(result.errorCode).assertLarger(-1);
       expect(typeof result.success).assertEqual('boolean');
@@ -113,7 +113,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0004');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(typeof result.errorMessage).assertEqual('string');
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.timestamp).assertEqual('number');
@@ -130,7 +130,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0005');
-      const result = testHelper.releaseAccess();
+      const result: ApiCallResult = testHelper.releaseAccess();
       expect(typeof result.errorCode).assertEqual('number');
       expect(result.errorCode).assertLarger(-1);
       expect(typeof result.success).assertEqual('boolean');
@@ -147,7 +147,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0006');
-      const result = testHelper.releaseAccess();
+      const result: ApiCallResult = testHelper.releaseAccess();
       expect(typeof result.errorMessage).assertEqual('string');
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.timestamp).assertEqual('number');
@@ -164,7 +164,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0007');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       if (result.errorCode === 0) {
         expect(result.success).assertTrue();
       }
@@ -183,7 +183,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0008');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       if (result.success) {
         expect(result.errorCode).assertEqual(0);
       }
@@ -202,7 +202,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0009', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0009');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(result.errorMessage.includes('KeyStatus')).assertTrue();
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.errorMessage).assertEqual('string');
@@ -219,7 +219,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0010', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0010');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(result.errorMessage.includes('AccessStatus')).assertTrue();
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.errorMessage).assertEqual('string');
@@ -236,7 +236,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0011');
-      const result = testHelper.releaseAccess();
+      const result: ApiCallResult = testHelper.releaseAccess();
       expect(result.errorMessage.includes('ReleaseStatus')).assertTrue();
       expect(result.errorMessage.length).assertLarger(0);
       expect(typeof result.errorMessage).assertEqual('string');
@@ -253,8 +253,8 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0012');
-      const r1 = testHelper.queryKeyState();
-      const r2 = testHelper.queryKeyState();
+      const r1: ApiCallResult = testHelper.queryKeyState();
+      const r2: ApiCallResult = testHelper.queryKeyState();
       expect(r2.timestamp).assertLarger(r1.timestamp - 1);
       expect(typeof r1.timestamp).assertEqual('number');
       expect(typeof r2.timestamp).assertEqual('number');
@@ -275,10 +275,10 @@ export default function errorInfoValidationTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
-      const hasValidContent = result.includes('ready') || result.includes('queryAppKeyState') ||
+      const hasValidContent: boolean = result.includes('ready') || result.includes('queryAppKeyState') ||
         result.includes('acquireAccess') || result.includes('releaseAccess') ||
         result.includes('Error') || result.includes('KeyState:');
       expect(hasValidContent).assertTrue();
@@ -295,9 +295,9 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0014');
-      const r1 = testHelper.acquireAccess();
-      const r2 = testHelper.releaseAccess();
-      const r3 = testHelper.queryKeyState();
+      const r1: ApiCallResult = testHelper.acquireAccess();
+      const r2: ApiCallResult = testHelper.releaseAccess();
+      const r3: ApiCallResult = testHelper.queryKeyState();
       expect(r1.errorCode).assertLarger(-1);
       expect(r2.errorCode).assertLarger(-1);
       expect(r3.errorCode).assertLarger(-1);
@@ -314,9 +314,9 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0015');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       if (result.success) {
-        const status = screenLockFileManager.queryAppKeyState();
+        const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         expect(testHelper.isValidKeyStatus(status)).assertTrue();
       }
       expect(typeof result.success).assertEqual('boolean');
@@ -334,7 +334,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0016');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       if (result.success) {
         expect(testHelper.isValidAccessStatus(0) || testHelper.isValidAccessStatus(1)).assertTrue();
       }
@@ -353,7 +353,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0017');
-      const result = testHelper.releaseAccess();
+      const result: ApiCallResult = testHelper.releaseAccess();
       if (result.success) {
         expect(testHelper.isValidReleaseStatus(0) || testHelper.isValidReleaseStatus(1)).assertTrue();
       }
@@ -372,9 +372,9 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0018');
-      const keyName = testHelper.getKeyStatusName(0);
-      const accessName = testHelper.getAccessStatusName(0);
-      const releaseName = testHelper.getReleaseStatusName(0);
+      const keyName: string = testHelper.getKeyStatusName(0);
+      const accessName: string = testHelper.getAccessStatusName(0);
+      const releaseName: string = testHelper.getReleaseStatusName(0);
       expect(keyName).assertEqual('KEY_NOT_EXIST');
       expect(accessName).assertEqual('ACCESS_GRANTED');
       expect(releaseName).assertEqual('RELEASE_GRANTED');
@@ -391,9 +391,9 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0019');
-      const n1 = testHelper.getKeyStatusName(999);
-      const n2 = testHelper.getAccessStatusName(999);
-      const n3 = testHelper.getReleaseStatusName(999);
+      const n1: string = testHelper.getKeyStatusName(999);
+      const n2: string = testHelper.getAccessStatusName(999);
+      const n3: string = testHelper.getReleaseStatusName(999);
       expect(n1).assertEqual('UNKNOWN');
       expect(n2).assertEqual('UNKNOWN');
       expect(n3).assertEqual('UNKNOWN');
@@ -410,7 +410,7 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0020');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.errorMessage).assertEqual('string');
@@ -428,12 +428,12 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0021', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0021');
-      let hasErrorInfo = false;
+      let hasErrorInfo: boolean = false;
       try {
         screenLockFileManager.queryAppKeyState();
         hasErrorInfo = true;
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         hasErrorInfo = true;
@@ -453,12 +453,12 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0022');
-      let hasErrorInfo = false;
+      let hasErrorInfo: boolean = false;
       try {
         screenLockFileManager.acquireAccess();
         hasErrorInfo = true;
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         hasErrorInfo = true;
@@ -478,12 +478,12 @@ export default function errorInfoValidationTest(): void {
      */
     it('testErrorInfoValidation0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0023');
-      let hasErrorInfo = false;
+      let hasErrorInfo: boolean = false;
       try {
         screenLockFileManager.releaseAccess();
         hasErrorInfo = true;
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         hasErrorInfo = true;
@@ -505,7 +505,7 @@ export default function errorInfoValidationTest(): void {
       sharedDriver.hilogBegin('testErrorInfoValidation0024');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.errorMessage).assertEqual('string');
       expect(typeof result.success).assertEqual('boolean');
@@ -523,7 +523,7 @@ export default function errorInfoValidationTest(): void {
     it('testErrorInfoValidation0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorInfoValidation0025');
       testHelper.releaseAccess();
-      const snapshot = await testHelper.captureStateSnapshot();
+      const snapshot: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(typeof snapshot.keyStatus).assertEqual('number');
       expect(typeof snapshot.operationResult).assertEqual('string');
       expect(snapshot.operationResult.length).assertLarger(0);

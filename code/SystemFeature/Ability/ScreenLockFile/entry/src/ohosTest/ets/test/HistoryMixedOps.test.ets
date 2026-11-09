@@ -20,9 +20,9 @@ import { SharedDriver } from './SharedDriver';
 import { SharedDriverExt } from './SharedDriverExt';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function historyMixedOpsTest(): void {
   describe('HistoryMixedOpsTest', (): void => {
@@ -48,9 +48,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0001');
@@ -75,9 +75,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0002');
@@ -102,9 +102,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0003');
@@ -129,9 +129,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0004');
@@ -156,9 +156,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0005');
@@ -183,9 +183,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0006');
@@ -210,9 +210,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0007');
@@ -237,9 +237,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0008');
@@ -264,9 +264,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0009');
@@ -291,9 +291,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0010');
@@ -313,15 +313,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0011');
@@ -341,15 +341,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0012');
@@ -369,15 +369,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0013');
@@ -397,15 +397,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0014');
@@ -425,15 +425,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0015');
@@ -453,15 +453,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0016');
@@ -481,15 +481,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0017');
@@ -509,15 +509,15 @@ export default function historyMixedOpsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickQueryButton();
         await extDriver.clickReleaseButton();
       }
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0018');
@@ -541,9 +541,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0019');
@@ -567,9 +567,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0020');
@@ -593,9 +593,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0021');
@@ -619,9 +619,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0022');
@@ -645,9 +645,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0023');
@@ -671,9 +671,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0024');
@@ -697,9 +697,9 @@ export default function historyMixedOpsTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickQueryAllButton();
       await extDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testHistoryMixedOps0025');

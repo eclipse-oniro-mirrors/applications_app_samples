@@ -21,8 +21,8 @@ import { SharedDriver } from './SharedDriver';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function edgeCasesTest(): void {
   describe('EdgeCasesTest', (): void => {
@@ -51,12 +51,12 @@ export default function edgeCasesTest(): void {
     it('testEdgeCases0001', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, '%{public}s begin', 'testEdgeCases0001');
       const results: number[] = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         results.push(status);
       }
-      for (let i = 0; i < results.length; i++) {
-        const isValid = results[i] === screenLockFileManager.KeyStatus.KEY_NOT_EXIST ||
+      for (let i: number = 0; i < results.length; i++) {
+        const isValid: boolean = results[i] === screenLockFileManager.KeyStatus.KEY_NOT_EXIST ||
           results[i] === screenLockFileManager.KeyStatus.KEY_RELEASED ||
           results[i] === screenLockFileManager.KeyStatus.KEY_EXIST;
         hilog.info(DOMAIN, TAG, '%{public}s iteration %{public}d, status: %{public}d',
@@ -79,10 +79,10 @@ export default function edgeCasesTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       const results: string[] = [];
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await clickById('acquireAccessButton')
         await scrollToId('operationResult')
-        const result = await textOfId('operationResult');
+        const result: string = await textOfId('operationResult');
         results.push(result);
         hilog.info(DOMAIN, TAG, '%{public}s iteration %{public}d, result: %{public}s',
           'testEdgeCases0002', i, result);
@@ -103,13 +103,13 @@ export default function edgeCasesTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s begin', 'testEdgeCases0003');
       try {
         const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
-        const isValid = status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED ||
+        const isValid: boolean = status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED ||
           status === screenLockFileManager.ReleaseStatus.RELEASE_DENIED;
         hilog.info(DOMAIN, TAG, '%{public}s releaseAccess returned: %{public}d',
           'testEdgeCases0003', status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         hilog.info(DOMAIN, TAG, '%{public}s releaseAccess threw error: code=%{public}d, message=%{public}s',
           'testEdgeCases0003', err.code, err.message);
         expect(err.code).assertLarger(0);
@@ -128,12 +128,12 @@ export default function edgeCasesTest(): void {
      */
     it('testEdgeCases0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testEdgeCases0004');
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId('queryKeyStateButton');
       }
       await sharedDriver.waitUiIdle();
-      const resultText = await sharedDriver.getTextById('operationResult');
-      const isValidResult = resultText.includes('queryAppKeyState') || resultText.includes('Error');
+      const resultText: string = await sharedDriver.getTextById('operationResult');
+      const isValidResult: boolean = resultText.includes('queryAppKeyState') || resultText.includes('Error');
       sharedDriver.hilogAssert('testEdgeCases0004', 'result after rapid clicks', resultText);
       expect(isValidResult).assertTrue();
       sharedDriver.hilogEnd('testEdgeCases0004');
@@ -151,13 +151,13 @@ export default function edgeCasesTest(): void {
       sharedDriver.hilogBegin('testEdgeCases0005');
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const beforeClear = await sharedDriver.getTextById('pairingStatus');
+      const beforeClear: string = await sharedDriver.getTextById('pairingStatus');
       sharedDriver.hilogAssert('testEdgeCases0005', 'pairing before clear', beforeClear);
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const afterClear = await sharedDriver.getTextById('pairingStatus');
+      const afterClear: string = await sharedDriver.getTextById('pairingStatus');
       sharedDriver.hilogAssert('testEdgeCases0005', 'pairing after clear', afterClear);
-      const containsZero = afterClear.includes('0');
+      const containsZero: boolean = afterClear.includes('0');
       expect(containsZero).assertTrue();
       sharedDriver.hilogEnd('testEdgeCases0005');
     });
@@ -178,9 +178,9 @@ export default function edgeCasesTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const allResult = await textOfId('operationResult');
-      const containsKeyState = allResult.includes('KeyState');
-      const containsAcquire = allResult.includes('Acquire');
+      const allResult: string = await textOfId('operationResult');
+      const containsKeyState: boolean = allResult.includes('KeyState');
+      const containsAcquire: boolean = allResult.includes('Acquire');
       sharedDriver.hilogAssert('testEdgeCases0006', 'query all result', allResult);
       expect(containsKeyState).assertTrue();
       expect(containsAcquire).assertTrue();
@@ -199,11 +199,11 @@ export default function edgeCasesTest(): void {
       sharedDriver.hilogBegin('testEdgeCases0007');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 15; i++) {
+      for (let i: number = 0; i < 15; i++) {
         await sharedDriver.clickId('queryKeyStateButton');
       }
       await sharedDriver.waitUiIdle();
-      const noHistoryExists = await sharedDriver.existsId('noHistoryText');
+      const noHistoryExists: boolean = await sharedDriver.existsId('noHistoryText');
       sharedDriver.hilogAssert('testEdgeCases0007', 'history should not be empty after 15 queries', (!noHistoryExists).toString());
       expect(noHistoryExists).assertFalse();
       sharedDriver.hilogEnd('testEdgeCases0007');

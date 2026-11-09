@@ -18,7 +18,7 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { TestHelper } from './TestHelper';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
@@ -28,10 +28,10 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT, ID_PAIRING_STATUS,
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function errorUIImpactTest(): void {
   describe('ErrorUIImpactTest', (): void => {
@@ -59,10 +59,10 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0001');
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
-      const qa = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const qa: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -80,9 +80,9 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0002');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
-      const exists = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const exists: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(exists).assertTrue();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       sharedDriver.hilogEnd('testErrorUIImpact0002');
@@ -99,9 +99,9 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0003');
       await scrollToId(ID_OPERATION_RESULT)
-      const exists = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const exists: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testErrorUIImpact0003');
@@ -118,9 +118,9 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0004');
       await scrollToId(ID_PAIRING_STATUS)
-      const exists = await sharedDriver.existsId(ID_PAIRING_STATUS);
+      const exists: boolean = await sharedDriver.existsId(ID_PAIRING_STATUS);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_PAIRING_STATUS);
+      const text: string = await sharedDriver.getTextById(ID_PAIRING_STATUS);
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
       sharedDriver.hilogEnd('testErrorUIImpact0004');
@@ -137,10 +137,10 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0005');
       await scrollToId(ID_OPERATION_RESULT)
-      const before = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const before: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const after = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const after: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(after.includes('queryAppKeyState')).assertTrue();
       expect(before !== after).assertTrue();
       expect(after.length).assertLarger(0);
@@ -160,7 +160,7 @@ export default function errorUIImpactTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess') || result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -180,7 +180,7 @@ export default function errorUIImpactTest(): void {
       testHelper.acquireAccess();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess') || result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -200,7 +200,7 @@ export default function errorUIImpactTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.pending).assertEqual('number');
@@ -220,9 +220,9 @@ export default function errorUIImpactTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testErrorUIImpact0009');
@@ -242,11 +242,11 @@ export default function errorUIImpactTest(): void {
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       sharedDriver.hilogEnd('testErrorUIImpact0010');
     });
@@ -261,7 +261,7 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0011');
-      const result = await extDriver.clickQueryAllButton();
+      const result: string = await extDriver.clickQueryAllButton();
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('|')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -281,10 +281,10 @@ export default function errorUIImpactTest(): void {
       await scrollToId(ID_RELEASE_BUTTON)
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
-      const hasContent = result.includes('releaseAccess') || result.includes('RELEASE_') ||
+      const hasContent: boolean = result.includes('releaseAccess') || result.includes('RELEASE_') ||
         result.includes('Error');
       expect(hasContent).assertFalse();
       sharedDriver.hilogEnd('testErrorUIImpact0012');
@@ -304,7 +304,7 @@ export default function errorUIImpactTest(): void {
       await sharedDriver.waitUiIdle();
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const qResult = await textOfId(ID_OPERATION_RESULT);
+      const qResult: string = await textOfId(ID_OPERATION_RESULT);
       expect(qResult.includes('queryAppKeyState')).assertTrue();
       expect(qResult.length).assertLarger(0);
       expect(typeof qResult).assertEqual('string');
@@ -321,10 +321,10 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0014');
-      const text = await sharedDriver.getTextById(ID_PAIRING_STATUS);
-      const acquireMatch = new RegExp('Acquire:\\s*\\d+');
-      const releaseMatch = new RegExp('Release:\\s*\\d+');
-      const pendingMatch = new RegExp('Pending:\\s*\\d+');
+      const text: string = await sharedDriver.getTextById(ID_PAIRING_STATUS);
+      const acquireMatch: RegExp = new RegExp('Acquire:\\s*\\d+');
+      const releaseMatch: RegExp = new RegExp('Release:\\s*\\d+');
+      const pendingMatch: RegExp = new RegExp('Pending:\\s*\\d+');
       expect(acquireMatch.test(text)).assertTrue();
       expect(releaseMatch.test(text)).assertTrue();
       expect(pendingMatch.test(text)).assertTrue();
@@ -343,8 +343,8 @@ export default function errorUIImpactTest(): void {
       sharedDriver.hilogBegin('testErrorUIImpact0015');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1).assertEqual(r2);
       expect(r1.length).assertLarger(0);
       expect(typeof r1).assertEqual('string');
@@ -362,10 +362,10 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0016');
       await extDriver.clearHistoryAndWait();
-      const valid = await extDriver.verifyHistoryMaxSize();
+      const valid: boolean = await extDriver.verifyHistoryMaxSize();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       sharedDriver.hilogEnd('testErrorUIImpact0016');
     });
@@ -381,9 +381,9 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0017');
       await extDriver.clearHistoryAndWait();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertTrue();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorUIImpact0017');
@@ -399,10 +399,10 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0018');
-      const latency = await extDriver.measureOperationLatency(ID_QUERY_BUTTON);
+      const latency: number = await extDriver.measureOperationLatency(ID_QUERY_BUTTON);
       expect(latency).assertLarger(-1);
       expect(typeof latency).assertEqual('number');
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       sharedDriver.hilogEnd('testErrorUIImpact0018');
     });
@@ -417,7 +417,7 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0019');
-      const latencies = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
+      const latencies: number[] = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
       expect(latencies.length).assertEqual(3);
       expect(typeof latencies[0]).assertEqual('number');
       expect(latencies[0]).assertLarger(-1);
@@ -434,9 +434,9 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0020');
-      const visible = await extDriver.waitForComponentVisible(ID_OPERATION_RESULT, 5000);
+      const visible: boolean = await extDriver.waitForComponentVisible(ID_OPERATION_RESULT, 5000);
       expect(visible).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testErrorUIImpact0020');
@@ -454,7 +454,7 @@ export default function errorUIImpactTest(): void {
       sharedDriver.hilogBegin('testErrorUIImpact0021');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const contains = await extDriver.verifyResultContains('queryAppKeyState');
+      const contains: boolean = await extDriver.verifyResultContains('queryAppKeyState');
       expect(contains).assertTrue();
       expect(typeof contains).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorUIImpact0021');
@@ -471,7 +471,7 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0022');
       await extDriver.clearHistoryAndWait();
-      const notContains = await extDriver.verifyResultNotContains('queryAppKeyState');
+      const notContains: boolean = await extDriver.verifyResultNotContains('queryAppKeyState');
       expect(notContains).assertTrue();
       expect(typeof notContains).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorUIImpact0022');
@@ -487,7 +487,7 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0023');
-      const results = await extDriver.getResultTextBeforeAndAfter(ID_QUERY_BUTTON);
+      const results: string[] = await extDriver.getResultTextBeforeAndAfter(ID_QUERY_BUTTON);
       expect(results.length).assertEqual(2);
       expect(typeof results[0]).assertEqual('string');
       expect(typeof results[1]).assertEqual('string');
@@ -504,10 +504,10 @@ export default function errorUIImpactTest(): void {
      */
     it('testErrorUIImpact0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0024');
-      const hasText = await extDriver.verifyComponentContainsText(ID_PAIRING_STATUS, 'Acquire:');
+      const hasText: boolean = await extDriver.verifyComponentContainsText(ID_PAIRING_STATUS, 'Acquire:');
       expect(hasText).assertTrue();
       expect(typeof hasText).assertEqual('boolean');
-      const hasRelease = await extDriver.verifyComponentContainsText(ID_PAIRING_STATUS, 'Release:');
+      const hasRelease: boolean = await extDriver.verifyComponentContainsText(ID_PAIRING_STATUS, 'Release:');
       expect(hasRelease).assertTrue();
       sharedDriver.hilogEnd('testErrorUIImpact0024');
     });
@@ -523,11 +523,11 @@ export default function errorUIImpactTest(): void {
     it('testErrorUIImpact0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorUIImpact0025');
       await extDriver.clearHistoryAndWait();
-      const qResult = await extDriver.clickQueryButton();
+      const qResult: string = await extDriver.clickQueryButton();
       expect(qResult.includes('queryAppKeyState')).assertTrue();
-      const aResult = await extDriver.clickAcquireButton();
+      const aResult: string = await extDriver.clickAcquireButton();
       expect(aResult.includes('acquireAccess')).assertTrue();
-      const rResult = await extDriver.clickReleaseButton();
+      const rResult: string = await extDriver.clickReleaseButton();
       expect(rResult.includes('releaseAccess')).assertTrue();
       sharedDriver.hilogEnd('testErrorUIImpact0025');
     });

@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry, Driver } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -31,11 +31,11 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
-const driver = Driver.create();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
+const driver: Driver = Driver.create();
 
 export default function errorBoundaryTest(): void {
   describe('ErrorBoundaryTest', (): void => {
@@ -213,7 +213,7 @@ export default function errorBoundaryTest(): void {
       testHelper.releaseAccess();
       testHelper.releaseAccess();
       await scrollToId(ID_PAIRING_STATUS);
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
@@ -230,9 +230,9 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0011');
-      const r1 = testHelper.queryKeyState();
-      const r2 = testHelper.acquireAccess();
-      const r3 = testHelper.releaseAccess();
+      const r1: ApiCallResult = testHelper.queryKeyState();
+      const r2: ApiCallResult = testHelper.acquireAccess();
+      const r3: ApiCallResult = testHelper.releaseAccess();
       expect(r1.errorCode).assertLarger(-1);
       expect(r2.errorCode).assertLarger(-1);
       expect(r3.errorCode).assertLarger(-1);
@@ -249,7 +249,7 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0012');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(result.timestamp).assertLarger(0);
       expect(typeof result.timestamp).assertEqual('number');
       sharedDriver.hilogEnd('testErrorBoundary0012');
@@ -265,7 +265,7 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0013');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(status).assertLarger(-1);
       expect(status).assertLess(10);
       expect(typeof status).assertEqual('number');
@@ -283,7 +283,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0014');
       await scrollToId(ID_OPERATION_RESULT)
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testErrorBoundary0014');
@@ -300,7 +300,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0015');
       await scrollToId(ID_PAIRING_STATUS)
-      const text = await sharedDriver.getTextById(ID_PAIRING_STATUS);
+      const text: string = await sharedDriver.getTextById(ID_PAIRING_STATUS);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       expect(text.includes('Acquire:')).assertTrue();
@@ -319,7 +319,7 @@ export default function errorBoundaryTest(): void {
       sharedDriver.hilogBegin('testErrorBoundary0016');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
       await extDriver.clearHistoryAndWait();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(-1);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testErrorBoundary0016');
@@ -336,7 +336,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0017');
       await scrollToId(ID_QUERY_BUTTON)
-      const latency = await extDriver.measureOperationLatency(ID_QUERY_BUTTON);
+      const latency: number = await extDriver.measureOperationLatency(ID_QUERY_BUTTON);
       expect(latency).assertLarger(-1);
       expect(typeof latency).assertEqual('number');
       sharedDriver.hilogEnd('testErrorBoundary0017');
@@ -353,7 +353,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0018');
       await scrollToId(ID_QUERY_BUTTON)
-      const latencies = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
+      const latencies: number[] = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
       expect(latencies.length).assertEqual(3);
       expect(typeof latencies[0]).assertEqual('number');
       expect(latencies[0]).assertLarger(-1);
@@ -370,7 +370,7 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0019');
-      const data = testHelper.generateTestData(5);
+      const data: string[] = testHelper.generateTestData(5);
       expect(data.length).assertEqual(5);
       expect(typeof data[0]).assertEqual('string');
       expect(data[0].length).assertLarger(0);
@@ -387,10 +387,10 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0020');
-      const ts = testHelper.formatTimestamp();
+      const ts: string = testHelper.formatTimestamp();
       expect(ts.length).assertLarger(0);
       expect(typeof ts).assertEqual('string');
-      const colonMatch = new RegExp(':');
+      const colonMatch: RegExp = new RegExp(':');
       expect(colonMatch.test(ts)).assertTrue();
       sharedDriver.hilogEnd('testErrorBoundary0020');
     });
@@ -405,7 +405,7 @@ export default function errorBoundaryTest(): void {
      */
     it('testErrorBoundary0021', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0021');
-      const data = testHelper.generateTestData(0);
+      const data: string[] = testHelper.generateTestData(0);
       expect(data.length).assertEqual(0);
       expect(typeof data.length).assertEqual('number');
       sharedDriver.hilogEnd('testErrorBoundary0021');
@@ -422,7 +422,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0022');
       await scrollToId(ID_OPERATION_RESULT)
-      const visible = await extDriver.waitForComponentVisible(ID_OPERATION_RESULT, 5000);
+      const visible: boolean = await extDriver.waitForComponentVisible(ID_OPERATION_RESULT, 5000);
       expect(visible).assertTrue();
       expect(typeof visible).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorBoundary0022');
@@ -440,7 +440,7 @@ export default function errorBoundaryTest(): void {
       sharedDriver.hilogBegin('testErrorBoundary0023');
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
       await extDriver.clearHistoryAndWait();
-      const hidden = await extDriver.waitForComponentHidden('nonExistentComponent', 1000);
+      const hidden: boolean = await extDriver.waitForComponentHidden('nonExistentComponent', 1000);
       expect(hidden).assertTrue();
       expect(typeof hidden).assertEqual('boolean');
       sharedDriver.hilogEnd('testErrorBoundary0023');
@@ -457,8 +457,8 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0024');
       await scrollToId(ID_QUERY_BUTTON)
-      const latencies = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
-      const avg = await extDriver.calculateAverageLatency(latencies);
+      const latencies: number[] = await extDriver.measureMultipleLatencies(ID_QUERY_BUTTON, 3);
+      const avg: number = await extDriver.calculateAverageLatency(latencies);
       expect(avg).assertLarger(-1);
       expect(typeof avg).assertEqual('number');
       expect(latencies.length).assertEqual(3);
@@ -476,7 +476,7 @@ export default function errorBoundaryTest(): void {
     it('testErrorBoundary0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testErrorBoundary0025');
       const emptyLatencies: number[] = [];
-      const avg = await extDriver.calculateAverageLatency(emptyLatencies);
+      const avg: number = await extDriver.calculateAverageLatency(emptyLatencies);
       expect(avg).assertEqual(0);
       expect(typeof avg).assertEqual('number');
       expect(emptyLatencies.length).assertEqual(0);
