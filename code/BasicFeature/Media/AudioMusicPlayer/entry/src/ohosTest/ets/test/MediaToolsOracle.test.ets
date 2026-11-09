@@ -95,16 +95,6 @@ export default function MediaToolsOracleTest() {
     });
 
     /**
-     * @tc.number    SUB_MEDIA_ORACLE_0100
-     * @tc.name      testMediaToolsOracle0001
-     * @tc.desc      验证固定种子随机采样的毫秒值换算结果与独立整数换算逐项一致，采样覆盖不同数量级
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_MEDIA_ORACLE_0200
      * @tc.name      testMediaToolsOracle0002
      * @tc.desc      验证每秒毫秒数整除位置与前一毫秒的换算只在整秒处变化，同一秒内 0 到 999 毫秒文本全部相同
@@ -180,26 +170,6 @@ export default function MediaToolsOracleTest() {
       expect(MediaTools.msToCountdownTime(NaN)).assertEqual('00:00');
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'MediaOracle_NonPositive_0004 end');
     });
-
-    /**
-     * @tc.number    SUB_MEDIA_ORACLE_0500
-     * @tc.name      testMediaToolsOracle0005
-     * @tc.desc      验证超大毫秒值（安全整数上限）换算不出现科学计数法与小数，各分段数值与独立换算一致
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_MEDIA_ORACLE_0600
-     * @tc.name      testMediaToolsOracle0006
-     * @tc.desc      验证毫秒换算单调不减：任意两个采样点后者较大时秒段不小于前者，连续 1000 个整秒文本互不相同
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
 
     /**
      * @tc.number    SUB_MEDIA_ORACLE_0700

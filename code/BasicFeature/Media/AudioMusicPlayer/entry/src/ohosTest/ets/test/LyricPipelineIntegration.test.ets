@@ -132,26 +132,6 @@ export default function LyricPipelineIntegration() {
     });
 
     /**
-     * @tc.number    SUB_LYRIC_PIPELINE_0300
-     * @tc.name      testLyricPipeline0003
-     * @tc.desc      验证按播放时间定位高亮行：开头落在首行、每行起点命中该行、行时长边界命中前一毫秒的行、结束时间之后停在末行
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_LYRIC_PIPELINE_0400
-     * @tc.name      testLyricPipeline0004
-     * @tc.desc      验证以固定步长完整走一遍播放时长时，高亮行号单调不减且覆盖所有歌词行，不会跳行或回头
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_LYRIC_PIPELINE_0500
      * @tc.name      testLyricPipeline0005
      * @tc.desc      验证目录中每首歌都按歌词后缀选择解析方式，仅第一首使用 LRC，其余无歌词的歌曲不产生歌词行

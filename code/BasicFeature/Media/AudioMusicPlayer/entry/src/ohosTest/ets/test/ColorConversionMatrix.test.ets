@@ -128,26 +128,6 @@ export default function ColorConversionMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_COLOR_MATRIX_0200
-     * @tc.name      testColorConversionMatrix0002
-     * @tc.desc      验证亮度压缩分档：高亮样本输出亮度不超过 0.3 对应的通道上限，中等与暗色样本分别落在各自目标区间
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_COLOR_MATRIX_0300
-     * @tc.name      testColorConversionMatrix0003
-     * @tc.desc      验证灰度输入换算后三通道相等，亮度下调后暗灰仍保持原色相中性，纯白与纯黑得到不同结果
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_COLOR_MATRIX_0400
      * @tc.name      testColorConversionMatrix0004
      * @tc.desc      验证同一个颜色重复换算结果稳定，交换两个非最大值通道只改变色相不改变亮度上限

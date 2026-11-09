@@ -300,36 +300,6 @@ export default function LrcUtilsFunctionTest() {
       expect((viaTools as string).length).assertEqual(LRC_BYTE_SIZE);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'LrcUtils_EntryCompare_0009 end');
     });
-
-    // /**
-    //  * @tc.number    SUB_LRC_UTILS_1000
-    //  * @tc.name      testLrcUtilsFunction0010
-    //  * @tc.desc      验证缺少全局上下文时读取歌词失败，而补充上下文后同一路径读取成功，证明读取依赖应用上下文
-    //  * @tc.size      MediumTest
-    //  * @tc.type      Function
-    //  * @tc.level     LEVEL0
-    //  */
-    // it('testLrcUtilsFunction0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-    //   hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'LrcUtils_ContextFallback_0010 begin');
-    //   let snapshot: StorageSnapshot = new StorageSnapshot().capture('context');
-    //   let failed: boolean = false;
-    //   let brokenSource: Object = undefined;
-    //   let brokenContext: Context = brokenSource as Context;
-    //   AppStorage.delete('context');
-    //   try {
-    //     await getRawStringData(brokenContext, LRC_PATH);
-    //   } catch (error) {
-    //     failed = true;
-    //   }
-    //   snapshot.restore();
-    //   let recovered: string = await getRawStringData(appContext(), LRC_PATH);
-    //   hilog.info(DOMAIN, TAG, '%{public}s', `缺上下文失败=${failed}, 恢复后长度=${recovered.length}`);
-    //   expect(failed).assertTrue();
-    //   expect(recovered.length).assertEqual(LRC_BYTE_SIZE);
-    //   expect(AppStorage.get<Object>('context') !== undefined).assertTrue();
-    //   expect(recovered.startsWith('[00:00.15]')).assertTrue();
-    //   hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'LrcUtils_ContextFallback_0010 end');
-    // });
   });
 }
 

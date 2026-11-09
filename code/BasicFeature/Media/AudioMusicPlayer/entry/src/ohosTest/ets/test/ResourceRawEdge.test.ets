@@ -200,38 +200,6 @@ export default function ResourceRawEdgeTest() {
       expect(sameTimes).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'RawLyric_RepeatRead_0005 end');
     });
-    //
-    // /**
-    //  * @tc.number    SUB_RESOURCE_RAW_0600
-    //  * @tc.name      testResourceRawEdge0006
-    //  * @tc.desc      验证资源字符串转换为空资源或空上下文时返回未定义而有效资源可正常解析
-    //  * @tc.size      MediumTest
-    //  * @tc.type      Function
-    //  * @tc.level     LEVEL0
-    //  */
-    // it('testResourceRawEdge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-    //   hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Resource_EmptyInput_0006 begin');
-    //   let storedContext: Object | undefined = AppStorage.get<Object>('context');
-    //   let conversion: ResourceConversion = new ResourceConversion();
-    //   let noId: string | undefined = conversion.getStringValueFromResource({ id: 0 } as Resource);
-    //   let missingId: Object = {};
-    //   let undefinedId: string | undefined =
-    //     conversion.getStringValueFromResource(missingId as Resource);
-    //   let missingResource: Object = undefined;
-    //   let noResource: string | undefined = conversion.getStringValueFromResource(missingResource as Resource);
-    //   let realTitle: string | undefined = conversion.getStringValueFromResource($r('app.string.song_title_one'));
-    //   AppStorage.setOrCreate('context', undefined);
-    //   let withoutContext: string | undefined = new ResourceConversion()
-    //     .getStringValueFromResource($r('app.string.song_title_one'));
-    //   AppStorage.setOrCreate('context', storedContext);
-    //   let titleLength: number = realTitle === undefined ? -1 : realTitle.length;
-    //   hilog.info(DOMAIN, TAG, '%{public}s',
-    //     `无上下文=${withoutContext === undefined}, 空资源=${noId === undefined}, 真实标题长度=${titleLength}`);
-    //   expect(noId === undefined).assertTrue();
-    //   expect(undefinedId === undefined).assertTrue();
-    //   expect(noResource === undefined).assertTrue();
-    //   expect(titleLength > 0).assertTrue();
-    //   hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Resource_EmptyInput_0006 end');
-    // });
+
   });
 }

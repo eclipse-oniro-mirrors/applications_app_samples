@@ -65,26 +65,6 @@ export default function NativePlayerGuardTest() {
     });
 
     /**
-     * @tc.number    SUB_NATIVE_GUARD_0100
-     * @tc.name      testNativePlayerGuard0001
-     * @tc.desc      验证原生播放模块导出全部播放控制接口且接口类型均为函数
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_NATIVE_GUARD_0200
-     * @tc.name      testNativePlayerGuard0002
-     * @tc.desc      验证未加载歌曲时播放控制接口调用不抛异常且读取类接口返回有限数值
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_NATIVE_GUARD_0300
      * @tc.name      testNativePlayerGuard0003
      * @tc.desc      验证未加载歌曲时握手流程可重复执行且播放状态读取保持稳定
@@ -158,24 +138,5 @@ export default function NativePlayerGuardTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Native_SpeedSteps_0004 end');
     });
 
-    /**
-     * @tc.number    SUB_NATIVE_GUARD_0500
-     * @tc.name      testNativePlayerGuard0005
-     * @tc.desc      验证由播放时长向下取整派生的进度上限与末尾拖拽取值关系正确
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_NATIVE_GUARD_0600
-     * @tc.name      testNativePlayerGuard0006
-     * @tc.desc      验证音量与倍速偏好写入后读回值在有效范围内且倍速默认档位解析正确
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }

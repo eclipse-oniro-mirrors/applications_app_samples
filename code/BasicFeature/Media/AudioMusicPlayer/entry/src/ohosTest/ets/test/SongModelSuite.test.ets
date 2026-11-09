@@ -210,16 +210,6 @@ export default function SongModelSuite() {
     });
 
     /**
-     * @tc.number    SUB_SONG_MODEL_0600
-     * @tc.name      testSongModel0006
-     * @tc.desc      验证歌曲源文件名唯一到类型：存在 pcm 与 wav 两种格式，同格式下多曲可共用同一文件
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_SONG_MODEL_0700
      * @tc.name      testSongModel0007
      * @tc.desc      验证数据源以歌曲目录初始化后总数与目录一致，索引访问取到的元素即为目录同位置条目

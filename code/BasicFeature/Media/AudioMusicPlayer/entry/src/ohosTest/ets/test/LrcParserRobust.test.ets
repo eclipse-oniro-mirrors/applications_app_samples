@@ -84,26 +84,6 @@ export default function LrcParserRobustTest() {
     });
 
     /**
-     * @tc.number    SUB_LRC_ROBUST_0200
-     * @tc.name      testLrcParserRobust0002
-     * @tc.desc      验证只有时间标签没有歌词文本的行被丢弃，标签后的空白与制表符不被当成歌词内容
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_LRC_ROBUST_0300
-     * @tc.name      testLrcParserRobust0003
-     * @tc.desc      验证一行多个时间标签展开成多条记录，展开后文本相同、时间按标签顺序分别解析
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_LRC_ROBUST_0400
      * @tc.name      testLrcParserRobust0004
      * @tc.desc      验证乱序输入解析后按时间升序排列，每行时长等于下一行起点减本行起点，末行时长覆盖剩余时间
@@ -182,16 +162,6 @@ export default function LrcParserRobustTest() {
     });
 
     /**
-     * @tc.number    SUB_LRC_ROBUST_0700
-     * @tc.name      testLrcParserRobust0007
-     * @tc.desc      验证毫秒部分多于两位时按三位小数时间解析，三位小数与两位小数同一时刻得到相同起点
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_LRC_ROBUST_0800
      * @tc.name      testLrcParserRobust0008
      * @tc.desc      验证用冒号代替小数点的时间标签与小数点写法解析出同一时刻，两种写法的文本都能完整保留
@@ -234,16 +204,6 @@ export default function LrcParserRobustTest() {
       expect(starts(entries)).assertDeepEquals(scanner.sortedTimes());
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'LrcRobust_ExtremeTag_0009 end');
     });
-
-    /**
-     * @tc.number    SUB_LRC_ROBUST_1000
-     * @tc.name      testLrcParserRobust0010
-     * @tc.desc      验证回车换行与空白缩进的歌词行处理后文本不含标签与回车符，与只按换行分割得到的文本一致
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }
 

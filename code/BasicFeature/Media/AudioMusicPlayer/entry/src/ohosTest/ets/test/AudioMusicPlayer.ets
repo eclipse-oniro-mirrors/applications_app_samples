@@ -438,35 +438,5 @@ export default function AudioMusicPlayer01Test() {
       done();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'FavoriteToggle_013 end');
     })
-
-    /**
-     * @tc.number    SUB_AUDIO_MUSIC_PLAYER_TEST01_1400
-     * @tc.name      testAudioMusicPlayer01Chapter0014
-     * @tc.desc      Verify AudioMusicPlayer_LyricsPage_014
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_AUDIO_MUSIC_PLAYER_TEST01_1500
-     * @tc.name      testAudioMusicPlayer01Chapter0015
-     * @tc.desc      Verify AudioMusicPlayer_ProgressSlider_015
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_AUDIO_MUSIC_PLAYER_TEST01_1600
-     * @tc.name      testAudioMusicPlayer01Chapter0016
-     * @tc.desc      Verify AudioMusicPlayer_PlayListShow_016
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }

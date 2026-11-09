@@ -61,16 +61,6 @@ export default function GeometryEdgeTest() {
     });
 
     /**
-     * @tc.number    SUB_GEOMETRY_EDGE_0200
-     * @tc.name      testGeometryEdge0002
-     * @tc.desc      验证直角圆弧周期等特殊角度与三十二位内极值角度换算不抛异常
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_GEOMETRY_EDGE_0300
      * @tc.name      testGeometryEdge0003
      * @tc.desc      验证歌词高亮区域边界点判定包含边缘且区域外坐标不命中
@@ -107,15 +97,5 @@ export default function GeometryEdgeTest() {
       expect(rect.right).assertEqual(110);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Rectangle_BoundaryHit_0003 end');
     });
-
-    /**
-     * @tc.number    SUB_GEOMETRY_EDGE_0400
-     * @tc.name      testGeometryEdge0004
-     * @tc.desc      验证非法矩形边界被拒绝时各字段保持零值且任意坐标均不命中
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }

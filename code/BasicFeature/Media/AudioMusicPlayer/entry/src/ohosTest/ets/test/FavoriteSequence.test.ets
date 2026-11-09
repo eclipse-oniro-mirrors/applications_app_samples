@@ -75,26 +75,6 @@ export default function FavoriteSequenceTest() {
     });
 
     /**
-     * @tc.number    SUB_FAVORITE_SEQUENCE_0100
-     * @tc.name      testFavoriteSequence0001
-     * @tc.desc      验证收藏状态按歌曲索引独立保存且切换不影响其他歌曲的收藏记录
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_FAVORITE_SEQUENCE_0200
-     * @tc.name      testFavoriteSequence0002
-     * @tc.desc      验证收藏开关多次切换后的状态与独立取反运算一致且首尾状态互补
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_FAVORITE_SEQUENCE_0300
      * @tc.name      testFavoriteSequence0003
      * @tc.desc      验证播放模式按钮循环切换依次经过三档模式并回到初始模式

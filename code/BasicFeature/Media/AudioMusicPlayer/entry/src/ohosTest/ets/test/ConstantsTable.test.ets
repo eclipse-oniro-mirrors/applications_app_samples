@@ -73,16 +73,6 @@ export default function ConstantsTableTest() {
     });
 
     /**
-     * @tc.number    SUB_CONSTANTS_TABLE_0100
-     * @tc.name      testConstantsTable0001
-     * @tc.desc      验证断点宽度区间首尾衔接且断点名称与栏数栅格配置一一对应
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_CONSTANTS_TABLE_0200
      * @tc.name      testConstantsTable0002
      * @tc.desc      验证断点栏数栅格数值随断点增大有序递增且名称互不重复

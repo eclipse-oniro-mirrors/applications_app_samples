@@ -220,25 +220,5 @@ export default function LrcTableTest() {
       expect(zeroDurations).assertEqual(2);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'LrcTable_Duplicates_0400 end');
     });
-
-    /**
-     * @tc.number    SUB_LRC_TABLE_0500
-     * @tc.name      testLrcTable0005
-     * @tc.desc      验证不满足两位秒数或缺少小数的标签不被识别，只有完整标签的行进入结果，半截标签作为歌词文本保留
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_LRC_TABLE_0600
-     * @tc.name      testLrcTable0006
-     * @tc.desc      验证整段歌词中的时间轴换算与行数不变量：每条记录起始时间都能用分钟秒字段还原，且末行之后无记录
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }

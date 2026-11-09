@@ -537,15 +537,15 @@ static bool HandleWavFile(uint32_t songFd, AudioFileOprInfo* info, uint32_t song
         return false;
     }
     info->isWavFile = true;
-    uint32_t dataSize = songFileSize - info->wavDataOffset;
-    info->songFileSize = dataSize;
-    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataOffset=%{public}u, dataSize=%{public}u",
-        songFileSize, info->wavDataOffset, dataSize);
     if (info->wavDataOffset >= songFileSize) {
         OH_LOG_ERROR(LOG_APP, "Invalid WAV data chunk: dataOffset=%{public}u, fileSize=%{public}u",
             info->wavDataOffset, songFileSize);
         return false;
     }
+    uint32_t dataSize = songFileSize - info->wavDataOffset;
+    info->songFileSize = dataSize;
+    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataOffset=%{public}u, dataSize=%{public}u",
+        songFileSize, info->wavDataOffset, dataSize);
 
     uint32_t correctOffset = songFileOffset + info->wavDataOffset;
     lseek(songFd, correctOffset, SEEK_SET);
@@ -606,6 +606,7 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
     audioFileOprInfo = InitAudioFileOprInfo(songFd, songFileSize, songFileOffset);
     if (audioFileOprInfo == nullptr) {
         OH_LOG_ERROR(LOG_APP, "LoadSongInfo aborted, invalid song info");
+        ReleaseCurrentSong();
         return;
     }
 
@@ -625,6 +626,11 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
             return;
         }
         ReconfigurePlayer();
+        if (audioRenderer == nullptr) {
+            OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
+            ReleaseCurrentSong();
+            return;
+        }
     } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
         OH_LOG_INFO(LOG_APP, "Detected PCM file format");
         // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
@@ -632,6 +638,11 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
         audioFileOprInfo->channels = DEFAULT_CHANNEL_COUNT;
         audioFileOprInfo->bitsPerSample = BITS_PER_SAMPLE_16;
         ReconfigurePlayer();
+        if (audioRenderer == nullptr) {
+            OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
+            ReleaseCurrentSong();
+            return;
+        }
         success = true;
     } else {
         OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
@@ -784,22 +795,29 @@ uint32_t OHAudioPlayer::GetRemainingTime()
     }
 
     uint32_t sampleRate = audioFileOprInfo->sampleRate;
-    if (sampleRate == 0) {
-        OH_LOG_ERROR(LOG_APP, "Invalid sampleRate: %{public}u", sampleRate);
+    uint64_t totalFrames = audioFileOprInfo->songTotalFrames;
+    if (sampleRate == 0 || totalFrames == 0) {
+        OH_LOG_ERROR(LOG_APP, "Invalid duration params: sampleRate=%{public}u, totalFrames=%{public}lld",
+            sampleRate, (long long)totalFrames);
         return 0;
     }
 
-    int64_t currentFramePosition;
-    int64_t timestamp;
-    OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &currentFramePosition, &timestamp);
-    
-    uint64_t framesWritten = audioFileOprInfo->currentFramesWritten.load();
-    // After a seek, framesWritten is reset to 0 while the renderer may still report the pre-seek
-    // frame position, so the subtraction has to be guarded in signed space before the unsigned cast.
-    if (currentFramePosition < 0 || static_cast<uint64_t>(currentFramePosition) >= framesWritten) {
+    int64_t currentFramePosition = 0;
+    int64_t timestamp = 0;
+    auto ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &currentFramePosition, &timestamp);
+    if (ret != AUDIOSTREAM_SUCCESS || currentFramePosition < 0) {
+        OH_LOG_ERROR(LOG_APP, "Get audio timestamp info failed, ret: %{public}d", ret);
         return 0;
     }
-    uint64_t remainingFrames = framesWritten - static_cast<uint64_t>(currentFramePosition);
+
+    // Remaining time is derived from the absolute position (base after seek + frames already played),
+    // so pausing/resuming never invalidates it the way a reset frames-written counter would.
+    uint64_t baseFrames = static_cast<uint64_t>(audioFileOprInfo->basePositionMs) * sampleRate / MILLIS_PER_SECOND;
+    uint64_t playedFrames = baseFrames + static_cast<uint64_t>(currentFramePosition);
+    if (playedFrames >= totalFrames) {
+        return 0;
+    }
+    uint64_t remainingFrames = totalFrames - playedFrames;
     uint32_t remainingTime = static_cast<uint32_t>((remainingFrames * MILLIS_PER_SECOND) / sampleRate);
     OH_LOG_INFO(LOG_APP, "remaining time: %{public}u", remainingTime);
     return remainingTime;

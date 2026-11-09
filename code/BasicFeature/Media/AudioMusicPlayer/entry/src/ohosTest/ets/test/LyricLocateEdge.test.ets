@@ -56,16 +56,6 @@ export default function LyricLocateEdgeTest() {
     });
 
     /**
-     * @tc.number    SUB_LYRIC_LOCATE_0100
-     * @tc.name      testLyricLocateEdge0001
-     * @tc.desc      验证播放时间落在每行起止边界上时高亮行与独立定位结果一致
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_LYRIC_LOCATE_0200
      * @tc.name      testLyricLocateEdge0002
      * @tc.desc      验证相邻歌词行在共享边界时刻优先命中靠前一行且不跳过中间行

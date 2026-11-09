@@ -189,15 +189,5 @@ export default function KrcParserRobustTest() {
       expect(entry.lineWords).assertEqual('ok');
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KrcRobust_BrokenWord_0006 end');
     });
-
-    /**
-     * @tc.number    SUB_KRC_ROBUST_0700
-     * @tc.name      testKrcParserRobust0007
-     * @tc.desc      验证行头数字之间允许夹带空格或正号、整段为负数的行头被丢弃，只保留格式合法的行
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }

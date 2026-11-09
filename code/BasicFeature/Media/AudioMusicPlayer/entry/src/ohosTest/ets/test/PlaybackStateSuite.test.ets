@@ -111,36 +111,6 @@ export default function PlaybackStateSuite() {
     });
 
     /**
-     * @tc.number    SUB_PLAY_STATE_0100
-     * @tc.name      testPlaybackState0001
-     * @tc.desc      验证三种播放模式依次切换后存储值与待切换列表顺序一致，并全部落在合法模式集合内
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_0200
-     * @tc.name      testPlaybackState0002
-     * @tc.desc      验证重复设置同一播放模式幂等：存储值不变、来源模式与存储值保持一致
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_0300
-     * @tc.name      testPlaybackState0003
-     * @tc.desc      验证播放模式与系统循环模式映射方向正确：单曲对单曲、顺序对列表、随机对随机，无交叉
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
      * @tc.number    SUB_PLAY_STATE_0400
      * @tc.name      testPlaybackState0004
      * @tc.desc      验证进度更新同时写入毫秒进度与分秒文本，二者与独立换算逐点一致且累计推进不回退
@@ -247,45 +217,5 @@ export default function PlaybackStateSuite() {
         snapshot.restore();
       }
     });
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_0700
-     * @tc.name      testPlaybackState0007
-     * @tc.desc      验证收藏状态写回按歌曲索引隔离：切换一首歌的收藏不改变其他歌曲的收藏记录
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_0800
-     * @tc.name      testPlaybackState0008
-     * @tc.desc      验证收藏状态读回与写入往返一致：写入真值后读回为真，写入假值后读回为假
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_0900
-     * @tc.name      testPlaybackState0009
-     * @tc.desc      验证从未写过的歌曲索引读回为未收藏，且不会影响已收藏歌曲的状态
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
-
-    /**
-     * @tc.number    SUB_PLAY_STATE_1000
-     * @tc.name      testPlaybackState0010
-     * @tc.desc      验证相同收藏状态重复写入结果稳定，首曲与末曲收藏互不干扰并可同时为已收藏
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    
   });
 }
