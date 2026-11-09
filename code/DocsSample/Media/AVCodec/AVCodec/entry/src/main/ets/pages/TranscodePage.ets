@@ -16,7 +16,7 @@
 import { TranscodeModel } from '../model/TranscodeModel';
 import { LocalizedText } from '../common/LocalizedText';
 import { TranscodeMeasurement } from 'libtranscoder.so';
-import { TranscodeHistoryEntry } from '../model/TranscodeFilesModel';
+import { TranscodeHistoryPanel } from '../components/transcode/TranscodeHistoryPanel';
 import { fileUri } from '@kit.CoreFileKit';
 import { TranscodeQueuePanel } from '../components/transcode/TranscodeQueuePanel';
 import { TranscodePreprocessPanel } from '../components/transcode/TranscodePreprocessPanel';
@@ -25,10 +25,6 @@ import { TranscodeAudioMode, TranscodeQualityModel } from '../model/TranscodeQua
 
 const HINT_FONT_SIZE: number = 12;
 const WARNING_FONT_SIZE: number = 13;
-const HISTORY_TITLE_FONT_SIZE: number = 14;
-const HISTORY_TITLE_MAX_LINES: number = 2;
-const HISTORY_CARD_PADDING: number = 12;
-const HISTORY_CARD_RADIUS: number = 10;
 const BYTES_PER_MIB: number = 1048576;
 const MS_PER_SECOND: number = 1000;
 
@@ -420,54 +416,7 @@ export struct TranscodePage {
 
   @Builder
   private historyCard() {
-    Column({ space: 8 }) {
-      Text($r('app.string.transcode_history')).fontSize(17).fontWeight(FontWeight.Medium)
-      Text(LocalizedText.format($r('app.string.transcode_storage_usage'),
-        (this.model.storageBytes / BYTES_PER_MIB).toFixed(1), this.model.orphanFileCount.toString()))
-        .fontSize(HINT_FONT_SIZE)
-        .fontColor('#667085')
-      ForEach(this.model.history, (entry: TranscodeHistoryEntry) => {
-        Row({ space: 8 }) {
-          Column({ space: 4 }) {
-            Text(entry.title)
-              .fontSize(HISTORY_TITLE_FONT_SIZE)
-              .maxLines(HISTORY_TITLE_MAX_LINES)
-            Text(`${new Date(entry.createdAt).toLocaleString()} · ${entry.configuration}`)
-              .fontSize(HINT_FONT_SIZE)
-            Text(`${(entry.status.elapsedMs / MS_PER_SECOND).toFixed(1)} s · ` +
-              `${(entry.status.fileBytes / BYTES_PER_MIB).toFixed(1)} MiB · ${entry.status.stage}`)
-              .fontSize(HINT_FONT_SIZE)
-          }
-            .layoutWeight(1)
-            .alignItems(HorizontalAlign.Start)
-            .onClick((): void => { void this.model.openHistory(this.getUIContext(), entry); })
-          Button($r('app.string.transcode_delete_file'))
-            .fontSize(HINT_FONT_SIZE)
-            .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting && !this.model.picking &&
-              !this.model.inspecting)
-            .onClick((): void => { void this.model.deleteHistoryEntry(this.getUIContext(), entry); })
-        }
-        .width('100%')
-        .padding(HISTORY_CARD_PADDING)
-        .backgroundColor('#F2F4F7')
-        .borderRadius(HISTORY_CARD_RADIUS)
-      }, (entry: TranscodeHistoryEntry): string => entry.id)
-      if (this.model.historyHasMore || this.model.historyLoading) {
-        Button(this.model.historyLoading ? $r('app.string.transcode_history_loading') :
-          $r('app.string.transcode_history_more'))
-          .width('100%')
-          .fontSize(WARNING_FONT_SIZE)
-          .enabled(!this.model.historyLoading && !this.model.busy && !this.model.queueRunning &&
-            !this.model.exporting && !this.model.picking && !this.model.inspecting)
-          .onClick((): void => { void this.model.loadMoreHistory(this.getUIContext()); })
-      }
-      Button($r('app.string.transcode_cleanup_orphans'))
-        .width('100%')
-        .fontSize(WARNING_FONT_SIZE)
-        .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting &&
-          !this.model.picking && !this.model.inspecting && this.model.orphanFileCount > 0)
-        .onClick((): void => { void this.model.cleanOrphanFiles(this.getUIContext()); })
-    }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
+    TranscodeHistoryPanel({ model: this.model, history: this.model.historyState })
   }
 
   build() {

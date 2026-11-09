@@ -106,7 +106,7 @@ function load(file) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, experimentalDecorators: true }
   });
   vm.runInNewContext(compiled.outputText, {
-    module, exports: module.exports, Observed: (target) => target,
+    module, exports: module.exports, Observed: (target) => target, Date,
     $r: (name) => ({ id: name }),
     require: (name) => {
       if (mocks[name]) { return mocks[name]; }
@@ -680,7 +680,85 @@ async function testRecordingSegments() {
   console.info('Recording segments: duration/size thresholds, dual outputs, failure preservation and grouped history passed');
 }
 
+async function testRecordingPause() {
+  const { RecordingSessionController, RecordingPhase } = load(path.join(sourceRoot,
+    'controller/RecordingSessionController.ets'));
+  const api = mocks['librecorder.so'].default;
+  const originalApi = { ...api };
+  const originalNow = Date.now;
+  let now = 1000;
+  let unblock;
+  let calls = 0;
+  api.getDiagnostics = () => ({ sessionId: 'recording_pause_1' });
+  api.startNative = () => true;
+  api.setPaused = async (sessionId, paused) => {
+    assert.equal(sessionId, 'recording_pause_1');
+    calls++;
+    if (unblock !== undefined) { await unblock.promise; }
+    return { code: 0 };
+  };
+  try {
+    Date.now = () => now;
+    const session = new RecordingSessionController();
+    assert.equal(await session.setPaused(true), false, 'Ready state cannot pause');
+    session.ready();
+    assert.equal(session.start(), true);
+    now = 3000;
+    assert.equal(await session.setPaused(true), true);
+    now = 13000;
+    assert.equal(session.elapsedSeconds(), 2, 'Paused wall time is excluded');
+    assert.equal(session.phase, RecordingPhase.PAUSED);
+    assert.equal(await session.setPaused(false), true);
+    now = 15000;
+    assert.equal(session.elapsedSeconds(), 4, 'Resume continues the existing timeline');
+    let resolve;
+    unblock = { promise: new Promise(yes => { resolve = yes; }) };
+    const first = session.setPaused(true);
+    const duplicate = session.setPaused(true);
+    assert.equal(first, duplicate, 'Repeated taps share one Native operation');
+    session.phase = RecordingPhase.FINALIZING;
+    resolve();
+    assert.equal(await first, true);
+    assert.equal(session.phase, RecordingPhase.FINALIZING, 'Late pause cannot reopen a finishing session');
+    assert.equal(calls, 3);
+    api.setPaused = async () => ({ code: -1 });
+    const rejected = new RecordingSessionController();
+    rejected.ready(); rejected.start();
+    assert.equal(await rejected.setPaused(true), false);
+    assert.equal(rejected.phase, RecordingPhase.RECORDING, 'Native failure preserves the displayed state');
+  } finally { Date.now = originalNow; Object.assign(api, originalApi); delete api.setPaused; }
+  console.info('Recording pause: time exclusion, repeated taps, Native rejection and finish race passed');
+}
+
+function testSubtitleTimeline() {
+  const { SubtitleTimeline, findSubtitleText } = load(path.join(sourceRoot, 'model/SubtitleModel.ets'));
+  const { SubtitleStyleModel } = load(path.join(sourceRoot, 'model/SubtitleStyleModel.ets'));
+  const cues = [{ startUs: 0, endUs: 3000000000, text: 'long' }];
+  for (let index = 1; index <= 10000; index++) {
+    cues.push({ startUs: index * 200000, endUs: index * 200000 + 300000, text: String(index) });
+  }
+  const timeline = new SubtitleTimeline();
+  timeline.setCues(cues);
+  for (const point of [0, 200000, 400000, 500000, 999999999, 500000, 1500000000, 3000000000]) {
+    assert.equal(timeline.textAt(point), findSubtitleText(cues, point), 'Cursor agrees with complete overlap scan');
+  }
+  assert.equal(timeline.textAt(-1), '');
+  timeline.setCues([]);
+  assert.equal(timeline.textAt(500000), '');
+  const style = new SubtitleStyleModel();
+  for (const value of ['123', '-987', '600000', '-600000']) {
+    style.delayInput = value; assert.equal(style.applyDelay(), true); assert.equal(style.delayMs, Number(value));
+  }
+  for (const value of ['600001', '0.5', 'NaN', '', '--1']) {
+    style.delayInput = value; assert.equal(style.applyDelay(), false); assert.equal(style.delayMs, -600000);
+  }
+  style.reset(); assert.equal(style.delayMs, 0); assert.equal(style.delayInput, '0');
+  console.info('Subtitle timeline: overlaps, 10,000 cues, forward/backward seeks and signed offset validation passed');
+}
+
 async function main() {
+  testSubtitleTimeline();
+  await testRecordingPause();
   testLiveDiagnostics();
   await testConfiguration();
   testPreprocessing();

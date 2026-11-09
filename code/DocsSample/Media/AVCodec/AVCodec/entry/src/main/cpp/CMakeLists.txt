@@ -85,6 +85,7 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
 add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             sample/recorder/RecorderOptionsParser.cpp
                             sample/recorder/Recorder.cpp
+                            sample/recorder/RecorderAudio.cpp
                             sample/recorder/RecorderVideoSession.cpp
                             sample/recorder/RecorderVideoInput.cpp
                             sample/recorder/RecorderFrameReceiver.cpp

@@ -56,9 +56,9 @@ export class RecorderOutputController {
           mime: data.videoCodecMime ?? Const.MIME_VIDEO_AVC, codecName: data.videoCodecName,
           width: data.cameraWidth, height: data.cameraHeight, frameRate: data.frameRate,
           bitrate: data.bitRate, pixelFormat: data.format, bitrateMode: data.bitrateMode,
-        iFrameInterval: data.iFrameInterval,
-        hdrVivid: data.isHDRVivid !== 0,
-        synchronous: data.isSync !== 0,
+          iFrameInterval: data.iFrameInterval,
+          hdrVivid: data.isHDRVivid !== 0,
+          synchronous: data.isSync !== 0,
           bufferInput: data.bufferInput
         },
         audio: {

@@ -85,6 +85,8 @@ struct CodecUserData {
     OperationFailure *failureDetails = nullptr;
     // Recorder持有；采集回调停止、音频线程退出后才结束统计生命周期。
     RecorderAudioStats *recordingAudioStats = nullptr;
+    // 仅录制使用；暂停期间采集回调丢弃PCM，不向缓存追加数据。
+    bool capturePaused = false;
 
     void SignalError()
     {

@@ -151,7 +151,7 @@ bool TranscodeJob::ValidateSourceColor()
         return Fail("HDR Vivid input is not transcoded: dynamic metadata preservation is unavailable");
     }
     if (transfer == TRANSFER_CHARACTERISTIC_HLG || transfer == TRANSFER_CHARACTERISTIC_PQ ||
-        profile == HEVC_PROFILE_MAIN_10_HDR10 || profile == HEVC_PROFILE_MAIN_10_HDR10_PLUS) {
+        (hevc && (profile == HEVC_PROFILE_MAIN_10_HDR10 || profile == HEVC_PROFILE_MAIN_10_HDR10_PLUS))) {
         return Fail("PQ/HLG or HDR10 input is not transcoded: HDR metadata preservation is unavailable");
     }
     if (hevc && profile != HEVC_PROFILE_MAIN) {
@@ -297,7 +297,7 @@ bool TranscodeJob::InitializeDemuxer()
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
             if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_,
                 options_.audioSampleRate, options_.audioChannels, options_.audioBitrate,
-                options_.audioResampler == 1)) {
+                options_.audioResampler == 1, options_.codecMode == 1)) {
                 return false;
             }
         } else {

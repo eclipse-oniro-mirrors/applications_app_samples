@@ -178,13 +178,19 @@ bool SetSyncModeFormat(OH_AVFormat *format, const CodecOptions &codec)
     return true;
 }
 
-bool SetHdrMetadataFormat(OH_AVFormat *format, const VideoSampleInfo &video)
+bool SetVideoColorMetadata(OH_AVFormat *format, const VideoSampleInfo &video)
 {
-    return video.isHDRVivid == 0 ||
-        (OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, video.rangFlag) &&
+    if (video.isHDRVivid == 0) {
+        // SDR相机输入统一为BT.709有限范围，不只给HDR编码填写色彩描述。
+        return OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, 0) &&
+            OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, COLOR_PRIMARY_BT709) &&
+            OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, TRANSFER_CHARACTERISTIC_BT709) &&
+            OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, MATRIX_COEFFICIENT_BT709);
+    }
+    return OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, video.rangFlag) &&
          OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, video.primary) &&
          OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, video.transfer) &&
-         OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, video.matrix));
+         OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, video.matrix);
 }
 
 bool ValidateBasicVideoOptions(const SampleInfo &sampleInfo)
@@ -234,12 +240,12 @@ bool SetOptionalPreprocessFeatures(OH_AVFormat *format, const VideoSampleInfo &v
     return true;
 }
 
-bool SetOptionalHdrMetadata(OH_AVFormat *format, const VideoSampleInfo &video)
+bool SetOptionalColorMetadata(OH_AVFormat *format, const VideoSampleInfo &video)
 {
-    if (SetHdrMetadataFormat(format, video)) {
+    if (SetVideoColorMetadata(format, video)) {
         return true;
     }
-    AVCODEC_SAMPLE_LOGE("Set HDR Vivid encoder color metadata failed");
+    AVCODEC_SAMPLE_LOGE("Set video encoder color metadata failed");
     return false;
 }
 
@@ -249,7 +255,7 @@ bool SetOptionalCodecFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
         AVCODEC_SAMPLE_LOGE("Set video encoder sync mode failed");
         return false;
     }
-    return SetOptionalHdrMetadata(format, sampleInfo.video);
+    return SetOptionalColorMetadata(format, sampleInfo.video);
 }
 
 bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
@@ -378,13 +384,60 @@ int32_t VideoEncoder::Prepare()
 }
 // [End encoder_prepare]
 
+bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs, int32_t *queryStatus)
+{
+    info.buffer = nullptr;
+    if (queryStatus != nullptr) { *queryStatus = AV_ERR_UNKNOWN; }
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
+    // 格式变化后只重试一次，避免递归重入同一个shared_mutex；持续变化由下次轮询继续处理。
+    for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
+        const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
+        if (queryStatus != nullptr) { *queryStatus = ret; }
+        switch (ret) {
+            case AV_ERR_OK: {
+                OH_AVBuffer *buffer = OH_VideoEncoder_GetOutputBuffer(encoder_, info.bufferIndex);
+                if (buffer == nullptr && queryStatus != nullptr) { *queryStatus = AV_ERR_UNKNOWN; }
+                CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null");
+                const OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
+                if (queryStatus != nullptr) { *queryStatus = getBufferRet; }
+                CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
+                    "Get buffer attr error, ret: %{public}d", getBufferRet);
+                info.buffer = buffer;
+                // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+                return true;
+            }
+            case AV_ERR_TRY_AGAIN_LATER: {
+                AVCODEC_SAMPLE_LOGE("Get output buffer timeout.");
+                return false;
+            }
+            case AV_ERR_STREAM_CHANGED: {
+                int32_t width = 0;
+                int32_t height = 0;
+                auto format =
+                    std::shared_ptr<OH_AVFormat>(OH_VideoEncoder_GetOutputDescription(encoder_), OH_AVFormat_Destroy);
+                CHECK_AND_BREAK_LOG(format != nullptr, "Format is nullptr.");
+                const bool getIntRet = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_WIDTH, &width) &&
+                                       OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_HEIGHT, &height);
+                CHECK_AND_BREAK_LOG(getIntRet, "Encoder get int value failed.");
+                AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
+                continue;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+    AVCODEC_SAMPLE_LOGE("Output stream changed repeatedly, defer buffer acquisition to next poll");
+    return false;
+}
+
 // [Start encoder_sync_get_outputbuffer]
 bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
     // [StartExclude encoder_sync_get_outputbuffer]
-    // 格式变化后只重试一次，避免递归重入同一个shared_mutex；持续变化由下次轮询继续处理。
+    // 格式变化后只重试一次；持续变化由下次轮询继续处理。
     for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
     // [EndExclude encoder_sync_get_outputbuffer]
         const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);

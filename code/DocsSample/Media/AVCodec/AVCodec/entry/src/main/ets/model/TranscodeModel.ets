@@ -21,7 +21,7 @@ import { getPlaybackTitle } from './PlaybackHistoryModel';
 import player from 'libplayer.so';
 import recorder from 'librecorder.so';
 import { MediaFileActivity } from './MediaFileActivity';
-import { TranscodeFilesModel, TranscodeHistoryEntry, TranscodeHistoryPage, TranscodeStorageSummary }
+import { TranscodeFilesModel, TranscodeHistoryEntry }
   from './TranscodeFilesModel';
 import { MediaTaskCoordinator, MediaTaskLease } from './MediaTaskCoordinator';
 import { MediaSessionStore } from './MediaSessionStore';
@@ -34,6 +34,7 @@ import { image } from '@kit.ImageKit';
 import { TranscodePreviewController } from '../controller/TranscodePreviewController';
 import { TranscodeQueueRunner, TranscodeQueueHost, TranscodeQueueResult } from '../controller/TranscodeQueueRunner';
 import { TranscodeExportController } from '../controller/TranscodeExportController';
+import { TranscodeHistoryController } from '../controller/TranscodeHistoryController';
 
 function idleTranscodeStatus(): TranscodeStatus {
   return {
@@ -109,15 +110,14 @@ export class TranscodeModel {
   public analysis: TranscodeStatus = idleTranscodeStatus();
   public analysisSizeEstimate: number = -1;
   public availableBytes: number = -1;
-  public history: TranscodeHistoryEntry[] = [];
-  public historyHasMore: boolean = false;
-  public historyLoading: boolean = false;
-  public storageBytes: number = 0;
-  public orphanFileCount: number = 0;
-  private historyOffset: number = 0;
+  public historyState: TranscodeHistoryController = new TranscodeHistoryController();
+  get history(): TranscodeHistoryEntry[] { return this.historyState.entries; }
+  get historyHasMore(): boolean { return this.historyState.hasMore; }
+  get historyLoading(): boolean { return this.historyState.loading; }
+  get storageBytes(): number { return this.historyState.storageBytes; }
+  get orphanFileCount(): number { return this.historyState.orphanCount; }
   private inspectionSequence: number = 0;
   private activeEntry: TranscodeHistoryEntry | undefined = undefined;
-  private historySequence: number = 0;
   public busy: boolean = false;
   public picking: boolean = false;
   public exporting: boolean = false;
@@ -132,6 +132,7 @@ export class TranscodeModel {
   activate(): void {
     this.disposed = false;
     this.inspecting = false;
+    this.historyState.activate();
   }
 
   setRangeStart(value: string): void { this.rangeStart = value; this.clearPreview(); this.updateSizeEstimate(); }
@@ -393,7 +394,6 @@ export class TranscodeModel {
         try {
           await TranscodeFilesModel.persist(directory, entry);
           await this.refreshHistory(directory);
-          await this.updateStorageUsage(directory);
         } catch (_error) { this.notice += ' ' + LocalizedText.get($r('app.string.transcode_history_failed')); }
       }
       try {
@@ -454,7 +454,7 @@ export class TranscodeModel {
     this.disposed = true;
     this.queue.paused = true;
     this.inspectionSequence++;
-    this.historySequence++;
+    this.historyState.dispose();
     this.cancel();
     this.clearPolling();
     this.clearPreview();
@@ -566,60 +566,20 @@ export class TranscodeModel {
 
   async loadHistory(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
-    if (context === undefined || this.historyLoading) { return; }
-    const sequence: number = ++this.historySequence;
-    this.historyLoading = true;
-    try {
-      const directory: string = context.filesDir + '/transcodes';
-      const page: TranscodeHistoryPage = await TranscodeFilesModel.listPage(
-        directory, 0, TranscodeFilesModel.HISTORY_PAGE_SIZE);
-      const usage: TranscodeStorageSummary = await TranscodeFilesModel.storageUsage(directory);
-      if (sequence === this.historySequence && !this.disposed) {
-        this.history = page.entries;
-        this.historyOffset = page.nextOffset;
-        this.historyHasMore = page.hasMore;
-        this.storageBytes = usage.bytes;
-        this.orphanFileCount = usage.orphanCount;
-      }
-    } catch (_error) {} finally {
-      if (sequence === this.historySequence) { this.historyLoading = false; }
-    }
+    if (context === undefined) { return; }
+    try { await this.historyState.load(context.filesDir + '/transcodes'); }
+    catch (error) { this.notice = JSON.stringify(error); }
   }
 
   async loadMoreHistory(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
-    if (context === undefined || !this.historyHasMore || this.historyLoading || this.busy || this.queueRunning ||
-      this.exporting || this.picking || this.inspecting) { return; }
-    const sequence: number = ++this.historySequence;
-    this.historyLoading = true;
-    try {
-      const page: TranscodeHistoryPage = await TranscodeFilesModel.listPage(
-        context.filesDir + '/transcodes', this.historyOffset, TranscodeFilesModel.HISTORY_PAGE_SIZE);
-      if (sequence === this.historySequence && !this.disposed) {
-        this.history = this.history.concat(page.entries);
-        this.historyOffset = page.nextOffset;
-        this.historyHasMore = page.hasMore;
-      }
-    } catch (error) {
-      this.notice = JSON.stringify(error);
-    } finally {
-      if (sequence === this.historySequence) { this.historyLoading = false; }
-    }
+    if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking ||
+      this.inspecting) { return; }
+    try { await this.historyState.load(context.filesDir + '/transcodes', true); }
+    catch (error) { this.notice = JSON.stringify(error); }
   }
 
-  private async refreshHistory(directory: string): Promise<void> {
-    const page: TranscodeHistoryPage = await TranscodeFilesModel.listPage(
-      directory, 0, TranscodeFilesModel.HISTORY_PAGE_SIZE);
-    this.history = page.entries;
-    this.historyOffset = page.nextOffset;
-    this.historyHasMore = page.hasMore;
-  }
-
-  private async updateStorageUsage(directory: string): Promise<void> {
-    const usage: TranscodeStorageSummary = await TranscodeFilesModel.storageUsage(directory);
-    this.storageBytes = usage.bytes;
-    this.orphanFileCount = usage.orphanCount;
-  }
+  private async refreshHistory(directory: string): Promise<void> { await this.historyState.refresh(directory); }
 
   async enqueue(ui: UIContext): Promise<void> {
     if (this.busy || this.queueRunning || this.sourceUri.length === 0 || this.inspecting ||
@@ -759,7 +719,7 @@ export class TranscodeModel {
       player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
       !MediaFileActivity.beginCleanup()) { return; }
     this.exporting = true;
-    this.historySequence++;
+    this.historyState.invalidate();
     try {
       const directory: string = context.filesDir + '/transcodes';
       await TranscodeFilesModel.deleteEntry(directory, entry.id);
@@ -769,7 +729,6 @@ export class TranscodeModel {
       }
       await this.persistQueue(ui);
       await this.refreshHistory(directory);
-      await this.updateStorageUsage(directory);
       if (this.activeEntry?.id === entry.id) {
         this.resultPath = '';
         this.activeEntry = undefined;
@@ -809,12 +768,11 @@ export class TranscodeModel {
       player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
       !MediaFileActivity.beginCleanup()) { return; }
     this.exporting = true;
-    this.historySequence++;
+    this.historyState.invalidate();
     try {
       const directory: string = context.filesDir + '/transcodes';
       await TranscodeFilesModel.cleanupOrphans(directory);
       await this.refreshHistory(directory);
-      await this.updateStorageUsage(directory);
       this.notice = LocalizedText.get($r('app.string.transcode_cleanup_complete'));
     } catch (error) {
       this.notice = JSON.stringify(error);

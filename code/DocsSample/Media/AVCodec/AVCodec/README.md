@@ -107,6 +107,8 @@ The sample connects file selection, demuxing, four video output paths, A/V synch
 | Camera preview and page navigation | Initializes the encoder or ImageReceiver input Surface, passes its SurfaceId to the recording page, and creates camera output streams | [Camera capture and recording](#camera-recording) |
 | Video encoding | Camera Surface input or YUV copied into encoder Buffers; both support synchronous/asynchronous scheduling, H.264/H.265, bitrate and key-frame settings | [Video encoding](#video-encoding) |
 | Camera Buffer encoding | Native ImageReceiver supplies YUV frames to encoder input Buffers while reusing audio, muxing, Dump and segment recording | [Buffer recording](#recorder-buffer-input) |
+| SDR recording color | Camera, NativeBuffer checks and encoder metadata use BT.709 limited range | [Color configuration](#recorder-color) |
+| Pause and resume | Pause single-output SDR Buffer recording within one file, excluding paused time | [Recording pause](#recorder-pause) |
 | Encoded video stream dump | Optionally saves the encoder's raw H.264/H.265 output to the app's private files directory; dual-output recording saves each video stream separately | [Video encoding](#video-encoding) |
 | Structured recording options | Groups video, audio, preprocessing, secondary output, Dump, and container parameters into a validated startup snapshot | [Recording options](#recorder-options) |
 | Runtime recording parameters | Requests bitrate changes and key frames independently on the primary or secondary encoder without rebuilding the session | [Runtime recording parameters](#recorder-live-parameters) |
@@ -195,7 +197,7 @@ The page uses a separate `libtranscoder.so`; it does not start the Player or Rec
 |---|---|
 | Codec / container | H.264 or H.265 in MP4; the device must provide the requested encoder |
 | Encoder input | Buffer, direct Surface or OpenGL → Surface; synchronous queries or asynchronous callbacks |
-| Video codec scheduling | Synchronous by default; asynchronous mode applies to both video decoding and encoding, and is saved with queue settings |
+| Codec scheduling | Synchronous by default; asynchronous mode applies to both video decoding and encoding, and is saved with queue settings |
 | Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer and GPU paths |
 | Target bitrate | 2, 4, 8, or 16 Mbps, with VBR or CBR; measured bitrate can differ |
 | Frame-rate cap | Source rate, 24, 30, 60 or 120 fps; never raises the source rate |
@@ -234,7 +236,7 @@ flowchart LR
 
 #### Buffer path
 
-`TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames through synchronous queries or asynchronous callback queues, according to **Video codec scheduling**. Pixel processing and submission use the same code in both modes. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
+`TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames through synchronous queries or asynchronous callback queues, according to **Codec scheduling**. Pixel processing and submission use the same code in both modes. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
 
 The processor accepts 8-bit NV12, NV21 and I420 layouts and writes NV12. Nearest-neighbor is the default; bilinear and area modes offer different sampling costs and downscale quality (see [sampling](#transcode-sampling)). Grayscale retains luma and fills chroma with 128. This path reads, writes and copies pixels to demonstrate decoded-frame processing.
 
@@ -272,15 +274,15 @@ VBR is the default. CBR requests the codec's constant-bitrate mode but does not 
 
 <a id="transcode-codec-mode"></a>
 
-#### Synchronous and asynchronous video codecs
+#### Synchronous and asynchronous codecs
 
-The scheduling selector is independent of Buffer/Surface input. `TranscodeRequest.codecMode` is `0` for synchronous queries and `1` for asynchronous callbacks; omitted values keep the synchronous default. Both video codecs use the selected mode. AAC conversion remains synchronous, processed-frame preview always creates a synchronous decoder, and remuxing does not create codecs. The NAPI Promise runs a Native worker in either mode; a Promise by itself does not enable asynchronous codec callbacks.
+The scheduling selector is independent of Buffer/Surface input. `TranscodeRequest.codecMode` is `0` for synchronous queries and `1` for asynchronous callbacks; omitted values keep the synchronous default. Video decoding/encoding and AAC decoding/encoding use the selected mode; processed-frame preview always creates a synchronous decoder, and remuxing does not create codecs. The NAPI Promise runs a Native worker in either mode; a Promise by itself does not enable asynchronous codec callbacks.
 
 `RegisterCodecCallbacks()` registers `OH_AVCodecCallback` on both codecs before configuration and Prepare. Asynchronous mode sets `OH_MD_KEY_ENABLE_SYNC_MODE` to `0` and does not call video Query/GetInputBuffer/GetOutputBuffer APIs. `onNeedInputBuffer` and `onNewOutputBuffer` pass their borrowed Buffer/index to separate decoder/encoder input/output queues. The callbacks do not read files, copy pixels, write the muxer, submit input or free output. `AcquireCodecBuffer()` lets the worker consume those queues while keeping the same processing, backpressure and EOS rules as synchronous mode.
 
 Format-change markers are ordered with output events. The callback-scoped `OH_AVFormat *` is not retained: the worker reads its own current description, invalidates decoded layouts, or starts the muxer from actual encoder output metadata. Each queue is capped at 128 events; overflow fails the task instead of silently dropping a borrowed output. Codec errors retain the first error and its decoder/encoder origin, including when no buffer arrives.
 
-When idle, the asynchronous worker waits on a condition variable for up to 2 ms, so synchronous AAC work and storage checks still advance. A revision captured before pumping avoids losing a callback arriving just before the wait. Cancel closes the queues and wakes the worker; cleanup rejects late events before stopping the codecs and keeps callback contexts alive until both codecs have been destroyed. Buffers still borrowed on failure or cancellation are invalidated by Stop/Destroy, not individually freed from a callback.
+When idle, the asynchronous worker waits on a condition variable for up to 2 ms, so audio callback queues and storage checks still advance. A revision captured before pumping avoids losing a callback arriving just before the wait. Cancel closes the queues and wakes the worker; cleanup rejects late events before stopping the codecs and keeps callback contexts alive until both codecs have been destroyed. Buffers still borrowed on failure or cancellation are invalidated by Stop/Destroy, not individually freed from a callback.
 
 <a id="transcode-surface"></a>
 
@@ -370,7 +372,18 @@ The report distinguishes video payload bytes, audio output bytes, actual file si
 
 Normal re-encoding copies the first audio track by default, or one selected track. Remux can copy the first, one selected or all audio tracks. Entries show container track number, MIME, channels and sample rate. No-audio mode creates no audio codec and adds no audio muxer track. Subtitle tracks are reported when found, but are not written to MP4 because the documented native muxer API accepts audio/video tracks only.
 
-Passthrough remuxes compressed samples. AAC conversion uses separate synchronous audio decoder/encoder instances and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; channels follow the source or use mono/stereo. Bitrate choices are 64, 128 and 192 kbps. Defaults retain the source layout and 128 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM layout fails explicitly.
+Passthrough remuxes compressed samples. AAC conversion uses separate audio decoder/encoder instances in the selected synchronous or asynchronous mode and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; channels follow the source or use mono/stereo. Bitrate choices are 64, 128 and 192 kbps. Defaults retain the source layout and 128 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM layout fails explicitly.
+
+**Codec scheduling** controls video and AAC together. Audio owns a separate `TranscodeCodecCallbacks` instance, so its events do not share the video queues. Callbacks enqueue borrowed Buffers and their indices; the transcode worker performs media processing.
+
+| Stage | Synchronous entry | Asynchronous entry |
+|---|---|---|
+| Feed compressed audio | `FeedSync()` queries/gets decoder input | `FeedAsync()` consumes decoder input callbacks |
+| Obtain PCM | `DecodeSync()` queries/gets decoder output | `DecodeAsync()` consumes decoder output callbacks |
+| Submit AAC input | `EncodeSync()` queries/gets encoder input | `EncodeAsync()` consumes encoder input callbacks |
+| Write AAC output | `DrainSync()` queries/gets encoder output | `DrainAsync()` consumes encoder output callbacks |
+
+Both modes share PCM framing, resampling, timestamps, first-packet retention and muxing, while Buffer acquisition stays visible in separate methods. Format markers retain queue order. Callback errors identify the decoder or encoder. Failure/cancellation closes event queues before codec Stop/Destroy and keeps callback contexts alive until Destroy returns, rejecting late callbacks. Frame preview stays synchronous; passthrough remuxing creates no codecs.
 
 Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` supports fast linear interpolation and optional [low-pass downsampling](#transcode-sampling), retaining state across Buffers. Stereo-to-mono averages channels; mono-to-stereo duplicates samples. The converter accepts interleaved mono/stereo S16LE and does not mix arbitrary multichannel layouts.
 
@@ -492,12 +505,19 @@ Playback and recording Dumps default to a per-file limit of 256 MiB or 30 second
 - `PlaybackQueueController` owns queue paths, current index, and repeat/random selection;
 - `RecorderLaunchController` owns media asset creation, primary/secondary descriptors, native initialization, route transition, and failure cleanup;
 - `RecorderVideoSession.cpp` groups encoder, preprocessing, dual-output Muxer, and Dump setup.
+- `PlaybackSubtitleController` owns subtitle loading and cue lookup; `PlaybackControlsController` owns the auto-hide timer;
+- `PlaybackWindowController` owns fullscreen orientation and system-bar changes; `PlaybackAudioController` owns track selection and mute state;
+- `PlaybackAbLoopController` owns A-B markers, its monitor timer, and seek generation checks;
+- `PlayerViewport` owns the stable XComponent surface, status overlay, HDR/subtitle overlay, and diagnostics overlay; `PlayerPage` owns the gesture layer composition;
+- `TranscodeHistoryController` owns history pagination, usage totals and request invalidation; `TranscodeModel` keeps task and cleanup decisions;
+- `TranscodeHistoryPanel` observes the history controller through `@ObjectLink`, so asynchronous pagination updates the displayed rows directly;
+- `RecorderAudio.cpp` groups audio encoder creation, PCM input and AAC output; sync queries and async callback consumption remain separate methods.
 
 `SettingsDraftModels.ets` now owns playback and recording drafts. Two `@Observed` models load, validate, and apply settings; Index keeps two `@State` draft objects rather than dozens of separate fields. Pickers update object properties, child components receive the matching `@Prop` values, and draft changes invalidate the old capability result. Only Apply writes the applied models. Preset restoration and cancellation reuse the same draft-loading methods.
 
-Persistence, capability explanations, Dump file operations, and runtime recording controls live in `ConfigurationStore`, `ConfigurationFeedback`, `DumpFilesModel`, and `RecorderLiveParameters`. Page builders remain responsible for composition rather than Preferences or deletion logic, and UI components never receive live codec pointers.
+Persistence, capability explanations, Dump file operations, and runtime recording controls live in `ConfigurationStore`, `ConfigurationFeedback`, `DumpFilesModel`, and `RecorderLiveParameters`. Page builders remain responsible for composition rather than Preferences or deletion logic, and UI components never receive live codec pointers. The playback page keeps the `XComponentController` in `Index.ets` and passes it to `PlayerViewport`; changing tabs or opening a sheet therefore does not create a second surface controller.
 
-Playback continues to use `PlayOptions`; recording start now returns a success flag that the page checks. Descriptor ownership moves to the recorder page only after the route succeeds; failed initialization or routing closes descriptors in the launch controller. `Recorder.ets` retains camera lifecycle, start/stop controls, file closure, history saving, and statistics display. Encoder and Muxer setup belongs to the Native session file.
+Playback uses `PlayOptions`; recording start returns a success flag that the page checks. Descriptor ownership moves to the recording session only after routing succeeds; failed initialization or routing closes descriptors in the launch controller. `Recorder.ets` displays state and coordinates camera, diagnostics and segment controllers. `RecordingSessionController` owns pause/finalization ordering, descriptor closure and history saving. Encoder and Muxer setup belongs to the Native session file.
 
 ### Usage
 
@@ -661,6 +681,7 @@ AVCodec/
     │   │   │   │   └── TranscodeDiagnostics.h # Call timings and cross-poll waits
     │   │   │   └── recorder/
     │   │   │       ├── Recorder.cpp         # Recording lifecycle and data flow
+    │   │   │       ├── RecorderAudio.cpp    # PCM input and AAC output, separate sync/async workers
     │   │   │       └── RecorderNative.cpp   # Recording NAPI entry
     │   │   ├── types                        # ArkTS declarations for Native modules
     │   │   └── CMakeLists.txt               # Native build entry
@@ -1110,7 +1131,7 @@ The diagnostic snapshot exposes the interruption count, the latest interruption 
 
 #### External SRT / WebVTT Subtitles
 
-Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` for an `.srt` or `.vtt` file. `SubtitleModel.parseSubtitle()` selects the parser by extension and reads cue time ranges and multiline text. `PlaybackViewModel` reports the current position every 250 ms and `findSubtitleText()` selects the active cue for the overlay. More playback options provide Subtitle timing choices of early by 0.5 seconds, synchronized, or late by 0.5 seconds; the selected offset is applied before cue lookup.
+Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` for an `.srt` or `.vtt` file. `SubtitleModel.parseSubtitle()` selects the parser by extension and reads cue time ranges and multiline text. `PlaybackViewModel` reports the current position every 250 ms and `PlaybackSubtitleController` owns parsing and a `SubtitleTimeline` cursor. Forward playback advances the cursor and joins overlapping cues in start-time order. A backward seek or a forward jump over one second uses a binary search of maximum end-time prefixes, so long overlapping cues remain visible. Subtitle settings accept integer offsets from -600000 to 600000 ms; positive values show text later. Timing changes affect only the overlay.
 
 Each usable cue is converted to start/end microseconds and text, then ordered before lookup. WebVTT requires a `WEBVTT` header; simple cue markup becomes plain text, with no WebVTT region, positioning, or CSS rendering. Empty blocks, malformed time lines, and nonpositive ranges are ignored. The page stores only the active overlay text; no subtitle data reaches the decoder or muxer, so selecting a subtitle, changing its style, or applying an offset does not interrupt workers. During a slider drag the lookup uses the preview position, then returns to the Native position after release. The thumbnail, progress control, and subtitle refer to the same visible time.
 
@@ -1660,6 +1681,28 @@ Receiver capacity is three. A receiver worker continuously consumes camera outpu
 Camera timestamps are nanoseconds; codec Buffer timestamps are microseconds. The first video frame keeps its offset from Native recording start and subsequent frames retain camera timestamp intervals. Audio keeps its capture-start offset as well. Buffer output bypasses the Surface path's timestamp division, preventing a second unit conversion. This does not establish hardware-level capture synchronization; verify the resulting audio/video alignment on the target device.
 
 Stopping first stops the camera session and both preview outputs, joins the video input worker, and submits an EOS input Buffer. The existing audio, output, muxer, file-descriptor and segment-finalization paths handle the remainder. Surface-only `NotifyEndOfStream()` is not used for Buffer input. CPU pixel copying makes this an encoding example; Surface remains preferable for high-resolution or high-frame-rate recording.
+
+<a id="recorder-color"></a>
+
+##### SDR recording color configuration
+
+`CameraSessionController` requests BT.709 limited range before committing the camera session, checks that the mode is supported, and confirms the active color space after commit. A mismatch fails preparation. `VideoEncoder` writes limited range, BT.709 primaries, transfer and matrix metadata for SDR instead of relying on encoder defaults. HDR Vivid retains its separate metadata.
+
+Buffer capture also reads the NativeBuffer color space before mapping pixels. Explicit metadata that differs from BT.709 limited is rejected. Missing metadata is treated as unknown and relies on the camera-session check; this is not a pixel-level color measurement or color conversion. There is no silent switch to BT.601 or full range.
+
+For interleaved NV12, `CopyChroma()` copies each UV row directly when offsets, strides and pixel steps match. NV21 and planar layouts keep their conversion branches. Only destination row and bottom padding is initialized; valid pixels are written once. Bounds checks run before modifying the destination, and the original encoder index remains responsible for submission. This reduces CPU memory traffic but does not make Buffer capture zero-copy.
+
+<a id="recorder-pause"></a>
+
+##### Pause and resume within one recording
+
+The recording preview offers Pause/Resume for single-output SDR Buffer input, in both codec scheduling modes. Surface direct input, HDR and dual output do not expose Pause. This implementation controls Buffer timestamps and PCM submission; it does not assume that a camera Surface or two independently encoded streams can be paused the same way.
+
+`RecordingSessionController.setPaused()` sends the session ID and target state to Native and changes the displayed phase only after success. Repeated taps share one Promise. Finalization waits for an outstanding pause request, and its completion cannot restore a finishing page to the recording phase. Failure leaves the preceding state visible.
+
+Native serializes the state change with audio/video input submission. Paused camera images are discarded while display preview keeps running; new captured PCM is discarded without growing the audio cache. Video PTS subtracts accumulated pause time, while audio PTS advances only for submitted sample frames. Already submitted frames continue through encoding and muxing. No EOS, new codec, new file or new muxer is created for a pause.
+
+The elapsed display, history duration and duration-based segmentation exclude paused time. Stop works while paused: camera production ends, input workers exit, EOS is submitted, and output is drained before descriptors close. The fixed capture start offset is retained, but pause edges are limited by camera/audio Buffer boundaries, not sample-accurate hardware synchronization.
 
 <a id="video-encoding"></a>
 
