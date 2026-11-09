@@ -17,7 +17,7 @@ import { scriptManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0001;
+const DOMAIN = 0x0F811;
 const TAG = '[Sample_PluginAndSkill]';
 const SUCCESS_CODE = 0;
 const FAILURE_CODE = -1;

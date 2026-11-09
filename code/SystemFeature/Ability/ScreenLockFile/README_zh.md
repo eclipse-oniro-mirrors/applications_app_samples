@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例基于Stage模型和ArkTS语言，使用[@ohos.ability.screenLockFileManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-screenLockFileManager.md)提供的`acquireAccess`、`releaseAccess`和`queryAppKeyState`接口，展示锁屏下本应用敏感数据访问权限的申请、释放和密钥状态查询方法。
+本示例基于Stage模型和ArkTS语言，使用[@ohos.ability.screenLockFileManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-screenLockFileManager.md)提供的`acquireAccess`、`releaseAccess`和`queryAppKeyState`接口，展示锁屏下本应用敏感数据访问权限的申请、释放和密钥状态查询方法。
 
 应用声明`ohos.permission.PROTECT_SCREEN_LOCK_DATA`后，系统为应用提供EL5高安全级别目录。锁屏敏感数据密钥销毁后，相关数据无法读写。成功调用`acquireAccess`可增加密钥引用计数，调用`releaseAccess`可减少引用计数，两者需要配对使用。
 
@@ -100,7 +100,7 @@ entry/src/ohosTest/ets/test/
 
 ### 相关权限
 
-[ohos.permission.PROTECT_SCREEN_LOCK_DATA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprotect_screen_lock_data)为`normal`级别，采用`system_grant`授权方式，用于开启锁屏敏感数据保护功能。
+[ohos.permission.PROTECT_SCREEN_LOCK_DATA](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprotect_screen_lock_data)为`normal`级别，采用`system_grant`授权方式，用于开启锁屏敏感数据保护功能。
 
 ### 依赖
 
@@ -122,6 +122,6 @@ entry/src/ohosTest/ets/test/
 git init
 git config core.sparsecheckout true
 echo code/SystemFeature/Ability/ScreenLockFile/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

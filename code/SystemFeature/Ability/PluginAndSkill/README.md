@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This sample demonstrates how to use [@ohos.bundle.pluginBundleManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-pluginBundleManager.md) and [@ohos.bundle.skillManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) to manage local plugins and application skills.
+This sample demonstrates how to use [@ohos.bundle.pluginBundleManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-pluginBundleManager.md) and [@ohos.bundle.skillManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) to manage local plugins and application skills.
 
 **Features:**
 
@@ -193,6 +193,6 @@ To download this sample separately, run the following commands:
 git init
 git config core.sparseCheckout true
 echo code/SystemFeature/Ability/PluginAndSkill/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

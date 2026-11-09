@@ -2,7 +2,7 @@
 
 ## 简介
 
-本示例演示如何使用 [@ohos.bundle.pluginBundleManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-pluginBundleManager.md) 和 [@ohos.bundle.skillManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) 来管理本地插件和应用技能。
+本示例演示如何使用 [@ohos.bundle.pluginBundleManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-pluginBundleManager.md) 和 [@ohos.bundle.skillManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) 来管理本地插件和应用技能。
 
 **功能特性：**
 
@@ -193,6 +193,6 @@ entry/src/ohosTest/ets/test/
 git init
 git config core.sparseCheckout true
 echo code/SystemFeature/Ability/PluginAndSkill/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This sample uses the Stage model and ArkTS. It demonstrates the `acquireAccess`, `releaseAccess`, and `queryAppKeyState` APIs provided by [@ohos.ability.screenLockFileManager](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-screenLockFileManager.md) to request, release, and query access to application sensitive data while the screen is locked.
+This sample uses the Stage model and ArkTS. It demonstrates the `acquireAccess`, `releaseAccess`, and `queryAppKeyState` APIs provided by [@ohos.ability.screenLockFileManager](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-screenLockFileManager.md) to request, release, and query access to application sensitive data while the screen is locked.
 
 After the application declares `ohos.permission.PROTECT_SCREEN_LOCK_DATA`, the system provides an EL5 high-security directory. Sensitive data cannot be read or written after its key is destroyed. A successful `acquireAccess` call increases the key reference count, while `releaseAccess` decreases it. The two APIs must be used in pairs.
 
@@ -100,7 +100,7 @@ entry/src/ohosTest/ets/test/
 
 ### Permissions
 
-[ohos.permission.PROTECT_SCREEN_LOCK_DATA](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprotect_screen_lock_data) is a `normal` permission granted through `system_grant`. It enables sensitive data protection under the lock screen.
+[ohos.permission.PROTECT_SCREEN_LOCK_DATA](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprotect_screen_lock_data) is a `normal` permission granted through `system_grant`. It enables sensitive data protection under the lock screen.
 
 ### Dependencies
 
@@ -122,6 +122,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/SystemFeature/Ability/ScreenLockFile/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
