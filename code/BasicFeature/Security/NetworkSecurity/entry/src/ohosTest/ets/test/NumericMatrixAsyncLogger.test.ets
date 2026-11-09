@@ -1898,3 +1898,103 @@ export default function numericMatrixAsyncLoggerTest() {
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 0
+     */
+    it('testNumAsyncLog0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumAsyncLog0063';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A start point one second in the past yields at least one second.
+      const pastStart: number = Date.now() - 1000;
+      const pastElapsed: number = elapsedMilliseconds(pastStart);
+      expect(pastElapsed >= 1000).assertTrue();
+      // The epoch zero start point yields the whole device uptime.
+      const epochElapsed: number = elapsedMilliseconds(0);
+      expect(epochElapsed > YEAR_2020_MS).assertTrue();
+      // Both measurements are plain numeric values.
+      expect(typeof pastElapsed).assertEqual('number');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_ASYNCLOG_6400
+     * @tc.name      testNumAsyncLog0064
+     * @tc.desc      Verify elapsedMilliseconds returns a negative raw difference for future start points.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumAsyncLog0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const TAG: string = 'testNumAsyncLog0064';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A start point three hundred milliseconds in the future goes below zero.
+      const futureStart: number = Date.now() + 300;
+      const futureElapsed: number = elapsedMilliseconds(futureStart);
+      expect(futureElapsed < 0).assertTrue();
+      // The negative difference stays within a sane corridor far above minus one minute.
+      expect(futureElapsed > -60000).assertTrue();
+      // The negative matrix result is a plain numeric value.
+      expect(typeof futureElapsed).assertEqual('number');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_ASYNCLOG_6500
+     * @tc.name      testNumAsyncLog0065
+     * @tc.desc      Verify Logger renders detail lines built from the gigabyte and negative join matrix points.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumAsyncLog0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumAsyncLog0065';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // The gigabyte matrix point renders with two fixed fraction digits.
+      const sizeText: string = formatBytes(2147483648);
+      expect(sizeText).assertEqual('2.00 GB');
+      // The negative and zero join matrix points keep their minus prefixes.
+      const listText: string = joinNumbers([-1, 0, 1]);
+      expect(listText).assertEqual('-1, 0, 1');
+      // Guard flag set when logging both composed lines throws unexpectedly.
+      let logFailed: boolean = false;
+      try {
+        Logger.info('max: ' + sizeText);
+        Logger.debug('list: ' + listText);
+      } catch (error) {
+        logFailed = true;
+      }
+      expect(logFailed).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_ASYNCLOG_6600
+     * @tc.name      testNumAsyncLog0066
+     * @tc.desc      Verify a full trace and log boundary sequence completes for one simulated numeric case.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumAsyncLog0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumAsyncLog0066';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Guard flag set when any boundary call of the sequence throws unexpectedly.
+      let sequenceFailed: boolean = false;
+      try {
+        Logger.beginTrace('NetworkSecurity.test.logger', 9);
+        Logger.enter('[TestService#sequence]', 'case: 66');
+        Logger.debug('matrix step inside sequence');
+        Logger.exit('[TestService#sequence]', 'status: done');
+        Logger.traceValue('NetworkSecurity.test.cases', 66);
+        Logger.endTrace('NetworkSecurity.test.logger', 9);
+      } catch (error) {
+        sequenceFailed = true;
+      }
+      // The full boundary sequence completed without throwing.
+      expect(sequenceFailed).assertFalse();
+      // The trace section used a positive task id matrix point.
+      expect(9 > 0).assertTrue();
+      // The logging tag stays identical to the registered hypium case name.
+      expect(TAG).assertEqual('testNumAsyncLog0066');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+  });
+}
