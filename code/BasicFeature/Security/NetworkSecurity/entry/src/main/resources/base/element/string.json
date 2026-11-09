@@ -1,0 +1,94 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "网络安全校验与网络策略示例模块",
+      "description": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "演示证书校验、明文 HTTP 策略与系统网络策略管理",
+      "description": "入口能力描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "网络安全校验与网络策略",
+      "description": "桌面图标名称"
+    },
+    {
+      "name": "ns_app_list_title",
+      "value": "已安装应用",
+      "description": "应用列表页标题与策略页入口按钮"
+    },
+    {
+      "name": "ns_app_list_search",
+      "value": "搜索应用名或包名",
+      "description": "应用列表搜索框提示"
+    },
+    {
+      "name": "ns_app_list_loading",
+      "value": "正在加载应用列表…",
+      "description": "应用列表加载中提示"
+    },
+    {
+      "name": "ns_app_list_empty",
+      "value": "未找到匹配的应用",
+      "description": "应用列表为空提示"
+    },
+    {
+      "name": "ns_app_detail_title",
+      "value": "应用详情",
+      "description": "应用详情页标题"
+    },
+    {
+      "name": "ns_app_detail_overview",
+      "value": "应用信息",
+      "description": "应用详情概览卡片标题"
+    },
+    {
+      "name": "ns_app_detail_bundle",
+      "value": "包名",
+      "description": "应用包名标签"
+    },
+    {
+      "name": "ns_app_detail_access_title",
+      "value": "Wi-Fi 与蜂窝访问策略",
+      "description": "应用详情访问策略卡片标题"
+    },
+    {
+      "name": "ns_app_detail_select",
+      "value": "选择应用",
+      "description": "应用选择器按钮与面板标题"
+    },
+    {
+      "name": "ns_app_detail_trustlist_title",
+      "value": "休眠与省电白名单",
+      "description": "应用详情休眠与省电白名单卡片标题"
+    },
+    {
+      "name": "ns_app_detail_trustlist_add",
+      "value": "加入白名单",
+      "description": "应用详情加入白名单按钮"
+    },
+    {
+      "name": "ns_app_detail_trustlist_remove",
+      "value": "移出白名单",
+      "description": "应用详情移出白名单按钮"
+    },
+    {
+      "name": "ns_perm_installed_list_reason",
+      "value": "查询设备已安装的应用列表，用于应用列表页、应用详情页与应用选择器。",
+      "description": "GET_INSTALLED_BUNDLE_LIST 权限申请原因"
+    },
+    {
+      "name": "ns_perm_get_bundle_info_reason",
+      "value": "查询应用信息，用于将 UID 解析为应用名与包名。",
+      "description": "GET_BUNDLE_INFO 权限申请原因"
+    },
+    {
+      "name": "ns_perm_get_bundle_info_privileged_reason",
+      "value": "创建跨应用模块上下文，用于解析应用名称与图标。",
+      "description": "GET_BUNDLE_INFO_PRIVILEGED 权限申请原因"
+    }
+  ]
+}
