@@ -47,6 +47,7 @@ export class CameraDataModel {
   public videoStabilizationMode: number = Const.VIDEO_STABILIZATION_AUTO;
   public format: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
   public isSync: number = 0;
+  public bufferInput: boolean = false;
   public outputFormat: number = Const.FORMAT_MP4;
   public enableDualOutput: boolean = false;
   public enableVideoDump: boolean = false;

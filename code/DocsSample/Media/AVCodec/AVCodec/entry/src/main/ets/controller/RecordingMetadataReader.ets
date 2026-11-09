@@ -27,7 +27,7 @@ export class RecordingMetadataReader {
       if (!canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
         throw new Error('Metadata extractor unavailable');
       }
-      // 使用独立 fd，不与 Native Muxer 或播放器共享；只在文件关闭后读取成品。
+      // 使用独立fd，不与Native Muxer或播放器共享；只在文件关闭后读取成品。
       file = await fileIo.open(uri, fileIo.OpenMode.READ_ONLY);
       const stat: fileIo.Stat = await fileIo.stat(file.fd);
       extractor = await media.createAVMetadataExtractor();

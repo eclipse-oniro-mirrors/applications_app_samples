@@ -68,7 +68,7 @@ export class RecorderPreprocessModel {
       data.secondaryTargetHeight, data.dropToFrameRate);
     data.downsamplingWidth = downsample.primaryWidth;
     data.downsamplingHeight = downsample.primaryHeight;
-    // SDK 使用包含右下边界的坐标；宽高和左上起点保持偶数，不能把 right/bottom 再强制对齐。
+    // SDK使用包含右下边界的坐标；宽高和左上起点保持偶数，不能把right/bottom再强制对齐。
     data.cropLeft = plan.cropLeft;
     data.cropTop = plan.cropTop;
     data.cropRight = plan.cropLeft + plan.cropWidth - 1;

@@ -90,7 +90,7 @@ export class RecordingSessionController {
       this.mark('camera.failed', 'stop_failed');
       await releaseCamera();
     }
-    // StopStart 失败或异步任务提交失败时，仍需尝试执行会等待资源释放的 StopEnd。
+    // StopStart失败或异步任务提交失败时，仍需尝试执行会等待资源释放的StopEnd。
     try {
       await recorder.stopBeginNative();
     } catch (error) {
@@ -104,7 +104,7 @@ export class RecordingSessionController {
       const finalSnapshot = recorder.getDiagnostics();
       nativeReleased = finalSnapshot.sessionId === this.sessionId &&
         finalSnapshot.timeline.some((event): boolean => event.stage === 'native.released');
-      // fd 仍可能被 Native 持有时不关闭，避免后台写入已复用的描述符。
+      // fd仍可能被Native持有时不关闭，避免后台写入已复用的描述符。
       if (nativeReleased) {
         const primaryClosed: boolean = await this.closeFile(data.outputfd);
         const secondaryClosed: boolean = await this.closeFile(data.secondaryOutputfd);

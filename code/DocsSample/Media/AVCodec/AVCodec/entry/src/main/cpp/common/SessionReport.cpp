@@ -53,7 +53,7 @@ void AppendPlaybackRequest(std::ostringstream &text, const SampleInfo &info)
 
 std::string DescribeCodecRequest(const SampleInfo &info, bool recording)
 {
-    // 有意不包含 fd、URI、文件名和文件完整路径，报告可由用户主动导出分享。
+    // 有意不包含fd、URI、文件名和文件完整路径，报告可由用户主动导出分享。
     std::ostringstream text;
     AppendCommonRequest(text, info);
     if (recording) {
