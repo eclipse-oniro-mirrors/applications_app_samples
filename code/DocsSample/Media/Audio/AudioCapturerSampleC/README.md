@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于AudioRender、AudioCapturer等能力，实现了多种方式起流录制、音频耳返以及超低时延模式（AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST）采集等功能，包含了功能调用接口的完整链路。
+本示例基于AudioRender、AudioCapturer等能力，实现了多种方式起流录制、音频耳返以及超低时延模式采集等功能，包含了功能调用接口的完整链路。
 
 ## 效果图预览
 
@@ -61,7 +61,7 @@
 
 麦克风使用权限：ohos.permission.MICROPHONE
 
-超低时延音频流权限（受限权限）：ohos.permission.USE_ULTRA_FAST_AUDIO_STREAM
+超低时延音频流权限：ohos.permission.USE_ULTRA_FAST_AUDIO_STREAM
 
 音频内录由`OH_AudioCapturer_RequestPlaybackCaptureStart`触发系统侧授权校验，授权结果通过异步回调返回。
 
