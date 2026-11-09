@@ -24,6 +24,7 @@ let subscriber: commonEventManager.CommonEventSubscriber;
 @Component
 struct Index {
   @State message: string = '';
+  private isListening: boolean = false;
 
   build() {
     Column() {
@@ -91,6 +92,10 @@ struct Index {
   // [Start subscribe_events_2]
   async subscribeToEvents() {
     Logger.info('subscribeToEvents() begin');
+    if (subscriber !== undefined) {
+      this.message = 'Subscription succeeded';
+      return;
+    }
     const subscribeInfo: commonEventManager.CommonEventSubscribeInfo = {
       events: [
         'usual.event.data.VOLUME_REMOVED',
