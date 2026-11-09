@@ -672,8 +672,13 @@ async function testQualityProfiles() {
   remuxFilter.quality.operation = 1; remuxFilter.options[5] = 0;
   assert.equal(TranscodeQueueModel.validated([remuxFilter]).length, 0, 'Remux cannot restore processing controls');
   model.audioMode = 1; model.rangeEnabled = true; model.sizeIndex = 2; model.grayscale = true;
+  model.quality.deepValidation = true;
   model.setOperation(1);
   assert.equal(model.request(1, 2).remuxOnly, true);
+  assert.equal(model.quality.deepValidation, false, 'Remux clears hidden decode validation');
+  model.quality.deepValidation = true;
+  assert.equal(model.request(1, 2).deepValidation, false, 'Restored remux settings cannot enable decode validation');
+  model.quality.deepValidation = false;
   assert.equal(model.audioMode, 0); assert.equal(model.rangeEnabled, false);
   assert.equal(model.sizeIndex, 0); assert.equal(model.grayscale, false);
   model.setOperation(0);

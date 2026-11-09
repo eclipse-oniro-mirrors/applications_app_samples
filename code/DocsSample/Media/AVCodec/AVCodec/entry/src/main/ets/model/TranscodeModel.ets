@@ -213,6 +213,7 @@ export class TranscodeModel {
     if (index === 1) {
       this.modeIndex = 0; this.sizeIndex = 0; this.grayscale = false; this.resizeMode = 0;
       this.rangeEnabled = false; this.quality.filter = 0; this.quality.frameRate = 0;
+      this.quality.deepValidation = false;
       if (this.audioMode === 1) { this.audioMode = 0; }
     }
     this.clearPreview();
@@ -480,7 +481,7 @@ export class TranscodeModel {
       resizeMode: this.resizeMode,
       audioMode: this.audioMode,
       audioTrack: this.audioTrack,
-      deepValidation: this.quality.deepValidation,
+      deepValidation: this.quality.operation === 0 && this.quality.deepValidation,
       remuxAllAudioTracks: this.quality.remuxAllAudioTracks,
       remuxOnly: this.quality.operation === 1,
       codecMode: this.quality.codecMode,
