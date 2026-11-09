@@ -36,37 +36,37 @@ function runSuppressedFutureDemo(): boolean {
 }
 
 export class AnnotationService {
-  static getLocalApiVersion(): number {
+  public static getLocalApiVersion(): number {
     return deviceInfo.sdkApiVersion;
   }
 
-  static getMockApiVersion(): number {
+  public static getMockApiVersion(): number {
     return MOCK_API_VERSION;
   }
 
-  static runAvailableDemo(): boolean {
+  public static runAvailableDemo(): boolean {
     if (deviceInfo.sdkApiVersion >= AVAILABLE_MIN_API_VERSION) {
       return runAvailableAnnotatedDemo();
     }
     return false;
   }
 
-  static runMockAvailableDemo(): boolean {
+  public static runMockAvailableDemo(): boolean {
     return MOCK_API_VERSION >= AVAILABLE_MIN_API_VERSION;
   }
 
-  static runSuppressWarningsDemo(): boolean {
+  public static runSuppressWarningsDemo(): boolean {
     if (deviceInfo.sdkApiVersion >= FUTURE_DEMO_API_VERSION) {
       return runSuppressedFutureDemo();
     }
     return false;
   }
 
-  static runMockSuppressWarningsDemo(): boolean {
+  public static runMockSuppressWarningsDemo(): boolean {
     return MOCK_API_VERSION >= FUTURE_DEMO_API_VERSION;
   }
 
-  static getSuppressionRules(): string[] {
+  public static getSuppressionRules(): string[] {
     return [
       SuppressWarningsType.COMPATIBILITY,
       SuppressWarningsType.SYSCAP,

@@ -24,7 +24,7 @@ import testsuite from '../test/List.test';
 import { logger } from '../util/Logger';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  public onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     try {
       logger.info(`TestAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
     } catch (error) {
@@ -35,7 +35,7 @@ export default class TestAbility extends UIAbility {
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
+  public onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('testability/pages/Index', (err: BusinessError) => {
       if (err.code) {
         logger.error(`Failed to load test page: ${JSON.stringify(err)}`);
@@ -45,11 +45,11 @@ export default class TestAbility extends UIAbility {
     });
   }
 
-  onDestroy(): void {
+  public onDestroy(): void {
     logger.info('TestAbility onDestroy');
   }
 
-  onWindowStageDestroy(): void {
+  public onWindowStageDestroy(): void {
     logger.info('TestAbility onWindowStageDestroy');
   }
 }

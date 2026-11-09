@@ -30,7 +30,7 @@ export struct AnnotationPage {
   @State private suppressionRules: string = '';
   @State private isMock: boolean = false;
 
-  aboutToAppear(): void {
+  public aboutToAppear(): void {
     this.suppressionRules = AnnotationService.getSuppressionRules().join(', ');
     this.showLocalEnvironment();
   }
@@ -74,7 +74,7 @@ export struct AnnotationPage {
     logger.info(`SuppressWarnings annotation executed: ${executed}`);
   }
 
-  build() {
+  public build() {
     Scroll() {
       Column() {
         Text($r('app.string.annotation_title'))

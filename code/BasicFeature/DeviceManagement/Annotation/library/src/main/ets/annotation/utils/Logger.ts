@@ -19,19 +19,19 @@ const DOMAIN: number = 0xFF00;
 const PREFIX: string = '[Sample_Annotation]';
 
 class Logger {
-  debug(message: string): void {
+  public debug(message: string): void {
     hilog.debug(DOMAIN, PREFIX, '%{public}s', message);
   }
 
-  info(message: string): void {
+  public info(message: string): void {
     hilog.info(DOMAIN, PREFIX, '%{public}s', message);
   }
 
-  warn(message: string): void {
+  public warn(message: string): void {
     hilog.warn(DOMAIN, PREFIX, '%{public}s', message);
   }
 
-  error(message: string): void {
+  public error(message: string): void {
     hilog.error(DOMAIN, PREFIX, '%{public}s', message);
   }
 }

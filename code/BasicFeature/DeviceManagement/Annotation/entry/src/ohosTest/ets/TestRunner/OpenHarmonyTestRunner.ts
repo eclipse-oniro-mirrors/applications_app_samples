@@ -29,11 +29,11 @@ function addAbilityMonitorCallback(err: Error): void {
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
-  onPrepare(): void {
+  public onPrepare(): void {
     logger.info('OpenHarmonyTestRunner onPrepare');
   }
 
-  async onRun(): Promise<void> {
+  public async onRun(): Promise<void> {
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     const testAbilityName = `${abilityDelegatorArguments.bundleName}.TestAbility`;

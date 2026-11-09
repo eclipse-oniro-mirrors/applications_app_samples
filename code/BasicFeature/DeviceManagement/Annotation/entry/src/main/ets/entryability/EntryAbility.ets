@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '@ohos/annotation';
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  public onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     try {
       logger.info(`EntryAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
     } catch (error) {
@@ -27,7 +27,7 @@ export default class EntryAbility extends UIAbility {
     }
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
+  public onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('pages/Index', (err: BusinessError) => {
       if (err.code) {
         logger.error(`Failed to load the content: ${JSON.stringify(err)}`);
@@ -37,11 +37,11 @@ export default class EntryAbility extends UIAbility {
     });
   }
 
-  onDestroy(): void {
+  public onDestroy(): void {
     logger.info('EntryAbility onDestroy');
   }
 
-  onWindowStageDestroy(): void {
+  public onWindowStageDestroy(): void {
     logger.info('EntryAbility onWindowStageDestroy');
   }
 }

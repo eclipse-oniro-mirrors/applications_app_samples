@@ -368,7 +368,7 @@
 | testApiVersionBoundaryHandling0001 | API 版本边界值处理 | 当 API 版本为边界值（如 0、22、23、27）时，返回预期的布尔值结果 | 未执行 |
 | testDeviceApiVersionValidation0002 | 设备 API 版本有效性验证 | 返回设备当前的 SDK API 版本号，且版本号大于 0 | 未执行 |
 | testNullUndefinedHandling0003 | 空值和未定义值处理 | 所有方法返回值类型正确，不抛出异常 | 未执行 |
-| testConcurrentModificationSafety0004 | 并发修改安全性验证 | 并发调用 getSuppressionRules() 返回的数组相互独立，修改一个数组不影响其他调用结果 | 未执行 |
+| testConcurrentModificationSafety0004 | 并发修改安全性验证 | 并发调用 getSuppressionRules() 返回的数组相互独立，修改任一数组不影响其余调用的返回结果 | 未执行 |
 | testResourceCleanup0005 | 资源清理验证 | 多次调用后无内存泄漏，状态保持一致 | 未执行 |
 | testInvalidOperationHandling0006 | 无效操作处理 | 所有操作均返回有效值，无异常抛出 | 未执行 |
 | testBoundaryConditionHandling0007 | 边界条件处理 | 版本常量（22、23、27）在边界比较中返回预期结果 | 未执行 |
@@ -568,7 +568,7 @@
 | --- | --- | --- | --- |
 | testMemoryLeakLongRunning0001 | 长时间运行内存泄漏检测 | 连续调用 100 次后，内存占用稳定，无持续增长 | 未执行 |
 | testResourceCleanupAfterCalls0002 | 调用后资源清理验证 | 每次调用后临时对象被正确释放，GC 后内存恢复正常 | 未执行 |
-| testArrayReturnIndependence0003 | 数组返回独立性验证 | getSuppressionRules() 返回的数组与其他调用返回的数组相互独立 | 未执行 |
+| testArrayReturnIndependence0003 | 数组返回独立性验证 | getSuppressionRules() 多次调用返回的数组各自独立，互不影响 | 未执行 |
 | testRepeatedObjectCreation0004 | 重复对象创建压力测试 | 连续创建 100 个临时对象后，系统内存无异常增长 | 未执行 |
 | testMemoryPressureStability0005 | 内存压力稳定性测试 | 在内存压力下，所有 API 调用仍返回正确结果 | 未执行 |
 | testNoCircularReferences0006 | 无循环引用验证 | 对象引用关系图中不存在循环引用，GC 可正常回收 | 未执行 |
