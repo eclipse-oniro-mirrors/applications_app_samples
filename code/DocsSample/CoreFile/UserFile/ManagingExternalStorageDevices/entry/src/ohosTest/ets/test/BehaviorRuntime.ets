@@ -16,6 +16,7 @@
 import { expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export const DOMAIN: number = 0xF811;
 export const TAG: string = '[Sample_ManagingExternalStorageDevices]';
@@ -25,8 +26,27 @@ export const driver: Driver = Driver.create();
 
 export async function launchEntry(): Promise<void> {
   const want: Want = { bundleName: BUNDLE_NAME, abilityName: 'EntryAbility' };
-  await DELEGATOR.startAbility(want);
-  await driver.delayMs(600);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await DELEGATOR.startAbility(want);
+      await driver.delayMs(500);
+      return;
+    } catch (err) {
+      hilog.warn(DOMAIN, TAG, 'startAbility retry %{public}d', attempt);
+      await driver.delayMs(300);
+    }
+  }
+  expect().assertFail();
+}
+
+async function waitForStatus(expected: string, timeout: number): Promise<void> {
+  const deadline: number = Date.now() + timeout;
+  while (Date.now() < deadline) {
+    if (await readStatus() === expected) {
+      return;
+    }
+    await driver.delayMs(100);
+  }
 }
 
 export async function click(id: string): Promise<void> {
@@ -36,7 +56,11 @@ export async function click(id: string): Promise<void> {
     return;
   }
   await component.click();
-  await driver.delayMs(450);
+  if (id === 'subscribeButton') {
+    await waitForStatus('Subscription succeeded', 3000);
+  } else {
+    await driver.delayMs(150);
+  }
 }
 
 export async function readStatus(): Promise<string> {
