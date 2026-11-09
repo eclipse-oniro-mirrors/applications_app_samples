@@ -34,33 +34,35 @@ HSP（Harmony Shared Package）是动态共享包，按照使用场景可以分�
 
 ### 工程目录
 ```
-entry/src/main/ets/                 
-|---entryability
-|   └---EntryAbility.ts                   
-|---logger
-|   └---Logger.ts                      // 日志工具
-└---pages
-    └---Index.ets                      // 首页
+entry/src/main/ets
+├── entryability
+│   └── EntryAbility.ts
+├── logger
+│   └── Logger.ts                               // 日志工具
+└── pages
+    └── Index.ets                               // 首页
 library
-|---src
-|   └---main
-|       |---cpp
-|       |   |---types
-|       |   |---CMakeLists.txt
-|       |   └---hello.cpp
-|       |---ets
-|       |   |---components
-|       |   |   └---MyTitleBar.ets		// ArkUI组件页面
-|       |   |---page
-|       |   |   |---back.ets			// 实现页面路由返回
-|       |   |   |---Index.ets			// 访问HSP中的图片资源
-|       |   |   └---menu.ts
-|       |   └---utils
-|       |       └---nativeTest.ts		// native方法页面
-|       |       └---tset.ts				// ts类和方法页面
-|       |---resources				// 资源文件
-|       └---module.json5
-└---oh-package.json5
+├── src/main/cpp
+│   ├── CMakeLists.txt
+│   ├── hello.cpp
+│   └── types/liblibrary
+│       ├── Index.d.ts                          // native 接口声明
+│       └── oh-package.json5
+├── src/main/ets
+│   ├── Index.ets                               // HSP 包入口
+│   ├── ResManager.ets                          // 资源管理类
+│   ├── components
+│   │   └── MyTitleBar.ets                      // ArkUI 组件
+│   ├── pages
+│   │   ├── Back.ets                            // 路由返回页面
+│   │   ├── Index.ets                           // HSP 资源页面
+│   │   └── Menu.ets                            // 路由跳转页面
+│   └── utils
+│       ├── nativeTest.ts                       // native 方法导出
+│       └── test.ts                             // TS 类和方法导出
+├── src/main/resources                          // 资源文件
+├── src/main/module.json5
+└── oh-package.json5
 ```
 
 ### 具体实现
@@ -69,7 +71,7 @@ library
   * 导出HSP的ArkUI组件、接口、资源，HSP中的资源，源码链接：[index.ets](library/src/main/ets/Index.ets)
     * HSP中MyTitleBar.ets文件的ArkUI组件，源码链接：[MyTitleBar.ets](library/src/main/ets/components/MyTitleBar.ets)
     * HSP中test.ts文件的ts类和方法，源码链接：[test.ts](library/src/main/ets/utils/test.ts)
-    * HSP中nativeTest.ts文件的native方法。在HSP中也可以包含C++编写的so，对于so中的native方法，HSP通过间接的方式导出，如导出libnative.so的乘法接口multi，源码链接：[nativeTest.ts](library/src/main/ets/utils/nativeTest.ts)
+    * HSP中nativeTest.ts文件的native方法。在HSP中也可以包含C++编写的so，对于so中的native方法，HSP通过间接的方式导出，如导出liblibrary.so的乘法接口multi，源码链接：[nativeTest.ts](library/src/main/ets/utils/nativeTest.ts)
     * 通过$r访问HSP中的资源，源码链接：[Index.ets](library/src/main/ets/pages/Index.ets)
     * HSP中的资源管理类，跨包访问HSP内资源时，推荐实现一个资源管理类，以封装对外导出的资源，源码链接：[ResManager.ets](library/src/main/ets/ResManager.ets)
   * 引用HSP的ArkUI组件、接口、资源
@@ -90,6 +92,10 @@ library
 2.本示例为Stage模型，支持API 26版本SDK，SDK版本号（API Version 26 Release）。
 
 3.本示例需要使用DevEco Studio版本号（26.0.0 Release）及以上版本才可编译运行。
+
+### 测试
+
+自动化测试说明及用例清单见 [./ohosTest.md](./ohosTest.md)。
 
 ### 下载
 
