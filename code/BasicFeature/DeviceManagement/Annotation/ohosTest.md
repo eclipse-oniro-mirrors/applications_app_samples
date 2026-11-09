@@ -365,16 +365,16 @@
 
 | 用例名称 | 测试场景 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| testApiVersionBoundaryHandling0001 | API 版本边界处理 | 边界值正确处理 | 未执行 |
-| testDeviceApiVersionValidation0002 | 设备 API 版本验证 | 版本值有效 | 未执行 |
-| testNullUndefinedHandling0003 | 空值处理 | 正确处理 null/undefined | 未执行 |
-| testConcurrentModificationSafety0004 | 并发修改安全 | 修改不影响其他操作 | 未执行 |
-| testResourceCleanup0005 | 资源清理 | 资源被正确清理 | 未执行 |
-| testInvalidOperationHandling0006 | 无效操作处理 | 抛出适当错误 | 未执行 |
-| testBoundaryConditionHandling0007 | 边界条件处理 | 边界值正确处理 | 未执行 |
-| testErrorRecovery0008 | 错误恢复 | 从错误中恢复 | 未执行 |
-| testDefensiveProgramming0009 | 防御性编程 | 防御措施有效 | 未执行 |
-| testRobustErrorHandling0010 | 健壮错误处理 | 错误处理健壮 | 未执行 |
+| testApiVersionBoundaryHandling0001 | API 版本边界值处理 | 当 API 版本为边界值（如 0、22、23、27）时，返回预期的布尔值结果 | 未执行 |
+| testDeviceApiVersionValidation0002 | 设备 API 版本有效性验证 | 返回设备当前的 SDK API 版本号，且版本号大于 0 | 未执行 |
+| testNullUndefinedHandling0003 | 空值和未定义值处理 | 所有方法返回值类型正确，不抛出异常 | 未执行 |
+| testConcurrentModificationSafety0004 | 并发修改安全性验证 | 并发调用 getSuppressionRules() 返回的数组相互独立，修改一个数组不影响其他调用结果 | 未执行 |
+| testResourceCleanup0005 | 资源清理验证 | 多次调用后无内存泄漏，状态保持一致 | 未执行 |
+| testInvalidOperationHandling0006 | 无效操作处理 | 所有操作均返回有效值，无异常抛出 | 未执行 |
+| testBoundaryConditionHandling0007 | 边界条件处理 | 版本常量（22、23、27）在边界比较中返回预期结果 | 未执行 |
+| testErrorRecovery0008 | 错误恢复机制 | 异常操作后，服务状态恢复正常，后续调用返回正确结果 | 未执行 |
+| testDefensiveProgramming0009 | 防御性编程验证 | 所有返回值经过类型检查，数组长度固定为 3 | 未执行 |
+| testRobustErrorHandling0010 | 健壮性错误处理 | 连续 10 次调用所有方法，均返回一致的正确结果 | 未执行 |
 
 ## 配置 XTS 用例
 
@@ -566,16 +566,16 @@
 
 | 用例名称 | 测试场景 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| testMemoryLeakLongRunning0001 | 长时间运行内存泄漏 | 无泄漏 | 未执行 |
-| testResourceCleanupAfterCalls0002 | 调用后资源清理 | 清理完整 | 未执行 |
-| testArrayReturnIndependence0003 | 数组返回独立性 | 数组独立 | 未执行 |
-| testRepeatedObjectCreation0004 | 重复对象创建 | 无内存问题 | 未执行 |
-| testMemoryPressureStability0005 | 内存压力稳定性 | 运行稳定 | 未执行 |
-| testNoCircularReferences0006 | 无循环引用 | 无循环 | 未执行 |
-| testGCBehavior0007 | GC 行为 | GC 正常 | 未执行 |
-| testMemoryUsageTrend0008 | 内存使用趋势 | 趋势稳定 | 未执行 |
-| testLongRunningStability0009 | 长时间运行稳定性 | 运行稳定 | 未执行 |
-| testResourceCleanupCompleteness0010 | 资源清理完整性 | 清理完整 | 未执行 |
+| testMemoryLeakLongRunning0001 | 长时间运行内存泄漏检测 | 连续调用 100 次后，内存占用稳定，无持续增长 | 未执行 |
+| testResourceCleanupAfterCalls0002 | 调用后资源清理验证 | 每次调用后临时对象被正确释放，GC 后内存恢复正常 | 未执行 |
+| testArrayReturnIndependence0003 | 数组返回独立性验证 | getSuppressionRules() 返回的数组与其他调用返回的数组相互独立 | 未执行 |
+| testRepeatedObjectCreation0004 | 重复对象创建压力测试 | 连续创建 100 个临时对象后，系统内存无异常增长 | 未执行 |
+| testMemoryPressureStability0005 | 内存压力稳定性测试 | 在内存压力下，所有 API 调用仍返回正确结果 | 未执行 |
+| testNoCircularReferences0006 | 无循环引用验证 | 对象引用关系图中不存在循环引用，GC 可正常回收 | 未执行 |
+| testGCBehavior0007 | GC 行为观察 | 触发 GC 后，临时对象被正确回收，内存占用降低 | 未执行 |
+| testMemoryUsageTrend0008 | 内存使用趋势监控 | 100 次调用中，内存使用趋势平稳，无持续上升 | 未执行 |
+| testLongRunningStability0009 | 长时间运行稳定性验证 | 连续运行 100 次操作后，服务状态保持一致 | 未执行 |
+| testResourceCleanupCompleteness0010 | 资源清理完整性验证 | 所有临时变量和对象在使用完毕后被正确清理 | 未执行 |
 
 ## 错误边界 XTS 用例
 
@@ -583,18 +583,18 @@
 
 | 用例名称 | 测试场景 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| testVersionBoundaryZero0001 | 版本边界零值 | 处理正确 | 未执行 |
-| testNegativeVersionHandling0002 | 负版本处理 | 处理正确 | 未执行 |
-| testLargeVersionHandling0003 | 大版本处理 | 处理正确 | 未执行 |
-| testNonIntegerVersionHandling0004 | 非整数版本处理 | 处理正确 | 未执行 |
-| testUndefinedNullHandling0005 | undefined/null 处理 | 处理正确 | 未执行 |
-| testTypeMismatchHandling0006 | 类型不匹配处理 | 处理正确 | 未执行 |
-| testExceptionPropagation0007 | 异常传播 | 传播正确 | 未执行 |
-| testErrorRecoveryMechanism0008 | 错误恢复机制 | 恢复正确 | 未执行 |
-| testBoundaryConditionException0009 | 边界条件异常 | 处理正确 | 未执行 |
-| testExceptionStackIntegrity0010 | 异常栈完整性 | 栈完整 | 未执行 |
-| testErrorHandlingConsistency0011 | 错误处理一致性 | 处理一致 | 未执行 |
-| testBoundaryErrorHandling0012 | 边界错误处理 | 处理正确 | 未执行 |
+| testVersionBoundaryZero0001 | 版本边界零值处理 | 当 API 版本为 0 时，版本比较返回预期的 false 结果 | 未执行 |
+| testNegativeVersionHandling0002 | 负版本处理 | 当 API 版本为负数时，版本比较逻辑正确处理负值 | 未执行 |
+| testLargeVersionHandling0003 | 大版本处理 | 当 API 版本为极大值（如 1000）时，版本比较返回预期的 true 结果 | 未执行 |
+| testNonIntegerVersionHandling0004 | 非整数版本处理 | 当 API 版本为小数（如 22.5）时，版本比较正确处理浮点数 | 未执行 |
+| testUndefinedNullHandling0005 | undefined/null 处理 | 所有方法返回值类型正确，不因空值导致异常 | 未执行 |
+| testTypeMismatchHandling0006 | 类型不匹配处理 | 当参数类型不匹配时，方法返回有效值或抛出明确的类型错误 | 未执行 |
+| testExceptionPropagation0007 | 异常传播验证 | 当内部发生异常时，异常正确向上传播，不被静默吞掉 | 未执行 |
+| testErrorRecoveryMechanism0008 | 错误恢复机制验证 | 异常操作后，服务状态恢复正常，后续调用返回正确结果 | 未执行 |
+| testBoundaryConditionException0009 | 边界条件异常处理 | 在边界值（如 API 22、23、27）处发生异常时，异常被正确捕获 | 未执行 |
+| testExceptionStackIntegrity0010 | 异常栈完整性验证 | 异常堆栈信息完整，包含错误发生的位置和调用链 | 未执行 |
+| testErrorHandlingConsistency0011 | 错误处理一致性验证 | 相同错误条件下，多次处理的错误类型和消息保持一致 | 未执行 |
+| testBoundaryErrorHandling0012 | 边界错误处理验证 | 在版本阈值边界处，错误处理逻辑返回预期的布尔值 | 未执行 |
 
 ## 规则引擎 XTS 用例
 
@@ -602,16 +602,16 @@
 
 | 用例名称 | 测试场景 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| testRulePriorityOrder0001 | 规则优先级顺序 | 顺序正确 | 未执行 |
-| testRuleConflictResolution0002 | 规则冲突解决 | 解决正确 | 未执行 |
-| testDynamicRuleAddition0003 | 动态规则添加 | 添加成功 | 未执行 |
-| testDynamicRuleDeletion0004 | 动态规则删除 | 删除成功 | 未执行 |
-| testRuleMatchingAlgorithm0005 | 规则匹配算法 | 匹配正确 | 未执行 |
-| testRuleInheritanceOverride0006 | 规则继承覆盖 | 覆盖正确 | 未执行 |
-| testRuleCombinationApplication0007 | 规则组合应用 | 应用正确 | 未执行 |
-| testRuleConditionalBranch0008 | 规则条件分支 | 分支正确 | 未执行 |
-| testRuleDefaultBehavior0009 | 规则默认行为 | 行为正确 | 未执行 |
-| testRuleEngineStability0010 | 规则引擎稳定性 | 运行稳定 | 未执行 |
+| testRulePriorityOrder0001 | 规则优先级顺序验证 | getSuppressionRules() 返回的规则顺序为 compatibility、syscap、permission | 未执行 |
+| testRuleConflictResolution0002 | 规则冲突解决验证 | 当多个规则同时生效时，优先级高的规则主导结果 | 未执行 |
+| testDynamicRuleAddition0003 | 动态规则添加验证 | 向规则列表添加新规则后，列表长度增加且包含新规则 | 未执行 |
+| testDynamicRuleDeletion0004 | 动态规则删除验证 | 从规则列表删除规则后，列表长度减少且不包含已删除规则 | 未执行 |
+| testRuleMatchingAlgorithm0005 | 规则匹配算法验证 | SuppressWarningsType 枚举值与预期字符串匹配正确 | 未执行 |
+| testRuleInheritanceOverride0006 | 规则继承覆盖验证 | 子类规则正确覆盖父类规则，最终生效的是子类规则 | 未执行 |
+| testRuleCombinationApplication0007 | 规则组合应用验证 | 多个规则组合使用时，所有规则均正确生效 | 未执行 |
+| testRuleConditionalBranch0008 | 规则条件分支验证 | 当满足特定条件时，规则分支正确执行对应逻辑 | 未执行 |
+| testRuleDefaultBehavior0009 | 规则默认行为验证 | 未指定规则时，系统使用默认行为处理 | 未执行 |
+| testRuleEngineStability0010 | 规则引擎稳定性验证 | 连续 100 次调用规则引擎，返回结果保持一致 | 未执行 |
 
 ## 回归 XTS 用例
 
@@ -619,18 +619,18 @@
 
 | 用例名称 | 测试场景 | 预期输出 | 测试结果 |
 | --- | --- | --- | --- |
-| testCoreFunctionalityStability0001 | 核心功能稳定性 | 功能稳定 | 未执行 |
-| testCriticalPathRegression0002 | 关键路径回归 | 路径正常 | 未执行 |
-| testPerformanceNoRegression0003 | 性能无回归 | 性能稳定 | 未执行 |
-| testCompatibilityNoRegression0004 | 兼容性无回归 | 兼容性好 | 未执行 |
-| testBoundaryConditionRegression0005 | 边界条件回归 | 边界正确 | 未执行 |
-| testExceptionHandlingRegression0006 | 异常处理回归 | 处理正确 | 未执行 |
-| testStateMachineRegression0007 | 状态机回归 | 状态正确 | 未执行 |
-| testConstantValuesRegression0008 | 常量值回归 | 常量不变 | 未执行 |
-| testRulesArrayRegression0009 | 规则数组回归 | 数组正确 | 未执行 |
-| testMockEnvironmentRegression0010 | Mock 环境回归 | 环境正常 | 未执行 |
-| testIntegrationPointsRegression0011 | 集成点回归 | 集成正常 | 未执行 |
-| testOverallSystemStability0012 | 整体系统稳定性 | 系统稳定 | 未执行 |
+| testCoreFunctionalityStability0001 | 核心功能稳定性回归 | 连续 10 次调用所有核心 API，返回值保持一致 | 未执行 |
+| testCriticalPathRegression0002 | 关键路径回归验证 | 版本检查路径（API 22、23、27）返回值与预期一致 | 未执行 |
+| testPerformanceNoRegression0003 | 性能无回归验证 | 100 次 API 调用耗时与基线相比，波动小于 10% | 未执行 |
+| testCompatibilityNoRegression0004 | 兼容性无回归验证 | 在 API 21、22、23、27 环境下，所有功能正常运行 | 未执行 |
+| testBoundaryConditionRegression0005 | 边界条件回归验证 | 版本阈值边界（22、23、27）的比较结果与历史版本一致 | 未执行 |
+| testExceptionHandlingRegression0006 | 异常处理回归验证 | 异常场景下的错误处理行为与历史版本保持一致 | 未执行 |
+| testStateMachineRegression0007 | 状态机回归验证 | Local 和 Mock 环境切换后的状态转换与预期一致 | 未执行 |
+| testConstantValuesRegression0008 | 常量值回归验证 | AVAILABLE_MIN_API_VERSION(22)、SUPPRESS_ANNOTATION_SINCE_API_VERSION(23)、FUTURE_DEMO_API_VERSION(27) 保持不变 | 未执行 |
+| testRulesArrayRegression0009 | 规则数组回归验证 | getSuppressionRules() 返回的数组内容、顺序、长度与历史版本一致 | 未执行 |
+| testMockEnvironmentRegression0010 | Mock 环境回归验证 | Mock 环境（API 21）下的所有功能与历史版本保持一致 | 未执行 |
+| testIntegrationPointsRegression0011 | 集成点回归验证 | AnnotationService 与 deviceInfo、SuppressWarningsType 的集成正常 | 未执行 |
+| testOverallSystemStability0012 | 整体系统稳定性回归 | 完整测试流程（100 次迭代）无崩溃、无异常 | 未执行 |
 
 ## 性能深度 XTS 用例
 
