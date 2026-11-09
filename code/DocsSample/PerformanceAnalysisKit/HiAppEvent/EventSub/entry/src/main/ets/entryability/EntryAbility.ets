@@ -22,13 +22,25 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [Start AppHicollie_ArkTS_Header]
 // [Start MainThreadJank_ArkTS_Header]
 // [Start External_Log_ArkTS_Header]
+// [Start resourceleak_events_arkts_1]
+// [Start address_sanitizer_events_arkts_1]
+// [Start resourceleak_events_2]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End AppHicollie_ArkTS_Header]
 // [End AppEvent_Crash_Click_ArkTS_Header]
+// [StartExclude Crash_Click_ArkTS_Header]
+// [StartExclude MainThreadJank_ArkTS_Header]
 // [StartExclude External_Log_ArkTS_Header]
+import { deviceInfo, BusinessError } from '@kit.BasicServicesKit';
+// [EndExclude Crash_Click_ArkTS_Header]
+// [EndExclude MainThreadJank_ArkTS_Header]
+// [StartExclude External_Log_ArkTS_Header]
+// [StartExclude resourceleak_events_2]
 // [End PssLeakEvent_ArkTS_Header]
+// [End address_sanitizer_events_arkts_1]
 // [StartExclude MainThreadJank_ArkTS_Header]
 import { deviceInfo } from '@kit.BasicServicesKit';
+// [End resourceleak_events_arkts_1]
 // [EndExclude MainThreadJank_ArkTS_Header]
 // [End Crash_Click_ArkTS_Header]
 import { buffer, util } from '@kit.ArkTS';
@@ -41,17 +53,20 @@ import { window } from '@kit.ArkUI';
 // [End EventSub_EntryAbility_Header]
 // [Start EventSub_Capi_Header]
 // [Start MainThreadJank_Header]
+// [Start resourceleak_events_Header_2]
 import testNapi from 'libentry.so';
 // [End EventSub_Capi_Header]
 // [End MainThreadJank_Header]
+import hidebug from '@kit.PerformanceAnalysisKit'
 // [Start ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
 // 该变量在/pages/ArkWebPage.ets文件中进行定义，用于实现webId到网页url的映射
+// [StartExclude resourceleak_events_Header_2]
 import { webIdToUrlMap } from '../pages/ArkWebPage';
 // [End ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
-
 // [Start appHicollieWatcher_Watcher_Header]
 let appHicollieWatcher: hiAppEvent.Watcher;
 // [End appHicollieWatcher_Watcher_Header]
+
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -221,7 +236,9 @@ export default class EntryAbility extends UIAbility {
       });
     }
 
+    // [Start address_sanitizer_events_arkts_2]
     if (deviceInfo.sdkApiVersion >= 24) {
+      // [EndExclude resourceleak_events_2]
       let crashEventPolicy : hiAppEvent.EventPolicy = {
         "appCrashPolicy": { // 崩溃事件配置策略
           "pageSwitchLogEnable": true, // 从API version 24开始，支持使能页面切换日志
@@ -235,6 +252,7 @@ export default class EntryAbility extends UIAbility {
       }).catch((err: BusinessError) => {
         hilog.error(0x0000, 'testTag', `HiAppEvent code: ${err.code}, message: ${err.message}`);
       });
+      //[End resourceleak_events_2]
     }
     // [End Crash_ArkTS_Add_Event]
     // [Start FreezeEvent_ArkTS_Add_Event]
@@ -306,6 +324,7 @@ export default class EntryAbility extends UIAbility {
         }
       }
     };
+    // [End address_sanitizer_events_arkts_2]
     hiAppEvent.addWatcher(watcher);
     // [End CrashEvent_ArkTS_Add_Watcher]
     // [Start FreezeEvent_ArkTS_Add_Watcher]
@@ -388,6 +407,7 @@ export default class EntryAbility extends UIAbility {
     });
     // [End FreezeEvent_ArkTS_Add_Watcher]
     // [Start PssLeakEvent_ArkTS_Add_Watcher]
+    // [Start resourceleak_events_arkts_2]  
     // 完成参数键值对赋值
     let pssParams: Record<string, hiAppEvent.ParamType> = {
       "test_data": 100,
@@ -400,11 +420,24 @@ export default class EntryAbility extends UIAbility {
     });
     if (deviceInfo.sdkApiVersion >= 20) {  // API Version 20及以后版本，支持设置资源泄漏日志配置参数
       // 完成自定义配置键值对赋值
+      // [Start resourceleak_events_arkts_3] 
+      // [Start resourceleak_events_1]
       let configParams: Record<string, hiAppEvent.ParamType> = {
+        // [StartExclude PssLeakEvent_ArkTS_Add_Watcher]
+        // [StartExclude resourceleak_events_arkts_2]
+        // [StartExclude resourceleak_events_1]
+        "js_heap_logtype": "event_rawheap",
+        // [EndExclude resourceleak_events_arkts_2]
+        // [EndExclude PssLeakEvent_ArkTS_Add_Watcher]
+        // [EndExclude resourceleak_events_1]
+        // [StartExclude resourceleak_events_arkts_3] 
         'js_heap_logtype': 'event', // 仅获取事件
+        // [EndExclude resourceleak_events_arkts_3] 
       };
       // 设置资源泄漏事件的自定义配置
       hiAppEvent.setEventConfig(hiAppEvent.event.RESOURCE_OVERLIMIT, configParams);
+      // [End resourceleak_events_arkts_3]
+      // [End resourceleak_events_1]
     }
     hiAppEvent.addWatcher({
       // 自定义观察者名称，系统会使用名称来标识不同的观察者
@@ -429,6 +462,7 @@ export default class EntryAbility extends UIAbility {
         }
       }
     });
+    // [End resourceleak_events_arkts_2]
     // [End PssLeakEvent_ArkTS_Add_Watcher]
     // [Start AppKillEvent_ArkTS_Add_Watcher]
     hiAppEvent.addWatcher({
@@ -697,8 +731,10 @@ export default class EntryAbility extends UIAbility {
     });
     // [End MainThreadJank_ArkTS_Add_Watcher]
     // [Start EventSub_Call_Capi_Function]
+    // [EndExclude resourceleak_events_Header_2]
     // 调用C++观察者
     testNapi.registerWatcher();
+    // [End resourceleak_events_Header_2]
     // [End EventSub_Call_Capi_Function]
     // [Start AppEvent_Call_Capi_Function]
     // 在onCreate()函数中添加C API接口调用

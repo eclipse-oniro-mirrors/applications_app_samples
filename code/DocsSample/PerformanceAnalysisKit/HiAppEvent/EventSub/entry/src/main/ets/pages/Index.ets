@@ -26,15 +26,19 @@ import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
 // [End CrashConfig_Policy_Header]
 // [Start EventSub_Index_Capi_Header]
+// [Start address_sanitizer_events_arkts_5]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
 // [End PssLeakEvent_Header]
+// [StartExclude address_sanitizer_events_arkts_5]
 // [Start ArkWeb_Fling_Jank_Header]
 import { ArkWebPage } from './ArkWebPage';
 // [End ArkWeb_Fling_Jank_Header]
+// [EndExclude address_sanitizer_events_arkts_5]
 @Entry
 @Component
 struct Index {
+  // [StartExclude address_sanitizer_events_arkts_5]
   @State leakedArray: string[][] = [];
   // [Start AppKillEvent_Button]
   @State message: string = 'Start To Leak';
@@ -299,6 +303,7 @@ struct Index {
               }, 1000)
             })
           // [End FreezeEvent_Button]
+          // [StartExclude address_sanitizer_events_arkts_5]
           // [Start AsanEvent_Button]
           Button('address-sanitizer')
             .type(ButtonType.Capsule)
@@ -311,6 +316,7 @@ struct Index {
             .onClick(() => {
               testNapi.addressSanitizerTest();
             })
+            // [EndExclude address_sanitizer_events_arkts_5]
           // [End AsanEvent_Button]
           // [Start hicollie_timer_ndk_Button]
           // 添加点击事件，触发TestHiCollieTimerNdk方法。
@@ -428,12 +434,16 @@ struct Index {
             })
           // [End MainThreadJank_Timeout_500_Button]
         }
+        // [EndExclude address_sanitizer_events_arkts_5]
         .width('50%')
       }
       .height('100%')
     }
+    // [EndExclude address_sanitizer_events_arkts_5]
     .navDestination(this.PageMap)
     .hideTitleBar(true)
     .mode(NavigationMode.Stack)
+    // [StartExclude address_sanitizer_events_arkts_5]
   }
 }
+// [End address_sanitizer_events_arkts_5]
