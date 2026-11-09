@@ -58,9 +58,11 @@ struct AudioFileOprInfo {
     bool isNeedLoop = false;
     bool isWavFile = false;
     uint32_t wavDataOffset = 0;
-    uint32_t sampleRate = 48000;
-    uint16_t channels = 2;
-    uint16_t bitsPerSample = 16;
+    // Defaults stay zero so a missing format is detected instead of silently producing a wrong duration.
+    // The renderer is built with the 48k/2ch/16bit defaults first and reconfigured once real params arrive.
+    uint32_t sampleRate = 0;
+    uint16_t channels = 0;
+    uint16_t bitsPerSample = 0;
     AudioBufferQueue* audioBufferQueue = nullptr;
     std::atomic<bool> isFileEnd{false};
     std::atomic<bool> isCompletionCallbackTriggered{false};

@@ -192,11 +192,11 @@ library/
 
 音频录制涉及的权限包括：
 
-1.允许应用使用麦克风：[ohos.permission.MICROPHONE](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmicrophone)
+1.允许应用使用麦克风：[ohos.permission.MICROPHONE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmicrophone)
 
 空间音频涉及的权限包括：
 
-1.允许应用使用蓝牙：[ohos.permission.BLUETOOTH](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionuse_bluetooth)
+1.允许应用使用蓝牙：[ohos.permission.BLUETOOTH](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionuse_bluetooth)
 
 ### 依赖
 
@@ -205,8 +205,8 @@ library/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568；
-2. 本示例仅支持API21版本SDK，SDK版本号(API Version 21 Release),镜像版本号(6.0Release)；
-3. 本示例需要使用DevEco Studio 版本号(6.0Release)才可编译运行；
+2. 本示例为 Stage 模型，编译 SDK 为 API 26（`compileSdkVersion: "26.0.0"`，SDK 版本号 API Version 26），兼容最低 API 21（`compatibleSdkVersion: 21`）；
+3. 本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行。
 
 ### 下载
 
@@ -216,6 +216,6 @@ library/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Media/Audio > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

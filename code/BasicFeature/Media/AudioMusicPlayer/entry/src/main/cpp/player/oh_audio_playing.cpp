@@ -443,6 +443,26 @@ static OH_AudioStream_SampleFormat GetSampleFormat(uint16_t bitsPerSample)
     return AUDIOSTREAM_SAMPLE_S16LE;
 }
 
+static void ApplyRendererPostConfig(OH_AudioRenderer* renderer, int32_t& audioLatencyNs, bool silentMode)
+{
+    int32_t latencyNs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(renderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    if (latencyRet == AUDIOSTREAM_SUCCESS) {
+        audioLatencyNs = latencyNs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}lld ns", (long long)latencyNs);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
+    }
+    if (silentMode) {
+        auto silentRet = OH_AudioRenderer_SetSilentModeAndMixWithOthers(renderer, silentMode);
+        if (silentRet != AUDIOSTREAM_SUCCESS) {
+            OH_LOG_ERROR(LOG_APP, "Restore silent mode failed, ret: %{public}d", silentRet);
+        } else {
+            OH_LOG_INFO(LOG_APP, "Restored silent mode: %{public}d", silentMode);
+        }
+    }
+}
+
 void OHAudioPlayer::ReconfigurePlayer()
 {
     if (!audioFileOprInfo) {
@@ -451,6 +471,23 @@ void OHAudioPlayer::ReconfigurePlayer()
 
     OH_LOG_INFO(LOG_APP, "Reconfiguring player: sampleRate=%{public}u, channels=%{public}u, bitsPerSample=%{public}u",
         audioFileOprInfo->sampleRate, audioFileOprInfo->channels, audioFileOprInfo->bitsPerSample);
+
+    // A renderer cannot be generated from an incomplete format, otherwise duration stays 0.
+    if (audioFileOprInfo->sampleRate == 0 || audioFileOprInfo->channels == 0 ||
+        audioFileOprInfo->bitsPerSample == 0) {
+        OH_LOG_ERROR(LOG_APP, "Skip reconfigure, invalid audio params: rate=%{public}u, channels=%{public}u, "
+            "bits=%{public}u", audioFileOprInfo->sampleRate, audioFileOprInfo->channels,
+            audioFileOprInfo->bitsPerSample);
+        return;
+    }
+
+    if (rendererBuilder == nullptr) {
+        rendererBuilder = CreateAudioStreamBuilder();
+    }
+    if (rendererBuilder == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "Skip reconfigure, renderer builder is null");
+        return;
+    }
 
     if (audioRenderer != nullptr) {
         OH_AudioRenderer_Release(audioRenderer);
@@ -470,27 +507,16 @@ void OHAudioPlayer::ReconfigurePlayer()
         return;
     }
 
-    int32_t latencyMs = 0;
-    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyMs);
-    if (latencyRet == AUDIOSTREAM_SUCCESS) {
-        audioLatencyMs = latencyMs;
-        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}d ms", latencyMs);
-    } else {
-        OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
-    }
-
-    if (isSilentMode) {
-        auto silentRet = OH_AudioRenderer_SetSilentModeAndMixWithOthers(audioRenderer, isSilentMode);
-        if (silentRet != AUDIOSTREAM_SUCCESS) {
-            OH_LOG_ERROR(LOG_APP, "Restore silent mode failed, ret: %{public}d", silentRet);
-        } else {
-            OH_LOG_INFO(LOG_APP, "Restored silent mode: %{public}d", isSilentMode);
-        }
-    }
+    ApplyRendererPostConfig(audioRenderer, audioLatencyNs, isSilentMode);
 }
 
 static AudioFileOprInfo* InitAudioFileOprInfo(uint32_t songFd, uint32_t songFileSize, uint32_t songFileOffset)
 {
+    if (songFd == static_cast<uint32_t>(-1) || songFileSize == 0) {
+        OH_LOG_ERROR(LOG_APP, "Invalid song resource: fd=%{public}d, size=%{public}u", static_cast<int32_t>(songFd),
+            songFileSize);
+        return nullptr;
+    }
     AudioFileOprInfo* info = new AudioFileOprInfo();
     info->songFd = songFd;
     info->songFileSize = songFileSize;
@@ -511,10 +537,15 @@ static bool HandleWavFile(uint32_t songFd, AudioFileOprInfo* info, uint32_t song
         return false;
     }
     info->isWavFile = true;
+    if (info->wavDataOffset >= songFileSize) {
+        OH_LOG_ERROR(LOG_APP, "Invalid WAV data chunk: dataOffset=%{public}u, fileSize=%{public}u",
+            info->wavDataOffset, songFileSize);
+        return false;
+    }
     uint32_t dataSize = songFileSize - info->wavDataOffset;
     info->songFileSize = dataSize;
-    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataSize=%{public}u",
-        songFileSize, dataSize);
+    OH_LOG_INFO(LOG_APP, "WAV file size adjusted: original=%{public}u, dataOffset=%{public}u, dataSize=%{public}u",
+        songFileSize, info->wavDataOffset, dataSize);
 
     uint32_t correctOffset = songFileOffset + info->wavDataOffset;
     lseek(songFd, correctOffset, SEEK_SET);
@@ -568,33 +599,53 @@ static const char* GetFileExtension(const char* fileName)
     return strrchr(fileName, '.');
 }
 
+static bool PrepareSongFormat(uint32_t songFd, AudioFileOprInfo* info, const char* fileExt,
+    uint32_t songFileSize, uint32_t songFileOffset)
+{
+    if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
+        OH_LOG_INFO(LOG_APP, "Detected PCM file format");
+        // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
+        info->sampleRate = DEFAULT_SAMPLE_RATE;
+        info->channels = DEFAULT_CHANNEL_COUNT;
+        info->bitsPerSample = BITS_PER_SAMPLE_16;
+        return true;
+    }
+    if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
+        return HandleWavFile(songFd, info, songFileSize, songFileOffset);
+    }
+    OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
+    return false;
+}
+
 void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t songFileSize,
     uint32_t songFileOffset)
 {
     ReleaseCurrentSong();
     audioFileOprInfo = InitAudioFileOprInfo(songFd, songFileSize, songFileOffset);
+    if (audioFileOprInfo == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "LoadSongInfo aborted, invalid song info");
+        ReleaseCurrentSong();
+        return;
+    }
 
     const char* fileExt = GetFileExtension(fileName);
     if (fileExt == nullptr) {
         OH_LOG_ERROR(LOG_APP, "Invalid file name, no extension found");
+        ReleaseCurrentSong();
         return;
     }
 
-    bool success = false;
-    if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
-        success = HandleWavFile(songFd, audioFileOprInfo, songFileSize, songFileOffset);
-        ReconfigurePlayer();
-    } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
-        OH_LOG_INFO(LOG_APP, "Detected PCM file format");
-        ReconfigurePlayer();
-        success = true;
-    } else {
-        OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
+    if (!PrepareSongFormat(songFd, audioFileOprInfo, fileExt, songFileSize, songFileOffset)) {
+        OH_LOG_ERROR(LOG_APP, "Load song failed, unsupported format or invalid header: %{public}s", fileName);
+        ReleaseCurrentSong();
         return;
     }
 
-    if (!success) {
-        ReconfigurePlayer();
+    ReconfigurePlayer();
+    if (audioRenderer == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
+        ReleaseCurrentSong();
+        return;
     }
 
     CalculateSongDuration(audioFileOprInfo);
@@ -671,6 +722,12 @@ void OHAudioPlayer::StopSong()
         audioFileOprInfo->audioBufferQueue->StopProducer();
     }
 
+    // An explicit stop must not be reported as a natural completion, otherwise a status callback may be
+    // posted while the player is being torn down.
+    if (audioFileOprInfo) {
+        audioFileOprInfo->isCompletionCallbackTriggered.store(true);
+    }
+
     auto ret = OH_AudioRenderer_Stop(audioRenderer);
     if (ret != AUDIOSTREAM_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Stop song failed, ret: %{public}d", ret);
@@ -736,17 +793,29 @@ uint32_t OHAudioPlayer::GetRemainingTime()
     }
 
     uint32_t sampleRate = audioFileOprInfo->sampleRate;
-    if (sampleRate == 0) {
-        OH_LOG_ERROR(LOG_APP, "Invalid sampleRate: %{public}u", sampleRate);
+    uint64_t totalFrames = audioFileOprInfo->songTotalFrames;
+    if (sampleRate == 0 || totalFrames == 0) {
+        OH_LOG_ERROR(LOG_APP, "Invalid duration params: sampleRate=%{public}u, totalFrames=%{public}lld",
+            sampleRate, (long long)totalFrames);
         return 0;
     }
 
-    int64_t currentFramePosition;
-    int64_t timestamp;
-    OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &currentFramePosition, &timestamp);
-    
-    uint64_t remainingFrames = audioFileOprInfo->currentFramesWritten.load() - currentFramePosition;
-    remainingFrames = remainingFrames < 0 ? 0 : remainingFrames;
+    int64_t currentFramePosition = 0;
+    int64_t timestamp = 0;
+    auto ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &currentFramePosition, &timestamp);
+    if (ret != AUDIOSTREAM_SUCCESS || currentFramePosition < 0) {
+        OH_LOG_ERROR(LOG_APP, "Get audio timestamp info failed, ret: %{public}d", ret);
+        return 0;
+    }
+
+    // Remaining time is derived from the absolute position (base after seek + frames already played),
+    // so pausing/resuming never invalidates it the way a reset frames-written counter would.
+    uint64_t baseFrames = static_cast<uint64_t>(audioFileOprInfo->basePositionMs) * sampleRate / MILLIS_PER_SECOND;
+    uint64_t playedFrames = baseFrames + static_cast<uint64_t>(currentFramePosition);
+    if (playedFrames >= totalFrames) {
+        return 0;
+    }
+    uint64_t remainingFrames = totalFrames - playedFrames;
     uint32_t remainingTime = static_cast<uint32_t>((remainingFrames * MILLIS_PER_SECOND) / sampleRate);
     OH_LOG_INFO(LOG_APP, "remaining time: %{public}u", remainingTime);
     return remainingTime;
