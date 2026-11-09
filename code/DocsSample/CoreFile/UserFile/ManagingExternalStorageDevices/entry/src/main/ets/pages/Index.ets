@@ -16,7 +16,6 @@
 // [Start subscribe_events_1]
 import { BusinessError } from '@kit.BasicServicesKit';
 import { commonEventManager } from '@kit.BasicServicesKit';
-import { volumeManager } from '@kit.CoreFileKit';
 import Logger from '../common/Logger';
 
 let subscriber: commonEventManager.CommonEventSubscriber;
@@ -29,12 +28,14 @@ struct Index {
   build() {
     Column() {
       Text(this.message)
+        .id('statusText')
         .fontSize($r('app.float.size_50')) // 文本字体大小为50
         .fontWeight(FontWeight.Bold) // 文本字体加粗
         .margin({ top: $r('app.float.size_20') }) // 文本上边距为20
 
       // 订阅广播事件按钮
       Button($r('app.string.subscribeBroadcastButton'))
+        .id('subscribeButton')
         .width('80%') // 按钮宽度占屏幕宽度80%
         .height('10%') // 按钮高度占屏幕高度10%
         .fontSize($r('app.float.size_25')) // 按钮字体大小为25
@@ -58,6 +59,7 @@ struct Index {
 
       // 接收广播通知按钮
       Button($r('app.string.receiveBroadcastButton'))
+        .id('receiveButton')
         .width('80%') // 按钮宽度占屏幕宽度80%
         .height('10%') // 按钮高度占屏幕高度10%
         .fontSize($r('app.float.size_25')) // 按钮字体大小为25
@@ -100,8 +102,10 @@ struct Index {
     };
     try {
       subscriber = await commonEventManager.createSubscriber(subscribeInfo);
+      this.message = 'Subscription succeeded';
     } catch (err) {
       let error: BusinessError = err as BusinessError;
+      this.message = 'Subscription failed';
       Logger.error('Failed to create subscriber: ' + JSON.stringify(error));
     }
   }
@@ -111,7 +115,9 @@ struct Index {
   receiveBroadcastNotifications() {
     // [StartExclude subscribe_events_3]
     Logger.info('receiveBroadcastNotifications() begin');
+    this.message = 'Listening for volume events';
     if (subscriber === undefined) {
+      this.message = 'Subscription failed';
       Logger.error('Subscriber is not defined. Please subscribe to events first.');
       return;
     }
@@ -124,17 +130,11 @@ struct Index {
       }
       // [EndExclude subscribe_events_3]
       if (data.event === 'usual.event.data.VOLUME_MOUNTED' && data.parameters !== undefined) {
-        let volId: string = data.parameters.id;
-        volumeManager.getVolumeById(volId, (error: BusinessError, vol: volumeManager.Volume) => {
-          if (error) {
-            Logger.error('volumeManager getVolumeById failed for ' + JSON.stringify(error));
-          } else {
-            Logger.info('volumeManager getVolumeById successfully, the volume state is ' + vol.state);
-            // [StartExclude subscribe_events_3]
-            this.message = 'Successfully obtained volume device information';
-            // [EndExclude subscribe_events_3]
-          }
-        });
+        const volumeId: string = data.parameters.id as string;
+        const volumeState: string = data.parameters.volumeState as string;
+        const volumePath: string = data.parameters.path as string;
+        Logger.info(`Volume mounted: id=${volumeId}, state=${volumeState}, path=${volumePath}`);
+        this.message = 'Successfully obtained volume device information';
       }
     });
   }

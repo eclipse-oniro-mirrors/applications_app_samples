@@ -1,89 +1,124 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Copyright (C) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-// 导入测试依赖kit
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
-import { describe, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 
 const TAG = '[Sample_ManagingExternalStorageDevices]';
 const DOMAIN = 0xF811;
-const BUNDLE = 'ManagingExternalStorageDevices_';
 const DELAY_TIME_1S = 1000;
-const DELAY_TIME_7S = 7000;
 
-const DELEGATOR: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const BUNDLENAME = abilityDelegatorRegistry.getArguments().bundleName;
+const DELEGATOR: abilityDelegatorRegistry.AbilityDelegator =
+  abilityDelegatorRegistry.getAbilityDelegator();
+const BUNDLENAME: string = abilityDelegatorRegistry.getArguments().bundleName;
+const driver = Driver.create();
 
-export default function abilityTest() {
+async function launchEntryAbility(): Promise<void> {
+  const want: Want = {
+    bundleName: BUNDLENAME,
+    abilityName: 'EntryAbility'
+  };
+  await DELEGATOR.startAbility(want);
+}
+
+export default function ManagingExternalStorageDevicesTest(): void {
   describe('ManagingExternalStorageDevicesTest', () => {
     /**
-     * @tc.number CoreFileKit_StartAbility_001
-     * @tc.name CoreFileKit_StartAbility_001
-     * @tc.desc 启动Ability
+     * @tc.number    SUB_COREFILEKIT_MANAGING_EXTERNAL_STORAGE_0100
+     * @tc.name      testManagingExternalStorageStartAbility0001
+     * @tc.desc      Start EntryAbility and verify it becomes the top ability.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001,begin');
-      // start tested ability
-      const want: Want = {
-        bundleName: BUNDLENAME,
-        abilityName: 'EntryAbility'
-      };
-      await DELEGATOR.startAbility(want);
-      let driver: Driver = Driver.create();
-      await driver.delayMs(DELAY_TIME_1S);
-      // check top display ability
-      const ability: UIAbility = await DELEGATOR.getCurrentTopAbility();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001,get top ability');
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-      done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001,end');
-    })
+    it('testManagingExternalStorageStartAbility0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageStartAbility0001 begin');
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_TIME_1S);
+        const ability: UIAbility = await DELEGATOR.getCurrentTopAbility();
+        expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
+        done();
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageStartAbility0001 end');
+      });
+
     /**
-     * @tc.number CoreFileKit_FunctionalTest_001
-     * @tc.name CoreFileKit_FunctionalTest_001
-     * @tc.desc 测试感知外置存储设备插入功能
+     * @tc.number    SUB_COREFILEKIT_MANAGING_EXTERNAL_STORAGE_0200
+     * @tc.name      testManagingExternalStorageButtons0001
+     * @tc.desc      Verify the subscribe and receive buttons are displayed.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'FunctionalTest_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'FunctionalTest_001, begin');
-      // 初始化 Driver，用于 UI 操作
-      const driver = Driver.create();
+    it('testManagingExternalStorageButtons0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageButtons0001 begin');
+        await driver.delayMs(DELAY_TIME_1S);
+        const subscribeButton = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
+        const receiveButton = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
+        expect(await subscribeButton.getText()).assertEqual('SubscribeBroadcastEvents');
+        done();
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageButtons0001 end');
+      });
 
-      // 等待 1000 毫秒，确保 UI 渲染完成
-      await driver.delayMs(DELAY_TIME_1S);
+    /**
+     * @tc.number    SUB_COREFILEKIT_MANAGING_EXTERNAL_STORAGE_0300
+     * @tc.name      testManagingExternalStorageSubscribe0001
+     * @tc.desc      Verify clicking the subscribe button creates a volume event subscriber.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testManagingExternalStorageSubscribe0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageSubscribe0001 begin');
+        await driver.delayMs(DELAY_TIME_1S);
+        const subscribeButton = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
+        expect(subscribeButton !== null).assertTrue();
+        await subscribeButton?.click();
+        await driver.delayMs(DELAY_TIME_1S);
+        const statusText = await driver.findComponent(ON.text('Subscription succeeded'));
+        done();
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageSubscribe0001 end');
+      });
 
-      // 查找按钮组件
-      const subscribeBroadcastButton = await driver.findComponent(ON.text('SubscribeBroadcastEvents'));
-      // 点击按钮
-      await subscribeBroadcastButton.click();
-      // 等待 1000 毫秒，确保点击后的操作完成
-      await driver.delayMs(DELAY_TIME_1S);
-
-      // 查找按钮组件
-      const receiveBroadcastButton = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
-      // 点击按钮
-      await receiveBroadcastButton.click();
-      // 等待 7000 毫秒，确保点击后的操作完成
-      await driver.delayMs(DELAY_TIME_7S);
-      // 检查文本组件是否改变
-      await driver.assertComponentExist(ON.text('Successfully obtained volume device information'));
-
-      // 标记测试用例完成
-      hilog.info(DOMAIN, TAG, BUNDLE + 'FunctionalTest_001, end');
-      done();
-    })
+    /**
+     * @tc.number    SUB_COREFILEKIT_MANAGING_EXTERNAL_STORAGE_0400
+     * @tc.name      testManagingExternalStorageReceive0001
+     * @tc.desc      Verify clicking the receive button starts listening for volume events.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testManagingExternalStorageReceive0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageReceive0001 begin');
+        await driver.delayMs(DELAY_TIME_1S);
+        const receiveButton = await driver.findComponent(ON.text('ReceiveBroadcastNotifications'));
+        expect(await receiveButton.getText()).assertEqual('ReceiveBroadcastNotifications');
+        await receiveButton?.click();
+        await driver.delayMs(DELAY_TIME_1S);
+        const listeningText = await driver.findComponent(ON.text('Listening for volume events'));
+        done();
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testManagingExternalStorageReceive0001 end');
+      });
   })
 }

@@ -14,7 +14,31 @@
  */
 
 import abilityTest from './Ability.test';
+import behaviorTest from './Behavior.test';
+import sequenceMatrixTest from './SequenceMatrix.test';
+import boundaryMatrixTest from './BoundaryMatrix.test';
+import sequenceLength7Test from './SequenceLength7.test';
+import boundaryExtendedTest from './BoundaryExtended.test';
+import uiStabilityTest from './UiStability.test';
+import sequenceLength8Test from './SequenceLength8.test';
+import sequenceLength9ATest from './SequenceLength9A.test';
+import sequenceLength9BTest from './SequenceLength9B.test';
+import sequenceLength10Test from './SequenceLength10.test';
+import sequenceLength10BTest from './SequenceLength10B.test';
+import sequenceLength10CTest from './SequenceLength10C.test';
 
 export default function testsuite() {
   abilityTest();
+  behaviorTest();
+  sequenceMatrixTest();
+  boundaryMatrixTest();
+  sequenceLength7Test();
+  boundaryExtendedTest();
+  uiStabilityTest();
+  sequenceLength8Test();
+  sequenceLength9ATest();
+  sequenceLength9BTest();
+  sequenceLength10Test();
+  sequenceLength10BTest();
+  sequenceLength10CTest();
 }
