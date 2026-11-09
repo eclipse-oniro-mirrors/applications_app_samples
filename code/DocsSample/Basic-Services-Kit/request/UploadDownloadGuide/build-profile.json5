@@ -18,7 +18,6 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
         "compileSdkVersion": "26.0.0",
         "compatibleSdkVersion": "26.0.0",
         "targetSdkVersion": "26.0.0",
@@ -37,20 +36,6 @@
       },
       {
         "name": "release"
-      }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_UploadDownloadGuide_K0WbQLxKOQrYyrzdgZmXm6jgTr-LHdT7y3nFFi987yo=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BDA6AA46F57B2AA37CB50473E346248550100F762FDFCF067FEAB10B2B72B0E681DEA8C544FD4BB",
-          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_UploadDownloadGuide_K0WbQLxKOQrYyrzdgZmXm6jgTr-LHdT7y3nFFi987yo=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_UploadDownloadGuide_K0WbQLxKOQrYyrzdgZmXm6jgTr-LHdT7y3nFFi987yo=.p12",
-          "storePassword": "0000001BB6B1B3887439CBDD4C8941E74F8615986CED0B7C1BD75D51670BDDEF1903B1E5072277886431C7"
-        }
       }
     ]
   },

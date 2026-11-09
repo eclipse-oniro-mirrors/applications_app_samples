@@ -17,7 +17,6 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
         "compileSdkVersion": "26.0.0",
         "compatibleSdkVersion": "26.0.0",
         "targetSdkVersion": "26.0.0",
@@ -36,20 +35,6 @@
       },
       {
         "name": "release"
-      }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_CloudDisk_l_3dGS7OzoSakzftLRpZJxejgjdnfIixGm6V0YLvVQ0=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BC7114C7CAC61CEBFE73EF51B8EA68B31F6CCB8CC24C43A4925B9E093DF06805A3D42417AAD9A6F",
-          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_CloudDisk_l_3dGS7OzoSakzftLRpZJxejgjdnfIixGm6V0YLvVQ0=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_CloudDisk_l_3dGS7OzoSakzftLRpZJxejgjdnfIixGm6V0YLvVQ0=.p12",
-          "storePassword": "0000001B1600A513756D4B4BD282867497A837A26B55C2B0F2A69966328640214AA5EF994A158B4A8D07B6"
-        }
       }
     ]
   },

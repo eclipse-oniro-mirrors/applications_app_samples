@@ -18,24 +18,9 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
         "compileSdkVersion": "26.0.0",
         "compatibleSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony"
-      }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_HspSample_cEA8ZwyeeWu4B2oa9UoflnsvMOsSLFHAgqtijuUGqzo=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BCB0915AEB42045CE8FEC83303F3A6FD46058C3551B5E25282DE7BA042886EE19B0E69ADCA82F4F",
-          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_HspSample_cEA8ZwyeeWu4B2oa9UoflnsvMOsSLFHAgqtijuUGqzo=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_HspSample_cEA8ZwyeeWu4B2oa9UoflnsvMOsSLFHAgqtijuUGqzo=.p12",
-          "storePassword": "0000001B5C59AD74A41635A361259B76EA6E3C7C379D8DCE699649F6306A54FFDC4ADF9AD8ED0F0C97251D"
-        }
       }
     ]
   },
