@@ -1,0 +1,524 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Chip、ChipV2、ChipGroupV2、CounterV2、SegmentButtonV2 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Chip 与计数器高级组件演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ChipAndCounterDemo"
+    },
+    {
+      "name": "page_title",
+      "value": "Chip 与计数器：标签、计数与分段选择"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "Chip(V1) · ChipV2 · ChipGroupV2 · CounterV2（四类型）· SegmentButtonV2（三形态）"
+    },
+    {
+      "name": "log_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "log_hint",
+      "value": "（最新在上，每次点击都会新增一条）"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "断点：%s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "设备：%s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API：%d"
+    },
+    {
+      "name": "sections_hint",
+      "value": "共 9 个分区，演示区可上下滑动"
+    },
+    {
+      "name": "jump_hint",
+      "value": "跳到计数与分段 ↓"
+    },
+    {
+      "name": "hint_disabled",
+      "value": "enabled: false 点击无响应"
+    },
+    {
+      "name": "hint_icon_type",
+      "value": "图标类型：SymbolGlyphModifier"
+    },
+    {
+      "name": "btn_restore_closable",
+      "value": "＋ 恢复可关闭标签"
+    },
+    {
+      "name": "group_more",
+      "value": "更多"
+    },
+    {
+      "name": "section1_title",
+      "value": "1. Chip（V1，API 11+）"
+    },
+    {
+      "name": "section1_desc",
+      "value": "基础用法、Image/Symbol 图标、自定义样式、尺寸、关闭（closeOptions）、禁用；激活后为深蓝底 + 白字 + ✓"
+    },
+    {
+      "name": "section2_title",
+      "value": "2. ChipV2（API 26 新增）"
+    },
+    {
+      "name": "section2_desc",
+      "value": "NORMAL/SMALL 尺寸、Image/Symbol 两种图标、激活态（深蓝底 + 白字 + ✓）、背景+圆角、自定义 closeIcon、禁用"
+    },
+    {
+      "name": "section3_title",
+      "value": "3. ChipGroupV2（API 26 新增）"
+    },
+    {
+      "name": "section3_desc",
+      "value": "多个 Chip 组成一组统一管理选择：单选（只保留 1 项）/ 多选（可多项）/ 自定义样式、间距与尾部内容"
+    },
+    {
+      "name": "section4_title",
+      "value": "4. CounterV2（API 26 新增）"
+    },
+    {
+      "name": "section4_desc",
+      "value": "精确调节数值：列表型/紧凑型/数值内联型/日期内联型四种类型"
+    },
+    {
+      "name": "section5_title",
+      "value": "5. SegmentButtonV2（API 18+）"
+    },
+    {
+      "name": "section5_desc",
+      "value": "分段按钮：页签型单选（自定义字体/颜色/圆角/间距）、胶囊型图文混合（Image 图标 + Symbol 图标）、胶囊型多选"
+    },
+    {
+      "name": "section6_title",
+      "value": "6. Chip 进阶（V1 / V2）"
+    },
+    {
+      "name": "section6_desc",
+      "value": "后缀 Symbol 图标带独立点击回调、ChipV2 自定义 fontSize/padding、accessibilityDescription 无障碍描述、动态启用/禁用"
+    },
+    {
+      "name": "section7_title",
+      "value": "7. ChipGroupV2 进阶"
+    },
+    {
+      "name": "section7_desc",
+      "value": "chipGroupPadding 调整分组上下留白、suffix 传入 ChipGroupV2IconGroupSuffix 尾部图标组（Image + 点赞/收藏 Symbol，点击点亮/熄灭）"
+    },
+    {
+      "name": "section8_title",
+      "value": "8. CounterV2 进阶"
+    },
+    {
+      "name": "section8_desc",
+      "value": "label 文案、step 步进、textWidth 文本宽度、focus/blur/hover 业务回调、日期初始值（year/month/day）与日期变化"
+    },
+    {
+      "name": "section9_title",
+      "value": "9. SegmentButtonV2 进阶"
+    },
+    {
+      "name": "section9_desc",
+      "value": "纯 Symbol 条目（无文本）、禁用条目（enabled=false 点击无响应）、onItemClicked 回调、图标字号与选中色、自定义内边距与底色"
+    },
+    {
+      "name": "s3_intro",
+      "value": "ChipGroupV2 是什么：一组可点选的 Chip，组内选中状态由 selectedIndexes 统一管理"
+    },
+    {
+      "name": "s3_compare",
+      "value": "单选组像 Radio：点「邮件」后「全部」自动取消；多选组像 Checkbox：点「视频」后「图片」仍保留。"
+    },
+    {
+      "name": "s3_single_label",
+      "value": "① 单选组（默认样式，始终只有 1 项选中）"
+    },
+    {
+      "name": "s3_multi_label",
+      "value": "② 多选组（默认样式，可同时选中多项）"
+    },
+    {
+      "name": "s3_custom_label",
+      "value": "③ 同一单选组的定制版（选择行为同 ①；仅 itemStyle 换肤 + chipGroupSpace 间距 + suffix 尾部「更多 ›」+ onChange 通知）"
+    },
+    {
+      "name": "s3_single_status",
+      "value": "   ↳ 当前选中：%s（点其他项会替换）"
+    },
+    {
+      "name": "s3_multi_status",
+      "value": "   ↳ 当前选中：%s（共 %d 项，再点一次取消）"
+    },
+    {
+      "name": "s3_custom_status",
+      "value": "   ↳ 当前选中：%s · 右侧「更多 ›」来自 suffix 自定义内容"
+    },
+    {
+      "name": "counter_list_label",
+      "value": "列表型（LIST，0-20）：%d"
+    },
+    {
+      "name": "counter_compact_label",
+      "value": "紧凑型（COMPACT，1-9）：%d"
+    },
+    {
+      "name": "counter_inline_label",
+      "value": "数值内联型（INLINE，步进 5，0-100）：%d"
+    },
+    {
+      "name": "counter_date_label",
+      "value": "日期内联型（INLINE_DATE）"
+    },
+    {
+      "name": "seg_tab_label",
+      "value": "页签型单选（自定义样式，当前：%s）"
+    },
+    {
+      "name": "seg_capsule_label",
+      "value": "胶囊型单选（图文混合，当前：%s）"
+    },
+    {
+      "name": "seg_multi_label",
+      "value": "胶囊型多选（当前：%s）"
+    },
+    {
+      "name": "s6_v1_hint",
+      "value": "V1：suffixSymbol 外观 + suffixSymbolOptions.action 点击"
+    },
+    {
+      "name": "s6_toggle_hint",
+      "value": "动态启用/禁用：enabled 切换后点击行为立即变化"
+    },
+    {
+      "name": "s6_v2_hint",
+      "value": "ChipV2：suffixIcon（Symbol）+ fontSize + padding"
+    },
+    {
+      "name": "suffix_clicks_status",
+      "value": "后缀 Symbol 点击：V1 %d 次 · V2 %d 次"
+    },
+    {
+      "name": "adv_tag_status",
+      "value": "状态：动态标签%s · 后缀箭头点击 V1 %d 次 / V2 %d 次"
+    },
+    {
+      "name": "s7_selected",
+      "value": "当前选中：%s（分组上下各留 10vp）"
+    },
+    {
+      "name": "s7_tail_status",
+      "value": "尾部图标：点赞%s · 收藏%s"
+    },
+    {
+      "name": "s7_hint",
+      "value": "   ↳ 右侧图标来自 suffix → ChipGroupV2IconGroupSuffix：点赞/收藏点击切换灰↔橙，且不改变组内选中项"
+    },
+    {
+      "name": "lit_on",
+      "value": "已点亮（橙）"
+    },
+    {
+      "name": "lit_off",
+      "value": "未点亮（灰）"
+    },
+    {
+      "name": "s8_list_label",
+      "value": "带 label 的列表型（step=2）：%d 份"
+    },
+    {
+      "name": "s8_inline_label",
+      "value": "textWidth 的数值内联型（step=5）：%d"
+    },
+    {
+      "name": "s8_date_label",
+      "value": "日期内联型（初始 %s）："
+    },
+    {
+      "name": "label_portion",
+      "value": "份数"
+    },
+    {
+      "name": "s9_symbol_label",
+      "value": "纯 Symbol 胶囊（当前第 %d 个图标）"
+    },
+    {
+      "name": "s9_disabled_label",
+      "value": "禁用条目（第 2 项 enabled=false，当前：%s）"
+    },
+    {
+      "name": "chip_v1_basic_on",
+      "value": "基础标签 ✓"
+    },
+    {
+      "name": "chip_v1_basic_off",
+      "value": "基础标签"
+    },
+    {
+      "name": "chip_prefix_on",
+      "value": "前缀图标 ✓"
+    },
+    {
+      "name": "chip_prefix_off",
+      "value": "前缀图标"
+    },
+    {
+      "name": "chip_suffix_icon",
+      "value": "后缀图标"
+    },
+    {
+      "name": "chip_v1_size_small",
+      "value": "小尺寸"
+    },
+    {
+      "name": "chip_v1_size_normal",
+      "value": "标准尺寸"
+    },
+    {
+      "name": "chip_symbol_on",
+      "value": "Symbol ✓"
+    },
+    {
+      "name": "chip_symbol_off",
+      "value": "Symbol 图标"
+    },
+    {
+      "name": "chip_v1_custom",
+      "value": "自定义样式"
+    },
+    {
+      "name": "chip_closable",
+      "value": "可关闭"
+    },
+    {
+      "name": "chip_v1_close_a11y",
+      "value": "删除“可关闭”标签"
+    },
+    {
+      "name": "chip_disabled",
+      "value": "禁用标签"
+    },
+    {
+      "name": "chip_v2_normal_on",
+      "value": "NORMAL ✓"
+    },
+    {
+      "name": "chip_v2_normal_off",
+      "value": "NORMAL"
+    },
+    {
+      "name": "chip_v2_small_on",
+      "value": "SMALL ✓"
+    },
+    {
+      "name": "chip_v2_small_off",
+      "value": "SMALL"
+    },
+    {
+      "name": "chip_v2_bg_radius",
+      "value": "背景+圆角"
+    },
+    {
+      "name": "chip_v2_close_a11y",
+      "value": "删除此 V2 标签"
+    },
+    {
+      "name": "adv_suffix_symbol",
+      "value": "后缀 Symbol"
+    },
+    {
+      "name": "adv_a11y",
+      "value": "无障碍描述"
+    },
+    {
+      "name": "adv_a11y_desc_v1",
+      "value": "该标签演示 accessibilityDescription：读屏会朗读这句补充说明"
+    },
+    {
+      "name": "adv_enabled",
+      "value": "当前可点击"
+    },
+    {
+      "name": "adv_disabled",
+      "value": "已禁用，点击无响应"
+    },
+    {
+      "name": "adv_toggle_to_disable",
+      "value": "点此禁用 →"
+    },
+    {
+      "name": "adv_toggle_to_enable",
+      "value": "点此启用 →"
+    },
+    {
+      "name": "adv_v2_suffix",
+      "value": "V2 后缀 Symbol"
+    },
+    {
+      "name": "adv_v2_font_padding",
+      "value": "大字号 + 宽内边距"
+    },
+    {
+      "name": "adv_v2_a11y_desc",
+      "value": "该 ChipV2 演示 accessibilityDescription 无障碍说明"
+    },
+    {
+      "name": "group_single_all",
+      "value": "全部"
+    },
+    {
+      "name": "group_single_mail",
+      "value": "邮件"
+    },
+    {
+      "name": "group_single_docs",
+      "value": "文档"
+    },
+    {
+      "name": "group_multi_image",
+      "value": "图片"
+    },
+    {
+      "name": "group_multi_video",
+      "value": "视频"
+    },
+    {
+      "name": "group_multi_audio",
+      "value": "音频"
+    },
+    {
+      "name": "group_tail_hot",
+      "value": "热搜"
+    },
+    {
+      "name": "group_tail_recommend",
+      "value": "推荐"
+    },
+    {
+      "name": "group_tail_follow",
+      "value": "关注"
+    },
+    {
+      "name": "adv_group_recommend",
+      "value": "推荐"
+    },
+    {
+      "name": "adv_group_follow",
+      "value": "关注"
+    },
+    {
+      "name": "adv_group_hot",
+      "value": "热榜"
+    },
+    {
+      "name": "seg_day",
+      "value": "日"
+    },
+    {
+      "name": "seg_week",
+      "value": "周"
+    },
+    {
+      "name": "seg_month",
+      "value": "月"
+    },
+    {
+      "name": "seg_image",
+      "value": "图片"
+    },
+    {
+      "name": "seg_favorite",
+      "value": "收藏"
+    },
+    {
+      "name": "seg_star",
+      "value": "星标"
+    },
+    {
+      "name": "seg_available_a",
+      "value": "可用 A"
+    },
+    {
+      "name": "seg_disabled_item",
+      "value": "已禁用"
+    },
+    {
+      "name": "seg_available_b",
+      "value": "可用 B"
+    },
+    {
+      "name": "bg_light_blue",
+      "value": "浅蓝"
+    },
+    {
+      "name": "bg_light_green",
+      "value": "浅绿"
+    },
+    {
+      "name": "bg_light_orange",
+      "value": "浅橙"
+    },
+    {
+      "name": "names_none",
+      "value": "无"
+    },
+    {
+      "name": "list_separator",
+      "value": "、"
+    },
+    {
+      "name": "state_on",
+      "value": "已激活"
+    },
+    {
+      "name": "state_off",
+      "value": "未激活"
+    },
+    {
+      "name": "size_small_short",
+      "value": "小"
+    },
+    {
+      "name": "size_normal_short",
+      "value": "标准"
+    },
+    {
+      "name": "visible",
+      "value": "显示中"
+    },
+    {
+      "name": "closed",
+      "value": "已关闭"
+    },
+    {
+      "name": "enabled_word",
+      "value": "启用"
+    },
+    {
+      "name": "disabled_word",
+      "value": "禁用"
+    },
+    {
+      "name": "v1_status",
+      "value": "状态：基础标签%s · 前缀图标%s · Symbol%s · 尺寸%s · 可关闭标签%s"
+    },
+    {
+      "name": "v2_status",
+      "value": "状态：NORMAL%s · SMALL%s · 前缀图标%s · Symbol%s · 背景%s · 可关闭标签%s"
+    }
+  ]
+}
