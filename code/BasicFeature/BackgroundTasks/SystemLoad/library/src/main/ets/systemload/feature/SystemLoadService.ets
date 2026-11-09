@@ -24,6 +24,20 @@ import { logger } from '../utils/Logger';
 type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
 
 /**
+ * 系统负载错误类
+ * 继承自Error，用于封装系统负载API调用失败时的错误信息
+ * 保留原始BusinessError的code和message
+ */
+class SystemLoadError extends Error {
+  code: number;
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+    this.name = 'SystemLoadError';
+  }
+}
+
+/**
  * 系统负载服务类
  * 封装OpenHarmony系统负载API，提供统一的调用接口
  * 支持获取当前系统负载级别、注册/注销负载变化监听器
@@ -39,7 +53,7 @@ type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
  * 
  * // 注册监听器
  * SystemLoadService.onSystemLoadChange((level) => {
- *   console.log('系统负载变化:', level);
+ *   logger.info('SystemLoadService', '系统负载变化: %{public}s', level.toString());
  * });
  * ```
  */
@@ -81,8 +95,8 @@ export class SystemLoadService {
     } catch (error) {
       // 记录异常日志
       const err = error as BusinessError;
-      logger.error(`${SystemLoadService.TAG} getLocalLevel() failed: ${err.message}`);
-      throw new Error(`getLocalLevel failed: ${err.message}`);
+      logger.error(`${SystemLoadService.TAG} getLocalLevel() failed: code=${err.code}, message=${err.message}`);
+      throw new SystemLoadError(err.code, err.message);
     } finally {
       // 结束性能追踪
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10001);
@@ -114,8 +128,8 @@ export class SystemLoadService {
     } catch (error) {
       // 记录注册失败
       const err = error as BusinessError;
-      logger.error(`${SystemLoadService.TAG} onSystemLoadChange() failed: ${err.message}`);
-      throw new Error(`onSystemLoadChange failed: ${err.message}`);
+      logger.error(`${SystemLoadService.TAG} onSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
+      throw new SystemLoadError(err.code, err.message);
     } finally {
       // 结束性能追踪
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10002);
@@ -147,8 +161,8 @@ export class SystemLoadService {
     } catch (error) {
       // 记录注销失败
       const err = error as BusinessError;
-      logger.error(`${SystemLoadService.TAG} offSystemLoadChange() failed: ${err.message}`);
-      throw new Error(`offSystemLoadChange failed: ${err.message}`);
+      logger.error(`${SystemLoadService.TAG} offSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
+      throw new SystemLoadError(err.code, err.message);
     } finally {
       // 结束性能追踪
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10003);
@@ -179,8 +193,8 @@ export class SystemLoadService {
     } catch (error) {
       // 记录注销失败
       const err = error as BusinessError;
-      logger.error(`${SystemLoadService.TAG} offAllSystemLoadChange() failed: ${err.message}`);
-      throw new Error(`offAllSystemLoadChange failed: ${err.message}`);
+      logger.error(`${SystemLoadService.TAG} offAllSystemLoadChange() failed: code=${err.code}, message=${err.message}`);
+      throw new SystemLoadError(err.code, err.message);
     } finally {
       // 结束性能追踪
       hiTraceMeter.finishTrace(SystemLoadService.TRACE_NAME, 10004);

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This sample demonstrates the system performance, power, and thermal level using the [systemLoad API in the Basic Services Kit](https://gitcode.com/shicheny_01/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-resourceschedule-systemload.md). It covers `getLevel()`, listener registration, targeted unregistration, and unregistering all callbacks.
+This sample demonstrates the system performance, power, and thermal level using the [systemLoad API in the Basic Services Kit](https://docs.openharmony.cn/pages/api-cn/arkui-ts/ts-basic-services-apis-systemload.md). It covers `getLevel()`, listener registration, targeted unregistration, and unregistering all callbacks.
 
 The sample is written in ArkTS using the Stage model and runs as a normal application without requiring any special permissions. Local API data and eight-level mock data are kept clearly separate. The page displays listener state, callback counts, recent callback records, and operation results.
 
@@ -32,6 +32,10 @@ SystemLoad
 │       └── ohosTest/ets/test
 │           ├── Ability.test.ets
 │           ├── AccessiblePerf.test.ets
+│           ├── BoundaryExtensionPart1.test.ets
+│           ├── BoundaryExtensionPart2.test.ets
+│           ├── BoundaryExtensionPart3.test.ets
+│           ├── BoundaryExtensionPart4.test.ets
 │           ├── CallbackDataValidation.test.ets
 │           ├── Comprehensive.test.ets
 │           ├── ConcurrencySafety.test.ets
@@ -59,11 +63,11 @@ SystemLoad
 1. [SystemLoadService.ets](library/src/main/ets/systemload/feature/SystemLoadService.ets) wraps `getLevel()`, `on('systemLoadChange')`, targeted `off()`, and parameterless `off()` directly, preserving the original SDK errors so that callers and XTS can verify the API contract.
 2. [SystemLoadPage.ets](entry/src/main/ets/systemload/SystemLoadPage.ets) maps all eight levels to localized descriptions and application recommendations. It guards against duplicate UI operations, switches data sources, records two callbacks, and cleans up listeners during lifecycle changes.
 3. A request ID prevents stale asynchronous query results from overwriting a newer user selection.
-4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides twenty-one test cases for UI interactions and mock data. [SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twenty real SDK cases with valid-level and exact error-code assertions. [Utils.test.ets](entry/src/ohosTest/ets/test/Utils.test.ets) provides thirty-eight utility function test cases. [Extended.test.ets](entry/src/ohosTest/ets/test/Extended.test.ets) provides ten advanced test cases covering concurrency and edge cases. [SkillCompletion.test.ets](entry/src/ohosTest/ets/test/SkillCompletion.test.ets) provides twelve skill-based test cases covering lifecycle, error recovery, data consistency, and listener state management. [Level3Extended.test.ets](entry/src/ohosTest/ets/test/Level3Extended.test.ets) provides twenty-one Level 3 test cases covering concurrency, performance, stress testing, boundary values, page state, and UI state. [Level2Extended.test.ets](entry/src/ohosTest/ets/test/Level2Extended.test.ets) provides eight Level 2 test cases covering error handling and resource cleanup. [UIInteraction.test.ets](entry/src/ohosTest/ets/test/UIInteraction.test.ets) provides nine Level 3 test cases covering UI interaction and data source management. [Comprehensive.test.ets](entry/src/ohosTest/ets/test/Comprehensive.test.ets) provides fifty-two comprehensive test cases covering state machine, boundary values, empty data, duplicate operations, lifecycle, and data source switching. [PerformanceSecurity.test.ets](entry/src/ohosTest/ets/test/PerformanceSecurity.test.ets) provides eighteen test cases covering performance, stability, security, permissions, compatibility, and localization. [CallbackDataValidation.test.ets](entry/src/ohosTest/ets/test/CallbackDataValidation.test.ets) provides seven test cases covering callback data validation, page state synchronization, and request ID anti-duplication. [ListenerStateManagement.test.ets](entry/src/ohosTest/ets/test/ListenerStateManagement.test.ets) provides eight test cases covering listener subscription state, callback record management, and level mapping. [UIComponentState.test.ets](entry/src/ohosTest/ets/test/UIComponentState.test.ets) provides nine test cases covering UI component state, mock data cycling, and data source switching. [ConcurrencySafety.test.ets](entry/src/ohosTest/ets/test/ConcurrencySafety.test.ets) provides four test cases covering concurrent safety and exception recovery. [I18nTheme.test.ets](entry/src/ohosTest/ets/test/I18nTheme.test.ets) provides four test cases covering internationalization and theme adaptation. [无障碍功能测试](entry/src/ohosTest/ets/test/AccessiblePerf.test.ets) provides five test cases covering 无障碍功能 and performance baselines.
+4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides twenty-one test cases for UI interactions and mock data. [SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twenty real SDK cases with valid-level and exact error-code assertions. [Utils.test.ets](entry/src/ohosTest/ets/test/Utils.test.ets) provides thirty-eight utility function test cases. [Extended.test.ets](entry/src/ohosTest/ets/test/Extended.test.ets) provides ten advanced test cases covering concurrency and edge cases. [SkillCompletion.test.ets](entry/src/ohosTest/ets/test/SkillCompletion.test.ets) provides twelve skill-based test cases covering lifecycle, error recovery, data consistency, and listener state management. [Level3Extended.test.ets](entry/src/ohosTest/ets/test/Level3Extended.test.ets) provides twenty-one Level 3 test cases covering concurrency, performance, stress testing, boundary values, page state, and UI state. [Level2Extended.test.ets](entry/src/ohosTest/ets/test/Level2Extended.test.ets) provides eight Level 2 test cases covering error handling and resource cleanup. [UIInteraction.test.ets](entry/src/ohosTest/ets/test/UIInteraction.test.ets) provides nine Level 3 test cases covering UI interaction and data source management. [Comprehensive.test.ets](entry/src/ohosTest/ets/test/Comprehensive.test.ets) provides fifty-two comprehensive test cases covering state machine, boundary values, empty data, duplicate operations, lifecycle, and data source switching. [PerformanceSecurity.test.ets](entry/src/ohosTest/ets/test/PerformanceSecurity.test.ets) provides eighteen test cases covering performance, stability, security, permissions, compatibility, and localization. [CallbackDataValidation.test.ets](entry/src/ohosTest/ets/test/CallbackDataValidation.test.ets) provides seven test cases covering callback data validation, page state synchronization, and request ID anti-duplication. [ListenerStateManagement.test.ets](entry/src/ohosTest/ets/test/ListenerStateManagement.test.ets) provides eight test cases covering listener subscription state, callback record management, and level mapping. [UIComponentState.test.ets](entry/src/ohosTest/ets/test/UIComponentState.test.ets) provides nine test cases covering UI component state, mock data cycling, and data source switching. [ConcurrencySafety.test.ets](entry/src/ohosTest/ets/test/ConcurrencySafety.test.ets) provides four test cases covering concurrent safety and exception recovery. [I18nTheme.test.ets](entry/src/ohosTest/ets/test/I18nTheme.test.ets) provides four test cases covering internationalization and theme adaptation. [AccessiblePerf.test.ets](entry/src/ohosTest/ets/test/AccessiblePerf.test.ets) provides five test cases covering accessibility and performance baselines. [BoundaryExtensionPart1-4.test.ets](entry/src/ohosTest/ets/test/BoundaryExtensionPart1.test.ets) provide four test cases covering boundary conditions and API extension coverage across four partitions.
 
 ## Tests
 
-The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers 248 test cases across sixteen test suites:
+The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers 248 test cases across twenty test suites:
 - **Real SDK Suite** (20 cases): Tests real system API calls with valid-level and exact error-code assertions
 - **UI/Mock Suite** (25 cases): Tests UI interactions and mock data functionality
 - **Utils Suite** (38 cases): Tests utility functions for string, date, validation, random, and device operations
@@ -80,6 +84,7 @@ The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers
 - **Concurrency Safety Suite** (4 cases): Tests concurrent safety and exception recovery
 - **I18n & Theme Suite** (4 cases): Tests internationalization and theme adaptation
 - **无障碍功能 & Performance Suite** (5 cases): Tests 无障碍功能 and performance baselines
+- **Boundary Extension Part 1-4 Suites** (4 cases): Tests boundary conditions and API extension coverage across four partitions
 
 The real SDK suite runs first so that page listeners cannot interfere with the unregister-all coverage. Do not run the real suite on a system that does not support `SystemCapability.ResourceSchedule.SystemLoad`.
 
@@ -109,6 +114,6 @@ To download only this project, run:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/BackgroundTasks/SystemLoad/ > .git/info/sparse-checkout
-git remote add origin https://gitcode.com/shicheny_01/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

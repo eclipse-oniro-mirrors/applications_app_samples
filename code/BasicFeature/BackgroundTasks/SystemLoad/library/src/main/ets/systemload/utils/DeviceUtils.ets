@@ -52,7 +52,7 @@ export class DeviceInfo {
  * ```typescript
  * // 获取设备信息
  * const info = DeviceUtils.getDeviceInfo();
- * console.log(`设备型号: ${info.model}`);
+ * hilog.info(0xFF00, 'DeviceUtils', '设备型号: %{public}s', info.model);
  * 
  * // 判断是否为平板
  * const isTablet = DeviceUtils.isTablet();
