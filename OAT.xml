@@ -2551,6 +2551,8 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Security/UniversalKeystoreKit/UkeyExtension"/>
+				<filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/rawfile/fonts/DroidSerif-Regular.ttf" desc="Provided by FontAndResource"/>
+				<filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/base/media/demo_picture.png" desc="Provided by FontAndResource"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
