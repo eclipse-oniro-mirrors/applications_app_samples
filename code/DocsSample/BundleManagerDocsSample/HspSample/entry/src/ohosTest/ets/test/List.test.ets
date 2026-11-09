@@ -36,6 +36,7 @@ import hspNumericResidualTest from './HspNumericResidual.test';
 import hspLogResidualTest from './HspLogResidual.test';
 import hspBulkNumericResidualTest from './HspBulkNumericResidual.test';
 import hspBulkNumericResidual2Test from './HspBulkNumericResidual2.test';
+import hspBulkNumericResidual3Test from './HspBulkNumericResidual3.test';
 
 export default function testsuite() {
   hspResourceResolutionTest();
@@ -61,4 +62,5 @@ export default function testsuite() {
   hspLogResidualTest();
   hspBulkNumericResidualTest();
   hspBulkNumericResidual2Test();
+  hspBulkNumericResidual3Test();
 }

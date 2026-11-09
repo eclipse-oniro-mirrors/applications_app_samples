@@ -2,7 +2,7 @@
 
 ## 自动化测试概览
 
-当前 ohosTest 共 **460 条用例**，测试代码 **10,846 行**：
+当前 ohosTest 共 **500 条用例**，测试代码 **11,750 行**：
 
 | 套件 | 用例数 | 职责 |
 |---|---:|---|
@@ -29,6 +29,7 @@
 | `HspLogResidualTest` | 6 | 日志空串、Unicode、长文本和导出函数类型 |
 | `HspBulkNumericResidualTest` | 46 | 算术与 native 乘法批量数值组合 |
 | `HspBulkNumericResidual2Test` | 70 | 算术与 native 乘法批量数值补充 |
+| `HspBulkNumericResidual3Test` | 40 | 算术与 native 乘法批量数值补充二 |
 
 质量门禁：
 
@@ -36,7 +37,7 @@
 - `@tc.number`、`@tc.name`、`@tc.desc`、`@tc.type`、`@tc.size`、`@tc.level` 全量存在；
 - 用例名和编号全局唯一；
 - 每条用例至少 3 个断言；
-- 全量执行结果：**460/460 通过**（需先拉起应用，连续两轮 `Failure: 0`）。
+- 全量执行结果：**500/500 通过**（需先拉起应用，连续两轮 `Failure: 0`）。
 
 ## 手工用例表
 
