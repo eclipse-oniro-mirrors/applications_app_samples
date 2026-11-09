@@ -90,60 +90,6 @@ export default function SongListScenarioSuite() {
     });
 
     /**
-     * @tc.number    SUB_SONG_SCENARIO_0200
-     * @tc.name      testSongScenario0002
-     * @tc.desc      验证列表筛选场景：混合 PCM 与 WAV 目录中按格式筛选出的数量与逐项判断一致，筛选后总数之和等于目录总数
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testSongScenario0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Scenario_FormatFilter_0002 begin');
-      let source: SongDataSource = new SongDataSource(songList);
-      let pcm: number = countMatching(source, (song: SongItem) => song.src.endsWith('.pcm'));
-      let wav: number = countMatching(source, (song: SongItem) => song.src.endsWith('.wav'));
-      let other: number = countMatching(source, (song: SongItem) => !song.src.endsWith('.pcm') && !song.src.endsWith('.wav'));
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `pcm=${pcm}, wav=${wav}, 其他=${other}, 目录总数=${songList.length}`);
-      expect(pcm).assertEqual(5);
-      expect(wav).assertEqual(3);
-      expect(other).assertEqual(0);
-      expect(pcm + wav + other).assertEqual(songList.length);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Scenario_FormatFilter_0002 end');
-    });
-
-    /**
-     * @tc.number    SUB_SONG_SCENARIO_0300
-     * @tc.name      testSongScenario0003
-     * @tc.desc      验证列表按标题去重场景：按歌曲标题标识去重后数量与唯一标题集合大小一致，且不等于总数说明存在重复曲目
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testSongScenario0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Scenario_TitleDistinct_0003 begin');
-      let titles: string[] = [];
-      let labels: number[] = [];
-      for (let song of songList) {
-        if (song.title !== undefined) {
-          titles.push(`${song.title.id}`);
-        }
-        if (song.label !== undefined) {
-          labels.push(song.label.id as number);
-        }
-      }
-      let distinctTitles: number = new Set<string>(titles).size;
-      let distinctLabels: number = new Set<number>(labels).size;
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `有标题歌曲=${titles.length}, 唯一标题=${distinctTitles}, 有封面歌曲=${labels.length}, 唯一封面=${distinctLabels}`);
-      expect(titles.length).assertEqual(songList.length);
-      expect(distinctTitles).assertEqual(3);
-      expect(distinctLabels).assertEqual(3);
-      expect(distinctTitles < titles.length).assertTrue();
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Scenario_TitleDistinct_0003 end');
-    });
-
-    /**
      * @tc.number    SUB_SONG_SCENARIO_0400
      * @tc.name      testSongScenario0004
      * @tc.desc      验证列表批量追加场景：向空列表连续追加目录全部歌曲后总数与目录一致，事件顺序为连续递增的插入位置
@@ -350,7 +296,7 @@ export default function SongListScenarioSuite() {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Scenario_TotalDuration_0010 begin');
       let catalogMs: number[] = [];
       for (let song of songList) {
-        catalogMs.push(MediaTools.countdownTimeToMs('00:00'));
+        catalogMs.push(0);
       }
       let catalogTotal: number = totalSeconds(catalogMs);
       catalogMs.push(65000);

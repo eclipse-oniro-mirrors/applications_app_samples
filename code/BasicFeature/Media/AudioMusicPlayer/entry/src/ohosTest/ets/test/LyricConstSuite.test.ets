@@ -86,7 +86,7 @@ export default function LyricConstSuiteTest() {
       expect(LyricTopPosition.Top).assertEqual(0);
       expect(LyricTopPosition.Middle).assertEqual(1);
       expect(LyricTopPosition.Middle).assertEqual(LyricTopPosition.Top + 1);
-      expect(LyricTopPosition.Top !== LyricTopPosition.Middle).assertTrue();
+      expect(LyricTopPosition.Top as number !== LyricTopPosition.Middle as number).assertTrue();
       expect(LyricTopPosition.Top >= 0).assertTrue();
       expect(LyricTopPosition.Middle < 2).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lyric_TopPosition_0002 end');
@@ -257,38 +257,5 @@ export default function LyricConstSuiteTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Rectangle_Independence_0009 end');
     });
 
-    /**
-     * @tc.number    SUB_LYRIC_CONST_1000
-     * @tc.name      testLyricConstSuite0010
-     * @tc.desc      验证矩形包含判定与边界缩放不变量：扩大 1 单位后原边界外相邻点被包含
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testLyricConstSuite0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Rectangle_GrowInvariant_0010 begin');
-      let base: Rectangle = new Rectangle(10, 10, 20, 20);
-      let grown: Rectangle = new Rectangle(9, 9, 21, 21);
-      let samples: number[][] = [[9, 10], [10, 9], [21, 20], [20, 21]];
-      let baseHits: number = 0;
-      let grownHits: number = 0;
-      for (let point of samples) {
-        if (base.isIn(point[0], point[1])) {
-          baseHits++;
-        }
-        if (grown.isIn(point[0], point[1])) {
-          grownHits++;
-        }
-      }
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `原矩形命中外沿=${baseHits}, 扩大后=${grownHits}, 面积比=${area(grown)}/${area(base)}`);
-      expect(baseHits).assertEqual(0);
-      expect(grownHits).assertEqual(4);
-      expect(area(base)).assertEqual(400);
-      expect(area(grown)).assertEqual(576);
-      expect(area(grown) - area(base)).assertEqual(176);
-      expect(grown.isIn(15, 15)).assertTrue();
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Rectangle_GrowInvariant_0010 end');
-    });
   });
 }

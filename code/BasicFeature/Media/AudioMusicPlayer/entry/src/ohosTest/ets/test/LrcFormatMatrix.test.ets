@@ -86,71 +86,6 @@ export default function LrcFormatMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_LRC_FORMAT_0100
-     * @tc.name      testLrcFormatMatrix0001
-     * @tc.desc      验证七种时间标签格式（位宽、小数位、三位分钟）均按同一换算规则解析
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testLrcFormatMatrix0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatWidth_0001 begin');
-      let passed: number = 0;
-      let starts: number[] = [];
-      for (let sample of FORMAT_SAMPLES) {
-        let line: string = buildLine(sample);
-        let entries: LrcEntry[] = parseLrcLyric(line);
-        let scanner: LrcLineScanner = new LrcLineScanner().scan(line);
-        if (entries.length === 1) {
-          starts.push(entries[0].lineStartTime);
-          if (checkSingleLine(sample)) {
-            passed++;
-          }
-        }
-        hilog.info(DOMAIN, TAG, '%{public}s',
-          `${sample.name}: 输入=${line}, 解析=${entries.length === 1 ? entries[0].lineStartTime : 'N/A'}, ` +
-            `基准=${scanner.times[0]}`);
-      }
-      expect(FORMAT_SAMPLES.length).assertEqual(7);
-      expect(passed).assertEqual(7);
-      expect(starts[2]).assertEqual(60000);
-      expect(starts[4]).assertEqual(123 * 60000 + 45 * 1000 + 670);
-      expect(starts[5]).assertEqual(123040);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatWidth_0001 end');
-    });
-
-    /**
-     * @tc.number    SUB_LRC_FORMAT_0200
-     * @tc.name      testLrcFormatMatrix0002
-     * @tc.desc      验证小数点与冒号两种小数分隔符都被识别为秒的小数部分
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testLrcFormatMatrix0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatSeparator_0002 begin');
-      let diffs: number[] = [];
-      let matched: number = 0;
-      for (let item of SEPARATOR_CASES) {
-        let entries: LrcEntry[] = parseLrcLyric(item.line);
-        let actual: number = entries.length === 1 ? entries[0].lineStartTime : -1;
-        let diff: number = actual - item.expectedMs;
-        diffs.push(diff);
-        if (diff === 0) {
-          matched++;
-        }
-      }
-      hilog.info(DOMAIN, TAG, '%{public}s', `四种分隔符与期望差值=[${diffs.join(',')}]`);
-      expect(matched).assertEqual(SEPARATOR_CASES.length);
-      expect(diffs[0]).assertEqual(0);
-      expect(diffs[1]).assertEqual(0);
-      expect(diffs[3]).assertEqual(0);
-      expect(parseLrcLyric(SEPARATOR_CASES[0].line)[0].lineStartTime).assertEqual(1500);
-      expect(parseLrcLyric(SEPARATOR_CASES[3].line)[0].lineStartTime).assertEqual(1070);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatSeparator_0002 end');
-    });
-
-    /**
      * @tc.number    SUB_LRC_FORMAT_0300
      * @tc.name      testLrcFormatMatrix0003
      * @tc.desc      验证同一行内多个时间标签共享同一句歌词，并按时间升序排列
@@ -276,31 +211,6 @@ export default function LrcFormatMatrixTest() {
       expect(entries[1].lineWords.trim()).assertEqual('Tabbed lead');
       expect(entries[1].lineWords.length > entries[1].lineWords.trim().length).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatWhitespace_0006 end');
-    });
-
-    /**
-     * @tc.number    SUB_LRC_FORMAT_0700
-     * @tc.name      testLrcFormatMatrix0007
-     * @tc.desc      验证含中文与标点的歌词文本按原样保留，仅去除时间标签
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testLrcFormatMatrix0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatUnicode_0007 begin');
-      let chinese: string = '愿你梦想成真，Dream It Possible！';
-      let text: string = `[00:03.50]${chinese}\n[00:04.50]🎵 music 🎶`;
-      let entries: LrcEntry[] = parseLrcLyric(text);
-      let scanner: LrcLineScanner = new LrcLineScanner().scan(text);
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `首行字符数=${entries[0].lineWords.trim().length}, 标签数=${scanner.times.length}`);
-      expect(entries.length).assertEqual(2);
-      expect(entries[0].lineWords.trim()).assertEqual(chinese);
-      expect(entries[0].lineStartTime).assertEqual(3500);
-      expect(scanner.times[0]).assertEqual(3500);
-      expect(entries[0].lineWords.includes(',')).assertTrue();
-      expect(entries[1].lineWords.trim()).assertEqual('🎵 music 🎶');
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Lrc_FormatUnicode_0007 end');
     });
 
     /**

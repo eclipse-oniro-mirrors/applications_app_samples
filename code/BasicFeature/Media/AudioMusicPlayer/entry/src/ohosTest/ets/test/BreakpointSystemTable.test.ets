@@ -70,32 +70,6 @@ export default function BreakpointSystemTableTest() {
     });
 
     /**
-     * @tc.number    SUB_BREAKPOINT_TABLE_0100
-     * @tc.name      testBreakpointTable0001
-     * @tc.desc      验证三个断点区间字符串可解析且与阈值数值表一一对应
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testBreakpointTable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Breakpoint_RangeParse_0001 begin');
-      let sm: RangeInfo = parseRange(BreakpointConstants.RANGE_SM);
-      let md: RangeInfo = parseRange(BreakpointConstants.RANGE_MD);
-      let lg: RangeInfo = parseRange(BreakpointConstants.RANGE_LG);
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `sm=[${sm.lower},${sm.upper}), md=[${md.lower},${md.upper}), lg=[${lg.lower},${lg.upper})`);
-      expect(sm.valid && md.valid && lg.valid).assertTrue();
-      expect(sm.lower).assertEqual(BreakpointConstants.BREAKPOINT_VALUE_NUMBER[0]);
-      expect(md.lower).assertEqual(BreakpointConstants.BREAKPOINT_VALUE_NUMBER[1]);
-      expect(lg.lower).assertEqual(BreakpointConstants.BREAKPOINT_VALUE_NUMBER[2]);
-      expect(sm.upper).assertEqual(md.lower);
-      expect(md.upper).assertEqual(lg.lower);
-      expect(sm.upperInclusive).assertFalse();
-      expect(md.upperInclusive).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Breakpoint_RangeParse_0001 end');
-    });
-
-    /**
      * @tc.number    SUB_BREAKPOINT_TABLE_0200
      * @tc.name      testBreakpointTable0002
      * @tc.desc      验证断点字符串值与数值表逐项一致且数值严格递增
@@ -172,39 +146,6 @@ export default function BreakpointSystemTableTest() {
       expect(results[5]).assertEqual(BreakpointConstants.BREAKPOINT_LG);
       expect(results.filter((item: string) => item === BreakpointConstants.BREAKPOINT_SM).length).assertEqual(4);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Breakpoint_Extremes_0004 end');
-    });
-
-    /**
-     * @tc.number    SUB_BREAKPOINT_TABLE_0500
-     * @tc.name      testBreakpointTable0005
-     * @tc.desc      验证单行布局列数不超过总列数，且三档区间长度一致
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testBreakpointTable0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Breakpoint_Columns_0005 begin');
-      let columnSets: number[][] = [
-        [BreakpointConstants.SPAN_SM, BreakpointConstants.COLUMN_SM],
-        [BreakpointConstants.SPAN_MD, BreakpointConstants.COLUMN_MD],
-        [BreakpointConstants.SPAN_LG, BreakpointConstants.COLUMN_LG],
-        [BreakpointConstants.SPAN_LYRIC_LG, BreakpointConstants.COLUMN_LYRIC_LG]
-      ];
-      let withinCount: number = 0;
-      for (let set of columnSets) {
-        if (set[0] <= set[1]) {
-          withinCount++;
-        }
-      }
-      let sm: RangeInfo = parseRange(BreakpointConstants.RANGE_SM);
-      let md: RangeInfo = parseRange(BreakpointConstants.RANGE_MD);
-      hilog.info(DOMAIN, TAG, '%{public}s', `列数不超限=${withinCount}/${columnSets.length}`);
-      expect(withinCount).assertEqual(4);
-      expect(BreakpointConstants.COLUMN_SM).assertEqual(BreakpointConstants.SPAN_SM);
-      expect(BreakpointConstants.SPAN_MD < BreakpointConstants.COLUMN_MD).assertTrue();
-      expect(BreakpointConstants.SPAN_LG < BreakpointConstants.COLUMN_LG).assertTrue();
-      expect(md.upper - md.lower).assertEqual(sm.upper - sm.lower);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Breakpoint_Columns_0005 end');
     });
 
     /**

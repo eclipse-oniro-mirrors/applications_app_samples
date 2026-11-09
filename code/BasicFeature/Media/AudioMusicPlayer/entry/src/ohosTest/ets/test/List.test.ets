@@ -15,7 +15,8 @@
  
 import abilityTest from './Ability.test';
 import { ensureAppContext } from './TestContext';
-import LrcParseMatrixTest from './LrcParseMatrix.test';import KrcParseMatrixTest from './KrcParseMatrix.test';
+import LrcParseMatrixTest from './LrcParseMatrix.test';
+import KrcParseMatrixTest from './KrcParseMatrix.test';
 import TimeFormatEdgeTest from './TimeFormatEdge.test';
 import DataSourceSequenceTest from './DataSourceSequence.test';
 import GeometryEdgeTest from './GeometryEdge.test';
@@ -54,6 +55,13 @@ import TimeFormatMatrixPro2Test from './TimeFormatMatrixPro2.test';
 import LrcParseMatrixPro2Test from './LrcParseMatrixPro2.test';
 import ColorPropertyMatrixPro2Test from './ColorPropertyMatrixPro2.test';
 import GeometryConstMatrixPro2Test from './GeometryConstMatrixPro2.test';
+import BreakpointSystemTableTest from './BreakpointSystemTable.test';
+import KrcWordMatrixTest from './KrcWordMatrix.test';
+import LrcFormatMatrixTest from './LrcFormatMatrix.test';
+import LyricConstSuiteTest from './LyricConstSuite.test';
+import PlayerConstantsTableTest from './PlayerConstantsTable.test';
+import SongListScenarioSuiteTest from './SongListScenarioSuite.test';
+import StyleConstantsSuiteTest from './StyleConstantsSuite.test';
 
 export default function testsuite() {
   abilityTest();
@@ -94,6 +102,13 @@ export default function testsuite() {
   LrcParseMatrixPro2Test();
   ColorPropertyMatrixPro2Test();
   GeometryConstMatrixPro2Test();
+  BreakpointSystemTableTest();
+  KrcWordMatrixTest();
+  LrcFormatMatrixTest();
+  LyricConstSuiteTest();
+  PlayerConstantsTableTest();
+  SongListScenarioSuiteTest();
+  StyleConstantsSuiteTest();
   AudioMusicPlayer01Test();
   DataSource01Test();
   Lyric01Test();

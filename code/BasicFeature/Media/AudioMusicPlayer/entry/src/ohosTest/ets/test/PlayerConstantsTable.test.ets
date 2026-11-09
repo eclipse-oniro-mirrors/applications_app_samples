@@ -335,7 +335,7 @@ export default function PlayerConstantsTableTest() {
       expect(firstSongSinger.length > 0).assertTrue();
       expect(firstSongTitle.trim()).assertEqual(firstSongTitle);
       expect(firstSongSinger.trim()).assertEqual(firstSongSinger);
-      expect(firstSongTitle !== firstSongSinger).assertTrue();
+      expect((firstSongTitle as string) !== (firstSongSinger as string)).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Player_FirstSong_0009 end');
     });
 

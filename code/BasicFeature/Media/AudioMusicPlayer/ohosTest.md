@@ -7,8 +7,8 @@
 本文档用于说明 `AudioMusicPlayer` 自动化测试的分层结构、用例组织、覆盖重点与质量门禁，聚焦“为什么这样设计测试”和“当前测试能证明什么”，用于代码评审、测试审计与后续扩展。
 
 - 测试代码位于 `entry/src/ohosTest/ets/test/`。
-- `List.test.ets` 注册 **40 个套件、1,133 条用例**。
-- 测试目录共 **46 个套件文件、1,189 条用例**，测试代码约 **26,260 行**（有效代码行约 **14,013 行**），另有 `TestContext.ets`、`TestPace.ets` 等辅助。
+- `List.test.ets` 注册 **48 个套件、1,218 条用例**。
+- 测试目录共 **48 个套件文件、1,218 条用例**，测试代码约 **26,936 行**（有效代码行约 **14,819 行**），另有 `TestContext.ets`、`TestPace.ets` 等辅助。
 
 ## 2. 测试设计原则
 
@@ -99,20 +99,20 @@
 
 - **层次完整**：纯函数、常量/模型、服务/偏好、UI/启动均有覆盖。
 - **方式多样**：独立 oracle、属性断言、表驱动矩阵、边界与异常输入。
-- **数量与质量**：注册 1,133 条用例，矩阵覆盖大量真实取值；不依赖镜像自证。
+- **数量与质量**：注册 1,218 条用例，矩阵覆盖大量真实取值；不依赖镜像自证。
 - **可审计**：时间/歌词/颜色/几何矩阵的输入与预期均可独立复核。
 
 ### 5.2 数量与质量门禁
 
 | 指标 | 当前值 |
 |---|---:|
-| 注册套件（List.test） | 40 |
-| 注册用例 | 1,133 |
-| 目录套件文件 | 46 |
-| 目录用例总数 | 1,189 |
-| 测试代码行数 | 26,260 |
-| 有效代码行数 | 14,013 |
-| 断言总数 | 5,699（assertEqual 4,250 / assertTrue 1,289 / assertFalse 92） |
+| 注册套件（List.test） | 48 |
+| 注册用例 | 1,218 |
+| 目录套件文件 | 48 |
+| 目录用例总数 | 1,218 |
+| 测试代码行数 | 26,936 |
+| 有效代码行数 | 14,819 |
+| 断言总数 | 5,651（assertEqual 4,251 / assertTrue 1,308 / assertFalse 92） |
 | 断言少于 3 个的用例 | 432（矩阵/契约类单项断言为主） |
 | 超过 120 字符的行 | 44 |
 
@@ -125,17 +125,17 @@
 
 ## 6. 当前测试目录与职责
 
-`List.test.ets` 注册 40 个套件，按主题分组如下：
+`List.test.ets` 注册 48 个套件，按主题分组如下：
 
 | 分组 | 套件数 | 用例数 | 代表套件 |
 |---|---:|---:|---|
-| 启动与 UI/布局 | 3 | 23 | `AudioMusicPlayer`（13）、`ResponsiveLayoutSuite`（5）、`BreakpointCombination`（5） |
-| 歌词解析 | 14 | 390 | `LrcParseMatrixPro`（124）、`KrcParseMatrixPro`（103）、`LrcParseMatrixPro2`（100）、`LrcUtilsFunctionTest`（9）、`LyricTest`（8）等 |
+| 启动与 UI/布局 | 5 | 49 | `Ability`（16）、`AudioMusicPlayer`（13）、`BreakpointSystemTable`（10）、`ResponsiveLayoutSuite`（5）、`BreakpointCombination`（5） |
+| 歌词解析 | 17 | 414 | `LrcParseMatrixPro`（124）、`KrcParseMatrixPro`（103）、`LrcParseMatrixPro2`（100）、`LrcFormatMatrix`（10）、`KrcWordMatrix`（10）、`LrcUtilsFunctionTest`（9）、`LyricTest`（8）、`KrcTable`（6）等 |
 | 时间格式 | 4 | 314 | `TimeFormatMatrixPro`（150）、`TimeFormatMatrixPro2`（150）、`TimeFormatUnitMatrix`（10）、`TimeFormatEdge`（4） |
-| 颜色与几何 | 6 | 323 | `ColorPropertyMatrixPro`（100）、`ColorPropertyMatrixPro2`（100）、`GeometryConstMatrixPro`（61）、`GeometryConstMatrixPro2`（58）等 |
-| 常量/模型/数据源/工具 | 8 | 67 | `PureUtilsExtra`（24）、`SongModelSuite`（9）、`DataSourceTest`（8）、`ToolsTest`（6）等 |
+| 颜色与几何 | 6 | 323 | `ColorPropertyMatrixPro`（100）、`ColorPropertyMatrixPro2`（100）、`GeometryConstMatrixPro`（61）、`GeometryConstMatrixPro2`（58）、`GeometryEdge`（2）、`ColorConversionMatrix`（2） |
+| 常量/模型/数据源/工具 | 11 | 102 | `PureUtilsExtra`（24）、`SongListScenarioSuite`（10）、`PlayerConstantsTable`（10）、`LyricConstSuite`（10）、`StyleConstantsSuite`（9）、`SongModelSuite`（9）、`DataSourceTest`（8）、`ToolsTest`（6）等 |
 | 播放控制与偏好 | 5 | 16 | `PlayerControlTest`（7）、`PlaybackStateSuite`（3）、`FavoriteSequence`（3）、`NativePlayerGuard`（2）、`NativeTimeoutsSuite`（1） |
-| **合计** | **40** | **1,133** | |
+| **合计** | **48** | **1,218** | |
 
 ## 7. 结论
 

@@ -32,8 +32,8 @@ export class ColorConversion {
     let max = Math.max(Math.max(rRGB, gRGB), bRGB);
     let min = Math.min(Math.min(rRGB, gRGB), bRGB);
     let sHSB = max === 0 ? 0 : (max - min) / max;
-    // 0~255 Í¨µÀÖµ¹éÒ»»¯µ½ 0~1 µÄ HSB ÁÁ¶È¡£
-    let bHSB = max / 256;
+    // 0~255 é€šé“å€¼å½’ä¸€åŒ–åˆ° 0~1 çš„ HSB äº®åº¦ã€‚
+    let bHSB = max / 255;
     let hHSB = 0;
     if (max !== min) {
       if (max === rRGB && gRGB >= bRGB) {

@@ -192,11 +192,11 @@ library/
 
 音频录制涉及的权限包括：
 
-1.允许应用使用麦克风：[ohos.permission.MICROPHONE](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmicrophone)
+1.允许应用使用麦克风：[ohos.permission.MICROPHONE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmicrophone)
 
 空间音频涉及的权限包括：
 
-1.允许应用使用蓝牙：[ohos.permission.BLUETOOTH](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionuse_bluetooth)
+1.允许应用使用蓝牙：[ohos.permission.BLUETOOTH](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionuse_bluetooth)
 
 ### 依赖
 
@@ -216,6 +216,6 @@ library/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Media/Audio > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

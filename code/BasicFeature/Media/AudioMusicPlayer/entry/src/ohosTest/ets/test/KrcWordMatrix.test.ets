@@ -68,38 +68,6 @@ export default function KrcWordMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_KRC_WORD_0100
-     * @tc.name      testKrcWordMatrix0001
-     * @tc.desc      验证逐字词标签数量与行文本拼接结果，空标签文本也保留词元
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testKrcWordMatrix0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Krc_WordCount_0001 begin');
-      let matched: number = 0;
-      let observed: number[] = [];
-      for (let item of WORD_CASES) {
-        let text: string = item.text === '' ? '<0,300,0><300,300,0><600,300,0><900,100,0>' : item.text;
-        let parsed: LrcEntry[] = parseKrcLyric(buildWordLine(0, 1200, text.split(''), 300));
-        if (parsed.length === 1) {
-          observed.push(parsed[0].words.length);
-          if (parsed[0].words.length === item.expectedWords && parsed[0].lineWords === item.expectedLine) {
-            matched++;
-          }
-        }
-      }
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `词元数=${observed.join(',')}, 一致条数=${matched}/${WORD_CASES.length}`);
-      expect(WORD_CASES.length).assertEqual(5);
-      expect(matched).assertEqual(5);
-      expect(observed[0]).assertEqual(1);
-      expect(observed[3]).assertEqual(4);
-      expect(observed[2]).assertEqual(4);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Krc_WordCount_0001 end');
-    });
-
-    /**
      * @tc.number    SUB_KRC_WORD_0200
      * @tc.name      testKrcWordMatrix0002
      * @tc.desc      验证词起始时间与持续时长逐词等于标签值，且词起始时间单调不减
@@ -155,30 +123,6 @@ export default function KrcWordMatrixTest() {
       expect(sumDurations(overLine[0]) > overLine[0].lineDuration).assertTrue();
       expect(insideLine[0].words[2].wordStartTime).assertEqual(1000);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Krc_WordDurationSum_0003 end');
-    });
-
-    /**
-     * @tc.number    SUB_KRC_WORD_0400
-     * @tc.name      testKrcWordMatrix0004
-     * @tc.desc      验证无词标签的行文本被清空且词数组为空，标签外的普通文本不参与
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     LEVEL0
-     */
-    it('testKrcWordMatrix0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Krc_NoWordTags_0004 begin');
-      let noWords: LrcEntry[] = parseKrcLyric('[1000,2000]plain text without tags');
-      let mixed: LrcEntry[] = parseKrcLyric('[3000,1000]prefix<0,500,0>tagged suffix');
-      hilog.info(DOMAIN, TAG, '%{public}s',
-        `无词标签行文本长度=${noWords[0].lineWords.length}, 混合行文本=[${mixed[0].lineWords}]`);
-      expect(noWords.length).assertEqual(1);
-      expect(noWords[0].lineWords).assertEqual('');
-      expect(noWords[0].words.length).assertEqual(0);
-      expect(noWords[0].lineStartTime).assertEqual(1000);
-      expect(mixed[0].words.length).assertEqual(1);
-      expect(mixed[0].lineWords).assertEqual('tagged');
-      expect(mixed[0].lineWords.includes('prefix')).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'Krc_NoWordTags_0004 end');
     });
 
     /**

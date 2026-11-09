@@ -318,7 +318,7 @@ export struct ControlAreaComponent {
   getSongReuseId(item: SongItem): string {
     try {
       if (item.title && this.context) {
-        return this.context.resourceManager.getStringSync(item.title.id);
+        return this.context.resourceManager.getStringSync(item.title);
       }
     } catch (err) {
       Logger.error(TAG, `getSongReuseId failed: ${JSON.stringify(err)}`);

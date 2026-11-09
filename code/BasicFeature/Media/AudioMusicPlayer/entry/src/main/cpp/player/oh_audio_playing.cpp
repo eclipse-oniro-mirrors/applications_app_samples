@@ -618,7 +618,9 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
     bool success = false;
     if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
         success = HandleWavFile(songFd, audioFileOprInfo, songFileSize, songFileOffset);
-        ReconfigurePlayer();
+        if (success) {
+            ReconfigurePlayer();
+        }
     } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
         OH_LOG_INFO(LOG_APP, "Detected PCM file format");
         // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
