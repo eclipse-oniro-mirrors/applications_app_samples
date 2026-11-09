@@ -66,7 +66,7 @@ export default function accessiblePerfTest() {
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0100
      * @tc.name      testAccessibleScreenReaderSupport0001
-     * @tc.desc      Verify that UI elements support screen reader accessibility
+     * @tc.desc      Verify that UI elements support screen reader
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
@@ -101,7 +101,7 @@ export default function accessiblePerfTest() {
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0200
      * @tc.name      testAccessibleKeyboardNavigation0002
-     * @tc.desc      Verify that interactive elements support keyboard navigation accessibility
+     * @tc.desc      Verify that interactive elements support keyboard navigation
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
