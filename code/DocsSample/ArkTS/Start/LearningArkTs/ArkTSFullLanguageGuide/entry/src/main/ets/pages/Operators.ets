@@ -149,38 +149,31 @@ let cube: number = 3 ** 3;     // 27
 // [Start compound_assignment_operators]
 // 加法赋值
 let total: number = 100;
-total += 50;
-console.info(`${total}`);  // 150
+total += 50;  // 150
 
 // 字符串拼接赋值
 let compoundMessage: string = 'Hello';
-compoundMessage += ' World';
-console.info(`${compoundMessage}`);  // Hello World
+compoundMessage += ' World';  // 'Hello World'
 
 // 减法赋值
 let balance: number = 1000;
-balance -= 200;
-console.info(`${balance}`);  // 800
+balance -= 200;  // 800
 
 // 乘法赋值
 let price: number = 10;
-price *= 2;
-console.info(`${price}`);  // 20
+price *= 2;  // 20
 
 // 除法赋值
 let amount: number = 100;
-amount /= 4;
-console.info(`${amount}`);  // 25
+amount /= 4;  // 25
 
 // 取模赋值
 let compoundValue: number = 17;
-compoundValue %= 5;
-console.info(`${compoundValue}`);  // 2
+compoundValue %= 5;  // 2
 
 // 指数赋值
 let compoundBase: number = 2;
-compoundBase **= 4;
-console.info(`${compoundBase}`);  // 16
+compoundBase **= 4;  // 16
 // [End compound_assignment_operators]
 
 // ===== strict_equality_operator =====
@@ -208,6 +201,12 @@ class EqPoint {
 let p1: EqPoint = new EqPoint(1, 2);
 let p2: EqPoint = new EqPoint(1, 2);
 console.info(`${p1 === p2}`);  // false（不同对象）
+
+// NaN不等于自身
+let nan1: number = 0 / 0;  // 浮点计算产生NaN
+let nan2: number = 0 / 0;  // 浮点计算产生NaN
+console.info(`${nan1 === nan2}`);        // false
+console.info(`${Number.isNaN(nan1)}`);   // true
 // [End strict_equality_operator]
 
 // ===== strict_inequality_operator =====
@@ -273,7 +272,7 @@ function compareTuples(a: number[], b: number[]): boolean {
   if (a.length !== b.length) {
     return false;
   }
-  for (let i: number = 0; i < a.length; i++) {
+  for (let i = 0; i < a.length; i++) {
     if (a[i] !== b[i]) {
       return false;
     }
@@ -315,7 +314,7 @@ let role: string = isAdmin ? 'admin' : 'user';
 // [Start nullish_coalescing_operator]
 let coalesceValue: string | null = null;
 let coalesceResult: string = coalesceValue ?? 'default';
-console.info(`${coalesceResult}`);  // "default"
+console.info(`${coalesceResult}`);  // 'default'
 
 let value2: string = 'hello';
 let result2: string = value2 ?? 'default';  // "hello"
@@ -339,7 +338,7 @@ let secondary: string | null = null;
 let fallback: string = 'default';
 
 let result3: string = primary ?? secondary ?? fallback;
-console.info(`${result3}`);  // "default"
+console.info(`${result3}`);  // 'default'
 // [End nullish_coalescing_operator]
 
 // ===== closed_range_check =====
@@ -477,8 +476,8 @@ function fallbackValue(): string {
   return 'default';
 }
 
-let circuitPrimary: string | null = 'circuitPrimary';
-let circuitValue: string = circuitPrimary !== null ? circuitPrimary : fallbackValue();  // 不执行fallbackValue
+let circuitPrimary: string = 'primary';
+let circuitValue: string = circuitPrimary || fallbackValue();  // "primary"，不执行fallbackValue
 
 // ?? 短路：左边不为null/undefined，右边不执行
 function expensiveDefault(): string {
@@ -509,41 +508,26 @@ let postDec: number = decrCount--; // decrCount=5, postDec=6
 
 // ===== optional_chaining_operator =====
 // [Start optional_chaining_operator]
-class User {
-  public profile: Profile | null = null;
+// 变量为数组或null，都能正常访问
+function printScores(scores: number[] | null) {
+  // 安全访问属性：scores为null时返回undefined
+  let scoreCount: number | undefined = scores?.length;
+  console.info(`分数数量: ${scoreCount}`);
+  
+  // 安全调用方法：scores为null时返回undefined
+  let hasPass: boolean | undefined = scores?.includes(60);
+  console.info(`是否有及格: ${hasPass}`);
+  
+  // 结合空值合并提供默认值
+  let safeCount: number = scores?.length ?? 0;
+  console.info(`安全获取数量: ${safeCount}`);
 }
 
-class Profile {
-  public nickname: string = '';
-}
+// 测试 null 情况
+printScores(null);  // 输出: 分数数量: undefined, 是否有及格: undefined, 安全获取数量: 0
 
-let user: User | null = new User();
-
-// 安全访问属性链
-let nickname: string | undefined = user?.profile?.nickname;
-console.info(`${nickname}`);  // undefined
-
-// 访问方法
-class Service {
-  public getData(): string {
-    return 'data';
-  }
-}
-function getService(): Service | null {
-  return null;
-}
-let service: Service | null = getService();
-let data: string | null | undefined = service?.getData();
-
-// 访问数组元素
-function getArr(): number[] | null {
-  return null;
-}
-let arr: number[] | null = getArr();
-let first: number | undefined = arr !== null ? arr[0] : undefined;
-
-// 结合空值合并
-let display: string = user?.profile?.nickname ?? 'Unknown';
+// 测试数组情况
+printScores([80, 95]);  // 输出: 分数数量: 2, 是否有及格: false, 安全获取数量: 2
 // [End optional_chaining_operator]
 
 // ===== strict_equality_preferred =====
@@ -613,8 +597,51 @@ let coalesceValue22: string = coalesceInput ?? 'default';
 // [End nullish_coalescing_over_ternary]
 
 // [Start loose_equality_not_recommended]
+// == 将null与undefined视为相等
 let inputValue: string | null = null;
-let itemCount: number = 0;
-if (inputValue == null) { }
-if (itemCount == 0) { }
+let missing: string | undefined = undefined;
+
+console.info(`${inputValue == null}`);     // true
+console.info(`${missing == null}`);        // true（undefined == null为true）
+console.info(`${inputValue == missing}`);  // true
+
+// === 严格区分null与undefined
+console.info(`${inputValue === null}`);  // true
+console.info(`${missing === null}`);     // false（undefined !== null）
 // [End loose_equality_not_recommended]
+
+// ===== logical_assignment_operators =====
+// [Start logical_assignment_operators]
+// ??= 仅在左侧为null或undefined时赋值
+let configValue: string | null = null;
+configValue ??= 'default';  // "default"（原值为null，执行赋值）
+
+let timeout: number | null = 0;
+timeout ??= 3000;  // 0（0是有效值，不执行赋值）
+
+// ||= 仅在左侧为falsy值时赋值
+let label: string = '';
+label ||= 'unnamed';  // "unnamed"（''是falsy值，执行赋值）
+
+// &&= 仅在左侧为truthy值时赋值
+let logicalCount: number = 10;
+logicalCount &&= logicalCount * 2;  // 20（10是truthy值，执行赋值）
+
+// 短路特性：左侧条件不满足时，右侧表达式不会执行
+let cache: string | null = 'cached';
+function loadFromDisk(): string {
+  console.info('执行磁盘读取');
+  return 'loaded';
+}
+cache ??= loadFromDisk();  // "cached"（不为null，loadFromDisk不执行）
+// [End logical_assignment_operators]
+
+// ===== non_null_assertion_operator =====
+// [Start non_null_assertion_operator]
+function getValue(): string | null {
+  return 'Alice';
+}
+
+let nickname: string | null = getValue();
+console.info(nickname!.toUpperCase());  // 'ALICE'（断言非空后直接调用）
+// [End non_null_assertion_operator]

@@ -244,6 +244,28 @@ napi_value DestroyAudioRender(napi_env env, napi_callback_info info)
     return retVal;
 }
 
+napi_value Standby(napi_env env, napi_callback_info info)
+{
+    // [Start Render_Standby]
+    // 进入standby状态。仅在STATE_RUNNING状态下可调用。
+    OH_AudioStream_Result result = OH_AudioRenderer_Standby(audioRenderer, true);
+    if (result == AUDIOSTREAM_SUCCESS) {
+        // 数据回调已暂停，已写入的缓存继续播放。
+    }
+
+    // 退出standby状态。仅在standby状态下可调用。
+    result = OH_AudioRenderer_Standby(audioRenderer, false);
+    if (result == AUDIOSTREAM_SUCCESS) {
+        // 数据回调恢复。
+    }
+    // [End Render_Standby]
+    std::stringstream ss;
+    ss << "standby操作完成";
+    napi_value retVal;
+    napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
+    return retVal;
+}
+
 napi_value SetVolume(napi_env env, napi_callback_info info)
 {
     // [Start Render_SetVolume]

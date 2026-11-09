@@ -19,9 +19,12 @@ import recorder from 'librecorder.so';
 import { LocalizedText } from '../../common/LocalizedText';
 import { dateTime } from '../../common/utils/DateTimeUtil';
 import { CameraDataModel } from '../../model/CameraDataModel';
+import { RecordingHistoryModel } from '../../model/RecordingHistoryModel';
 import { RecordingPhase, RecordingResultInfo, RecordingSessionController } from '../../controller/RecordingSessionController';
 import { CameraSessionController } from '../../controller/CameraSessionController';
 import { RecorderDiagnosticsController } from '../../controller/RecorderDiagnosticsController';
+import { RecorderSegmentController } from '../../controller/RecorderSegmentController';
+import { RecorderLaunchController } from '../../controller/RecorderLaunchController';
 import { RecorderLiveParameters } from '../../components/recorder/RecorderLiveParameters';
 import { RecorderDiagnosticsPanel } from '../../components/recorder/RecorderDiagnosticsPanel';
 import Logger from '../../common/utils/Logger';
@@ -37,6 +40,13 @@ struct Recorder {
   private session: RecordingSessionController = new RecordingSessionController();
   private camera: CameraSessionController = new CameraSessionController();
   private diagnostics: RecorderDiagnosticsController = new RecorderDiagnosticsController();
+  private segments: RecorderSegmentController = new RecorderSegmentController();
+  private launch: RecorderLaunchController = new RecorderLaunchController();
+  private switchingTask: Promise<void> | undefined = undefined;
+  private ending: boolean = false;
+  private showResultOnFinish: boolean = true;
+  private segmentFailed: boolean = false;
+  private currentFinalized: boolean = false;
   private previewController: XComponentController = new XComponentController();
   private finishTask: Promise<void> | undefined = undefined;
   private result: RecordingResultInfo | undefined = undefined;
@@ -76,28 +86,82 @@ struct Recorder {
     if (this.phase !== RecordingPhase.READY) { return; }
     this.phase = RecordingPhase.PREPARING;
     try {
-      if (!this.session.start()) { throw new Error('Native recorder start failed'); }
-      await this.camera.start();
-      this.session.mark('camera.started');
-      if (this.finishTask !== undefined) { return; }
-      this.phase = RecordingPhase.RECORDING;
-      this.startedAt = Date.now();
-      this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
-        (compact: string, details: string): void => {
-          this.compact = compact;
-          this.details = details;
-          this.elapsed = Math.floor((Date.now() - this.startedAt) / 1000);
-        }, (): void => {
-          if (this.data.stopOnLowSpace && recorder.getDiagnostics().active &&
-            recorder.getDiagnostics().failure.stage.length === 0) {
-            this.session.mark('storage.stop_requested');
-          }
-          void this.finish(true);
-        });
+      await this.beginCapture();
     } catch (error) {
       this.session.mark('camera.failed', 'start_failed');
       Logger.error('Recorder', JSON.stringify(error));
       await this.finish(true);
+    }
+  }
+
+  private async beginCapture(): Promise<void> {
+    if (!this.session.start()) { throw new Error('Native recorder start failed'); }
+    await this.camera.start();
+    this.session.mark('camera.started');
+    if (this.ending) { return; }
+    this.phase = RecordingPhase.RECORDING;
+    this.startedAt = Date.now();
+    this.segments.started(this.startedAt);
+    this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
+      (compact: string, details: string): void => {
+        this.compact = compact; this.details = details;
+        this.elapsed = Math.floor((Date.now() - this.startedAt) / 1000);
+        if (this.segments.due(this.data, recorder.getDiagnostics(), Date.now())) { this.rotateSegment(); }
+      }, (): void => {
+        if (this.data.stopOnLowSpace && recorder.getDiagnostics().active &&
+          recorder.getDiagnostics().failure.stage.length === 0) { this.session.mark('storage.stop_requested'); }
+        void this.finish(true);
+      });
+  }
+
+  private rotateSegment(): void {
+    if (this.switchingTask !== undefined || this.ending || this.phase !== RecordingPhase.RECORDING) { return; }
+    this.phase = RecordingPhase.FINALIZING;
+    this.diagnostics.stop();
+    this.compact = LocalizedText.get($r('app.string.rec_segments_switching'));
+    this.switchingTask = this.switchSegment();
+    void this.switchingTask.finally((): void => {
+      this.switchingTask = undefined;
+      if (this.ending) { void this.finish(this.showResultOnFinish); }
+    });
+  }
+
+  private async finalizeSegment(): Promise<void> {
+    if (this.currentFinalized) { return; }
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const result = await this.session.finish(context, this.data,
+      (): Promise<void> => this.stopCamera(), (): Promise<void> => this.camera.release());
+    this.currentFinalized = true;
+    this.segments.add(result);
+    if (result?.complete !== true) { this.segmentFailed = true; this.ending = true; }
+  }
+
+  private async switchSegment(): Promise<void> {
+    try {
+      await this.finalizeSegment();
+      if (this.ending || !this.canNavigate) { return; }
+      if (!this.segments.canContinue()) {
+        this.ending = true;
+        this.getUIContext().getPromptAction().showToast({
+          message: LocalizedText.get($r('app.string.rec_segments_limit_reached'))
+        });
+        return;
+      }
+      this.data.segmentIndex++;
+      const launched: boolean = await this.launch.launch(this.getUIContext(), this.data, false);
+      if (launched || recorder.getDiagnostics().active) {
+        this.currentFinalized = false;
+        this.session = new RecordingSessionController();
+        this.camera = new CameraSessionController();
+      }
+      if (!launched) { throw new Error('Unable to initialize the next recording segment'); }
+      if (this.ending) { return; }
+      await this.camera.prepare(this.getUIContext(), this.data, this.previewController.getXComponentSurfaceId());
+      this.session.ready();
+      if (!this.ending) { await this.beginCapture(); }
+    } catch (error) {
+      this.segmentFailed = true; this.ending = true;
+      Logger.error('Recorder', 'Segment switch failed: ' + JSON.stringify(error));
     }
   }
 
@@ -121,26 +185,37 @@ struct Recorder {
   }
 
   private async finish(showResult: boolean): Promise<void> {
+    this.ending = true;
+    // A Back/hide request wins over an automatic failure result during segment switching.
+    this.showResultOnFinish = this.showResultOnFinish && showResult;
+    this.diagnostics.stop();
     if (this.finishTask === undefined) {
       this.phase = RecordingPhase.FINALIZING;
-      this.diagnostics.stop();
-      this.finishTask = this.finalize(showResult);
+      this.finishTask = this.finalize();
     }
     await this.finishTask;
   }
 
-  private async finalize(showResult: boolean): Promise<void> {
+  private async finalize(): Promise<void> {
     try {
-      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      this.result = await this.session.finish(context, this.data,
-        (): Promise<void> => this.stopCamera(), (): Promise<void> => this.camera.release());
-      this.phase = this.session.phase;
+      if (this.switchingTask !== undefined) { await this.switchingTask; }
+      await this.finalizeSegment();
+      this.result = this.segments.result(this.data.recordingGroupId, this.segmentFailed);
+      this.phase = this.result?.complete === true ? RecordingPhase.FINISHED : RecordingPhase.FAILED;
     } catch (error) {
+      this.result = this.segments.result(this.data.recordingGroupId, true);
       this.phase = RecordingPhase.FAILED;
       this.compact = LocalizedText.get($r('app.string.recorder_finalize_failed'));
       Logger.error('Recorder', JSON.stringify(error));
     }
-    this.navigate(showResult);
+    if (this.result?.complete === false) {
+      try {
+        const history = new RecordingHistoryModel();
+        await history.load(this.getUIContext().getHostContext() as common.UIAbilityContext);
+        await history.markIncomplete(this.data.recordingGroupId);
+      } catch (error) { Logger.warn('Recorder', 'History update failed: ' + JSON.stringify(error)); }
+    }
+    this.navigate(this.showResultOnFinish);
   }
 
   private navigate(showResult: boolean): void {

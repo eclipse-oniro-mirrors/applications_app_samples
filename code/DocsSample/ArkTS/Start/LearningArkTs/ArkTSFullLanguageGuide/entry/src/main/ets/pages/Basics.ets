@@ -59,12 +59,12 @@ interface IRepository { }
 let outputName: string = 'ArkTS';
 const version: number = 1.0;
 
-console.info(`${outputName}`);              // ArkTS
+console.info(`${outputName}`);              // 'ArkTS'
 console.info(`${version}`);      // 1
-console.info(`Name: ${outputName}`);   // Name: ArkTS
-console.info(`Version: ${version}, Name: ${outputName}`);  // Version: 1, Name: ArkTS
-console.warn(`Version: ${version}, Name: ${outputName}`);  // Version: 1, Name: ArkTS
-console.error('Invalid input');        // Invalid input
+console.info(`Name: ${outputName}`);   // 'Name: ArkTS'
+console.info(`Version: ${version}, Name: ${outputName}`);  // 'Version: 1, Name: ArkTS'
+console.warn(`Version: ${version}, Name: ${outputName}`);  // 'Version: 1, Name: ArkTS'
+console.error('Invalid input');        // 'Invalid input'
 // [End variable_output]
 
 // ===== single_line_comment =====
@@ -346,8 +346,8 @@ function nullHandleGreet(name: string, title: string = 'User'): string {
   return `Hello, ${title} ${name}`;
 }
 
-nullHandleGreet('Alice');           // Hello, User Alice
-nullHandleGreet('Alice', 'Dr.');    // Hello, Dr. Alice
+nullHandleGreet('Alice');           // 'Hello, User Alice'
+nullHandleGreet('Alice', 'Dr.');    // 'Hello, Dr. Alice'
 // [End null_handling]
 
 // ===== non_null_assertion =====
@@ -724,9 +724,9 @@ tiCtxNames.forEach((s) => {
 // [Start type_inference_control_flow]
 let tiValue: string | number = 'hello';
 if (typeof tiValue === 'string') {
-  console.info(tiValue.toUpperCase()); // 此处value收窄为string
+  console.info(tiValue.toUpperCase()); // 此处tiValue收窄为string
 } else {
-  console.info(`${tiValue}`);          // 此处value收窄为number
+  console.info(`${tiValue}`);          // 此处tiValue收窄为number
 }
 // [End type_inference_control_flow]
 
@@ -795,22 +795,21 @@ greetUser({ name: 'Alice', age: 25 });
 
 // ===== spread_syntax_alternative =====
 // [Start spread_syntax_alternative]
-interface SpreadConfig {
-  host: string;
-  port: number;
-}
-
-// 数组展开，ArkTS支持
+// 复制数组到数组字面量
 let spreadArr1: number[] = [1, 2, 3];
 let spreadArr2: number[] = [...spreadArr1, 4, 5];
 
-// 对象属性复制，使用逐个赋值
-let spreadOriginal: SpreadConfig = { host: 'localhost', port: 8080 };
-let spreadCopy: SpreadConfig = {
-  host: spreadOriginal.host,
-  port: 3000
-};
-console.info(`${spreadCopy.host}, ${spreadCopy.port}`); // localhost, 3000
+// 展开数组传递给剩余参数
+function spreadTotal(...values: number[]): number {
+  let total: number = 0;
+  for (const value of values) {
+    total += value;
+  }
+  return total;
+}
+
+let spreadNums: number[] = [1, 2, 3];
+console.info(`${spreadTotal(...spreadNums)}`);  // 6
 // [End spread_syntax_alternative]
 
 // ===== try_catch_basic =====

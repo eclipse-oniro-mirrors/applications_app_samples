@@ -101,23 +101,12 @@ function invokeAdd(a: number, b: number): number {
 
 let sum: number = invokeAdd(1, 2);
 
-// 链式调用
+// 嵌套调用
 function double(x: number): number {
   return x * 2;
 }
 
 let invokeResult: number = double(double(5));  // 20
-
-// 嵌套调用
-function square(x: number): number {
-  return x * x;
-}
-
-function sumOfSquares(a: number, b: number): number {
-  return square(a) + square(b);
-}
-
-let squaresSum: number = sumOfSquares(3, 4);  // 25
 
 // 条件调用
 function invokeProcessData(data: string | null): void {
@@ -188,7 +177,7 @@ let user: User = createUser(1, 'Alice');
 // 返回数组
 function createRange(start: number, end: number): number[] {
   let result: number[] = [];
-  for (let i: number = start; i <= end; i++) {
+  for (let i = start; i <= end; i++) {
     result.push(i);
   }
   return result;
@@ -218,6 +207,7 @@ function buildMessage(
   suffix?: string
 ): string {
   let result: string = content;
+  // 检查可选参数
   if (prefix !== undefined) {
     result = prefix + result;
   }
@@ -230,21 +220,6 @@ function buildMessage(
 buildMessage('Hello');           // "Hello"
 buildMessage('Hello', '[');      // "[Hello"
 buildMessage('Hello', '[', ']'); // "[Hello]"
-
-// 检查可选参数
-function processConfig(config: Config): void {
-  if (config.timeout !== undefined) {
-    console.info(`超时: ${config.timeout}`);
-  }
-  if (config.retries !== undefined) {
-    console.info(`重试次数: ${config.retries}`);
-  }
-}
-
-interface Config {
-  timeout?: number;
-  retries?: number;
-}
 // [End optional_parameters]
 
 // ===== default_parameters =====
@@ -276,7 +251,7 @@ createMessage('Hello', '[WARN]', '!'); // "[WARN] Hello!"
 
 // 默认值可以是表达式
 function createTimer(
-  interval: number = 1000,
+  interval: number = 60 * 1000,
   callback: () => void = () => {}
 ): Timer {
   return {
@@ -331,34 +306,9 @@ function greetAll(greeting: string, ...names: string[]): string {
 }
 
 greetAll('Hello', 'Alice', 'Bob', 'Charlie');
-
-// 剩余参数必须是最后一个参数
-function buildArray(first: number, ...rest: number[]): number[] {
-  let result: number[] = [first];
-  for (let value of rest) {
-    result.push(value);
-  }
-  return result;
-}
-
-let single: number[] = buildArray(1);
-console.info(`${single.join(', ')}`);  // 1
-let multiple: number[] = buildArray(1, 2, 3, 4);
-console.info(`${multiple.join(', ')}`);  // 1, 2, 3, 4
-
-// 剩余参数类型
-function concatenate(...strings: string[]): string {
-  return strings.join('');
-}
-
-concatenate('a', 'b', 'c');  // "abc"
-
-// 剩余参数用于转发
-function logAll(...messages: string[]): void {
-  for (let message of messages) {
-    console.info(`${message}`);
-  }
-}
+// Hello, Alice
+// Hello, Bob
+// Hello, Charlie
 // [End rest_parameters]
 
 // ===== parameter_destructuring_limitation =====
@@ -613,7 +563,7 @@ function getElement(arr: string[], index: number): string | undefined {
 }
 
 let element: string | undefined = getElement(['a', 'b', 'c'], 1);
-console.info(`${element}`); // b
+console.info(`${element}`); // 'b'
 
 // 返回null或值
 function getConfigValue(key: string): string | null {
@@ -628,6 +578,17 @@ function getConfigValue(key: string): string | null {
   return null;
 }
 // [End optional_return_values]
+
+// ===== arrow_function_body_forms =====
+// [Start arrow_function_body_forms]
+// 块体形式：花括号内显式return
+let addFn: (a: number, b: number) => number = (a: number, b: number): number => {
+  return a + b;
+};
+
+// 表达式体形式：单表达式省略花括号和return
+let doubleFn: (value: number) => number = (value: number): number => value * 2;
+// [End arrow_function_body_forms]
 
 // ===== functions_as_parameters =====
 // [Start functions_as_parameters]
@@ -667,7 +628,7 @@ let processed: string[] = paramsProcessData(
   ['hello', 'world'],
   (s: string): string => s.toUpperCase()
 );
-console.info(`${processed[0]}, ${processed[1]}`); // HELLO, WORLD
+console.info(`${processed[0]}, ${processed[1]}`); // 'HELLO, WORLD'
 
 // 条件判断函数
 function filterNumbers(
@@ -735,15 +696,15 @@ let descComparator: (a: number, b: number) => number = createComparator(false);
 // ===== function_type_aliases =====
 // [Start function_type_aliases]
 // 使用类型别名
-type Callback = (result: string) => void;
+type MyCallback = (result: string) => void;
 type Predicate = (value: number) => boolean;
 type Transformer = (input: string) => string;
 type Comparator = (a: number, b: number) => number;
 
 // 简化复杂函数类型
-type EventHandler = (event: Event) => void;
+type EventHandler = (event: MyEvent) => void;
 
-interface Event {
+interface MyEvent {
   type: string;
   data: string | number | boolean;
 }
@@ -751,22 +712,52 @@ interface Event {
 function addEventListener(handler: EventHandler): void {
   // 注册事件处理器
 }
+// [End function_type_aliases]
 
-// 使用泛型函数类型
-type Mapper<T, R> = (value: T) => R;
-type Filter<T> = (value: T) => boolean;
-type Reducer<T, R> = (acc: R, value: T) => R;
-
-function mapArray<T, R>(arr: T[], mapper: Mapper<T, R>): R[] {
-  let result: R[] = [];
-  for (let item of arr) {
-    result.push(mapper(item));
+// ===== recursive_factorial =====
+// [Start recursive_factorial]
+// 阶乘：n! = n * (n-1)!
+function factorial(n: number): number {
+  if (n <= 1) {
+    return 1;  // 基线条件：终止递归
   }
-  return result;
+  return n * factorial(n - 1);  // 递归调用
 }
 
-let doubled: number[] = mapArray([1, 2, 3], (n: number): number => n * 2);
-// [End function_type_aliases]
+console.info(`${factorial(5)}`);  // 120
+
+// 斐波那契数列：fib(n) = fib(n-1) + fib(n-2)
+function fibonacci(n: number): number {
+  if (n <= 1) {
+    return n;  // 基线条件
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.info(`${fibonacci(10)}`);  // 55
+// [End recursive_factorial]
+
+// ===== tail_vs_normal_recursion =====
+// [Start tail_vs_normal_recursion]
+// 普通递归：递归调用返回后还需执行乘法，调用栈随深度增长
+function factorialNormal(n: number): number {
+  if (n <= 1) {
+    return 1;
+  }
+  return n * factorialNormal(n - 1);
+}
+
+// 尾递归：累积结果通过acc参数传递，递归调用是最后一个操作
+function factorialTail(n: number, acc: number = 1): number {
+  if (n <= 1) {
+    return acc;
+  }
+  return factorialTail(n - 1, n * acc);
+}
+
+console.info(`${factorialNormal(5)}`);  // 120
+console.info(`${factorialTail(5)}`);    // 120
+// [End tail_vs_normal_recursion]
 
 // ===== local_function_expression =====
 // [Start local_function_expression]
@@ -855,14 +846,15 @@ class BindingTimer {
   private seconds: number = 0;
 
   start(): void {
-    setInterval((): void => {
+    mySetInterval((): void => {
       this.seconds++;
       console.info(`${this.seconds.toString()}`);
     }, 1000);
   }
 }
 
-function setInterval(callback: () => void, ms: number): void {
+// 示意桩：同步模拟异步定时调用，实际开发中请使用系统或第三方异步定时接口
+function mySetInterval(callback: () => void, ms: number): void {
   callback();
 }
 // [End arrow_function_this_binding]
@@ -911,9 +903,9 @@ interface OverloadPoint {
 }
 
 let point1: OverloadPoint = overloadCreatePoint(10);
-console.info(`${JSON.stringify(point1)}`);  // {"x":10,"y":0}
+console.info(`${JSON.stringify(point1)}`);  // '{"x":10,"y":0}'
 let point2: OverloadPoint = overloadCreatePoint(10, 20);
-console.info(`${JSON.stringify(point2)}`);  // {"x":10,"y":20}
+console.info(`${JSON.stringify(point2)}`);  // '{"x":10,"y":20}'
 // [End function_overloading]
 
 // ===== overload_signatures =====
@@ -1008,7 +1000,7 @@ let squared: number[] = orderNumbers.map((n: number): number => n * n);
 console.info(`${squared.join(', ')}`);  // 1, 4, 9, 16, 25
 
 let strings: string[] = orderNumbers.map((n: number): string => `Item ${n}`);
-console.info(`${strings.join(', ')}`);  // Item 1, Item 2, Item 3, Item 4, Item 5
+console.info(`${strings.join(', ')}`);  // 'Item 1, Item 2, Item 3, Item 4, Item 5'
 
 // filter：过滤元素
 let orderEvens: number[] = orderNumbers.filter((n: number): boolean => n % 2 === 0);
@@ -1442,11 +1434,6 @@ console.info(`${csaP.x}, ${csaP.y}`); // 3, 4
 
 // ===== parameters_formal_and_actual =====
 // [Start parameters_formal_and_actual]
-interface FormalPoint {
-  x: number;
-  y: number;
-}
-
 // 形参（形式参数）：函数定义时的参数
 function addNumbers(a: number, b: number): number {
   return a + b;
@@ -1461,21 +1448,7 @@ console.info(`${paramsResult}`); // 3
 // addNumbers(1, 2, 3);  // 编译错误：参数过多
 
 // 参数类型必须匹配
-function greetUser(name: string): string {
-  return `Hello, ${name}`;
-}
-
-let greeting: string = greetUser('Alice');
-console.info(`${greeting}`); // Hello, Alice
-// greetUser(123);  // 编译错误：类型不匹配
-
-// 参数顺序必须匹配
-function createPoint(x: number, y: number): FormalPoint {
-  return { x: x, y: y };
-}
-
-let fpPoint: FormalPoint = createPoint(10, 20);
-console.info(`${fpPoint.x}, ${fpPoint.y}`); // 10, 20
+// addNumbers('1', '2');  // 编译错误：类型不匹配
 // [End parameters_formal_and_actual]
 
 // ===== overload_type_constraints =====
@@ -1498,7 +1471,7 @@ function getData(idOrName: number | string): OverloadData {
 
 let otcData1: OverloadData = getData(1);
 let otcData2: OverloadData = getData('test');
-console.info(`${otcData1.id}, ${otcData2.type}`); // 1, named
+console.info(`${otcData1.id}, ${otcData2.type}`); // '1, named'
 
 // 返回类型不同的重载
 function parseInput(input: string): number;
@@ -1514,6 +1487,20 @@ let parsedNum: number = parseInput('42');
 let parsedDate: Date = parseInput('2024-01-01', 'date');
 console.info(`${parsedNum}`); // 42
 // [End overload_type_constraints]
+
+// ===== generic_function_signature =====
+// [Start generic_function_signature]
+// 泛型函数签名：T为类型参数，调用时确定具体类型
+function firstOrDefault<T>(values: T[], defaultValue: T): T {
+  if (values.length > 0) {
+    return values[0];
+  }
+  return defaultValue;
+}
+
+let firstNum: number = firstOrDefault<number>([1, 2, 3], 0);  // 显式指定类型参数
+let firstStr: string = firstOrDefault(['a', 'b'], 'none');    // 根据实参推断T为string
+// [End generic_function_signature]
 
 // ===== callback_no_optional_params =====
 // [Start callback_no_optional_params]

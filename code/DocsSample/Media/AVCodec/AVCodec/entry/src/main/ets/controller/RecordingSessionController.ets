@@ -17,7 +17,7 @@ import { common } from '@kit.AbilityKit';
 import { fileIo } from '@kit.CoreFileKit';
 import recorder from 'librecorder.so';
 import { CameraDataModel } from '../model/CameraDataModel';
-import { RecordingHistoryModel } from '../model/RecordingHistoryModel';
+import { RecordingHistoryModel, RecordingSegmentInfo } from '../model/RecordingHistoryModel';
 import Logger from '../common/utils/Logger';
 import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
 import { MediaSessionStore } from '../model/MediaSessionStore';
@@ -30,6 +30,7 @@ export interface RecordingResultInfo {
   primaryUri: string;
   secondaryUri: string;
   complete: boolean;
+  segments?: RecordingSegmentInfo[];
 }
 
 export enum RecordingPhase { PREPARING, READY, RECORDING, FINALIZING, FINISHED, FAILED }
@@ -134,7 +135,7 @@ export class RecordingSessionController {
       const history = new RecordingHistoryModel();
       await history.load(context);
       await history.add(result.primaryUri, result.title, result.secondaryUri, result.recordedAt, duration,
-        result.sessionId, result.complete);
+        result.sessionId, result.complete, data.recordingGroupId);
     } catch (error) { Logger.warn('RecordingSession', 'History persistence failed: ' + JSON.stringify(error)); }
     return result;
   }

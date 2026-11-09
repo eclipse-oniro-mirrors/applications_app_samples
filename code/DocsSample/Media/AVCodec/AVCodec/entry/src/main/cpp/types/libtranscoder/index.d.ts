@@ -20,6 +20,7 @@ export interface TranscodeRequest {
   bitrate: number;
   longEdge: number;
   useSurfaceInput: boolean;
+  gpuProcessing?: boolean;
   grayscale: boolean;
   resizeMode?: number;
   encoderCategory: number;
@@ -37,6 +38,8 @@ export interface TranscodeRequest {
   audioSampleRate?: number;
   audioChannels?: number;
   audioBitrate?: number;
+  audioResampler?: number;
+  previewTimeMs?: number;
 }
 
 export interface TranscodeMeasurement {
@@ -92,6 +95,10 @@ export interface TranscodeStatus {
   previewWidth?: number;
   previewHeight?: number;
   previewRgba?: ArrayBuffer;
+  originalWidth?: number;
+  originalHeight?: number;
+  originalRgba?: ArrayBuffer;
+  previewTimeMs?: number;
   droppedFrames?: number;
 }
 

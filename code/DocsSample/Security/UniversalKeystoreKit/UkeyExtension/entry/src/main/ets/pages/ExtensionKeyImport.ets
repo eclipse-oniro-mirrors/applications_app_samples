@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [extension_key_import_arkts]
+// [Start extension_key_import_arkts]
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -76,7 +76,7 @@ async function extensionKeyImport(): Promise<void> {
   const properties: huks.HuksParam[] = [
     {
       tag: huks.HuksTag.HUKS_TAG_KEY_CLASS,
-      value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION
+      value: huks.HuksKeyClassType.HUKS_KEY_CLASS_EXTENSION
     },
     {
       tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
@@ -113,4 +113,4 @@ async function extensionKeyImport(): Promise<void> {
     console.error('promise: extensionKeyImport input arg invalid.');
   }
 }
-// [extension_key_import_arkts]
+// [End extension_key_import_arkts]

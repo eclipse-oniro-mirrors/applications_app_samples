@@ -27,6 +27,15 @@ constexpr uint8_t BLACK_LUMA = 16;
 constexpr uint8_t NEUTRAL_CHROMA = 128;
 constexpr int32_t NV21_REVERSED_COMPONENT_OFFSET = CHROMA_SUBSAMPLING - 1;
 
+double DivideByPositive(double numerator, int32_t denominator)
+{
+    double quotient = 0.0;
+    if (denominator > 0) {
+        quotient = numerator / denominator;
+    }
+    return quotient;
+}
+
 uint8_t ReadFilteredChroma(const uint8_t *uv, size_t plane, const Layout &input, int32_t channel,
     int32_t x, int32_t y, const Geometry &geometry)
 {
@@ -67,26 +76,53 @@ uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t
     return static_cast<uint8_t>(std::clamp(std::lround(top * (1 - fy) + bottom * fy), 0L, 255L));
 }
 
-uint8_t InterpolateChroma(const uint8_t *uv, size_t plane, const Layout &input, const Geometry &geometry,
-    int32_t channel, int32_t x, int32_t y)
+template<class Read>
+uint8_t SampleArea(int32_t x, int32_t y, int32_t width, int32_t height, int32_t targetWidth,
+    int32_t targetHeight, Read read, Filter filter)
 {
-    return Interpolate(x, y, geometry.cropWidth / CHROMA_SUBSAMPLING,
+    if (width <= 0 || height <= 0 || targetWidth <= 0 || targetHeight <= 0) {
+        return 0;
+    }
+    if (filter != Filter::AREA || targetWidth > width || targetHeight > height) {
+        return Interpolate(x, y, width, height, targetWidth, targetHeight, read);
+    }
+    const double left = DivideByPositive(static_cast<double>(x) * width, targetWidth);
+    const double right = DivideByPositive(static_cast<double>(x + 1) * width, targetWidth);
+    const double top = DivideByPositive(static_cast<double>(y) * height, targetHeight);
+    const double bottom = DivideByPositive(static_cast<double>(y + 1) * height, targetHeight);
+    double sum = 0;
+    const int32_t endY = std::min(height, static_cast<int32_t>(std::ceil(bottom)));
+    const int32_t endX = std::min(width, static_cast<int32_t>(std::ceil(right)));
+    for (int32_t sy = static_cast<int32_t>(top); sy < endY; ++sy) {
+        const double weightY = std::min(bottom, sy + 1.0) - std::max(top, static_cast<double>(sy));
+        for (int32_t sx = static_cast<int32_t>(left); sx < endX; ++sx) {
+            const double weightX = std::min(right, sx + 1.0) - std::max(left, static_cast<double>(sx));
+            sum += read(sx, sy) * weightX * weightY;
+        }
+    }
+    return static_cast<uint8_t>(std::clamp(std::lround(sum / ((right - left) * (bottom - top))), 0L, 255L));
+}
+
+uint8_t InterpolateChroma(const uint8_t *uv, size_t plane, const Layout &input, const Geometry &geometry,
+    int32_t channel, int32_t x, int32_t y, Filter filter)
+{
+    return SampleArea(x, y, geometry.cropWidth / CHROMA_SUBSAMPLING,
         geometry.cropHeight / CHROMA_SUBSAMPLING, geometry.contentWidth / CHROMA_SUBSAMPLING,
-        geometry.contentHeight / CHROMA_SUBSAMPLING, [&](int32_t sx, int32_t sy) {
+        geometry.contentHeight / CHROMA_SUBSAMPLING, [uv, plane, &input, channel, &geometry](int32_t sx, int32_t sy) {
             return ReadFilteredChroma(uv, plane, input, channel, sx, sy, geometry);
-        });
+        }, filter);
 }
 
 void ProcessFiltered(const uint8_t *source, const Layout &input, uint8_t *destination, const Layout &output,
-    const Geometry &g, bool grayscale)
+    const Geometry &g, bool grayscale, Filter filter)
 {
     for (int32_t y = 0; y < g.contentHeight; ++y) {
         uint8_t *target = destination + static_cast<size_t>(y + g.contentTop) * output.stride + g.contentLeft;
         for (int32_t x = 0; x < g.contentWidth; ++x) {
-            target[x] = Interpolate(x, y, g.cropWidth, g.cropHeight, g.contentWidth, g.contentHeight,
-                [&](int32_t sx, int32_t sy) {
+            target[x] = SampleArea(x, y, g.cropWidth, g.cropHeight, g.contentWidth, g.contentHeight,
+                [source, &input, &g](int32_t sx, int32_t sy) {
                     return source[static_cast<size_t>(sy + g.cropTop) * input.stride + sx + g.cropLeft];
-                });
+                }, filter);
         }
     }
     if (grayscale) { return; }
@@ -100,7 +136,7 @@ void ProcessFiltered(const uint8_t *source, const Layout &input, uint8_t *destin
         for (int32_t x = 0; x < g.contentWidth / CHROMA_SUBSAMPLING; ++x) {
             for (int32_t channel = 0; channel < CHROMA_SUBSAMPLING; ++channel) {
                 target[x * CHROMA_SUBSAMPLING + channel] =
-                    InterpolateChroma(uv, plane, input, g, channel, x, y);
+                    InterpolateChroma(uv, plane, input, g, channel, x, y, filter);
             }
         }
     }
@@ -257,7 +293,7 @@ bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
     const size_t outputBytes = RequiredBytes(output);
     if (source == nullptr || destination == nullptr || inputBytes == 0 || outputBytes == 0 ||
         inputBytes > sourceCapacity || outputBytes > destinationCapacity || output.chroma != Chroma::NV12 ||
-        (filter != Filter::NEAREST && filter != Filter::BILINEAR)) {
+        (filter != Filter::NEAREST && filter != Filter::BILINEAR && filter != Filter::AREA)) {
         return false;
     }
     const size_t outputYBytes = static_cast<size_t>(output.stride) * output.sliceHeight;
@@ -285,9 +321,9 @@ bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
         std::fill_n(destination, outputYBytes, BLACK_LUMA);
         std::fill(destination + outputYBytes, destination + outputBytes, NEUTRAL_CHROMA);
     }
-    if (filter == Filter::BILINEAR && (geometry.cropWidth != geometry.contentWidth ||
+    if (filter != Filter::NEAREST && (geometry.cropWidth != geometry.contentWidth ||
         geometry.cropHeight != geometry.contentHeight)) {
-        ProcessFiltered(source, input, destination, output, geometry, grayscale);
+        ProcessFiltered(source, input, destination, output, geometry, grayscale, filter);
         return true;
     }
     ProcessLuma(source, input, destination, output, geometry);

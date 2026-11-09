@@ -43,7 +43,7 @@ class Dog extends Animal {
     this.breed = breed;
   }
   
-  // 继承父类方法，可以重写
+  // 继承父类方法，可以覆盖
   speak(): void {
     console.info(`${this.name} barks`);
   }
@@ -55,7 +55,7 @@ class Dog extends Animal {
 }
 
 let dog: Dog = new Dog('Max', 'Labrador');
-dog.speak();   // 'Max barks'（重写方法）
+dog.speak();   // 'Max barks'（覆盖方法）
 dog.move();    // 'Max moves'（继承方法）
 dog.fetch();   // 'Max fetches the ball'（新增方法）
 // [End basic_inheritance_example]
@@ -443,8 +443,8 @@ multiLevelChild.methodGrandParent();     // 'MultiLevelParent overrides GrandPar
 
 // 继承链查找：从子类到父类
 // MultiLevelChild.methodChild() -> MultiLevelChild自身
-// MultiLevelChild.methodParent() -> MultiLevelChild重写 -> MultiLevelParent方法
-// MultiLevelChild.methodGrandParent() -> MultiLevelParent重写 -> GrandParent方法
+// MultiLevelChild.methodParent() -> MultiLevelChild覆盖 -> MultiLevelParent方法
+// MultiLevelChild.methodGrandParent() -> MultiLevelParent覆盖 -> GrandParent方法
 
 // 继承层级限制：避免过深继承
 // 推荐：不超过3层继承
@@ -1125,7 +1125,7 @@ class ConceptCircle extends ConceptShape {
     this.radius = radius;
   }
 
-  // 重写方法：多态实现
+  // 覆盖方法：多态实现
   draw(): void {
     console.info(`Drawing circle with radius ${this.radius}`);
   }
@@ -1145,7 +1145,7 @@ class ConceptRectangle extends ConceptShape {
     this.height = height;
   }
 
-  // 重写方法：多态实现
+  // 覆盖方法：多态实现
   draw(): void {
     console.info(`Drawing rectangle ${this.width}x${this.height}`);
   }

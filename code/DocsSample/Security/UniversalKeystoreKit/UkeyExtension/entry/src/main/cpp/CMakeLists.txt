@@ -13,4 +13,4 @@ include_directories(${SRC_ROOT_DIR}
 
 add_library(entry SHARED napi_init.cpp)
 # The following are system-provided shared libraries
-target_link_libraries(entry PUBLIC libace_napi.z.so libhuks_ndk.z.so libhuks_external_crypto.z.so libohcert_manager.z.so)
+target_link_libraries(entry PUBLIC libace_napi.z.so libhuks_ndk.z.so libhuks_external_crypto.z.so libohcert_manager.z.so libsec_shared.z.so)

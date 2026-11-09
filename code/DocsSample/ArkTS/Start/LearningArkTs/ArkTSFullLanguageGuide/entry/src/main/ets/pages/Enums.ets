@@ -17,26 +17,18 @@ export {}
 
 // ===== basic_enum_declaration =====
 // [Start basic_enum_declaration]
-// 基本枚举声明
+// 枚举定义
 enum Direction {
   Up,
   Down,
   Left,
   Right
 }
+let direction: Direction = Direction.Up;
+// [End basic_enum_declaration]
 
-// 使用枚举
-let dir: Direction = Direction.Up;
-let moveDir: Direction = Direction.Down;
-
-console.info(`${dir}`);   // 0
-console.info(`${moveDir}`);  // 1
-
-// 枚举比较
-if (dir === Direction.Up) {
-  console.info('向上移动');
-}
-
+// ===== enum_as_function_parameter =====
+// [Start enum_as_function_parameter]
 // 枚举作为函数参数
 function declarationMove(direction: Direction): void {
   switch (direction) {
@@ -56,14 +48,7 @@ function declarationMove(direction: Direction): void {
 }
 
 declarationMove(Direction.Up);  // 向上
-
-// 枚举作为返回值
-function getDefaultDirection(): Direction {
-  return Direction.Right;
-}
-
-let defaultDir: Direction = getDefaultDirection();
-// [End basic_enum_declaration]
+// [End enum_as_function_parameter]
 
 // ===== enum_naming_conventions =====
 // [Start enum_naming_conventions]
@@ -648,23 +633,23 @@ function getStatusLabel(status: string): string {
 }
 
 // 推荐：使用枚举
-function getStatusLabelEnum(status: NumsStatus): string {
+enum OrderStatus {
+  Pending = 'pending',
+  Active = 'active',
+  Completed = 'completed'
+}
+
+function getStatusLabelEnum(status: OrderStatus): string {
   switch (status) {
-    case NumsStatus.Pending:
+    case OrderStatus.Pending:
       return '待处理';
-    case NumsStatus.Active:
+    case OrderStatus.Active:
       return '激活';
-    case NumsStatus.Completed:
+    case OrderStatus.Completed:
       return '已完成';
     default:
       return '未知';
   }
-}
-
-enum NumsStatus {
-  Pending = 'pending',
-  Active = 'active',
-  Completed = 'completed'
 }
 
 // 反例：使用魔术数值
@@ -678,33 +663,20 @@ function getErrorCode(code: number): string {
 }
 
 // 推荐：使用枚举
-function getErrorCodeEnum(code: NumsErrorCode): string {
-  switch (code) {
-    case NumsErrorCode.NotFound:
-      return 'Not Found';
-    case NumsErrorCode.Unauthorized:
-      return 'Unauthorized';
-    default:
-      return 'Unknown';
-  }
-}
-
-enum NumsErrorCode {
+enum HttpErrorCode {
   NotFound = 404,
   Unauthorized = 401
 }
 
-// 枚举替代常量
-// 反例
-const STATUS_PENDING = 'pending';
-const STATUS_ACTIVE = 'active';
-const STATUS_COMPLETED = 'completed';
-
-// 推荐
-enum OrderStatus {
-  Pending = 'pending',
-  Active = 'active',
-  Completed = 'completed'
+function getErrorCodeEnum(code: HttpErrorCode): string {
+  switch (code) {
+    case HttpErrorCode.NotFound:
+      return 'Not Found';
+    case HttpErrorCode.Unauthorized:
+      return 'Unauthorized';
+    default:
+      return 'Unknown';
+  }
 }
 // [End replace_magic_strings_numbers]
 
@@ -916,8 +888,8 @@ function ovRun(dir: OvDirection): void {
 ovRun(OvDirection.Right);  // Running 3
 // [End object_vs_enum_alternative]
 
-// ===== enum_auto_increment_rules =====
-// [Start enum_auto_increment_rules]
+// ===== auto_increment_numeric_enum =====
+// [Start auto_increment_numeric_enum]
 // 数值枚举自动递增
 enum AutoNumberEnum {
   First,    // 0（自动）
@@ -927,15 +899,10 @@ enum AutoNumberEnum {
   Fourth,   // 11（从Custom继续）
   Fifth     // 12
 }
+// [End auto_increment_numeric_enum]
 
-console.info(`${AutoNumberEnum.First}`);    // 0
-console.info(`${AutoNumberEnum.Second}`);   // 1
-console.info(`${AutoNumberEnum.Third}`);    // 2
-console.info(`${AutoNumberEnum.Custom}`);   // 10
-console.info(`${AutoNumberEnum.Fourth}`);   // 11
-console.info(`${AutoNumberEnum.Fifth}`);    // 12
-
-// 字符串枚举必须显式赋值
+// ===== enum_auto_increment_rules =====
+// [Start enum_auto_increment_rules]
 enum AutoStringEnum {
   A = 'A',
   B = 'B',
@@ -945,28 +912,6 @@ enum AutoStringEnum {
 
 // ===== enum_bidirectional_mapping =====
 // [Start enum_bidirectional_mapping]
-// 数值枚举支持双向映射
-enum BiNumberEnum {
-  Zero,
-  One,
-  Two
-}
-
-let biEnumName: string = BiNumberEnum[0];   // 'Zero'
-let biValue: number = BiNumberEnum.One;     // 1
-
-console.info(`${biEnumName}`);   // Zero
-console.info(`${biValue}`);      // 1
-
-// 字符串枚举不支持反向映射
-enum BiStringEnum {
-  A = 'A',
-  B = 'B'
-}
-
-let biA: BiStringEnum = BiStringEnum.A;  // 'A'
-
-// 双向映射示例
 enum BiUserRole {
   Admin = 100,
   Moderator = 200,
@@ -980,8 +925,8 @@ function getBiRoleName(roleId: number): string | undefined {
   return BiUserRole[roleId];
 }
 
-console.info(`${getBiRoleName(100)}`);  // Admin
-console.info(`${getBiRoleName(200)}`);  // Moderator
+console.info(`${getBiRoleName(100)}`);  // 'Admin'
+console.info(`${getBiRoleName(200)}`);  // 'Moderator'
 // [End enum_bidirectional_mapping]
 
 // ===== enum_member_list =====
@@ -1084,15 +1029,3 @@ enum ConstExampleEnum {
   C = ConstExampleEnum.A + ConstExampleEnum.B // 常量：常量表达式
 }
 // [End constant_enum_members]
-
-// ===== ambient_enum =====
-// [Start ambient_enum]
-declare enum AmbientExternalEnum {
-  A = 1,
-  B,
-  C
-}
-
-let ambValue: AmbientExternalEnum = AmbientExternalEnum.A;
-console.info(`${ambValue}`); // 1
-// [End ambient_enum]

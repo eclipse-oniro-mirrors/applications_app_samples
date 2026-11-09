@@ -42,6 +42,7 @@ function status(patch = {}) {
     copiedBytes: 1000, fileBytes: 200, availableBytes: 1e9, estimatedBytes: 1e6, diagnostics: [],
     decoderName: 'decoder', encoderName: 'encoder', sourceWidth: 1280, sourceHeight: 720, durationUs: 1e6,
     sourceFrameRate: 30, sourceMime: 'video/avc', audioTracks: ['audio'], audioTrackIds: [2],
+    originalWidth: 2, originalHeight: 2, originalRgba: new ArrayBuffer(16),
     minBitrate: 100000, maxBitrate: 20000000, audioBytes: 100, audioMode: 0, ...patch };
 }
 function deferred() {
@@ -104,7 +105,9 @@ function load(name) {
       if (name === './MediaFileWriter') {
         return { MediaFileWriter: { writeAll: async (fd, value) => { files.get(fd).text = value; } } };
       }
-      if (name.startsWith('./')) { return load(name.slice(2)); }
+      if (name.startsWith('./') || name.startsWith('../')) {
+        return load(path.relative(root, path.resolve(path.dirname(file), name)));
+      }
       throw new Error('Unexpected dependency: ' + name);
     }
   }, { filename: file });
@@ -651,4 +654,113 @@ async function testQualityProfiles() {
   model.dispose(); assert.equal(model.previewImage, undefined);
   console.info('Quality: request mapping, queue snapshots, remux resets and preview cancellation lease passed');
 }
-main().then(testQualityProfiles).catch(error => { console.error(error); process.exitCode = 1; });
+async function testBatchOperations() {
+  const { TranscodeQueueRunner } = load('../controller/TranscodeQueueRunner');
+  const { TranscodeExportController } = load('../controller/TranscodeExportController');
+  const queue = new TranscodeQueueModel();
+  for (let index = 0; index < 4; index++) {
+    queue.add('file://' + index, 'Clip ' + index, [0, 0, 0, 2, 0, 0, 0, 0], false);
+  }
+  const ids = queue.items.map(item => item.id);
+  queue.update(ids[0], 'running', 10); queue.activeId = ids[0];
+  queue.move(ids[3], -1);
+  assert.equal(queue.items[2].id, ids[3]);
+  queue.move(ids[1], -1);
+  assert.equal(queue.items[0].id, ids[0], 'Running entries do not move');
+  queue.update(ids[0], 'completed', 100); queue.activeId = '';
+  const order = [];
+  const runner = new TranscodeQueueRunner();
+  queue.stopOnFailure = true;
+  const host = {
+    available: () => true, disposed: () => false, persist: async () => true,
+    execute: async item => { order.push(item.id); return { state: 4, progress: 5, path: '' }; }
+  };
+  await runner.run(queue, host);
+  assert.equal(order.length, 1, 'Failure policy pauses before starting another task');
+  assert.equal(queue.paused, true);
+  queue.stopOnFailure = false;
+  await runner.run(queue, host);
+  assert.equal(order.length, 3, 'Continue policy visits every remaining waiting task');
+  assert.equal(queue.activeId, '');
+  const paused = new TranscodeQueueModel();
+  paused.add('file://a', 'A', [0, 0, 0, 2, 0, 0, 0, 0], false);
+  paused.add('file://b', 'B', [0, 0, 0, 2, 0, 0, 0, 0], false);
+  const current = deferred();
+  const entered = deferred();
+  const pauseHost = { available: () => true, disposed: () => false, persist: async () => true,
+    execute: async () => { entered.resolve(); return current.promise; } };
+  const running = runner.run(paused, pauseHost);
+  await entered.promise;
+  paused.paused = true;
+  assert.equal(paused.items[0].state, 'running', 'Queue pause must not cancel the active file');
+  current.resolve({ state: 2, progress: 100, path: '/done.mp4' });
+  await running;
+  assert.equal(paused.items[0].state, 'completed');
+  assert.equal(paused.items[1].state, 'waiting');
+  const exporter = new TranscodeExportController();
+  const originalCopy = io.copyFile;
+  try {
+    pickerPaths = ['file://success', 'file://failure'];
+    files.set('file://success', { kind: 'file' }); files.set('file://failure', { kind: 'file' });
+    io.copyFile = async source => { if (source === '/failed.mp4') { throw new Error('Storage full'); } };
+    await exporter.save({ filesDir: '/private' }, ['/ok.mp4', '/failed.mp4', '/cancelled.mp4'], false);
+    assert.equal(exporter.results.map(result => result.state).join(','), 'saved,failed,cancelled');
+    pickerPaths = ['file://retry']; io.copyFile = async () => {};
+    files.set('file://retry', { kind: 'file' });
+    await exporter.save({ filesDir: '/private' }, ['/failed.mp4'], false);
+    assert.equal(exporter.results[0].state, 'saved');
+  } finally { io.copyFile = originalCopy; pickerPaths = ['file://report']; }
+  const model = new TranscodeModel();
+  model.quality.filter = 2; model.setMode(2);
+  assert.equal(model.request(1, 2).gpuProcessing, true);
+  assert.equal(model.quality.filter, 1, 'GPU uses only supported texture filters');
+  model.quality.audioResampler = 1;
+  assert.equal(model.request(1, 2).audioResampler, 1);
+  assert.equal(model.quality.snapshot().audioResampler, 1);
+  console.info('Batch operations: waiting order, failure policy, partial exports, retry and GPU options passed');
+}
+async function testPreviewDisposal() {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const images = mocks['@kit.ImageKit'].image;
+  const originalCreate = images.createPixelMap;
+  const originalPreview = preview;
+  const controller = new TranscodePreviewController();
+  const model = new TranscodeModel();
+  model.analysis = status({ durationUs: 1000000, sourceFrameRate: 30 });
+  model.previewState.position = 100;
+  assert.equal(model.previewTimeMs(), 966, 'The slider endpoint stays before the final frame interval');
+  model.rangeEnabled = true; model.rangeStart = '0.2'; model.rangeEnd = '0.5';
+  model.previewState.position = 0;
+  assert.equal(model.previewTimeMs(), 200);
+  model.previewState.position = 100;
+  assert.equal(model.previewTimeMs(), 466);
+  const first = deferred();
+  const entered = deferred();
+  let released = 0;
+  let calls = 0;
+  try {
+    files.set('/source.mp4', { kind: 'file' });
+    preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+    images.createPixelMap = async () => {
+      if (++calls === 1) { entered.resolve(); return first.promise; }
+      return { release: async () => { released++; } };
+    };
+    const loading = controller.load('/source.mp4', new TranscodeModel().request(0, 0), 'draft');
+    await entered.promise;
+    controller.clear();
+    first.resolve({ release: async () => { released++; } });
+    await loading;
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+    assert.equal(released, 2, 'Late PixelMaps are released after disposal during bitmap creation');
+    images.createPixelMap = async () => ({ release: async () => { released++; } });
+    await controller.load('/source.mp4', new TranscodeModel().request(0, 0), 'current');
+    assert(controller.processed && controller.original);
+    controller.clear();
+    await Promise.resolve();
+    assert.equal(released, 4, 'Clearing a successful comparison releases both images');
+  } finally { images.createPixelMap = originalCreate; preview = originalPreview; }
+  console.info('Preview lifecycle: disposal during bitmap creation and paired image release passed');
+}
+main().then(testQualityProfiles).then(testBatchOperations).then(testPreviewDisposal)
+  .catch(error => { console.error(error); process.exitCode = 1; });

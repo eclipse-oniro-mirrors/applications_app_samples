@@ -33,6 +33,7 @@ constexpr int32_t RGBA_ALPHA_OPAQUE = 255;
 constexpr int32_t PREVIEW_MAX_LONG_EDGE = 640;
 constexpr int64_t VIDEO_COPY_BUFFER_SIZE = 32LL * 1024 * 1024;
 constexpr int32_t PREVIEW_IDLE_WAIT_MS = 2;
+constexpr int64_t MICROSECONDS_PER_MILLISECOND = 1000;
 constexpr int32_t DIAGNOSTICS_PUBLISH_INTERVAL_MS = 250;
 constexpr double COLOR_COEFFICIENT_SCALE = 2.0;
 constexpr int32_t PREVIEW_TIMEOUT_SECONDS = 15;
@@ -102,13 +103,11 @@ bool TranscodeJob::DropFrame(bool &advanced)
     return true;
 }
 
-bool TranscodeJob::CapturePreview()
+bool TranscodeJob::BuildPreview(const TranscodeFrames::Layout &input, bool original,
+    TranscodeFrames::Layout &output, std::vector<uint8_t> &rgba)
 {
-    Format description(OH_VideoDecoder_GetOutputDescription(decoder_), OH_AVFormat_Destroy);
-    TranscodeFrames::Layout input;
-    if (!ReadLayout(description.get(), input)) { return false; }
-    TranscodeFrames::Layout output;
-    if (!TranscodeFrames::FitSize(targetWidth_, targetHeight_, PREVIEW_MAX_LONG_EDGE,
+    if (!TranscodeFrames::FitSize(original ? input.width : targetWidth_,
+        original ? input.height : targetHeight_, PREVIEW_MAX_LONG_EDGE,
         output.width, output.height)) {
         return false;
     }
@@ -120,17 +119,37 @@ bool TranscodeJob::CapturePreview()
     const uint8_t *source = OH_AVBuffer_GetAddr(pendingDecoded_);
     if (source == nullptr || offset < 0 || capacity < offset ||
         !TranscodeFrames::Process(source + offset, capacity - offset, input, yuv.data(), yuv.size(), output,
-            options_.grayscale, static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode),
+            !original && options_.grayscale, original ? TranscodeFrames::ResizeMode::FIT :
+            static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode),
+            original ? TranscodeFrames::Filter::AREA :
             static_cast<TranscodeFrames::Filter>(options_.scalingFilter))) { return Fail("Process preview image"); }
     int32_t matrix = MATRIX_COEFFICIENT_BT709;
     int32_t fullRange = 0;
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_MATRIX_COEFFICIENTS, &matrix);
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_RANGE_FLAG, &fullRange);
-    auto rgba = ConvertPreviewToRgba(yuv, output, matrix, fullRange != 0);
+    rgba = ConvertPreviewToRgba(yuv, output, matrix, fullRange != 0);
+    return true;
+}
+
+bool TranscodeJob::CapturePreview()
+{
+    Format description(OH_VideoDecoder_GetOutputDescription(decoder_), OH_AVFormat_Destroy);
+    TranscodeFrames::Layout input;
+    TranscodeFrames::Layout output;
+    TranscodeFrames::Layout original;
+    std::vector<uint8_t> rgba;
+    std::vector<uint8_t> originalRgba;
+    if (!ReadLayout(description.get(), input) || !BuildPreview(input, false, output, rgba) ||
+        !BuildPreview(input, true, original, originalRgba)) { return false; }
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.previewWidth = output.width;
     snapshot_.previewHeight = output.height;
     snapshot_.previewRgba = std::move(rgba);
+    snapshot_.originalWidth = original.width;
+    snapshot_.originalHeight = original.height;
+    snapshot_.originalRgba = std::move(originalRgba);
+    snapshot_.previewTimeMs = std::max<int64_t>(0, pendingDecodedAttr_.pts - sourceStartUs_) /
+        MICROSECONDS_PER_MILLISECOND;
     return true;
 }
 

@@ -713,6 +713,67 @@ static napi_value TestNullptr(napi_env env, napi_callback_info info)
 }
 // [End Sys_Native_Nullptr_Event_C++]
 
+// [Start CppCrash_Stack_Overflow_C++]
+static void *DoStackOverflow(void * inputArg) __attribute__((optnone))
+{
+    int b[10] = {1};
+    if (b[0] == 0) {
+        return static_cast<void*>(b + 9); // 9: last element of array
+    }
+    DoStackOverflow(inputArg); // 多次递归调用，导致栈内存耗尽后在栈的范围外进行内存的读写，产生崩溃。
+    return static_cast<void*>(b + 9); // 9: last element of array
+}
+// [End CppCrash_Stack_Overflow_C++]
+
+static napi_value TestStackOverflow(napi_env env, napi_callback_info info)
+{
+    DoStackOverflow(nullptr);
+    return {};
+}
+
+// [Start CppCrash_Sigpipe_Test_C++]
+#include <unistd.h>
+#include <csignal>
+
+int TestSigpipe()
+{
+    sigset_t set;
+    sigset_t oldset;
+    // 初始化信号集，加入要临时解除阻塞的信号
+    sigemptyset(&set);
+    sigaddset(&set, SIGPIPE);
+    // 先保存当前的信号屏蔽集
+    if (sigprocmask(SIG_SETMASK, nullptr, &oldset) != 0) {
+        return -1;
+    }
+    // 临时解除阻塞
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != 0) {
+        return -1;
+    }
+    // 创建pipe后，先关闭读端pipe，然后写端继续写，构建SIGPIPE的异常场景
+    int pipe[2]{-1};
+    if (pipe2(pipe, 0) != 0) {
+        return -1;
+    }
+    close(pipe[0]);
+    int src = 1;
+    write(pipe[1], reinterpret_cast<const void*>(&src), sizeof(int));
+    close(pipe[1]);
+
+    // 最后恢复原来的屏蔽集
+    if (sigprocmask(SIG_SETMASK, &oldset, nullptr) != 0) {
+        return -1;
+    }
+    return 0;
+}
+// [End CppCrash_Sigpipe_Test_C++]
+
+static napi_value TestSigpipeCrash(napi_env env, napi_callback_info info)
+{
+    TestSigpipe();
+    return {};
+}
+
 // [Start Sys_Crash_Crash_OnReceive]
 static void OnReceiveCrashEvent(const char *domain, const struct HiAppEvent_AppEventGroup *appEventGroups,
     uint32_t groupLen)
@@ -2029,6 +2090,7 @@ static napi_value HiCollieTestTimerNdk(napi_env env, napi_callback_info exports)
 // [Start Pss_Leak_Init]
 // [Start AppEvent_C++_Init]
 // [Start FreezeEvent_Init]
+// [Start ExternalLog_C++_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
@@ -2044,6 +2106,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude Pss_Leak_Init]
         // [StartExclude MainThreadJank_Init]
         // [StartExclude FreezeEvent_Init]
+        // [StartExclude ExternalLog_C++_Init]
         {"registerWatcher", nullptr, RegisterWatcher, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude AppEvent_C++_Init]
         { "registerWatcherCrash", nullptr, RegisterWatcherCrash, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -2059,6 +2122,8 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Sys_Native_Nullptr_Event_C++_Init]
         { "testNullptr", nullptr, TestNullptr, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [StartExclude Sys_Native_Nullptr_Event_C++_Init]
+        { "testStackOverflow", nullptr, TestStackOverflow, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "testSigpipeCrash", nullptr, TestSigpipeCrash, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [Start test_hicollie_timer]
         // 将TestHiCollieTimerNdk注册为ArkTS接口
         { "TestHiCollieTimerNdk", nullptr, TestHiCollieTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -2096,6 +2161,9 @@ static napi_value Init(napi_env env, napi_value exports)
         // 将HiCollieTestTimerNdk注册为ArkTS接口
         { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [End test_hicollie_set_timer]
+        // [EndExclude ExternalLog_C++_Init]
+        { "registerExternalLogMgr", nullptr, RegisterExternalLogMgr, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [StartExclude ExternalLog_C++_Init]
         // [EndExclude MainThreadJank_Init]
         // [Start MainThreadJank_Init]
         { "RegisterMainThreadJankWatcher", nullptr, RegisterMainThreadJankWatcher, nullptr, nullptr, nullptr,
@@ -2124,10 +2192,12 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Sys_Native_Nullptr_Event_C++_Init]
         // [EndExclude AppKillEvent_Init]
         // [EndExclude AppKillEvent_ArkTS_Init]
+        // [EndExclude ExternalLog_C++_Init]
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }
+// [End ExternalLog_C++_Init]
 // [End AppKillEvent_Init]
 // [End AppKillEvent_ArkTS_Init]
 // [End AppFreezeWarning_Init]

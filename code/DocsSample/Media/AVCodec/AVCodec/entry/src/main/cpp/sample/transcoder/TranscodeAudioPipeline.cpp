@@ -118,7 +118,7 @@ bool TranscodeAudioPipeline::StartCodecs()
 }
 
 bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track,
-    int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate)
+    int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate, bool lowPass)
 {
     demuxer_ = demuxer;
     track_ = track;
@@ -129,7 +129,7 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     targetRate_ = targetRate == 0 ? sampleRate_ : targetRate;
     targetChannels_ = targetChannels == 0 ? channels_ : targetChannels;
     bitrate_ = bitrate;
-    if (!converter_.Configure(sampleRate_, targetRate_, channels_, targetChannels_)) {
+    if (!converter_.Configure(sampleRate_, targetRate_, channels_, targetChannels_, lowPass)) {
         return error_("Invalid PCM conversion configuration", -1);
     }
     decoder_ = OH_AudioCodec_CreateByMime(mime, false);

@@ -283,6 +283,30 @@ struct Index {
                 testNapi.testNullptr();
               })
             // [End Native_CrashEvent_Log]
+            Button('StackOverflowCrash')
+              .type(ButtonType.Capsule)
+              .margin({
+                top: 20
+              })
+              .backgroundColor('#0D9FFB')
+              .width('80%')
+              .height('5%')
+              .onClick(() => {
+                // 在按钮点击函数中构造一个栈溢出crash场景，触发应用崩溃事件
+                testNapi.testStackOverflow();
+              })
+            Button('SigpipeCrash')
+              .type(ButtonType.Capsule)
+              .margin({
+                top: 20
+              })
+              .backgroundColor('#0D9FFB')
+              .width('80%')
+              .height('5%')
+              .onClick(() => {
+                // 在按钮点击函数中构造一个SIGPIPE异常场景，触发应用异常退出
+                testNapi.testSigpipeCrash();
+              })
             Button('ConfigCrashPolicy')
               .type(ButtonType.Capsule)
               .margin({
@@ -372,14 +396,16 @@ struct Index {
               })
             // [End MainThreadJank_Button]
             // [Start MainThreadJank_Set_Event_Config]
-            Button("customSample", { stateEffect:true, type: ButtonType.Capsule})
-              .width('75%')
-              .height(50)
-              .margin(15)
-              .fontSize(20)
-              .fontWeight(FontWeight.Bold)
+            Button('customSample')
+              .type(ButtonType.Capsule)
+              .margin({
+                top: 20
+              })
+              .backgroundColor('#0D9FFB')
+              .width('80%')
+              .height('5%')
               .onClick(() => {
-                // 在按钮点击函数中进行事件打点，以记录按钮点击事件
+              // 在按钮点击函数中进行事件打点，以记录按钮点击事件
                 let params: Record<string, hiAppEvent.ParamType> = {
                   // 事件类型定义， 0-默认值，1-只采样栈 2-只收集trace
                   'log_type': '1',
@@ -475,7 +501,7 @@ struct Index {
                 testNapi.addressSanitizerTest();
               })
             // [End AsanEvent_Button]
-            // [Start hicollie_timer_ndk_Button]
+            // [Start hicollie_timer_interface_Button]
             // 添加点击事件，触发TestHiCollieTimerNdk方法。
             Button('TestHiCollieTimerNdk')
               .type(ButtonType.Capsule)
@@ -488,7 +514,7 @@ struct Index {
               .onClick(() => {
                 testNapi.TestHiCollieTimerNdk();
               })
-            // [End hicollie_timer_ndk_Button]
+            // [End hicollie_timer_interface_Button]
             // [Start ArkWeb_Fling_Jank_ArkTs_Button]
             // 按钮跳转到易出现滑动丢帧的web场景，触发ArkWeb抛滑丢帧事件。
             Button('ArkWebFlingJank ArkTs')

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [ukey_best_practice_arkts]
+// [Start ukey_best_practice_arkts]
 import testNapi from 'libentry.so';
 @Entry
 @Component
@@ -27,9 +27,9 @@ struct Index {
                 .fontSize(50)
                 .fontWeight(FontWeight.Bold)
                 .onClick(() => {
-                    testNapi.getUkeyCert(keyUri);
-                    testNapi.openResource(keyUri);
-                    testNapi.getUkeyPinAuthState(keyUri);
+                    testNapi.getUkeyCert(this.keyUri);
+                    testNapi.openResource(this.keyUri);
+                    testNapi.getUkeyPinAuthState(this.keyUri);
                 })
         }
         .width('100%')
@@ -37,4 +37,4 @@ struct Index {
         .height('100%')
     }
 }
-// [ukey_best_practice_arkts]
+// [End ukey_best_practice_arkts]

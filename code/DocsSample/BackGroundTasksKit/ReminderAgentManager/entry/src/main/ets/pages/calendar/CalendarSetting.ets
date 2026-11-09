@@ -95,12 +95,14 @@ export struct CalendarSetting {
 
       Row() {
         Button($r('app.string.cancel'))
+          .id('calendarSettingCancel')
           .fontSize(24)
           .margin({ right: 12 })
           .onClick(() => {
             this.controller.close()
           })
         Button($r('app.string.confirm'))
+          .id('calendarSettingConfirm')
           .fontSize(24)
           .margin({ left: 12 })
           .onClick(async () => {

@@ -66,10 +66,10 @@ Promise.resolve().then(() => {
 console.info('4. 同步代码结束');
 
 // 输出顺序：
-// 1. 开始
-// 4. 同步代码结束
-// 3. Promise（微任务）
-// 2. setTimeout（宏任务）
+// '1. 开始'
+// '4. 同步代码结束'
+// '3. Promise（微任务）'
+// '2. setTimeout（宏任务）'
 // [End event_loop_mechanism]
 
 // ===== async_function_declaration =====
@@ -429,7 +429,7 @@ Promise.any([promiseA, promiseB, promiseC])
 // [Start create_range]
 function createRange(start: number, end: number): number[] {
   let result: number[] = [];
-  for (let i: number = start; i <= end; i++) {
+  for (let i = start; i <= end; i++) {
     result.push(i);
   }
   return result;
@@ -540,7 +540,7 @@ async function fetchWithLimit(limiterUrls: string[], maxConcurrency: number): Pr
 }
 
 let limiterUrls: string[] = [];
-for (let i: number = 0; i < 20; i++) {
+for (let i = 0; i < 20; i++) {
   limiterUrls.push(`/api/data/${i}`);
 }
 fetchWithLimit(limiterUrls, 5); // 限制最多5个并发请求
@@ -662,7 +662,7 @@ async function limitedResourceAccess(semaphore: Semaphore): Promise<void> {
 let semaphore = new Semaphore(3); // 最多3个并发访问
 
 // 启动多个并发任务
-for (let i: number = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   limitedResourceAccess(semaphore);
 }
 
@@ -820,7 +820,7 @@ async function processAsyncItems(): Promise<void> {
   ];
 
   for await (const item of asyncItems) {
-    console.info(`${item}`); // item1, item2, item3
+    console.info(`${item}`); // 'item1', 'item2', 'item3'
   }
 }
 
@@ -838,7 +838,7 @@ async function processAsyncItemsManually(): Promise<void> {
 
   for (let itemPromise of asyncItems) {
     let item: string = await itemPromise;
-    console.info(`${item}`); // item1, item2, item3
+    console.info(`${item}`); // 'item1', 'item2', 'item3'
   }
 }
 

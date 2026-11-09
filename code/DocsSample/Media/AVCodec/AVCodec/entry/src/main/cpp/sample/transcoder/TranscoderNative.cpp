@@ -29,7 +29,8 @@ constexpr int64_t UHD_LONG_EDGE = 1920;
 constexpr int64_t MAX_ENCODER_CATEGORY = 2;
 constexpr int64_t MAX_AUDIO_MODE = 2;
 constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::ResizeMode::LETTERBOX);
-constexpr int32_t MAX_SCALING_FILTER = 1;
+constexpr int32_t MAX_SCALING_FILTER = 2;
+constexpr int32_t MAX_AUDIO_RESAMPLER = 1;
 constexpr int32_t MAX_FRAME_RATE_LIMIT = 120;
 constexpr int32_t MAX_BITRATE_MODE = 1;
 constexpr int32_t MAX_CODEC_MODE = 1;
@@ -80,6 +81,8 @@ bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot 
         {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode},
         {"outputDurationUs", snapshot.outputDurationUs}, {"expectedDurationUs", snapshot.expectedDurationUs},
         {"previewWidth", snapshot.previewWidth}, {"previewHeight", snapshot.previewHeight},
+        {"originalWidth", snapshot.originalWidth}, {"originalHeight", snapshot.originalHeight},
+        {"previewTimeMs", snapshot.previewTimeMs},
         {"droppedFrames", snapshot.droppedFrames}};
     for (const auto &number : numbers) {
         if (!SetNumber(env, result, number.first, number.second)) { return false; }
@@ -142,6 +145,16 @@ bool SetValidationNotes(napi_env env, napi_value result, const TranscodeSnapshot
     return napi_set_named_property(env, result, "validationNotes", notes) == napi_ok;
 }
 
+bool SetPixels(napi_env env, napi_value result, const char *key, const std::vector<uint8_t> &bytes)
+{
+    if (bytes.empty()) { return true; }
+    napi_value pixels = nullptr;
+    void *data = nullptr;
+    if (napi_create_arraybuffer(env, bytes.size(), &data, &pixels) != napi_ok) { return false; }
+    std::copy(bytes.begin(), bytes.end(), static_cast<uint8_t *>(data));
+    return napi_set_named_property(env, result, key, pixels) == napi_ok;
+}
+
 napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
 {
     napi_value result = nullptr;
@@ -153,13 +166,8 @@ napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
         napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
         return nullptr;
     }
-    if (!snapshot.previewRgba.empty()) {
-        napi_value pixels = nullptr;
-        void *data = nullptr;
-        if (napi_create_arraybuffer(env, snapshot.previewRgba.size(), &data, &pixels) != napi_ok) { return nullptr; }
-        std::copy(snapshot.previewRgba.begin(), snapshot.previewRgba.end(), static_cast<uint8_t *>(data));
-        if (napi_set_named_property(env, result, "previewRgba", pixels) != napi_ok) { return nullptr; }
-    }
+    if (!SetPixels(env, result, "previewRgba", snapshot.previewRgba) ||
+        !SetPixels(env, result, "originalRgba", snapshot.originalRgba)) { return nullptr; }
     return result;
 }
 
@@ -184,6 +192,13 @@ bool ReadBool(napi_env env, napi_value object, const char *key, bool &flag)
            napi_get_value_bool(env, value, &flag) == napi_ok;
 }
 
+bool ReadOptionalBool(napi_env env, napi_value object, const char *key, bool &flag)
+{
+    bool present = false;
+    return napi_has_named_property(env, object, key, &present) == napi_ok &&
+        (!present || ReadBool(env, object, key, flag));
+}
+
 bool ReadOptionalNumber(napi_env env, napi_value object, const char *key, int32_t &number)
 {
     bool present = false;
@@ -196,7 +211,8 @@ bool ReadOptionalNumber(napi_env env, napi_value object, const char *key, int32_
 
 bool ReadVideoQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
 {
-    return ReadOptionalNumber(env, object, "codecMode", options.codecMode) && options.codecMode <= MAX_CODEC_MODE &&
+    return ReadOptionalNumber(env, object, "previewTimeMs", options.previewTimeMs) &&
+        ReadOptionalNumber(env, object, "codecMode", options.codecMode) && options.codecMode <= MAX_CODEC_MODE &&
         ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) &&
         options.scalingFilter <= MAX_SCALING_FILTER &&
         ReadOptionalNumber(env, object, "frameRateLimit", options.frameRateLimit) &&
@@ -210,7 +226,9 @@ bool ReadVideoQualityOptions(napi_env env, napi_value object, TranscodeOptions &
 
 bool ReadAudioQualityOptions(napi_env env, napi_value object, TranscodeOptions &options, int32_t &audioBitrate)
 {
-    return ReadOptionalNumber(env, object, "audioSampleRate", options.audioSampleRate) &&
+    return ReadOptionalNumber(env, object, "audioResampler", options.audioResampler) &&
+        options.audioResampler <= MAX_AUDIO_RESAMPLER &&
+        ReadOptionalNumber(env, object, "audioSampleRate", options.audioSampleRate) &&
         (options.audioSampleRate == 0 || options.audioSampleRate == AUDIO_SAMPLE_RATE_44100 ||
             options.audioSampleRate == AUDIO_SAMPLE_RATE_48000) &&
         ReadOptionalNumber(env, object, "audioChannels", options.audioChannels) &&
@@ -234,7 +252,8 @@ bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &optio
         return false;
     }
     options.audioBitrate = audioBitrate;
-    if (options.surface && options.scalingFilter != 0) { return false; }
+    if ((options.surface && !options.gpu && options.scalingFilter != 0) ||
+        (options.gpu && (!options.surface || options.scalingFilter > 1))) { return false; }
     return !options.remuxOnly || (!options.surface && options.longEdge == 0 && !options.grayscale &&
         options.resizeMode == 0 && options.frameRateLimit == 0 && options.scalingFilter == 0 &&
         options.startTimeMs == 0 && options.endTimeMs == 0 && options.audioMode != 1);
@@ -251,7 +270,7 @@ bool ReadProcessingOptions(napi_env env, napi_value object, TranscodeOptions &op
         return false;
     }
     if ((longEdge != 0 && longEdge != HD_LONG_EDGE && longEdge != FULL_HD_LONG_EDGE && longEdge != UHD_LONG_EDGE) ||
-        (options.surface && (options.grayscale || longEdge != 0 || resizeMode != 0))) {
+        (options.surface && !options.gpu && (options.grayscale || longEdge != 0 || resizeMode != 0))) {
         return false;
     }
     options.longEdge = static_cast<int32_t>(longEdge);
@@ -268,7 +287,7 @@ bool ReadTimeRange(napi_env env, napi_value object, TranscodeOptions &options)
         (hasStart && !ReadNumber(env, object, "startTimeMs", options.startTimeMs)) ||
         (hasEnd && !ReadNumber(env, object, "endTimeMs", options.endTimeMs))) { return false; }
     return (options.endTimeMs == 0 || options.endTimeMs > options.startTimeMs) &&
-        (!options.surface || (options.startTimeMs == 0 && options.endTimeMs == 0));
+        (!options.surface || options.gpu || (options.startTimeMs == 0 && options.endTimeMs == 0));
 }
 
 bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &options, int64_t &inputFd, int64_t &outputFd)
@@ -279,6 +298,7 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
     if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
         !ReadNumber(env, object, "bitrate", options.bitrate) || options.bitrate < MIN_BITRATE ||
         !ReadBool(env, object, "useSurfaceInput", options.surface) ||
+        !ReadOptionalBool(env, object, "gpuProcessing", options.gpu) ||
         !ReadBool(env, object, "grayscale", options.grayscale) ||
         !ReadNumber(env, object, "encoderCategory", category) || category > MAX_ENCODER_CATEGORY ||
         !ReadNumber(env, object, "audioMode", audioMode) || audioMode > MAX_AUDIO_MODE ||

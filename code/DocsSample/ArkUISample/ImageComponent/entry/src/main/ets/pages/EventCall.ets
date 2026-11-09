@@ -47,7 +47,7 @@ struct EventCall {
           })
           // 如果加载失败，使用onError触发回调函数获取结果
           .onError(() => {
-            hilog.info(DOMAIN, TAG, 'load image fail');
+            hilog.error(DOMAIN, TAG, 'load image fail');
           })
           // overlay接口暂不支持深色模式
           .overlay('\nwidth: ' + String(this.widthValue) + ', height: ' + String(this.heightValue) + '\ncomponentWidth: ' + String(this.componentWidth) + '\ncomponentHeight: ' + String(this.componentHeight), {

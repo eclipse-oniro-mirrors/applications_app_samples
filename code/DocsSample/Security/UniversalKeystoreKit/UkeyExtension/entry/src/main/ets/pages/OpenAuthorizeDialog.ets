@@ -13,33 +13,51 @@
  * limitations under the License.
  */
 
-// [open_authorize_dialog_ets]
+// [Start open_authorize_dialog_ets]
 import { certificateManagerDialog, certificateManager } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { UIContext } from '@kit.ArkUI';
 
-/* context为应用的上下文信息，调用方自行获取，此处仅为示例 */
-let context: common.Context = new UIContext().getHostContext() as common.Context;
-let certTypes: certificateManagerDialog.CertificateType[] = [
-  certificateManagerDialog.CertificateType.CREDENTIAL_USER,
-  certificateManagerDialog.CertificateType.CREDENTIAL_APP,
-  certificateManagerDialog.CertificateType.CREDENTIAL_UKEY
-];
-let certPurpose: certificateManager.CertificatePurpose =
-  certificateManager.CertificatePurpose.PURPOSE_DEFAULT;
-let authorizeRequest: certificateManagerDialog.AuthorizeRequest = { certTypes: certTypes, certPurpose: certPurpose };
-try {
-  certificateManagerDialog.openAuthorizeDialog(context, authorizeRequest)
-    .then((certReference: certificateManagerDialog.CertReference) => {
-    /* 需要记录选择证书弹窗中获取到的keyUri，方便后续使用 */
-    let keyUri = certReference.keyUri;
-    console.info('Succeeded in opening authorize dialog.');
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to open authorize dialog. Code: ${err.code}, message: ${err.message}`);
-  });
-} catch (err) {
-  let error = err as BusinessError;
-  console.error(`Failed to open authorize dialog. Code: ${error.code}, message: ${error.message}`);
+@Entry
+@Component
+struct AuthorizeDialogPage {
+  private context: common.Context = getContext(this) as common.Context;
+
+  build() {
+    Column() {
+      Button($r('app.string.open_authorize_dialog'))
+        .onClick(() => {
+          this.openAuthorizeDialog();
+        })
+    }
+    .width('100%')
+    .height('100%')
+  }
+
+  private openAuthorizeDialog(): void {
+    let certTypes: certificateManagerDialog.CertificateType[] = [
+      certificateManagerDialog.CertificateType.CREDENTIAL_USER,
+      certificateManagerDialog.CertificateType.CREDENTIAL_APP,
+      certificateManagerDialog.CertificateType.CREDENTIAL_UKEY
+    ];
+    let certPurpose: certificateManager.CertificatePurpose =
+      certificateManager.CertificatePurpose.PURPOSE_DEFAULT;
+    let authorizeRequest: certificateManagerDialog.AuthorizeRequest = {
+      certTypes: certTypes, certPurpose: certPurpose
+    };
+    try {
+      certificateManagerDialog.openAuthorizeDialog(this.context, authorizeRequest)
+        .then((certReference: certificateManagerDialog.CertReference) => {
+          /* 需要记录选择证书弹窗中获取到的keyUri，方便后续使用 */
+          let keyUri = certReference.keyUri;
+          console.info('Succeeded in opening authorize dialog.');
+        }).catch((err: BusinessError) => {
+          console.error(`Failed to open authorize dialog. Code: ${err.code}, message: ${err.message}`);
+        });
+    } catch (err) {
+      let error = err as BusinessError;
+      console.error(`Failed to open authorize dialog. Code: ${error.code}, message: ${error.message}`);
+    }
+  }
 }
-// [open_authorize_dialog_ets]
+// [End open_authorize_dialog_ets]

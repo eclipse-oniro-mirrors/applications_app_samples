@@ -31,6 +31,7 @@
 #include "TranscodeDiagnostics.h"
 #include "TranscodeAudioPipeline.h"
 #include "TranscodeCodecCallbacks.h"
+#include "TranscodeGpuProcessor.h"
 
 struct TranscodeOptions {
     int32_t inputFd = -1;
@@ -39,6 +40,7 @@ struct TranscodeOptions {
     int64_t bitrate = 8000000;
     int32_t longEdge = 0;
     bool surface = false;
+    bool gpu = false;
     bool grayscale = false;
     int32_t resizeMode = 0;
     int32_t encoderCategory = 0;
@@ -48,6 +50,7 @@ struct TranscodeOptions {
     int64_t endTimeMs = 0;
     bool inspectOnly = false;
     bool previewOnly = false;
+    int32_t previewTimeMs = 0;
     bool remuxOnly = false;
     int32_t codecMode = 0;
     int32_t scalingFilter = 0;
@@ -57,6 +60,7 @@ struct TranscodeOptions {
     int32_t audioSampleRate = 0;
     int32_t audioChannels = 0;
     int64_t audioBitrate = 128000;
+    int32_t audioResampler = 0;
 };
 
 struct TranscodeSnapshot {
@@ -103,6 +107,10 @@ struct TranscodeSnapshot {
     int32_t previewWidth = 0;
     int32_t previewHeight = 0;
     std::vector<uint8_t> previewRgba;
+    int32_t originalWidth = 0;
+    int32_t originalHeight = 0;
+    int64_t previewTimeMs = 0;
+    std::vector<uint8_t> originalRgba;
     int64_t droppedFrames = 0;
 };
 
@@ -121,6 +129,7 @@ public:
     {
         std::lock_guard<std::mutex> lock(snapshotMutex_);
         std::vector<uint8_t>().swap(snapshot_.previewRgba);
+        std::vector<uint8_t>().swap(snapshot_.originalRgba);
     }
 
 private:
@@ -129,6 +138,11 @@ private:
     bool ValidateSourceColor();
     bool ConnectSurface();
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
+    bool SubmitGpuFrame(bool &advanced);
+    bool SubmitPendingGpuFrame(bool &advanced);
+    bool QueueGpuFrame(bool &advanced);
+    bool NotifyGpuRangeEnd(bool &advanced);
+    bool ValidateGpuOutputResolution();
     bool ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr);
     bool OpenSource();
     bool ReadSourceMetadata();
@@ -171,6 +185,8 @@ private:
     void PublishDiagnostics();
     bool RunPreview();
     bool CapturePreview();
+    bool BuildPreview(const TranscodeFrames::Layout &input, bool original,
+        TranscodeFrames::Layout &output, std::vector<uint8_t> &rgba);
     bool RunRemux();
     bool CopyVideoSample();
     double OutputFrameRate() const;
@@ -188,6 +204,10 @@ private:
     OH_AVCodec *encoder_ = nullptr;
     OH_AVMuxer *muxer_ = nullptr;
     OHNativeWindow *encoderWindow_ = nullptr;
+    std::unique_ptr<TranscodeGpuProcessor> gpu_;
+    bool gpuPending_ = false;
+    bool gpuEos_ = false;
+    int64_t gpuPts_ = 0;
     OH_AVBuffer *audioBuffer_ = nullptr;
     Format videoFormat_ { nullptr, OH_AVFormat_Destroy };
     Format audioFormat_ { nullptr, OH_AVFormat_Destroy };

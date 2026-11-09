@@ -191,6 +191,8 @@ async function testConfiguration() {
   player.enableVideoDump = true;
   camera.enableDualOutput = true;
   camera.cropPercent = 90;
+  camera.segmentSeconds = 180;
+  camera.segmentMiB = 512;
   DumpPolicyModel.maxMiB = 0;
   const snapshot = UserConfiguration.capture(player, camera);
   const restoredPlayer = new PlayerSettingsModel();
@@ -202,6 +204,13 @@ async function testConfiguration() {
   assert.equal(restoredCamera.outputfd, -1);
   assert.equal(restoredCamera.enableDualOutput, true);
   assert.equal(restoredCamera.cropPercent, 90);
+  assert.equal(restoredCamera.segmentSeconds, 180);
+  assert.equal(restoredCamera.segmentMiB, 512);
+  const legacy = { ...snapshot, recorder: snapshot.recorder.slice(0, 23) };
+  const oldCamera = new CameraDataModel();
+  UserConfiguration.restore(legacy, new PlayerSettingsModel(), oldCamera);
+  assert.equal(oldCamera.segmentSeconds, 0);
+  assert.equal(oldCamera.segmentMiB, 0);
   assert.equal(DumpPolicyModel.maxMiB, 0);
   const bad = { player: [NaN], recorder: [1], dump: [-1, 999] };
   UserConfiguration.restore(bad, restoredPlayer, restoredCamera);
@@ -582,6 +591,48 @@ async function testCameraLifecycle() {
   console.log('Camera lifecycle: preparation/start exit races, listener/stop failures, and idempotent release passed');
 }
 
+async function testRecordingSegments() {
+  const { RecorderSegmentController } = load(path.join(sourceRoot, 'controller/RecorderSegmentController.ets'));
+  const { RecordingHistoryModel } = load(path.join(sourceRoot, 'model/RecordingHistoryModel.ets'));
+  const policy = new RecorderSegmentController();
+  const data = { outputFormat: 2, segmentSeconds: 60, segmentMiB: 256, enableDualOutput: true };
+  const snapshot = { active: true, failure: { stage: '' }, endReason: '',
+    primary: { fileBytes: 1 }, secondary: { fileBytes: 1 } };
+  policy.started(1000);
+  assert.equal(policy.due(data, snapshot, 60999), false);
+  assert.equal(policy.due(data, snapshot, 61000), true);
+  assert.equal(policy.due(data, { ...snapshot, active: false }, 61000), false);
+  assert.equal(policy.due({ ...data, outputFormat: 14 }, snapshot, 61000), false);
+  assert.equal(policy.due(data, { ...snapshot, secondary: { fileBytes: 256 * 1048576 } }, 1001), true);
+  assert.equal(policy.due(data, { ...snapshot, failure: { stage: 'codec' } }, 61000), false);
+  const result = index => ({ sessionId: 'segment_' + index, recordedAt: 1000 + index,
+    durationSeconds: 60, title: 'part' + index, primaryUri: 'file://' + index, secondaryUri: '', complete: true });
+  policy.add(result(1)); policy.add(result(1)); policy.add(result(2));
+  assert.equal(policy.result('group').segments.length, 2, 'Repeated completion cannot duplicate segments');
+  assert.equal(policy.result('group').durationSeconds, 120);
+  assert.equal(policy.result('group', true).complete, false, 'Restart failure leaves completed files accessible');
+  const history = new RecordingHistoryModel();
+  await history.load({ filesDir: '/private' });
+  for (let index = 1; index <= 2; index++) {
+    const entry = result(index);
+    await history.add(entry.primaryUri, entry.title, '', entry.recordedAt, 60, entry.sessionId, true, 'group');
+  }
+  const restored = new RecordingHistoryModel();
+  await restored.load({ filesDir: '/private' });
+  const group = restored.getEntries().find(entry => entry.sessionId === 'group');
+  assert.equal(group.segments.length, 2);
+  assert.equal(group.durationSeconds, 120);
+  assert.equal(group.segments[0].uri, 'file://1', 'Each completed segment survives history restoration');
+  await restored.markIncomplete('group');
+  const failedGroup = new RecordingHistoryModel();
+  await failedGroup.load({ filesDir: '/private' });
+  assert.equal(failedGroup.getEntries().find(entry => entry.sessionId === 'group').complete, false);
+  assert.equal(failedGroup.getEntries().find(entry => entry.sessionId === 'group').segments.length, 2);
+  for (let index = 3; index <= RecorderSegmentController.MAX_SEGMENTS; index++) { policy.add(result(index)); }
+  assert.equal(policy.canContinue(), false, 'Stop before the persistent segment limit can truncate history');
+  console.info('Recording segments: duration/size thresholds, dual outputs, failure preservation and grouped history passed');
+}
+
 async function main() {
   testLiveDiagnostics();
   await testConfiguration();
@@ -594,5 +645,6 @@ async function main() {
   testStorageProtection();
   await testRecordingLifecycle();
   await testCameraLifecycle();
+  await testRecordingSegments();
 }
 main().catch((error) => { console.error(error); process.exitCode = 1; });

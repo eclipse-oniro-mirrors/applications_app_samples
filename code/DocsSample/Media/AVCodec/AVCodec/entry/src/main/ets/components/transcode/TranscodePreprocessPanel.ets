@@ -15,10 +15,12 @@
 
 import { TranscodeModel } from '../../model/TranscodeModel';
 import { TranscodeGeometryModel, TranscodeGeometryPlan } from '../../model/TranscodeGeometryModel';
+import { TranscodePreviewController } from '../../controller/TranscodePreviewController';
 
 @Component
 export struct TranscodePreprocessPanel {
   @ObjectLink model: TranscodeModel;
+  @ObjectLink preview: TranscodePreviewController;
   @State private availableWidth: number = 280;
 
   private plan(): TranscodeGeometryPlan {
@@ -48,23 +50,38 @@ export struct TranscodePreprocessPanel {
     Column({ space: 10 }) {
       Text($r('app.string.task_preview')).fontSize(17).fontWeight(FontWeight.Medium)
       Select(this.modes()).selected(this.model.resizeMode).value(this.modes()[this.model.resizeMode].value)
-        .enabled(this.model.modeIndex === 0 && !this.model.busy && !this.model.queueRunning)
+        .enabled(this.model.modeIndex !== 1 && !this.model.busy && !this.model.queueRunning)
         .onSelect((index: number): void => {
           this.model.resizeMode = index;
           this.model.clearPreview();
           void this.model.inspect(this.getUIContext());
         })
       Text($r('app.string.task_preview_hint')).fontSize(12).fontColor('#667085')
+      Text($r('app.string.transcode_preview_position')).fontSize(13)
+      Text((this.model.previewTimeMs() / 1000).toFixed(3) + ' s').fontSize(12).fontColor('#667085')
+      Slider({ value: this.preview.position, min: 0, max: 100, step: 1 })
+        .enabled(!this.model.busy && !this.model.queueRunning)
+        .onChange((value: number): void => { this.preview.position = value; })
       Button(this.model.previewing ? $r('app.string.transcode_preview_running') :
         $r('app.string.transcode_preview_frame')).width('100%')
-        .enabled(this.model.modeIndex === 0 && !this.model.busy && !this.model.queueRunning &&
+        .enabled(this.model.modeIndex !== 1 && !this.model.busy && !this.model.queueRunning &&
           !this.model.inspecting && this.model.analysis.state === 2 && this.model.isRangeValid())
         .onClick((): void => { void this.model.preview(this.getUIContext()); })
-      if (this.model.previewImage !== undefined) {
-        Image(this.model.previewImage).width('100%').height(220).objectFit(ImageFit.Contain)
+      if (this.preview.processed !== undefined) {
+        Row({ space: 8 }) {
+          Button($r('app.string.transcode_preview_before')).layoutWeight(1)
+            .onClick((): void => { this.preview.showOriginal = true; })
+          Button($r('app.string.transcode_preview_after')).layoutWeight(1)
+            .onClick((): void => { this.preview.showOriginal = false; })
+        }
+        Text(this.preview.showOriginal ? $r('app.string.transcode_preview_before') :
+          $r('app.string.transcode_preview_after')).fontSize(13)
+        Image(this.preview.showOriginal ? this.preview.original : this.preview.processed)
+          .width('100%').height(220).objectFit(ImageFit.Contain)
           .backgroundColor('#101828').borderRadius(10)
         Text($r('app.string.transcode_preview_hint')).fontSize(12).fontColor('#667085')
-        Text(this.model.previewConfiguration).fontSize(11).fontColor('#667085').width('100%')
+        Text((this.preview.actualTimeMs / 1000).toFixed(3) + ' s · ' + this.preview.configuration)
+          .fontSize(11).fontColor('#667085').width('100%')
       }
       if (this.plan().width > 0) {
         Stack({ alignContent: Alignment.Center }) {

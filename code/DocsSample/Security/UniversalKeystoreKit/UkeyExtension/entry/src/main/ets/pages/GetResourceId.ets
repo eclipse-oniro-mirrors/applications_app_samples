@@ -13,54 +13,38 @@
  * limitations under the License.
  */
 
-// [get_resource_id_arkts]
+// [Start get_resource_id_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { util } from '@kit.ArkTS';
 
-// 提供者名称，建议包含厂商信息，全局唯一，长度最大为128字节
 let providerName: string = 'testProviderName';
-// Ability名称
 let abilityName: string = 'CryptoExtension';
-// Bundle名称
 let bundleName: string = 'com.example.cryptoapplication';
-// 资源信息，格式和内容由厂商自定义
+// 资源信息，格式和内容由密钥管理扩展服务实现方定义
 let resourceInfo: string = 'vendor_defined_resource_info';
 
-function stringToUint8Array(str: string) {
-  let arr: number[] = [];
-  for (let i = 0, j = str.length; i < j; ++i) {
-    arr.push(str.charCodeAt(i));
-  }
-  return new Uint8Array(arr);
+function stringToUint8Array(str: string): Uint8Array {
+  return new util.TextEncoder().encodeInto(str);
 }
 
 async function getResourceId(): Promise<string> {
-  try {
-    /* 1.构造必选参数 */
-    const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [
-      {
-        tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_ABILITY_NAME,
-        value: stringToUint8Array(abilityName)
-      },
-      {
-        tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_BUNDLE_NAME,
-        value: stringToUint8Array(bundleName)
-      },
-      {
-        tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_RESOURCE_INFO,
-        value: stringToUint8Array(resourceInfo)
-      }
-    ];
+  const extProperties: huksExternalCrypto.HuksExternalCryptoParam[] = [
+    {
+      tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_ABILITY_NAME,
+      value: stringToUint8Array(abilityName),
+    },
+    {
+      tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_BUNDLE_NAME,
+      value: stringToUint8Array(bundleName),
+    },
+    {
+      tag: huksExternalCrypto.HuksExternalCryptoTag.HUKS_EXT_CRYPTO_TAG_RESOURCE_INFO,
+      value: stringToUint8Array(resourceInfo),
+    },
+  ];
 
-    /* 2.调用getResourceId */
-    await huksExternalCrypto.getResourceId(providerName, extProperties)
-      .then((resourceId) => {
-        console.info(`promise: getResourceId success, resourceId: ${resourceId}`);
-      }).catch((error: BusinessError) => {
-        console.error(`promise: getResourceId failed, errCode : ${error.code}, errMsg : ${error.message}`);
-      });
-  } catch (error) {
-    console.error('promise: getResourceId input arg invalid.');
-  }
+  const resourceId: string = await huksExternalCrypto.getResourceId(providerName, extProperties);
+  console.info(`promise: getResourceId success, resourceId: ${resourceId}`);
+  return resourceId;
 }
-// [get_resource_id_arkts]
+// [End get_resource_id_arkts]

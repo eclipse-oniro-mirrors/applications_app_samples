@@ -16,8 +16,7 @@
 // [Start revoke_permission_example]
 // [Start persist_permission_example]
 import { BusinessError } from '@kit.BasicServicesKit';
-import { picker } from '@kit.CoreFileKit';
-import { fileShare } from '@kit.CoreFileKit';
+import { picker, fileShare } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
 
