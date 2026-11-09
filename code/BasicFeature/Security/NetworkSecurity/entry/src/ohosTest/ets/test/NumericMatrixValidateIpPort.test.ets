@@ -1898,3 +1898,48 @@ export default function numericMatrixValidateIpPortTest() {
       // Negative infinity fails both the finite and positive tests.
       expect(ValidateUtils.isPositiveNumber(Number.NEGATIVE_INFINITY)).assertFalse();
       // The largest finite double value is strictly positive.
+      expect(ValidateUtils.isPositiveNumber(Number.MAX_VALUE)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALIPPORT_9500
+     * @tc.name      testNumValIpPort0095
+     * @tc.desc      Verify isPositiveNumber rejects small negative fractions.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValIpPort0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValIpPort0095';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Minus one half is a plain negative fraction.
+      expect(ValidateUtils.isPositiveNumber(-0.5)).assertFalse();
+      // Minus one ten millionth sits just below zero.
+      expect(ValidateUtils.isPositiveNumber(-0.0000001)).assertFalse();
+      // Minus pi to two decimals is negative and irrational style.
+      expect(ValidateUtils.isPositiveNumber(-3.14)).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALIPPORT_9600
+     * @tc.name      testNumValIpPort0096
+     * @tc.desc      Verify isPositiveNumber accepts the smallest positive subnormal.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValIpPort0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValIpPort0096';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // The minimum positive double is a tiny subnormal above zero.
+      expect(ValidateUtils.isPositiveNumber(Number.MIN_VALUE)).assertTrue();
+      // Its negation sits just below zero and is not positive.
+      expect(ValidateUtils.isPositiveNumber(-Number.MIN_VALUE)).assertFalse();
+      // Zero stays the strict boundary of the positive range.
+      expect(ValidateUtils.isPositiveNumber(0)).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+  });
+}
