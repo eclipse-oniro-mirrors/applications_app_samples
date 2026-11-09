@@ -18,6 +18,10 @@ import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { urlUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const STORE_NAME: string = 'server_url';
 const URL_KEY: string = 'url';
@@ -49,6 +53,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0001');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.3.2/');
           const value: string = await urlUtils.getUrl(context);
@@ -72,6 +77,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0002');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.3.3/');
           const value: string = await urlUtils.getUrl(context);
@@ -95,6 +101,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0003');
         try {
           await urlUtils.saveUrl(context, 'http://localhost:8080/');
           const value: string = await urlUtils.getUrl(context);
@@ -118,6 +125,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0004');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/');
           const value: string = await urlUtils.getUrl(context);
@@ -141,6 +149,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0005');
         try {
           await urlUtils.saveUrl(context, 'https://example.com/path');
           const value: string = await urlUtils.getUrl(context);
@@ -164,6 +173,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0006');
         try {
           await urlUtils.saveUrl(context, 'http://example.com:9090/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -187,6 +197,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0007');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/download?name=test.txt');
           const value: string = await urlUtils.getUrl(context);
@@ -210,6 +221,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0008');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/a/b/c');
           const value: string = await urlUtils.getUrl(context);
@@ -233,6 +245,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0009');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/');
           const value: string = await urlUtils.getUrl(context);
@@ -256,6 +269,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0010');
         try {
           await urlUtils.saveUrl(context, 'https://127.0.0.1:443/');
           const value: string = await urlUtils.getUrl(context);
@@ -279,6 +293,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0011');
         try {
           await urlUtils.saveUrl(context, 'http://10.0.0.1/');
           const value: string = await urlUtils.getUrl(context);
@@ -302,6 +317,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0012');
         try {
           await urlUtils.saveUrl(context, 'http://172.16.0.1/');
           const value: string = await urlUtils.getUrl(context);
@@ -325,6 +341,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0013');
         try {
           await urlUtils.saveUrl(context, 'http://host/');
           const value: string = await urlUtils.getUrl(context);
@@ -348,6 +365,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0014');
         try {
           await urlUtils.saveUrl(context, 'https://host/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -371,6 +389,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0015');
         try {
           await urlUtils.saveUrl(context, 'http://host:1234/path?x=1&y=2');
           const value: string = await urlUtils.getUrl(context);
@@ -394,6 +413,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0016');
         try {
           await urlUtils.saveUrl(context, 'http://host/#fragment');
           const value: string = await urlUtils.getUrl(context);
@@ -417,6 +437,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0017');
         try {
           await urlUtils.saveUrl(context, 'http://user@host/');
           const value: string = await urlUtils.getUrl(context);
@@ -440,6 +461,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0018');
         try {
           await urlUtils.saveUrl(context, 'http://host/中文');
           const value: string = await urlUtils.getUrl(context);
@@ -463,6 +485,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0019');
         try {
           await urlUtils.saveUrl(context, 'http://host/space path');
           const value: string = await urlUtils.getUrl(context);
@@ -486,6 +509,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0020');
         try {
           await urlUtils.saveUrl(context, 'http://host/special<>"');
           const value: string = await urlUtils.getUrl(context);
@@ -509,6 +533,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0021');
         try {
           await urlUtils.saveUrl(context, 'http://host/long/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
           const value: string = await urlUtils.getUrl(context);
@@ -532,6 +557,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0022');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com:8443/api/v1/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -555,6 +581,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0023');
         try {
           await urlUtils.saveUrl(context, 'http://server.example.com/api/download');
           const value: string = await urlUtils.getUrl(context);
@@ -578,6 +605,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0024');
         try {
           await urlUtils.saveUrl(context, 'http://1.2.3.4:65535/');
           const value: string = await urlUtils.getUrl(context);
@@ -601,6 +629,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0025');
         try {
           await urlUtils.saveUrl(context, 'http://[::1]/');
           const value: string = await urlUtils.getUrl(context);
@@ -624,6 +653,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0026');
         try {
           await urlUtils.saveUrl(context, 'http://host/?empty=');
           const value: string = await urlUtils.getUrl(context);
@@ -647,6 +677,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0027');
         try {
           await urlUtils.saveUrl(context, 'http://host/path%20encoded');
           const value: string = await urlUtils.getUrl(context);
@@ -670,6 +701,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0028');
         try {
           await urlUtils.saveUrl(context, 'http://host/plus+value');
           const value: string = await urlUtils.getUrl(context);
@@ -693,6 +725,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0029');
         try {
           await urlUtils.saveUrl(context, 'http://host/amp&value');
           const value: string = await urlUtils.getUrl(context);
@@ -716,6 +749,7 @@ export default function urlUtilsStorageTest(): void {
      */
     it('testUploadDownloadUrlStorage0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlStorage0030');
         try {
           await urlUtils.saveUrl(context, 'http://host/end/');
           const value: string = await urlUtils.getUrl(context);

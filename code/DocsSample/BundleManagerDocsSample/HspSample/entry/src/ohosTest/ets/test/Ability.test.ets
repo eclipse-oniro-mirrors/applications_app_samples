@@ -17,6 +17,10 @@ import { describe, beforeAll, afterAll, it, expect, TestType, Size, Level } from
 import { Component, Driver, ON } from '@kit.TestKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import Logger from '../logger/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const TAG = 'ActsAbilityTest';
 const DELAY_TIME = 500;
@@ -59,6 +63,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0001');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0100 start');
         let title: Component = await driver.findComponent(ON.text(TITLE_TEXT));
         expect(title !== null).assertTrue();
@@ -78,6 +83,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0002');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0200 start');
         let button: Component = await driver.findComponent(ON.id('add'));
         expect(button !== null).assertTrue();
@@ -100,6 +106,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0003');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0300 start');
         let button: Component = await driver.findComponent(ON.id('nativeMulti'));
         expect(button !== null).assertTrue();
@@ -122,6 +129,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0004');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0400 start');
         let button: Component = await driver.findComponent(ON.id('clickToIndex'));
         await button.click();
@@ -146,6 +154,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0005');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0500 start');
         let button: Component = await driver.findComponent(ON.id('getStringValue'));
         await button.click();
@@ -169,6 +178,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0006');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0600 start');
         let button: Component = await driver.findComponent(ON.id('clickToMenu'));
         await button.click();
@@ -201,6 +211,7 @@ export default function abilityTest() {
      */
     it('testHspAbility0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: () => void) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspAbility0007');
         Logger.info(TAG, 'ACTS_HSP_SAMPLE_FUNCTION_TEST_0700 start');
         let button: Component = await driver.findComponent(ON.id('clickToBack'));
         await button.click();

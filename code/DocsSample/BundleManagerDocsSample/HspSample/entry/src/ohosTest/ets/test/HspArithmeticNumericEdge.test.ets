@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add, minus } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function hspArithmeticNumericEdgeTest(): void {
   describe('HspArithmeticNumericEdgeTest', () => {
@@ -28,6 +32,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0001');
         try {
           const result: number = add(0.1, 0.2);
           expect(Math.abs(result - 0.3) < 1e-12).assertTrue();
@@ -50,6 +55,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0002');
         try {
           const result: number = minus(0.3, 0.1);
           expect(Math.abs(result - 0.2) < 1e-12).assertTrue();
@@ -72,6 +78,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0003');
         try {
           const result: number = add(Number.MAX_SAFE_INTEGER, 1);
           expect(result).assertEqual(9007199254740992);
@@ -94,6 +101,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0004');
         try {
           const result: number = add(Infinity, 1);
           expect(result).assertEqual(Infinity);
@@ -116,6 +124,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0005');
         try {
           const result: number = add(Infinity, -Infinity);
           expect(Number.isNaN(result)).assertTrue();
@@ -138,6 +147,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0006');
         try {
           const result: number = add(Number.MAX_VALUE, Number.MAX_VALUE);
           expect(result).assertEqual(Infinity);
@@ -160,6 +170,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0007');
         try {
           const result: number = minus(-Number.MAX_VALUE, Number.MAX_VALUE);
           expect(result).assertEqual(-Infinity);
@@ -182,6 +193,7 @@ export default function hspArithmeticNumericEdgeTest(): void {
      */
     it('testHspArithmeticNumeric0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticNumeric0008');
         try {
           const negativeZero: number = -0;
           const result: number = add(negativeZero, 0);

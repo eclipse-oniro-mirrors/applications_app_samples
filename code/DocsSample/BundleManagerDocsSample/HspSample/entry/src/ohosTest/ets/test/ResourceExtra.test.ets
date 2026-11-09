@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { ResManager } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function resourceExtraTest(): void {
   describe('HspResourceExtraTest', () => {
@@ -28,6 +32,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0001');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource.id > 0).assertTrue();
@@ -50,6 +55,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0002');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -72,6 +78,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0003');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -94,6 +101,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0004');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource.id > 0).assertTrue();
@@ -116,6 +124,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0005');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -138,6 +147,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0006');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -160,6 +170,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0007');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource.id > 0).assertTrue();
@@ -182,6 +193,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0008');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -204,6 +216,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0009');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource.id > 0).assertTrue();
@@ -226,6 +239,7 @@ export default function resourceExtraTest(): void {
      */
     it('testHspResourceExtra0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceExtra0010');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource.id > 0).assertTrue();

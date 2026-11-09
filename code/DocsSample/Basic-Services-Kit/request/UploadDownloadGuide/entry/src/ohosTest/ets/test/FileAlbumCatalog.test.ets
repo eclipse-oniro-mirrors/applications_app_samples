@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const ROOT_NAME: string = 'UploadDownloadAlbumCatalogRoot';
 let context: common.UIAbilityContext;
@@ -62,6 +66,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0001');
         try {
           const dir: string = rootDir + '/standard';
           createDir(dir);
@@ -90,6 +95,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0002');
         try {
           const dir: string = rootDir + '/preserve';
           createDir(dir + '/Pictures');
@@ -117,6 +123,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0003');
         try {
           const dir: string = rootDir + '/repeat';
           createDir(dir);
@@ -143,6 +150,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0004');
         try {
           const dir: string = rootDir + '/custom';
           createDir(dir + '/MyFolder');
@@ -169,6 +177,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0005');
         try {
           const dir: string = rootDir + '/相册 目录';
           createDir(dir);
@@ -194,6 +203,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0006');
         try {
           const dir: string = rootDir + '/missing-list';
           createDir(dir);
@@ -218,6 +228,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0007');
         try {
           const dir: string = rootDir + '/missing-clear';
           createDir(dir);
@@ -244,6 +255,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0008');
         try {
           const dir: string = rootDir + '/isolated-clear';
           createDir(dir);
@@ -275,6 +287,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0009');
         try {
           const dir: string = rootDir + '/unicode-names';
           createDir(dir);
@@ -301,6 +314,7 @@ export default function fileAlbumCatalogTest(): void {
      */
     it('testUploadDownloadAlbumCatalog0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAlbumCatalog0010');
         try {
           const dir: string = rootDir + '/root-files';
           createDir(dir);

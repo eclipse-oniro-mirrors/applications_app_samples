@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const ROOT_NAME: string = 'UploadDownloadMatrixRoot';
 let context: common.UIAbilityContext;
@@ -55,6 +59,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0001');
         try {
           const dir: string = rootDir + '/init1';
           fileIo.mkdirSync(dir, true);
@@ -79,6 +84,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0002');
         try {
           const dir: string = rootDir + '/init2';
           fileIo.mkdirSync(dir, true);
@@ -103,6 +109,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0003');
         try {
           const dir: string = rootDir + '/init3';
           fileIo.mkdirSync(dir, true);
@@ -127,6 +134,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0004');
         try {
           const dir: string = rootDir + '/init4';
           fileIo.mkdirSync(dir, true);
@@ -151,6 +159,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0005');
         try {
           const dir: string = rootDir + '/init5';
           fileIo.mkdirSync(dir, true);
@@ -175,6 +184,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0006');
         try {
           const dir: string = rootDir + '/init6';
           fileIo.mkdirSync(dir, true);
@@ -199,6 +209,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0007');
         try {
           const dir: string = rootDir + '/init7';
           fileIo.mkdirSync(dir, true);
@@ -223,6 +234,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0008');
         try {
           const dir: string = rootDir + '/init8';
           fileIo.mkdirSync(dir, true);
@@ -247,6 +259,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0009');
         try {
           const dir: string = rootDir + '/init9';
           fileIo.mkdirSync(dir, true);
@@ -271,6 +284,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0010');
         try {
           const dir: string = rootDir + '/init10';
           fileIo.mkdirSync(dir, true);
@@ -295,6 +309,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0011');
         try {
           const dir: string = rootDir + '/list11';
           fileIo.mkdirSync(dir, true);
@@ -321,6 +336,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0012');
         try {
           const dir: string = rootDir + '/clear12';
           fileIo.mkdirSync(dir, true);
@@ -348,6 +364,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0013');
         try {
           const dir: string = rootDir + '/list13';
           fileIo.mkdirSync(dir, true);
@@ -374,6 +391,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0014');
         try {
           const dir: string = rootDir + '/clear14';
           fileIo.mkdirSync(dir, true);
@@ -401,6 +419,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0015');
         try {
           const dir: string = rootDir + '/list15';
           fileIo.mkdirSync(dir, true);
@@ -427,6 +446,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0016');
         try {
           const dir: string = rootDir + '/clear16';
           fileIo.mkdirSync(dir, true);
@@ -454,6 +474,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0017');
         try {
           const dir: string = rootDir + '/list17';
           fileIo.mkdirSync(dir, true);
@@ -480,6 +501,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0018');
         try {
           const dir: string = rootDir + '/clear18';
           fileIo.mkdirSync(dir, true);
@@ -507,6 +529,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0019');
         try {
           const dir: string = rootDir + '/list19';
           fileIo.mkdirSync(dir, true);
@@ -533,6 +556,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0020');
         try {
           const dir: string = rootDir + '/clear20';
           fileIo.mkdirSync(dir, true);
@@ -560,6 +584,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0021');
         try {
           const dir: string = rootDir + '/list21';
           fileIo.mkdirSync(dir, true);
@@ -586,6 +611,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0022');
         try {
           const dir: string = rootDir + '/clear22';
           fileIo.mkdirSync(dir, true);
@@ -613,6 +639,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0023');
         try {
           const dir: string = rootDir + '/list23';
           fileIo.mkdirSync(dir, true);
@@ -639,6 +666,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0024');
         try {
           const dir: string = rootDir + '/clear24';
           fileIo.mkdirSync(dir, true);
@@ -666,6 +694,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0025');
         try {
           const dir: string = rootDir + '/list25';
           fileIo.mkdirSync(dir, true);
@@ -692,6 +721,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0026');
         try {
           const dir: string = rootDir + '/clear26';
           fileIo.mkdirSync(dir, true);
@@ -719,6 +749,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0027');
         try {
           const dir: string = rootDir + '/list27';
           fileIo.mkdirSync(dir, true);
@@ -745,6 +776,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0028');
         try {
           const dir: string = rootDir + '/clear28';
           fileIo.mkdirSync(dir, true);
@@ -772,6 +804,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0029');
         try {
           const dir: string = rootDir + '/list29';
           fileIo.mkdirSync(dir, true);
@@ -798,6 +831,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0030');
         try {
           const dir: string = rootDir + '/clear30';
           fileIo.mkdirSync(dir, true);
@@ -825,6 +859,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0031');
         try {
           const dir: string = rootDir + '/list31';
           fileIo.mkdirSync(dir, true);
@@ -851,6 +886,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0032');
         try {
           const dir: string = rootDir + '/clear32';
           fileIo.mkdirSync(dir, true);
@@ -878,6 +914,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0033');
         try {
           const dir: string = rootDir + '/list33';
           fileIo.mkdirSync(dir, true);
@@ -904,6 +941,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0034');
         try {
           const dir: string = rootDir + '/clear34';
           fileIo.mkdirSync(dir, true);
@@ -931,6 +969,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0035');
         try {
           const dir: string = rootDir + '/list35';
           fileIo.mkdirSync(dir, true);
@@ -957,6 +996,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0036');
         try {
           const dir: string = rootDir + '/clear36';
           fileIo.mkdirSync(dir, true);
@@ -984,6 +1024,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0037');
         try {
           const dir: string = rootDir + '/list37';
           fileIo.mkdirSync(dir, true);
@@ -1010,6 +1051,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0038');
         try {
           const dir: string = rootDir + '/clear38';
           fileIo.mkdirSync(dir, true);
@@ -1037,6 +1079,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0039');
         try {
           const dir: string = rootDir + '/list39';
           fileIo.mkdirSync(dir, true);
@@ -1063,6 +1106,7 @@ export default function fileUtilsMatrixTest(): void {
      */
     it('testUploadDownloadFileUtils0040',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtils0040');
         try {
           const dir: string = rootDir + '/clear40';
           fileIo.mkdirSync(dir, true);

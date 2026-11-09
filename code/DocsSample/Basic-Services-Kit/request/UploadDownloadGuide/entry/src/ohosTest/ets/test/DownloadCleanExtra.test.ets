@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { requestDownload } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 
@@ -41,6 +45,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0001');
         try {
           const path: string = context.cacheDir + '/extra_clean_a.txt';
           createFile(path);
@@ -66,6 +71,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0002');
         try {
           const path: string = context.cacheDir + '/extra_clean_b.bin';
           createFile(path);
@@ -91,6 +97,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0003');
         try {
           const path: string = context.cacheDir + '/extra_clean space.txt';
           createFile(path);
@@ -116,6 +123,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0004');
         try {
           const path: string = context.cacheDir + '/extra_clean_中文.txt';
           createFile(path);
@@ -141,6 +149,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0005');
         try {
           const path: string = context.cacheDir + '/extra_clean.jpg';
           createFile(path);
@@ -166,6 +175,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0006');
         try {
           const path: string = context.cacheDir + '/extra_clean.mp3';
           createFile(path);
@@ -191,6 +201,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0007');
         try {
           const path: string = context.cacheDir + '/extra_clean.mp4';
           createFile(path);
@@ -216,6 +227,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0008');
         try {
           const path: string = context.cacheDir + '/extra_clean.tar.gz';
           createFile(path);
@@ -241,6 +253,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0009');
         try {
           const path: string = context.cacheDir + '/extra_clean.dot.name';
           createFile(path);
@@ -266,6 +279,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0010');
         try {
           const path: string = context.cacheDir + '/extra_clean_1';
           createFile(path);
@@ -291,6 +305,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0011');
         try {
           const path: string = context.cacheDir + '/extra_clean_2';
           createFile(path);
@@ -316,6 +331,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0012');
         try {
           const path: string = context.cacheDir + '/extra_clean_3';
           createFile(path);
@@ -341,6 +357,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0013');
         try {
           const path: string = context.cacheDir + '/extra_clean_4';
           createFile(path);
@@ -366,6 +383,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0014');
         try {
           const path: string = context.cacheDir + '/extra_clean_5';
           createFile(path);
@@ -391,6 +409,7 @@ export default function downloadCleanExtraTest(): void {
      */
     it('testUploadDownloadDownloadCleanExtra0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDownloadCleanExtra0015');
         try {
           const path: string = context.cacheDir + '/extra_clean_6';
           createFile(path);

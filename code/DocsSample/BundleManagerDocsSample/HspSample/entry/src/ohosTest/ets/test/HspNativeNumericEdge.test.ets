@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function hspNativeNumericEdgeTest(): void {
   describe('HspNativeNumericEdgeTest', () => {
@@ -28,6 +32,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0001');
         try {
           const result: number = nativeMulti(0.5, 4);
           expect(result).assertEqual(2);
@@ -50,6 +55,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0002');
         try {
           const result: number = nativeMulti(-1.5, 2);
           expect(result).assertEqual(-3);
@@ -72,6 +78,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0003');
         try {
           const result: number = nativeMulti(0.1, 0.2);
           expect(Math.abs(result - 0.02) < 1e-12).assertTrue();
@@ -94,6 +101,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0004');
         try {
           const result: number = nativeMulti(Number.MAX_SAFE_INTEGER, 1);
           expect(result).assertEqual(9007199254740991);
@@ -116,6 +124,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0005');
         try {
           const result: number = nativeMulti(Infinity, 2);
           expect(result).assertEqual(Infinity);
@@ -138,6 +147,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0006');
         try {
           const result: number = nativeMulti(-Infinity, 3);
           expect(result).assertEqual(-Infinity);
@@ -160,6 +170,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0007');
         try {
           const result: number = nativeMulti(NaN, 5);
           expect(Number.isNaN(result)).assertTrue();
@@ -182,6 +193,7 @@ export default function hspNativeNumericEdgeTest(): void {
      */
     it('testHspNativeNumeric0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeNumeric0008');
         try {
           const result: number = nativeMulti(1e308, 10);
           expect(result).assertEqual(Infinity);

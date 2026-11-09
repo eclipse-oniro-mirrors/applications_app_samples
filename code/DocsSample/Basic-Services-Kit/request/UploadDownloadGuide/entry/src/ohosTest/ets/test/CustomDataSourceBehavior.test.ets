@@ -16,6 +16,10 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { FileModel, FileType } from 'uploadanddownload';
 import { CustomDataSource } from '../../../main/ets/components/CustomDataSource';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 class RecordingDataChangeListener implements DataChangeListener {
   reloadCount: number = 0;
@@ -90,6 +94,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0001');
         try {
           const text: FileModel = createTextModel();
           const image: FileModel = createImageModel();
@@ -116,6 +121,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0002');
         try {
           const text: FileModel = createTextModel();
           const image: FileModel = createImageModel();
@@ -144,6 +150,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0003');
         try {
           const dataSource: CustomDataSource = new CustomDataSource([]);
           expect(dataSource.totalCount()).assertEqual(0);
@@ -168,6 +175,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0004');
         try {
           const dataSource: CustomDataSource = new CustomDataSource([createTextModel()]);
           const first: RecordingDataChangeListener = new RecordingDataChangeListener();
@@ -197,6 +205,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0005');
         try {
           const dataSource: CustomDataSource = new CustomDataSource([createTextModel()]);
           const listener: RecordingDataChangeListener = new RecordingDataChangeListener();
@@ -225,6 +234,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0006');
         try {
           const dataSource: CustomDataSource = new CustomDataSource([createTextModel(), createImageModel()]);
           const listener: RecordingDataChangeListener = new RecordingDataChangeListener();
@@ -254,6 +264,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0007');
         try {
           const dataSource: CustomDataSource = new CustomDataSource([createTextModel()]);
           const registered: RecordingDataChangeListener = new RecordingDataChangeListener();
@@ -283,6 +294,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0008');
         try {
           const text: FileModel = createTextModel();
           const image: FileModel = createImageModel();
@@ -315,6 +327,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0009');
         try {
           const firstSource: CustomDataSource = new CustomDataSource([createTextModel()]);
           const secondSource: CustomDataSource = new CustomDataSource([createImageModel(), createAudioModel()]);
@@ -343,6 +356,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0010');
         try {
           const text: FileModel = createTextModel();
           const inserted: FileModel = new FileModel('head.pdf', false, []);
@@ -371,6 +385,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0011');
         try {
           const text: FileModel = createTextModel();
           const audio: FileModel = createAudioModel();
@@ -401,6 +416,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0012');
         try {
           const text: FileModel = createTextModel();
           const audio: FileModel = createAudioModel();
@@ -430,6 +446,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0013');
         try {
           const inserted: FileModel = new FileModel('only.pdf', false, []);
           const dataSource: CustomDataSource = new CustomDataSource([]);
@@ -457,6 +474,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0014');
         try {
           const text: FileModel = createTextModel();
           const inserted: FileModel = new FileModel('clamped-high.pdf', false, []);
@@ -485,6 +503,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0015');
         try {
           const audio: FileModel = createAudioModel();
           const text: FileModel = createTextModel();
@@ -514,6 +533,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0016');
         try {
           const text: FileModel = createTextModel();
           const audio: FileModel = createAudioModel();
@@ -540,6 +560,7 @@ export default function customDataSourceBehaviorTest(): void {
      */
     it('testUploadDownloadDataSource0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDataSource0017');
         try {
           const text: FileModel = createTextModel();
           const image: FileModel = createImageModel();

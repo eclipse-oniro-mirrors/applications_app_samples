@@ -18,6 +18,10 @@ import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { urlUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const STORE_NAME: string = 'server_url';
 const URL_KEY: string = 'url';
@@ -48,6 +52,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30001');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3/one');
           const value: string = await urlUtils.getUrl(context);
@@ -71,6 +76,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30002');
         try {
           await urlUtils.saveUrl(context, 'https://host/extra3/two');
           const value: string = await urlUtils.getUrl(context);
@@ -94,6 +100,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30003');
         try {
           await urlUtils.saveUrl(context, 'http://host:7100/extra3/three');
           const value: string = await urlUtils.getUrl(context);
@@ -117,6 +124,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30004');
         try {
           await urlUtils.saveUrl(context, 'https://host:7543/extra3/four');
           const value: string = await urlUtils.getUrl(context);
@@ -140,6 +148,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30005');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3/a/b/c');
           const value: string = await urlUtils.getUrl(context);
@@ -163,6 +172,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30006');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3?q=10');
           const value: string = await urlUtils.getUrl(context);
@@ -186,6 +196,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30007');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3?q=10&r=20');
           const value: string = await urlUtils.getUrl(context);
@@ -209,6 +220,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30008');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3#frag');
           const value: string = await urlUtils.getUrl(context);
@@ -232,6 +244,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30009');
         try {
           await urlUtils.saveUrl(context, 'http://host/extra3%20space');
           const value: string = await urlUtils.getUrl(context);
@@ -255,6 +268,7 @@ export default function urlUtilsExtra3Test(): void {
      */
     it('testUploadDownloadUrlExtra30010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlExtra30010');
         try {
           await urlUtils.saveUrl(context, 'https://host/extra3/final');
           const value: string = await urlUtils.getUrl(context);

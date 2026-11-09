@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 let rootDir: string;
@@ -73,6 +77,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0001');
         try {
           const rootFile: string = rootDir + '/root-file';
           writeFile(rootFile, 'x');
@@ -96,6 +101,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0002');
         try {
           const dir: string = rootDir + '/album-files';
           ensureDir(dir);
@@ -123,6 +129,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0003');
         try {
           const rootFile: string = rootDir + '/folders-file';
           writeFile(rootFile, 'x');
@@ -147,6 +154,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0004');
         try {
           const dir: string = rootDir + '/list-file';
           ensureDir(dir);
@@ -172,6 +180,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0005');
         try {
           const dir: string = rootDir + '/clear-file';
           ensureDir(dir);
@@ -197,6 +206,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0006');
         try {
           const dir: string = rootDir + '/clear-nested';
           ensureDir(dir + '/Others/sub');
@@ -222,6 +232,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0007');
         try {
           const dir: string = rootDir + '/dotfiles';
           ensureDir(dir + '/Others');
@@ -247,6 +258,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0008');
         try {
           const dir: string = rootDir + '/long-name';
           ensureDir(dir + '/Others');
@@ -272,6 +284,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0009');
         try {
           const dir: string = rootDir + '/clear-long';
           ensureDir(dir + '/Others');
@@ -298,6 +311,7 @@ export default function fileUtilsErrorResidualTest(): void {
      */
     it('testUploadDownloadFileUtilsErrorResidual0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsErrorResidual0010');
         try {
           const dir: string = rootDir + '/clear-multiple';
           ensureDir(dir + '/Videos');

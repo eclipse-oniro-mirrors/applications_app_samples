@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const ROOT_NAME: string = 'UploadDownloadExtra4Root';
 let context: common.UIAbilityContext;
@@ -55,6 +59,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40001');
         try {
           const dir: string = rootDir + '/case1';
           fileIo.mkdirSync(dir, true);
@@ -84,6 +89,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40002');
         try {
           const dir: string = rootDir + '/case2';
           fileIo.mkdirSync(dir, true);
@@ -113,6 +119,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40003');
         try {
           const dir: string = rootDir + '/case3';
           fileIo.mkdirSync(dir, true);
@@ -142,6 +149,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40004');
         try {
           const dir: string = rootDir + '/case4';
           fileIo.mkdirSync(dir, true);
@@ -171,6 +179,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40005');
         try {
           const dir: string = rootDir + '/case5';
           fileIo.mkdirSync(dir, true);
@@ -200,6 +209,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40006');
         try {
           const dir: string = rootDir + '/case6';
           fileIo.mkdirSync(dir, true);
@@ -229,6 +239,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40007');
         try {
           const dir: string = rootDir + '/case7';
           fileIo.mkdirSync(dir, true);
@@ -258,6 +269,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40008');
         try {
           const dir: string = rootDir + '/case8';
           fileIo.mkdirSync(dir, true);
@@ -287,6 +299,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40009');
         try {
           const dir: string = rootDir + '/case9';
           fileIo.mkdirSync(dir, true);
@@ -316,6 +329,7 @@ export default function fileUtilsExtra4Test(): void {
      */
     it('testUploadDownloadFileUtilsExtra40010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileUtilsExtra40010');
         try {
           const dir: string = rootDir + '/case10';
           fileIo.mkdirSync(dir, true);

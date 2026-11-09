@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function nativeMethodMatrixTest(): void {
   describe('HspNativeMethodMatrixTest', () => {
@@ -28,6 +32,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0001');
         try {
           const result: number = nativeMulti(0, 0);
           expect(result).assertEqual(0);
@@ -50,6 +55,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0002');
         try {
           const result: number = nativeMulti(1, 1);
           expect(result).assertEqual(1);
@@ -72,6 +78,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0003');
         try {
           const result: number = nativeMulti(1, 2);
           expect(result).assertEqual(2);
@@ -94,6 +101,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0004');
         try {
           const result: number = nativeMulti(2, 1);
           expect(result).assertEqual(2);
@@ -116,6 +124,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0005');
         try {
           const result: number = nativeMulti(2, 3);
           expect(result).assertEqual(6);
@@ -138,6 +147,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0006');
         try {
           const result: number = nativeMulti(3, 2);
           expect(result).assertEqual(6);
@@ -160,6 +170,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0007');
         try {
           const result: number = nativeMulti(3, 4);
           expect(result).assertEqual(12);
@@ -182,6 +193,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0008');
         try {
           const result: number = nativeMulti(4, 3);
           expect(result).assertEqual(12);
@@ -204,6 +216,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0009');
         try {
           const result: number = nativeMulti(-1, 1);
           expect(result).assertEqual(-1);
@@ -226,6 +239,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0010');
         try {
           const result: number = nativeMulti(1, -1);
           expect(result).assertEqual(-1);
@@ -248,6 +262,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0011');
         try {
           const result: number = nativeMulti(-2, 3);
           expect(result).assertEqual(-6);
@@ -270,6 +285,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0012');
         try {
           const result: number = nativeMulti(2, -3);
           expect(result).assertEqual(-6);
@@ -292,6 +308,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0013');
         try {
           const result: number = nativeMulti(-2, -3);
           expect(result).assertEqual(6);
@@ -314,6 +331,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0014');
         try {
           const result: number = nativeMulti(10, 10);
           expect(result).assertEqual(100);
@@ -336,6 +354,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0015');
         try {
           const result: number = nativeMulti(100, 2);
           expect(result).assertEqual(200);
@@ -358,6 +377,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0016');
         try {
           const result: number = nativeMulti(2, 100);
           expect(result).assertEqual(200);
@@ -380,6 +400,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0017');
         try {
           const result: number = nativeMulti(7, 8);
           expect(result).assertEqual(56);
@@ -402,6 +423,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0018');
         try {
           const result: number = nativeMulti(8, 7);
           expect(result).assertEqual(56);
@@ -424,6 +446,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0019');
         try {
           const result: number = nativeMulti(9, 9);
           expect(result).assertEqual(81);
@@ -446,6 +469,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0020');
         try {
           const result: number = nativeMulti(12, 12);
           expect(result).assertEqual(144);
@@ -468,6 +492,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0021');
         try {
           const result: number = nativeMulti(123, 1);
           expect(result).assertEqual(123);
@@ -490,6 +515,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0022');
         try {
           const result: number = nativeMulti(1, 123);
           expect(result).assertEqual(123);
@@ -512,6 +538,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0023');
         try {
           const result: number = nativeMulti(999, 0);
           expect(result).assertEqual(0);
@@ -534,6 +561,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0024');
         try {
           const result: number = nativeMulti(0, 999);
           expect(result).assertEqual(0);
@@ -556,6 +584,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0025');
         try {
           const result: number = nativeMulti(214748, 1);
           expect(result).assertEqual(214748);
@@ -578,6 +607,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0026');
         try {
           const result: number = nativeMulti(1, 214748);
           expect(result).assertEqual(214748);
@@ -600,6 +630,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0027');
         try {
           const result: number = nativeMulti(-5, -5);
           expect(result).assertEqual(25);
@@ -622,6 +653,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0028');
         try {
           const result: number = nativeMulti(5, 5);
           expect(result).assertEqual(25);
@@ -644,6 +676,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0029');
         try {
           const result: number = nativeMulti(11, 11);
           expect(result).assertEqual(121);
@@ -666,6 +699,7 @@ export default function nativeMethodMatrixTest(): void {
      */
     it('testHspNativeMulti0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeMulti0030');
         try {
           const result: number = nativeMulti(13, 2);
           expect(result).assertEqual(26);

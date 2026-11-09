@@ -17,6 +17,10 @@ import { describe, expect, it, Level, Size, TestType, beforeAll } from '@ohos/hy
 import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import cloudDisk, { ChangesResult, ResultList, SyncFolder, IsPlaceholderResult } from 'libentry.so';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let API_BASE: string;
 
@@ -39,6 +43,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0001');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -61,6 +66,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0002');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -83,6 +89,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0003');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -105,6 +112,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0004');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -127,6 +135,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0005');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -149,6 +158,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0006');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -171,6 +181,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0007');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -193,6 +204,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0008');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -215,6 +227,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0009');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -237,6 +250,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0010');
         try {
           const folders: SyncFolder[] = cloudDisk.getAllSyncFolder();
           expect(Array.isArray(folders)).assertTrue();
@@ -259,6 +273,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0011');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 1, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -281,6 +296,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0012');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 2, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -303,6 +319,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0013');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 3, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -325,6 +342,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0014');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 4, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -347,6 +365,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0015');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 5, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -369,6 +388,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0016');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 6, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -391,6 +411,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0017');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 7, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -413,6 +434,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0018');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 8, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -435,6 +457,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0019');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 9, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -457,6 +480,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0020');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 10, 10);
           expect(changes === null || changes === undefined || changes.changesData.length === 0).assertTrue();
@@ -479,6 +503,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0021');
         try {
           const states: ResultList[] = cloudDisk.getFileSyncStates(API_BASE, 1, ['a.txt']);
           expect(states === null || states === undefined || Array.isArray(states)).assertTrue();
@@ -501,6 +526,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0022');
         try {
           const states: ResultList[] = cloudDisk.getFileSyncStates(API_BASE, 2, ['a.txt']);
           expect(states === null || states === undefined || Array.isArray(states)).assertTrue();
@@ -523,6 +549,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0023');
         try {
           const states: ResultList[] = cloudDisk.getFileSyncStates(API_BASE, 3, ['a.txt']);
           expect(states === null || states === undefined || Array.isArray(states)).assertTrue();
@@ -545,6 +572,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0024');
         try {
           const states: ResultList[] = cloudDisk.getFileSyncStates(API_BASE, 4, ['a.txt']);
           expect(states === null || states === undefined || Array.isArray(states)).assertTrue();
@@ -567,6 +595,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0025');
         try {
           const states: ResultList[] = cloudDisk.getFileSyncStates(API_BASE, 5, ['a.txt']);
           expect(states === null || states === undefined || Array.isArray(states)).assertTrue();
@@ -589,6 +618,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0026');
         try {
           const result: IsPlaceholderResult = cloudDisk.isPlaceholderFile(API_BASE, 'a1.txt');
           expect(result.code !== 0).assertTrue();
@@ -611,6 +641,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0027');
         try {
           const result: IsPlaceholderResult = cloudDisk.isPlaceholderFile(API_BASE, 'a2.txt');
           expect(result.code !== 0).assertTrue();
@@ -633,6 +664,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0028');
         try {
           const result: IsPlaceholderResult = cloudDisk.isPlaceholderFile(API_BASE, 'a3.txt');
           expect(result.code !== 0).assertTrue();
@@ -655,6 +687,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0029');
         try {
           const result: IsPlaceholderResult = cloudDisk.isPlaceholderFile(API_BASE, 'a4.txt');
           expect(result.code !== 0).assertTrue();
@@ -677,6 +710,7 @@ export default function cloudDiskContractExtraTest(): void {
      */
     it('testCloudDiskContractExtra0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra0030');
         try {
           const result: IsPlaceholderResult = cloudDisk.isPlaceholderFile(API_BASE, 'a5.txt');
           expect(result.code !== 0).assertTrue();

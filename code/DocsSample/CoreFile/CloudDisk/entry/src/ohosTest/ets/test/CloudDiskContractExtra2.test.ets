@@ -17,6 +17,10 @@ import { describe, expect, it, Level, Size, TestType, beforeAll } from '@ohos/hy
 import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import cloudDisk, { ChangesResult, FileSyncState, ResultList } from 'libentry.so';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let API_BASE: string;
 
@@ -39,6 +43,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20001');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 1, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -61,6 +66,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20002');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 2, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -83,6 +89,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20003');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 3, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -105,6 +112,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20004');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 4, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -127,6 +135,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20005');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 5, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -149,6 +158,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20006');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 6, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -171,6 +181,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20007');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 7, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -193,6 +204,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20008');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 8, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -215,6 +227,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20009');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 9, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -237,6 +250,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20010');
         try {
           const changes: ChangesResult = cloudDisk.getSyncFolderChanges(API_BASE, 10, 5);
           expect(changes === null || changes === undefined || typeof changes.nextUsn === 'number').assertTrue();
@@ -259,6 +273,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20011');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -282,6 +297,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20012');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -305,6 +321,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20013');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -328,6 +345,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20014');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -351,6 +369,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20015');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -374,6 +393,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20016');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -397,6 +417,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20017');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -420,6 +441,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20018');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -443,6 +465,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20019');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();
@@ -466,6 +489,7 @@ export default function cloudDiskContractExtra2Test(): void {
      */
     it('testCloudDiskContractExtra20020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskContractExtra20020');
         try {
           const key: number = cloudDisk.getCallbackReqKey();
           const version: number = cloudDisk.getCallbackReqKeyVersion();

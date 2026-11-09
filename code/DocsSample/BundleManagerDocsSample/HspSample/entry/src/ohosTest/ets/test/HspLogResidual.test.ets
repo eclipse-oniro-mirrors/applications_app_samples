@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { Log, add, minus, nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function hspLogResidualTest(): void {
   describe('HspLogResidualTest', () => {
@@ -28,6 +32,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0001');
         try {
           Log.info('');
           expect(true).assertTrue();
@@ -49,6 +54,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0002');
         try {
           Log.info('中文日志\n第二行');
           expect(true).assertTrue();
@@ -70,6 +76,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0003');
         try {
           Log.info('a'.repeat(1024));
           expect('a'.repeat(1024).length).assertEqual(1024);
@@ -91,6 +98,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0004');
         try {
           Log.info('\"quoted\" \\ path');
           expect(true).assertTrue();
@@ -112,6 +120,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0005');
         try {
           for (let i = 0; i < 10; i++) {
             Log.info('repeat ' + i);
@@ -134,6 +143,7 @@ export default function hspLogResidualTest(): void {
      */
     it('testHspLogResidual0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspLogResidual0006');
         try {
           expect(typeof add).assertEqual('function');
           expect(typeof minus).assertEqual('function');

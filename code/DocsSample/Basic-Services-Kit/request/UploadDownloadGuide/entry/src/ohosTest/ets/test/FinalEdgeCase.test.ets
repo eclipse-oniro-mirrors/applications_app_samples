@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { FileModel, FileType } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function finalEdgeCaseTest(): void {
   describe('UploadDownloadFinalEdgeCaseTest', () => {
@@ -28,6 +32,7 @@ export default function finalEdgeCaseTest(): void {
      */
     it('testUploadDownloadFinalEdgeCase0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFinalEdgeCase0001');
         try {
           const model: FileModel = new FileModel('final.docx', false, ['a', 'b', 'c']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -50,6 +55,7 @@ export default function finalEdgeCaseTest(): void {
      */
     it('testUploadDownloadFinalEdgeCase0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFinalEdgeCase0002');
         try {
           const model: FileModel = new FileModel('final.xlsx', false, ['a', 'b', 'c']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -72,6 +78,7 @@ export default function finalEdgeCaseTest(): void {
      */
     it('testUploadDownloadFinalEdgeCase0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFinalEdgeCase0003');
         try {
           const model: FileModel = new FileModel('final.pptx', false, ['a', 'b', 'c']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -94,6 +101,7 @@ export default function finalEdgeCaseTest(): void {
      */
     it('testUploadDownloadFinalEdgeCase0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFinalEdgeCase0004');
         try {
           const model: FileModel = new FileModel('final.rar', false, ['a', 'b', 'c']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -116,6 +124,7 @@ export default function finalEdgeCaseTest(): void {
      */
     it('testUploadDownloadFinalEdgeCase0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFinalEdgeCase0005');
         try {
           const model: FileModel = new FileModel('final.7z', false, ['a', 'b', 'c']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);

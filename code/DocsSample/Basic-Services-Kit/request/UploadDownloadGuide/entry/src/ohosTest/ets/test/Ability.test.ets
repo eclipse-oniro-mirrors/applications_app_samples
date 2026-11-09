@@ -20,6 +20,10 @@ import { resourceManager } from '@kit.LocalizationKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { Component, Driver, ON, MatchPattern } from '@kit.TestKit';
 import { logger } from '../util/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const TAG = '[UploadAndDownloadGuide]';
 const BUNDLE_NAME = 'com.samples.uploaddownloadguide';
@@ -101,6 +105,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0001');
       try {
         delegator.startAbility(want, (err: Error) => {
           logger.info(TAG, `startAbility callback: ${JSON.stringify(err)}`);
@@ -126,6 +131,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0002');
       try {
         await clickAllow(driver);
         await delegator.getCurrentTopAbility().then((ability: UIAbility) => {
@@ -149,6 +155,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0003');
       try {
         let btnUpload = await waitForId(driver, 'btn_upload', 3000);
         expect(btnUpload !== null).assertTrue();
@@ -174,6 +181,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0004');
       try {
         await driver.pressBack();
         await sleep(500);
@@ -208,6 +216,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0005');
       try {
         let listItems = await driver.findComponents(ON.type('List'));
         expect(listItems !== null && listItems.length > 0).assertTrue();
@@ -235,6 +244,7 @@ export default function abilityTest() {
      */
     it('testUploadDownloadAbility0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0006');
       try {
         await driver.pressBack();
         await sleep(500);

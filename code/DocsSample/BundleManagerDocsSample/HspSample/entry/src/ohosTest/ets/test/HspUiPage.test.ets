@@ -18,6 +18,10 @@ import { Component, Driver, ON } from '@kit.TestKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { resourceManager } from '@kit.LocalizationKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const BUNDLE_NAME: string = 'com.samples.hspsample';
 const ABILITY_NAME: string = 'EntryAbility';
@@ -114,6 +118,7 @@ export default function hspUiPageTest(): void {
      */
     it('testHspUiPage0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspUiPage0001');
         try {
           const title: Component | null = await waitForId('library', 5000);
           expect(title !== null).assertTrue();
@@ -143,6 +148,7 @@ export default function hspUiPageTest(): void {
      */
     it('testHspUiPage0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspUiPage0002');
         try {
           const entry: Component | null = await waitForId('clickToIndex', 3000);
           expect(entry !== null).assertTrue();
@@ -173,6 +179,7 @@ export default function hspUiPageTest(): void {
      */
     it('testHspUiPage0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspUiPage0003');
         try {
           const entry: Component | null = await waitForId('clickToMenu', 3000);
           expect(entry !== null).assertTrue();
@@ -216,6 +223,7 @@ export default function hspUiPageTest(): void {
      */
     it('testHspUiPage0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspUiPage0004');
         try {
           const addButton: Component | null = await waitForId('add', 3000);
           expect(addButton !== null).assertTrue();

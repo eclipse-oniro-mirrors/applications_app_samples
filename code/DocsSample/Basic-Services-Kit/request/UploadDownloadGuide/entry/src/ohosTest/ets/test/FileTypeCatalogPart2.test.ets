@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { FileModel, FileType } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function fileTypeCatalogTestPart2(): void {
   describe('UploadDownloadFileTypeCatalogTestPart2', () => {
@@ -28,6 +32,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0053',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0053');
         try {
           const model: FileModel = new FileModel('AUD_0053.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -50,6 +55,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0054',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0054');
         try {
           const model: FileModel = new FileModel('AUD_0054.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -72,6 +78,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0055',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0055');
         try {
           const model: FileModel = new FileModel('AUD_0055.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -94,6 +101,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0056',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0056');
         try {
           const model: FileModel = new FileModel('AUD_0056.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -116,6 +124,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0057',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0057');
         try {
           const model: FileModel = new FileModel('AUD_0057.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -138,6 +147,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0058',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0058');
         try {
           const model: FileModel = new FileModel('AUD_0058.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -160,6 +170,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0059',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0059');
         try {
           const model: FileModel = new FileModel('AUD_0059.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -182,6 +193,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0060',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0060');
         try {
           const model: FileModel = new FileModel('AUD_0060.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -204,6 +216,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0061',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0061');
         try {
           const model: FileModel = new FileModel('AUD_0061.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -226,6 +239,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0062',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0062');
         try {
           const model: FileModel = new FileModel('AUD_0062.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -248,6 +262,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0063',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0063');
         try {
           const model: FileModel = new FileModel('AUD_0063.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -270,6 +285,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0064',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0064');
         try {
           const model: FileModel = new FileModel('AUD_0064.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -292,6 +308,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0065',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0065');
         try {
           const model: FileModel = new FileModel('AUD_0065.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -314,6 +331,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0066',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0066');
         try {
           const model: FileModel = new FileModel('AUD_0066.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -336,6 +354,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0067',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0067');
         try {
           const model: FileModel = new FileModel('AUD_0067.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -358,6 +377,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0068',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0068');
         try {
           const model: FileModel = new FileModel('AUD_0068.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -380,6 +400,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0069',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0069');
         try {
           const model: FileModel = new FileModel('AUD_0069.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -402,6 +423,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0070',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0070');
         try {
           const model: FileModel = new FileModel('AUD_0070.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -424,6 +446,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0071',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0071');
         try {
           const model: FileModel = new FileModel('DOC_0071.txt', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -446,6 +469,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0072',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0072');
         try {
           const model: FileModel = new FileModel('DOC_0072.pdf', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -468,6 +492,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0073',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0073');
         try {
           const model: FileModel = new FileModel('DOC_0073.zip', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -490,6 +515,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0074',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0074');
         try {
           const model: FileModel = new FileModel('DOC_0074.json', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -512,6 +538,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0075',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0075');
         try {
           const model: FileModel = new FileModel('DOC_0075.csv', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -534,6 +561,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0076',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0076');
         try {
           const model: FileModel = new FileModel('DOC_0076.xml', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -556,6 +584,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0077',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0077');
         try {
           const model: FileModel = new FileModel('DOC_0077.html', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -578,6 +607,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0078',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0078');
         try {
           const model: FileModel = new FileModel('DOC_0078.css', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -600,6 +630,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0079',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0079');
         try {
           const model: FileModel = new FileModel('DOC_0079.js', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -622,6 +653,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0080',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0080');
         try {
           const model: FileModel = new FileModel('DOC_0080.ts', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -644,6 +676,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0081',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0081');
         try {
           const model: FileModel = new FileModel('DOC_0081.ets', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -666,6 +699,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0082',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0082');
         try {
           const model: FileModel = new FileModel('DOC_0082.hap', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -688,6 +722,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0083',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0083');
         try {
           const model: FileModel = new FileModel('DOC_0083.bin', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -710,6 +745,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0084',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0084');
         try {
           const model: FileModel = new FileModel('DOC_0084.dat', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -732,6 +768,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0085',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0085');
         try {
           const model: FileModel = new FileModel('DOC_0085.log', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -754,6 +791,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0086',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0086');
         try {
           const model: FileModel = new FileModel('DOC_0086.md', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -776,6 +814,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0087',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0087');
         try {
           const model: FileModel = new FileModel('DOC_0087.yaml', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -798,6 +837,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0088',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0088');
         try {
           const model: FileModel = new FileModel('DOC_0088.yml', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -820,6 +860,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0089',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0089');
         try {
           const model: FileModel = new FileModel('DOC_0089.docx', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -842,6 +883,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0090',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0090');
         try {
           const model: FileModel = new FileModel('DOC_0090.xlsx', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -864,6 +906,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0091',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0091');
         try {
           const model: FileModel = new FileModel('backup.tar.gz', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -886,6 +929,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0092',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0092');
         try {
           const model: FileModel = new FileModel('file.mp4.txt', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -908,6 +952,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0093',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0093');
         try {
           const model: FileModel = new FileModel('photo.jpg.png', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.IMAGE);
@@ -930,6 +975,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0094',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0094');
         try {
           const model: FileModel = new FileModel('clip.txt.mp4', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.Video);
@@ -952,6 +998,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0095',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0095');
         try {
           const model: FileModel = new FileModel('README', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -974,6 +1021,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0096',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0096');
         try {
           const model: FileModel = new FileModel('.jpg', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.IMAGE);
@@ -996,6 +1044,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0097',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0097');
         try {
           const model: FileModel = new FileModel('music.MP3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -1018,6 +1067,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0098',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0098');
         try {
           const model: FileModel = new FileModel('video.MP4', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -1040,6 +1090,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0099',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0099');
         try {
           const model: FileModel = new FileModel('image.JPG', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -1062,6 +1113,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0100',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0100');
         try {
           const model: FileModel = new FileModel('IMG_2026_01_01 12_00_00.jpeg', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.IMAGE);
@@ -1084,6 +1136,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0101',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0101');
         try {
           const model: FileModel = new FileModel('VID_2026-01-01_12-00-00.mp4', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.Video);
@@ -1106,6 +1159,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0102',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0102');
         try {
           const model: FileModel = new FileModel('AUD_2026-01-01_12-00-00.mp3', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.MUSIC);
@@ -1128,6 +1182,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0103',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0103');
         try {
           const model: FileModel = new FileModel('photo_final_v2.png', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.IMAGE);
@@ -1150,6 +1205,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0104',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0104');
         try {
           const model: FileModel = new FileModel('report_final_2026.pdf', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
@@ -1172,6 +1228,7 @@ export default function fileTypeCatalogTestPart2(): void {
      */
     it('testUploadDownloadFileTypeCatalog0105',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFileTypeCatalog0105');
         try {
           const model: FileModel = new FileModel('archive_backup_2026.zip', false, ['f1', 'f2']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);

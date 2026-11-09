@@ -20,6 +20,10 @@ import { common } from '@kit.AbilityKit';
 import { request } from '@kit.BasicServicesKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { preferences } from '@kit.ArkData';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const TAG = '[UploadDownloadFuncTest]';
 const STORE_NAME = 'server_url';
@@ -63,6 +67,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0001');
       const testUrl = 'http://192.168.3.2/';
       await urlUtils.saveUrl(context, testUrl);
       let url = await urlUtils.getUrl(context);
@@ -81,6 +86,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0002');
       let preference = await preferences.getPreferences(context, STORE_NAME);
       await preference.delete(URL_KEY);
       await preference.flush();
@@ -100,6 +106,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0003');
       let filePath = context.cacheDir + '/' + CLEAR_FILE_NAME;
       let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
       fileIo.closeSync(file);
@@ -120,6 +127,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0004');
       let dir = context.filesDir + '/' + DIR_NAME;
       if (!fileIo.accessSync(dir)) {
         fileIo.mkdirSync(dir, true);
@@ -140,6 +148,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0005');
       let dir = context.filesDir + '/' + DIR_NAME;
       let filePath = dir + '/Others/' + TEST_FILE_NAME;
       let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
@@ -160,6 +169,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0006');
       let dir = context.filesDir + '/' + DIR_NAME;
       await fileUtils.clearFolder(dir, 'Others');
       let files = await fileUtils.listFiles(dir, 'Others');
@@ -178,6 +188,7 @@ export default function uploadDownloadFuncTest(): void {
      * @tc.level  LEVEL0
      */
     it('testUploadDownloadFunc0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadFunc0007');
       try {
         await request.downloadFile(context, {
           url: 'invalid_url_for_test',

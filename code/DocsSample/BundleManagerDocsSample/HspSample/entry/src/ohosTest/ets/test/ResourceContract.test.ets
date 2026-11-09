@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { ResManager } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function resourceContractTest(): void {
   describe('HspResourceContractTest', () => {
@@ -28,6 +32,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0001');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource !== null).assertTrue();
@@ -50,6 +55,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0002');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource !== null).assertTrue();
@@ -72,6 +78,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0003');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource !== null).assertTrue();
@@ -94,6 +101,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0004');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource !== null).assertTrue();
@@ -116,6 +124,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0005');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource !== null).assertTrue();
@@ -138,6 +147,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0006');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource !== null).assertTrue();
@@ -160,6 +170,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0007');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource !== null).assertTrue();
@@ -182,6 +193,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0008');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource !== null).assertTrue();
@@ -204,6 +216,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0009');
         try {
           const resource: Resource = ResManager.getPic();
           expect(resource !== null).assertTrue();
@@ -226,6 +239,7 @@ export default function resourceContractTest(): void {
      */
     it('testHspResourceContract0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceContract0010');
         try {
           const resource: Resource = ResManager.getDesc();
           expect(resource !== null).assertTrue();

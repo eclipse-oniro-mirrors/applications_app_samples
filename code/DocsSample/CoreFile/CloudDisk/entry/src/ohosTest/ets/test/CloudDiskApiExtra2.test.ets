@@ -17,6 +17,10 @@ import { describe, expect, it, Level, Size, TestType, beforeAll } from '@ohos/hy
 import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import cloudDisk, { CustomInfoResult, IsPlaceholderResult, PlaceholderStateResult } from 'libentry.so';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let API_BASE: string;
 
@@ -39,6 +43,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20001');
         try {
           const result = cloudDisk.isPlaceholderFile(API_BASE, 'a.txt');
           expect(result.code !== 0).assertTrue();
@@ -61,6 +66,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20002');
         try {
           const result = cloudDisk.isPlaceholderFile(API_BASE, '中文.txt');
           expect(result.code !== 0).assertTrue();
@@ -83,6 +89,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20003');
         try {
           const result = cloudDisk.isPlaceholderFile(API_BASE, 'folder/a.txt');
           expect(result.code !== 0).assertTrue();
@@ -105,6 +112,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20004');
         try {
           const result = cloudDisk.isPlaceholderFile(API_BASE, '');
           expect(result.code !== 0).assertTrue();
@@ -127,6 +135,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20005');
         try {
           const result = cloudDisk.isPlaceholderFile(API_BASE, 'a b.txt');
           expect(result.code !== 0).assertTrue();
@@ -149,6 +158,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20006');
         try {
           const result = cloudDisk.getPlaceholderState(API_BASE, 'a.txt');
           expect(result.code !== 0).assertTrue();
@@ -171,6 +181,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20007');
         try {
           const result = cloudDisk.getPlaceholderState(API_BASE, '中文.txt');
           expect(result.code !== 0).assertTrue();
@@ -193,6 +204,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20008');
         try {
           const result = cloudDisk.getPlaceholderState(API_BASE, 'folder/a.txt');
           expect(result.code !== 0).assertTrue();
@@ -215,6 +227,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20009');
         try {
           const result = cloudDisk.getPlaceholderState(API_BASE, '');
           expect(result.code !== 0).assertTrue();
@@ -237,6 +250,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20010');
         try {
           const result = cloudDisk.getPlaceholderState(API_BASE, 'a b.txt');
           expect(result.code !== 0).assertTrue();
@@ -259,6 +273,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20011');
         try {
           const code: number = cloudDisk.updatePlaceholder(API_BASE, 'a.txt', 1, 2, 3, 'meta');
           expect(code !== 0).assertTrue();
@@ -281,6 +296,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20012');
         try {
           const code: number = cloudDisk.updatePlaceholder(API_BASE, '中文.txt', 1, 2, 3, 'meta');
           expect(code !== 0).assertTrue();
@@ -303,6 +319,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20013');
         try {
           const code: number = cloudDisk.updatePlaceholder(API_BASE, 'folder/a.txt', 1, 2, 3, 'meta');
           expect(code !== 0).assertTrue();
@@ -325,6 +342,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20014');
         try {
           const code: number = cloudDisk.updatePlaceholder(API_BASE, '', 1, 2, 3, 'meta');
           expect(code !== 0).assertTrue();
@@ -347,6 +365,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20015');
         try {
           const code: number = cloudDisk.updatePlaceholder(API_BASE, 'a b.txt', 1, 2, 3, 'meta');
           expect(code !== 0).assertTrue();
@@ -369,6 +388,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20016');
         try {
           const code: number = cloudDisk.convertPlaceholderToFile(API_BASE, 'a.txt');
           expect(code !== 0).assertTrue();
@@ -391,6 +411,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20017');
         try {
           const code: number = cloudDisk.convertPlaceholderToFile(API_BASE, '中文.txt');
           expect(code !== 0).assertTrue();
@@ -413,6 +434,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20018');
         try {
           const code: number = cloudDisk.convertPlaceholderToFile(API_BASE, 'folder/a.txt');
           expect(code !== 0).assertTrue();
@@ -435,6 +457,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20019');
         try {
           const code: number = cloudDisk.convertPlaceholderToFile(API_BASE, '');
           expect(code !== 0).assertTrue();
@@ -457,6 +480,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20020');
         try {
           const code: number = cloudDisk.convertPlaceholderToFile(API_BASE, 'a b.txt');
           expect(code !== 0).assertTrue();
@@ -479,6 +503,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20021');
         try {
           const code: number = cloudDisk.markFileAsPlaceholder(API_BASE, 'a.txt');
           expect(code !== 0).assertTrue();
@@ -501,6 +526,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20022');
         try {
           const code: number = cloudDisk.markFileAsPlaceholder(API_BASE, '中文.txt');
           expect(code !== 0).assertTrue();
@@ -523,6 +549,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20023');
         try {
           const code: number = cloudDisk.markFileAsPlaceholder(API_BASE, 'folder/a.txt');
           expect(code !== 0).assertTrue();
@@ -545,6 +572,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20024');
         try {
           const code: number = cloudDisk.markFileAsPlaceholder(API_BASE, '');
           expect(code !== 0).assertTrue();
@@ -567,6 +595,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20025');
         try {
           const code: number = cloudDisk.markFileAsPlaceholder(API_BASE, 'a b.txt');
           expect(code !== 0).assertTrue();
@@ -589,6 +618,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20026');
         try {
           const code: number = cloudDisk.unmarkPlaceholderFile(API_BASE, 'a.txt');
           expect(code !== 0).assertTrue();
@@ -611,6 +641,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20027');
         try {
           const code: number = cloudDisk.unmarkPlaceholderFile(API_BASE, '中文.txt');
           expect(code !== 0).assertTrue();
@@ -633,6 +664,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20028');
         try {
           const code: number = cloudDisk.unmarkPlaceholderFile(API_BASE, 'folder/a.txt');
           expect(code !== 0).assertTrue();
@@ -655,6 +687,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20029');
         try {
           const code: number = cloudDisk.unmarkPlaceholderFile(API_BASE, '');
           expect(code !== 0).assertTrue();
@@ -677,6 +710,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20030');
         try {
           const code: number = cloudDisk.unmarkPlaceholderFile(API_BASE, 'a b.txt');
           expect(code !== 0).assertTrue();
@@ -699,6 +733,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20031');
         try {
           const result: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(API_BASE, 'a.txt');
           expect(result.code !== 0).assertTrue();
@@ -721,6 +756,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20032');
         try {
           const result: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(API_BASE, '中文.txt');
           expect(result.code !== 0).assertTrue();
@@ -743,6 +779,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20033');
         try {
           const result: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(API_BASE, 'folder/a.txt');
           expect(result.code !== 0).assertTrue();
@@ -765,6 +802,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20034');
         try {
           const result: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(API_BASE, '');
           expect(result.code !== 0).assertTrue();
@@ -787,6 +825,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20035');
         try {
           const result: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(API_BASE, 'a b.txt');
           expect(result.code !== 0).assertTrue();
@@ -809,6 +848,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20036');
         try {
           const code: number = cloudDisk.dehydrateFile(API_BASE, 'a.txt');
           expect(code !== 0).assertTrue();
@@ -831,6 +871,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20037');
         try {
           const code: number = cloudDisk.dehydrateFile(API_BASE, '中文.txt');
           expect(code !== 0).assertTrue();
@@ -853,6 +894,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20038');
         try {
           const code: number = cloudDisk.dehydrateFile(API_BASE, 'folder/a.txt');
           expect(code !== 0).assertTrue();
@@ -875,6 +917,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20039');
         try {
           const code: number = cloudDisk.dehydrateFile(API_BASE, '');
           expect(code !== 0).assertTrue();
@@ -897,6 +940,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20040',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20040');
         try {
           const code: number = cloudDisk.dehydrateFile(API_BASE, 'a b.txt');
           expect(code !== 0).assertTrue();
@@ -919,6 +963,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20041',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20041');
         try {
           const code: number = cloudDisk.hydratePlaceholder(API_BASE, 'a.txt', 0);
           expect(code !== 0).assertTrue();
@@ -941,6 +986,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20042',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20042');
         try {
           const code: number = cloudDisk.hydratePlaceholder(API_BASE, '中文.txt', 0);
           expect(code !== 0).assertTrue();
@@ -963,6 +1009,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20043',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20043');
         try {
           const code: number = cloudDisk.hydratePlaceholder(API_BASE, 'folder/a.txt', 0);
           expect(code !== 0).assertTrue();
@@ -985,6 +1032,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20044',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20044');
         try {
           const code: number = cloudDisk.hydratePlaceholder(API_BASE, '', 0);
           expect(code !== 0).assertTrue();
@@ -1007,6 +1055,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20045',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20045');
         try {
           const code: number = cloudDisk.hydratePlaceholder(API_BASE, 'a b.txt', 0);
           expect(code !== 0).assertTrue();
@@ -1029,6 +1078,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20046',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20046');
         try {
           const code: number = cloudDisk.registerCallbackTable(API_BASE, 'a.txt');
           expect(code !== 0).assertTrue();
@@ -1051,6 +1101,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20047',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20047');
         try {
           const code: number = cloudDisk.registerCallbackTable(API_BASE, '中文.txt');
           expect(code !== 0).assertTrue();
@@ -1073,6 +1124,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20048',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20048');
         try {
           const code: number = cloudDisk.registerCallbackTable(API_BASE, 'folder/a.txt');
           expect(code !== 0).assertTrue();
@@ -1095,6 +1147,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20049',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20049');
         try {
           const code: number = cloudDisk.registerCallbackTable(API_BASE, '');
           expect(code !== 0).assertTrue();
@@ -1117,6 +1170,7 @@ export default function cloudDiskApiExtra2Test(): void {
      */
     it('testCloudDiskApiExtra20050',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testCloudDiskApiExtra20050');
         try {
           const code: number = cloudDisk.registerCallbackTable(API_BASE, 'a b.txt');
           expect(code !== 0).assertTrue();

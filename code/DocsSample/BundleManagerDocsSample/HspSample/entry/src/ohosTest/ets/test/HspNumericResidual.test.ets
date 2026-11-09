@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add, minus, nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function hspNumericResidualTest(): void {
   describe('HspNumericResidualTest', () => {
@@ -28,6 +32,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0001');
         try {
           const result: number = add(NaN, 1);
           expect(Number.isNaN(result)).assertTrue();
@@ -49,6 +54,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0002');
         try {
           const result: number = minus(Infinity, Infinity);
           expect(Number.isNaN(result)).assertTrue();
@@ -70,6 +76,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0003');
         try {
           const result: number = nativeMulti(-0, 5);
           expect(1 / result).assertEqual(-Infinity);
@@ -91,6 +98,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0004');
         try {
           const result: number = nativeMulti(Number.MIN_VALUE, 0.5);
           expect(result).assertEqual(0);
@@ -112,6 +120,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0005');
         try {
           const result: number = nativeMulti(Number.MAX_VALUE, 2);
           expect(result).assertEqual(Infinity);
@@ -133,6 +142,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0006');
         try {
           const result: number = add(Number.MIN_SAFE_INTEGER, -1);
           expect(result < Number.MIN_SAFE_INTEGER).assertTrue();
@@ -154,6 +164,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0007');
         try {
           const result: number = minus(Number.MIN_SAFE_INTEGER, 1);
           expect(result < Number.MIN_SAFE_INTEGER).assertTrue();
@@ -175,6 +186,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0008');
         try {
           const result: number = add(-0, 0);
           expect(1 / result).assertEqual(Infinity);
@@ -196,6 +208,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0009');
         try {
           const result: number = minus(-0, 0);
           expect(1 / result).assertEqual(-Infinity);
@@ -217,6 +230,7 @@ export default function hspNumericResidualTest(): void {
      */
     it('testHspNumericResidual0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNumericResidual0010');
         try {
           const result: number = nativeMulti(NaN, 0);
           expect(Number.isNaN(result)).assertTrue();

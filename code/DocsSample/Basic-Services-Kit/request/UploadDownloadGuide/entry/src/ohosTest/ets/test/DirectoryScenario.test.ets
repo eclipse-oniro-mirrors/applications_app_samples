@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const ROOT_NAME: string = 'UploadDownloadScenarioRoot';
 let context: common.UIAbilityContext;
@@ -55,6 +59,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0001');
         try {
           const dir: string = rootDir + '/init1_Download';
           fileIo.mkdirSync(dir, true);
@@ -79,6 +84,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0002');
         try {
           const dir: string = rootDir + '/init2_Documents';
           fileIo.mkdirSync(dir, true);
@@ -103,6 +109,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0003');
         try {
           const dir: string = rootDir + '/init3_Pictures';
           fileIo.mkdirSync(dir, true);
@@ -127,6 +134,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0004');
         try {
           const dir: string = rootDir + '/init4_Videos';
           fileIo.mkdirSync(dir, true);
@@ -151,6 +159,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0005');
         try {
           const dir: string = rootDir + '/init5_Others';
           fileIo.mkdirSync(dir, true);
@@ -175,6 +184,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0006');
         try {
           const dir: string = rootDir + '/init6_Backup';
           fileIo.mkdirSync(dir, true);
@@ -199,6 +209,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0007');
         try {
           const dir: string = rootDir + '/init7_2026';
           fileIo.mkdirSync(dir, true);
@@ -223,6 +234,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0008');
         try {
           const dir: string = rootDir + '/init8_inbox';
           fileIo.mkdirSync(dir, true);
@@ -247,6 +259,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0009');
         try {
           const dir: string = rootDir + '/init9_outbox';
           fileIo.mkdirSync(dir, true);
@@ -271,6 +284,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0010');
         try {
           const dir: string = rootDir + '/init10_shared';
           fileIo.mkdirSync(dir, true);
@@ -295,6 +309,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0011');
         try {
           const dir: string = rootDir + '/init11_cache';
           fileIo.mkdirSync(dir, true);
@@ -319,6 +334,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0012');
         try {
           const dir: string = rootDir + '/init12_media';
           fileIo.mkdirSync(dir, true);
@@ -343,6 +359,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0013');
         try {
           const dir: string = rootDir + '/init13_archive';
           fileIo.mkdirSync(dir, true);
@@ -367,6 +384,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0014');
         try {
           const dir: string = rootDir + '/init14_temp';
           fileIo.mkdirSync(dir, true);
@@ -391,6 +409,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0015');
         try {
           const dir: string = rootDir + '/init15_work';
           fileIo.mkdirSync(dir, true);
@@ -415,6 +434,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0016');
         try {
           const dir: string = rootDir + '/init16_Download';
           fileIo.mkdirSync(dir, true);
@@ -439,6 +459,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0017');
         try {
           const dir: string = rootDir + '/init17_Documents';
           fileIo.mkdirSync(dir, true);
@@ -463,6 +484,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0018');
         try {
           const dir: string = rootDir + '/init18_Pictures';
           fileIo.mkdirSync(dir, true);
@@ -487,6 +509,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0019');
         try {
           const dir: string = rootDir + '/init19_Videos';
           fileIo.mkdirSync(dir, true);
@@ -511,6 +534,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0020');
         try {
           const dir: string = rootDir + '/init20_Others';
           fileIo.mkdirSync(dir, true);
@@ -535,6 +559,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0021');
         try {
           const dir: string = rootDir + '/init21_Backup';
           fileIo.mkdirSync(dir, true);
@@ -559,6 +584,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0022');
         try {
           const dir: string = rootDir + '/init22_2026';
           fileIo.mkdirSync(dir, true);
@@ -583,6 +609,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0023');
         try {
           const dir: string = rootDir + '/init23_inbox';
           fileIo.mkdirSync(dir, true);
@@ -607,6 +634,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0024');
         try {
           const dir: string = rootDir + '/init24_outbox';
           fileIo.mkdirSync(dir, true);
@@ -631,6 +659,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0025');
         try {
           const dir: string = rootDir + '/init25_shared';
           fileIo.mkdirSync(dir, true);
@@ -655,6 +684,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0026');
         try {
           const dir: string = rootDir + '/init26_cache';
           fileIo.mkdirSync(dir, true);
@@ -679,6 +709,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0027');
         try {
           const dir: string = rootDir + '/init27_media';
           fileIo.mkdirSync(dir, true);
@@ -703,6 +734,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0028');
         try {
           const dir: string = rootDir + '/init28_archive';
           fileIo.mkdirSync(dir, true);
@@ -727,6 +759,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0029');
         try {
           const dir: string = rootDir + '/init29_temp';
           fileIo.mkdirSync(dir, true);
@@ -751,6 +784,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0030');
         try {
           const dir: string = rootDir + '/init30_work';
           fileIo.mkdirSync(dir, true);
@@ -775,6 +809,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0031');
         try {
           const dir: string = rootDir + '/list31';
           fileIo.mkdirSync(dir, true);
@@ -801,6 +836,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0032');
         try {
           const dir: string = rootDir + '/list32';
           fileIo.mkdirSync(dir, true);
@@ -828,6 +864,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0033');
         try {
           const dir: string = rootDir + '/list33';
           fileIo.mkdirSync(dir, true);
@@ -856,6 +893,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0034');
         try {
           const dir: string = rootDir + '/list34';
           fileIo.mkdirSync(dir, true);
@@ -885,6 +923,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0035');
         try {
           const dir: string = rootDir + '/list35';
           fileIo.mkdirSync(dir, true);
@@ -911,6 +950,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0036');
         try {
           const dir: string = rootDir + '/list36';
           fileIo.mkdirSync(dir, true);
@@ -938,6 +978,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0037');
         try {
           const dir: string = rootDir + '/list37';
           fileIo.mkdirSync(dir, true);
@@ -966,6 +1007,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0038');
         try {
           const dir: string = rootDir + '/list38';
           fileIo.mkdirSync(dir, true);
@@ -995,6 +1037,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0039');
         try {
           const dir: string = rootDir + '/list39';
           fileIo.mkdirSync(dir, true);
@@ -1021,6 +1064,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0040',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0040');
         try {
           const dir: string = rootDir + '/list40';
           fileIo.mkdirSync(dir, true);
@@ -1048,6 +1092,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0041',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0041');
         try {
           const dir: string = rootDir + '/list41';
           fileIo.mkdirSync(dir, true);
@@ -1076,6 +1121,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0042',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0042');
         try {
           const dir: string = rootDir + '/list42';
           fileIo.mkdirSync(dir, true);
@@ -1105,6 +1151,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0043',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0043');
         try {
           const dir: string = rootDir + '/list43';
           fileIo.mkdirSync(dir, true);
@@ -1131,6 +1178,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0044',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0044');
         try {
           const dir: string = rootDir + '/list44';
           fileIo.mkdirSync(dir, true);
@@ -1158,6 +1206,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0045',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0045');
         try {
           const dir: string = rootDir + '/list45';
           fileIo.mkdirSync(dir, true);
@@ -1186,6 +1235,7 @@ export default function downloadDirectoryScenarioTest(): void {
      */
     it('testUploadDownloadDirectoryScenario0046',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadDirectoryScenario0046');
         try {
           const dir: string = rootDir + '/list46';
           fileIo.mkdirSync(dir, true);

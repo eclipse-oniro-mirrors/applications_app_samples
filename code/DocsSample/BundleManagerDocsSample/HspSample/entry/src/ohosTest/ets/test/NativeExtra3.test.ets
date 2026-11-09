@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { nativeMulti } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function nativeExtra3Test(): void {
   describe('HspNativeExtra3Test', () => {
@@ -28,6 +32,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30001');
         try {
           const result: number = nativeMulti(5, 7);
           expect(result).assertEqual(35);
@@ -50,6 +55,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30002');
         try {
           const result: number = nativeMulti(7, 5);
           expect(result).assertEqual(35);
@@ -72,6 +78,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30003');
         try {
           const result: number = nativeMulti(6, 8);
           expect(result).assertEqual(48);
@@ -94,6 +101,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30004');
         try {
           const result: number = nativeMulti(8, 6);
           expect(result).assertEqual(48);
@@ -116,6 +124,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30005');
         try {
           const result: number = nativeMulti(9, 10);
           expect(result).assertEqual(90);
@@ -138,6 +147,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30006');
         try {
           const result: number = nativeMulti(10, 9);
           expect(result).assertEqual(90);
@@ -160,6 +170,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30007');
         try {
           const result: number = nativeMulti(11, 12);
           expect(result).assertEqual(132);
@@ -182,6 +193,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30008');
         try {
           const result: number = nativeMulti(12, 11);
           expect(result).assertEqual(132);
@@ -204,6 +216,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30009');
         try {
           const result: number = nativeMulti(13, 14);
           expect(result).assertEqual(182);
@@ -226,6 +239,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30010');
         try {
           const result: number = nativeMulti(14, 13);
           expect(result).assertEqual(182);
@@ -248,6 +262,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30011');
         try {
           const result: number = nativeMulti(-5, 7);
           expect(result).assertEqual(-35);
@@ -270,6 +285,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30012');
         try {
           const result: number = nativeMulti(7, -5);
           expect(result).assertEqual(-35);
@@ -292,6 +308,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30013');
         try {
           const result: number = nativeMulti(0, 100);
           expect(result).assertEqual(0);
@@ -314,6 +331,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30014');
         try {
           const result: number = nativeMulti(100, 0);
           expect(result).assertEqual(0);
@@ -336,6 +354,7 @@ export default function nativeExtra3Test(): void {
      */
     it('testHspNativeExtra30015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspNativeExtra30015');
         try {
           const result: number = nativeMulti(-10, -10);
           expect(result).assertEqual(100);

@@ -18,6 +18,10 @@ import { BusinessError, request } from '@kit.BasicServicesKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 
@@ -36,6 +40,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0001');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_1.bin';
           let failed: boolean = false;
@@ -66,6 +71,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0002');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_2.bin';
           let failed: boolean = false;
@@ -96,6 +102,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0003');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_3.bin';
           let failed: boolean = false;
@@ -126,6 +133,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0004');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_4.bin';
           let failed: boolean = false;
@@ -156,6 +164,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0005');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_5.bin';
           let failed: boolean = false;
@@ -186,6 +195,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0006');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_6.bin';
           let failed: boolean = false;
@@ -216,6 +226,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0007');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_7.bin';
           let failed: boolean = false;
@@ -246,6 +257,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0008');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_8.bin';
           let failed: boolean = false;
@@ -276,6 +288,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0009');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_9.bin';
           let failed: boolean = false;
@@ -306,6 +319,7 @@ export default function requestInvalidExtraTest(): void {
      */
     it('testUploadDownloadRequestInvalid0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadRequestInvalid0010');
         try {
           const filePath: string = context.cacheDir + '/invalid_download_10.bin';
           let failed: boolean = false;

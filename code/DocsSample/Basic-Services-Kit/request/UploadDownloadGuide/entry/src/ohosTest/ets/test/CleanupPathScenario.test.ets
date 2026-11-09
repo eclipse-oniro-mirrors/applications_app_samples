@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { requestDownload } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 
@@ -41,6 +45,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0001');
         try {
           const path: string = context.cacheDir + '/scenario_file_001.bin';
           createFile(path);
@@ -66,6 +71,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0002');
         try {
           const path: string = context.cacheDir + '/scenario_file_002.jpg';
           createFile(path);
@@ -91,6 +97,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0003');
         try {
           const path: string = context.cacheDir + '/scenario_file_003.mp3';
           createFile(path);
@@ -116,6 +123,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0004');
         try {
           const path: string = context.cacheDir + '/scenario_file_004.mp4';
           createFile(path);
@@ -141,6 +149,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0005');
         try {
           const path: string = context.cacheDir + '/scenario_file_005.pdf';
           createFile(path);
@@ -166,6 +175,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0006');
         try {
           const path: string = context.cacheDir + '/scenario_file_006.zip';
           createFile(path);
@@ -191,6 +201,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0007');
         try {
           const path: string = context.cacheDir + '/scenario_file_007.txt';
           createFile(path);
@@ -216,6 +227,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0008');
         try {
           const path: string = context.cacheDir + '/scenario_file_008.bin';
           createFile(path);
@@ -241,6 +253,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0009');
         try {
           const path: string = context.cacheDir + '/scenario_file_009.jpg';
           createFile(path);
@@ -266,6 +279,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0010');
         try {
           const path: string = context.cacheDir + '/scenario_file_010.mp3';
           createFile(path);
@@ -291,6 +305,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0011');
         try {
           const path: string = context.cacheDir + '/scenario_file_011.mp4';
           createFile(path);
@@ -316,6 +331,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0012');
         try {
           const path: string = context.cacheDir + '/scenario_file_012.pdf';
           createFile(path);
@@ -341,6 +357,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0013');
         try {
           const path: string = context.cacheDir + '/scenario_file_013.zip';
           createFile(path);
@@ -366,6 +383,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0014');
         try {
           const path: string = context.cacheDir + '/scenario_file_014.txt';
           createFile(path);
@@ -391,6 +409,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0015');
         try {
           const path: string = context.cacheDir + '/scenario_file_015.bin';
           createFile(path);
@@ -416,6 +435,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0016');
         try {
           const path: string = context.cacheDir + '/scenario_file_016.jpg';
           createFile(path);
@@ -441,6 +461,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0017');
         try {
           const path: string = context.cacheDir + '/scenario_file_017.mp3';
           createFile(path);
@@ -466,6 +487,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0018');
         try {
           const path: string = context.cacheDir + '/scenario_file_018.mp4';
           createFile(path);
@@ -491,6 +513,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0019');
         try {
           const path: string = context.cacheDir + '/scenario_file_019.pdf';
           createFile(path);
@@ -516,6 +539,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0020');
         try {
           const path: string = context.cacheDir + '/scenario_file_020.zip';
           createFile(path);
@@ -541,6 +565,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0021');
         try {
           const path: string = context.cacheDir + '/scenario_file_021.txt';
           createFile(path);
@@ -566,6 +591,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0022');
         try {
           const path: string = context.cacheDir + '/scenario_file_022.bin';
           createFile(path);
@@ -591,6 +617,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0023');
         try {
           const path: string = context.cacheDir + '/scenario_file_023.jpg';
           createFile(path);
@@ -616,6 +643,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0024');
         try {
           const path: string = context.cacheDir + '/scenario_file_024.mp3';
           createFile(path);
@@ -641,6 +669,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0025');
         try {
           const path: string = context.cacheDir + '/scenario_file_025.mp4';
           createFile(path);
@@ -666,6 +695,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0026');
         try {
           const path: string = context.cacheDir + '/scenario_file_026.pdf';
           createFile(path);
@@ -691,6 +721,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0027');
         try {
           const path: string = context.cacheDir + '/scenario_file_027.zip';
           createFile(path);
@@ -716,6 +747,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0028');
         try {
           const path: string = context.cacheDir + '/scenario_file_028.txt';
           createFile(path);
@@ -741,6 +773,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0029');
         try {
           const path: string = context.cacheDir + '/scenario_file_029.bin';
           createFile(path);
@@ -766,6 +799,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0030');
         try {
           const path: string = context.cacheDir + '/scenario_file_030.jpg';
           createFile(path);
@@ -791,6 +825,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0031');
         try {
           const path: string = context.cacheDir + '/scenario_file_031.mp3';
           createFile(path);
@@ -816,6 +851,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0032');
         try {
           const path: string = context.cacheDir + '/scenario_file_032.mp4';
           createFile(path);
@@ -841,6 +877,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0033');
         try {
           const path: string = context.cacheDir + '/scenario_file_033.pdf';
           createFile(path);
@@ -866,6 +903,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0034');
         try {
           const path: string = context.cacheDir + '/scenario_file_034.zip';
           createFile(path);
@@ -891,6 +929,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0035');
         try {
           const path: string = context.cacheDir + '/scenario_file_035.txt';
           createFile(path);
@@ -916,6 +955,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0036');
         try {
           const path: string = context.cacheDir + '/scenario_file_036.bin';
           createFile(path);
@@ -941,6 +981,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0037');
         try {
           const path: string = context.cacheDir + '/scenario_file_037.jpg';
           createFile(path);
@@ -966,6 +1007,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0038');
         try {
           const path: string = context.cacheDir + '/scenario_file_038.mp3';
           createFile(path);
@@ -991,6 +1033,7 @@ export default function cleanupPathScenarioTest(): void {
      */
     it('testUploadDownloadCleanupPathScenario0039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanupPathScenario0039');
         try {
           const path: string = context.cacheDir + '/scenario_file_039.mp4';
           createFile(path);

@@ -18,6 +18,10 @@ import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { urlUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const STORE_NAME: string = 'server_url';
 const URL_KEY: string = 'url';
@@ -58,6 +62,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0001');
         try {
           await urlUtils.saveUrl(context, '');
           const value: string = await urlUtils.getUrl(context);
@@ -81,6 +86,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0002');
         try {
           const whitespace: string = '   ';
           await urlUtils.saveUrl(context, whitespace);
@@ -105,6 +111,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0003');
         try {
           const padded: string = '  http://192.168.1.50/files?name=a.txt  ';
           await urlUtils.saveUrl(context, padded);
@@ -130,6 +137,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0004');
         try {
           const unicodeUrl: string = 'http://192.168.1.60/资料/报告 2026.pdf?名称=测试&flag=1';
           await urlUtils.saveUrl(context, unicodeUrl);
@@ -155,6 +163,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0005');
         try {
           let longUrl: string = 'http://host/';
           for (let index = 0; index < 2036; index++) {
@@ -183,6 +192,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0006');
         try {
           const controlUrl: string = 'http://host/a\nb\tc';
           await urlUtils.saveUrl(context, controlUrl);
@@ -208,6 +218,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0007');
         try {
           const firstUrl: string = 'http://192.168.1.71/first';
           const secondUrl: string = 'http://192.168.1.72/second';
@@ -234,6 +245,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0008');
         try {
           const repeatedUrl: string = 'http://192.168.1.73/hfs';
           await urlUtils.saveUrl(context, repeatedUrl);
@@ -259,6 +271,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0009');
         try {
           const customUrl: string = 'http://192.168.1.74/custom';
           await urlUtils.saveUrl(context, customUrl);
@@ -285,6 +298,7 @@ export default function urlUtilsBoundaryTest(): void {
      */
     it('testUploadDownloadUrlBoundary0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUrlBoundary0010');
         try {
           const noSlash: string = 'http://192.168.1.75/hfs';
           await urlUtils.saveUrl(context, noSlash);

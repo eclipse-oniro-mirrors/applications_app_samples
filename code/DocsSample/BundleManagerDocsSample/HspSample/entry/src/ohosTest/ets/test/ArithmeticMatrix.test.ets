@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add, minus } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function arithmeticMatrixTest(): void {
   describe('HspArithmeticMatrixTest', () => {
@@ -28,6 +32,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0001');
         try {
           const result: number = add(0, 0);
           expect(result).assertEqual(0);
@@ -50,6 +55,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0002');
         try {
           const result: number = add(1, 2);
           expect(result).assertEqual(3);
@@ -72,6 +78,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0003');
         try {
           const result: number = add(1, -1);
           expect(result).assertEqual(0);
@@ -94,6 +101,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0004');
         try {
           const result: number = add(-1, 1);
           expect(result).assertEqual(0);
@@ -116,6 +124,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0005');
         try {
           const result: number = add(2, 3);
           expect(result).assertEqual(5);
@@ -138,6 +147,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0006');
         try {
           const result: number = add(3, 4);
           expect(result).assertEqual(7);
@@ -160,6 +170,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0007');
         try {
           const result: number = add(10, 20);
           expect(result).assertEqual(30);
@@ -182,6 +193,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0008');
         try {
           const result: number = add(100, 200);
           expect(result).assertEqual(300);
@@ -204,6 +216,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0009');
         try {
           const result: number = add(-2, -3);
           expect(result).assertEqual(-5);
@@ -226,6 +239,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0010');
         try {
           const result: number = add(-10, 5);
           expect(result).assertEqual(-5);
@@ -248,6 +262,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0011');
         try {
           const result: number = add(5, -10);
           expect(result).assertEqual(-5);
@@ -270,6 +285,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0012');
         try {
           const result: number = add(0, 9);
           expect(result).assertEqual(9);
@@ -292,6 +308,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0013');
         try {
           const result: number = add(9, 0);
           expect(result).assertEqual(9);
@@ -314,6 +331,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0014');
         try {
           const result: number = add(-9, 0);
           expect(result).assertEqual(-9);
@@ -336,6 +354,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0015');
         try {
           const result: number = add(0, -9);
           expect(result).assertEqual(-9);
@@ -358,6 +377,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0016');
         try {
           const result: number = add(7, 8);
           expect(result).assertEqual(15);
@@ -380,6 +400,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0017');
         try {
           const result: number = add(42, 58);
           expect(result).assertEqual(100);
@@ -402,6 +423,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0018');
         try {
           const result: number = add(99, 1);
           expect(result).assertEqual(100);
@@ -424,6 +446,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0019');
         try {
           const result: number = add(-99, -1);
           expect(result).assertEqual(-100);
@@ -446,6 +469,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0020');
         try {
           const result: number = add(1000, 2000);
           expect(result).assertEqual(3000);
@@ -468,6 +492,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0021');
         try {
           const result: number = add(-1000, 500);
           expect(result).assertEqual(-500);
@@ -490,6 +515,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0022');
         try {
           const result: number = add(500, -1000);
           expect(result).assertEqual(-500);
@@ -512,6 +538,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0023');
         try {
           const result: number = add(123, 456);
           expect(result).assertEqual(579);
@@ -534,6 +561,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0024');
         try {
           const result: number = add(789, 321);
           expect(result).assertEqual(1110);
@@ -556,6 +584,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0025');
         try {
           const result: number = add(214748, 1);
           expect(result).assertEqual(214749);
@@ -578,6 +607,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0026');
         try {
           const result: number = add(1, 214748);
           expect(result).assertEqual(214749);
@@ -600,6 +630,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0027');
         try {
           const result: number = add(-214748, 1);
           expect(result).assertEqual(-214747);
@@ -622,6 +653,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0028');
         try {
           const result: number = add(9999, 1);
           expect(result).assertEqual(10000);
@@ -644,6 +676,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0029');
         try {
           const result: number = add(1, 9999);
           expect(result).assertEqual(10000);
@@ -666,6 +699,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0030');
         try {
           const result: number = add(12345, 6789);
           expect(result).assertEqual(19134);
@@ -688,6 +722,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0031');
         try {
           const result: number = minus(0, 0);
           expect(result).assertEqual(0);
@@ -710,6 +745,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0032');
         try {
           const result: number = minus(1, 2);
           expect(result).assertEqual(-1);
@@ -732,6 +768,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0033');
         try {
           const result: number = minus(1, -1);
           expect(result).assertEqual(2);
@@ -754,6 +791,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0034');
         try {
           const result: number = minus(-1, 1);
           expect(result).assertEqual(-2);
@@ -776,6 +814,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0035');
         try {
           const result: number = minus(2, 3);
           expect(result).assertEqual(-1);
@@ -798,6 +837,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0036');
         try {
           const result: number = minus(10, 20);
           expect(result).assertEqual(-10);
@@ -820,6 +860,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0037');
         try {
           const result: number = minus(100, 200);
           expect(result).assertEqual(-100);
@@ -842,6 +883,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0038');
         try {
           const result: number = minus(-2, -3);
           expect(result).assertEqual(1);
@@ -864,6 +906,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0039');
         try {
           const result: number = minus(-10, 5);
           expect(result).assertEqual(-15);
@@ -886,6 +929,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0040',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0040');
         try {
           const result: number = minus(5, -10);
           expect(result).assertEqual(15);
@@ -908,6 +952,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0041',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0041');
         try {
           const result: number = minus(0, 9);
           expect(result).assertEqual(-9);
@@ -930,6 +975,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0042',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0042');
         try {
           const result: number = minus(9, 0);
           expect(result).assertEqual(9);
@@ -952,6 +998,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0043',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0043');
         try {
           const result: number = minus(-9, 0);
           expect(result).assertEqual(-9);
@@ -974,6 +1021,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0044',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0044');
         try {
           const result: number = minus(0, -9);
           expect(result).assertEqual(9);
@@ -996,6 +1044,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0045',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0045');
         try {
           const result: number = minus(7, 8);
           expect(result).assertEqual(-1);
@@ -1018,6 +1067,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0046',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0046');
         try {
           const result: number = minus(42, 58);
           expect(result).assertEqual(-16);
@@ -1040,6 +1090,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0047',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0047');
         try {
           const result: number = minus(99, 1);
           expect(result).assertEqual(98);
@@ -1062,6 +1113,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0048',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0048');
         try {
           const result: number = minus(-99, -1);
           expect(result).assertEqual(-98);
@@ -1084,6 +1136,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0049',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0049');
         try {
           const result: number = minus(1000, 2000);
           expect(result).assertEqual(-1000);
@@ -1106,6 +1159,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0050',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0050');
         try {
           const result: number = minus(-1000, 500);
           expect(result).assertEqual(-1500);
@@ -1128,6 +1182,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0051',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0051');
         try {
           const result: number = minus(500, -1000);
           expect(result).assertEqual(1500);
@@ -1150,6 +1205,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0052',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0052');
         try {
           const result: number = minus(123, 456);
           expect(result).assertEqual(-333);
@@ -1172,6 +1228,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0053',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0053');
         try {
           const result: number = minus(789, 321);
           expect(result).assertEqual(468);
@@ -1194,6 +1251,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0054',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0054');
         try {
           const result: number = minus(214748, 1);
           expect(result).assertEqual(214747);
@@ -1216,6 +1274,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0055',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0055');
         try {
           const result: number = minus(1, 214748);
           expect(result).assertEqual(-214747);
@@ -1238,6 +1297,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0056',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0056');
         try {
           const result: number = minus(-214748, 1);
           expect(result).assertEqual(-214749);
@@ -1260,6 +1320,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0057',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0057');
         try {
           const result: number = minus(9999, 1);
           expect(result).assertEqual(9998);
@@ -1282,6 +1343,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0058',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0058');
         try {
           const result: number = minus(1, 9999);
           expect(result).assertEqual(-9998);
@@ -1304,6 +1366,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0059',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0059');
         try {
           const result: number = minus(12345, 6789);
           expect(result).assertEqual(5556);
@@ -1326,6 +1389,7 @@ export default function arithmeticMatrixTest(): void {
      */
     it('testHspArithmetic0060',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmetic0060');
         try {
           const result: number = minus(0, 100);
           expect(result).assertEqual(-100);

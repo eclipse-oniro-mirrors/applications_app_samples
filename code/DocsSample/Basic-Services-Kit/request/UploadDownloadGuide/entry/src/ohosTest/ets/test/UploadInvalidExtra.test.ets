@@ -17,6 +17,10 @@ import { describe, expect, it, Level, Size, TestType, beforeAll } from '@ohos/hy
 import { BusinessError, request } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 
@@ -35,6 +39,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0001');
         try {
           const config: request.UploadConfig = {
             url: '',
@@ -76,6 +81,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0002');
         try {
           const config: request.UploadConfig = {
             url: 'invalid_url',
@@ -117,6 +123,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0003');
         try {
           const config: request.UploadConfig = {
             url: 'http://',
@@ -158,6 +165,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0004');
         try {
           const config: request.UploadConfig = {
             url: 'http:// host/',
@@ -199,6 +207,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0005');
         try {
           const config: request.UploadConfig = {
             url: 'http://host/',
@@ -240,6 +249,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0006');
         try {
           const config: request.UploadConfig = {
             url: 'http://host/',
@@ -281,6 +291,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0007');
         try {
           const config: request.UploadConfig = {
             url: 'http://host/',
@@ -322,6 +333,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0008');
         try {
           const config: request.UploadConfig = {
             url: 'http://host/',
@@ -363,6 +375,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0009');
         try {
           const config: request.UploadConfig = {
             url: 'http://host/',
@@ -404,6 +417,7 @@ export default function uploadInvalidExtraTest(): void {
      */
     it('testUploadDownloadUploadInvalid0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadUploadInvalid0010');
         try {
           const config: request.UploadConfig = {
             url: 'ftp://host/file',

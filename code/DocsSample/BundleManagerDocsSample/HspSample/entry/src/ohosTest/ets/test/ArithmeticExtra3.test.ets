@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add, minus } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function arithmeticExtra3Test(): void {
   describe('HspArithmeticExtra3Test', () => {
@@ -28,6 +32,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30001');
         try {
           const result: number = add(0, 100);
           expect(result).assertEqual(100);
@@ -50,6 +55,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30002');
         try {
           const result: number = add(100, 0);
           expect(result).assertEqual(100);
@@ -72,6 +78,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30003');
         try {
           const result: number = add(-100, 100);
           expect(result).assertEqual(0);
@@ -94,6 +101,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30004');
         try {
           const result: number = add(100, -100);
           expect(result).assertEqual(0);
@@ -116,6 +124,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30005');
         try {
           const result: number = add(200, -50);
           expect(result).assertEqual(150);
@@ -138,6 +147,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30006');
         try {
           const result: number = add(-200, 50);
           expect(result).assertEqual(-150);
@@ -160,6 +170,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30007');
         try {
           const result: number = add(300, 300);
           expect(result).assertEqual(600);
@@ -182,6 +193,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30008');
         try {
           const result: number = add(-300, -300);
           expect(result).assertEqual(-600);
@@ -204,6 +216,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30009');
         try {
           const result: number = add(400, -100);
           expect(result).assertEqual(300);
@@ -226,6 +239,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30010');
         try {
           const result: number = add(-400, 100);
           expect(result).assertEqual(-300);
@@ -248,6 +262,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30011');
         try {
           const result: number = add(500, 1);
           expect(result).assertEqual(501);
@@ -270,6 +285,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30012');
         try {
           const result: number = add(1, 500);
           expect(result).assertEqual(501);
@@ -292,6 +308,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30013');
         try {
           const result: number = add(600, 2);
           expect(result).assertEqual(602);
@@ -314,6 +331,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30014');
         try {
           const result: number = add(2, 600);
           expect(result).assertEqual(602);
@@ -336,6 +354,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30015');
         try {
           const result: number = add(700, 3);
           expect(result).assertEqual(703);
@@ -358,6 +377,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30016');
         try {
           const result: number = add(3, 700);
           expect(result).assertEqual(703);
@@ -380,6 +400,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30017');
         try {
           const result: number = add(800, 4);
           expect(result).assertEqual(804);
@@ -402,6 +423,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30018');
         try {
           const result: number = add(4, 800);
           expect(result).assertEqual(804);
@@ -424,6 +446,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30019');
         try {
           const result: number = add(900, 5);
           expect(result).assertEqual(905);
@@ -446,6 +469,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30020');
         try {
           const result: number = add(5, 900);
           expect(result).assertEqual(905);
@@ -468,6 +492,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30021');
         try {
           const result: number = add(1000, 1000);
           expect(result).assertEqual(2000);
@@ -490,6 +515,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30022');
         try {
           const result: number = add(-1000, 1000);
           expect(result).assertEqual(0);
@@ -512,6 +538,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30023');
         try {
           const result: number = add(1234, 1);
           expect(result).assertEqual(1235);
@@ -534,6 +561,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30024');
         try {
           const result: number = add(1, 1234);
           expect(result).assertEqual(1235);
@@ -556,6 +584,7 @@ export default function arithmeticExtra3Test(): void {
      */
     it('testHspArithmeticExtra30025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra30025');
         try {
           const result: number = add(0, -100);
           expect(result).assertEqual(-100);

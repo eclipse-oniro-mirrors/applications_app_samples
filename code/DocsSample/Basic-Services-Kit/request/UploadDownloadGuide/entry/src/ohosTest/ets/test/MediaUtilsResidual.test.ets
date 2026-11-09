@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { MediaUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 let rootDir: string;
@@ -74,6 +78,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0001');
         try {
           const src: string = rootDir + '/source.txt';
           const cache: string = rootDir + '/cache1';
@@ -100,6 +105,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0002');
         try {
           const src: string = rootDir + '/named.bin';
           const cache: string = rootDir + '/cache2';
@@ -126,6 +132,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0003');
         try {
           const src: string = rootDir + '/overwrite.txt';
           const cache: string = rootDir + '/cache3';
@@ -153,6 +160,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0004');
         try {
           const cache: string = rootDir + '/cache4';
           ensureDir(cache);
@@ -178,6 +186,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0005');
         try {
           const cache: string = rootDir + '/cache5';
           ensureDir(cache);
@@ -207,6 +216,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0006');
         try {
           const src: string = rootDir + '/no-cache.txt';
           writeFile(src, 'x');
@@ -232,6 +242,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0007');
         try {
           const src: string = rootDir + '/empty.txt';
           const cache: string = rootDir + '/cache6';
@@ -258,6 +269,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0008');
         try {
           const src: string = rootDir + '/large.txt';
           const cache: string = rootDir + '/cache7';
@@ -284,6 +296,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0009');
         try {
           const src: string = rootDir + '/测试文件.txt';
           const cache: string = rootDir + '/cache8';
@@ -310,6 +323,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0010');
         try {
           const src: string = rootDir + '/file with space.txt';
           const cache: string = rootDir + '/cache9';
@@ -336,6 +350,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0011');
         try {
           const src: string = rootDir + '/archive.tar.gz';
           const cache: string = rootDir + '/cache10';
@@ -362,6 +377,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0012');
         try {
           const src: string = rootDir + '/.hidden.jpg';
           const cache: string = rootDir + '/cache11';
@@ -388,6 +404,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0013');
         try {
           const src: string = rootDir + '/noext';
           const cache: string = rootDir + '/cache12';
@@ -414,6 +431,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0014');
         try {
           const nested: string = rootDir + '/nested/deep';
           ensureDir(nested);
@@ -442,6 +460,7 @@ export default function mediaUtilsResidualTest(): void {
      */
     it('testUploadDownloadMediaUtilsResidual0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadMediaUtilsResidual0015');
         try {
           const src: string = rootDir + '/a/b/c/last.log';
           ensureDir(rootDir + '/a/b/c');

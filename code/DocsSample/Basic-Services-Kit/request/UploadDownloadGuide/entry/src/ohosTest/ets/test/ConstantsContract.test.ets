@@ -16,6 +16,10 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { TOAST_BOTTOM, NO_IMAGE_SELECTED, BackgroundTaskState } from 'uploadanddownload';
 import { FileType } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function constantsContractTest(): void {
   describe('UploadDownloadConstantsContractTest', () => {
@@ -29,6 +33,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0001');
         try {
           expect(TOAST_BOTTOM).assertEqual(200);
           expect(typeof TOAST_BOTTOM).assertEqual(typeof 200);
@@ -50,6 +55,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0002');
         try {
           expect(NO_IMAGE_SELECTED).assertEqual(-1);
           expect(typeof NO_IMAGE_SELECTED).assertEqual(typeof -1);
@@ -71,6 +77,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0003');
         try {
           expect(BackgroundTaskState.NONE).assertEqual(0);
           expect(typeof BackgroundTaskState.NONE).assertEqual(typeof 0);
@@ -92,6 +99,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0004');
         try {
           expect(BackgroundTaskState.RUNNING).assertEqual(1);
           expect(typeof BackgroundTaskState.RUNNING).assertEqual(typeof 1);
@@ -113,6 +121,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0005');
         try {
           expect(BackgroundTaskState.PAUSE).assertEqual(2);
           expect(typeof BackgroundTaskState.PAUSE).assertEqual(typeof 2);
@@ -134,6 +143,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0006');
         try {
           expect(FileType.FOLDER).assertEqual('folder');
           expect(typeof FileType.FOLDER).assertEqual(typeof 'folder');
@@ -155,6 +165,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0007');
         try {
           expect(FileType.IMAGE).assertEqual('image');
           expect(typeof FileType.IMAGE).assertEqual(typeof 'image');
@@ -176,6 +187,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0008');
         try {
           expect(FileType.Video).assertEqual('video');
           expect(typeof FileType.Video).assertEqual(typeof 'video');
@@ -197,6 +209,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0009');
         try {
           expect(FileType.MUSIC).assertEqual('music');
           expect(typeof FileType.MUSIC).assertEqual(typeof 'music');
@@ -218,6 +231,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0010');
         try {
           expect(FileType.DOCUMENT).assertEqual('document');
           expect(typeof FileType.DOCUMENT).assertEqual(typeof 'document');
@@ -239,6 +253,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0011');
         try {
           expect(Number(BackgroundTaskState.NONE) !== Number(BackgroundTaskState.RUNNING)).assertTrue();
           expect(TOAST_BOTTOM > 0).assertTrue();
@@ -260,6 +275,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0012');
         try {
           expect(Number(BackgroundTaskState.RUNNING) !== Number(BackgroundTaskState.PAUSE)).assertTrue();
           expect(TOAST_BOTTOM > 0).assertTrue();
@@ -281,6 +297,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0013');
         try {
           expect(String(FileType.FOLDER) !== String(FileType.IMAGE)).assertTrue();
           expect(TOAST_BOTTOM > 0).assertTrue();
@@ -302,6 +319,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0014');
         try {
           expect(String(FileType.Video) !== String(FileType.MUSIC)).assertTrue();
           expect(TOAST_BOTTOM > 0).assertTrue();
@@ -323,6 +341,7 @@ export default function constantsContractTest(): void {
      */
     it('testUploadDownloadConstants0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadConstants0015');
         try {
           expect(String(FileType.MUSIC) !== String(FileType.DOCUMENT)).assertTrue();
           expect(TOAST_BOTTOM > 0).assertTrue();

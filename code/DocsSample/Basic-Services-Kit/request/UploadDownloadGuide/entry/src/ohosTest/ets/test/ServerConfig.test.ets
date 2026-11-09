@@ -18,6 +18,10 @@ import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { urlUtils } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const STORE_NAME: string = 'server_url';
 const URL_KEY: string = 'url';
@@ -48,6 +52,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0001');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/download');
           const value: string = await urlUtils.getUrl(context);
@@ -71,6 +76,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0002');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10/api/v1/file');
           const value: string = await urlUtils.getUrl(context);
@@ -94,6 +100,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0003');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/files');
           const value: string = await urlUtils.getUrl(context);
@@ -117,6 +124,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0004');
         try {
           await urlUtils.saveUrl(context, 'https://localhost/server?task=4');
           const value: string = await urlUtils.getUrl(context);
@@ -140,6 +148,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0005');
         try {
           await urlUtils.saveUrl(context, 'http://example.com:8005/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -163,6 +172,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0006');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -186,6 +196,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0007');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com/download');
           const value: string = await urlUtils.getUrl(context);
@@ -209,6 +220,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0008');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10/api/v1/file?task=8');
           const value: string = await urlUtils.getUrl(context);
@@ -232,6 +244,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0009');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/files');
           const value: string = await urlUtils.getUrl(context);
@@ -255,6 +268,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0010');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10:8010/server');
           const value: string = await urlUtils.getUrl(context);
@@ -278,6 +292,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0011');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -301,6 +316,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0012');
         try {
           await urlUtils.saveUrl(context, 'https://localhost/upload?task=12');
           const value: string = await urlUtils.getUrl(context);
@@ -324,6 +340,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0013');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/download');
           const value: string = await urlUtils.getUrl(context);
@@ -347,6 +364,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0014');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com/api/v1/file');
           const value: string = await urlUtils.getUrl(context);
@@ -370,6 +388,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0015');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com:8015/files');
           const value: string = await urlUtils.getUrl(context);
@@ -393,6 +412,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0016');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10/server?task=16');
           const value: string = await urlUtils.getUrl(context);
@@ -416,6 +436,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0017');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -439,6 +460,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0018');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -462,6 +484,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0019');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/download');
           const value: string = await urlUtils.getUrl(context);
@@ -485,6 +508,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0020');
         try {
           await urlUtils.saveUrl(context, 'https://localhost:8020/api/v1/file?task=20');
           const value: string = await urlUtils.getUrl(context);
@@ -508,6 +532,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0021');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/files');
           const value: string = await urlUtils.getUrl(context);
@@ -531,6 +556,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0022');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com/server');
           const value: string = await urlUtils.getUrl(context);
@@ -554,6 +580,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0023');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -577,6 +604,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0024');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10/upload?task=24');
           const value: string = await urlUtils.getUrl(context);
@@ -600,6 +628,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0025');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11:8025/download');
           const value: string = await urlUtils.getUrl(context);
@@ -623,6 +652,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0026',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0026');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10/api/v1/file');
           const value: string = await urlUtils.getUrl(context);
@@ -646,6 +676,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0027',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0027');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/files');
           const value: string = await urlUtils.getUrl(context);
@@ -669,6 +700,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0028',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0028');
         try {
           await urlUtils.saveUrl(context, 'https://localhost/server?task=28');
           const value: string = await urlUtils.getUrl(context);
@@ -692,6 +724,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0029',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0029');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -715,6 +748,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0030',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0030');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com:8030/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -738,6 +772,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0031',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0031');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com/download');
           const value: string = await urlUtils.getUrl(context);
@@ -761,6 +796,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0032',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0032');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10/api/v1/file?task=32');
           const value: string = await urlUtils.getUrl(context);
@@ -784,6 +820,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0033',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0033');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/files');
           const value: string = await urlUtils.getUrl(context);
@@ -807,6 +844,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0034',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0034');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10/server');
           const value: string = await urlUtils.getUrl(context);
@@ -830,6 +868,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0035',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0035');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1:8035/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -853,6 +892,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0036',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0036');
         try {
           await urlUtils.saveUrl(context, 'https://localhost/upload?task=36');
           const value: string = await urlUtils.getUrl(context);
@@ -876,6 +916,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0037',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0037');
         try {
           await urlUtils.saveUrl(context, 'http://example.com/download');
           const value: string = await urlUtils.getUrl(context);
@@ -899,6 +940,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0038',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0038');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com/api/v1/file');
           const value: string = await urlUtils.getUrl(context);
@@ -922,6 +964,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0039',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0039');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com/files');
           const value: string = await urlUtils.getUrl(context);
@@ -945,6 +988,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0040',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0040');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10:8040/server?task=40');
           const value: string = await urlUtils.getUrl(context);
@@ -968,6 +1012,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0041',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0041');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -991,6 +1036,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0042',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0042');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10/upload');
           const value: string = await urlUtils.getUrl(context);
@@ -1014,6 +1060,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0043',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0043');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/download');
           const value: string = await urlUtils.getUrl(context);
@@ -1037,6 +1084,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0044',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0044');
         try {
           await urlUtils.saveUrl(context, 'https://localhost/api/v1/file?task=44');
           const value: string = await urlUtils.getUrl(context);
@@ -1060,6 +1108,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0045',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0045');
         try {
           await urlUtils.saveUrl(context, 'http://example.com:8045/files');
           const value: string = await urlUtils.getUrl(context);
@@ -1083,6 +1132,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0046',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0046');
         try {
           await urlUtils.saveUrl(context, 'https://server.example.com/server');
           const value: string = await urlUtils.getUrl(context);
@@ -1106,6 +1156,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0047',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0047');
         try {
           await urlUtils.saveUrl(context, 'http://files.example.com/hfs');
           const value: string = await urlUtils.getUrl(context);
@@ -1129,6 +1180,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0048',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0048');
         try {
           await urlUtils.saveUrl(context, 'https://192.168.1.10/upload?task=48');
           const value: string = await urlUtils.getUrl(context);
@@ -1152,6 +1204,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0049',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0049');
         try {
           await urlUtils.saveUrl(context, 'http://192.168.1.11/download');
           const value: string = await urlUtils.getUrl(context);
@@ -1175,6 +1228,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0050',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0050');
         try {
           await urlUtils.saveUrl(context, 'https://10.0.0.10:8050/api/v1/file');
           const value: string = await urlUtils.getUrl(context);
@@ -1198,6 +1252,7 @@ export default function serverConfigTest(): void {
      */
     it('testUploadDownloadServerConfig0051',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadServerConfig0051');
         try {
           await urlUtils.saveUrl(context, 'http://127.0.0.1/files');
           const value: string = await urlUtils.getUrl(context);

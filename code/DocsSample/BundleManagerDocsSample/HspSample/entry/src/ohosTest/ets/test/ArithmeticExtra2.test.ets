@@ -15,6 +15,10 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { add } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 export default function arithmeticExtra2Test(): void {
   describe('HspArithmeticExtra2Test', () => {
@@ -28,6 +32,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20001');
         try {
           expect(add(add(1, 2), 3)).assertEqual(6);
           expect(add(1, add(2, 3))).assertEqual(6);
@@ -49,6 +54,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20002');
         try {
           expect(add(add(2, 3), 4)).assertEqual(9);
           expect(add(2, add(3, 4))).assertEqual(9);
@@ -70,6 +76,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20003');
         try {
           expect(add(add(5, 5), 5)).assertEqual(15);
           expect(add(5, add(5, 5))).assertEqual(15);
@@ -91,6 +98,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20004');
         try {
           expect(add(add(10, 0), 10)).assertEqual(20);
           expect(add(10, add(0, 10))).assertEqual(20);
@@ -112,6 +120,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20005');
         try {
           expect(add(add(0, 10), 10)).assertEqual(20);
           expect(add(0, add(10, 10))).assertEqual(20);
@@ -133,6 +142,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20006');
         try {
           expect(add(add(-1, 1), 2)).assertEqual(2);
           expect(add(-1, add(1, 2))).assertEqual(2);
@@ -154,6 +164,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20007');
         try {
           expect(add(add(-5, 5), 10)).assertEqual(10);
           expect(add(-5, add(5, 10))).assertEqual(10);
@@ -175,6 +186,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20008');
         try {
           expect(add(add(100, 50), 25)).assertEqual(175);
           expect(add(100, add(50, 25))).assertEqual(175);
@@ -196,6 +208,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20009');
         try {
           expect(add(add(-100, -50), -25)).assertEqual(-175);
           expect(add(-100, add(-50, -25))).assertEqual(-175);
@@ -217,6 +230,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20010');
         try {
           expect(add(add(7, 3), 2)).assertEqual(12);
           expect(add(7, add(3, 2))).assertEqual(12);
@@ -238,6 +252,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20011',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20011');
         try {
           expect(add(add(9, 4), 1)).assertEqual(14);
           expect(add(9, add(4, 1))).assertEqual(14);
@@ -259,6 +274,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20012',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20012');
         try {
           expect(add(add(11, 22), 33)).assertEqual(66);
           expect(add(11, add(22, 33))).assertEqual(66);
@@ -280,6 +296,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20013',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20013');
         try {
           expect(add(add(123, 456), 789)).assertEqual(1368);
           expect(add(123, add(456, 789))).assertEqual(1368);
@@ -301,6 +318,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20014',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20014');
         try {
           expect(add(add(999, 1), 1)).assertEqual(1001);
           expect(add(999, add(1, 1))).assertEqual(1001);
@@ -322,6 +340,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20015',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20015');
         try {
           expect(add(add(-999, -1), -1)).assertEqual(-1001);
           expect(add(-999, add(-1, -1))).assertEqual(-1001);
@@ -343,6 +362,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20016',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20016');
         try {
           expect(add(add(50, 50), 50)).assertEqual(150);
           expect(add(50, add(50, 50))).assertEqual(150);
@@ -364,6 +384,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20017',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20017');
         try {
           expect(add(add(20, -10), 5)).assertEqual(15);
           expect(add(20, add(-10, 5))).assertEqual(15);
@@ -385,6 +406,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20018',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20018');
         try {
           expect(add(add(-20, 10), -5)).assertEqual(-15);
           expect(add(-20, add(10, -5))).assertEqual(-15);
@@ -406,6 +428,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20019',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20019');
         try {
           expect(add(add(1000, 2000), 3000)).assertEqual(6000);
           expect(add(1000, add(2000, 3000))).assertEqual(6000);
@@ -427,6 +450,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20020',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20020');
         try {
           expect(add(add(-1000, 500), -500)).assertEqual(-1000);
           expect(add(-1000, add(500, -500))).assertEqual(-1000);
@@ -448,6 +472,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20021',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20021');
         try {
           expect(add(add(3, 7), 11)).assertEqual(21);
           expect(add(3, add(7, 11))).assertEqual(21);
@@ -469,6 +494,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20022',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20022');
         try {
           expect(add(add(13, 17), 19)).assertEqual(49);
           expect(add(13, add(17, 19))).assertEqual(49);
@@ -490,6 +516,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20023',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20023');
         try {
           expect(add(add(23, 29), 31)).assertEqual(83);
           expect(add(23, add(29, 31))).assertEqual(83);
@@ -511,6 +538,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20024',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20024');
         try {
           expect(add(add(37, 41), 43)).assertEqual(121);
           expect(add(37, add(41, 43))).assertEqual(121);
@@ -532,6 +560,7 @@ export default function arithmeticExtra2Test(): void {
      */
     it('testHspArithmeticExtra20025',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspArithmeticExtra20025');
         try {
           expect(add(add(101, 103), 107)).assertEqual(311);
           expect(add(101, add(103, 107))).assertEqual(311);

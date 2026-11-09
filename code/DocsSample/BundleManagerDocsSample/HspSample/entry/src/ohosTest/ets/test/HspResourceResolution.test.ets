@@ -18,6 +18,10 @@ import { common } from '@kit.AbilityKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { ResManager } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const BUNDLE_NAME: string = 'com.samples.hspsample';
 let libraryContext: common.Context;
@@ -41,6 +45,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0001');
         try {
           const desc: Resource = ResManager.getDesc();
           const asyncValue: string = await libraryResourceManager.getStringValue(desc);
@@ -65,6 +70,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0002');
         try {
           const desc: Resource = ResManager.getDesc();
           const syncValue: string = libraryResourceManager.getStringSync(desc);
@@ -89,6 +95,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0003');
         try {
           const desc: Resource = ResManager.getDesc();
           expect(desc.id > 0).assertTrue();
@@ -111,6 +118,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0004');
         try {
           const firstPicture: Resource = ResManager.getPic();
           const secondPicture: Resource = ResManager.getPic();
@@ -135,6 +143,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0005');
         try {
           const picture: Resource = ResManager.getPic();
           const bytes: Uint8Array = libraryResourceManager.getMediaContentSync(picture);
@@ -160,6 +169,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0006');
         try {
           const picture: Resource = ResManager.getPic();
           const syncBytes: Uint8Array = libraryResourceManager.getMediaContentSync(picture);
@@ -190,6 +200,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0007');
         try {
           const picture: Resource = ResManager.getPic();
           const byName: Uint8Array = libraryResourceManager.getMediaByNameSync('pic');
@@ -214,6 +225,7 @@ export default function hspResourceResolutionTest(): void {
      */
     it('testHspResourceResolve0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testHspResourceResolve0008');
         try {
           const picture: Resource = ResManager.getPic();
           const descriptor = libraryResourceManager.getDrawableDescriptor(picture);

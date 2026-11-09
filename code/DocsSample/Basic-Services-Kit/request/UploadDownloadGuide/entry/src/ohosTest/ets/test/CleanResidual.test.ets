@@ -18,6 +18,10 @@ import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { requestDownload } from 'uploadanddownload';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 let context: common.UIAbilityContext;
 let rootDir: string;
@@ -73,6 +77,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0001',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0001');
         try {
           const path: string = rootDir + '/missing.txt';
           requestDownload.clearExistFile(path);
@@ -95,6 +100,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0002',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0002');
         try {
           const path: string = rootDir + '/existing.txt';
           writeFile(path, 'x');
@@ -118,6 +124,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0003',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0003');
         try {
           const dir: string = rootDir + '/nested';
           ensureDir(dir);
@@ -143,6 +150,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0004',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0004');
         try {
           const path: string = rootDir + '/repeat.txt';
           writeFile(path, 'x');
@@ -167,6 +175,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0005',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0005');
         try {
           const path: string = rootDir + '/文件.txt';
           writeFile(path, 'x');
@@ -190,6 +199,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0006',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0006');
         try {
           const path: string = rootDir + '/file with space.txt';
           writeFile(path, 'x');
@@ -213,6 +223,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0007');
         try {
           const name: string = 'a'.repeat(100) + '.txt';
           const path: string = rootDir + '/' + name;
@@ -237,6 +248,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0008',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0008');
         try {
           const path: string = rootDir + '/dirpath';
           ensureDir(path);
@@ -260,6 +272,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0009',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0009');
         try {
           requestDownload.clearExistFile('');
           expect(true).assertTrue();
@@ -281,6 +294,7 @@ export default function cleanResidualTest(): void {
      */
     it('testUploadDownloadCleanResidual0010',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadCleanResidual0010');
         try {
           const path: string = rootDir + '/noext';
           writeFile(path, 'x');
