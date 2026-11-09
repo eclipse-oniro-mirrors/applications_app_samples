@@ -1898,3 +1898,344 @@ const DURATION_EXHAUSTIVE_CASES: DurationExhaustiveCase[] = [
   { input: 43, expected: '00:00:43' },
   { input: 44, expected: '00:00:44' },
   { input: 45, expected: '00:00:45' },
+  { input: 46, expected: '00:00:46' },
+  { input: 47, expected: '00:00:47' },
+  { input: 48, expected: '00:00:48' },
+  { input: 49, expected: '00:00:49' },
+  { input: 50, expected: '00:00:50' },
+  { input: 51, expected: '00:00:51' },
+  { input: 52, expected: '00:00:52' },
+  { input: 53, expected: '00:00:53' },
+  { input: 54, expected: '00:00:54' },
+  { input: 55, expected: '00:00:55' },
+  { input: 56, expected: '00:00:56' },
+  { input: 57, expected: '00:00:57' },
+  { input: 58, expected: '00:00:58' },
+  { input: 59, expected: '00:00:59' },
+  { input: 60, expected: '00:01:00' },
+  { input: 61, expected: '00:01:01' },
+  { input: 62, expected: '00:01:02' },
+  { input: 63, expected: '00:01:03' },
+  { input: 64, expected: '00:01:04' },
+  { input: 65, expected: '00:01:05' },
+  { input: 66, expected: '00:01:06' },
+  { input: 67, expected: '00:01:07' },
+  { input: 68, expected: '00:01:08' },
+  { input: 69, expected: '00:01:09' },
+  { input: 70, expected: '00:01:10' },
+  { input: 71, expected: '00:01:11' },
+  { input: 72, expected: '00:01:12' },
+  { input: 73, expected: '00:01:13' },
+  { input: 74, expected: '00:01:14' },
+  { input: 75, expected: '00:01:15' },
+  { input: 76, expected: '00:01:16' },
+  { input: 77, expected: '00:01:17' },
+  { input: 78, expected: '00:01:18' },
+  { input: 79, expected: '00:01:19' },
+  { input: 80, expected: '00:01:20' },
+  { input: 81, expected: '00:01:21' },
+  { input: 82, expected: '00:01:22' },
+  { input: 83, expected: '00:01:23' },
+  { input: 84, expected: '00:01:24' },
+  { input: 85, expected: '00:01:25' },
+  { input: 86, expected: '00:01:26' },
+  { input: 87, expected: '00:01:27' },
+  { input: 88, expected: '00:01:28' },
+  { input: 89, expected: '00:01:29' },
+  { input: 90, expected: '00:01:30' },
+  { input: 91, expected: '00:01:31' },
+  { input: 92, expected: '00:01:32' },
+  { input: 93, expected: '00:01:33' },
+  { input: 94, expected: '00:01:34' },
+  { input: 95, expected: '00:01:35' },
+  { input: 96, expected: '00:01:36' },
+  { input: 97, expected: '00:01:37' },
+  { input: 98, expected: '00:01:38' },
+  { input: 99, expected: '00:01:39' },
+  { input: 100, expected: '00:01:40' },
+  { input: 101, expected: '00:01:41' },
+  { input: 102, expected: '00:01:42' },
+  { input: 103, expected: '00:01:43' },
+  { input: 104, expected: '00:01:44' },
+  { input: 105, expected: '00:01:45' },
+  { input: 106, expected: '00:01:46' },
+  { input: 107, expected: '00:01:47' },
+  { input: 108, expected: '00:01:48' },
+  { input: 109, expected: '00:01:49' },
+  { input: 110, expected: '00:01:50' },
+  { input: 111, expected: '00:01:51' },
+  { input: 112, expected: '00:01:52' },
+  { input: 113, expected: '00:01:53' },
+  { input: 114, expected: '00:01:54' },
+  { input: 115, expected: '00:01:55' },
+  { input: 116, expected: '00:01:56' },
+  { input: 117, expected: '00:01:57' },
+  { input: 118, expected: '00:01:58' },
+  { input: 119, expected: '00:01:59' },
+  { input: 120, expected: '00:02:00' },
+  { input: 121, expected: '00:02:01' },
+  { input: 122, expected: '00:02:02' },
+  { input: 123, expected: '00:02:03' },
+  { input: 124, expected: '00:02:04' },
+  { input: 125, expected: '00:02:05' },
+  { input: 126, expected: '00:02:06' },
+  { input: 127, expected: '00:02:07' },
+  { input: 128, expected: '00:02:08' },
+  { input: 129, expected: '00:02:09' },
+  { input: 130, expected: '00:02:10' },
+  { input: 131, expected: '00:02:11' },
+  { input: 132, expected: '00:02:12' },
+  { input: 133, expected: '00:02:13' },
+  { input: 134, expected: '00:02:14' },
+  { input: 135, expected: '00:02:15' },
+  { input: 136, expected: '00:02:16' },
+  { input: 137, expected: '00:02:17' },
+  { input: 138, expected: '00:02:18' },
+  { input: 139, expected: '00:02:19' },
+  { input: 140, expected: '00:02:20' },
+  { input: 141, expected: '00:02:21' },
+  { input: 142, expected: '00:02:22' },
+  { input: 143, expected: '00:02:23' },
+  { input: 144, expected: '00:02:24' },
+  { input: 145, expected: '00:02:25' },
+  { input: 146, expected: '00:02:26' },
+  { input: 147, expected: '00:02:27' },
+  { input: 148, expected: '00:02:28' },
+  { input: 149, expected: '00:02:29' },
+  { input: 150, expected: '00:02:30' },
+  { input: 151, expected: '00:02:31' },
+  { input: 152, expected: '00:02:32' },
+  { input: 153, expected: '00:02:33' },
+  { input: 154, expected: '00:02:34' },
+  { input: 155, expected: '00:02:35' },
+  { input: 156, expected: '00:02:36' },
+  { input: 157, expected: '00:02:37' },
+  { input: 158, expected: '00:02:38' },
+  { input: 159, expected: '00:02:39' },
+  { input: 160, expected: '00:02:40' },
+  { input: 161, expected: '00:02:41' },
+  { input: 162, expected: '00:02:42' },
+  { input: 163, expected: '00:02:43' },
+  { input: 164, expected: '00:02:44' },
+  { input: 165, expected: '00:02:45' },
+  { input: 166, expected: '00:02:46' },
+  { input: 167, expected: '00:02:47' },
+  { input: 168, expected: '00:02:48' },
+  { input: 169, expected: '00:02:49' },
+  { input: 170, expected: '00:02:50' },
+  { input: 171, expected: '00:02:51' },
+  { input: 172, expected: '00:02:52' },
+  { input: 173, expected: '00:02:53' },
+  { input: 174, expected: '00:02:54' },
+  { input: 175, expected: '00:02:55' },
+  { input: 176, expected: '00:02:56' },
+  { input: 177, expected: '00:02:57' },
+  { input: 178, expected: '00:02:58' },
+  { input: 179, expected: '00:02:59' },
+  { input: 180, expected: '00:03:00' },
+  { input: 181, expected: '00:03:01' },
+  { input: 182, expected: '00:03:02' },
+  { input: 183, expected: '00:03:03' },
+  { input: 184, expected: '00:03:04' },
+  { input: 185, expected: '00:03:05' },
+  { input: 186, expected: '00:03:06' },
+  { input: 187, expected: '00:03:07' },
+  { input: 188, expected: '00:03:08' },
+  { input: 189, expected: '00:03:09' },
+  { input: 190, expected: '00:03:10' },
+  { input: 191, expected: '00:03:11' },
+  { input: 192, expected: '00:03:12' },
+  { input: 193, expected: '00:03:13' },
+  { input: 194, expected: '00:03:14' },
+  { input: 195, expected: '00:03:15' },
+  { input: 196, expected: '00:03:16' },
+  { input: 197, expected: '00:03:17' },
+  { input: 198, expected: '00:03:18' },
+  { input: 199, expected: '00:03:19' },
+  { input: 200, expected: '00:03:20' },
+  { input: 201, expected: '00:03:21' },
+  { input: 202, expected: '00:03:22' },
+  { input: 203, expected: '00:03:23' },
+  { input: 204, expected: '00:03:24' },
+  { input: 205, expected: '00:03:25' },
+  { input: 206, expected: '00:03:26' },
+  { input: 207, expected: '00:03:27' },
+  { input: 208, expected: '00:03:28' },
+  { input: 209, expected: '00:03:29' },
+  { input: 210, expected: '00:03:30' },
+  { input: 211, expected: '00:03:31' },
+  { input: 212, expected: '00:03:32' },
+  { input: 213, expected: '00:03:33' },
+  { input: 214, expected: '00:03:34' },
+  { input: 215, expected: '00:03:35' },
+  { input: 216, expected: '00:03:36' },
+  { input: 217, expected: '00:03:37' },
+  { input: 218, expected: '00:03:38' },
+  { input: 219, expected: '00:03:39' },
+  { input: 220, expected: '00:03:40' },
+  { input: 221, expected: '00:03:41' },
+  { input: 222, expected: '00:03:42' },
+  { input: 223, expected: '00:03:43' },
+  { input: 224, expected: '00:03:44' },
+  { input: 225, expected: '00:03:45' },
+  { input: 226, expected: '00:03:46' },
+  { input: 227, expected: '00:03:47' },
+  { input: 228, expected: '00:03:48' },
+  { input: 229, expected: '00:03:49' },
+  { input: 230, expected: '00:03:50' },
+  { input: 231, expected: '00:03:51' },
+  { input: 232, expected: '00:03:52' },
+  { input: 233, expected: '00:03:53' },
+  { input: 234, expected: '00:03:54' },
+  { input: 235, expected: '00:03:55' },
+  { input: 236, expected: '00:03:56' },
+  { input: 237, expected: '00:03:57' },
+  { input: 238, expected: '00:03:58' },
+  { input: 239, expected: '00:03:59' },
+  { input: 240, expected: '00:04:00' },
+  { input: 241, expected: '00:04:01' },
+  { input: 242, expected: '00:04:02' },
+  { input: 243, expected: '00:04:03' },
+  { input: 244, expected: '00:04:04' },
+  { input: 245, expected: '00:04:05' },
+  { input: 246, expected: '00:04:06' },
+  { input: 247, expected: '00:04:07' },
+  { input: 248, expected: '00:04:08' },
+  { input: 249, expected: '00:04:09' },
+  { input: 250, expected: '00:04:10' },
+  { input: 251, expected: '00:04:11' },
+  { input: 252, expected: '00:04:12' },
+  { input: 253, expected: '00:04:13' },
+  { input: 254, expected: '00:04:14' },
+  { input: 255, expected: '00:04:15' },
+  { input: 256, expected: '00:04:16' },
+  { input: 257, expected: '00:04:17' },
+  { input: 258, expected: '00:04:18' },
+  { input: 259, expected: '00:04:19' },
+  { input: 260, expected: '00:04:20' },
+  { input: 261, expected: '00:04:21' },
+  { input: 262, expected: '00:04:22' },
+  { input: 263, expected: '00:04:23' },
+  { input: 264, expected: '00:04:24' },
+  { input: 265, expected: '00:04:25' },
+  { input: 266, expected: '00:04:26' },
+  { input: 267, expected: '00:04:27' },
+  { input: 268, expected: '00:04:28' },
+  { input: 269, expected: '00:04:29' },
+  { input: 270, expected: '00:04:30' },
+  { input: 271, expected: '00:04:31' },
+  { input: 272, expected: '00:04:32' },
+  { input: 273, expected: '00:04:33' },
+  { input: 274, expected: '00:04:34' },
+  { input: 275, expected: '00:04:35' },
+  { input: 276, expected: '00:04:36' },
+  { input: 277, expected: '00:04:37' },
+  { input: 278, expected: '00:04:38' },
+  { input: 279, expected: '00:04:39' },
+  { input: 280, expected: '00:04:40' },
+  { input: 281, expected: '00:04:41' },
+  { input: 282, expected: '00:04:42' },
+  { input: 283, expected: '00:04:43' },
+  { input: 284, expected: '00:04:44' },
+  { input: 285, expected: '00:04:45' },
+  { input: 286, expected: '00:04:46' },
+  { input: 287, expected: '00:04:47' },
+  { input: 288, expected: '00:04:48' },
+  { input: 289, expected: '00:04:49' },
+  { input: 290, expected: '00:04:50' },
+  { input: 291, expected: '00:04:51' },
+  { input: 292, expected: '00:04:52' },
+  { input: 293, expected: '00:04:53' },
+  { input: 294, expected: '00:04:54' },
+  { input: 295, expected: '00:04:55' },
+  { input: 296, expected: '00:04:56' },
+  { input: 297, expected: '00:04:57' },
+  { input: 298, expected: '00:04:58' },
+  { input: 299, expected: '00:04:59' },
+  { input: 300, expected: '00:05:00' },
+];
+
+export default function timeExhaustiveMatrixTest() {
+  describe('TimeExhaustiveMatrixTest', () => {
+    beforeAll(() => {
+      hilog.info(DOMAIN, SUITE_TAG, '%{public}s', 'TimeExhaustiveMatrixTest suite start');
+    });
+
+    afterAll(() => {
+      hilog.info(DOMAIN, SUITE_TAG, '%{public}s', 'TimeExhaustiveMatrixTest suite end');
+    });
+
+    /**
+     * @tc.number    SUB_GEOFENCECHECKIN_TIMEEXH_0100
+     * @tc.name      testFormatDateTimeEveryDay20240001
+     * @tc.desc      Verify formatDateTime renders every day of the leap year 2024 with padded fields.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormatDateTimeEveryDay20240001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const TAG: string = 'testFormatDateTimeEveryDay20240001';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      let checked: number = 0;
+      for (let i = 0; i < DATE_EXHAUSTIVE_CASES.length; i++) {
+        const row: DateExhaustiveCase = DATE_EXHAUSTIVE_CASES[i];
+        const timestamp: number = new Date(row.year, row.month - 1, row.day, 8, 30, 15).getTime();
+        expect(formatDateTime(timestamp)).assertEqual(row.expected);
+        checked = checked + 1;
+      }
+      expect(checked).assertEqual(366);
+      expect(formatDateTime(0)).assertEqual('--');
+      expect(formatDateTime(-1)).assertEqual('--');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_GEOFENCECHECKIN_TIMEEXH_0200
+     * @tc.name      testFormatTimeEveryMinute0002
+     * @tc.desc      Verify formatTime renders every minute of a day with padded hour and minute fields.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormatTimeEveryMinute0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const TAG: string = 'testFormatTimeEveryMinute0002';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      let checked: number = 0;
+      for (let i = 0; i < TIME_EXHAUSTIVE_CASES.length; i++) {
+        const row: TimeExhaustiveCase = TIME_EXHAUSTIVE_CASES[i];
+        const timestamp: number = new Date(2025, 0, 15, row.hour, row.minute, 0).getTime();
+        expect(formatTime(timestamp)).assertEqual(row.expected);
+        checked = checked + 1;
+      }
+      expect(checked).assertEqual(1440);
+      expect(formatTime(0)).assertEqual('--');
+      expect(formatTime(-1000)).assertEqual('--');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_GEOFENCECHECKIN_TIMEEXH_0300
+     * @tc.name      testFormatDurationEverySecond0003
+     * @tc.desc      Verify formatDuration renders every whole second from 0 to 300 as HH:mm:ss.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormatDurationEverySecond0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const TAG: string = 'testFormatDurationEverySecond0003';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      let checked: number = 0;
+      for (let i = 0; i < DURATION_EXHAUSTIVE_CASES.length; i++) {
+        const row: DurationExhaustiveCase = DURATION_EXHAUSTIVE_CASES[i];
+        expect(formatDuration(row.input * 1000)).assertEqual(row.expected);
+        expect(formatDuration(row.input * 1000).length).assertEqual(8);
+        checked = checked + 1;
+      }
+      expect(checked).assertEqual(301);
+      expect(formatDuration(0)).assertEqual('00:00:00');
+      expect(formatDuration(-1)).assertEqual('00:00:00');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+  });
+}
