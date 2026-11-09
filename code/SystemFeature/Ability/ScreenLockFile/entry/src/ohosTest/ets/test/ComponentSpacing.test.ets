@@ -25,8 +25,8 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT,
   PAGE_PADDING, SECTION_SPACING, ITEM_SPACING, CARD_PADDING, CARD_RADIUS
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function componentSpacingTest(): void {
   describe('ComponentSpacingTest', (): void => {
@@ -168,7 +168,7 @@ export default function componentSpacingTest(): void {
      */
     it('testComponentSpacing0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testComponentSpacing0008');
-      const sum = PAGE_PADDING + SECTION_SPACING + ITEM_SPACING;
+      const sum: number = PAGE_PADDING + SECTION_SPACING + ITEM_SPACING;
       expect(sum).assertEqual(52);
       expect(sum).assertLarger(0);
       expect(typeof sum).assertEqual('number');
@@ -187,7 +187,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0009');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -206,7 +206,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0010');
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -225,7 +225,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0011');
       await clickById(ID_RELEASE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -244,7 +244,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0012');
       await clickById(ID_QUERY_ALL_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('KeyState')).assertTrue();
       expect(result.includes('|')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -264,7 +264,7 @@ export default function componentSpacingTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -281,7 +281,7 @@ export default function componentSpacingTest(): void {
      */
     it('testComponentSpacing0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testComponentSpacing0014');
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.includes('|')).assertTrue();
       expect(pairing.length).assertLarger(0);
@@ -316,7 +316,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0016');
       const spacings: number[] = [PAGE_PADDING, SECTION_SPACING, ITEM_SPACING, CARD_PADDING, CARD_RADIUS];
       expect(spacings.length).assertEqual(5);
-      for (let i = 0; i < spacings.length; i++) {
+      for (let i: number = 0; i < spacings.length; i++) {
         expect(spacings[i]).assertLarger(0);
         expect(typeof spacings[i]).assertEqual('number');
       }
@@ -333,9 +333,9 @@ export default function componentSpacingTest(): void {
      */
     it('testComponentSpacing0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testComponentSpacing0017');
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -352,9 +352,9 @@ export default function componentSpacingTest(): void {
      */
     it('testComponentSpacing0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testComponentSpacing0018');
-      const qa = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
-      const cl = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
-      const res = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const qa: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const cl: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const res: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(qa).assertTrue();
       expect(cl).assertTrue();
       expect(res).assertTrue();
@@ -373,7 +373,7 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0019');
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertTrue();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(true);
@@ -394,7 +394,7 @@ export default function componentSpacingTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertFalse();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(false);
@@ -430,10 +430,10 @@ export default function componentSpacingTest(): void {
       sharedDriver.hilogBegin('testComponentSpacing0022');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r1 = await textOfId(ID_OPERATION_RESULT);
+      const r1: string = await textOfId(ID_OPERATION_RESULT);
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r2 = await textOfId(ID_OPERATION_RESULT);
+      const r2: string = await textOfId(ID_OPERATION_RESULT);
       expect(r1 !== r2).assertTrue();
       expect(r1.includes('queryAppKeyState')).assertTrue();
       expect(r2.includes('acquireAccess')).assertTrue();
@@ -454,7 +454,7 @@ export default function componentSpacingTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -477,7 +477,7 @@ export default function componentSpacingTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Pending: 0')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');

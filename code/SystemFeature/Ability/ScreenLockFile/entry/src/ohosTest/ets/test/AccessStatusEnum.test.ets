@@ -23,9 +23,9 @@ import { ACCESS_STATUS_DENIED, ACCESS_STATUS_GRANTED, DOMAIN, TAG, BUNDLE_NAME, 
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const testHelper = new TestHelper(sharedDriver);
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function accessStatusEnumTest(): void {
   describe('AccessStatusEnumTest', (): void => {
@@ -84,12 +84,12 @@ export default function accessStatusEnumTest(): void {
     it('testAccessStatusEnum0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0003');
       try {
-        const status = screenLockFileManager.acquireAccess();
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(testHelper.isValidAccessStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -107,7 +107,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0004');
-      const nameGranted = testHelper.getAccessStatusName(ACCESS_STATUS_GRANTED);
+      const nameGranted: string = testHelper.getAccessStatusName(ACCESS_STATUS_GRANTED);
       expect(nameGranted).assertEqual('ACCESS_GRANTED');
       expect(nameGranted.length).assertLarger(0);
       expect(typeof nameGranted).assertEqual('string');
@@ -124,7 +124,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0005');
-      const nameDenied = testHelper.getAccessStatusName(ACCESS_STATUS_DENIED);
+      const nameDenied: string = testHelper.getAccessStatusName(ACCESS_STATUS_DENIED);
       expect(nameDenied).assertEqual('ACCESS_DENIED');
       expect(nameDenied.length).assertLarger(0);
       expect(typeof nameDenied).assertEqual('string');
@@ -141,7 +141,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0006');
-      const nameUnknown = testHelper.getAccessStatusName(99);
+      const nameUnknown: string = testHelper.getAccessStatusName(99);
       expect(nameUnknown).assertEqual('UNKNOWN');
       expect(nameUnknown.length).assertLarger(0);
       expect(typeof nameUnknown).assertEqual('string');
@@ -158,7 +158,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0007');
-      const keys = Object.keys(screenLockFileManager.AccessStatus);
+      const keys: string[] = Object.keys(screenLockFileManager.AccessStatus);
       expect(keys.length).assertEqual(2);
       expect(typeof keys[0]).assertEqual('string');
       expect(typeof keys[1]).assertEqual('string');
@@ -193,8 +193,8 @@ export default function accessStatusEnumTest(): void {
       sharedDriver.hilogBegin('testAccessStatusEnum0009');
       await clickById('acquireAccessButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult')
-      const hasAccessStatus = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
+      const result: string = await textOfId('operationResult')
+      const hasAccessStatus: boolean = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
       expect(hasAccessStatus).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('acquireAccess')).assertTrue();
@@ -248,13 +248,13 @@ export default function accessStatusEnumTest(): void {
     it('testAccessStatusEnum0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0012');
       try {
-        const s1 = screenLockFileManager.acquireAccess();
-        const s2 = screenLockFileManager.acquireAccess();
+        const s1: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const s2: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(testHelper.isValidAccessStatus(s1)).assertTrue();
         expect(testHelper.isValidAccessStatus(s2)).assertTrue();
         expect(typeof s1).assertEqual('number');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -275,9 +275,9 @@ export default function accessStatusEnumTest(): void {
       const values: number[] = [ACCESS_STATUS_GRANTED, ACCESS_STATUS_DENIED];
       expect(values.length).assertEqual(2);
       const unique: number[] = [];
-      for (let i = 0; i < values.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < unique.length; j++) {
+      for (let i: number = 0; i < values.length; i++) {
+        let isUnique: boolean = true;
+        for (let j: number = 0; j < unique.length; j++) {
           if (values[i] === unique[j]) {
             isUnique = false;
           }
@@ -302,8 +302,8 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0014');
-      const nameGranted = testHelper.getAccessStatusName(0);
-      const nameDenied = testHelper.getAccessStatusName(1);
+      const nameGranted: string = testHelper.getAccessStatusName(0);
+      const nameDenied: string = testHelper.getAccessStatusName(1);
       expect(nameGranted !== nameDenied).assertTrue();
       expect(nameGranted.length).assertLarger(0);
       expect(nameDenied.length).assertLarger(0);
@@ -320,8 +320,8 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0015');
-      const nameNeg = testHelper.getAccessStatusName(2);
-      const nameBig = testHelper.getAccessStatusName(100);
+      const nameNeg: string = testHelper.getAccessStatusName(2);
+      const nameBig: string = testHelper.getAccessStatusName(100);
       expect(nameNeg).assertEqual('UNKNOWN');
       expect(nameBig).assertEqual('UNKNOWN');
       expect(nameNeg).assertEqual(nameBig);
@@ -343,8 +343,8 @@ export default function accessStatusEnumTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
-      const hasAccess = result.includes('ACCESS_');
+      const result: string = await sharedDriver.getTextById('operationResult');
+      const hasAccess: boolean = result.includes('ACCESS_');
       expect(hasAccess).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('acquireAccess')).assertTrue();
@@ -361,10 +361,10 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0017');
-      const enumObj = screenLockFileManager.AccessStatus;
+      const enumObj: Object = screenLockFileManager.AccessStatus;
       expect(typeof enumObj).assertEqual('object');
       expect(enumObj !== null).assertTrue();
-      const keys = Object.keys(enumObj);
+      const keys: string[] = Object.keys(enumObj);
       expect(keys.length).assertLarger(0);
       sharedDriver.hilogEnd('testAccessStatusEnum0017');
     });
@@ -380,13 +380,13 @@ export default function accessStatusEnumTest(): void {
     it('testAccessStatusEnum0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0018');
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const name = testHelper.getAccessStatusName(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const name: string = testHelper.getAccessStatusName(status);
         expect(name.startsWith('ACCESS_') || name === 'UNKNOWN').assertTrue();
         expect(name.length).assertLarger(0);
         expect(typeof name).assertEqual('string');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -440,7 +440,7 @@ export default function accessStatusEnumTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(result.includes('Acquire')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('KeyState')).assertTrue();
@@ -458,12 +458,12 @@ export default function accessStatusEnumTest(): void {
     it('testAccessStatusEnum0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0022');
       try {
-        const status = screenLockFileManager.acquireAccess();
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(status === ACCESS_STATUS_GRANTED || status === ACCESS_STATUS_DENIED).assertTrue();
         expect(status).assertLarger(-1);
         expect(status).assertLess(2);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -481,7 +481,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0023');
-      const name = testHelper.getAccessStatusName(ACCESS_STATUS_GRANTED);
+      const name: string = testHelper.getAccessStatusName(ACCESS_STATUS_GRANTED);
       expect(name.startsWith('ACCESS_')).assertTrue();
       expect(name.length).assertLarger(7);
       expect(typeof name).assertEqual('string');
@@ -498,7 +498,7 @@ export default function accessStatusEnumTest(): void {
      */
     it('testAccessStatusEnum0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAccessStatusEnum0024');
-      const name = testHelper.getAccessStatusName(ACCESS_STATUS_DENIED);
+      const name: string = testHelper.getAccessStatusName(ACCESS_STATUS_DENIED);
       expect(name.startsWith('ACCESS_')).assertTrue();
       expect(name.length).assertLarger(7);
       expect(typeof name).assertEqual('string');
@@ -518,16 +518,16 @@ export default function accessStatusEnumTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       try {
-        const status = screenLockFileManager.acquireAccess();
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(testHelper.isValidAccessStatus(status)).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(result.includes('Acquire')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('KeyState')).assertTrue();

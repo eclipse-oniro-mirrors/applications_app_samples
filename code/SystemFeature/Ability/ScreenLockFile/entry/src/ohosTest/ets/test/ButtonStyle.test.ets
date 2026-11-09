@@ -24,8 +24,8 @@ import {
   DOMAIN, TAG, ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_QUERY_ALL_BUTTON,
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT, BUTTON_HEIGHT
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function buttonStyleTest(): void {
   describe('ButtonStyleTest', (): void => {
@@ -69,9 +69,9 @@ export default function buttonStyleTest(): void {
      */
     it('testButtonStyle0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testButtonStyle0002');
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -88,9 +88,9 @@ export default function buttonStyleTest(): void {
      */
     it('testButtonStyle0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testButtonStyle0003');
-      const qa = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const qa: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
-      const cl = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const cl: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(qa).assertTrue();
       expect(cl).assertTrue();
       expect(typeof qa).assertEqual('boolean');
@@ -109,7 +109,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0004');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -128,7 +128,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0005');
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -147,7 +147,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0006');
       await clickById(ID_RELEASE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -166,7 +166,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0007');
       await clickById(ID_QUERY_ALL_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('KeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -186,7 +186,7 @@ export default function buttonStyleTest(): void {
       await scrollToId(ID_CLEAR_HISTORY_BUTTON)
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -205,7 +205,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0009');
       const ids: string[] = [ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_QUERY_ALL_BUTTON];
       expect(ids.length).assertEqual(4);
-      for (let i = 0; i < ids.length; i++) {
+      for (let i: number = 0; i < ids.length; i++) {
         expect(typeof ids[i]).assertEqual('string');
         expect(ids[i].length).assertLarger(0);
       }
@@ -224,10 +224,10 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0010');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r1 = await textOfId(ID_OPERATION_RESULT);
+      const r1: string = await textOfId(ID_OPERATION_RESULT);
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r2 = await textOfId(ID_OPERATION_RESULT);
+      const r2: string = await textOfId(ID_OPERATION_RESULT);
       expect(r1 !== r2).assertTrue();
       expect(r1.length).assertLarger(0);
       expect(r2.length).assertLarger(0);
@@ -246,10 +246,10 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0011');
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r1 = await textOfId(ID_OPERATION_RESULT);
+      const r1: string = await textOfId(ID_OPERATION_RESULT);
       await clickById(ID_RELEASE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r2 = await textOfId(ID_OPERATION_RESULT);
+      const r2: string = await textOfId(ID_OPERATION_RESULT);
       expect(r1 !== r2).assertTrue();
       expect(r1.includes('acquireAccess')).assertTrue();
       expect(r2.includes('releaseAccess')).assertTrue();
@@ -289,7 +289,7 @@ export default function buttonStyleTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -308,10 +308,10 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0014');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r1 = await textOfId(ID_OPERATION_RESULT);
+      const r1: string = await textOfId(ID_OPERATION_RESULT);
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const r2 = await textOfId(ID_OPERATION_RESULT);
+      const r2: string = await textOfId(ID_OPERATION_RESULT);
       expect(r1).assertEqual(r2);
       expect(r1.includes('queryAppKeyState')).assertTrue();
       expect(r1.length).assertLarger(0);
@@ -330,11 +330,11 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0015');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const noError1 = await textOfId(ID_OPERATION_RESULT);
+      const noError1: string = await textOfId(ID_OPERATION_RESULT);
       expect(noError1.includes('Error')).assertFalse();
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const noError2 = await textOfId(ID_OPERATION_RESULT);
+      const noError2: string = await textOfId(ID_OPERATION_RESULT);
       expect(noError2.includes('Error')).assertFalse();
       expect(noError1 !== noError2).assertTrue();
       sharedDriver.hilogEnd('testButtonStyle0015');
@@ -352,7 +352,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0016');
       await clickById(ID_RELEASE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const noError = await textOfId(ID_OPERATION_RESULT);
+      const noError: string = await textOfId(ID_OPERATION_RESULT);
       expect(noError.includes('Error')).assertFalse();
       expect(noError.includes('releaseAccess')).assertTrue();
       expect(noError.length).assertLarger(0);
@@ -371,7 +371,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0017');
       await clickById(ID_QUERY_ALL_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const noError = await textOfId(ID_OPERATION_RESULT);
+      const noError: string = await textOfId(ID_OPERATION_RESULT);
       expect(noError.includes('Error')).assertFalse();
       expect(noError.includes('KeyState')).assertTrue();
       expect(noError.length).assertLarger(0);
@@ -390,9 +390,9 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0018');
       const ids: string[] = [ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_QUERY_ALL_BUTTON, ID_CLEAR_HISTORY_BUTTON];
       const unique: string[] = [];
-      for (let i = 0; i < ids.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < unique.length; j++) {
+      for (let i: number = 0; i < ids.length; i++) {
+        let isUnique: boolean = true;
+        for (let j: number = 0; j < unique.length; j++) {
           if (ids[i] === unique[j]) { isUnique = false; }
         }
         if (isUnique) { unique.push(ids[i]); }
@@ -413,11 +413,11 @@ export default function buttonStyleTest(): void {
      */
     it('testButtonStyle0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testButtonStyle0019');
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -436,7 +436,7 @@ export default function buttonStyleTest(): void {
       sharedDriver.hilogBegin('testButtonStyle0020');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes(':')).assertTrue();

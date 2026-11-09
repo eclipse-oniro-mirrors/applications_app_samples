@@ -31,8 +31,8 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function constantsValidationTest(): void {
   describe('ConstantsValidationTest', (): void => {
@@ -261,9 +261,9 @@ export default function constantsValidationTest(): void {
       ];
       expect(componentIds.length).assertEqual(7);
       const unique: string[] = [];
-      for (let i = 0; i < componentIds.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < unique.length; j++) {
+      for (let i: number = 0; i < componentIds.length; i++) {
+        let isUnique: boolean = true;
+        for (let j: number = 0; j < unique.length; j++) {
           if (componentIds[i] === unique[j]) { isUnique = false; }
         }
         if (isUnique) { unique.push(componentIds[i]); }
@@ -304,7 +304,7 @@ export default function constantsValidationTest(): void {
       sharedDriver.hilogBegin('testConstantsValidation0014');
       const keyStatusValues: number[] = [KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST];
       expect(keyStatusValues.length).assertEqual(3);
-      for (let i = 0; i < keyStatusValues.length; i++) {
+      for (let i: number = 0; i < keyStatusValues.length; i++) {
         expect(typeof keyStatusValues[i]).assertEqual('number');
         expect(keyStatusValues[i]).assertLarger(-1);
       }
@@ -328,7 +328,7 @@ export default function constantsValidationTest(): void {
         RELEASE_STATUS_GRANTED, RELEASE_STATUS_DENIED
       ];
       expect(allEnumValues.length).assertEqual(7);
-      for (let i = 0; i < allEnumValues.length; i++) {
+      for (let i: number = 0; i < allEnumValues.length; i++) {
         expect(typeof allEnumValues[i]).assertEqual('number');
       }
       expect(allEnumValues[0]).assertEqual(0);
@@ -346,11 +346,11 @@ export default function constantsValidationTest(): void {
 
     it('testConstantsValidation0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testConstantsValidation0016');
-      const existsQuery = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const existsQuery: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
       expect(existsQuery).assertTrue();
-      const existsAcquire = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const existsAcquire: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
       expect(existsAcquire).assertTrue();
-      const existsRelease = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const existsRelease: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(existsRelease).assertTrue();
       sharedDriver.hilogEnd('testConstantsValidation0016');
     });
@@ -367,11 +367,11 @@ export default function constantsValidationTest(): void {
     it('testConstantsValidation0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testConstantsValidation0017');
       await scrollToId(ID_OPERATION_RESULT)
-      const existsResult = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const existsResult: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(existsResult).assertTrue();
-      const existsPairing = await sharedDriver.existsId(ID_PAIRING_STATUS);
+      const existsPairing: boolean = await sharedDriver.existsId(ID_PAIRING_STATUS);
       expect(existsPairing).assertTrue();
-      const existsClear = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const existsClear: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(existsClear).assertTrue();
       sharedDriver.hilogEnd('testConstantsValidation0017');
     });

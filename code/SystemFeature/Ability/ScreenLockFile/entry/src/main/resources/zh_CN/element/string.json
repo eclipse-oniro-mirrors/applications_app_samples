@@ -87,7 +87,7 @@
     },
     {
       "name": "pairing_status_format",
-      "value": "申请次数：%d，释放次数：%d，待配对：%d",
+      "value": "申请：%d  |  释放：%d  |  待配对：%d",
       "description": "配对状态展示格式"
     },
     {
@@ -109,6 +109,136 @@
       "name": "data_type_enum_title",
       "value": "DataType 枚举值",
       "description": "DataType 枚举程序化展示区域标题"
+    },
+    {
+      "name": "error_suggestion_801",
+      "value": "请检查设备是否支持 ScreenLockFileManager",
+      "description": "错误码 801 的建议"
+    },
+    {
+      "name": "error_suggestion_29300002",
+      "value": "系统服务异常，请重启设备",
+      "description": "错误码 29300002 的建议"
+    },
+    {
+      "name": "error_suggestion_29300003",
+      "value": "请先在 module.json5 中声明 PROTECT_SCREEN_LOCK_DATA 权限",
+      "description": "错误码 29300003 的建议"
+    },
+    {
+      "name": "error_suggestion_29300004",
+      "value": "文件访问被拒绝，请检查密钥状态",
+      "description": "错误码 29300004 的建议"
+    },
+    {
+      "name": "error_suggestion_29300005",
+      "value": "请先调用 acquireAccess 申请访问权限",
+      "description": "错误码 29300005 的建议"
+    },
+    {
+      "name": "error_suggestion_default",
+      "value": "未知错误",
+      "description": "默认错误建议"
+    },
+    {
+      "name": "acquire_precondition_failed",
+      "value": "前置条件不满足\n密钥状态: %s\n请先开启锁屏敏感数据保护功能",
+      "description": "申请访问前置条件失败提示"
+    },
+    {
+      "name": "release_pairing_failed",
+      "value": "配对检查失败\n申请次数: %d，释放次数: %d\n请先调用 acquireAccess 申请访问权限",
+      "description": "释放访问配对检查失败提示"
+    },
+    {
+      "name": "error_suggestion_label",
+      "value": "建议: %s",
+      "description": "错误建议标签格式"
+    },
+    {
+      "name": "key_status_not_exist_format",
+      "value": "KEY_NOT_EXIST (%d)",
+      "description": "密钥不存在状态格式"
+    },
+    {
+      "name": "key_status_released_format",
+      "value": "KEY_RELEASED (%d)",
+      "description": "密钥已释放状态格式"
+    },
+    {
+      "name": "key_status_exist_format",
+      "value": "KEY_EXIST (%d)",
+      "description": "密钥存在状态格式"
+    },
+    {
+      "name": "access_status_granted_format",
+      "value": "ACCESS_GRANTED (%d)",
+      "description": "访问允许状态格式"
+    },
+    {
+      "name": "access_status_denied_format",
+      "value": "ACCESS_DENIED (%d)",
+      "description": "访问拒绝状态格式"
+    },
+    {
+      "name": "release_status_granted_format",
+      "value": "RELEASE_GRANTED (%d)",
+      "description": "释放允许状态格式"
+    },
+    {
+      "name": "release_status_denied_format",
+      "value": "RELEASE_DENIED (%d)",
+      "description": "释放拒绝状态格式"
+    },
+    {
+      "name": "operation_result_format",
+      "value": "%s: %s",
+      "description": "操作结果格式"
+    },
+    {
+      "name": "error_result_format",
+      "value": "%s: %d, %s",
+      "description": "操作错误结果格式"
+    },
+    {
+      "name": "error_with_suggestion_format",
+      "value": "%s\n%s",
+      "description": "错误和建议格式"
+    },
+    {
+      "name": "history_error_format",
+      "value": "Error(%d)",
+      "description": "历史错误格式"
+    },
+    {
+      "name": "precondition_failed_history",
+      "value": "前置条件失败",
+      "description": "申请前置条件失败历史文本"
+    },
+    {
+      "name": "pairing_check_failed_history",
+      "value": "配对检查失败",
+      "description": "释放配对失败历史文本"
+    },
+    {
+      "name": "query_all_states_format",
+      "value": "KeyState: %s | Acquire: %d | Release: %d | Pending: %d",
+      "description": "全部状态结果格式"
+    },
+    {
+      "name": "data_type_media_format",
+      "value": "MEDIA_DATA = %d (0x00000001)",
+      "description": "媒体数据类型值格式"
+    },
+    {
+      "name": "data_type_all_format",
+      "value": "ALL_DATA = %d (0xffffffff)",
+      "description": "全部数据类型值格式"
+    },
+    {
+      "name": "history_timestamp_format",
+      "value": "[%s]",
+      "description": "历史时间戳格式"
     }
   ]
 }

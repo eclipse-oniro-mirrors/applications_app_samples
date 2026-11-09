@@ -26,8 +26,8 @@ import {
 } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function cardStyleTest(): void {
   describe('CardStyleTest', (): void => {
@@ -104,9 +104,9 @@ export default function cardStyleTest(): void {
     it('testCardStyle0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testCardStyle0004');
       await scrollToId(ID_OPERATION_RESULT)
-      const exists = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const exists: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testCardStyle0004');
@@ -123,9 +123,9 @@ export default function cardStyleTest(): void {
     it('testCardStyle0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testCardStyle0005');
       await scrollToId('pairingStatus')
-      const exists = await sharedDriver.existsId('pairingStatus');
+      const exists: boolean = await sharedDriver.existsId('pairingStatus');
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.length).assertLarger(0);
       sharedDriver.hilogEnd('testCardStyle0005');
@@ -143,7 +143,7 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0006');
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertTrue();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(true);
@@ -164,7 +164,7 @@ export default function cardStyleTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertFalse();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(false);
@@ -216,7 +216,7 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0010');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -235,7 +235,7 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0011');
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -254,7 +254,7 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0012');
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -271,7 +271,7 @@ export default function cardStyleTest(): void {
      */
     it('testCardStyle0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testCardStyle0013');
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.includes('Release:')).assertTrue();
       expect(pairing.includes('Pending:')).assertTrue();
@@ -290,7 +290,7 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0014');
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire: 0')).assertTrue();
       expect(pairing.includes('Release: 0')).assertTrue();
       expect(pairing.includes('Pending: 0')).assertTrue();
@@ -325,10 +325,10 @@ export default function cardStyleTest(): void {
       sharedDriver.hilogBegin('testCardStyle0016');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1 !== r2).assertTrue();
       expect(r1.length).assertLarger(0);
       expect(r2.length).assertLarger(0);
@@ -345,7 +345,7 @@ export default function cardStyleTest(): void {
      */
     it('testCardStyle0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testCardStyle0017');
-      const cl = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const cl: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(cl).assertTrue();
       expect(typeof cl).assertEqual('boolean');
       expect(cl).assertEqual(true);
@@ -362,8 +362,8 @@ export default function cardStyleTest(): void {
      */
     it('testCardStyle0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testCardStyle0018');
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(typeof q).assertEqual('boolean');
@@ -387,7 +387,7 @@ export default function cardStyleTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('ready')).assertFalse();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');

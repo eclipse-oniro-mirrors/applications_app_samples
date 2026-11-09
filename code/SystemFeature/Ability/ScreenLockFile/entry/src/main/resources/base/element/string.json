@@ -87,7 +87,7 @@
     },
     {
       "name": "pairing_status_format",
-      "value": "Acquire count: %d, Release count: %d, Pending: %d",
+      "value": "Acquire: %d  |  Release: %d  |  Pending: %d",
       "description": "Pairing status display format"
     },
     {
@@ -109,6 +109,136 @@
       "name": "data_type_enum_title",
       "value": "DataType Enum Values",
       "description": "DataType enum programmatic display section title"
+    },
+    {
+      "name": "error_suggestion_801",
+      "value": "Please check if the device supports ScreenLockFileManager",
+      "description": "Error suggestion for code 801"
+    },
+    {
+      "name": "error_suggestion_29300002",
+      "value": "System service error, please restart the device",
+      "description": "Error suggestion for code 29300002"
+    },
+    {
+      "name": "error_suggestion_29300003",
+      "value": "Please declare PROTECT_SCREEN_LOCK_DATA permission in module.json5",
+      "description": "Error suggestion for code 29300003"
+    },
+    {
+      "name": "error_suggestion_29300004",
+      "value": "File access denied, please check key status",
+      "description": "Error suggestion for code 29300004"
+    },
+    {
+      "name": "error_suggestion_29300005",
+      "value": "Please call acquireAccess first",
+      "description": "Error suggestion for code 29300005"
+    },
+    {
+      "name": "error_suggestion_default",
+      "value": "Unknown error",
+      "description": "Default error suggestion"
+    },
+    {
+      "name": "acquire_precondition_failed",
+      "value": "Precondition not met\nKey status: %s\nPlease enable screen lock sensitive data protection",
+      "description": "Acquire precondition failure message"
+    },
+    {
+      "name": "release_pairing_failed",
+      "value": "Pairing check failed\nAcquire count: %d, Release count: %d\nPlease call acquireAccess first",
+      "description": "Release pairing check failure message"
+    },
+    {
+      "name": "error_suggestion_label",
+      "value": "Suggestion: %s",
+      "description": "Error suggestion label format"
+    },
+    {
+      "name": "key_status_not_exist_format",
+      "value": "KEY_NOT_EXIST (%d)",
+      "description": "Key not exist status format"
+    },
+    {
+      "name": "key_status_released_format",
+      "value": "KEY_RELEASED (%d)",
+      "description": "Key released status format"
+    },
+    {
+      "name": "key_status_exist_format",
+      "value": "KEY_EXIST (%d)",
+      "description": "Key exist status format"
+    },
+    {
+      "name": "access_status_granted_format",
+      "value": "ACCESS_GRANTED (%d)",
+      "description": "Access granted status format"
+    },
+    {
+      "name": "access_status_denied_format",
+      "value": "ACCESS_DENIED (%d)",
+      "description": "Access denied status format"
+    },
+    {
+      "name": "release_status_granted_format",
+      "value": "RELEASE_GRANTED (%d)",
+      "description": "Release granted status format"
+    },
+    {
+      "name": "release_status_denied_format",
+      "value": "RELEASE_DENIED (%d)",
+      "description": "Release denied status format"
+    },
+    {
+      "name": "operation_result_format",
+      "value": "%s: %s",
+      "description": "Operation result format"
+    },
+    {
+      "name": "error_result_format",
+      "value": "%s: %d, %s",
+      "description": "Operation error result format"
+    },
+    {
+      "name": "error_with_suggestion_format",
+      "value": "%s\n%s",
+      "description": "Error and suggestion format"
+    },
+    {
+      "name": "history_error_format",
+      "value": "Error(%d)",
+      "description": "History error format"
+    },
+    {
+      "name": "precondition_failed_history",
+      "value": "Precondition failed",
+      "description": "Acquire precondition failure history text"
+    },
+    {
+      "name": "pairing_check_failed_history",
+      "value": "Pairing check failed",
+      "description": "Release pairing failure history text"
+    },
+    {
+      "name": "query_all_states_format",
+      "value": "KeyState: %s | Acquire: %d | Release: %d | Pending: %d",
+      "description": "Combined state result format"
+    },
+    {
+      "name": "data_type_media_format",
+      "value": "MEDIA_DATA = %d (0x00000001)",
+      "description": "Media data type value format"
+    },
+    {
+      "name": "data_type_all_format",
+      "value": "ALL_DATA = %d (0xffffffff)",
+      "description": "All data type value format"
+    },
+    {
+      "name": "history_timestamp_format",
+      "value": "[%s]",
+      "description": "History timestamp format"
     }
   ]
 }

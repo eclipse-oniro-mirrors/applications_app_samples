@@ -20,8 +20,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function apiStatesTest(): void {
   describe('ApiStatesTest', (): void => {
@@ -50,7 +50,7 @@ export default function apiStatesTest(): void {
     it('testApiStates0001', 0, async (): Promise<void> => {
       hilog.info(DOMAIN, TAG, '%{public}s begin', 'testApiStates0001');
       const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
-      const isValid = status === screenLockFileManager.KeyStatus.KEY_NOT_EXIST ||
+      const isValid: boolean = status === screenLockFileManager.KeyStatus.KEY_NOT_EXIST ||
         status === screenLockFileManager.KeyStatus.KEY_RELEASED ||
         status === screenLockFileManager.KeyStatus.KEY_EXIST;
       hilog.info(DOMAIN, TAG, '%{public}s expects a valid KeyStatus, actual: %{public}d',
@@ -89,13 +89,13 @@ export default function apiStatesTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s begin', 'testApiStates0003');
       try {
         const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
-        const isValid = status === screenLockFileManager.AccessStatus.ACCESS_GRANTED ||
+        const isValid: boolean = status === screenLockFileManager.AccessStatus.ACCESS_GRANTED ||
           status === screenLockFileManager.AccessStatus.ACCESS_DENIED;
         hilog.info(DOMAIN, TAG, '%{public}s expects a valid AccessStatus, actual: %{public}d',
           'testApiStates0003', status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         hilog.info(DOMAIN, TAG, '%{public}s caught BusinessError: code=%{public}d, message=%{public}s',
           'testApiStates0003', err.code, err.message);
         expect(err.code).assertLarger(0);
@@ -116,13 +116,13 @@ export default function apiStatesTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s begin', 'testApiStates0004');
       try {
         const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
-        const isValid = status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED ||
+        const isValid: boolean = status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED ||
           status === screenLockFileManager.ReleaseStatus.RELEASE_DENIED;
         hilog.info(DOMAIN, TAG, '%{public}s expects a valid ReleaseStatus, actual: %{public}d',
           'testApiStates0004', status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         hilog.info(DOMAIN, TAG, '%{public}s caught BusinessError: code=%{public}d, message=%{public}s',
           'testApiStates0004', err.code, err.message);
         expect(err.code).assertLarger(0);
@@ -147,7 +147,7 @@ export default function apiStatesTest(): void {
         hilog.info(DOMAIN, TAG, '%{public}s acquireAccess returned: %{public}d',
           'testApiStates0005', acquireStatus);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         hilog.info(DOMAIN, TAG, '%{public}s acquireAccess threw error: code=%{public}d, message=%{public}s',
           'testApiStates0005', err.code, err.message);
         expect(err.code).assertLarger(0);
@@ -161,7 +161,7 @@ export default function apiStatesTest(): void {
             'testApiStates0005', releaseStatus);
           expect(releaseStatus === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED).assertTrue();
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           hilog.info(DOMAIN, TAG, '%{public}s releaseAccess threw error: code=%{public}d, message=%{public}s',
             'testApiStates0005', err.code, err.message);
           expect(err.code).assertLarger(0);

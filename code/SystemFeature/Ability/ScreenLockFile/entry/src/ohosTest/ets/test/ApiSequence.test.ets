@@ -19,12 +19,13 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
 import { TestHelper } from './TestHelper';
+import { PairingCounts } from './SharedDriverExt';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function apiSequenceTest(): void {
   describe('ApiSequenceTest', (): void => {
@@ -53,17 +54,17 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0001');
-      const s1 = screenLockFileManager.queryAppKeyState();
+      const s1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(s1)).assertTrue();
       try {
-        const s2 = screenLockFileManager.acquireAccess();
+        const s2: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(testHelper.isValidAccessStatus(s2)).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const s3 = screenLockFileManager.queryAppKeyState();
+      const s3: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(s3)).assertTrue();
       sharedDriver.hilogEnd('testApiSequence0001');
     });
@@ -80,16 +81,16 @@ export default function apiSequenceTest(): void {
     it('testApiSequence0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0002');
       try {
-        const acq = screenLockFileManager.acquireAccess();
+        const acq: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(testHelper.isValidAccessStatus(acq)).assertTrue();
-        const rel = screenLockFileManager.releaseAccess();
+        const rel: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(rel)).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const q = screenLockFileManager.queryAppKeyState();
+      const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q)).assertTrue();
       expect(typeof q).assertEqual('number');
       sharedDriver.hilogEnd('testApiSequence0002');
@@ -107,14 +108,14 @@ export default function apiSequenceTest(): void {
     it('testApiSequence0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0003');
       try {
-        const rel = screenLockFileManager.releaseAccess();
+        const rel: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(rel)).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const q = screenLockFileManager.queryAppKeyState();
+      const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q)).assertTrue();
       expect(q).assertLarger(-1);
       sharedDriver.hilogEnd('testApiSequence0003');
@@ -131,8 +132,8 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0004');
-      const q1 = screenLockFileManager.queryAppKeyState();
-      const q2 = screenLockFileManager.queryAppKeyState();
+      const q1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const q2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(q1).assertEqual(q2);
       expect(testHelper.isValidKeyStatus(q1)).assertTrue();
       expect(typeof q1).assertEqual('number');
@@ -154,11 +155,11 @@ export default function apiSequenceTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const q = screenLockFileManager.queryAppKeyState();
+      const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q)).assertTrue();
       expect(typeof q).assertEqual('number');
       sharedDriver.hilogEnd('testApiSequence0005');
@@ -180,11 +181,11 @@ export default function apiSequenceTest(): void {
         screenLockFileManager.releaseAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const q = screenLockFileManager.queryAppKeyState();
+      const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q)).assertTrue();
       expect(typeof q).assertEqual('number');
       sharedDriver.hilogEnd('testApiSequence0006');
@@ -206,7 +207,7 @@ export default function apiSequenceTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(result.includes('KeyState')).assertTrue();
       expect(result.includes('Acquire')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -230,7 +231,7 @@ export default function apiSequenceTest(): void {
       await sharedDriver.clickId('queryKeyStateButton');
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(result.includes('KeyState')).assertTrue();
       expect(result.includes('Release')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -248,11 +249,11 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0009', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0009');
-      const q1 = screenLockFileManager.queryAppKeyState();
+      const q1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       try { screenLockFileManager.acquireAccess(); } catch (e) { /* expected */ }
-      const q2 = screenLockFileManager.queryAppKeyState();
+      const q2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       try { screenLockFileManager.releaseAccess(); } catch (e) { /* expected */ }
-      const q3 = screenLockFileManager.queryAppKeyState();
+      const q3: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q1)).assertTrue();
       expect(testHelper.isValidKeyStatus(q2)).assertTrue();
       expect(testHelper.isValidKeyStatus(q3)).assertTrue();
@@ -272,13 +273,13 @@ export default function apiSequenceTest(): void {
       sharedDriver.hilogBegin('testApiSequence0010');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertTrue();
       await sharedDriver.clickId('queryKeyStateButton');
       await sharedDriver.waitUiIdle();
-      const hasHistory = await sharedDriver.existsId('noHistoryText');
+      const hasHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(hasHistory).assertFalse();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testApiSequence0010');
     });
@@ -294,12 +295,12 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0011');
-      for (let i = 0; i < 3; i++) {
-        const q = screenLockFileManager.queryAppKeyState();
+      for (let i: number = 0; i < 3; i++) {
+        const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         expect(testHelper.isValidKeyStatus(q)).assertTrue();
       }
       expect(typeof screenLockFileManager.queryAppKeyState()).assertEqual('number');
-      const q = screenLockFileManager.queryAppKeyState();
+      const q: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(q).assertLarger(-1);
       sharedDriver.hilogEnd('testApiSequence0011');
     });
@@ -319,10 +320,10 @@ export default function apiSequenceTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const counts1 = await testHelper.getExtDriver().parsePairingCounts();
+      const counts1: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const counts2 = await testHelper.getExtDriver().parsePairingCounts();
+      const counts2: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       expect(counts2.acquire).assertLarger(counts1.acquire - 1);
       expect(counts2.acquire).assertLarger(-1);
       expect(typeof counts2.acquire).assertEqual('number');
@@ -345,7 +346,7 @@ export default function apiSequenceTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('RELEASE_')).assertTrue();
@@ -369,7 +370,7 @@ export default function apiSequenceTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.clickId('queryAllStatesButton');
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('KeyState')).assertTrue();
       expect(result.includes('Acquire')).assertTrue();
       expect(result.includes('Release')).assertTrue();
@@ -393,9 +394,9 @@ export default function apiSequenceTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.length).assertLarger(0);
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertTrue();
       expect(typeof noHistory).assertEqual('boolean');
       sharedDriver.hilogEnd('testApiSequence0015');
@@ -412,10 +413,10 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0016');
-      const q1 = screenLockFileManager.queryAppKeyState();
+      const q1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       try { screenLockFileManager.acquireAccess(); } catch (e) { /* expected */ }
       try { screenLockFileManager.releaseAccess(); } catch (e) { /* expected */ }
-      const q2 = screenLockFileManager.queryAppKeyState();
+      const q2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q1)).assertTrue();
       expect(testHelper.isValidKeyStatus(q2)).assertTrue();
       expect(q1).assertEqual(q2);
@@ -435,13 +436,13 @@ export default function apiSequenceTest(): void {
       sharedDriver.hilogBegin('testApiSequence0017');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('queryKeyStateButton');
         await sharedDriver.waitUiIdle();
       }
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertFalse();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.length).assertLarger(0);
       expect(result.includes('queryAppKeyState')).assertTrue();
       sharedDriver.hilogEnd('testApiSequence0017');
@@ -460,11 +461,11 @@ export default function apiSequenceTest(): void {
       sharedDriver.hilogBegin('testApiSequence0018');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const counts = await testHelper.getExtDriver().parsePairingCounts();
+      const counts: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(counts.pending).assertLarger(0);
       expect(typeof counts.acquire).assertEqual('number');
@@ -484,15 +485,15 @@ export default function apiSequenceTest(): void {
       sharedDriver.hilogBegin('testApiSequence0019');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('releaseAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const counts = await testHelper.getExtDriver().parsePairingCounts();
+      const counts: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertLarger(0);
       expect(counts.release).assertLarger(0);
@@ -510,14 +511,14 @@ export default function apiSequenceTest(): void {
 
     it('testApiSequence0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiSequence0020');
-      const q1 = screenLockFileManager.queryAppKeyState();
+      const q1: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(q1)).assertTrue();
       await sharedDriver.clickId('queryKeyStateButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
+      const result: string = await sharedDriver.getTextById('operationResult');
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
-      const q2 = screenLockFileManager.queryAppKeyState();
+      const q2: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(q1).assertEqual(q2);
       sharedDriver.hilogEnd('testApiSequence0020');
     });

@@ -17,20 +17,20 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN = 0x0001;
-const TAG = '[Sample_ScreenLockFile]';
-const PAGE_PADDING = 24;
-const SECTION_SPACING = 16;
-const ITEM_SPACING = 12;
-const TITLE_FONT_SIZE = 28;
-const SUBTITLE_FONT_SIZE = 20;
-const BODY_FONT_SIZE = 16;
-const SMALL_FONT_SIZE = 14;
-const CONTENT_MAX_WIDTH = 720;
-const BUTTON_HEIGHT = 48;
-const CARD_RADIUS = 12;
-const CARD_PADDING = 20;
-const MAX_HISTORY_SIZE = 10;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ScreenLockFile]';
+const PAGE_PADDING: number = 24;
+const SECTION_SPACING: number = 16;
+const ITEM_SPACING: number = 12;
+const TITLE_FONT_SIZE: number = 28;
+const SUBTITLE_FONT_SIZE: number = 20;
+const BODY_FONT_SIZE: number = 16;
+const SMALL_FONT_SIZE: number = 14;
+const CONTENT_MAX_WIDTH: number = 720;
+const BUTTON_HEIGHT: number = 48;
+const CARD_RADIUS: number = 12;
+const CARD_PADDING: number = 20;
+const MAX_HISTORY_SIZE: number = 10;
 
 interface OperationRecord {
   operation: string;
@@ -47,30 +47,30 @@ export struct ScreenLockFileHome {
 
   private getKeyStatusName(status: screenLockFileManager.KeyStatus): string {
     if (status === screenLockFileManager.KeyStatus.KEY_NOT_EXIST) {
-      return `KEY_NOT_EXIST (${status})`;
+      return getContext(this).resourceManager.getStringSync($r('app.string.key_status_not_exist_format'), status);
     }
     if (status === screenLockFileManager.KeyStatus.KEY_RELEASED) {
-      return `KEY_RELEASED (${status})`;
+      return getContext(this).resourceManager.getStringSync($r('app.string.key_status_released_format'), status);
     }
-    return `KEY_EXIST (${status})`;
+    return getContext(this).resourceManager.getStringSync($r('app.string.key_status_exist_format'), status);
   }
 
   private getAccessStatusName(status: screenLockFileManager.AccessStatus): string {
     if (status === screenLockFileManager.AccessStatus.ACCESS_GRANTED) {
-      return `ACCESS_GRANTED (${status})`;
+      return getContext(this).resourceManager.getStringSync($r('app.string.access_status_granted_format'), status);
     }
-    return `ACCESS_DENIED (${status})`;
+    return getContext(this).resourceManager.getStringSync($r('app.string.access_status_denied_format'), status);
   }
 
   private getReleaseStatusName(status: screenLockFileManager.ReleaseStatus): string {
     if (status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED) {
-      return `RELEASE_GRANTED (${status})`;
+      return getContext(this).resourceManager.getStringSync($r('app.string.release_status_granted_format'), status);
     }
-    return `RELEASE_DENIED (${status})`;
+    return getContext(this).resourceManager.getStringSync($r('app.string.release_status_denied_format'), status);
   }
 
   private getPendingCount(): number {
-    const pending = this.acquireCount - this.releaseCount;
+    const pending: number = this.acquireCount - this.releaseCount;
     if (pending < 0) {
       return 0;
     }
@@ -78,10 +78,10 @@ export struct ScreenLockFileHome {
   }
 
   private formatTimestamp(): string {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const now: Date = new Date();
+    const hours: string = now.getHours().toString().padStart(2, '0');
+    const minutes: string = now.getMinutes().toString().padStart(2, '0');
+    const seconds: string = now.getSeconds().toString().padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
   }
 
@@ -93,34 +93,39 @@ export struct ScreenLockFileHome {
     };
     const newHistory: OperationRecord[] = [];
     newHistory.push(record);
-    for (let i = 0; i < this.operationHistory.length && i < MAX_HISTORY_SIZE - 1; i++) {
+    for (let i: number = 0; i < this.operationHistory.length && i < MAX_HISTORY_SIZE - 1; i++) {
       newHistory.push(this.operationHistory[i]);
     }
     this.operationHistory = newHistory;
   }
 
-  private getErrorSuggestion(code: number): string {
+  private getErrorSuggestion(code: number): Resource {
     switch (code) {
       case 801:
-        return '请检查设备是否支持 ScreenLockFileManager';
+        return $r('app.string.error_suggestion_801');
       case 29300002:
-        return '系统服务异常，请重启设备';
+        return $r('app.string.error_suggestion_29300002');
       case 29300003:
-        return '请先在 module.json5 中声明 PROTECT_SCREEN_LOCK_DATA 权限';
+        return $r('app.string.error_suggestion_29300003');
       case 29300004:
-        return '文件访问被拒绝，请检查密钥状态';
+        return $r('app.string.error_suggestion_29300004');
       case 29300005:
-        return '请先调用 acquireAccess 申请访问权限';
+        return $r('app.string.error_suggestion_29300005');
       default:
-        return '未知错误';
+        return $r('app.string.error_suggestion_default');
     }
   }
 
   private showError(operation: string, error: BusinessError): void {
-    const errorMsg = `${operation}: ${error.code}, ${error.message}`;
-    const suggestion = this.getErrorSuggestion(error.code);
-    this.operationResult = `${errorMsg}\n建议: ${suggestion}`;
-    this.addHistory(operation, `Error(${error.code})`);
+    const errorMsg: string = getContext(this).resourceManager.getStringSync(
+      $r('app.string.error_result_format'), operation, error.code, error.message);
+    const suggestion: string = getContext(this).resourceManager.getStringSync(this.getErrorSuggestion(error.code));
+    const suggestionText: string = getContext(this).resourceManager.getStringSync(
+      $r('app.string.error_suggestion_label'), suggestion);
+    this.operationResult = getContext(this).resourceManager.getStringSync(
+      $r('app.string.error_with_suggestion_format'), errorMsg, suggestionText);
+    this.addHistory(operation, getContext(this).resourceManager.getStringSync(
+      $r('app.string.history_error_format'), error.code));
     hilog.error(DOMAIN, TAG, '%{public}s failed. Code: %{public}d, message: %{public}s',
       operation, error.code, error.message);
   }
@@ -128,7 +133,8 @@ export struct ScreenLockFileHome {
   private queryKeyState(): void {
     try {
       const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
-      const resultText = `queryAppKeyState: ${this.getKeyStatusName(status)}`;
+      const resultText: string = getContext(this).resourceManager.getStringSync(
+        $r('app.string.operation_result_format'), 'queryAppKeyState', this.getKeyStatusName(status));
       this.operationResult = resultText;
       this.addHistory('queryAppKeyState', this.getKeyStatusName(status));
       hilog.info(DOMAIN, TAG, 'queryAppKeyState succeeded. Status: %{public}d', status);
@@ -142,17 +148,20 @@ export struct ScreenLockFileHome {
       // 前置条件检查: 查询密钥状态是否为 KEY_EXIST
       const keyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       if (keyStatus !== screenLockFileManager.KeyStatus.KEY_EXIST) {
-        const keyName = this.getKeyStatusName(keyStatus);
-        const tipText = `前置条件不满足\n密钥状态: ${keyName}\n请先开启锁屏敏感数据保护功能`;
+        const keyName: string = this.getKeyStatusName(keyStatus);
+        const tipText: string = getContext(this).resourceManager.getStringSync(
+          $r('app.string.acquire_precondition_failed'), keyName);
         this.operationResult = tipText;
-        this.addHistory('acquireAccess', 'Precondition failed');
+        this.addHistory('acquireAccess', getContext(this).resourceManager.getStringSync(
+          $r('app.string.precondition_failed_history')));
         hilog.warn(DOMAIN, TAG, 'acquireAccess precondition failed. KeyStatus: %{public}d', keyStatus);
         return;
       }
 
       // 调用 acquireAccess 申请访问权限
       const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
-      const resultText = `acquireAccess: ${this.getAccessStatusName(status)}`;
+      const resultText: string = getContext(this).resourceManager.getStringSync(
+        $r('app.string.operation_result_format'), 'acquireAccess', this.getAccessStatusName(status));
       this.operationResult = resultText;
       if (status === screenLockFileManager.AccessStatus.ACCESS_GRANTED) {
         this.acquireCount = this.acquireCount + 1;
@@ -168,10 +177,11 @@ export struct ScreenLockFileHome {
     try {
       // 前置条件检查: 确认已申请访问权限
       if (this.acquireCount <= this.releaseCount) {
-        const tipText =
-          `配对检查失败\n申请次数: ${this.acquireCount}，释放次数: ${this.releaseCount}\n请先调用 acquireAccess 申请访问权限`;
+        const tipText: string = getContext(this).resourceManager.getStringSync(
+          $r('app.string.release_pairing_failed'), this.acquireCount, this.releaseCount);
         this.operationResult = tipText;
-        this.addHistory('releaseAccess', 'Pairing check failed');
+        this.addHistory('releaseAccess', getContext(this).resourceManager.getStringSync(
+          $r('app.string.pairing_check_failed_history')));
         hilog.warn(DOMAIN, TAG, 'releaseAccess pairing check failed. Acquire: %{public}d, Release: %{public}d',
           this.acquireCount, this.releaseCount);
         return;
@@ -179,7 +189,8 @@ export struct ScreenLockFileHome {
 
       // 调用 releaseAccess 释放访问权限
       const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
-      const resultText = `releaseAccess: ${this.getReleaseStatusName(status)}`;
+      const resultText: string = getContext(this).resourceManager.getStringSync(
+        $r('app.string.operation_result_format'), 'releaseAccess', this.getReleaseStatusName(status));
       this.operationResult = resultText;
       if (status === screenLockFileManager.ReleaseStatus.RELEASE_GRANTED) {
         this.releaseCount = this.releaseCount + 1;
@@ -194,9 +205,10 @@ export struct ScreenLockFileHome {
   private queryAllStates(): void {
     try {
       const keyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
-      const keyName = this.getKeyStatusName(keyStatus);
-      const allResult =
-        `KeyState: ${keyName} | Acquire: ${this.acquireCount} | Release: ${this.releaseCount} | Pending: ${this.getPendingCount()}`;
+      const keyName: string = this.getKeyStatusName(keyStatus);
+      const allResult: string = getContext(this).resourceManager.getStringSync(
+        $r('app.string.query_all_states_format'), keyName, this.acquireCount, this.releaseCount,
+        this.getPendingCount());
       this.operationResult = allResult;
       this.addHistory('queryAllStates', allResult);
       hilog.info(DOMAIN, TAG, 'queryAllStates. KeyStatus: %{public}d, acquire: %{public}d, release: %{public}d',
@@ -208,8 +220,6 @@ export struct ScreenLockFileHome {
 
   private clearHistory(): void {
     this.operationHistory = [];
-    this.acquireCount = 0;
-    this.releaseCount = 0;
     this.operationResult = $r('app.string.operation_ready');
     hilog.info(DOMAIN, TAG, '%{public}s', 'Operation history cleared.');
   }
@@ -263,11 +273,13 @@ export struct ScreenLockFileHome {
             .fontWeight(FontWeight.Medium)
             .fontColor($r('app.color.primary_text'))
             .width('100%')
-          Text(`MEDIA_DATA = ${screenLockFileManager.DataType.MEDIA_DATA} (0x00000001)`)
+          Text(getContext(this).resourceManager.getStringSync($r('app.string.data_type_media_format'),
+            screenLockFileManager.DataType.MEDIA_DATA))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width('100%')
-          Text(`ALL_DATA = ${screenLockFileManager.DataType.ALL_DATA} (0xffffffff)`)
+          Text(getContext(this).resourceManager.getStringSync($r('app.string.data_type_all_format'),
+            screenLockFileManager.DataType.ALL_DATA))
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.secondary_text'))
             .width('100%')
@@ -343,7 +355,8 @@ export struct ScreenLockFileHome {
             .fontWeight(FontWeight.Medium)
             .fontColor($r('app.color.primary_text'))
             .width('100%')
-          Text(`Acquire: ${this.acquireCount}  |  Release: ${this.releaseCount}  |  Pending: ${this.getPendingCount()}`)
+          Text(getContext(this).resourceManager.getStringSync($r('app.string.pairing_status_format'),
+            this.acquireCount, this.releaseCount, this.getPendingCount()))
             .id('pairingStatus')
             .fontSize(BODY_FONT_SIZE)
             .fontColor($r('app.color.result_text'))
@@ -383,7 +396,9 @@ export struct ScreenLockFileHome {
 
           ForEach(this.operationHistory, (record: OperationRecord) => {
             Row() {
-              Text(`[${record.timestamp}]`)
+              Text(getContext(this)
+                .resourceManager
+                .getStringSync($r('app.string.history_timestamp_format'), record.timestamp))
                 .fontSize(SMALL_FONT_SIZE)
                 .fontColor($r('app.color.secondary_text'))
                 .width(70)

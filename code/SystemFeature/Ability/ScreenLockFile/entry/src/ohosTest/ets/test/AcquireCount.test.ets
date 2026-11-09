@@ -18,14 +18,14 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { TestHelper } from './TestHelper';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function acquireCountTest(): void {
   describe('AcquireCountTest', (): void => {
@@ -55,15 +55,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0001');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0001');
     });
@@ -80,15 +80,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0002');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0002');
     });
@@ -105,15 +105,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0003');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0003');
     });
@@ -130,15 +130,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0004');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0004');
     });
@@ -155,15 +155,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0005');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0005');
     });
@@ -180,15 +180,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0006');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0006');
     });
@@ -205,15 +205,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0007');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0007');
     });
@@ -230,15 +230,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0008');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0008');
     });
@@ -255,15 +255,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0009', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0009');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0009');
     });
@@ -280,15 +280,15 @@ export default function acquireCountTest(): void {
     it('testAcquireCount0010', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAcquireCount0010');
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.acquire).assertEqual(0);
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.acquire).assertLarger(-1);
       expect(typeof afterCounts.acquire).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testAcquireCount0010');
     });
@@ -306,15 +306,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0011');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0011');
@@ -333,15 +333,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0012');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0012');
@@ -360,15 +360,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0013');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0013');
@@ -387,15 +387,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0014');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0014');
@@ -414,15 +414,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0015');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0015');
@@ -441,15 +441,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0016');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0016');
@@ -468,15 +468,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0017');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0017');
@@ -495,15 +495,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0018');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0018');
@@ -522,15 +522,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0019');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0019');
@@ -549,15 +549,15 @@ export default function acquireCountTest(): void {
       sharedDriver.hilogBegin('testAcquireCount0020');
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.acquireAccess();
-        const isValid = testHelper.isValidAccessStatus(status);
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
+        const isValid: boolean = testHelper.isValidAccessStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(counts.acquire).assertLarger(-1);
       sharedDriver.hilogEnd('testAcquireCount0020');
@@ -577,7 +577,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -599,7 +599,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -621,7 +621,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -643,7 +643,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -665,7 +665,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -687,7 +687,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -709,7 +709,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -731,7 +731,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -753,7 +753,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -775,7 +775,7 @@ export default function acquireCountTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);

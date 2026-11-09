@@ -19,8 +19,8 @@ import { SharedDriver } from './SharedDriver';
 import { ABILITY_NAME, BUNDLE_NAME } from './TestConstants';
 import { scrollToId } from '../testkit/SharedDriver';
 
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityLifecycleTest(): void {
   describe('AbilityLifecycleTest', (): void => {
@@ -48,7 +48,7 @@ export default function abilityLifecycleTest(): void {
      */
     it('testAbilityLifecycle0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testAbilityLifecycle0001');
-      const exists = await sharedDriver.existsId('queryKeyStateButton');
+      const exists: boolean = await sharedDriver.existsId('queryKeyStateButton');
       sharedDriver.hilogAssert('testAbilityLifecycle0001', 'expects queryKeyStateButton to exist', exists.toString());
       expect(exists).assertTrue();
       sharedDriver.hilogEnd('testAbilityLifecycle0001');
@@ -73,7 +73,7 @@ export default function abilityLifecycleTest(): void {
       sharedDriver.hilogAssert('testAbilityLifecycle0002', 'checking queryAllStatesButton', '');
       await sharedDriver.assertComponentExist('queryAllStatesButton');
       sharedDriver.hilogAssert('testAbilityLifecycle0002', 'checking operationResult', '');
-      const driver = Driver.create();
+      const driver: Driver = Driver.create();
       await driver.findComponent(ON.id('operationResult'));
       sharedDriver.hilogAssert('testAbilityLifecycle0002', 'checking pairingStatus', '');
       await driver.findComponent(ON.id('pairingStatus'));
@@ -92,7 +92,7 @@ export default function abilityLifecycleTest(): void {
       sharedDriver.hilogBegin('testAbilityLifecycle0003');
       await sharedDriver.waitUiIdle();
       await scrollToId('operationResult');
-      const resultText = await sharedDriver.getTextById('operationResult');
+      const resultText: string = await sharedDriver.getTextById('operationResult');
       sharedDriver.hilogAssert('testAbilityLifecycle0003', 'initial result text', resultText);
       expect(resultText.length > 0).assertTrue();
       sharedDriver.hilogEnd('testAbilityLifecycle0003');

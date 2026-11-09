@@ -18,8 +18,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
-const DOMAIN = 0x0001;
-const TAG = '[Sample_ScreenLockFile]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ScreenLockFile]';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {

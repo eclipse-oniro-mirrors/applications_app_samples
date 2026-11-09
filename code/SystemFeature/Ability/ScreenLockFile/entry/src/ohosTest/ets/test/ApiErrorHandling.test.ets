@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
@@ -29,10 +29,10 @@ import {
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST,
   ACCESS_STATUS_GRANTED, RELEASE_STATUS_GRANTED
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function apiErrorHandlingTest(): void {
   describe('ApiErrorHandlingTest', (): void => {
@@ -60,14 +60,14 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0001');
-      let caught = false;
+      let caught: boolean = false
       try {
-        const status = screenLockFileManager.queryAppKeyState();
+        const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         expect(testHelper.isValidKeyStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
         caught = true;
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
@@ -85,14 +85,14 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0002');
-      let caught = false;
+      let caught: boolean = false
       try {
         const status: number = screenLockFileManager.acquireAccess();
         expect(status === ACCESS_STATUS_GRANTED || status === 1).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
         caught = true;
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
@@ -110,14 +110,14 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0003');
-      let caught = false;
+      let caught: boolean = false
       try {
         const status: number = screenLockFileManager.releaseAccess();
         expect(status === RELEASE_STATUS_GRANTED || status === 1).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
         caught = true;
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
@@ -135,7 +135,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0004');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.errorMessage).assertEqual('string');
@@ -152,7 +152,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0005');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.timestamp).assertEqual('number');
@@ -169,7 +169,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0006');
-      const result = testHelper.releaseAccess();
+      const result: ApiCallResult = testHelper.releaseAccess();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.timestamp).assertEqual('number');
@@ -187,7 +187,7 @@ export default function apiErrorHandlingTest(): void {
     it('testApiErrorHandling0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0007');
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('ready') || result.includes('queryAppKeyState') ||
@@ -208,12 +208,12 @@ export default function apiErrorHandlingTest(): void {
       sharedDriver.hilogBegin('testApiErrorHandling0008');
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       await clickById(ID_QUERY_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       sharedDriver.hilogEnd('testApiErrorHandling0008');
     });
@@ -230,10 +230,10 @@ export default function apiErrorHandlingTest(): void {
       sharedDriver.hilogBegin('testApiErrorHandling0009');
       await extDriver.clearHistoryAndWait();
       testHelper.releaseAccess();
-      const acqResult = testHelper.acquireAccess();
+      const acqResult: ApiCallResult = testHelper.acquireAccess();
       expect(typeof acqResult.success).assertEqual('boolean');
       expect(typeof acqResult.errorCode).assertEqual('number');
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       sharedDriver.hilogEnd('testApiErrorHandling0009');
     });
@@ -250,10 +250,10 @@ export default function apiErrorHandlingTest(): void {
       sharedDriver.hilogBegin('testApiErrorHandling0010');
       testHelper.acquireAccess();
       testHelper.acquireAccess();
-      const relResult = testHelper.releaseAccess();
+      const relResult: ApiCallResult = testHelper.releaseAccess();
       expect(typeof relResult.success).assertEqual('boolean');
       expect(typeof relResult.errorCode).assertEqual('number');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testApiErrorHandling0010');
     });
@@ -271,7 +271,7 @@ export default function apiErrorHandlingTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -288,7 +288,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0012');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(result.errorCode).assertLarger(-1);
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.success).assertEqual('boolean');
@@ -305,7 +305,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0013');
-      const result = testHelper.acquireAccess();
+      const result: ApiCallResult = testHelper.acquireAccess();
       expect(typeof result.errorMessage).assertEqual('string');
       expect(typeof result.errorCode).assertEqual('number');
       expect(typeof result.success).assertEqual('boolean');
@@ -322,9 +322,9 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0014');
-      const before = Date.now();
-      const result = testHelper.queryKeyState();
-      const after = Date.now();
+      const before: number = Date.now();
+      const result: ApiCallResult = testHelper.queryKeyState();
+      const after: number = Date.now();
       expect(result.timestamp).assertLarger(before - 1);
       expect(result.timestamp).assertLess(after + 1);
       expect(typeof result.timestamp).assertEqual('number');
@@ -342,7 +342,7 @@ export default function apiErrorHandlingTest(): void {
     it('testApiErrorHandling0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0015');
       testHelper.releaseAccess();
-      const result = await extDriver.clickQueryAllButton();
+      const result: string = await extDriver.clickQueryAllButton();
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -359,9 +359,9 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0016');
-      const qExists = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const aExists = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const rExists = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const qExists: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const aExists: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const rExists: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(qExists).assertTrue();
       expect(aExists).assertTrue();
       expect(rExists).assertTrue();
@@ -380,7 +380,7 @@ export default function apiErrorHandlingTest(): void {
       sharedDriver.hilogBegin('testApiErrorHandling0017');
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
       expect(result.includes('queryAppKeyState') || result.includes('KEY_')).assertTrue();
@@ -401,9 +401,9 @@ export default function apiErrorHandlingTest(): void {
       testHelper.releaseAccess();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testApiErrorHandling0018');
@@ -420,7 +420,7 @@ export default function apiErrorHandlingTest(): void {
     it('testApiErrorHandling0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0019');
       testHelper.releaseAccess();
-      const snapshot = await testHelper.captureStateSnapshot();
+      const snapshot: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(typeof snapshot.keyStatus).assertEqual('number');
       expect(typeof snapshot.operationResult).assertEqual('string');
       expect(typeof snapshot.pairingText).assertEqual('string');
@@ -438,10 +438,10 @@ export default function apiErrorHandlingTest(): void {
     it('testApiErrorHandling0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0020');
       testHelper.releaseAccess();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testApiErrorHandling0020');
     });
@@ -456,7 +456,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0021', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0021');
-      const name = testHelper.getKeyStatusName(-1);
+      const name: string = testHelper.getKeyStatusName(-1);
       expect(name).assertEqual('UNKNOWN');
       expect(name.length).assertLarger(0);
       expect(typeof name).assertEqual('string');
@@ -473,7 +473,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0022');
-      const name = testHelper.getAccessStatusName(2);
+      const name: string = testHelper.getAccessStatusName(2);
       expect(name).assertEqual('UNKNOWN');
       expect(name.length).assertLarger(0);
       expect(typeof name).assertEqual('string');
@@ -490,7 +490,7 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0023');
-      const name = testHelper.getReleaseStatusName(2);
+      const name: string = testHelper.getReleaseStatusName(2);
       expect(name).assertEqual('UNKNOWN');
       expect(name.length).assertLarger(0);
       expect(typeof name).assertEqual('string');
@@ -507,13 +507,13 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0024');
-      let opCount = 0;
-      for (let i = 0; i < 5; i++) {
+      let opCount: number = 0;
+      for (let i: number = 0; i < 5; i++) {
         testHelper.queryKeyState();
         opCount = opCount + 1;
       }
       expect(opCount).assertEqual(5);
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testApiErrorHandling0024');
@@ -529,10 +529,10 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0025', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0025');
-      const exists = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const exists: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(exists).assertTrue();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       sharedDriver.hilogEnd('testApiErrorHandling0025');
@@ -548,9 +548,9 @@ export default function apiErrorHandlingTest(): void {
      */
     it('testApiErrorHandling0026', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiErrorHandling0026');
-      const exists = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const exists: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
       expect(exists).assertTrue();
-      const result = await extDriver.clickQueryAllButton();
+      const result: string = await extDriver.clickQueryAllButton();
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.length).assertLarger(10);
       sharedDriver.hilogEnd('testApiErrorHandling0026');
@@ -569,9 +569,9 @@ export default function apiErrorHandlingTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       testHelper.queryKeyState();
-      const stable = await testHelper.waitForStableState(2000);
+      const stable: boolean = await testHelper.waitForStableState(2000);
       expect(stable).assertTrue();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
       sharedDriver.hilogEnd('testApiErrorHandling0027');
@@ -589,7 +589,7 @@ export default function apiErrorHandlingTest(): void {
       sharedDriver.hilogBegin('testApiErrorHandling0028');
       await clickById(ID_ACQUIRE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess') || result.includes('ACCESS_') ||
         result.includes('Error')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -610,7 +610,7 @@ export default function apiErrorHandlingTest(): void {
       testHelper.acquireAccess();
       await clickById(ID_RELEASE_BUTTON)
       await scrollToId(ID_OPERATION_RESULT)
-      const result = await textOfId(ID_OPERATION_RESULT);
+      const result: string = await textOfId(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess') || result.includes('RELEASE_') ||
         result.includes('Error')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -631,7 +631,7 @@ export default function apiErrorHandlingTest(): void {
       await extDriver.clearHistoryAndWait();
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const result = await extDriver.fullWorkflowAcquireRelease();
+      const result: string[] = await extDriver.fullWorkflowAcquireRelease();
       expect(result.length).assertEqual(2);
       expect(typeof result[0]).assertEqual('string');
       expect(typeof result[1]).assertEqual('string');

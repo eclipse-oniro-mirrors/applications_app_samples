@@ -21,8 +21,8 @@ import { SharedDriver } from './SharedDriver';
 import { clickById, scrollToId, textOfId } from '../testkit/SharedDriver';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function apiReturnTypeTest(): void {
   describe('ApiReturnTypeTest', (): void => {
@@ -51,7 +51,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0001');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(typeof status).assertEqual('number');
       expect(status).assertLarger(-1);
       expect(status).assertLess(3);
@@ -70,12 +70,12 @@ export default function apiReturnTypeTest(): void {
     it('testApiReturnType0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0002');
       try {
-        const status = screenLockFileManager.acquireAccess();
+        const status: screenLockFileManager.AccessStatus = screenLockFileManager.acquireAccess();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
         expect(status).assertLess(2);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -95,12 +95,12 @@ export default function apiReturnTypeTest(): void {
     it('testApiReturnType0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0003');
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
         expect(status).assertLess(2);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -119,10 +119,9 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0004');
-      const keyStatus = screenLockFileManager.KeyStatus;
-      expect(typeof keyStatus).assertEqual('object');
-      expect(typeof keyStatus.KEY_NOT_EXIST).assertEqual('number');
-      expect(typeof keyStatus.KEY_RELEASED).assertEqual('number');
+      expect(typeof screenLockFileManager.KeyStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.KeyStatus.KEY_NOT_EXIST).assertEqual('number');
+      expect(typeof screenLockFileManager.KeyStatus.KEY_RELEASED).assertEqual('number');
       sharedDriver.hilogEnd('testApiReturnType0004');
     });
 
@@ -137,10 +136,9 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0005');
-      const accessStatus = screenLockFileManager.AccessStatus;
-      expect(typeof accessStatus).assertEqual('object');
-      expect(typeof accessStatus.ACCESS_GRANTED).assertEqual('number');
-      expect(typeof accessStatus.ACCESS_DENIED).assertEqual('number');
+      expect(typeof screenLockFileManager.AccessStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.AccessStatus.ACCESS_GRANTED).assertEqual('number');
+      expect(typeof screenLockFileManager.AccessStatus.ACCESS_DENIED).assertEqual('number');
       sharedDriver.hilogEnd('testApiReturnType0005');
     });
 
@@ -155,10 +153,9 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0006');
-      const releaseStatus = screenLockFileManager.ReleaseStatus;
-      expect(typeof releaseStatus).assertEqual('object');
-      expect(typeof releaseStatus.RELEASE_GRANTED).assertEqual('number');
-      expect(typeof releaseStatus.RELEASE_DENIED).assertEqual('number');
+      expect(typeof screenLockFileManager.ReleaseStatus).assertEqual('object');
+      expect(typeof screenLockFileManager.ReleaseStatus.RELEASE_GRANTED).assertEqual('number');
+      expect(typeof screenLockFileManager.ReleaseStatus.RELEASE_DENIED).assertEqual('number');
       sharedDriver.hilogEnd('testApiReturnType0006');
     });
 
@@ -175,7 +172,7 @@ export default function apiReturnTypeTest(): void {
       sharedDriver.hilogBegin('testApiReturnType0007');
       await clickById('queryKeyStateButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('queryAppKeyState')).assertTrue();
@@ -195,7 +192,7 @@ export default function apiReturnTypeTest(): void {
       sharedDriver.hilogBegin('testApiReturnType0008');
       await clickById('acquireAccessButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('acquireAccess')).assertTrue();
@@ -215,7 +212,7 @@ export default function apiReturnTypeTest(): void {
       sharedDriver.hilogBegin('testApiReturnType0009');
       await clickById('releaseAccessButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('releaseAccess')).assertTrue();
@@ -235,7 +232,7 @@ export default function apiReturnTypeTest(): void {
       sharedDriver.hilogBegin('testApiReturnType0010');
       await clickById('queryAllStatesButton')
       await scrollToId('operationResult')
-      const result = await textOfId('operationResult');
+      const result: string = await textOfId('operationResult');
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('KeyState')).assertTrue();
@@ -253,7 +250,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0011');
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(typeof text).assertEqual('string');
       expect(text.length).assertLarger(0);
       expect(text.includes('Acquire')).assertTrue();
@@ -271,7 +268,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0012');
-      const exists = await sharedDriver.existsId('operationResult');
+      const exists: boolean = await sharedDriver.existsId('operationResult');
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertTrue();
       expect(exists === true).assertTrue();
@@ -289,7 +286,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0013', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0013');
-      const exists = await sharedDriver.existsId('nonExistentComponent');
+      const exists: boolean = await sharedDriver.existsId('nonExistentComponent');
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertFalse();
       expect(exists === false).assertTrue();
@@ -307,8 +304,8 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0014');
-      const keyStatus = screenLockFileManager.queryAppKeyState();
-      const isNumber = typeof keyStatus === 'number';
+      const keyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      const isNumber: boolean = typeof keyStatus === 'number';
       expect(isNumber).assertTrue();
       expect(typeof isNumber).assertEqual('boolean');
       expect(keyStatus).assertLarger(-1);
@@ -326,7 +323,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0015');
-      const queryFn = screenLockFileManager.queryAppKeyState;
+      const queryFn: () => screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState;
       expect(typeof queryFn).assertEqual('function');
       expect(typeof screenLockFileManager.acquireAccess).assertEqual('function');
       expect(typeof screenLockFileManager.releaseAccess).assertEqual('function');
@@ -344,7 +341,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0016');
-      const resultText = await sharedDriver.getTextById('operationResult');
+      const resultText: string = await sharedDriver.getTextById('operationResult');
       expect(typeof resultText).assertEqual('string');
       expect(resultText.length).assertLarger(0);
       expect(typeof resultText.length).assertEqual('number');
@@ -362,8 +359,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0017');
-      const keyStatus = screenLockFileManager.KeyStatus;
-      const keys = Object.keys(keyStatus);
+      const keys: string[] = Object.keys(screenLockFileManager.KeyStatus);
       expect(keys.length).assertLarger(0);
       expect(typeof keys[0]).assertEqual('string');
       expect(keys.length).assertEqual(3);
@@ -381,8 +377,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0018');
-      const accessStatus = screenLockFileManager.AccessStatus;
-      const keys = Object.keys(accessStatus);
+      const keys: string[] = Object.keys(screenLockFileManager.AccessStatus);
       expect(keys.length).assertLarger(0);
       expect(typeof keys[0]).assertEqual('string');
       expect(keys.length).assertEqual(2);
@@ -400,8 +395,7 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0019', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0019');
-      const releaseStatus = screenLockFileManager.ReleaseStatus;
-      const keys = Object.keys(releaseStatus);
+      const keys: string[] = Object.keys(screenLockFileManager.ReleaseStatus);
       expect(keys.length).assertLarger(0);
       expect(typeof keys[0]).assertEqual('string');
       expect(keys.length).assertEqual(2);
@@ -419,9 +413,8 @@ export default function apiReturnTypeTest(): void {
 
     it('testApiReturnType0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testApiReturnType0020');
-      const status = screenLockFileManager.queryAppKeyState();
-      const enumType = screenLockFileManager.KeyStatus;
-      expect(typeof status).assertEqual(typeof enumType.KEY_NOT_EXIST);
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
+      expect(typeof status).assertEqual(typeof screenLockFileManager.KeyStatus.KEY_NOT_EXIST);
       expect(typeof status).assertEqual('number');
       expect(status).assertLarger(-1);
       sharedDriver.hilogEnd('testApiReturnType0020');
