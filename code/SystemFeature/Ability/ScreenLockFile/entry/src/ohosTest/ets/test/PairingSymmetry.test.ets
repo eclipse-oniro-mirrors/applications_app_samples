@@ -18,12 +18,12 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function pairingSymmetryTest(): void {
   describe('PairingSymmetryTest', (): void => {
@@ -46,11 +46,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0001');
     });
@@ -71,11 +71,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0002');
     });
@@ -96,11 +96,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0003');
     });
@@ -121,11 +121,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0004');
     });
@@ -146,11 +146,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0005');
     });
@@ -171,11 +171,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0006');
     });
@@ -196,11 +196,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0007');
     });
@@ -221,11 +221,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0008');
     });
@@ -246,11 +246,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0009');
     });
@@ -271,11 +271,11 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPairingSymmetry0010');
     });
@@ -298,7 +298,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -323,7 +323,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -348,7 +348,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -373,7 +373,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -398,7 +398,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -423,7 +423,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -448,7 +448,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -473,7 +473,7 @@ export default function pairingSymmetryTest(): void {
       await extDriver.clickAcquireButton();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       expect(typeof counts.acquire).assertEqual('number');
@@ -498,10 +498,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0019');
@@ -525,10 +525,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0020');
@@ -552,10 +552,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0021');
@@ -579,10 +579,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0022');
@@ -606,10 +606,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0023');
@@ -633,10 +633,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0024');
@@ -660,10 +660,10 @@ export default function pairingSymmetryTest(): void {
         screenLockFileManager.acquireAccess();
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPairingSymmetry0025');

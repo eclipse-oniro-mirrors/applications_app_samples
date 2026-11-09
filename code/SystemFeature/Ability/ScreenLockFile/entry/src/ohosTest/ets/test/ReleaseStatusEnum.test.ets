@@ -24,9 +24,9 @@ import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
   DOMAIN, TAG, RELEASE_STATUS_GRANTED, RELEASE_STATUS_DENIED
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function releaseStatusEnumTest(): void {
   describe('ReleaseStatusEnumTest', (): void => {
@@ -79,12 +79,12 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0003');
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -103,7 +103,7 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0004');
-      const nameGranted = testHelper.getReleaseStatusName(RELEASE_STATUS_GRANTED);
+      const nameGranted: string = testHelper.getReleaseStatusName(RELEASE_STATUS_GRANTED);
       expect(nameGranted).assertEqual('RELEASE_GRANTED');
       expect(nameGranted.length).assertLarger(0);
       expect(typeof nameGranted).assertEqual('string');
@@ -121,7 +121,7 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0005', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0005');
-      const nameDenied = testHelper.getReleaseStatusName(RELEASE_STATUS_DENIED);
+      const nameDenied: string = testHelper.getReleaseStatusName(RELEASE_STATUS_DENIED);
       expect(nameDenied).assertEqual('RELEASE_DENIED');
       expect(nameDenied.length).assertLarger(0);
       expect(typeof nameDenied).assertEqual('string');
@@ -139,7 +139,7 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0006');
-      const nameUnknown = testHelper.getReleaseStatusName(99);
+      const nameUnknown: string = testHelper.getReleaseStatusName(99);
       expect(nameUnknown).assertEqual('UNKNOWN');
       expect(nameUnknown.length).assertLarger(0);
       expect(typeof nameUnknown).assertEqual('string');
@@ -157,7 +157,7 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0007', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0007');
-      const keys = Object.keys(screenLockFileManager.ReleaseStatus);
+      const keys: string[] = Object.keys(screenLockFileManager.ReleaseStatus);
       expect(keys.length).assertEqual(2);
       expect(typeof keys[0]).assertEqual('string');
       expect(typeof keys[1]).assertEqual('string');
@@ -196,8 +196,8 @@ export default function releaseStatusEnumTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
-      const hasReleaseStatus = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED') ||
+      const result: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const hasReleaseStatus: boolean = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED') ||
         result.includes('releaseAccess');
       expect(hasReleaseStatus).assertTrue();
       expect(result.length).assertLarger(0);
@@ -255,13 +255,13 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0012');
       try {
-        const s1 = screenLockFileManager.releaseAccess();
-        const s2 = screenLockFileManager.releaseAccess();
+        const s1: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const s2: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(s1)).assertTrue();
         expect(testHelper.isValidReleaseStatus(s2)).assertTrue();
         expect(typeof s1).assertEqual('number');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -283,9 +283,9 @@ export default function releaseStatusEnumTest(): void {
       const values: number[] = [RELEASE_STATUS_GRANTED, RELEASE_STATUS_DENIED];
       expect(values.length).assertEqual(2);
       const unique: number[] = [];
-      for (let i = 0; i < values.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < unique.length; j++) {
+      for (let i: number = 0; i < values.length; i++) {
+        let isUnique: boolean = true;
+        for (let j: number = 0; j < unique.length; j++) {
           if (values[i] === unique[j]) { isUnique = false; }
         }
         if (isUnique) { unique.push(values[i]); }
@@ -307,8 +307,8 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0014', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0014');
-      const nameGranted = testHelper.getReleaseStatusName(0);
-      const nameDenied = testHelper.getReleaseStatusName(1);
+      const nameGranted: string = testHelper.getReleaseStatusName(0);
+      const nameDenied: string = testHelper.getReleaseStatusName(1);
       expect(nameGranted !== nameDenied).assertTrue();
       expect(nameGranted.length).assertLarger(0);
       expect(nameDenied.length).assertLarger(0);
@@ -326,8 +326,8 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0015', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0015');
-      const nameNeg = testHelper.getReleaseStatusName(-999);
-      const nameBig = testHelper.getReleaseStatusName(100);
+      const nameNeg: string = testHelper.getReleaseStatusName(-999);
+      const nameBig: string = testHelper.getReleaseStatusName(100);
       expect(nameNeg).assertEqual('UNKNOWN');
       expect(nameBig).assertEqual('UNKNOWN');
       expect(nameNeg).assertEqual(nameBig);
@@ -353,8 +353,8 @@ export default function releaseStatusEnumTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById('operationResult');
-      const hasRelease = result.includes('RELEASE_') || result.includes('releaseAccess');
+      const result: string = await sharedDriver.getTextById('operationResult');
+      const hasRelease: boolean = result.includes('RELEASE_') || result.includes('releaseAccess');
       expect(hasRelease).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes('releaseAccess') || result.includes('RELEASE_')).assertTrue();
@@ -372,10 +372,10 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0017', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0017');
-      const enumObj = screenLockFileManager.ReleaseStatus;
+      const enumObj: Object = screenLockFileManager.ReleaseStatus;
       expect(typeof enumObj).assertEqual('object');
       expect(enumObj !== null).assertTrue();
-      const keys = Object.keys(enumObj);
+      const keys: string[] = Object.keys(enumObj);
       expect(keys.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseStatusEnum0017');
     });
@@ -392,13 +392,13 @@ export default function releaseStatusEnumTest(): void {
     it('testReleaseStatusEnum0018', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0018');
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const name = testHelper.getReleaseStatusName(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const name: string = testHelper.getReleaseStatusName(status);
         expect(name.startsWith('RELEASE_') || name === 'UNKNOWN').assertTrue();
         expect(name.length).assertLarger(0);
         expect(typeof name).assertEqual('string');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -456,12 +456,12 @@ export default function releaseStatusEnumTest(): void {
       sharedDriver.hilogBegin('testReleaseStatusEnum0021');
       try {
         screenLockFileManager.acquireAccess();
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -480,8 +480,8 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0022');
-      const name1 = testHelper.getReleaseStatusName(RELEASE_STATUS_GRANTED);
-      const name2 = testHelper.getReleaseStatusName(RELEASE_STATUS_DENIED);
+      const name1: string = testHelper.getReleaseStatusName(RELEASE_STATUS_GRANTED);
+      const name2: string = testHelper.getReleaseStatusName(RELEASE_STATUS_DENIED);
       expect(name1 !== name2).assertTrue();
       expect(name1).assertEqual('RELEASE_GRANTED');
       expect(name2).assertEqual('RELEASE_DENIED');
@@ -499,11 +499,11 @@ export default function releaseStatusEnumTest(): void {
 
     it('testReleaseStatusEnum0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseStatusEnum0023');
-      const enumKeys = Object.keys(screenLockFileManager.ReleaseStatus);
+      const enumKeys: string[] = Object.keys(screenLockFileManager.ReleaseStatus);
       expect(enumKeys.length).assertEqual(2);
-      let hasGranted = false;
-      let hasDenied = false;
-      for (let i = 0; i < enumKeys.length; i++) {
+      let hasGranted: boolean = false;
+      let hasDenied: boolean = false;
+      for (let i: number = 0; i < enumKeys.length; i++) {
         if (enumKeys[i].includes('GRANTED')) { hasGranted = true; }
         if (enumKeys[i].includes('DENIED')) { hasDenied = true; }
       }
@@ -525,7 +525,7 @@ export default function releaseStatusEnumTest(): void {
       sharedDriver.hilogBegin('testReleaseStatusEnum0024');
       const values: number[] = [RELEASE_STATUS_GRANTED, RELEASE_STATUS_DENIED];
       expect(values.length).assertEqual(2);
-      for (let i = 0; i < values.length; i++) {
+      for (let i: number = 0; i < values.length; i++) {
         expect(typeof values[i]).assertEqual('number');
         expect(values[i]).assertLarger(-2);
       }

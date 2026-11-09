@@ -18,6 +18,7 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
+import { PairingCounts } from './SharedDriverExt';
 import { TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
@@ -26,9 +27,9 @@ import {
   RELEASE_STATUS_GRANTED, RELEASE_STATUS_DENIED,
   ACCESS_STATUS_GRANTED
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function releaseAccessTest(): void {
   describe('ReleaseAccessTest', (): void => {
@@ -47,13 +48,13 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0001');
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = status === RELEASE_STATUS_GRANTED || status === RELEASE_STATUS_DENIED;
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = status === RELEASE_STATUS_GRANTED || status === RELEASE_STATUS_DENIED;
         expect(isValid).assertTrue();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -73,12 +74,12 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0002', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0002');
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
         expect(status).assertLess(100);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -98,13 +99,13 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0003', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0003');
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isKnown = status === RELEASE_STATUS_GRANTED || status === RELEASE_STATUS_DENIED;
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isKnown: boolean = status === RELEASE_STATUS_GRANTED || status === RELEASE_STATUS_DENIED;
         expect(isKnown).assertTrue();
         expect(status).assertLarger(-1);
         expect(status).assertLess(2);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -124,14 +125,14 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0004', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0004');
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const name = testHelper.getReleaseStatusName(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const name: string = testHelper.getReleaseStatusName(status);
         expect(name.length).assertLarger(0);
-        const isKnownName = name === 'RELEASE_GRANTED' || name === 'RELEASE_DENIED' || name === 'UNKNOWN';
+        const isKnownName: boolean = name === 'RELEASE_GRANTED' || name === 'RELEASE_DENIED' || name === 'UNKNOWN';
         expect(isKnownName).assertTrue();
         expect(typeof name).assertEqual('string');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -154,11 +155,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const beforeText = await sharedDriver.getTextById('operationResult');
-      const afterText = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const beforeText: string = await sharedDriver.getTextById('operationResult');
+      const afterText: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
       expect(beforeText !== afterText).assertTrue();
       expect(afterText.length).assertLarger(0);
-      const containsRelease = afterText.includes('releaseAccess') || afterText.includes('RELEASE_');
+      const containsRelease: boolean = afterText.includes('releaseAccess') || afterText.includes('RELEASE_');
       expect(containsRelease).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0005');
     });
@@ -178,10 +179,10 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const beforeCounts = await testHelper.getExtDriver().parsePairingCounts();
+      const beforeCounts: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.waitUiIdle();
-      const afterCounts = await testHelper.getExtDriver().parsePairingCounts();
+      const afterCounts: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
       expect(afterCounts.release).assertLarger(beforeCounts.release - 1);
       expect(afterCounts.pending).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
@@ -207,11 +208,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.waitUiIdle();
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertFalse();
-      const resultText = await sharedDriver.getTextById('operationResult');
+      const resultText: string = await sharedDriver.getTextById('operationResult');
       expect(resultText.length).assertLarger(0);
-      const containsRelease = resultText.includes('releaseAccess') || resultText.includes('RELEASE_');
+      const containsRelease: boolean = resultText.includes('releaseAccess') || resultText.includes('RELEASE_');
       expect(containsRelease).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0007');
     });
@@ -227,15 +228,15 @@ export default function releaseAccessTest(): void {
 
     it('testReleaseAccess0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0008');
-      let successCount = 0;
-      let errorCount = 0;
-      for (let i = 0; i < 3; i++) {
+      let successCount: number = 0;
+      let errorCount: number = 0;
+      for (let i: number = 0; i < 3; i++) {
         try {
-          const status = screenLockFileManager.releaseAccess();
+          const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
           expect(testHelper.isValidReleaseStatus(status)).assertTrue();
           successCount = successCount + 1;
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           expect(err.code).assertLarger(0);
           expect(err.message.length).assertLarger(0);
           errorCount = errorCount + 1;
@@ -258,8 +259,8 @@ export default function releaseAccessTest(): void {
 
     it('testReleaseAccess0009', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0009');
-      const granted = RELEASE_STATUS_GRANTED;
-      const denied = RELEASE_STATUS_DENIED;
+      const granted: screenLockFileManager.ReleaseStatus = RELEASE_STATUS_GRANTED;
+      const denied: screenLockFileManager.ReleaseStatus = RELEASE_STATUS_DENIED;
       expect(granted !== denied).assertTrue();
       expect(granted).assertEqual(0);
       expect(denied).assertEqual(1);
@@ -280,16 +281,16 @@ export default function releaseAccessTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -312,11 +313,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const resultText = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const resultText: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
       expect(resultText.length).assertLarger(0);
-      const hasPrefix = resultText.includes('releaseAccess:') || resultText.includes('RELEASE_');
+      const hasPrefix: boolean = resultText.includes('releaseAccess:') || resultText.includes('RELEASE_');
       expect(hasPrefix).assertTrue();
-      const hasStatus = resultText.includes('RELEASE_');
+      const hasStatus: boolean = resultText.includes('RELEASE_');
       expect(hasStatus).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0011');
     });
@@ -338,7 +339,7 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
-      const allResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const allResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(allResult.length).assertLarger(0);
       expect(allResult.includes('Release')).assertTrue();
       expect(allResult.includes('KeyState')).assertTrue();
@@ -379,7 +380,7 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const pairingText = await sharedDriver.getTextById('pairingStatus');
+      const pairingText: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairingText.length).assertLarger(0);
       expect(pairingText.includes('Release')).assertTrue();
       expect(pairingText.includes('Pending')).assertTrue();
@@ -400,14 +401,14 @@ export default function releaseAccessTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       const results: string[] = [];
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
-        const text = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+        const text: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
         results.push(text);
       }
       expect(results.length).assertEqual(3);
-      for (let i = 0; i < results.length; i++) {
+      for (let i: number = 0; i < results.length; i++) {
         expect(results[i].length).assertLarger(0);
       }
       expect(results[0].includes('releaseAccess') || results[0].includes('RELEASE_')).assertTrue();
@@ -425,14 +426,14 @@ export default function releaseAccessTest(): void {
 
     it('testReleaseAccess0016', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0016');
-      let errorCaught = false;
+      let errorCaught: boolean = false;
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
         errorCaught = true;
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -460,7 +461,7 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const resultText = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const resultText: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
       expect(resultText.length).assertLarger(0);
       expect(resultText.includes('releaseAccess') || resultText.includes('RELEASE_')).assertTrue();
       expect(resultText.includes('RELEASE_')).assertTrue();
@@ -482,11 +483,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('releaseAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const allResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const allResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(allResult.length).assertLarger(0);
       expect(allResult.includes('Release')).assertTrue();
       expect(allResult.includes('KeyState')).assertTrue();
@@ -506,7 +507,7 @@ export default function releaseAccessTest(): void {
       sharedDriver.hilogBegin('testReleaseAccess0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const pairingText = await sharedDriver.getTextById('pairingStatus');
+      const pairingText: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairingText.length).assertLarger(0);
       expect(pairingText.includes('Pending')).assertTrue();
       expect(pairingText.includes('Release')).assertTrue();
@@ -525,12 +526,12 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0020', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0020');
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(status === RELEASE_STATUS_GRANTED || status === RELEASE_STATUS_DENIED).assertTrue();
         expect(typeof status).assertEqual('number');
         expect(status).assertLarger(-1);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -554,11 +555,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -578,12 +579,12 @@ export default function releaseAccessTest(): void {
     it('testReleaseAccess0022', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0022');
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const name = testHelper.getReleaseStatusName(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const name: string = testHelper.getReleaseStatusName(status);
         expect(name.length).assertLarger(0);
         const validNames: string[] = ['RELEASE_GRANTED', 'RELEASE_DENIED', 'UNKNOWN'];
-        let nameValid = false;
-        for (let i = 0; i < validNames.length; i++) {
+        let nameValid: boolean = false;
+        for (let i: number = 0; i < validNames.length; i++) {
           if (name === validNames[i]) {
             nameValid = true;
           }
@@ -591,7 +592,7 @@ export default function releaseAccessTest(): void {
         expect(nameValid).assertTrue();
         expect(typeof name).assertEqual('string');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -610,15 +611,15 @@ export default function releaseAccessTest(): void {
 
     it('testReleaseAccess0023', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0023');
-      const beforeStatus = screenLockFileManager.queryAppKeyState();
+      const beforeStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       try {
         screenLockFileManager.releaseAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const afterStatus = screenLockFileManager.queryAppKeyState();
+      const afterStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(beforeStatus).assertEqual(afterStatus);
       expect(testHelper.isValidKeyStatus(afterStatus)).assertTrue();
       expect(typeof afterStatus).assertEqual('number');
@@ -640,11 +641,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const resultText = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+      const resultText: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
       expect(resultText.length).assertLarger(0);
-      const hasReleasePrefix = resultText.includes('RELEASE_');
+      const hasReleasePrefix: boolean = resultText.includes('RELEASE_');
       expect(hasReleasePrefix).assertTrue();
-      const hasReleaseLabel = resultText.includes('releaseAccess') || resultText.includes('RELEASE_');
+      const hasReleaseLabel: boolean = resultText.includes('releaseAccess') || resultText.includes('RELEASE_');
       expect(hasReleaseLabel).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0024');
     });
@@ -663,14 +664,14 @@ export default function releaseAccessTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       const results: string[] = [];
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
-        const text = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
+        const text: string = await sharedDriver.clickAndGetResult('releaseAccessButton', 'operationResult');
         results.push(text);
       }
       expect(results.length).assertEqual(2);
-      for (let i = 0; i < results.length; i++) {
+      for (let i: number = 0; i < results.length; i++) {
         expect(results[i].includes('releaseAccess') || results[i].includes('RELEASE_')).assertTrue();
       }
       expect(results[0].length).assertLarger(0);
@@ -692,11 +693,11 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 2; i++) {
+      for (let i: number = 0; i < 2; i++) {
         await sharedDriver.clickId('releaseAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const pairingText = await sharedDriver.getTextById('pairingStatus');
+      const pairingText: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairingText.length).assertLarger(0);
       expect(pairingText.includes('Release')).assertTrue();
       expect(pairingText.includes('Pending')).assertTrue();
@@ -714,13 +715,13 @@ export default function releaseAccessTest(): void {
 
     it('testReleaseAccess0027', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testReleaseAccess0027');
-      let callCompleted = false;
+      let callCompleted: boolean = false;
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         callCompleted = true;
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         callCompleted = true;
@@ -750,9 +751,9 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.waitUiIdle();
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertFalse();
-      const resultText = await sharedDriver.getTextById('operationResult');
+      const resultText: string = await sharedDriver.getTextById('operationResult');
       expect(resultText.length).assertLarger(0);
       expect(resultText.includes('releaseAccess') || resultText.includes('RELEASE_')).assertTrue();
       sharedDriver.hilogEnd('testReleaseAccess0028');
@@ -776,16 +777,16 @@ export default function releaseAccessTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
       try {
-        const status = screenLockFileManager.releaseAccess();
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(status)).assertTrue();
         expect(typeof status).assertEqual('number');
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
         expect(typeof err.code).assertEqual('number');
@@ -808,24 +809,24 @@ export default function releaseAccessTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const initialKeyStatus = screenLockFileManager.queryAppKeyState();
+      const initialKeyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(initialKeyStatus)).assertTrue();
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
       try {
-        const releaseStatus = screenLockFileManager.releaseAccess();
+        const releaseStatus: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
         expect(testHelper.isValidReleaseStatus(releaseStatus)).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const afterKeyStatus = screenLockFileManager.queryAppKeyState();
+      const afterKeyStatus: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(afterKeyStatus)).assertTrue();
       expect(initialKeyStatus).assertEqual(afterKeyStatus);
       sharedDriver.hilogEnd('testReleaseAccess0030');

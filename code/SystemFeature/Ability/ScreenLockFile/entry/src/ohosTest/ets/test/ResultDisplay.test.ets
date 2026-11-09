@@ -25,9 +25,9 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT,
   TEXT_QUERY_RESULT, TEXT_ACQUIRE_RESULT, TEXT_RELEASE_RESULT
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function resultDisplayTest(): void {
   describe('ResultDisplayTest', (): void => {
@@ -48,7 +48,7 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -67,7 +67,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0002');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes(TEXT_QUERY_RESULT)).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(5);
@@ -86,9 +86,9 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0003');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes(TEXT_ACQUIRE_RESULT)).assertTrue();
-      const hasAccess = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
+      const hasAccess: boolean = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
       expect(hasAccess).assertTrue();
       expect(result.length).assertLarger(5);
       sharedDriver.hilogEnd('testResultDisplay0003');
@@ -106,9 +106,9 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0004');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes(TEXT_RELEASE_RESULT)).assertTrue();
-      const hasRelease = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED');
+      const hasRelease: boolean = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED');
       expect(hasRelease).assertTrue();
       expect(result.length).assertLarger(5);
       sharedDriver.hilogEnd('testResultDisplay0004');
@@ -126,7 +126,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0005');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.includes('Release:')).assertTrue();
@@ -145,9 +145,9 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0006');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes(TEXT_QUERY_RESULT)).assertTrue();
-      const hasKeyName = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
+      const hasKeyName: boolean = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
         result.includes('KEY_EXIST');
       expect(hasKeyName).assertTrue();
       expect(result.length).assertLarger(0);
@@ -167,8 +167,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0007');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
-      const hasFormat = result.includes('acquireAccess: ACCESS_');
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const hasFormat: boolean = result.includes('acquireAccess: ACCESS_');
       expect(hasFormat).assertTrue();
       expect(result.length).assertLarger(10);
       expect(typeof result).assertEqual('string');
@@ -187,8 +187,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0008');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
-      const hasFormat = result.includes('releaseAccess: RELEASE_');
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const hasFormat: boolean = result.includes('releaseAccess: RELEASE_');
       expect(hasFormat).assertTrue();
       expect(result.length).assertLarger(10);
       expect(typeof result).assertEqual('string');
@@ -207,8 +207,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0009');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
-      const pipeCount = result.split('|').length - 1;
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const pipeCount: number = result.split('|').length - 1;
       expect(pipeCount).assertEqual(3);
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Pending:')).assertTrue();
@@ -227,9 +227,9 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0010');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(r1.includes(TEXT_QUERY_RESULT)).assertTrue();
-      const r2 = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(r2.includes(TEXT_ACQUIRE_RESULT)).assertTrue();
       expect(r1 !== r2).assertTrue();
       sharedDriver.hilogEnd('testResultDisplay0010');
@@ -251,7 +251,7 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.includes(TEXT_QUERY_RESULT)).assertFalse();
       expect(result.length).assertLarger(0);
@@ -270,8 +270,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0012');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
-      const hasEnum = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const hasEnum: boolean = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
         result.includes('KEY_EXIST');
       expect(hasEnum).assertTrue();
       expect(result.includes('(')).assertTrue();
@@ -291,8 +291,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0013');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
-      const hasEnum = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const hasEnum: boolean = result.includes('ACCESS_GRANTED') || result.includes('ACCESS_DENIED');
       expect(hasEnum).assertTrue();
       expect(result.includes('(')).assertTrue();
       expect(result.includes(')')).assertTrue();
@@ -311,8 +311,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0014');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
-      const hasEnum = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED');
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const hasEnum: boolean = result.includes('RELEASE_GRANTED') || result.includes('RELEASE_DENIED');
       expect(hasEnum).assertTrue();
       expect(result.includes('(')).assertTrue();
       expect(result.includes(')')).assertTrue();
@@ -335,7 +335,7 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.includes('Release:')).assertTrue();
       expect(result.length).assertLarger(20);
@@ -360,7 +360,7 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Release:')).assertTrue();
       expect(result.includes('Pending:')).assertTrue();
       expect(result.length).assertLarger(20);
@@ -379,7 +379,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0017');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Error')).assertFalse();
       expect(result.includes(TEXT_QUERY_RESULT)).assertTrue();
       expect(result.length).assertLarger(0);
@@ -398,7 +398,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0018');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Error')).assertFalse();
       expect(result.includes(TEXT_ACQUIRE_RESULT)).assertTrue();
       expect(result.length).assertLarger(0);
@@ -417,7 +417,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Error')).assertFalse();
       expect(result.includes(TEXT_RELEASE_RESULT)).assertTrue();
       expect(result.length).assertLarger(0);
@@ -436,9 +436,9 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0020');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const exists = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const exists: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testResultDisplay0020');
@@ -484,7 +484,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0022');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('(')).assertTrue();
       expect(result.includes(')')).assertTrue();
       expect(result.includes(TEXT_QUERY_RESULT)).assertTrue();
@@ -503,7 +503,7 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0023');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('(')).assertTrue();
       expect(result.includes(')')).assertTrue();
       expect(result.includes(TEXT_ACQUIRE_RESULT)).assertTrue();
@@ -522,8 +522,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0024');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
-      const parts = result.split('|');
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const parts: string[] = result.split('|');
       expect(parts.length).assertEqual(4);
       expect(parts[0].includes('KeyState')).assertTrue();
       expect(parts[1].includes('Acquire')).assertTrue();
@@ -546,12 +546,12 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1).assertEqual(r2);
       expect(r1.includes('Ready') || r1.includes('就绪')).assertTrue();
       expect(r1.length).assertLarger(0);
@@ -570,8 +570,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0026');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
-      const hasNumber = result.includes('(0)') || result.includes('(1)') || result.includes('(2)');
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const hasNumber: boolean = result.includes('(0)') || result.includes('(1)') || result.includes('(2)');
       expect(hasNumber).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -590,8 +590,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0027');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
-      const hasNumber = result.includes('(0)') || result.includes('(1)');
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const hasNumber: boolean = result.includes('(0)') || result.includes('(1)');
       expect(hasNumber).assertTrue();
       expect(result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -610,8 +610,8 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0028');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
-      const hasNumber = result.includes('(0)') || result.includes('(1)');
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const hasNumber: boolean = result.includes('(0)') || result.includes('(1)');
       expect(hasNumber).assertTrue();
       expect(result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -632,7 +632,7 @@ export default function resultDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('Pending: 0')).assertTrue();
       expect(result.includes('Acquire: 0')).assertTrue();
       expect(result.includes('Release: 0')).assertTrue();
@@ -651,12 +651,12 @@ export default function resultDisplayTest(): void {
       sharedDriver.hilogBegin('testResultDisplay0030');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(typeof r1).assertEqual('string');
       expect(r1.length).assertLarger(0);
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(typeof r2).assertEqual('string');
       sharedDriver.hilogEnd('testResultDisplay0030');
     });

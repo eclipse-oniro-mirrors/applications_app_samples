@@ -135,16 +135,16 @@ const SUITE_INFO: SuiteInfo[] = [
 
 function getSuiteCountByDomain(): string {
   const domainMap: Record<string, number> = {};
-  for (let i = 0; i < SUITE_INFO.length; i++) {
-    const domain = SUITE_INFO[i].domain;
+  for (let i: number = 0; i < SUITE_INFO.length; i++) {
+    const domain: string = SUITE_INFO[i].domain;
     if (domainMap[domain] === undefined) {
       domainMap[domain] = 0;
     }
     domainMap[domain] = domainMap[domain] + 1;
   }
   const entries: string[] = [];
-  const keys = Object.keys(domainMap);
-  for (let i = 0; i < keys.length; i++) {
+  const keys: string[] = Object.keys(domainMap);
+  for (let i: number = 0; i < keys.length; i++) {
     entries.push(`${keys[i]}:${domainMap[keys[i]]}`);
   }
   return entries.join(', ');

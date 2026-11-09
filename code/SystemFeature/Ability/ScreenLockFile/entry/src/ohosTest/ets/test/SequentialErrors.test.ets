@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -27,10 +27,10 @@ import {
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT,
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function sequentialErrorsTest(): void {
   describe('SequentialErrorsTest', (): void => {
@@ -49,7 +49,7 @@ export default function sequentialErrorsTest(): void {
       sharedDriver.hilogBegin('testSequentialErrors0001');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const results = await extDriver.performMultipleQueries(3);
+      const results: string[] = await extDriver.performMultipleQueries(3);
       expect(results.length).assertEqual(3);
       expect(results[0].includes('queryAppKeyState')).assertTrue();
       expect(typeof results[0]).assertEqual('string');
@@ -69,7 +69,7 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const results = await extDriver.performMultipleAcquires(3);
+      const results: string[] = await extDriver.performMultipleAcquires(3);
       expect(results.length).assertEqual(3);
       expect(results[0].includes('acquireAccess')).assertTrue();
       expect(typeof results[0]).assertEqual('string');
@@ -91,7 +91,7 @@ export default function sequentialErrorsTest(): void {
       testHelper.acquireAccess();
       testHelper.acquireAccess();
       testHelper.acquireAccess();
-      const results = await extDriver.performMultipleReleases(3);
+      const results: string[] = await extDriver.performMultipleReleases(3);
       expect(results.length).assertEqual(3);
       expect(typeof results[0]).assertEqual('string');
       expect(results[0].length).assertLarger(0);
@@ -111,11 +111,11 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const qResult = await extDriver.clickQueryButton();
+      const qResult: string = await extDriver.clickQueryButton();
       expect(qResult.includes('queryAppKeyState')).assertTrue();
-      const aResult = await extDriver.clickAcquireButton();
+      const aResult: string = await extDriver.clickAcquireButton();
       expect(aResult.includes('acquireAccess')).assertTrue();
-      const rResult = await extDriver.clickReleaseButton();
+      const rResult: string = await extDriver.clickReleaseButton();
       expect(rResult.includes('releaseAccess')).assertTrue();
       sharedDriver.hilogEnd('testSequentialErrors0004');
     });
@@ -134,10 +134,10 @@ export default function sequentialErrorsTest(): void {
       await sharedDriver.waitUiIdle();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(typeof result.success).assertEqual('boolean');
       expect(typeof result.errorCode).assertEqual('number');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testSequentialErrors0005');
     });
@@ -152,12 +152,12 @@ export default function sequentialErrorsTest(): void {
      */
     it('testSequentialErrors0006', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testSequentialErrors0006');
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         testHelper.releaseAccess();
-        const result = testHelper.queryKeyState();
+        const result: ApiCallResult = testHelper.queryKeyState();
         expect(typeof result.success).assertEqual('boolean');
       }
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testSequentialErrors0006');
@@ -176,11 +176,11 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         testHelper.acquireAccess();
         testHelper.releaseAccess();
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertEqual(counts.release);
       expect(typeof counts.acquire).assertEqual('number');
@@ -198,8 +198,8 @@ export default function sequentialErrorsTest(): void {
     it('testSequentialErrors0008', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testSequentialErrors0008');
       const statuses: number[] = [];
-      for (let i = 0; i < 5; i++) {
-        const s = screenLockFileManager.queryAppKeyState();
+      for (let i: number = 0; i < 5; i++) {
+        const s: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         statuses.push(s);
         expect(testHelper.isValidKeyStatus(s)).assertTrue();
       }
@@ -223,10 +223,10 @@ export default function sequentialErrorsTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const c1 = await extDriver.getHistoryEntryCount();
+      const c1: number = await extDriver.getHistoryEntryCount();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const c2 = await extDriver.getHistoryEntryCount();
+      const c2: number = await extDriver.getHistoryEntryCount();
       expect(c2).assertLarger(c1 - 1);
       expect(c1).assertLarger(0);
       expect(typeof c2).assertEqual('number');
@@ -252,7 +252,7 @@ export default function sequentialErrorsTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(counts.release).assertLarger(0);
       expect(typeof counts.pending).assertEqual('number');
@@ -269,8 +269,8 @@ export default function sequentialErrorsTest(): void {
      */
     it('testSequentialErrors0011', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testSequentialErrors0011');
-      const r1 = testHelper.queryKeyState();
-      const r2 = testHelper.queryKeyState();
+      const r1: ApiCallResult = testHelper.queryKeyState();
+      const r2: ApiCallResult = testHelper.queryKeyState();
       expect(r1.errorCode).assertEqual(r2.errorCode);
       expect(typeof r1.errorCode).assertEqual('number');
       expect(typeof r2.errorCode).assertEqual('number');
@@ -287,9 +287,9 @@ export default function sequentialErrorsTest(): void {
      */
     it('testSequentialErrors0012', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testSequentialErrors0012');
-      const r1 = testHelper.queryKeyState();
-      const r2 = testHelper.acquireAccess();
-      const r3 = testHelper.releaseAccess();
+      const r1: ApiCallResult = testHelper.queryKeyState();
+      const r2: ApiCallResult = testHelper.acquireAccess();
+      const r3: ApiCallResult = testHelper.releaseAccess();
       expect(r2.timestamp).assertLarger(r1.timestamp - 1);
       expect(r3.timestamp).assertLarger(r2.timestamp - 1);
       expect(typeof r3.timestamp).assertEqual('number');
@@ -309,10 +309,10 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const r1 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const r2 = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(r1 !== r2).assertTrue();
       expect(r2.includes('queryAppKeyState')).assertTrue();
       expect(r2.length).assertLarger(0);
@@ -338,7 +338,7 @@ export default function sequentialErrorsTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(0);
       expect(counts.release).assertLarger(0);
       expect(typeof counts.pending).assertEqual('number');
@@ -359,8 +359,8 @@ export default function sequentialErrorsTest(): void {
       await sharedDriver.waitUiIdle();
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const s1 = await testHelper.captureStateSnapshot();
-      const s2 = await testHelper.captureStateSnapshot();
+      const s1: StateSnapshot = await testHelper.captureStateSnapshot();
+      const s2: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(s1.keyStatus).assertEqual(s2.keyStatus);
       expect(typeof s1.operationResult).assertEqual('string');
       expect(typeof s2.pairingText).assertEqual('string');
@@ -382,7 +382,7 @@ export default function sequentialErrorsTest(): void {
       await extDriver.clearHistoryAndWait();
       testHelper.acquireAccess();
       testHelper.releaseAccess();
-      const result = await extDriver.clickQueryAllButton();
+      const result: string = await extDriver.clickQueryAllButton();
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.includes('Pending:')).assertTrue();
@@ -401,7 +401,7 @@ export default function sequentialErrorsTest(): void {
       sharedDriver.hilogBegin('testSequentialErrors0017');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const valid = await extDriver.verifyQueryAllResult();
+      const valid: boolean = await extDriver.verifyQueryAllResult();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
       sharedDriver.hilogEnd('testSequentialErrors0017');
@@ -420,7 +420,7 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const results = await extDriver.fullWorkflowAcquireRelease();
+      const results: string[] = await extDriver.fullWorkflowAcquireRelease();
       expect(results.length).assertEqual(2);
       expect(results[0].includes('acquireAccess')).assertTrue();
       expect(results[1].includes('releaseAccess')).assertTrue();
@@ -441,7 +441,7 @@ export default function sequentialErrorsTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       await extDriver.fullWorkflowMultipleOps(2, 3, 3);
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.release).assertEqual('number');
       expect(typeof counts.pending).assertEqual('number');
@@ -461,7 +461,7 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.getPairingStatusAfterOperations(3, 3);
+      const counts: PairingCounts = await extDriver.getPairingStatusAfterOperations(3, 3);
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertEqual(counts.release);
       expect(typeof counts.acquire).assertEqual('number');
@@ -481,7 +481,7 @@ export default function sequentialErrorsTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.getPairingStatusAfterOperations(5, 2);
+      const counts: PairingCounts = await extDriver.getPairingStatusAfterOperations(5, 2);
       expect(counts.acquire).assertLarger(counts.release);
       expect(counts.pending).assertLarger(0);
       expect(typeof counts.pending).assertEqual('number');
@@ -503,9 +503,9 @@ export default function sequentialErrorsTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       testHelper.queryKeyState();
-      const stable = await testHelper.waitForStableState(2000);
+      const stable: boolean = await testHelper.waitForStableState(2000);
       expect(stable).assertTrue();
-      const valid = await testHelper.verifyStateConsistency();
+      const valid: boolean = await testHelper.verifyStateConsistency();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
       sharedDriver.hilogEnd('testSequentialErrors0022');
@@ -528,9 +528,9 @@ export default function sequentialErrorsTest(): void {
       testHelper.releaseAccess();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testSequentialErrors0023');
@@ -547,8 +547,8 @@ export default function sequentialErrorsTest(): void {
     it('testSequentialErrors0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testSequentialErrors0024');
       const names: string[] = [];
-      for (let i = 0; i < 3; i++) {
-        const s = screenLockFileManager.queryAppKeyState();
+      for (let i: number = 0; i < 3; i++) {
+        const s: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
         names.push(testHelper.getKeyStatusName(s));
       }
       expect(names[0]).assertEqual(names[2]);
@@ -572,9 +572,9 @@ export default function sequentialErrorsTest(): void {
       testHelper.releaseAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const result = await extDriver.fullWorkflowAcquireRelease();
+      const result: string[] = await extDriver.fullWorkflowAcquireRelease();
       expect(result.length).assertEqual(2);
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.acquire).assertEqual('number');
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testSequentialErrors0025');

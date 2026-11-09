@@ -18,12 +18,12 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function pendingCountTest(): void {
   describe('PendingCountTest', (): void => {
@@ -44,13 +44,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0001');
     });
@@ -69,13 +69,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0002');
     });
@@ -94,13 +94,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0003');
     });
@@ -119,13 +119,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0004');
     });
@@ -144,13 +144,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0005');
     });
@@ -169,13 +169,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0006');
     });
@@ -194,13 +194,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0007');
     });
@@ -219,13 +219,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0008');
     });
@@ -244,13 +244,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0009');
     });
@@ -269,13 +269,13 @@ export default function pendingCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const initial = await extDriver.parsePairingCounts();
+      const initial: PairingCounts = await extDriver.parsePairingCounts();
       expect(initial.pending).assertEqual(0);
       await extDriver.clickAcquireButton();
-      const afterAcquire = await extDriver.parsePairingCounts();
+      const afterAcquire: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterAcquire.pending).assertLarger(-1);
       expect(typeof afterAcquire.pending).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testPendingCount0010');
     });
@@ -296,7 +296,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -319,7 +319,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -342,7 +342,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -365,7 +365,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -388,7 +388,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -411,7 +411,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -434,7 +434,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -457,7 +457,7 @@ export default function pendingCountTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
@@ -481,10 +481,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0019');
@@ -507,10 +507,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0020');
@@ -533,10 +533,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0021');
@@ -559,10 +559,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0022');
@@ -585,10 +585,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0023');
@@ -611,10 +611,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0024');
@@ -637,10 +637,10 @@ export default function pendingCountTest(): void {
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.pending).assertEqual('number');
       sharedDriver.hilogEnd('testPendingCount0025');

@@ -24,9 +24,9 @@ import {
   DOMAIN, TAG, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_CLEAR_HISTORY_BUTTON,
   ID_QUERY_ALL_BUTTON
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function pairingStatusDisplayTest(): void {
   describe('PairingStatusDisplayTest', (): void => {
@@ -47,7 +47,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire: 0')).assertTrue();
       expect(text.includes('Release: 0')).assertTrue();
       expect(text.includes('Pending: 0')).assertTrue();
@@ -70,7 +70,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
       expect(text.length).assertLarger(0);
@@ -95,7 +95,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Release:')).assertTrue();
       expect(text.includes('Pending:')).assertTrue();
       expect(text.length).assertLarger(0);
@@ -114,7 +114,7 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0004');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('|')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -137,7 +137,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire: 0')).assertTrue();
       expect(text.includes('Release: 0')).assertTrue();
       expect(text.includes('Pending: 0')).assertTrue();
@@ -158,11 +158,11 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Pending:')).assertTrue();
       expect(text.length).assertLarger(0);
@@ -189,7 +189,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending:')).assertTrue();
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -214,7 +214,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending: 0')).assertTrue();
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -233,9 +233,9 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0009');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const exists = await sharedDriver.existsId('pairingStatus');
+      const exists: boolean = await sharedDriver.existsId('pairingStatus');
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testPairingStatusDisplay0009');
@@ -253,8 +253,8 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0010');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
-      const pipeCount = text.split('|').length - 1;
+      const text: string = await sharedDriver.getTextById('pairingStatus');
+      const pipeCount: number = text.split('|').length - 1;
       expect(pipeCount).assertEqual(2);
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -275,11 +275,11 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const before = await sharedDriver.getTextById('pairingStatus');
+      const before: string = await sharedDriver.getTextById('pairingStatus');
       expect(before.includes('Acquire: 0')).assertTrue();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const after = await sharedDriver.getTextById('pairingStatus');
+      const after: string = await sharedDriver.getTextById('pairingStatus');
       expect(after.includes('Acquire:')).assertTrue();
       expect(before !== after).assertTrue();
       expect(after.length).assertLarger(0);
@@ -302,10 +302,10 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const t1 = await sharedDriver.getTextById('pairingStatus');
+      const t1: string = await sharedDriver.getTextById('pairingStatus');
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const t2 = await sharedDriver.getTextById('pairingStatus');
+      const t2: string = await sharedDriver.getTextById('pairingStatus');
       expect(t1 !== t2).assertTrue();
       expect(t2.includes('Release:')).assertTrue();
       expect(t2.length).assertLarger(0);
@@ -328,8 +328,8 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairingText = await sharedDriver.getTextById('pairingStatus');
-      const queryResult = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, 'operationResult');
+      const pairingText: string = await sharedDriver.getTextById('pairingStatus');
+      const queryResult: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, 'operationResult');
       expect(pairingText.includes('Acquire:')).assertTrue();
       expect(queryResult.includes('Acquire:')).assertTrue();
       expect(pairingText.length).assertLarger(0);
@@ -350,13 +350,13 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
         await sharedDriver.waitUiIdle();
         await sharedDriver.clickId(ID_RELEASE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
       expect(text.includes('Pending: 0')).assertTrue();
@@ -379,7 +379,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending: 0')).assertTrue();
       expect(text.includes('Pending: -')).assertFalse();
       expect(text.length).assertLarger(0);
@@ -398,7 +398,7 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0016');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(typeof text).assertEqual('string');
       expect(text.length).assertLarger(0);
       expect(text.includes(':')).assertTrue();
@@ -427,7 +427,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending: 0')).assertTrue();
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -454,7 +454,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire: 0')).assertTrue();
       expect(text.includes('Release: 0')).assertTrue();
       expect(text.includes('Pending: 0')).assertTrue();
@@ -473,8 +473,8 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const t1 = await sharedDriver.getTextById('pairingStatus');
-      const t2 = await sharedDriver.getTextById('pairingStatus');
+      const t1: string = await sharedDriver.getTextById('pairingStatus');
+      const t2: string = await sharedDriver.getTextById('pairingStatus');
       expect(t1).assertEqual(t2);
       expect(t1.length).assertLarger(0);
       expect(typeof t1).assertEqual('string');
@@ -493,8 +493,8 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0020');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
-      const sections = text.split('|');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
+      const sections: string[] = text.split('|');
       expect(sections.length).assertEqual(3);
       expect(sections[0].includes('Acquire')).assertTrue();
       expect(sections[1].includes('Release')).assertTrue();
@@ -519,7 +519,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending:')).assertTrue();
       expect(text.includes('Pending: 0')).assertFalse();
       expect(text.length).assertLarger(0);
@@ -544,7 +544,7 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Pending: 0')).assertTrue();
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
@@ -563,9 +563,9 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0023');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
-      const regex = new RegExp('\\d+');
-      const hasNumbers = regex.test(text);
+      const text: string = await sharedDriver.getTextById('pairingStatus');
+      const regex: RegExp = new RegExp('\\d+');
+      const hasNumbers: boolean = regex.test(text);
       expect(hasNumbers).assertTrue();
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.length).assertLarger(0);
@@ -588,10 +588,10 @@ export default function pairingStatusDisplayTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const beforeQueryAll = await sharedDriver.getTextById('pairingStatus');
+      const beforeQueryAll: string = await sharedDriver.getTextById('pairingStatus');
       await sharedDriver.clickId(ID_QUERY_ALL_BUTTON);
       await sharedDriver.waitUiIdle();
-      const afterQueryAll = await sharedDriver.getTextById('pairingStatus');
+      const afterQueryAll: string = await sharedDriver.getTextById('pairingStatus');
       expect(beforeQueryAll).assertEqual(afterQueryAll);
       expect(beforeQueryAll.includes('Acquire:')).assertTrue();
       expect(beforeQueryAll.length).assertLarger(0);
@@ -610,7 +610,7 @@ export default function pairingStatusDisplayTest(): void {
       sharedDriver.hilogBegin('testPairingStatusDisplay0025');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(typeof text).assertEqual('string');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();

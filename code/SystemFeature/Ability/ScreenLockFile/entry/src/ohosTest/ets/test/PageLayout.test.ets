@@ -27,8 +27,8 @@ import {
   TITLE_FONT_SIZE, SUBTITLE_FONT_SIZE, BODY_FONT_SIZE, SMALL_FONT_SIZE,
   CONTENT_MAX_WIDTH, BUTTON_HEIGHT, CARD_RADIUS, CARD_PADDING, MAX_HISTORY_SIZE
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function pageLayoutTest(): void {
   describe('PageLayoutTest', (): void => {
@@ -47,10 +47,10 @@ export default function pageLayoutTest(): void {
       sharedDriver.hilogBegin('testPageLayout0001');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
-      const qa = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const qa: boolean = await sharedDriver.existsId(ID_QUERY_ALL_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -70,9 +70,9 @@ export default function pageLayoutTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const exists = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const exists: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testPageLayout0002');
@@ -91,9 +91,9 @@ export default function pageLayoutTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await scrollToId('pairingStatus');
-      const exists = await sharedDriver.existsId('pairingStatus');
+      const exists: boolean = await sharedDriver.existsId('pairingStatus');
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.length).assertLarger(0);
       sharedDriver.hilogEnd('testPageLayout0003');
@@ -112,7 +112,7 @@ export default function pageLayoutTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_CLEAR_HISTORY_BUTTON);
-      const exists = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const exists: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(exists).assertTrue();
       expect(typeof exists).assertEqual('boolean');
       expect(exists).assertEqual(true);
@@ -217,8 +217,8 @@ export default function pageLayoutTest(): void {
       await sharedDriver.waitUiIdle();
       const ids: string[] = [ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON, ID_QUERY_ALL_BUTTON];
       expect(ids.length).assertEqual(4);
-      for (let i = 0; i < ids.length; i++) {
-        const exists = await sharedDriver.existsId(ids[i]);
+      for (let i: number = 0; i < ids.length; i++) {
+        const exists: boolean = await sharedDriver.existsId(ids[i]);
         expect(exists).assertTrue();
       }
       expect(typeof ids[0]).assertEqual('string');
@@ -307,7 +307,7 @@ export default function pageLayoutTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.includes('queryAppKeyState')).assertTrue();
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
@@ -326,7 +326,7 @@ export default function pageLayoutTest(): void {
       sharedDriver.hilogBegin('testPageLayout0016');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire:')).assertTrue();
       expect(text.includes('Release:')).assertTrue();
       expect(text.includes('Pending:')).assertTrue();
@@ -347,9 +347,9 @@ export default function pageLayoutTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertTrue();
-      const clearBtn = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
+      const clearBtn: boolean = await sharedDriver.existsId(ID_CLEAR_HISTORY_BUTTON);
       expect(clearBtn).assertTrue();
       expect(typeof noHist).assertEqual('boolean');
       sharedDriver.hilogEnd('testPageLayout0017');
@@ -384,9 +384,9 @@ export default function pageLayoutTest(): void {
       sharedDriver.hilogBegin('testPageLayout0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(r1.length).assertLarger(0);
-      const r2 = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(r2.length).assertLarger(0);
       expect(r1 !== r2).assertTrue();
       sharedDriver.hilogEnd('testPageLayout0019');
@@ -425,7 +425,7 @@ export default function pageLayoutTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.includes('Ready') || text.includes('就绪')).assertTrue();
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
@@ -448,7 +448,7 @@ export default function pageLayoutTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const text = await sharedDriver.getTextById('pairingStatus');
+      const text: string = await sharedDriver.getTextById('pairingStatus');
       expect(text.includes('Acquire: 0')).assertTrue();
       expect(text.includes('Release: 0')).assertTrue();
       expect(text.length).assertLarger(0);
@@ -467,9 +467,9 @@ export default function pageLayoutTest(): void {
       sharedDriver.hilogBegin('testPageLayout0023');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(r1.includes('queryAppKeyState')).assertTrue();
-      const r2 = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
       expect(r2.includes('KeyState')).assertTrue();
       expect(r1 !== r2).assertTrue();
       sharedDriver.hilogEnd('testPageLayout0023');
@@ -504,9 +504,9 @@ export default function pageLayoutTest(): void {
       sharedDriver.hilogBegin('testPageLayout0025');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const r = await sharedDriver.existsId(ID_OPERATION_RESULT);
-      const p = await sharedDriver.existsId('pairingStatus');
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const p: boolean = await sharedDriver.existsId('pairingStatus');
       expect(q).assertTrue();
       expect(r).assertTrue();
       expect(p).assertTrue();

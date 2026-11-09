@@ -18,14 +18,14 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
 import { TestHelper } from './TestHelper';
 import { DOMAIN, TAG, BUNDLE_NAME, ABILITY_NAME} from './TestConstants';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function releaseCountTest(): void {
   describe('ReleaseCountTest', (): void => {
@@ -46,15 +46,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0001');
     });
@@ -73,15 +73,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0002');
     });
@@ -100,15 +100,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0003');
     });
@@ -127,15 +127,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0004');
     });
@@ -154,15 +154,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0005');
     });
@@ -181,15 +181,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0006');
     });
@@ -208,15 +208,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0007');
     });
@@ -235,15 +235,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0008');
     });
@@ -262,15 +262,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0009');
     });
@@ -289,15 +289,15 @@ export default function releaseCountTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const beforeCounts = await extDriver.parsePairingCounts();
+      const beforeCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(beforeCounts.release).assertEqual(0);
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
-      const afterCounts = await extDriver.parsePairingCounts();
+      const afterCounts: PairingCounts = await extDriver.parsePairingCounts();
       expect(afterCounts.release).assertLarger(-1);
       expect(typeof afterCounts.release).assertEqual('number');
-      const result = await extDriver.getOperationResult();
+      const result: string = await extDriver.getOperationResult();
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testReleaseCount0010');
     });
@@ -317,15 +317,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0011');
@@ -346,15 +346,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0012');
@@ -375,15 +375,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0013');
@@ -404,15 +404,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0014');
@@ -433,15 +433,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0015');
@@ -462,15 +462,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0016');
@@ -491,15 +491,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0017');
@@ -520,15 +520,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0018');
@@ -549,15 +549,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0019');
@@ -578,15 +578,15 @@ export default function releaseCountTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       try {
-        const status = screenLockFileManager.releaseAccess();
-        const isValid = testHelper.isValidReleaseStatus(status);
+        const status: screenLockFileManager.ReleaseStatus = screenLockFileManager.releaseAccess();
+        const isValid: boolean = testHelper.isValidReleaseStatus(status);
         expect(isValid).assertTrue();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(typeof counts.release).assertEqual('number');
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testReleaseCount0020');
@@ -608,7 +608,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -632,7 +632,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -656,7 +656,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -680,7 +680,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -704,7 +704,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -728,7 +728,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -752,7 +752,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -776,7 +776,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -800,7 +800,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -824,7 +824,7 @@ export default function releaseCountTest(): void {
       await extDriver.clickReleaseButton();
       await extDriver.clickReleaseButton();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);

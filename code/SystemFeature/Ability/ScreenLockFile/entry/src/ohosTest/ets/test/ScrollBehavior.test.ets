@@ -25,9 +25,9 @@ import {
   DOMAIN, TAG, ID_QUERY_BUTTON, ID_ACQUIRE_BUTTON, ID_RELEASE_BUTTON,
   ID_CLEAR_HISTORY_BUTTON, ID_OPERATION_RESULT, MAX_HISTORY_SIZE
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
 
 export default function scrollBehaviorTest(): void {
   describe('ScrollBehaviorTest', (): void => {
@@ -47,9 +47,9 @@ export default function scrollBehaviorTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await scrollToId(ID_OPERATION_RESULT);
-      const exists = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const exists: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
       expect(exists).assertTrue();
-      const text = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const text: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(text.length).assertLarger(0);
       expect(typeof text).assertEqual('string');
       sharedDriver.hilogEnd('testScrollBehavior0001');
@@ -69,11 +69,11 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -94,11 +94,11 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < MAX_HISTORY_SIZE; i++) {
+      for (let i: number = 0; i < MAX_HISTORY_SIZE; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -119,11 +119,11 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < MAX_HISTORY_SIZE + 5; i++) {
+      for (let i: number = 0; i < MAX_HISTORY_SIZE + 5; i++) {
         await sharedDriver.clickId(ID_QUERY_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -142,9 +142,9 @@ export default function scrollBehaviorTest(): void {
       sharedDriver.hilogBegin('testScrollBehavior0005');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const a = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
-      const r = await sharedDriver.existsId(ID_RELEASE_BUTTON);
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const a: boolean = await sharedDriver.existsId(ID_ACQUIRE_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_RELEASE_BUTTON);
       expect(q).assertTrue();
       expect(a).assertTrue();
       expect(r).assertTrue();
@@ -165,7 +165,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Acquire:')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -190,7 +190,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Release:')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -211,7 +211,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertTrue();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(true);
@@ -234,7 +234,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const noHist = await sharedDriver.existsId('noHistoryText');
+      const noHist: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHist).assertFalse();
       expect(typeof noHist).assertEqual('boolean');
       expect(noHist).assertEqual(false);
@@ -255,7 +255,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -276,7 +276,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -297,7 +297,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -318,7 +318,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -345,7 +345,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_RELEASE_BUTTON);
       await sharedDriver.waitUiIdle();
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Pending:')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -366,13 +366,13 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId(ID_ACQUIRE_BUTTON);
         await sharedDriver.waitUiIdle();
         await sharedDriver.clickId(ID_RELEASE_BUTTON);
         await sharedDriver.waitUiIdle();
       }
-      const pairing = await sharedDriver.getTextById('pairingStatus');
+      const pairing: string = await sharedDriver.getTextById('pairingStatus');
       expect(pairing.includes('Pending: 0')).assertTrue();
       expect(pairing.length).assertLarger(0);
       expect(typeof pairing).assertEqual('string');
@@ -393,7 +393,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(false);
@@ -414,7 +414,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
       expect(typeof isEmpty).assertEqual('boolean');
       expect(isEmpty).assertEqual(true);
@@ -433,9 +433,9 @@ export default function scrollBehaviorTest(): void {
       sharedDriver.hilogBegin('testScrollBehavior0018');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const r1 = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const r1: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(r1.includes('queryAppKeyState')).assertTrue();
-      const r2 = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
+      const r2: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', ID_OPERATION_RESULT);
       expect(r2.includes('KeyState')).assertTrue();
       expect(r1 !== r2).assertTrue();
       sharedDriver.hilogEnd('testScrollBehavior0018');
@@ -459,7 +459,7 @@ export default function scrollBehaviorTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId(ID_CLEAR_HISTORY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -478,9 +478,9 @@ export default function scrollBehaviorTest(): void {
       sharedDriver.hilogBegin('testScrollBehavior0020');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const q = await sharedDriver.existsId(ID_QUERY_BUTTON);
-      const r = await sharedDriver.existsId(ID_OPERATION_RESULT);
-      const p = await sharedDriver.existsId('pairingStatus');
+      const q: boolean = await sharedDriver.existsId(ID_QUERY_BUTTON);
+      const r: boolean = await sharedDriver.existsId(ID_OPERATION_RESULT);
+      const p: boolean = await sharedDriver.existsId('pairingStatus');
       expect(q).assertTrue();
       expect(r).assertTrue();
       expect(p).assertTrue();

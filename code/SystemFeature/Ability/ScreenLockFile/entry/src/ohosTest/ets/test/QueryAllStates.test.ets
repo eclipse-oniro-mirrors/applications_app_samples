@@ -18,15 +18,16 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SharedDriver } from './SharedDriver';
+import { PairingCounts } from './SharedDriverExt';
 import { TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
   DOMAIN, TAG, TEXT_KEY_STATE, TEXT_ACQUIRE, TEXT_RELEASE, TEXT_PENDING
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function queryAllStatesTest(): void {
   describe('QueryAllStatesTest', (): void => {
@@ -46,7 +47,7 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0001');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.length).assertLarger(0);
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
       expect(result.includes(TEXT_ACQUIRE)).assertTrue();
@@ -66,7 +67,7 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0002');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes(TEXT_RELEASE)).assertTrue();
       expect(result.includes(TEXT_PENDING)).assertTrue();
       expect(result.includes('|')).assertTrue();
@@ -88,7 +89,7 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Acquire: 0')).assertTrue();
       expect(result.includes('Release: 0')).assertTrue();
       expect(result.includes('Pending: 0')).assertTrue();
@@ -111,7 +112,7 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.length).assertLarger(0);
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
       expect(result.includes(TEXT_ACQUIRE)).assertTrue();
@@ -135,7 +136,7 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes(TEXT_RELEASE)).assertTrue();
       expect(result.includes(TEXT_PENDING)).assertTrue();
       expect(result.includes('Pending: 0')).assertTrue();
@@ -155,8 +156,8 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0006');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result1 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
-      const result2 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result1: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result2: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result1).assertEqual(result2);
       expect(result1.length).assertLarger(0);
       expect(result2.length).assertLarger(0);
@@ -176,8 +177,8 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0007');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
-      const hasKeyName = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const hasKeyName: boolean = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
         result.includes('KEY_EXIST');
       expect(hasKeyName).assertTrue();
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
@@ -200,11 +201,11 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes(TEXT_ACQUIRE)).assertTrue();
       expect(result.includes(TEXT_PENDING)).assertTrue();
       expect(result.length).assertLarger(0);
@@ -224,8 +225,8 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0009');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
-      const parts = result.split('|');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const parts: string[] = result.split('|');
       expect(parts.length).assertEqual(4);
       expect(parts[0].length).assertLarger(0);
       expect(parts[1].length).assertLarger(0);
@@ -247,9 +248,9 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const beforeResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const beforeResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       await sharedDriver.clickId('queryKeyStateButton');
-      const afterResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const afterResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(beforeResult).assertEqual(afterResult);
       expect(beforeResult.length).assertLarger(0);
       expect(afterResult.length).assertLarger(0);
@@ -269,7 +270,7 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0011');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.includes('Release:')).assertTrue();
@@ -293,8 +294,8 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.waitUiIdle();
-      const counts = await testHelper.getExtDriver().parsePairingCounts();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const counts: PairingCounts = await testHelper.getExtDriver().parsePairingCounts();
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes(`Acquire: ${counts.acquire}`)).assertTrue();
       expect(result.includes(`Release: ${counts.release}`)).assertTrue();
       expect(result.includes(`Pending: ${counts.pending}`)).assertTrue();
@@ -314,9 +315,9 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0013');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
-      const keyStateMatch = new RegExp('KeyState:\\s*\\w+');
-      const hasKeyState = keyStateMatch.test(result);
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const keyStateMatch: RegExp = new RegExp('KeyState:\\s*\\w+');
+      const hasKeyState: boolean = keyStateMatch.test(result);
       expect(hasKeyState).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
@@ -341,7 +342,7 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.clickId('acquireAccessButton');
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Pending: 1')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
@@ -362,8 +363,8 @@ export default function queryAllStatesTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       const results: string[] = [];
-      for (let i = 0; i < 3; i++) {
-        const text = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      for (let i: number = 0; i < 3; i++) {
+        const text: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
         results.push(text);
       }
       expect(results.length).assertEqual(3);
@@ -385,13 +386,13 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0016');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Pending:')).assertTrue();
-      const pendingMatch = new RegExp('Pending:\\s*(\\d+)');
-      const pendingExec = pendingMatch.exec(result);
+      const pendingMatch: RegExp = new RegExp('Pending:\\s*(\\d+)');
+      const pendingExec: RegExpExecArray | null = pendingMatch.exec(result);
       expect(pendingExec !== null).assertTrue();
       if (pendingExec !== null && pendingExec.length > 1) {
-        const pendingVal = parseInt(pendingExec[1]);
+        const pendingVal: number = parseInt(pendingExec[1]);
         expect(pendingVal).assertLarger(-1);
       }
       expect(result.length).assertLarger(0);
@@ -413,15 +414,15 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId('acquireAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         await sharedDriver.clickId('releaseAccessButton');
         await sharedDriver.waitUiIdle();
       }
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Pending: 0')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(result.includes(TEXT_KEY_STATE)).assertTrue();
@@ -443,9 +444,9 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const noHistory = await sharedDriver.existsId('noHistoryText');
+      const noHistory: boolean = await sharedDriver.existsId('noHistoryText');
       expect(noHistory).assertTrue();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Acquire: 0')).assertTrue();
       expect(result.includes('Release: 0')).assertTrue();
       sharedDriver.hilogEnd('testQueryAppKeyState0018');
@@ -464,9 +465,9 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('KeyState:')).assertTrue();
-      const hasEnumName = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
+      const hasEnumName: boolean = result.includes('KEY_NOT_EXIST') || result.includes('KEY_RELEASED') ||
         result.includes('KEY_EXIST');
       expect(hasEnumName).assertTrue();
       expect(result.length).assertLarger(10);
@@ -486,10 +487,10 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0020');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
-      const colonCount = (result.match(new RegExp(':', 'g')) || []).length;
+      const colonCount: number = (result.match(new RegExp(':', 'g')) || []).length;
       expect(colonCount).assertLarger(2);
       sharedDriver.hilogEnd('testQueryAppKeyState0020');
     });
@@ -510,9 +511,9 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('acquireAccessButton');
-      const result1 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result1: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       await sharedDriver.clickId('acquireAccessButton');
-      const result2 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result2: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result1 !== result2).assertTrue();
       expect(result1.length).assertLarger(0);
       expect(result2.length).assertLarger(0);
@@ -532,9 +533,9 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0022');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes(' | ')).assertTrue();
-      const pipeCount = (result.match(new RegExp('\\|', 'g')) || []).length;
+      const pipeCount: number = (result.match(new RegExp('\\|', 'g')) || []).length;
       expect(pipeCount).assertEqual(3);
       expect(result.length).assertLarger(0);
       sharedDriver.hilogEnd('testQueryAppKeyState0022');
@@ -556,7 +557,7 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('releaseAccessButton');
-      const result = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result.includes('Release:')).assertTrue();
       expect(result.includes('Pending: 0')).assertTrue();
       expect(result.length).assertLarger(0);
@@ -576,15 +577,15 @@ export default function queryAllStatesTest(): void {
       sharedDriver.hilogBegin('testQueryAppKeyState0024');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result1 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result1: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       try {
         screenLockFileManager.acquireAccess();
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         expect(err.code).assertLarger(0);
         expect(err.message.length).assertLarger(0);
       }
-      const result2 = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const result2: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(result1.length).assertLarger(0);
       expect(result2.length).assertLarger(0);
       expect(result2.includes(TEXT_KEY_STATE)).assertTrue();
@@ -606,13 +607,13 @@ export default function queryAllStatesTest(): void {
       await sharedDriver.waitUiIdle();
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const initialResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const initialResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(initialResult.includes('Acquire: 0')).assertTrue();
       await sharedDriver.clickId('acquireAccessButton');
       await sharedDriver.clickId('releaseAccessButton');
       await sharedDriver.clickId('clearHistoryButton');
       await sharedDriver.waitUiIdle();
-      const resetResult = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
+      const resetResult: string = await sharedDriver.clickAndGetResult('queryAllStatesButton', 'operationResult');
       expect(resetResult.includes('Acquire: 0')).assertTrue();
       expect(resetResult.includes('Release: 0')).assertTrue();
       expect(resetResult).assertEqual(initialResult);

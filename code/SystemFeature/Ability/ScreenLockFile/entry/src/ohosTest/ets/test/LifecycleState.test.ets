@@ -18,8 +18,8 @@ import { screenLockFileManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { SharedDriver } from './SharedDriver';
-import { SharedDriverExt } from './SharedDriverExt';
-import { TestHelper } from './TestHelper';
+import { PairingCounts, SharedDriverExt } from './SharedDriverExt';
+import { ApiCallResult, StateSnapshot, TestHelper } from './TestHelper';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BUNDLE_NAME, ABILITY_NAME } from './TestConstants';
 import {
@@ -28,10 +28,10 @@ import {
   KEY_STATUS_NOT_EXIST, KEY_STATUS_RELEASED, KEY_STATUS_EXIST,
   ACCESS_STATUS_GRANTED, RELEASE_STATUS_GRANTED
 } from './TestConstants';
-const sharedDriver = new SharedDriver();
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const extDriver = new SharedDriverExt(sharedDriver);
-const testHelper = new TestHelper(sharedDriver);
+const sharedDriver: SharedDriver = new SharedDriver();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const extDriver: SharedDriverExt = new SharedDriverExt(sharedDriver);
+const testHelper: TestHelper = new TestHelper(sharedDriver);
 
 export default function lifecycleStateTest(): void {
   describe('LifecycleStateTest', (): void => {
@@ -48,7 +48,7 @@ export default function lifecycleStateTest(): void {
      */
     it('testLifecycleState0001', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testLifecycleState0001');
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       expect(status).assertLarger(-1);
@@ -67,7 +67,7 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0002');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(typeof result).assertEqual('string');
       expect(result.length).assertLarger(0);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
@@ -86,7 +86,7 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0003');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.includes('KEY_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -105,7 +105,7 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0004');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess')).assertTrue();
       expect(result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -125,7 +125,7 @@ export default function lifecycleStateTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       testHelper.acquireAccess();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess')).assertTrue();
       expect(result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -147,9 +147,9 @@ export default function lifecycleStateTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(-1);
       expect(counts.release).assertLarger(-1);
       sharedDriver.hilogEnd('testLifecycleState0006');
@@ -170,7 +170,7 @@ export default function lifecycleStateTest(): void {
       testHelper.acquireAccess();
       testHelper.releaseAccess();
       await extDriver.clearHistoryAndWait();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertEqual(0);
       expect(counts.release).assertEqual(0);
       expect(counts.pending).assertEqual(0);
@@ -192,7 +192,7 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const result = await sharedDriver.getTextById(ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.getTextById(ID_OPERATION_RESULT);
       expect(result.includes('Ready') || result.includes('就绪')).assertTrue();
       expect(result.length).assertLarger(0);
       expect(typeof result).assertEqual('string');
@@ -214,9 +214,9 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testLifecycleState0009');
@@ -236,10 +236,10 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       testHelper.acquireAccess();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState')).assertTrue();
       expect(result.length).assertLarger(0);
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       sharedDriver.hilogEnd('testLifecycleState0010');
     });
@@ -257,10 +257,10 @@ export default function lifecycleStateTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const before = await testHelper.captureStateSnapshot();
+      const before: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(typeof before.operationResult).assertEqual('string');
       await extDriver.clickAcquireButton();
-      const after = await testHelper.captureStateSnapshot();
+      const after: StateSnapshot = await testHelper.captureStateSnapshot();
       expect(after.historyEmpty).assertFalse();
       expect(typeof after.pairingText).assertEqual('string');
       sharedDriver.hilogEnd('testLifecycleState0011');
@@ -280,7 +280,7 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.acquire).assertLarger(-1);
       expect(counts.pending).assertLarger(-1);
       expect(typeof counts.acquire).assertEqual('number');
@@ -302,7 +302,7 @@ export default function lifecycleStateTest(): void {
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
       await extDriver.clickReleaseButton();
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertLarger(-1);
       expect(counts.release).assertLarger(-1);
@@ -321,7 +321,7 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0014');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_ALL_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('KeyState:')).assertTrue();
       expect(result.includes('Acquire:')).assertTrue();
       expect(result.includes('Release:')).assertTrue();
@@ -341,11 +341,11 @@ export default function lifecycleStateTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      for (let i = 0; i < 3; i++) {
+      for (let i: number = 0; i < 3; i++) {
         await extDriver.clickAcquireButton();
         await extDriver.clickReleaseButton();
       }
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       expect(counts.acquire).assertEqual(counts.release);
       expect(counts.acquire).assertLarger(-1);
@@ -366,9 +366,9 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       await sharedDriver.waitUiIdle();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
-      const stable = await testHelper.waitForStableState(2000);
+      const stable: boolean = await testHelper.waitForStableState(2000);
       expect(stable).assertTrue();
       expect(typeof stable).assertEqual('boolean');
       sharedDriver.hilogEnd('testLifecycleState0016');
@@ -389,9 +389,9 @@ export default function lifecycleStateTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
-      const count = await extDriver.getHistoryEntryCount();
+      const count: number = await extDriver.getHistoryEntryCount();
       expect(count).assertLarger(0);
       expect(typeof count).assertEqual('number');
       sharedDriver.hilogEnd('testLifecycleState0017');
@@ -409,10 +409,10 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0018');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const valid = await testHelper.verifyHistoryLimit();
+      const valid: boolean = await testHelper.verifyHistoryLimit();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const isEmpty = await extDriver.isHistoryEmpty();
+      const isEmpty: boolean = await extDriver.isHistoryEmpty();
       expect(isEmpty).assertFalse();
       sharedDriver.hilogEnd('testLifecycleState0018');
     });
@@ -429,10 +429,10 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0019');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const valid = await testHelper.verifyPairingSymmetry();
+      const valid: boolean = await testHelper.verifyPairingSymmetry();
       expect(valid).assertTrue();
       expect(typeof valid).assertEqual('boolean');
-      const counts = await extDriver.parsePairingCounts();
+      const counts: PairingCounts = await extDriver.parsePairingCounts();
       expect(counts.pending).assertEqual(0);
       sharedDriver.hilogEnd('testLifecycleState0019');
     });
@@ -449,9 +449,9 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0020');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const result = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_QUERY_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('queryAppKeyState:')).assertTrue();
-      const colonIdx = result.indexOf(':');
+      const colonIdx: number = result.indexOf(':');
       expect(colonIdx).assertLarger(0);
       expect(result.length).assertLarger(colonIdx + 1);
       sharedDriver.hilogEnd('testLifecycleState0020');
@@ -470,7 +470,7 @@ export default function lifecycleStateTest(): void {
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
-      const result = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_ACQUIRE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('acquireAccess:')).assertTrue();
       expect(result.includes('ACCESS_')).assertTrue();
       expect(result.length).assertLarger(10);
@@ -491,7 +491,7 @@ export default function lifecycleStateTest(): void {
       await sharedDriver.waitUiIdle();
       await extDriver.clearHistoryAndWait();
       await extDriver.clickAcquireButton();
-      const result = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
+      const result: string = await sharedDriver.clickAndGetResult(ID_RELEASE_BUTTON, ID_OPERATION_RESULT);
       expect(result.includes('releaseAccess:') || result.includes('RELEASE_')).assertTrue();
       expect(result.length).assertLarger(10);
       sharedDriver.hilogEnd('testLifecycleState0022');
@@ -512,7 +512,7 @@ export default function lifecycleStateTest(): void {
       await extDriver.clearHistoryAndWait();
       await sharedDriver.clickId(ID_QUERY_BUTTON);
       await sharedDriver.waitUiIdle();
-      const ts = testHelper.formatTimestamp();
+      const ts: string = testHelper.formatTimestamp();
       expect(ts.length).assertEqual(8);
       expect(ts.includes(':')).assertTrue();
       expect(typeof ts).assertEqual('string');
@@ -529,7 +529,7 @@ export default function lifecycleStateTest(): void {
      */
     it('testLifecycleState0024', 0, async (): Promise<void> => {
       sharedDriver.hilogBegin('testLifecycleState0024');
-      const result = testHelper.queryKeyState();
+      const result: ApiCallResult = testHelper.queryKeyState();
       expect(result.timestamp).assertLarger(0);
       expect(typeof result.timestamp).assertEqual('number');
       expect(typeof result.success).assertEqual('boolean');
@@ -548,9 +548,9 @@ export default function lifecycleStateTest(): void {
       sharedDriver.hilogBegin('testLifecycleState0025');
       await abilityDelegator.startAbility({ bundleName: BUNDLE_NAME, abilityName: ABILITY_NAME });
       await sharedDriver.waitUiIdle();
-      const isValid = await testHelper.verifyStateConsistency();
+      const isValid: boolean = await testHelper.verifyStateConsistency();
       expect(isValid).assertTrue();
-      const status = screenLockFileManager.queryAppKeyState();
+      const status: screenLockFileManager.KeyStatus = screenLockFileManager.queryAppKeyState();
       expect(testHelper.isValidKeyStatus(status)).assertTrue();
       expect(typeof status).assertEqual('number');
       sharedDriver.hilogEnd('testLifecycleState0025');
