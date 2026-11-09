@@ -1,16 +1,16 @@
 # Annotation
 
-### Introduction
+## Introduction
 
 This sample uses [annotation in Basic Services Kit](https://gitcode.com/shicheny_01/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-annotation.md) to demonstrate `@Available` version checks and `@SuppressWarnings` warning suppression.
 
 The ArkTS Stage sample runs as a normal application on an emulator or a local device without special hardware. Local mode reads the system API version, while mock mode uses API 21 to demonstrate compatibility fallback deterministically.
 
-### Preview
+## Preview
 
 The home page displays the runtime API version, the annotation starting version, the demo function API version, suppression rules and demo results. Capture a device screenshot after running the sample on a device.
 
-### Usage
+## Usage
 
 1. Launch the application to read the local API version.
 2. Select **Run example** in the `@Available` card. The annotated function runs only when the system supports OpenHarmony 22 or later.
@@ -18,7 +18,7 @@ The home page displays the runtime API version, the annotation starting version,
 4. Select **Mock data** to use API 21 and verify that both examples safely fall back.
 5. Select **Refresh** to reload the selected environment and reset the demo results.
 
-### Project Structure
+## Project Structure
 
 ```text
 Annotation
@@ -37,7 +37,7 @@ Annotation
         └── utils/Logger.ts
 ```
 
-### Implementation
+## Implementation
 
 1. [AnnotationService.ets](library/src/main/ets/annotation/feature/AnnotationService.ets) declares functions with `@Available`, suppresses a compatibility warning with `@SuppressWarnings` and protects every call with a runtime version guard.
 2. The service also returns `compatibility`, `syscap` and `permission` through `SuppressWarningsType`.
@@ -52,15 +52,15 @@ Annotation
 11. [AnnotationPerformanceDeep.test.ets](entry/src/ohosTest/ets/test/AnnotationPerformanceDeep.test.ets) provides deep performance testing including memory leak detection, CPU/memory pressure, response time percentiles, GC impact, sustained load, concurrent access, resource cleanup, peak load handling, and performance stability over time.
 12. [ohosTest.md](ohosTest.md) archives runtime test scenarios and lists warning diagnostic scenarios that require verification through independent compilation fixtures.
 
-### Permissions
+## Permissions
 
 No permissions are required. Suppressing a permission warning does not grant a permission.
 
-### Dependencies
+## Dependencies
 
 No other samples or third-party runtime dependencies are required.
 
-### Constraints
+## Constraints
 
 1. The sample supports only the Stage model on standard-system emulators and devices.
 2. `@Available` is available since API 22. `@SuppressWarnings` and `SuppressWarningsType` are available since API 23, while the `PERMISSION` rule is available since API 26.0.0.
@@ -69,9 +69,9 @@ No other samples or third-party runtime dependencies are required.
 5. The card shows two versions: API 23 is the starting version of `@SuppressWarnings`, while API 27 is the `minApiVersion` of the user-defined demo function. API 27 exceeds compatibleSdkVersion 26.0.0 on purpose so that a suppressible compatibility warning is raised. It is not a call to a future system API and is never executed on systems below API 27.
 6. Mock mode always uses API 21 and does not represent the actual device version.
 
-### Testing
+## Testing
 
-The project includes 134 automated test cases across 8 test suites:
+The project includes 324 automated test cases across 30 test suites:
 
 - **AnnotationApi.test.ets**: 15 API functional tests
 - **Ability.test.ets**: 8 UI interaction tests
@@ -81,8 +81,31 @@ The project includes 134 automated test cases across 8 test suites:
 - **MockEnvironment.test.ets**: 22 mock environment tests
 - **Robustness.test.ets**: 20 fault tolerance and stability tests
 - **AnnotationPerformanceDeep.test.ets**: 10 deep performance tests
+- **AnnotationServiceEdgeCases.test.ets**: 12 edge case tests
+- **AnnotationException.test.ets**: 9 exception handling tests
+- **AnnotationDeep.test.ets**: 9 deep functionality tests
+- **AnnotationConsistency.test.ets**: 10 consistency tests
+- **AnnotationLifecycle.test.ets**: 10 lifecycle tests
+- **AnnotationIntegration.test.ets**: 10 integration tests
+- **AnnotationError.test.ets**: 10 error handling tests
+- **AnnotationConfig.test.ets**: 10 configuration tests
+- **AnnotationSecurity.test.ets**: 10 security tests
+- **AnnotationStateMachine.test.ets**: 10 state machine extension tests
+- **AnnotationBoundary.test.ets**: 18 boundary value extension tests
+- **AnnotationExceptionInput.test.ets**: 8 exception input tests
+- **AnnotationLifecycleExt.test.ets**: 10 lifecycle extension tests
+- **AnnotationIntegrationExt.test.ets**: 8 integration extension tests
+- **AnnotationConstantDeep.test.ets**: 12 constant deep tests
+- **AnnotationSecurityDeep.test.ets**: 10 security deep tests
+- **AnnotationUIDeep.test.ets**: 10 UI deep tests
+- **AnnotationMonitor.test.ets**: 10 monitor tests
+- **AnnotationConcurrency.test.ets**: 9 concurrency tests
+- **AnnotationMemory.test.ets**: 10 memory tests
+- **AnnotationErrorBoundary.test.ets**: 12 error boundary tests
+- **AnnotationRuleEngine.test.ets**: 10 rule engine tests
+- **AnnotationRegression.test.ets**: 12 regression tests
 
-#### AppFreeze Prevention
+### AppFreeze Prevention
 
 All performance test cases have been optimized to prevent THREAD_BLOCK_6S errors:
 
@@ -93,7 +116,7 @@ All performance test cases have been optimized to prevent THREAD_BLOCK_6S errors
 
 See [ohosTest.md](ohosTest.md) for detailed test case documentation and AppFreeze fix records.
 
-### Download
+## Download
 
 To download only this project, run:
 
@@ -101,6 +124,6 @@ To download only this project, run:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/DeviceManagement/Annotation/ > .git/info/sparse-checkout
-git remote add origin https://gitcode.com/shicheny_01/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
