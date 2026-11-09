@@ -1066,7 +1066,6 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_RemoveWatcher]
 // [Start AppKillEvent_RemoveWatcher]
 // [Start MainThreadJankEvent_RemoveWatcher]
-// [Start resourceleak_events_RemoveWatcher_3]
 static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 {
     // 使观察者停止监听事件
@@ -1076,9 +1075,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_RemoveWatcher]
     // [StartExclude AppEvent_C++_RemoveWatcher]
     // [StartExclude MainThreadJankEvent_RemoveWatcher]
-    // 移除观察者以停止监听事件
-    OH_HiAppEvent_RemoveWatcher(systemEventWatcher);
-    // [StartExclude resourceleak_events_RemoveWatcher_3]
     OH_HiAppEvent_RemoveWatcher(eventWatcherT);
     OH_HiAppEvent_RemoveWatcher(eventWatcherR);
     // [EndExclude AppEvent_C++_RemoveWatcher]
@@ -1105,7 +1101,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AsanEvent_RemoveWatcher]
     // [EndExclude PssLeakEvent_RemoveWatcher]
     // [EndExclude APP_Hicollie_RemoveWatcher]
-    // [EndExclude resourceleak_events_RemoveWatcher_3]
     return {};
 }
 // [End MainThreadJankEvent_RemoveWatcher]
@@ -1115,7 +1110,6 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_RemoveWatcher]
 // [End AppEvent_C++_RemoveWatcher]
 // [End EventSub_RemoveWatcher_All]
-// [End resourceleak_events_RemoveWatcher_3]
 
 // [Start Sys_Crash_Event_C++_RemoveWatcher]
 static napi_value RemoveWatcherCrash(napi_env env, napi_callback_info info)
