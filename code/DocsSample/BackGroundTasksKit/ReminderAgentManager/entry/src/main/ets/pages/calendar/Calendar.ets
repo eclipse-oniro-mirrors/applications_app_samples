@@ -16,6 +16,7 @@
 import { CalendarSetting } from './CalendarSetting'
 import CalendarReminder from '../../util/CalendarReminder'
 import PreferencesDataManager from '../../util/PreferencesDataManager'
+import { getReminderNames } from '../../common/Reminder'
 
 @Component
 export struct ReminderCalendar {
@@ -46,14 +47,8 @@ export struct ReminderCalendar {
               showTime: true,
               useMilitaryTime: true,
               onDateAccept: async (value: Date) => {
-                await CalendarReminder.setCalendar(value)
-                if (CalendarReminder.calendarReminders.length !== 0) {
-                  for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-                    this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-                  }
-                } else {
-                  this.calendarNames = []
-                }
+                await CalendarReminder.setCalendar(value, this.getUIContext().getHostContext())
+                this.refreshCalendarNames()
               }
             })
           })
@@ -114,14 +109,13 @@ export struct ReminderCalendar {
     .height('100%')
   }
 
+  refreshCalendarNames(): void {
+    this.calendarNames = getReminderNames(CalendarReminder.calendarReminders)
+  }
+
   deleteItem(index: number): boolean {
     CalendarReminder.deleteCalendar(index).then(() => {
-      this.calendarNames = []
-      if (CalendarReminder.calendarReminders.length !== 0) {
-        for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-          this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-        }
-      }
+      this.refreshCalendarNames()
       this.isEdit = false
     })
     return true
@@ -131,9 +125,7 @@ export struct ReminderCalendar {
     PreferencesDataManager.getData('Calendar').then((result) => {
       if (result !== undefined) {
         CalendarReminder.calendarReminders = result
-        for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-          this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-        }
+        this.refreshCalendarNames()
       }
     })
   }
