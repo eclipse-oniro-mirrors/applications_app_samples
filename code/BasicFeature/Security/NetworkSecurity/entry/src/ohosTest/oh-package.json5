@@ -1,0 +1,14 @@
+{
+  "name": "entry_test",
+  "version": "1.0.0",
+  "description": "Network security sample ohosTest module dependencies.",
+  "main": "",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "library": "file:../../../Library"
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}
