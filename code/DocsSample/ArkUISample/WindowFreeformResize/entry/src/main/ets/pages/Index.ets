@@ -29,13 +29,12 @@ struct Index {
   private mainWindow: window.Window | null = null;   // 主窗口实例，后续缩放、尺寸范围、尺寸监听都基于它
   private sizeListener: ((size: window.Size) => void) | null = null;   // 尺寸变化监听回调，注销时需传入同一引用
 
-  // [Start applySize]
+  // [Start init]
   // 把窗口宽高（px）写回状态变量，驱动界面刷新
   private applySize(widthPx: number, heightPx: number): void {
     this.winWidthPx = Math.round(widthPx);
     this.winHeightPx = Math.round(heightPx);
   }
-  // [End applySize]
 
   // 读取生效尺寸范围（入参与系统限制的交集），存到状态变量供界面展示
   private readLimits(win: window.Window): void {
@@ -52,7 +51,6 @@ struct Index {
     }
   }
 
-  // [Start setupWindow]
   // 窗口初始化：使能拖拽缩放、设置尺寸范围、同步初始尺寸
   private setupWindow(win: window.Window): void {
     // 默认已支持拖拽缩放，显式开启以防被关闭
@@ -84,12 +82,11 @@ struct Index {
       console.error('Failed to get initial window size:', JSON.stringify(err));
     }
   }
-  // [End setupWindow]
 
   // [Start resizeChange]
-  // [Start getLastWindow]
   // 获取主窗口、完成初始化，并注册尺寸变化监听
   aboutToAppear(): void {
+    // [StartExclude resizeChange]
     const ctx = this.getUIContext().getHostContext();   // 获取宿主上下文作为getLastWindow入参
     if (!ctx) {
       return;   // 预览器等环境拿不到宿主上下文，本示例依赖真实窗口，直接跳过
@@ -97,7 +94,9 @@ struct Index {
     window.getLastWindow(ctx).then((win: window.Window) => {
       this.mainWindow = win;   // 保存主窗口实例
       this.setupWindow(win);   // 完成初始化：使能拖拽缩放、设置尺寸范围、同步初始尺寸
+    // [EndExclude resizeChange]
 
+      // [StartExclude init]
       // 尺寸变化回调：把新宽高写回状态变量，驱动界面刷新
       this.sizeListener = (size: window.Size): void => {
         this.applySize(size.width, size.height);
@@ -108,12 +107,13 @@ struct Index {
       } catch (err) {
         console.error('windowSizeChange subscription failed:', String(err));
       }
+      // [EndExclude init]
     }).catch((err: BusinessError) => {
       console.error(`getLastWindow failed: ${err.code} ${err.message}`);
     });
   }
-  // [End getLastWindow]
 
+  // [StartExclude init]
   // 注销尺寸变化监听并释放引用，避免内存泄漏
   aboutToDisappear(): void {
     if (this.mainWindow && this.sizeListener) {
@@ -126,7 +126,9 @@ struct Index {
     this.mainWindow = null;   // 释放主窗口引用
     this.sizeListener = null; // 释放监听回调引用
   }
+  // [EndExclude init]
   // [End resizeChange]
+  // [End init]
 
   // 界面布局：标题栏 + 实时尺寸信息 + 内容区
   build() {
