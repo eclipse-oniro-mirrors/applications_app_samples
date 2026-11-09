@@ -52,6 +52,9 @@ import fileUtilsResidualTest from './FileUtilsResidual.test';
 import cleanResidualTest from './CleanResidual.test';
 import mediaUtilsResidualTest from './MediaUtilsResidual.test';
 import fileUtilsErrorResidualTest from './FileUtilsErrorResidual.test';
+import uploadDownloadBulkResidualTest from './UploadDownloadBulkResidual.test';
+import uploadDownloadBulkResidual2Test from './UploadDownloadBulkResidual2.test';
+import uploadDownloadBulkResidual2Part2Test from './UploadDownloadBulkResidual2Part2.test';
 
 export default function testsuite() {
   customDataSourceBehaviorTest();
@@ -93,4 +96,7 @@ export default function testsuite() {
   cleanResidualTest();
   mediaUtilsResidualTest();
   fileUtilsErrorResidualTest();
+  uploadDownloadBulkResidualTest();
+  uploadDownloadBulkResidual2Test();
+  uploadDownloadBulkResidual2Part2Test();
 }

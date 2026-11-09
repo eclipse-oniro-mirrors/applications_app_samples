@@ -2,7 +2,7 @@
 
 ## 自动化测试概览
 
-当前 ohosTest 共 **892 条用例**，覆盖 UI、文件模型、常量、URL 持久化、文件目录、数据源订阅、缓存复制和下载清理：
+当前 ohosTest 共 **1047 条用例**，覆盖 UI、文件模型、常量、URL 持久化、文件目录、数据源订阅、缓存复制和下载清理：
 
 | 套件 | 用例数 | 职责 |
 |---|---:|---|
@@ -18,6 +18,9 @@
 | `UploadDownloadFileUtilsExtra4Test` | 10 | 目录生命周期补充 |
 | `UploadDownloadFileUtilsResidualTest` | 15 | 尾斜杠、幂等初始化、缺失目录和 Unicode 文件 |
 | `UploadDownloadFileUtilsErrorResidualTest` | 10 | 文件路径冲突、嵌套目录、点文件和长文件名错误分支 |
+| `UploadDownloadBulkResidualTest` | 55 | 文件模型后缀、大小写、Unicode 和目录批量场景 |
+| `UploadDownloadBulkResidual2Test` | 49 | 文件模型批量补充场景 |
+| `UploadDownloadBulkResidual2Part2Test` | 51 | 文件模型批量补充场景二 |
 | `UploadDownloadCleanResidualTest` | 10 | 缺失文件、目录路径、重复清理和特殊文件名 |
 | `UploadDownloadMediaUtilsResidualTest` | 15 | 缓存复制、覆盖、缺失源/缓存目录、Unicode 和大文件 |
 | `UploadDownloadConstantsContractTest` | 15 | 常量、枚举和关系契约 |
@@ -52,7 +55,7 @@
 - `@tc.number`、`@tc.name`、`@tc.desc`、`@tc.type`、`@tc.size`、`@tc.level` 全量存在；
 - 用例名与 `@tc.number` 全局唯一；
 - 每条用例至少 3 个断言；
-- 全量执行结果：**892/892 通过**（本轮新增 8 条单独执行 **17/17 通过**）。
+- 全量执行结果：**1047/1047 通过**（本轮新增 100 条单独执行 **100/100 通过**）。
 
 ## 手工用例表
 
