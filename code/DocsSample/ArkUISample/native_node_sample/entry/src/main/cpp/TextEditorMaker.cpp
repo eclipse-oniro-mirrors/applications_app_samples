@@ -467,6 +467,8 @@ void SetTypingStyle(OH_ArkUI_TextEditorStyledStringController* controller)
     OH_ArkUI_TextEditorTextStyle_SetTextBackgroundColor(textStyle, TEXT_STYLE_BG_COLOR);
     OH_ArkUI_TextEditorTextStyle_SetTextBackgroundRadius(textStyle, TEXT_STYLE_BG_RADIUS_TL, TEXT_STYLE_BG_RADIUS_TR,
                                                          TEXT_STYLE_BG_RADIUS_BL, TEXT_STYLE_BG_RADIUS_BR);
+    OH_ArkUI_TextEditorTextStyle_SetTextBackgroundBorderWidth(textStyle, 2.0f);
+    OH_ArkUI_TextEditorTextStyle_SetTextBackgroundBorderColor(textStyle, COLOR_RED);
     OH_ArkUI_TextEditorStyledStringController_SetTypingStyle(controller, textStyle);
 }
 

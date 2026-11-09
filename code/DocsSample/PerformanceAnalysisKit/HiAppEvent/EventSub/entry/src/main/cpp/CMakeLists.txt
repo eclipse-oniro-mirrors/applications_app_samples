@@ -22,8 +22,14 @@ execute_process(COMMAND tar -xzf ${GZ_FILE} -C ${DEST_DIR}
     WORKING_DIRECTORY ${DEST_DIR})
 
 add_library(entry SHARED napi_init.cpp)
+# [StartExclude eventsub_cmake_code]
+# [Start EventSub_napi_sanitizer_events_0_Header]
+# 新增jsoncpp.cpp(解析订阅事件中的json字符串)源文件
+add_library(entry SHARED napi_init.cpp jsoncpp.cpp)
+# [EndExclude eventsub_cmake_code]
 # 新增动态库依赖libhiappevent_ndk.z.so和libhilog_ndk.z.so(日志输出)
 target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libhiappevent_ndk.z.so)
+# [End EventSub_napi_sanitizer_events_0_Header]
 # 新增三方库依赖libjsoncpp.so(解析订阅事件中的json字符串)
 target_link_libraries(entry PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/jsoncpp/${OHOS_ARCH}/lib/libjsoncpp.so)
 target_include_directories(entry PRIVATE ${DEST_DIR}/jsoncpp-1.9.6/include/json)

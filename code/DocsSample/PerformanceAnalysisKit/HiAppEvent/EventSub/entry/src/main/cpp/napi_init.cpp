@@ -25,9 +25,11 @@
 // [Start EventSub_napi_nohiappevent_Header]
 // [Start EventSub_napi_Header]
 // [Start MainThreadJank_Config_Header]
+// [Start address_sanitizer_events_arkts_3]
 #include "napi/native_api.h"
 // [StartExclude EventSub_napi_nohiappevent_Header]
 // [StartExclude MainThreadJank_Config_Header]
+// [StartExclude address_sanitizer_events_arkts_3]
 // 根据工程中三方库jsoncpp的位置适配引用json.h的路径
 #include "../../../build/jsoncpp-1.9.6/include/json/json.h"
 // [EndExclude MainThreadJank_Config_Header]
@@ -1373,6 +1375,7 @@ static napi_value RegisterWatcher(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_RemoveWatcher]
 // [Start AppKillEvent_RemoveWatcher]
 // [Start MainThreadJankEvent_RemoveWatcher]
+// [Start resourceleak_events_RemoveWatcher_3]
 static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 {
     // 使观察者停止监听事件
@@ -1382,6 +1385,9 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_RemoveWatcher]
     // [StartExclude AppEvent_C++_RemoveWatcher]
     // [StartExclude MainThreadJankEvent_RemoveWatcher]
+    // 移除观察者以停止监听事件
+    OH_HiAppEvent_RemoveWatcher(systemEventWatcher);
+    // [StartExclude resourceleak_events_RemoveWatcher_3]
     OH_HiAppEvent_RemoveWatcher(eventWatcherT);
     OH_HiAppEvent_RemoveWatcher(eventWatcherR);
     // [EndExclude AppEvent_C++_RemoveWatcher]
@@ -1408,6 +1414,7 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AsanEvent_RemoveWatcher]
     // [EndExclude PssLeakEvent_RemoveWatcher]
     // [EndExclude APP_Hicollie_RemoveWatcher]
+    // [EndExclude resourceleak_events_RemoveWatcher_3]
     return {};
 }
 // [End MainThreadJankEvent_RemoveWatcher]
@@ -1417,6 +1424,7 @@ static napi_value RemoveWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_RemoveWatcher]
 // [End AppEvent_C++_RemoveWatcher]
 // [End EventSub_RemoveWatcher_All]
+// [End resourceleak_events_RemoveWatcher_3]
 
 // [Start FreezeEvent_RemoveWatcher]
 static napi_value RemoveWatcherFreeze(napi_env env, napi_callback_info info)
@@ -1445,6 +1453,7 @@ static napi_value RemoveWatcherCrash(napi_env env, napi_callback_info info)
 // [Start PssLeakEvent_DestroyWatcher]
 // [Start AppKillEvent_DestroyWatcher]
 // [Start MainThreadJankEvent_DestroyWatcher]
+// [Start resourceleak_events_DestroyWatcher_4]
 static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 {
     // 销毁创建的观察者，并置eventWatcher为nullptr。
@@ -1454,6 +1463,10 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [StartExclude APP_Hicollie_DestroyWatcher]
     // [StartExclude AppEvent_C++_DestroyWatcher]
     // [StartExclude MainThreadJankEvent_DestroyWatcher]
+    // 销毁创建的观察者，并置systemEventWatcher为nullptr。
+    OH_HiAppEvent_DestroyWatcher(systemEventWatcher);
+    systemEventWatcher = nullptr;
+    // [StartExclude resourceleak_events_DestroyWatcher_4]
     OH_HiAppEvent_DestroyWatcher(eventWatcherT);
     OH_HiAppEvent_DestroyWatcher(eventWatcherR);
     eventWatcherT = nullptr;
@@ -1490,6 +1503,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AppEvent_C++_DestroyWatcher]
     // [EndExclude AsanEvent_DestroyWatcher]
     // [EndExclude PssLeakEvent_DestroyWatcher]
+    // [EndExclude resourceleak_events_DestroyWatcher_4]
     return {};
 }
 // [End MainThreadJankEvent_DestroyWatcher]
@@ -1499,6 +1513,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
 // [End APP_Hicollie_DestroyWatcher]
 // [End AppEvent_C++_DestroyWatcher]
 // [End EventSub_DestroyWatcher_All]
+// [End resourceleak_events_DestroyWatcher_4]
 
 // [Start FreezeEvent_DestroyWatcher]
 static napi_value DestroyWatcherFreeze(napi_env env, napi_callback_info info)
@@ -1577,6 +1592,7 @@ static napi_value WriteAppEvent(napi_env env, napi_callback_info info)
 }
 // [End AppEvent_Click_C++_WriteAppEvent]
 // [Start AsanEvent_AddressTest]
+// [EndExclude address_sanitizer_events_arkts_3]
 static napi_value AddressSanitizerTest(napi_env env, napi_callback_info info)
 {
     constexpr int bufferSize = 42;
@@ -1588,6 +1604,8 @@ static napi_value AddressSanitizerTest(napi_env env, napi_callback_info info)
 }
 // [End AsanEvent_AddressTest]
 // [Start AppKillEvent_NativeLeak]
+// [StartExclude address_sanitizer_events_arkts_3]
+
 static void NativeLeak()
 {
     constexpr int leakSizePerTime = 500000;
@@ -2090,6 +2108,7 @@ static napi_value HiCollieTestTimerNdk(napi_env env, napi_callback_info exports)
 // [Start Pss_Leak_Init]
 // [Start AppEvent_C++_Init]
 // [Start FreezeEvent_Init]
+// [EndExclude address_sanitizer_events_arkts_3]
 // [Start ExternalLog_C++_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -2106,6 +2125,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude Pss_Leak_Init]
         // [StartExclude MainThreadJank_Init]
         // [StartExclude FreezeEvent_Init]
+        // [StartExclude address_sanitizer_events_arkts_3]
         // [StartExclude ExternalLog_C++_Init]
         {"registerWatcher", nullptr, RegisterWatcher, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude AppEvent_C++_Init]
@@ -2140,8 +2160,10 @@ static napi_value Init(napi_env env, napi_value exports)
         { "registerSanitizerReceiveWatcher", nullptr, RegisterSanitizerReceiveWatcher, nullptr, nullptr, nullptr,
             napi_default, nullptr },
         // [EndExclude AsanEventTS_Init]
+        // [EndExclude address_sanitizer_events_arkts_3]
         { "addressSanitizerTest", nullptr, AddressSanitizerTest, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude PssLeakEvent_Init]
+        // [StartExclude address_sanitizer_events_arkts_3]
         // [StartExclude AsanEventTS_Init]
         // [StartExclude AsanEvent_Init]
         { "registerLeakReceiveWatcher", nullptr, RegisterLeakReceiveWatcher, nullptr, nullptr, nullptr,
@@ -2158,6 +2180,7 @@ static napi_value Init(napi_env env, napi_value exports)
         { "leakMB", nullptr, LeakMB, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [StartExclude Pss_Leak_Init]
         // [Start test_hicollie_set_timer]
+        // [StartExclude Pss_Leak_Init]
         // 将HiCollieTestTimerNdk注册为ArkTS接口
         { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
         // [End test_hicollie_set_timer]
@@ -2192,6 +2215,8 @@ static napi_value Init(napi_env env, napi_value exports)
         // [EndExclude Sys_Native_Nullptr_Event_C++_Init]
         // [EndExclude AppKillEvent_Init]
         // [EndExclude AppKillEvent_ArkTS_Init]
+        // [EndExclude Pss_Leak_Init]
+        // [EndExclude address_sanitizer_events_arkts_3]
         // [EndExclude ExternalLog_C++_Init]
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
@@ -2221,3 +2246,4 @@ static napi_module demoModule = {
 };
 
 extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+// [address_sanitizer_events_arkts_3]
