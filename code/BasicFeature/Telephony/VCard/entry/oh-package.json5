@@ -1,0 +1,15 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "vCard contact manager sample entry module.",
+  "main": "",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "library": "file:../Library"
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}
+
