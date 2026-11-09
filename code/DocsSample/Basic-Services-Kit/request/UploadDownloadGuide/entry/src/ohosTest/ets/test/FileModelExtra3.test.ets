@@ -153,7 +153,7 @@ export default function fileModelExtra3Test(): void {
     /**
      * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_FILEMODEL_EXTRA3_0700
      * @tc.name      testUploadDownloadFileModelExtra30007
-     * @tc.desc      Verify additional extension apk.
+     * @tc.desc      Verify additional extension log.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
@@ -161,7 +161,7 @@ export default function fileModelExtra3Test(): void {
     it('testUploadDownloadFileModelExtra30007',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
-          const model: FileModel = new FileModel('sample.apk', false, ['f1']);
+          const model: FileModel = new FileModel('sample.log', false, ['f1']);
           expect(model.fileType).assertEqual(FileType.DOCUMENT);
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
