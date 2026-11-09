@@ -53,14 +53,14 @@ import { window } from '@kit.ArkUI';
 // [End EventSub_EntryAbility_Header]
 // [Start EventSub_Capi_Header]
 // [Start MainThreadJank_Header]
-// [Start resourceleak_events_ndk_2]
+// [Start resourceleak_events_Header_2]
 import testNapi from 'libentry.so';
 // [End EventSub_Capi_Header]
 // [End MainThreadJank_Header]
 import hidebug from '@kit.PerformanceAnalysisKit'
 // [Start ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
 // 该变量在/pages/ArkWebPage.ets文件中进行定义，用于实现webId到网页url的映射
-// [StartExclude resourceleak_events_ndk_2]
+// [StartExclude resourceleak_events_Header_2]
 import { webIdToUrlMap } from '../pages/ArkWebPage';
 // [End ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
 // [Start appHicollieWatcher_Watcher_Header]
@@ -731,10 +731,10 @@ export default class EntryAbility extends UIAbility {
     });
     // [End MainThreadJank_ArkTS_Add_Watcher]
     // [Start EventSub_Call_Capi_Function]
-    // [EndExclude resourceleak_events_ndk_2]
+    // [EndExclude resourceleak_events_Header_2]
     // 调用C++观察者
     testNapi.registerWatcher();
-    // [End resourceleak_events_ndk_2]
+    // [End resourceleak_events_Header_2]
     // [End EventSub_Call_Capi_Function]
     // [Start AppEvent_Call_Capi_Function]
     // 在onCreate()函数中添加C API接口调用

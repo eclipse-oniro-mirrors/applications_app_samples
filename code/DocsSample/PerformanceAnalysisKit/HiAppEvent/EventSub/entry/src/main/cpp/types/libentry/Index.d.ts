@@ -14,9 +14,9 @@
  */
 
 // [Start EventSub_Index.d.ts_All]
-// [Start resourceleak_events_ndk_1]
+// [Start resourceleak_events_Index.d.ts_1]
 export const registerWatcher: () => void;
-// [End resourceleak_events_ndk_1]
+// [End resourceleak_events_Index.d.ts_1]
 // [Start AppEvent_C++_Index.d.ts]
 export const registerWatcherCrash: () => void;
 export const registerWatcherClick: () => void;
