@@ -612,15 +612,19 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
     const char* fileExt = GetFileExtension(fileName);
     if (fileExt == nullptr) {
         OH_LOG_ERROR(LOG_APP, "Invalid file name, no extension found");
+        ReleaseCurrentSong();
         return;
     }
 
     bool success = false;
     if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
         success = HandleWavFile(songFd, audioFileOprInfo, songFileSize, songFileOffset);
-        if (success) {
-            ReconfigurePlayer();
+        if (!success) {
+            OH_LOG_ERROR(LOG_APP, "Load song failed, wav header invalid: %{public}s", fileName);
+            ReleaseCurrentSong();
+            return;
         }
+        ReconfigurePlayer();
     } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
         OH_LOG_INFO(LOG_APP, "Detected PCM file format");
         // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
@@ -631,11 +635,8 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
         success = true;
     } else {
         OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
+        ReleaseCurrentSong();
         return;
-    }
-
-    if (!success) {
-        OH_LOG_ERROR(LOG_APP, "Load song failed, file may be truncated: %{public}s", fileName);
     }
 
     CalculateSongDuration(audioFileOprInfo);
