@@ -1898,3 +1898,334 @@ export default function numericMatrixValidateTextTest() {
       // The comma escapes to percent two C.
       expect(ValidateUtils.encodeUriComponent(',')).assertEqual('%2C');
       // The semicolon escapes to percent three B.
+      expect(ValidateUtils.encodeUriComponent(';')).assertEqual('%3B');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_9500
+     * @tc.name      testNumValText0095
+     * @tc.desc      Verify decodeUri restores spaces and ascii code points.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0095';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Percent twenty decodes back to a single space.
+      expect(ValidateUtils.decodeUri('%20')).assertEqual(' ');
+      // An escaped space between letters decodes to the plain pair.
+      expect(ValidateUtils.decodeUri('a%20b')).assertEqual('a b');
+      // Percent forty one decodes to the letter A.
+      expect(ValidateUtils.decodeUri('%41')).assertEqual('A');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_9600
+     * @tc.name      testNumValText0096
+     * @tc.desc      Verify decodeUri keeps plus signs and restores percent escapes.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0096';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // The plus sign is not a space in strict component decoding.
+      expect(ValidateUtils.decodeUri('a+b')).assertEqual('a+b');
+      // Percent two five decodes back to a real percent sign.
+      expect(ValidateUtils.decodeUri('100%25')).assertEqual('100%');
+      // Percent two B decodes back to a plus sign.
+      expect(ValidateUtils.decodeUri('%2B')).assertEqual('+');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_9700
+     * @tc.name      testNumValText0097
+     * @tc.desc      Verify decodeUri restores Chinese characters from utf8 triples.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0097';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // The utf8 triple of 中 decodes back to the character.
+      expect(ValidateUtils.decodeUri('%E4%B8%AD')).assertEqual('中');
+      // Two utf8 triples decode back to the word 网络.
+      expect(ValidateUtils.decodeUri('%E7%BD%91%E7%BB%9C')).assertEqual('网络');
+      // Two more utf8 triples decode back to the word 安全.
+      expect(ValidateUtils.decodeUri('%E5%AE%89%E5%85%A8')).assertEqual('安全');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_9800
+     * @tc.name      testNumValText0098
+     * @tc.desc      Verify decodeUri keeps plain text without escapes unchanged.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0098';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A plain word without escapes stays the same.
+      expect(ValidateUtils.decodeUri('abc')).assertEqual('abc');
+      // The empty string decodes to the empty string.
+      expect(ValidateUtils.decodeUri('')).assertEqual('');
+      // A single letter without escapes stays the same.
+      expect(ValidateUtils.decodeUri('a')).assertEqual('a');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_9900
+     * @tc.name      testNumValText0099
+     * @tc.desc      Verify decodeUri returns malformed escapes unchanged.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0099';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A dangling percent is malformed and returned unchanged.
+      expect(ValidateUtils.decodeUri('%')).assertEqual('%');
+      // Two dangling percents are malformed and returned unchanged.
+      expect(ValidateUtils.decodeUri('%%')).assertEqual('%%');
+      // A percent followed by a letter is malformed and returned unchanged.
+      expect(ValidateUtils.decodeUri('a%b')).assertEqual('a%b');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10000
+     * @tc.name      testNumValText0100
+     * @tc.desc      Verify decodeUri returns invalid hex digits unchanged.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0100';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // The letter G after a percent is not a hex digit.
+      expect(ValidateUtils.decodeUri('%G1')).assertEqual('%G1');
+      // Two letters after a percent are not hex digits.
+      expect(ValidateUtils.decodeUri('%zz')).assertEqual('%zz');
+      // A hex digit followed by G fails the pair rule.
+      expect(ValidateUtils.decodeUri('%2G')).assertEqual('%2G');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10100
+     * @tc.name      testNumValText0101
+     * @tc.desc      Verify decodeUri returns incomplete utf8 sequences unchanged.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0101';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A lone lead byte without continuation is malformed.
+      expect(ValidateUtils.decodeUri('%C3')).assertEqual('%C3');
+      // A two byte prefix missing its continuation is malformed.
+      expect(ValidateUtils.decodeUri('%E4%B8')).assertEqual('%E4%B8');
+      // A lead byte followed by a non continuation byte is malformed.
+      expect(ValidateUtils.decodeUri('%C3%28')).assertEqual('%C3%28');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10200
+     * @tc.name      testNumValText0102
+     * @tc.desc      Verify decodeUri restores structural punctuation from escapes.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0102';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Percent two F decodes back to a slash.
+      expect(ValidateUtils.decodeUri('a%2Fb')).assertEqual('a/b');
+      // Percent three D decodes back to an equals sign.
+      expect(ValidateUtils.decodeUri('%3D')).assertEqual('=');
+      // Percent two six decodes back to an ampersand.
+      expect(ValidateUtils.decodeUri('%26')).assertEqual('&');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10300
+     * @tc.name      testNumValText0103
+     * @tc.desc      Verify decodeUri restores tilde slash and query punctuation.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0103';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // Percent seven E decodes back to a tilde.
+      expect(ValidateUtils.decodeUri('%7E')).assertEqual('~');
+      // Percent two F decodes back to a slash.
+      expect(ValidateUtils.decodeUri('%2F')).assertEqual('/');
+      // Percent three F decodes back to a question mark.
+      expect(ValidateUtils.decodeUri('%3F')).assertEqual('?');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10400
+     * @tc.name      testNumValText0104
+     * @tc.desc      Verify decodeUri restores full key value and repeated escapes.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0104';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      // A fully escaped query pair decodes to key equals value.
+      expect(ValidateUtils.decodeUri('key%3Dvalue%26x%3D1')).assertEqual('key=value&x=1');
+      // Two adjacent slash escapes decode to a double slash.
+      expect(ValidateUtils.decodeUri('%2F%2F')).assertEqual('//');
+      // The fragment escape decodes back to a hash word.
+      expect(ValidateUtils.decodeUri('%23flag')).assertEqual('#flag');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10500
+     * @tc.name      testNumValText0105
+     * @tc.desc      Verify encode then decode round trips a spaced sentence.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0105';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('hello world');
+      // The space becomes one percent twenty escape.
+      expect(encoded).assertEqual('hello%20world');
+      // Decoding the escaped form restores the original sentence.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('hello world');
+      // The direct round trip restores the original text.
+      expect(ValidateUtils.decodeUri(ValidateUtils.encodeUriComponent('hello world'))).assertEqual('hello world');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10600
+     * @tc.name      testNumValText0106
+     * @tc.desc      Verify encode then decode round trips a query fragment.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0106';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('a&b=c');
+      // Both structural characters escape to percent triples.
+      expect(encoded).assertEqual('a%26b%3Dc');
+      // Decoding restores the ampersand and equals sign.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('a&b=c');
+      // The direct round trip restores the original text.
+      expect(ValidateUtils.decodeUri(ValidateUtils.encodeUriComponent('a&b=c'))).assertEqual('a&b=c');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10700
+     * @tc.name      testNumValText0107
+     * @tc.desc      Verify encode then decode round trips Chinese text.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0107';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('中文测试');
+      // Four Chinese characters encode as four utf8 escape triples.
+      expect(encoded).assertEqual('%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95');
+      // Decoding the triples restores the four characters.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('中文测试');
+      // The direct round trip restores the original text.
+      expect(ValidateUtils.decodeUri(ValidateUtils.encodeUriComponent('中文测试'))).assertEqual('中文测试');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10800
+     * @tc.name      testNumValText0108
+     * @tc.desc      Verify encode then decode round trips a trailing percent number.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0108';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('100%');
+      // The percent escapes once to percent two five.
+      expect(encoded).assertEqual('100%25');
+      // Decoding restores the plain percent value.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('100%');
+      // The direct round trip restores the original text.
+      expect(ValidateUtils.decodeUri(ValidateUtils.encodeUriComponent('100%'))).assertEqual('100%');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_10900
+     * @tc.name      testNumValText0109
+     * @tc.desc      Verify encode then decode round trips plus signs faithfully.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testNumValText0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0109';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('a+b');
+      // The plus escapes so it cannot be read as a space.
+      expect(encoded).assertEqual('a%2Bb');
+      // Decoding restores the plus sign.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('a+b');
+      // A raw plus is left untouched by the strict decoder.
+      expect(ValidateUtils.decodeUri('a+b')).assertEqual('a+b');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+
+    /**
+     * @tc.number    SUB_NETWORKSECURITY_NUMERIC_VALTEXT_11000
+     * @tc.name      testNumValText0110
+     * @tc.desc      Verify encode then decode round trips path and fragment delimiters.
+     * @tc.size      SmallTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testNumValText0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const TAG: string = 'testNumValText0110';
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
+      const encoded: string = ValidateUtils.encodeUriComponent('a/b?c#d');
+      // All three delimiters escape to their percent triples.
+      expect(encoded).assertEqual('a%2Fb%3Fc%23d');
+      // Decoding restores the slash question mark and hash.
+      expect(ValidateUtils.decodeUri(encoded)).assertEqual('a/b?c#d');
+      // The direct round trip restores the original text.
+      expect(ValidateUtils.decodeUri(ValidateUtils.encodeUriComponent('a/b?c#d'))).assertEqual('a/b?c#d');
+      hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
+    });
+  });
+}
