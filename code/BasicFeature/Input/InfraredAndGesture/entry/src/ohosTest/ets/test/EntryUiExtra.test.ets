@@ -1898,3 +1898,432 @@ export default function entryUiExtraTest() {
     /**
      * @tc.number    SUB_MEETINGSCENE_UI_TABLETXFER_1800
      * @tc.name      testTransferSelectToggleSet0001
+     * @tc.desc      Verify the tablet transfer page toggles room selection independently: the
+     *               seeded room toggles on, stays toggled on when another toggle target is
+     *               absent, and returns to unselected after a second tap so the selection set
+     *               ends empty.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testTransferSelectToggleSet0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testTransferSelectToggleSet0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        if (isTablet) {
+          const homeFound: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeFound).assertTrue();
+          const opened: boolean = await openTabletTransfer(driver);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', open page=' +
+            opened.toString());
+          expect(opened).assertTrue();
+          const toggleId: string = 'id_xfer_room_toggle_' + SEED_ROOM_ID;
+          const rowFound: boolean = await waitForId(driver,
+            'id_xfer_room_row_' + SEED_ROOM_ID);
+          expect(rowFound).assertTrue();
+          const nameFound: boolean = await idExists(driver,
+            'id_xfer_room_name_' + SEED_ROOM_ID);
+          expect(nameFound).assertTrue();
+          const firstTap: boolean = await clickId(driver, toggleId);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', select=' +
+            firstTap.toString());
+          expect(firstTap).assertTrue();
+          await driver.delayMs(CLICK_SETTLE_MS);
+          const toggleAfterOn: boolean = await idExists(driver, toggleId);
+          expect(toggleAfterOn).assertTrue();
+          const secondTap: boolean = await clickId(driver, toggleId);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', deselect=' +
+            secondTap.toString());
+          expect(secondTap).assertTrue();
+          await driver.delayMs(CLICK_SETTLE_MS);
+          const toggleAfterOff: boolean = await idExists(driver, toggleId);
+          expect(toggleAfterOff).assertTrue();
+          // With an empty selection the export guard must report a status text.
+          const exportClicked: boolean = await clickId(driver, 'id_xfer_export_button');
+          expect(exportClicked).assertTrue();
+          const statusFound: boolean = await waitForId(driver, 'id_xfer_status');
+          expect(statusFound).assertTrue();
+          const pathGone: boolean = !(await idExists(driver, 'id_xfer_export_path'));
+          const summaryGone: boolean = !(await idExists(driver, 'id_xfer_export_summary'));
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', path gone=' +
+            pathGone.toString() + ', summary gone=' + summaryGone.toString());
+          expect(pathGone).assertTrue();
+          expect(summaryGone).assertTrue();
+          const backClicked: boolean = await clickId(driver, 'id_xfer_back');
+          expect(backClicked).assertTrue();
+          const homeBack: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeBack).assertTrue();
+        } else {
+          await assertIdsPresent(driver, phoneStableIds, TAG);
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_TABLETXFER_1801
+     * @tc.name      testTransferImportGuard0001
+     * @tc.desc      Verify the import section of the tablet transfer page shows the enter-path
+     *               hint for an empty and for a whitespace-only path, keeps the warning text
+     *               and the path input rendered, and never produces a failed-items list.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testTransferImportGuard0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testTransferImportGuard0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        if (isTablet) {
+          const homeFound: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeFound).assertTrue();
+          const opened: boolean = await openTabletTransfer(driver);
+          expect(opened).assertTrue();
+          await assertIdsPresent(driver,
+            ['id_xfer_import_section', 'id_xfer_import_title', 'id_xfer_import_warning',
+              'id_xfer_import_input', 'id_xfer_import_button'], TAG);
+          const statusBefore: boolean = await idExists(driver, 'id_xfer_status');
+          expect(!statusBefore).assertTrue();
+          const emptyImport: boolean = await clickId(driver, 'id_xfer_import_button');
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', import empty=' +
+            emptyImport.toString());
+          expect(emptyImport).assertTrue();
+          const statusFound: boolean = await waitForId(driver, 'id_xfer_status');
+          expect(statusFound).assertTrue();
+          const typed: boolean = await inputId(driver, 'id_xfer_import_input', '   ');
+          expect(typed).assertTrue();
+          await driver.delayMs(CLICK_SETTLE_MS);
+          const blankImport: boolean = await clickId(driver, 'id_xfer_import_button');
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', import blank=' +
+            blankImport.toString());
+          expect(blankImport).assertTrue();
+          await driver.delayMs(CLICK_SETTLE_MS);
+          const failedShown: boolean = await idExists(driver, 'id_xfer_failed_title');
+          const summaryShown: boolean = await idExists(driver, 'id_xfer_import_summary');
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', failed=' +
+            failedShown.toString() + ', summary=' + summaryShown.toString());
+          expect(!failedShown).assertTrue();
+          expect(!summaryShown).assertTrue();
+          await clearId(driver, 'id_xfer_import_input');
+          const backClicked: boolean = await clickId(driver, 'id_xfer_back');
+          expect(backClicked).assertTrue();
+          const homeBack: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeBack).assertTrue();
+        } else {
+          await assertIdsPresent(driver, phoneStableIds, TAG);
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_TABLETXFER_1802
+     * @tc.name      testTransferMultiToggle0001
+     * @tc.desc      Verify the transfer page tolerates repeated selection changes: five taps on
+     *               the same room toggle end on the selected state, the export section keeps
+     *               its button and hint, and a following tap deselects it again.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testTransferMultiToggle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testTransferMultiToggle0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        if (isTablet) {
+          const homeFound: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeFound).assertTrue();
+          const opened: boolean = await openTabletTransfer(driver);
+          expect(opened).assertTrue();
+          const toggleId: string = 'id_xfer_room_toggle_' + SEED_ROOM_ID;
+          const toggleFound: boolean = await waitForId(driver, toggleId);
+          expect(toggleFound).assertTrue();
+          for (let tap: number = 1; tap <= 5; tap++) {
+            const tapped: boolean = await clickId(driver, toggleId);
+            hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', tap=' +
+              tap.toString() + ', ok=' + tapped.toString());
+            expect(tapped).assertTrue();
+            await driver.delayMs(CLICK_SETTLE_MS);
+            const stillThere: boolean = await idExists(driver, toggleId);
+            expect(stillThere).assertTrue();
+          }
+          const exportWidgets: number = await countExisting(driver,
+            ['id_xfer_export_section', 'id_xfer_export_title', 'id_xfer_export_hint',
+              'id_xfer_export_button']);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', export widgets=' +
+            exportWidgets.toString());
+          expect(exportWidgets).assertEqual(4);
+          // A sixth tap brings the selection back to the empty state.
+          const sixthTap: boolean = await clickId(driver, toggleId);
+          expect(sixthTap).assertTrue();
+          await driver.delayMs(CLICK_SETTLE_MS);
+          const importSection: boolean = await idExists(driver, 'id_xfer_import_section');
+          expect(importSection).assertTrue();
+          const backClicked: boolean = await clickId(driver, 'id_xfer_back');
+          expect(backClicked).assertTrue();
+          const homeBack: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeBack).assertTrue();
+        } else {
+          await assertIdsPresent(driver, phoneStableIds, TAG);
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1900
+     * @tc.name      testFormPageSetIsolation0001
+     * @tc.desc      Verify the two page sets never mix: from the current home the matching
+     *               secondary page is opened, its root coexists with no root of the other form,
+     *               and the back action returns to the same home root.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 0
+     */
+    it('testFormPageSetIsolation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async () => {
+        const TAG: string = 'testFormPageSetIsolation0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const homeFound: boolean = await waitForAnyHome(driver, isTablet);
+        expect(homeFound).assertTrue();
+        if (isTablet) {
+          const opened: boolean = await openTabletTransfer(driver);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', tablet page=' +
+            opened.toString());
+          expect(opened).assertTrue();
+          const foreignPages: number = await countExisting(driver,
+            [ROOM_CONFIG_ROOT, SETTINGS_ROOT, SCENE_EDITOR_ROOT]);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', phone pages=' +
+            foreignPages.toString());
+          expect(foreignPages).assertEqual(0);
+          const backClicked: boolean = await clickId(driver, 'id_xfer_back');
+          expect(backClicked).assertTrue();
+          const homeBack: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeBack).assertTrue();
+        } else {
+          const opened: boolean = await openPhoneRoomConfig(driver);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', phone page=' +
+            opened.toString());
+          expect(opened).assertTrue();
+          const foreignPages: number = await countExisting(driver,
+            [RC_ROOT, OEN_ROOT, XFER_ROOT]);
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', tablet pages=' +
+            foreignPages.toString());
+          expect(foreignPages).assertEqual(0);
+          const backClicked: boolean = await clickId(driver, 'id_room_back');
+          expect(backClicked).assertTrue();
+          const homeBack: boolean = await waitForId(driver, CONSOLE_ROOT);
+          expect(homeBack).assertTrue();
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1901
+     * @tc.name      testFormGuardStableBoth0001
+     * @tc.desc      Verify that a case whose target form is not the running one still leaves a
+     *               complete start page behind: all home widgets of the current form are probed
+     *               twice with a settle pause, and the foreign home root stays absent.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormGuardStableBoth0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testFormGuardStableBoth0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const startIds: string[] = isTablet ? tabletStableIds : phoneStableIds;
+        await assertIdsPresent(driver, startIds, TAG);
+        await driver.delayMs(CLICK_SETTLE_MS);
+        await assertIdsPresent(driver, startIds, TAG);
+        const foreignHome: boolean =
+          await idExists(driver, isTablet ? CONSOLE_ROOT : ORCH_ROOT);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', foreign home=' +
+          foreignHome.toString());
+        expect(!foreignHome).assertTrue();
+        const pages: number = await countExisting(driver,
+          [ROOM_CONFIG_ROOT, SCENE_EDITOR_ROOT, SETTINGS_ROOT, RC_ROOT, OEN_ROOT, XFER_ROOT]);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', sub pages=' +
+          pages.toString());
+        expect(pages).assertEqual(0);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1902
+     * @tc.name      testFormRecoveryAfterGuard0001
+     * @tc.desc      Verify the home stays fully interactive after a rejected form submit: on a
+     *               phone a rejected room creation is followed by opening and closing the
+     *               settings page, and on a tablet by a transfer round trip; the home widgets
+     *               must all be back afterwards.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormRecoveryAfterGuard0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testFormRecoveryAfterGuard0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const homeFound: boolean = await waitForAnyHome(driver, isTablet);
+        expect(homeFound).assertTrue();
+        if (isTablet) {
+          const transferOpened: boolean = await openTabletTransfer(driver);
+          expect(transferOpened).assertTrue();
+          const transferBack: boolean = await clickId(driver, 'id_xfer_back');
+          expect(transferBack).assertTrue();
+          const homeBack: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeBack).assertTrue();
+          await assertIdsPresent(driver, tabletStableIds, TAG);
+        } else {
+          const roomOpened: boolean = await openPhoneRoomConfig(driver);
+          expect(roomOpened).assertTrue();
+          const rejectedCreate: boolean = await clickId(driver, 'id_new_room_button');
+          expect(rejectedCreate).assertTrue();
+          const statusFound: boolean = await waitForId(driver, 'id_room_status');
+          expect(statusFound).assertTrue();
+          const roomBack: boolean = await clickId(driver, 'id_room_back');
+          expect(roomBack).assertTrue();
+          const homeBack: boolean = await waitForId(driver, CONSOLE_ROOT);
+          expect(homeBack).assertTrue();
+          const settingsOpened: boolean = await openPhoneSettings(driver);
+          expect(settingsOpened).assertTrue();
+          const settingsBack: boolean = await clickId(driver, 'id_settings_back');
+          expect(settingsBack).assertTrue();
+          const finalHome: boolean = await waitForId(driver, CONSOLE_ROOT);
+          expect(finalHome).assertTrue();
+          await assertIdsPresent(driver, phoneStableIds, TAG);
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1903
+     * @tc.name      testFormGuardNoStaleTips0001
+     * @tc.desc      Verify no guard hint leaks across pages: after a rejected submit on the
+     *               current form the page is left and re-entered, and the hint state of the
+     *               re-entered page must match the pristine state of a fresh page.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 1
+     */
+    it('testFormGuardNoStaleTips0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async () => {
+        const TAG: string = 'testFormGuardNoStaleTips0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const homeFound: boolean = await waitForAnyHome(driver, isTablet);
+        expect(homeFound).assertTrue();
+        if (isTablet) {
+          const firstOpen: boolean = await openTabletRoomConfig(driver);
+          expect(firstOpen).assertTrue();
+          const rejectedAdd: boolean = await clickId(driver, 'id_rc_add_device');
+          expect(rejectedAdd).assertTrue();
+          const statusFound: boolean = await waitForId(driver, 'id_rc_status');
+          expect(statusFound).assertTrue();
+          const firstBack: boolean = await clickId(driver, 'id_rc_back');
+          expect(firstBack).assertTrue();
+          const homeAgain: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(homeAgain).assertTrue();
+          const secondOpen: boolean = await openTabletRoomConfig(driver);
+          expect(secondOpen).assertTrue();
+          const statusFresh: boolean = await idExists(driver, 'id_rc_status');
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', status on reentry=' +
+            statusFresh.toString());
+          expect(!statusFresh).assertTrue();
+          const secondBack: boolean = await clickId(driver, 'id_rc_back');
+          expect(secondBack).assertTrue();
+          const finalHome: boolean = await waitForId(driver, ORCH_ROOT);
+          expect(finalHome).assertTrue();
+        } else {
+          const firstOpen: boolean = await openPhoneRoomConfig(driver);
+          expect(firstOpen).assertTrue();
+          const rejectedCreate: boolean = await clickId(driver, 'id_new_room_button');
+          expect(rejectedCreate).assertTrue();
+          const statusFound: boolean = await waitForId(driver, 'id_room_status');
+          expect(statusFound).assertTrue();
+          const firstBack: boolean = await clickId(driver, 'id_room_back');
+          expect(firstBack).assertTrue();
+          const homeAgain: boolean = await waitForId(driver, CONSOLE_ROOT);
+          expect(homeAgain).assertTrue();
+          const secondOpen: boolean = await openPhoneRoomConfig(driver);
+          expect(secondOpen).assertTrue();
+          const statusFresh: boolean = await idExists(driver, 'id_room_status');
+          hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', status on reentry=' +
+            statusFresh.toString());
+          expect(!statusFresh).assertTrue();
+          const secondBack: boolean = await clickId(driver, 'id_room_back');
+          expect(secondBack).assertTrue();
+          const finalHome: boolean = await waitForId(driver, CONSOLE_ROOT);
+          expect(finalHome).assertTrue();
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1904
+     * @tc.name      testFormHomeWidgetsCount0001
+     * @tc.desc      Verify the number of mounted home widgets of the current form equals the
+     *               expected count for that form, so a partially rendered home page (a broken
+     *               routing result) fails the case instead of passing by accident.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 2
+     */
+    it('testFormHomeWidgetsCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async () => {
+        const TAG: string = 'testFormHomeWidgetsCount0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const homeFound: boolean = await waitForAnyHome(driver, isTablet);
+        expect(homeFound).assertTrue();
+        const ids: string[] = isTablet ?
+          [ORCH_ROOT, 'id_index_title', 'id_index_notice', 'id_index_notice_row',
+            'id_index_transfer', 'id_index_rooms_section', 'id_index_rooms_title',
+            'id_index_rooms_grid', 'id_index_new_room_row', 'id_index_content', INDEX_SCROLL] :
+          [CONSOLE_ROOT, 'id_console_title', 'id_console_room', 'id_console_header',
+            'id_console_devices_title', 'id_console_device_list', 'id_console_nav',
+            'id_console_content', CONSOLE_SCROLL];
+        const mounted: number = await countExisting(driver, ids);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', form=' +
+          (isTablet ? 'tablet' : 'phone') + ', mounted=' + mounted.toString() +
+          '/' + ids.length.toString());
+        expect(mounted).assertEqual(ids.length);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+
+    /**
+     * @tc.number    SUB_MEETINGSCENE_UI_FORMGUARD_1905
+     * @tc.name      testFormGuardHomeIdUnique0001
+     * @tc.desc      Verify the routed home root is the single home root present: probing both
+     *               home roots yields exactly one hit, and the losing root stays unmounted for
+     *               the whole probe window.
+     * @tc.require   NA
+     * @tc.size      MediumTest
+     * @tc.type      Function
+     * @tc.level     Level 2
+     */
+    it('testFormGuardHomeIdUnique0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async () => {
+        const TAG: string = 'testFormGuardHomeIdUnique0001';
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' start');
+        const consoleHit: boolean = await waitForId(driver, CONSOLE_ROOT);
+        const orchHit: boolean = await waitForId(driver, ORCH_ROOT);
+        const hits: number = (consoleHit ? 1 : 0) + (orchHit ? 1 : 0);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ', console=' +
+          consoleHit.toString() + ', orch=' + orchHit.toString() + ', hits=' +
+          hits.toString());
+        expect(hits).assertEqual(1);
+        expect(consoleHit).assertEqual(!isTablet);
+        expect(orchHit).assertEqual(isTablet);
+        await driver.delayMs(CLICK_SETTLE_MS);
+        const consoleAgain: boolean = await idExists(driver, CONSOLE_ROOT);
+        const orchAgain: boolean = await idExists(driver, ORCH_ROOT);
+        expect(consoleAgain).assertEqual(consoleHit);
+        expect(orchAgain).assertEqual(orchHit);
+        hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + TAG + ' end');
+      });
+  });
+}
