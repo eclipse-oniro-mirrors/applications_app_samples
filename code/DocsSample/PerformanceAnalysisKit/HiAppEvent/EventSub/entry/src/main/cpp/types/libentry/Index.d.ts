@@ -41,8 +41,10 @@ export const addressSanitizerTest: () => void;
 export const registerLeakReceiveWatcher: () => void;
 // [End PssLeakEvent_Index.d.ts]
 // [Start AppKillEvent_Index.d.ts]
-export const registerAppKillReceiveWatcher: () => void;
+export const registerAppKillWatcher: () => void;
+// [Start AppKillEvent_ArkTS_Index.d.ts]
 export const leak: () => void;
+// [End AppKillEvent_ArkTS_Index.d.ts]
 // [End AppKillEvent_Index.d.ts]
 // [Start Pss_Leak_Index.d.ts]
 export const leakMB: (size: number) => void;
@@ -65,6 +67,14 @@ export const HiCollieTestTimerNdk: () => void;
 // [Start MainThreadJank_Index.d.ts]
 export const RegisterMainThreadJankWatcher: () => void;
 // [End MainThreadJank_Index.d.ts]
+// [Start Freeze_Index.d.ts]
+export const RegisterFreezeWatcherR: () => void;
+export const RegisterFreezeWatcherT: () => void;
+// [End Freeze_Index.d.ts]
+// [Start AppFreezeWarning_Index.d.ts]
+export const registerAppFreezeWarningReceiveWatcher: () => void;
+export const registerAppFreezeWarningTriggerWatcher: () => void;
+// [End AppFreezeWarning_Index.d.ts]
 // [Start ExternalLog_Index.d.ts]
 export const registerExternalLogMgr: () => void;
 // [End ExternalLog_Index.d.ts]
