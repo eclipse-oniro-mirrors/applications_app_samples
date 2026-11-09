@@ -363,6 +363,7 @@ class CameraService {
    * 变焦。
    */
   // [Start camera_setZoomRatio]
+  // 变焦。
   setZoomRatioFn(zoomRatio: number): void {
     Logger.info(TAG, `setZoomRatioFn value ${zoomRatio}`);
     // 获取支持的变焦范围。
@@ -1198,6 +1199,7 @@ class CameraService {
    * 闪光灯。
    */
   // [Start camera_flash]
+  // 闪光灯。
   hasFlashFn(flashMode: camera.FlashMode): void {
     try {
       // 检测是否有闪光灯。
