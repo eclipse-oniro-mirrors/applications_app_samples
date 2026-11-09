@@ -31,7 +31,7 @@
 int32_t Player::CreateAudioDecoder()
 {
     if (sampleInfo_.audio.audioCodecMime.empty()) {
-        // 无音轨是合法输入；音频上下文为空时 Start() 只启动视频流水线。
+        // 无音轨是合法输入；音频上下文为空时Start() 只启动视频流水线。
         audioDecoder_.reset();
         audioDecContext_.reset();
         isAudioDone.store(true);
@@ -215,8 +215,8 @@ int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
     SampleInfo configureInfo = sampleInfo_;
     configureInfo.codec.codecType = decoderType;
     if (sampleInfo_.codec.codecRunMode == VULKAN && videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder()) {
-        // Vulkan 直接采样原始 NativeBuffer；容器旋转由纹理坐标统一完成。
-        // 保留 sampleInfo_ 中的原始角度供显示区域和媒体信息使用，避免生产端再次旋转。
+        // Vulkan直接采样原始NativeBuffer；容器旋转由纹理坐标统一完成。
+        // 保留sampleInfo_ 中的原始角度供显示区域和媒体信息使用，避免生产端再次旋转。
         configureInfo.video.rotation = 0;
     }
     videoDecoder_ = std::make_unique<VideoDecoder>();
@@ -311,32 +311,32 @@ void Player::ResetPlaybackState()
 void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
-    // Surface 解码器 Configure() 前不修改 XComponent NativeWindow。
-    // HDR Vivid 转 BT.709 在 Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
+    // Surface解码器Configure() 前不修改XComponent NativeWindow。
+    // HDR Vivid转BT.709在Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
     transformHint = NATIVEBUFFER_ROTATE_NONE;
     if (videoSink_ != nullptr && videoSinkRunMode_ != sampleInfo_.codec.codecRunMode) {
-        // 新解码器绑定共享窗口前释放上一运行模式的 GPU sink，清除旧的显示资源和几何状态。
+        // 新解码器绑定共享窗口前释放上一运行模式的GPU sink，清除旧的显示资源和几何状态。
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     } else if (videoSink_ != nullptr) {
         videoSink_->BeginPlayback();
     }
-    // Demuxer::Create 填充实际视频尺寸。GPU sink 解析后再创建 NativeImage；0x0 尺寸会回退为 Buffer 输出。
+    // Demuxer::Create填充实际视频尺寸。GPU sink解析后再创建NativeImage；0x0尺寸会回退为Buffer输出。
     ResetPlaybackState();
 }
 
 bool Player::PrepareVideoSinkForPlayback()
 {
-    // 音频-only 媒体没有视频输出链路，不需要创建 GPU sink。
+    // 音频-only媒体没有视频输出链路，不需要创建GPU sink。
     if (sampleInfo_.video.videoCodecMime.empty()) {
         return true;
     }
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
         return true;
     }
-    // Surface 窗口只属于当前一次解码器配置。非 Surface 模式必须先清空旧租约留下的指针，
-    // 否则本轮 GPU 建链失败时可能把已释放的 NativeWindow 误传给新的 decoder。
+    // Surface窗口只属于当前一次解码器配置。非Surface模式必须先清空旧租约留下的指针，
+    // 否则本轮GPU建链失败时可能把已释放的NativeWindow误传给新的decoder。
     sampleInfo_.video.window = nullptr;
     if (videoSink_ == nullptr) {
         switch (sampleInfo_.codec.codecRunMode) {
@@ -363,7 +363,7 @@ bool Player::PrepareVideoSinkForPlayback()
         return true;
     }
     if (sampleInfo_.codec.codecRunMode == OPENGL) {
-        // OpenGL 保留已有的 Buffer fallback，避免 EGL/NativeImage 不可用时影响普通播放。
+        // OpenGL保留已有的Buffer fallback，避免EGL/NativeImage不可用时影响普通播放。
         if (sampleInfo_.video.window == nullptr) {
             AVCODEC_SAMPLE_LOGW("OpenGL NativeImage surface unavailable, using decoder Buffer output");
         }
@@ -460,7 +460,7 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
     }
     const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
     if (sampleInfo_.codec.codecRunMode == VULKAN && (!usesSurfaceDecoder || sampleInfo_.video.window == nullptr)) {
-        // Vulkan 只支持 Surface -> NativeImage -> Vulkan 外部纹理链路，不回退到 decoder Buffer 输出。
+        // Vulkan只支持Surface -> NativeImage -> Vulkan外部纹理链路，不回退到decoder Buffer输出。
         AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is not ready, abort initialization");
         return HandleInitError(lock);
     }

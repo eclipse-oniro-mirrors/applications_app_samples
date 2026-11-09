@@ -99,21 +99,21 @@ private:
     GLint externalTexCoordLocation_ = -1;
     int32_t textureWidth_ = 0;
     int32_t textureHeight_ = 0;
-    // EGL 窗口 Surface 在销毁前会持续访问 XComponent NativeWindow，不能仅保存借用地址。
+    // EGL窗口Surface在销毁前会持续访问XComponent NativeWindow，不能仅保存借用地址。
     NativeXComponentSample::PluginManager::PluginWindowLease outputWindowLease_;
-    // HDR 直连模式由 decoder 使用 XComponent Surface；引用需保留到 codec 销毁后 sink 才能释放。
+    // HDR直连模式由decoder使用XComponent Surface；引用需保留到codec销毁后sink才能释放。
     NativeXComponentSample::PluginManager::PluginWindowLease directSurfaceWindowLease_;
     uint64_t directSurfaceGeneration_ = 0;
     OHNativeWindow *window_ = nullptr;
     uint64_t windowGeneration_ = 0;
     int32_t width_ = 0;
     int32_t height_ = 0;
-    // 申请的输出 Buffer 尺寸。width_/height_ 则是 EGL 当前实际使用的帧缓冲尺寸。
+    // 申请的输出Buffer尺寸。width_/height_ 则是EGL当前实际使用的帧缓冲尺寸。
     int32_t frameWidth_ = 0;
     int32_t frameHeight_ = 0;
     bool fallbackOnly_ = false;
-    // HDR Vivid 等 10-bit 码流直接使用解码器的 XComponent Surface。外部 OpenGL 纹理无法提供
-    // 保真合成 HDR Vivid 所需的逐帧 HDR 元数据。
+    // HDR Vivid等10-bit码流直接使用解码器的XComponent Surface。外部OpenGL纹理无法提供
+    // 保真合成HDR Vivid所需的逐帧HDR元数据。
     bool directSurfaceFallback_ = false;
     bool surfaceDecoderReady_ = false;
     OH_NativeImage *nativeImage_ = nullptr;

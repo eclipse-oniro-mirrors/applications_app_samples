@@ -38,8 +38,8 @@ bool IsQuarterTurnRotation(int32_t rotation)
 
 bool RequiresFollowingSyncForForwardSeek(const VideoSampleInfo &video)
 {
-    // 部分带旋转信息的 10-bit HEVC 文件会提供“前一个同步帧”索引，但该索引的首个访问单元
-    // 不能独立解码。HDR Vivid 容器声明是可选信息，判断是否跳过这个不安全索引时不能只依赖它。
+    // 部分带旋转信息的10-bit HEVC文件会提供“前一个同步帧”索引，但该索引的首个访问单元
+    // 不能独立解码。HDR Vivid容器声明是可选信息，判断是否跳过这个不安全索引时不能只依赖它。
     return IsQuarterTurnRotation(video.rotation) &&
         video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC && IsTenBitHevcOutput(video);
 }
@@ -126,8 +126,8 @@ void Player::StopWorkersForSeek()
 
 bool Player::ShouldRetainVideoDecoderForSeek() const
 {
-    // Flush 清除队列但保留 codec 和输出配置。工作线程已退出，可直接 Flush 后 Start，
-    // 不在每次跳转时重建 4K HDR 解码器。
+    // Flush清除队列但保留codec和输出配置。工作线程已退出，可直接Flush后Start，
+    // 不在每次跳转时重建4K HDR解码器。
     return videoDecoder_ != nullptr && videoDecContext_ != nullptr;
 }
 

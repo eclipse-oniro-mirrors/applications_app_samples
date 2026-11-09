@@ -97,6 +97,7 @@ struct OperationLog {
               this.changesResult = cloudDisk.getSyncFolderChanges(this.syncFolderPath, this.startUsn, this.count);
             })
             .margin(10)
+            .id('queryOperationLogBtn')
         }
         Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
           Text($r('app.string.batch_count_label'))
@@ -120,6 +121,7 @@ struct OperationLog {
             .width('15%')
             .margin(10)
           Button($r('app.string.batch_query_operation_log'))
+            .id('batchQueryOperationLogBtn')
             .backgroundColor('#FF9800')
             .onClick(() => {
               let totalCount = this.batchCount;
@@ -230,5 +232,6 @@ struct OperationLog {
     .width('100%')
     .height('100%')
     .align(Alignment.Top)
+    .id('operationLogPage')
   }
 }

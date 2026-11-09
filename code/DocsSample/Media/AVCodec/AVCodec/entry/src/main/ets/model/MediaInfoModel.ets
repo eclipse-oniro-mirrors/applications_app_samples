@@ -41,7 +41,7 @@ export function buildMediaInfoSections(info: MediaInfo, resources: resourceManag
   return new MediaInfoFormatter(resources).buildSections(info, sourceTitle);
 }
 
-// 使用页面传入的资源管理器，避免模型依赖全局 Context，也让导出的文字与界面语言一致。
+// 使用页面传入的资源管理器，避免模型依赖全局Context，也让导出的文字与界面语言一致。
 class MediaInfoFormatter {
   private resources: resourceManager.ResourceManager;
 
