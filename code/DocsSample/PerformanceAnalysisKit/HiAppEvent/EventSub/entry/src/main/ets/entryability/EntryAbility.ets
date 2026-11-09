@@ -16,13 +16,18 @@
 // [Start EventSub_EntryAbility_Header]
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 // [Start PssLeakEvent_ArkTS_Header]
+// [Start Appfreeze_Click_ArkTS_Header]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [Start Crash_Click_ArkTS_Header]
 // [Start AppEvent_Crash_Click_ArkTS_Header]
 // [Start AppHicollie_ArkTS_Header]
 // [Start MainThreadJank_ArkTS_Header]
 // [Start External_Log_ArkTS_Header]
+// [Start AppKillEvent_ArkTS_Header]
+// [Start AppFreezeWarning_ArkTS_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
+// [End AppKillEvent_ArkTS_Header]
+// [End AppFreezeWarning_ArkTS_Header]
 // [End AppHicollie_ArkTS_Header]
 // [End AppEvent_Crash_Click_ArkTS_Header]
 // [StartExclude External_Log_ArkTS_Header]
@@ -31,6 +36,7 @@ import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 import { deviceInfo } from '@kit.BasicServicesKit';
 // [EndExclude MainThreadJank_ArkTS_Header]
 // [End Crash_Click_ArkTS_Header]
+// [End Appfreeze_Click_ArkTS_Header]
 import { buffer, util } from '@kit.ArkTS';
 // [EndExclude External_Log_ArkTS_Header]
 import { fileIo } from '@kit.CoreFileKit';
@@ -238,11 +244,31 @@ export default class EntryAbility extends UIAbility {
     }
     // [End Crash_ArkTS_Add_Event]
     // [Start FreezeEvent_ArkTS_Add_Event]
-    // 开发者可以设置事件的自定义参数
-    hiAppEvent.setEventParam(params, hiAppEvent.domain.OS, hiAppEvent.event.APP_FREEZE).then(() => {
+    // 开发者完成参数键值对赋值
+    let freezeParams: Record<string, hiAppEvent.ParamType> = {
+      "test_data": 100,
+    };
+    // 开发者可以设置应用冻屏事件的自定义参数
+    hiAppEvent.setEventParam(freezeParams, hiAppEvent.domain.OS, hiAppEvent.event.APP_FREEZE).then(() => {
+      hilog.info(0x0000, 'testTag', `HiAppEvent success to set event param`);
     }).catch((err: BusinessError) => {
       hilog.error(0x0000, 'testTag', `HiAppEvent code: ${err.code}, message: ${err.message}`);
     });
+
+    if (deviceInfo.sdkApiVersion >= 24) {  // API Version 24及以后版本，支持设置页面切换日志
+      // 配置页面切换日志
+      let switchLogFreezePolicy : hiAppEvent.EventPolicy = {
+        "appFreezePolicy": {
+          "pageSwitchLogEnable": true
+        }
+      };
+      // 开发者可以设置应用冻屏日志配置参数
+      hiAppEvent.configEventPolicy(switchLogFreezePolicy).then(() => {
+        hilog.info(0x0000, 'testTag', `HiAppEvent success to config event policy.`);
+      }).catch((err: BusinessError) => {
+        hilog.error(0x0000, 'testTag', `HiAppEvent code: ${err.code}, message: ${err.message}`);
+      });
+    }
     // [End FreezeEvent_ArkTS_Add_Event]
     // [Start CrashEvent_ArkTS_Add_Watcher]
     // 添加崩溃事件观察者
@@ -309,11 +335,11 @@ export default class EntryAbility extends UIAbility {
     hiAppEvent.addWatcher(watcher);
     // [End CrashEvent_ArkTS_Add_Watcher]
     // [Start FreezeEvent_ArkTS_Add_Watcher]
-    // 添加卡死事件观察者
+    // 添加应用冻屏事件观察者
     hiAppEvent.addWatcher({
       // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
-      name: 'freezeEventWatcher',
-      // 开发者可以订阅感兴趣的系统事件，此处是订阅了卡死事件
+      name: "freezeEventWatcher",
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了应用冻屏事件
       appEventFilters: [
         {
           domain: hiAppEvent.domain.OS,
@@ -331,57 +357,50 @@ export default class EntryAbility extends UIAbility {
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.domain=${eventInfo.domain}`);
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.name=${eventInfo.name}`);
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.eventType=${eventInfo.eventType}`);
-            // 开发者可以获取到卡死事件发生的时间戳
+            // 开发者可以获取到应用冻屏事件发生的时间戳
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.time=${eventInfo.params['time']}`);
-            // 开发者可以获取到卡死应用的前后台状态
+            // 开发者可以获取到应用冻屏事件发生时应用的前后台状态
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.foreground=${eventInfo.params['foreground']}`);
-            // 开发者可以获取到卡死应用类型
-            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.release_type=${eventInfo.params['release_type']}`);
-            // 开发者可以获取到卡死应用的二进制接口类型
-            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.cpu_abi=${eventInfo.params['cpu_abi']}`);
-            // 开发者可以获取到卡死应用的应用运行时唯一关联id
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
-            // 开发者可以获取到卡死应用的版本信息
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
-            // 开发者可以获取到卡死应用的包名
+            // 开发者可以获取到应用冻屏事件发生时应用的唯一关联id
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
+            // 开发者可以获取到应用冻屏事件发生时应用的版本信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
+            // 开发者可以获取到应用冻屏事件发生时应用的包名
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_name=${eventInfo.params['bundle_name']}`);
-            // 开发者可以获取到卡死应用的进程名称
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.process_name=${eventInfo.params['process_name']}`);
-            // 开发者可以获取到卡死应用的进程id
+            // 开发者可以获取到应用冻屏事件发生时应用的进程名称
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.process_name=${eventInfo.params['process_name']}`);
+            // 开发者可以获取到应用冻屏事件发生时应用的进程id
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.pid=${eventInfo.params['pid']}`);
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uid=${eventInfo.params['uid']}`);
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uuid=${eventInfo.params['uuid']}`);
-            // 开发者可以获取到卡死事件发生的异常类型、异常原因
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.exception=${JSON.stringify(eventInfo.params['exception'])}`);
-            // 开发者可以获取到卡死事件发生时日志信息
+            // 开发者可以获取到应用冻屏事件发生的异常类型、异常原因
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.exception=${JSON.stringify(eventInfo.params['exception'])}`);
+            // 开发者可以获取到应用冻屏事件发生时日志信息
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.hilog.size=${eventInfo.params['hilog'].length}`);
-            // 开发者可以获取到卡死事件发生时主线程未处理消息
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.event_handler.size=${eventInfo.params['event_handler'].length}`);
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.event_handler_size_3s=${eventInfo.params['event_handler_size_3s']}`);
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.event_handler_size_6s=${eventInfo.params['event_handler_size_6s']}`);
-            // 开发者可以获取到卡死事件发生时同步binder调用信息
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.peer_binder.size=${eventInfo.params['peer_binder'].length}`);
-            // 开发者可以获取到卡死事件发生时全量线程调用栈
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.threads.size=${eventInfo.params['threads'].length}`);
-            // 开发者可以获取到卡死事件发生时内存信息
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.memory=${JSON.stringify(eventInfo.params['memory'])}`);
-            // 开发者可以获取到卡死事件发生时的故障日志文件
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.external_log=${JSON.stringify(eventInfo.params['external_log'])}`);
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.log_over_limit=${eventInfo.params['log_over_limit']}`);
-            // 开发者可以获取到卡死事件的自定义数据test_data
-            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.test_data=${eventInfo.params['testData']}`);
+            // 开发者可以获取到应用冻屏事件发生时主线程未处理消息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.event_handler.size=${eventInfo.params['event_handler'].length}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.event_handler_size_3s=${eventInfo.params['event_handler_size_3s']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.event_handler_size_6s=${eventInfo.params['event_handler_size_6s']}`);
+            // 开发者可以获取到应用冻屏事件发生时同步binder调用信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.peer_binder.size=${eventInfo.params['peer_binder'].length}`);
+            // 开发者可以获取到应用冻屏事件发生时全量线程调用栈
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.threads.size=${eventInfo.params['threads'].length}`);
+            // 开发者可以获取到应用冻屏事件发生时内存信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.memory=${JSON.stringify(eventInfo.params['memory'])}`);
+            // 开发者可以获取到应用冻屏事件发生时的故障日志文件
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.external_log=${JSON.stringify(eventInfo.params['external_log'])}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.log_over_limit=${eventInfo.params['log_over_limit']}`);
+            // 开发者可以获取到应用冻屏事件的自定义数据test_data
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.test_data=${eventInfo.params['test_data']}`);
+            // 开发者可以获取到应用冻屏事件的故障进程存活时间
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.process_life_time=${eventInfo.params['process_life_time']}`);
+            // 开发者可以获取到应用冻屏事件的回调日志信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.external_callback_log=${eventInfo.params['external_callback_log']}`);
+            // 开发者可以获取到应用冻屏事件的页面切换日志
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.page_switch_log=${JSON.stringify(eventInfo.params['page_switch_log'])}`);
+            // 开发者可以获取到应用冻屏事件的gc、io信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.application_gc_info=${JSON.stringify(eventInfo.params['application_gc_info'])}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.application_io_info=${JSON.stringify(eventInfo.params['application_io_info'])}`);
           }
         }
       }
@@ -433,7 +452,7 @@ export default class EntryAbility extends UIAbility {
     // [Start AppKillEvent_ArkTS_Add_Watcher]
     hiAppEvent.addWatcher({
       // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
-      name: 'leakWatcher',
+      name: 'appKilledWatcher',
       // 开发者可以订阅感兴趣的系统事件，此处是订阅了应用终止事件
       appEventFilters: [
         {
@@ -455,18 +474,77 @@ export default class EntryAbility extends UIAbility {
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.time=${eventInfo.params['time']}`);
             // 开发者可以获取到应用的前后台状态
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.foreground=${eventInfo.params['foreground']}`);
-            // 开发者可以获取到应用运行时唯一关联id
-            hilog.info(0x0000, 'testTag',
-              `HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
-            // 开发者可以获取到应用的版本信息
-            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
             // 开发者可以获取到应用终止事件发生的原因
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.reason=${eventInfo.params['reason']}`);
+            // 获取发起终止进程操作的进程ID
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.calling_pid=${eventInfo.params['calling_pid']}`);
+            // 获取发起终止进程操作的进程名称
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.calling_process_name=${eventInfo.params['calling_process_name']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.last_exit_detail_info=${JSON.stringify(eventInfo.params['last_exit_detail_info'])}`);
           }
         }
       }
     });
     // [End AppKillEvent_ArkTS_Add_Watcher]
+    // [Start AppFreezeWarning_ArkTS_Add_Watcher]
+    hiAppEvent.addWatcher({
+      // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
+      name: 'appFreezeWarningWatcher',
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了应用冻屏告警事件
+      appEventFilters: [
+        {
+          domain: hiAppEvent.domain.OS,
+          names: [hiAppEvent.event.appFreezeWarning]
+        }
+      ],
+      // 开发者可以自行实现订阅实时回调函数，以便对订阅获取到的事件数据进行自定义处理
+      onReceive: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => {
+        hilog.info(0x0000, 'testTag', `HiAppEvent onReceive: domain=${domain}`);
+        for (const eventGroup of appEventGroups) {
+          // 开发者可以根据事件集合中的事件名称区分不同的系统事件
+          hilog.info(0x0000, 'testTag', `HiAppEvent eventName=${eventGroup.name}`);
+          for (const eventInfo of eventGroup.appEventInfos) {
+            // 开发者可以对事件集合中的事件数据进行自定义处理，此处是将事件数据打印在日志中
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.domain=${eventInfo.domain}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.name=${eventInfo.name}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.eventType=${eventInfo.eventType}`);
+            // 开发者可以获取到应用冻屏告警事件发生的时间戳
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.time=${eventInfo.params['time']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的前台/后台状态
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.foreground=${eventInfo.params['foreground']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的唯一关联id
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的版本信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version_code=${eventInfo.params['bundle_version_code']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的包名
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_name=${eventInfo.params['bundle_name']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的进程名称
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.process_name=${eventInfo.params['process_name']}`);
+            // 开发者可以获取到应用冻屏告警事件发生时应用的进程id
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.pid=${eventInfo.params['pid']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uid=${eventInfo.params['uid']}`);
+            // 开发者可以获取到应用冻屏告警事件发生的异常类型、异常原因
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.exception=${JSON.stringify(eventInfo.params['exception'])}`);
+            // 开发者可以获取到应用冻屏告警事件发生时日志信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.hilog.size=${eventInfo.params['hilog'].length}`);
+            // 开发者可以获取到应用冻屏告警事件发生时主线程未处理消息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.event_handler.size=${eventInfo.params['event_handler'].length}`);
+            // 开发者可以获取到应用冻屏告警事件发生时同步binder调用信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.peer_binder.size=${eventInfo.params['peer_binder'].length}`);
+            // 开发者可以获取到应用冻屏告警事件发生时全量线程调用栈
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.threads.size=${eventInfo.params['threads'].length}`);
+            // 开发者可以获取到应用冻屏告警事件发生时内存信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.memory=${JSON.stringify(eventInfo.params['memory'])}`);
+            // 开发者可以获取到应用冻屏告警事件的故障进程存活时间
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.process_life_time=${eventInfo.params['process_life_time']}`);
+          }
+        }
+      }
+    });
+    // [End AppFreezeWarning_ArkTS_Add_Watcher]
     // [Start AsanEvent_ArkTS_Add_Watcher]
     hiAppEvent.addWatcher({
       // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
@@ -728,8 +806,18 @@ export default class EntryAbility extends UIAbility {
     // [Start AppKillEvent_Call_Capi_Function]
     // 在onCreate()函数中新增接口调用
     // 启动时，注册系统事件观察者
-    testNapi.registerAppKillReceiveWatcher();
+    testNapi.registerAppKillWatcher();
+
+    // 在按钮操作或者启动时，触发泄漏
+    testNapi.leak();
     // [End AppKillEvent_Call_Capi_Function]
+
+    // [Start AppFreezeWarning_Call_Capi_Function]
+    // 在onCreate()函数中新增接口调用
+    // 启动时，注册系统事件观察者
+    testNapi.registerAppFreezeWarningReceiveWatcher();
+    testNapi.registerAppFreezeWarningTriggerWatcher();
+    // [End AppFreezeWarning_Call_Capi_Function]
 
     // [Start Sys_Crash_Event_Call_Capi_Function]
     // 在onCreate()函数中添加C API接口调用
@@ -740,10 +828,17 @@ export default class EntryAbility extends UIAbility {
     // [End Sys_Crash_Event_Call_Capi_Function]
 
     // [Start MainThreadJank_Event_Call_Capi_Function]
-   // 在onCreate()函数中新增接口调用。
-   // 启动时，注册系统事件观察者。
-   testNapi.RegisterMainThreadJankWatcher();
-   // [End MainThreadJank_Event_Call_Capi_Function]
+    // 在onCreate()函数中新增接口调用。
+    // 启动时，注册系统事件观察者。
+    testNapi.RegisterMainThreadJankWatcher();
+    // [End MainThreadJank_Event_Call_Capi_Function]
+
+    // [Start Freeze_Event_Call_Capi_Function]
+    // 在onCreate()函数中新增接口调用
+    // 启动时，注册系统事件观察者
+    testNapi.RegisterFreezeWatcherR();
+    testNapi.RegisterFreezeWatcherT();
+    // [End Freeze_Event_Call_Capi_Function]
   }
 
   onDestroy(): void {
