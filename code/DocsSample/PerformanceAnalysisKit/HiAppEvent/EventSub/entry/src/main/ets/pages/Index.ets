@@ -169,6 +169,30 @@ struct Index {
               testNapi.testNullptr();
             })
           // [End Native_CrashEvent_Log]
+          Button('StackOverflowCrash')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              // 在按钮点击函数中构造一个栈溢出crash场景，触发应用崩溃事件
+              testNapi.testStackOverflow();
+            })
+          Button('SigpipeCrash')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              // 在按钮点击函数中构造一个SIGPIPE异常场景，触发应用异常退出
+              testNapi.testSigpipeCrash();
+            })
           Button('ConfigCrashPolicy')
             .type(ButtonType.Capsule)
             .margin({
