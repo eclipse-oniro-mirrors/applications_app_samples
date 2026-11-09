@@ -1,19 +1,19 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-// Reverse camera_ Multiple workstations_ Take photos Video
+// Camera switch, multiple cameras, photo and video
 
 import Logger from '../model/Logger';
 import cameraDemo from 'libentry.so';
@@ -76,7 +76,7 @@ export struct modeSwitchPage {
   @Prop surfaceId: string;
   @Link videoId: string;
   @Prop @Watch('onTriggerChange') videoTrigger: number;
-  //HDR video
+  // HDR video
   @Consume isHdrVideo: boolean;
   // Recording time timer
   @State timer: number = -1;
@@ -138,7 +138,7 @@ export struct modeSwitchPage {
     } catch (error) {
       let err = error as BusinessError;
       console.error(`getSensorList failed, error: ${err.code}`);
-      return -1; // 异常场景下返回默认值
+      return -1; // 异常场景下返回默认值。
     }
 
     for (let i = 0; i < data.length; i++) {
@@ -166,11 +166,11 @@ export struct modeSwitchPage {
     } catch (error) {
       let err = error as BusinessError;
       console.error(`gePromise failed, error: ${err.code}`);
-      return -1; // 异常场景下返回默认值
+      return -1; // 异常场景下返回默认值。
     }
   }
 
-  //创建视频文件Fd
+  // 创建视频文件Fd。
   initFd(): number {
     Logger.info(this.tag, 'initFd is called');
     let filesDir = this.context.filesDir;
@@ -183,7 +183,7 @@ export struct modeSwitchPage {
     return file.fd;
   }
 
-  //获取创建Video Output所需SurfaceId
+  // 获取创建Video Output所需SurfaceId。
   async getVideoSurfaceID() {
     Logger.info(this.tag, `getVideoSurfaceID`);
     this.videoRecorder = await media.createAVRecorder();
@@ -209,11 +209,11 @@ export struct modeSwitchPage {
       this.videoConfig.videoSourceType = media.VideoSourceType.VIDEO_SOURCE_TYPE_SURFACE_YUV;
     }
 
-    //获取创建VideoOutput用的Profile，保证AVRecorder和VideoOutput的宽高以及帧率一致
+    // 获取创建VideoOutput用的Profile，保证AVRecorder和VideoOutput的宽高以及帧率一致。
     this.videoConfig.profile.videoFrameWidth = 1920;
     this.videoConfig.profile.videoFrameHeight = 1080;
     this.videoConfig.profile.isHdr = false;
-    //HDR Vivid视频时的处理，videoCodec和isHdr需要注意
+    // HDR Vivid视频时的处理，videoCodec和isHdr需要注意。
     if (this.isHdrVideo) {
       let aVRecorderProfile: media.AVRecorderProfile = {
         audioBitrate: 48000,
@@ -243,7 +243,7 @@ export struct modeSwitchPage {
     Logger.info(this.tag, `getVideoSurfaceID videoId: ${this.videoId}`);
   }
 
-  // 判定是拍照模式还是录像模式
+  // 判定是拍照模式还是录像模式。
   async isVideoPhotoFn() {
     if (this.modelBagCol == 'photo') {
       let deviceDegree = await this.getGravity();
@@ -425,13 +425,13 @@ export struct modeSwitchPage {
     }
   }
 
-  //保存视频文件
+  // 保存视频文件。
   async readWriteFile(sourceUri: string, destUri: string): Promise<void> {
     try {
-      // 打开文件
+      // 打开文件。
       let srcFile = fileIo.openSync(sourceUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
       let destFile = fileIo.openSync(destUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-      // 读取源文件内容并写入至目的文件
+      // 读取源文件内容并写入至目的文件。
       let bufSize = 4096;
       let readSize = 0;
       let buf = new ArrayBuffer(bufSize);
@@ -449,7 +449,7 @@ export struct modeSwitchPage {
         readOptions.offset = readSize;
         readLen = fileIo.readSync(srcFile.fd, buf, readOptions);
       }
-      // 关闭文件
+      // 关闭文件。
       fileIo.closeSync(srcFile);
       fileIo.closeSync(destFile);
     } catch (err) {
@@ -457,7 +457,7 @@ export struct modeSwitchPage {
     }
   }
 
-  //暂停录像
+  // 暂停录像。
   async stopVideo() {
     try {
       if (this.videoRecorder) {

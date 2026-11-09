@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -78,7 +78,7 @@ export struct WhiteBalancePage {
 
   build() {
     Column() {
-      // 主按钮
+      // 主按钮。
       if (this.firstBol) {
         Text('白平衡')
           .fontSize(16)
@@ -105,7 +105,7 @@ export struct WhiteBalancePage {
           })
       }
 
-      // 选项面板 - 垂直排列在主按钮下方
+      // 选项面板 - 垂直排列在主按钮下方。
       if (this.showOptions) {
         Column() {
           Text('自动')
@@ -191,7 +191,7 @@ export struct WhiteBalancePage {
         .backgroundColor('rgba(0,0,0,0.3)')
         .borderRadius('25px')
         .padding({ top: '12px', bottom: '12px' })
-        .margin({ top: '8px' })  // 与主按钮的间距
+        .margin({ top: '8px' })  // 与主按钮的间距。
         .width('160px')
         .height('300px')
         .alignItems(HorizontalAlign.Center)
