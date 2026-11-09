@@ -143,37 +143,55 @@ struct Download {
   @Builder
   BottomView() {
     Column({ space: 12 }) {
-      Button() {
-        Row() {
-          if (this.isRunning) {
-            Text(`${this.progress}%`)
-              .fontColor(Color.White)
-              .fontSize(16)
-            Text($r('app.string.downloading'))
-              .fontColor(Color.White)
-              .fontSize(16)
-              .margin({ left: 12 })
-          } else {
-            Text(this.isUserFolder ? $r('app.string.downloadToUser') : $r('app.string.download'))
-              .fontColor(Color.White)
-              .fontSize(16)
+      if (this.isUserFolder) {
+        SaveButton({
+          icon: SaveIconStyle.FULL_FILLED,
+          text: SaveDescription.SAVE_FILE,
+          buttonType: ButtonType.Capsule
+        })
+          .id('download_to')
+          .height(45)
+          .width('100%')
+          .backgroundColor($r('app.color.button_blue'))
+          .onClick(async (event: ClickEvent, result: SaveButtonOnClickResult) => {
+            if (result === SaveButtonOnClickResult.SUCCESS && !this.isRunning) {
+              this.downloadUser();
+            }
+          })
+        if (this.isRunning) {
+          Text(`${this.progress}%`)
+            .fontSize(16)
+            .fontColor($r('app.color.button_blue'))
+        }
+      } else {
+        Button() {
+          Row() {
+            if (this.isRunning) {
+              Text(`${this.progress}%`)
+                .fontColor(Color.White)
+                .fontSize(16)
+              Text($r('app.string.downloading'))
+                .fontColor(Color.White)
+                .fontSize(16)
+                .margin({ left: 12 })
+            } else {
+              Text($r('app.string.download'))
+                .fontColor(Color.White)
+                .fontSize(16)
+            }
           }
         }
-      }
-      .id('download_to')
-      .type(ButtonType.Capsule)
-      .height(45)
-      .width('100%')
-      .backgroundColor($r('app.color.button_blue'))
-      .onClick(async () => {
-        if (!this.isRunning) {
-          if (this.isUserFolder) {
-            this.downloadUser();
-          } else {
+        .id('download_to')
+        .type(ButtonType.Capsule)
+        .height(45)
+        .width('100%')
+        .backgroundColor($r('app.color.button_blue'))
+        .onClick(async () => {
+          if (!this.isRunning) {
             this.download();
           }
-        }
-      })
+        })
+      }
 
       Button($r('app.string.view_download_files'))
         .id('view_download_files')
