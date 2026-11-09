@@ -1086,7 +1086,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // 销毁创建的观察者，并置systemEventWatcher为nullptr。
     OH_HiAppEvent_DestroyWatcher(systemEventWatcher);
     systemEventWatcher = nullptr;
-    // [StartExclude resourceleak_events_DestroyWatcher_4] 
+    // [StartExclude resourceleak_events_DestroyWatcher_4]
     OH_HiAppEvent_DestroyWatcher(eventWatcherT);
     OH_HiAppEvent_DestroyWatcher(eventWatcherR);
     eventWatcherT = nullptr;
@@ -1123,7 +1123,7 @@ static napi_value DestroyWatcher(napi_env env, napi_callback_info info)
     // [EndExclude AppEvent_C++_DestroyWatcher]
     // [EndExclude AsanEvent_DestroyWatcher]
     // [EndExclude PssLeakEvent_DestroyWatcher]
-    // [EndExclude resourceleak_events_DestroyWatcher_4] 
+    // [EndExclude resourceleak_events_DestroyWatcher_4]
     return {};
 }
 // [End MainThreadJankEvent_DestroyWatcher]
