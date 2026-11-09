@@ -27,10 +27,14 @@
 | `UploadDownloadUrlUtilsExtra3Test` | 10 | URL 补充矩阵 |
 | `UploadDownloadRequestInvalidExtraTest` | 10 | 非法下载 URL 拒绝 |
 | `UploadDownloadUploadInvalidExtraTest` | 10 | 非法上传配置拒绝 |
-| `UploadDownloadFileTypeCatalogTest` | 105 | 文件类型目录与文件名场景 |
-| `UploadDownloadServerConfigTest` | 105 | 服务器 URL 配置场景 |
-| `UploadDownloadDirectoryScenarioTest` | 90 | 下载目录初始化、列表与清理场景 |
-| `UploadDownloadCleanupPathScenarioTest` | 80 | 缓存文件清理路径场景 |
+| `UploadDownloadFileTypeCatalogTest` | 52 | 文件类型目录与文件名场景 |
+| `UploadDownloadFileTypeCatalogPart2Test` | 53 | 文件类型目录补充场景 |
+| `UploadDownloadServerConfigTest` | 51 | 服务器 URL 配置场景 |
+| `UploadDownloadServerConfigPart2Test` | 54 | 服务器 URL 配置补充场景 |
+| `UploadDownloadDirectoryScenarioTest` | 46 | 下载目录初始化、列表与清理场景 |
+| `UploadDownloadDirectoryScenarioPart2Test` | 44 | 下载目录补充场景 |
+| `UploadDownloadCleanupPathScenarioTest` | 39 | 缓存文件清理路径场景 |
+| `UploadDownloadCleanupPathScenarioPart2Test` | 41 | 缓存清理路径补充场景 |
 | `UploadDownloadFinalEdgeCaseTest` | 5 | 最终扩展名边界补充 |
 | `UploadDownloadFileUtilsMatrixTest` | 40 | 下载目录初始化、文件列表和清空 |
 | `UploadDownloadFileUtilsExtraTest` | 25 | 目录幂等、空目录和多文件补充 |
