@@ -14,8 +14,8 @@
  */
 
 /**
- * 无障碍与性能基准测试
- * 包含：无障碍测试、性能基准测试
+ * 可访问性与性能基准测试
+ * 包含：可访问性测试、性能基准测试
  */
 
 import { describe, it, expect, beforeAll, afterAll, afterEach } from '@ohos/hypium';
@@ -60,13 +60,13 @@ export default function accessiblePerfTest() {
     });
 
     // ========================================================================
-    // 无障碍功能测试
+    // 可访问性功能测试
     // ========================================================================
 
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0100
      * @tc.name      testAccessibleScreenReaderSupport0001
-     * @tc.desc      Verify that UI elements support screen reader 无障碍功能
+     * @tc.desc      Verify that UI elements support screen reader accessibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
@@ -101,7 +101,7 @@ export default function accessiblePerfTest() {
     /**
      * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0200
      * @tc.name      testAccessibleKeyboardNavigation0002
-     * @tc.desc      Verify that interactive elements support keyboard navigation 无障碍功能
+     * @tc.desc      Verify that interactive elements support keyboard navigation accessibility
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5

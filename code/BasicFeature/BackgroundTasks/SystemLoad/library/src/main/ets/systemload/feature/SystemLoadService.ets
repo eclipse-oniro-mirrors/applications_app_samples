@@ -29,7 +29,7 @@ type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
  * 保留原始BusinessError的code和message
  */
 class SystemLoadError extends Error {
-  code: number;
+  public code: number;
   constructor(code: number, message: string) {
     super(message);
     this.code = code;
