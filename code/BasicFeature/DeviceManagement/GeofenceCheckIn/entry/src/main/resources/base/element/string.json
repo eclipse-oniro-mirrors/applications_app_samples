@@ -1,0 +1,248 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "地理围栏签到示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "地理围栏签到示例主界面"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "地理围栏签到"
+    },
+    {
+      "name": "reason_approximately_location",
+      "value": "用于获取当前位置并设置签到围栏"
+    },
+    {
+      "name": "reason_location",
+      "value": "用于判断设备是否进入或离开签到围栏"
+    },
+    {
+      "name": "reason_location_background",
+      "value": "用于应用在后台时接收围栏进出事件并自动签到"
+    },
+    {
+      "name": "gc_app_title",
+      "value": "地理围栏签到"
+    },
+    {
+      "name": "gc_app_desc",
+      "value": "进入围栏自动签到，离开自动签退，并记录每次停留时长。"
+    },
+    {
+      "name": "gc_app_section_config",
+      "value": "签到点设置"
+    },
+    {
+      "name": "gc_app_placeholder_name",
+      "value": "签到点名称（可选）"
+    },
+    {
+      "name": "gc_app_placeholder_latitude",
+      "value": "纬度"
+    },
+    {
+      "name": "gc_app_placeholder_longitude",
+      "value": "经度"
+    },
+    {
+      "name": "gc_app_placeholder_radius",
+      "value": "半径（米）"
+    },
+    {
+      "name": "gc_app_action_use_location",
+      "value": "当前位置"
+    },
+    {
+      "name": "gc_app_action_save",
+      "value": "保存参数"
+    },
+    {
+      "name": "gc_app_action_enable",
+      "value": "开启围栏"
+    },
+    {
+      "name": "gc_app_action_disable",
+      "value": "关闭围栏"
+    },
+    {
+      "name": "gc_app_section_permission",
+      "value": "权限与定位"
+    },
+    {
+      "name": "gc_app_action_refresh",
+      "value": "刷新状态"
+    },
+    {
+      "name": "gc_app_permission_foreground",
+      "value": "前台定位权限"
+    },
+    {
+      "name": "gc_app_permission_background",
+      "value": "后台定位权限"
+    },
+    {
+      "name": "gc_app_permission_notification",
+      "value": "通知权限"
+    },
+    {
+      "name": "gc_app_status_location_service",
+      "value": "定位服务"
+    },
+    {
+      "name": "gc_app_status_capability",
+      "value": "围栏能力"
+    },
+    {
+      "name": "gc_app_status_granted",
+      "value": "已授权"
+    },
+    {
+      "name": "gc_app_status_missing",
+      "value": "未授权"
+    },
+    {
+      "name": "gc_app_status_on",
+      "value": "已开启"
+    },
+    {
+      "name": "gc_app_status_off",
+      "value": "未开启"
+    },
+    {
+      "name": "gc_app_status_supported",
+      "value": "支持"
+    },
+    {
+      "name": "gc_app_status_unsupported",
+      "value": "不支持"
+    },
+    {
+      "name": "gc_app_action_grant",
+      "value": "去授权"
+    },
+    {
+      "name": "gc_app_section_demo",
+      "value": "模拟围栏事件"
+    },
+    {
+      "name": "gc_app_demo_desc",
+      "value": "室内或无 GNSS 信号时，可用模拟事件验证签到流程。"
+    },
+    {
+      "name": "gc_app_action_simulate_enter",
+      "value": "模拟进入"
+    },
+    {
+      "name": "gc_app_action_simulate_exit",
+      "value": "模拟离开"
+    },
+    {
+      "name": "gc_app_section_records",
+      "value": "签到记录"
+    },
+    {
+      "name": "gc_app_action_clear",
+      "value": "清空"
+    },
+    {
+      "name": "gc_app_records_empty",
+      "value": "暂无签到记录"
+    },
+    {
+      "name": "gc_msg_params_invalid",
+      "value": "围栏参数不合法，请检查经纬度与半径"
+    },
+    {
+      "name": "gc_msg_config_saved",
+      "value": "围栏参数已保存，修改坐标或半径后需重新开启围栏才会生效"
+    },
+    {
+      "name": "gc_msg_fence_enabled",
+      "value": "围栏已开启，进入围栏将自动签到"
+    },
+    {
+      "name": "gc_msg_fence_enable_failed",
+      "value": "围栏开启失败，请检查定位权限与定位开关"
+    },
+    {
+      "name": "gc_msg_fence_permission_denied",
+      "value": "未授予定位权限，无法开启围栏，请在“权限与定位”卡片中授权"
+    },
+    {
+      "name": "gc_msg_fence_unsupported",
+      "value": "当前设备不支持地理围栏能力，可用“模拟进入/离开”验证签到流程"
+    },
+    {
+      "name": "gc_msg_fence_service_unavailable",
+      "value": "位置服务暂不可用（3301000），请稍后重试；无 GNSS 的设备请先用模拟事件验证流程"
+    },
+    {
+      "name": "gc_msg_fence_limit",
+      "value": "围栏数量已达上限，请先关闭已有围栏后重试"
+    },
+    {
+      "name": "gc_msg_fence_disabled",
+      "value": "围栏已关闭"
+    },
+    {
+      "name": "gc_msg_permission_granted",
+      "value": "权限已授予"
+    },
+    {
+      "name": "gc_msg_permission_denied",
+      "value": "权限未授予，可前往系统设置开启"
+    },
+    {
+      "name": "gc_msg_notification_granted",
+      "value": "通知已开启"
+    },
+    {
+      "name": "gc_msg_notification_denied",
+      "value": "通知未开启，签到结果仍会写入记录"
+    },
+    {
+      "name": "gc_msg_location_filled",
+      "value": "已填入当前位置，可微调后保存"
+    },
+    {
+      "name": "gc_msg_location_failed",
+      "value": "获取当前位置失败，请稍后重试"
+    },
+    {
+      "name": "gc_msg_location_permission_denied",
+      "value": "未授予定位权限，请先在“权限与定位”卡片中授权"
+    },
+    {
+      "name": "gc_msg_location_disabled",
+      "value": "系统定位服务未开启，请打开定位开关后重试"
+    },
+    {
+      "name": "gc_msg_location_no_fix",
+      "value": "未获取到定位结果，当前环境可能没有 GNSS 信号，请到室外开阔处重试"
+    },
+    {
+      "name": "gc_msg_simulate_enter",
+      "value": "已模拟进入围栏事件"
+    },
+    {
+      "name": "gc_msg_simulate_exit",
+      "value": "已模拟离开围栏事件"
+    },
+    {
+      "name": "gc_msg_simulate_disabled",
+      "value": "请先保存围栏参数再模拟事件"
+    },
+    {
+      "name": "gc_msg_simulate_ignored",
+      "value": "事件已忽略：当前状态与事件重复"
+    },
+    {
+      "name": "gc_msg_records_cleared",
+      "value": "签到记录已清空"
+    }
+  ]
+}
