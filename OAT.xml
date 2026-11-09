@@ -112,6 +112,15 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/background.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
+				<filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/screenshots/MultimodalAwareness_01.jpg" desc="Screenshot captured from the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/screenshots/MultimodalAwareness_05.jpg" desc="Screenshot captured from the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/screenshots/MultimodalAwareness_06.jpg" desc="Screenshot captured from the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/screenshots/MultimodalAwareness_07.jpg" desc="Screenshot captured from the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/AppScope/resources/base/media/background.png" desc="Application icon resource for the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/AppScope/resources/base/media/foreground.png" desc="Application icon resource for the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/entry/src/main/resources/base/media/background.png" desc="Application icon resource for the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/entry/src/main/resources/base/media/foreground.png" desc="Application icon resource for the DeviceStatusSta sample"/>
+        <filteritem type="filepath" name="code/DocsSample/Stationary/DeviceStatusSta/entry/src/main/resources/base/media/startIcon.png" desc="Application startup icon for the DeviceStatusSta sample"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/AppScope/resources/base/media/app_icon.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/base/media/background.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/base/media/enter_app_animation.gif" desc="Provide by code/UI/WindowStartIcon"/>

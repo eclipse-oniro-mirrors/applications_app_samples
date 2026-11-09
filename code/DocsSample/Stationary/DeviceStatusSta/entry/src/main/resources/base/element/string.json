@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "subscribeDrop",
+      "value": "订阅跌落"
+    },
+    {
+      "name": "unSubscribeDropAll",
+      "value": "取消全部跌落"
+    },
+    {
+      "name": "unSubscribeDrop",
+      "value": "取消单个跌落"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DeviceStatusStaticSample"
+    }
+  ]
+}
