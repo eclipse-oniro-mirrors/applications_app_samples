@@ -54,6 +54,7 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     codecUserData->inputCond_.notify_all();
 }
 
+// [Start screenCapture_surface_AVCodecOutputBuffer]
 // 设置 OH_AVCodecOnNewOutputBuffer 回调函数，编码完成帧送入输出队列
 void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData) {
     // 完成帧buffer对应的index，送入outIndexQueue队列
@@ -70,3 +71,4 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     codecUserData->outputBufferInfoQueue_.emplace(index, buffer);
     codecUserData->outputCond_.notify_all();
 }
+// [End screenCapture_surface_AVCodecOutputBuffer]

@@ -166,6 +166,7 @@ void HandleVideoBuffer(OH_AVBuffer *buffer)
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable Video");
 }
 
+// [Start screenCapture_surface_HandleAudioBuffer]
 void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
 {
     int bufferLen = OH_AVBuffer_GetCapacity(buffer);
@@ -200,6 +201,7 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
     }
     return;
 }
+// [End screenCapture_surface_HandleAudioBuffer]
 // [End screenCapture_config_buffer_OnBufferAvailable]
 // 设置获取录屏屏幕ID的回调函数OnDisplaySelected()。
 void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
@@ -760,6 +762,7 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
     return res;
 }
 
+// [Start screenCapture_surface_ThreadVideoRun]
 // 开始录屏原始码流SurfaceMode。
 void ThreadVideoRunMethod()
 {
@@ -799,6 +802,7 @@ void ThreadVideoRunMethod()
         OH_VideoEncoder_FreeOutputBuffer(g_videoEnc, bufferInfo.bufferIndex);
     }
 }
+// [End screenCapture_surface_ThreadVideoRun]
 
 int SetFormat()
 {
@@ -846,6 +850,7 @@ int SetFormat()
     return result;
 }
 
+// [Start screenCapture_surface_GetInputSurface]
 int GetInputSurface()
 {
     // 获取需要输入的Surface，以进行编码。
@@ -884,7 +889,9 @@ int GetInputSurface()
     g_lastFrameEncodePts = 0;
     g_inputVideoThread = std::make_unique<std::thread>(ThreadVideoRunMethod);
     // 指定surface开始录屏。
+    // [Start screenCapture_surface_start]
     result = OH_AVScreenCapture_StartScreenCaptureWithSurface(g_avCapture, nativeWindow);
+    // [End screenCapture_surface_start]
     if (result != AV_SCREEN_CAPTURE_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started failed %{public}d", result);
         OH_AVScreenCapture_Release(g_avCapture);
@@ -894,6 +901,7 @@ int GetInputSurface()
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started %{public}d", result);
     return result;
 }
+// [End screenCapture_surface_GetInputSurface]
 
 static napi_value StartScreenCapture_03(napi_env env, napi_callback_info info)
 {
