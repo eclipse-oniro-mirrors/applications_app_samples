@@ -73,6 +73,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -103,6 +104,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -133,6 +135,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -163,6 +166,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -193,6 +197,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -223,6 +228,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -253,6 +259,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -283,6 +290,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -313,6 +321,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -343,6 +352,7 @@ export default function fileUtilsExtra4Test(): void {
           expect(videos.length).assertEqual(1);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

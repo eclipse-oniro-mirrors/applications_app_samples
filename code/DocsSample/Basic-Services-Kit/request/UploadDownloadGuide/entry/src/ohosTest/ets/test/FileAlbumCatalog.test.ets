@@ -79,6 +79,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -107,6 +108,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(files.length).assertEqual(1);
           expect(files[0]).assertEqual('keep.txt');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -134,6 +136,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(second.length).assertEqual(3);
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -161,6 +164,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(fileIo.accessSync(dir + '/MyFolder/note.txt')).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -187,6 +191,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -212,6 +217,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(files.join('')).assertEqual('');
           expect(files.indexOf('anything.txt')).assertEqual(-1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -239,6 +245,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(fileIo.accessSync(dir)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -271,6 +278,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(pictures[0]).assertEqual('keep.txt');
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -298,6 +306,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(files[0]).assertEqual('测试 文件.txt');
           expect(files.indexOf('测试 文件.txt')).assertEqual(0);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -325,6 +334,7 @@ export default function fileAlbumCatalogTest(): void {
           expect(fileIo.accessSync(dir + '/root_note.txt')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

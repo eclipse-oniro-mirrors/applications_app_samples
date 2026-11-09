@@ -39,6 +39,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('g.gif');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -62,6 +63,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('h.webp');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -85,6 +87,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('i.svg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +111,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('j.heic');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -131,6 +135,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('k.mov');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -154,6 +159,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('l.avi');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -177,6 +183,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('m.mkv');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -200,6 +207,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('n.wav');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -223,6 +231,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('o.flac');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -246,6 +255,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('p.aac');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -269,6 +279,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('q.ogg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -292,6 +303,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('r.opus');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -315,6 +327,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('s.3gp');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -338,6 +351,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('t.m4v');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -361,6 +375,7 @@ export default function fileModelExtra2Test(): void {
           expect(model.files.length).assertEqual(2);
           expect(model.name).assertEqual('u.vcf');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

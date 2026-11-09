@@ -69,6 +69,7 @@ export default function fileUtilsExtraTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -95,6 +96,7 @@ export default function fileUtilsExtraTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -121,6 +123,7 @@ export default function fileUtilsExtraTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -147,6 +150,7 @@ export default function fileUtilsExtraTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -173,6 +177,7 @@ export default function fileUtilsExtraTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -199,6 +204,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('x.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -225,6 +231,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('x.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -251,6 +258,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('x.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -277,6 +285,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('x.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -303,6 +312,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('x.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -330,6 +340,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -357,6 +368,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -384,6 +396,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -411,6 +424,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -438,6 +452,7 @@ export default function fileUtilsExtraTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -466,6 +481,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -495,6 +511,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -525,6 +542,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -556,6 +574,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -584,6 +603,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -613,6 +633,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -643,6 +664,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -674,6 +696,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -702,6 +725,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -731,6 +755,7 @@ export default function fileUtilsExtraTest(): void {
           expect(files).assertContain('f0.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

@@ -70,6 +70,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value === '').assertFalse();
           expect(value.startsWith('http://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -95,6 +96,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.trim()).assertEqual('');
           expect(value === DEFAULT_SERVER_URL).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -121,6 +123,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.endsWith('  ')).assertTrue();
           expect(value.length).assertEqual(padded.length);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -147,6 +150,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.indexOf('名称=测试') >= 0).assertTrue();
           expect(value.length).assertEqual(unicodeUrl.length);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -176,6 +180,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.startsWith('http://host/')).assertTrue();
           expect(value.endsWith('aaaaaaaa')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -202,6 +207,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.indexOf('\t') >= 0).assertTrue();
           expect(value.length).assertEqual(controlUrl.length);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -229,6 +235,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value === firstUrl).assertFalse();
           expect(value.indexOf('first')).assertEqual(-1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -255,6 +262,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.length).assertEqual(repeatedUrl.length);
           expect(value.endsWith('/hfs')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -282,6 +290,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(cleared).assertEqual(DEFAULT_SERVER_URL);
           expect(cleared === customUrl).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -308,6 +317,7 @@ export default function urlUtilsBoundaryTest(): void {
           expect(value.endsWith('/hfs/')).assertFalse();
           expect(value.length).assertEqual(noSlash.length);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

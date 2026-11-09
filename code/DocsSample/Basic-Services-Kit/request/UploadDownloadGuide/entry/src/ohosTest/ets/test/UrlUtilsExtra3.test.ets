@@ -60,6 +60,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -84,6 +85,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +110,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -132,6 +135,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -156,6 +160,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -180,6 +185,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -204,6 +210,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -228,6 +235,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -252,6 +260,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -276,6 +285,7 @@ export default function urlUtilsExtra3Test(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

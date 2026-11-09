@@ -68,6 +68,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -93,6 +94,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -118,6 +120,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -143,6 +146,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -168,6 +172,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -193,6 +198,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -218,6 +224,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -243,6 +250,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -268,6 +276,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -293,6 +302,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -320,6 +330,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('a.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -348,6 +359,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('b.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -375,6 +387,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('c.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -403,6 +416,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('space name.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -430,6 +444,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('中文.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -458,6 +473,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('a.b.c.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -485,6 +501,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('image.jpg');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -513,6 +530,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('audio.mp3') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -540,6 +558,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('video.mp4');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -568,6 +587,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('archive.zip') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -595,6 +615,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('a.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -623,6 +644,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('b.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -650,6 +672,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('c.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -678,6 +701,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('space name.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -705,6 +729,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('中文.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -733,6 +758,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('a.b.c.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -760,6 +786,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('image.jpg');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -788,6 +815,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('audio.mp3') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -815,6 +843,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('video.mp4');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -843,6 +872,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('archive.zip') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -870,6 +900,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('a.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -898,6 +929,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('b.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -925,6 +957,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('c.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -953,6 +986,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('space name.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -980,6 +1014,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('中文.txt');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1008,6 +1043,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('a.b.c.txt') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1035,6 +1071,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('image.jpg');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1063,6 +1100,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('audio.mp3') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1090,6 +1128,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(files).assertContain('video.mp4');
           expect(Array.isArray(files)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1118,6 +1157,7 @@ export default function fileUtilsMatrixTest(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.indexOf('archive.zip') === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

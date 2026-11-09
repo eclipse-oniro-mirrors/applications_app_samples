@@ -105,6 +105,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1).name).assertEqual('edge_picture.jpg');
           expect(dataSource.getData(2).fileType).assertEqual(FileType.MUSIC);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -134,6 +135,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1).name).assertEqual('edge_picture.jpg');
           expect(dataSource.getData(2)).assertUndefined();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -159,6 +161,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(0).fileType).assertEqual(FileType.MUSIC);
           expect(dataSource.getData(1)).assertUndefined();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -189,6 +192,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(first.reloadCount).assertEqual(2);
           expect(second.reloadCount).assertEqual(2);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -218,6 +222,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(listener.reloadCount).assertEqual(1);
           expect(dataSource.totalCount()).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -248,6 +253,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(listener.changeIndexes.length).assertEqual(1);
           expect(listener.changeIndexes[0]).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -278,6 +284,7 @@ export default function customDataSourceBehaviorTest(): void {
           dataSource.notifyDataReload();
           expect(registered.reloadCount).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -311,6 +318,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(listener.addIndexes.length).assertEqual(1);
           expect(listener.addIndexes[0]).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -340,6 +348,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(secondSource.totalCount()).assertEqual(2);
           expect(secondSource.getData(0).fileType).assertEqual(FileType.IMAGE);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -369,6 +378,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1) === text).assertTrue();
           expect(listener.addIndexes[0]).assertEqual(0);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -400,6 +410,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(2) === audio).assertTrue();
           expect(listener.addIndexes[0]).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -430,6 +441,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(2) === inserted).assertTrue();
           expect(listener.addIndexes[0]).assertEqual(2);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -458,6 +470,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(listener.addIndexes[0]).assertEqual(0);
           expect(listener.addIndexes.length).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -487,6 +500,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1) === inserted).assertTrue();
           expect(listener.addIndexes[0]).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -517,6 +531,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1) === audio).assertTrue();
           expect(listener.addIndexes[0]).assertEqual(0);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -544,6 +559,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(1) === inserted).assertTrue();
           expect(dataSource.getData(2) === audio).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -579,6 +595,7 @@ export default function customDataSourceBehaviorTest(): void {
           expect(dataSource.getData(3) === audio).assertTrue();
           expect(listener.addIndexes.join(',')).assertEqual('0,2,1');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

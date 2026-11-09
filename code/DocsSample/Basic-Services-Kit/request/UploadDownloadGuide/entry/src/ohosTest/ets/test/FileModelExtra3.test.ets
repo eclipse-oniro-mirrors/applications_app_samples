@@ -39,6 +39,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -62,6 +63,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -85,6 +87,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +111,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -131,6 +135,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -154,6 +159,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -177,6 +183,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -200,6 +207,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -223,6 +231,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -246,6 +255,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -269,6 +279,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -292,6 +303,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -315,6 +327,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -338,6 +351,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -361,6 +375,7 @@ export default function fileModelExtra3Test(): void {
           expect(model.isFolder).assertFalse();
           expect(model.files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

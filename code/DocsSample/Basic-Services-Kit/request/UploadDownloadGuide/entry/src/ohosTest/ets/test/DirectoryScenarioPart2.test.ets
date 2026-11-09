@@ -70,6 +70,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -98,6 +99,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -127,6 +129,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -157,6 +160,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -184,6 +188,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -212,6 +217,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -241,6 +247,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -271,6 +278,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -298,6 +306,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -326,6 +335,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -355,6 +365,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -385,6 +396,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -412,6 +424,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -440,6 +453,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(files.length > 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -468,6 +482,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -497,6 +512,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -527,6 +543,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -555,6 +572,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -584,6 +602,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -614,6 +633,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -642,6 +662,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -671,6 +692,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -701,6 +723,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -729,6 +752,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -758,6 +782,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -788,6 +813,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -816,6 +842,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -845,6 +872,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -875,6 +903,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -903,6 +932,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -932,6 +962,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -962,6 +993,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -990,6 +1022,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1019,6 +1052,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1049,6 +1083,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1077,6 +1112,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1106,6 +1142,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1136,6 +1173,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1164,6 +1202,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1193,6 +1232,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1223,6 +1263,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1251,6 +1292,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1280,6 +1322,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1310,6 +1353,7 @@ export default function downloadDirectoryScenarioTestPart2(): void {
           expect(Array.isArray(files)).assertTrue();
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

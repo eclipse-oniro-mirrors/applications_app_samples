@@ -55,6 +55,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -81,6 +82,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -107,6 +109,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -133,6 +136,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -159,6 +163,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -185,6 +190,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -211,6 +217,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -237,6 +244,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -263,6 +271,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -289,6 +298,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -315,6 +325,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -341,6 +352,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -367,6 +379,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -393,6 +406,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -419,6 +433,7 @@ export default function downloadCleanExtraTest(): void {
           requestDownload.clearExistFile(path);
           expect(fileIo.accessSync(path)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

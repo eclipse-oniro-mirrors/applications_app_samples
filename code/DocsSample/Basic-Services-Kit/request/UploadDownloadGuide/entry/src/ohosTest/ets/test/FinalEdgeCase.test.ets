@@ -39,6 +39,7 @@ export default function finalEdgeCaseTest(): void {
           expect(model.files.length).assertEqual(3);
           expect(model.name).assertEqual('final.docx');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -62,6 +63,7 @@ export default function finalEdgeCaseTest(): void {
           expect(model.files.length).assertEqual(3);
           expect(model.name).assertEqual('final.xlsx');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -85,6 +87,7 @@ export default function finalEdgeCaseTest(): void {
           expect(model.files.length).assertEqual(3);
           expect(model.name).assertEqual('final.pptx');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +111,7 @@ export default function finalEdgeCaseTest(): void {
           expect(model.files.length).assertEqual(3);
           expect(model.name).assertEqual('final.rar');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -131,6 +135,7 @@ export default function finalEdgeCaseTest(): void {
           expect(model.files.length).assertEqual(3);
           expect(model.name).assertEqual('final.7z');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

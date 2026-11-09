@@ -65,6 +65,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -107,6 +108,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -149,6 +151,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -191,6 +194,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -233,6 +237,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -275,6 +280,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -317,6 +323,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -359,6 +366,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -401,6 +409,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -443,6 +452,7 @@ export default function uploadInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(typeof message).assertEqual('string');
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

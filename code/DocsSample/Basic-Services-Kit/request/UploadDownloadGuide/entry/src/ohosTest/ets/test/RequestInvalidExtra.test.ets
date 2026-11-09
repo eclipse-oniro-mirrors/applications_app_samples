@@ -55,6 +55,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -86,6 +87,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -117,6 +119,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -148,6 +151,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -179,6 +183,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -210,6 +215,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -241,6 +247,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -272,6 +279,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -303,6 +311,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -334,6 +343,7 @@ export default function requestInvalidExtraTest(): void {
           expect(message.length > 0).assertTrue();
           expect(fileIo.accessSync(filePath)).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

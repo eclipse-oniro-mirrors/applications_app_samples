@@ -60,6 +60,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -84,6 +85,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +110,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -132,6 +135,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -156,6 +160,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -180,6 +185,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -204,6 +210,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -228,6 +235,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -252,6 +260,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -276,6 +285,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -300,6 +310,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -324,6 +335,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -348,6 +360,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -372,6 +385,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -396,6 +410,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -420,6 +435,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -444,6 +460,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -468,6 +485,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -492,6 +510,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -516,6 +535,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -540,6 +560,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -564,6 +585,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -588,6 +610,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -612,6 +635,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -636,6 +660,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -660,6 +685,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -684,6 +710,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -708,6 +735,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -732,6 +760,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -756,6 +785,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -780,6 +810,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -804,6 +835,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -828,6 +860,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -852,6 +885,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -876,6 +910,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -900,6 +935,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -924,6 +960,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -948,6 +985,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -972,6 +1010,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -996,6 +1035,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1020,6 +1060,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1044,6 +1085,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1068,6 +1110,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1092,6 +1135,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1116,6 +1160,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1140,6 +1185,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1164,6 +1210,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1188,6 +1235,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1212,6 +1260,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1236,6 +1285,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1260,6 +1310,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1284,6 +1335,7 @@ export default function serverConfigTestPart2(): void {
           expect(value.length > 0).assertTrue();
           expect(value.startsWith('http')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1308,6 +1360,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.length > 8).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1332,6 +1385,7 @@ export default function serverConfigTestPart2(): void {
           expect(typeof value).assertEqual('string');
           expect(value.includes('://')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

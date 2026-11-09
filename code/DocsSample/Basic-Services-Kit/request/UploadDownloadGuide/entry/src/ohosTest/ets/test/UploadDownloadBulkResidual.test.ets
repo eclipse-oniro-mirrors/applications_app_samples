@@ -39,6 +39,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -62,6 +63,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.jpeg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -85,6 +87,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +111,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.JPG');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -131,6 +135,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.JPEG');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -154,6 +159,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('cover.PNG');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -177,6 +183,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('movie.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -200,6 +207,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('movie.MP4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -223,6 +231,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('song.mp3');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -246,6 +255,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('song.MP3');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -269,6 +279,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('archive.tar.gz');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -292,6 +303,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('archive.tar.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -315,6 +327,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('noext');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -338,6 +351,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -361,6 +375,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -384,6 +399,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -407,6 +423,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -430,6 +447,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.mp3');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -453,6 +471,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('图片.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -476,6 +495,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('文档.pdf');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -499,6 +519,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file name.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -522,6 +543,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual(' file.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -545,6 +567,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file.jpg ');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -568,6 +591,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('a/b.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -591,6 +615,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('folder.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -614,6 +639,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('folder.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -637,6 +663,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertTrue();
           expect(model.name).assertEqual('folder.txt');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -660,6 +687,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('empty.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -683,6 +711,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('name.with.dots.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -706,6 +735,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('name.with.dots.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -729,6 +759,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('upper.JpG');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -752,6 +783,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('x.jpeg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -775,6 +807,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('x.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -798,6 +831,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('x.mp3');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -821,6 +855,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('x.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -844,6 +879,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('x.txt');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -867,6 +903,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('longaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -890,6 +927,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.hidden.txt');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -913,6 +951,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('.hidden.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -936,6 +975,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('..jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -959,6 +999,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('....');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -982,6 +1023,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('video.avi');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1005,6 +1047,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('audio.wav');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1028,6 +1071,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('image.gif');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1051,6 +1095,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('image.webp');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1074,6 +1119,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file1.jpg');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1097,6 +1143,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file2.png');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1120,6 +1167,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file3.mp3');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1143,6 +1191,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file4.mp4');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1166,6 +1215,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file5.pdf');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1189,6 +1239,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file6.doc');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1212,6 +1263,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file7.xls');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1235,6 +1287,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('file8.zip');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1258,6 +1311,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -1281,6 +1335,7 @@ export default function uploadDownloadBulkResidualTest(): void {
           expect(model.isFolder).assertFalse();
           expect(model.name).assertEqual('   ');
         } catch (err) {
+          hilog.error(DOMAIN, TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

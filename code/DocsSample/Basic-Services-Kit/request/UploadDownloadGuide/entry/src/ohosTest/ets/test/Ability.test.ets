@@ -115,6 +115,7 @@ export default function abilityTest() {
         expect(await waitForId(driver, 'btn_upload', 5000) !== null).assertTrue();
         expect(await findId(driver, 'btn_download') !== null).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();
@@ -139,6 +140,7 @@ export default function abilityTest() {
         });
         expect(await waitForId(driver, 'btn_upload', 3000) !== null).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();
@@ -165,6 +167,7 @@ export default function abilityTest() {
         }
         expect(await waitForId(driver, 'publish1', 3000) !== null).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();
@@ -200,6 +203,7 @@ export default function abilityTest() {
         let listItems = await driver.findComponents(ON.type('List'));
         expect(listItems !== null && listItems.length > 0).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();
@@ -228,6 +232,7 @@ export default function abilityTest() {
           ON.text(getResourceString($r('app.string.clear_folder')), MatchPattern.CONTAINS), 3000);
         expect(clearFolder !== null).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();
@@ -251,6 +256,7 @@ export default function abilityTest() {
         expect(await waitForId(driver, 'download_to', 3000) !== null).assertTrue();
         expect(await findId(driver, 'view_download_files') !== null).assertTrue();
       } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
         expect().assertFail();
       } finally {
         done();

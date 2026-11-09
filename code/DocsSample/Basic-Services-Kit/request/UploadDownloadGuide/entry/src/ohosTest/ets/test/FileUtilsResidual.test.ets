@@ -86,6 +86,7 @@ export default function fileUtilsResidualTest(): void {
           expect(folders[0]).assertEqual('Pictures');
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -112,6 +113,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(second.length).assertEqual(3);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -137,6 +139,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -163,6 +166,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -188,6 +192,7 @@ export default function fileUtilsResidualTest(): void {
           expect(files instanceof Array).assertTrue();
           expect(files[0] === undefined).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -214,6 +219,7 @@ export default function fileUtilsResidualTest(): void {
           expect(files.length).assertEqual(2);
           expect(files.includes('a.txt') && files.includes('b.txt')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -239,6 +245,7 @@ export default function fileUtilsResidualTest(): void {
           expect(files instanceof Array).assertTrue();
           expect(files.includes('x')).assertFalse();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -265,6 +272,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
           expect((await fileUtils.listFiles(dir, 'Pictures')).length).assertEqual(0);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -290,6 +298,7 @@ export default function fileUtilsResidualTest(): void {
           expect((await fileUtils.listFiles(dir, 'Videos')).length).assertEqual(0);
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -315,6 +324,7 @@ export default function fileUtilsResidualTest(): void {
           expect((await fileUtils.listFiles(dir, 'Missing')).length).assertEqual(0);
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -340,6 +350,7 @@ export default function fileUtilsResidualTest(): void {
           expect(files.includes('测试.txt')).assertTrue();
           expect(files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -366,6 +377,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Others/测试.txt')).assertFalse();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -391,6 +403,7 @@ export default function fileUtilsResidualTest(): void {
           expect(files.includes('sub')).assertTrue();
           expect(files.length).assertEqual(1);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -416,6 +429,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Videos')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -441,6 +455,7 @@ export default function fileUtilsResidualTest(): void {
           expect(fileIo.accessSync(dir + '/Pictures')).assertTrue();
           expect(fileIo.accessSync(dir + '/Others')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

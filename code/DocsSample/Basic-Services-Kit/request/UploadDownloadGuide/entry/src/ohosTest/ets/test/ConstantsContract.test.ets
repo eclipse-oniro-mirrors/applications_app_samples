@@ -39,6 +39,7 @@ export default function constantsContractTest(): void {
           expect(typeof TOAST_BOTTOM).assertEqual(typeof 200);
           expect(TOAST_BOTTOM === 200).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -61,6 +62,7 @@ export default function constantsContractTest(): void {
           expect(typeof NO_IMAGE_SELECTED).assertEqual(typeof -1);
           expect(NO_IMAGE_SELECTED === -1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -83,6 +85,7 @@ export default function constantsContractTest(): void {
           expect(typeof BackgroundTaskState.NONE).assertEqual(typeof 0);
           expect(BackgroundTaskState.NONE === 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -105,6 +108,7 @@ export default function constantsContractTest(): void {
           expect(typeof BackgroundTaskState.RUNNING).assertEqual(typeof 1);
           expect(BackgroundTaskState.RUNNING === 1).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -127,6 +131,7 @@ export default function constantsContractTest(): void {
           expect(typeof BackgroundTaskState.PAUSE).assertEqual(typeof 2);
           expect(BackgroundTaskState.PAUSE === 2).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -149,6 +154,7 @@ export default function constantsContractTest(): void {
           expect(typeof FileType.FOLDER).assertEqual(typeof 'folder');
           expect(FileType.FOLDER === 'folder').assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -171,6 +177,7 @@ export default function constantsContractTest(): void {
           expect(typeof FileType.IMAGE).assertEqual(typeof 'image');
           expect(FileType.IMAGE === 'image').assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -193,6 +200,7 @@ export default function constantsContractTest(): void {
           expect(typeof FileType.Video).assertEqual(typeof 'video');
           expect(FileType.Video === 'video').assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -215,6 +223,7 @@ export default function constantsContractTest(): void {
           expect(typeof FileType.MUSIC).assertEqual(typeof 'music');
           expect(FileType.MUSIC === 'music').assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -237,6 +246,7 @@ export default function constantsContractTest(): void {
           expect(typeof FileType.DOCUMENT).assertEqual(typeof 'document');
           expect(FileType.DOCUMENT === 'document').assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -259,6 +269,7 @@ export default function constantsContractTest(): void {
           expect(TOAST_BOTTOM > 0).assertTrue();
           expect(NO_IMAGE_SELECTED < 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -281,6 +292,7 @@ export default function constantsContractTest(): void {
           expect(TOAST_BOTTOM > 0).assertTrue();
           expect(NO_IMAGE_SELECTED < 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -303,6 +315,7 @@ export default function constantsContractTest(): void {
           expect(TOAST_BOTTOM > 0).assertTrue();
           expect(NO_IMAGE_SELECTED < 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -325,6 +338,7 @@ export default function constantsContractTest(): void {
           expect(TOAST_BOTTOM > 0).assertTrue();
           expect(NO_IMAGE_SELECTED < 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -347,6 +361,7 @@ export default function constantsContractTest(): void {
           expect(TOAST_BOTTOM > 0).assertTrue();
           expect(NO_IMAGE_SELECTED < 0).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

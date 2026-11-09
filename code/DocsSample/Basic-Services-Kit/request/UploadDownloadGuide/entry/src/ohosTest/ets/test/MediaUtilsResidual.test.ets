@@ -89,6 +89,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.statSync(dest).size).assertEqual(5);
           expect(fileIo.accessSync(dest)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -116,6 +117,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.statSync(dest).size).assertEqual(4);
           expect(fileIo.accessSync(dest)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -144,6 +146,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.statSync(dest).size).assertEqual(4);
           expect(fileIo.accessSync(dest)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -170,6 +173,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.statSync(dest).size).assertEqual(4);
           expect(fileIo.accessSync(dest)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -200,6 +204,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(cache + '/missing.txt')).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -226,6 +231,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -253,6 +259,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(dest.endsWith('/empty.txt')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -280,6 +287,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(dest.endsWith('/large.txt')).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -307,6 +315,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.statSync(dest).size).assertEqual(7);
           expect(fileIo.accessSync(dest)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -334,6 +343,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(5);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -361,6 +371,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(7);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -388,6 +399,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(6);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -415,6 +427,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(4);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -444,6 +457,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(4);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -472,6 +486,7 @@ export default function mediaUtilsResidualTest(): void {
           expect(fileIo.accessSync(dest)).assertTrue();
           expect(fileIo.statSync(dest).size).assertEqual(4);
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();

@@ -84,6 +84,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -108,6 +109,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -134,6 +136,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(fileIo.accessSync(dir)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -159,6 +162,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -183,6 +187,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -207,6 +212,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -232,6 +238,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -256,6 +263,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertTrue();
           expect(fileIo.statSync(path).isDirectory()).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -278,6 +286,7 @@ export default function cleanResidualTest(): void {
           expect(true).assertTrue();
           expect(fileIo.accessSync(rootDir)).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
@@ -302,6 +311,7 @@ export default function cleanResidualTest(): void {
           expect(fileIo.accessSync(path)).assertFalse();
           expect(true).assertTrue();
         } catch (err) {
+          hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
           expect().assertFail();
         } finally {
           done();
