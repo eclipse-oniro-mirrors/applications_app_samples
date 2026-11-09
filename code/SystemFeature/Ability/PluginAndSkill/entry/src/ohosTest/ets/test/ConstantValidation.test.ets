@@ -43,10 +43,10 @@ import {
 
 export default function constantValidationTest(): void {
   describe('ConstantValidationTest', () => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => { })
+    beforeEach(() => { })
+    afterEach(() => { })
+    afterAll(() => { })
 
     // ==================== 数组长度验证 (5 用例) ====================
 
@@ -233,7 +233,7 @@ export default function constantValidationTest(): void {
      * @tc.level: Level 0
      */
     it('testFlagValues0012', 0, async (done: Function) => {
-      for (let i = 0; i < FLAG_VALUES.length; i++) {
+      for (let i: number = 0; i < FLAG_VALUES.length; i++) {
         expect(FLAG_VALUES[i]).assertLarger(-1);
       }
       expect(FLAG_VALUES[0] === 0).assertFalse();
@@ -265,7 +265,7 @@ export default function constantValidationTest(): void {
      * @tc.level: Level 1
      */
     it('testFlagValues0014', 0, async (done: Function) => {
-      for (let i = 0; i < FLAG_LABELS.length; i++) {
+      for (let i: number = 0; i < FLAG_LABELS.length; i++) {
         expect(FLAG_LABELS[i].length).assertLarger(0);
       }
       expect(FLAG_LABELS[0]).assertEqual('All flags');

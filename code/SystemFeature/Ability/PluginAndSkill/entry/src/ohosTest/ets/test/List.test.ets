@@ -259,7 +259,7 @@ const SUITE_MANIFEST: SuiteManifest[] = [
 // 按分类统计套件数量
 export function countByCategory(category: string): number {
   let count: number = 0;
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
+  for (let i: number = 0; i < SUITE_MANIFEST.length; i++) {
     if (SUITE_MANIFEST[i].category === category) {
       count++;
     }
@@ -269,7 +269,7 @@ export function countByCategory(category: string): number {
 
 // 按名称查找套件
 export function findSuite(name: string): SuiteManifest | undefined {
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
+  for (let i: number = 0; i < SUITE_MANIFEST.length; i++) {
     if (SUITE_MANIFEST[i].name === name) {
       return SUITE_MANIFEST[i];
     }
@@ -280,7 +280,7 @@ export function findSuite(name: string): SuiteManifest | undefined {
 // 获取全部套件名称
 export function getSuiteNames(): string[] {
   const names: string[] = [];
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
+  for (let i: number = 0; i < SUITE_MANIFEST.length; i++) {
     names.push(SUITE_MANIFEST[i].name);
   }
   return names;
@@ -289,7 +289,7 @@ export function getSuiteNames(): string[] {
 // 获取用例总数
 export function getTotalCaseCount(): number {
   let total: number = 0;
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
+  for (let i: number = 0; i < SUITE_MANIFEST.length; i++) {
     total += SUITE_MANIFEST[i].caseCount;
   }
   return total;
@@ -299,8 +299,8 @@ export function getTotalCaseCount(): number {
 export function validateManifest(): boolean {
   // 检查套件名称是否重复
   const names: string[] = getSuiteNames();
-  for (let i = 0; i < names.length; i++) {
-    for (let j = i + 1; j < names.length; j++) {
+  for (let i: number = 0; i < names.length; i++) {
+    for (let j: number = i + 1; j < names.length; j++) {
       if (names[i] === names[j]) {
         hilog.error(DOMAIN, TAG, 'Duplicate suite name: %{public}s', names[i]);
         return false;
@@ -309,7 +309,7 @@ export function validateManifest(): boolean {
   }
 
   // 检查每个套件是否有效
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
+  for (let i: number = 0; i < SUITE_MANIFEST.length; i++) {
     const suite: SuiteManifest = SUITE_MANIFEST[i];
     if (suite.name.length === 0 || suite.category.length === 0 || suite.caseCount <= 0) {
       hilog.error(DOMAIN, TAG, 'Invalid suite manifest at index %{public}d', i);

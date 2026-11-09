@@ -15,19 +15,19 @@
 
 import { Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON, Rect } from '@kit.TestKit';
 import { expect } from '@ohos/hypium';
 
-const DOMAIN = 0xF811;
-const TAG = '[Sample_PluginAndSkill]';
-const COMPONENT_WAIT_TIMEOUT = 5000;
-const TEXT_WAIT_TIMEOUT = 9000;
-const UI_IDLE_TIME = 200;
-const UI_IDLE_TIMEOUT = 2000;
-const EMPTY_OPTION_TEXT = 'Not set (empty value)';
-const SELECT_COMPONENT_TYPE = 'Select';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
+const COMPONENT_WAIT_TIMEOUT: number = 5000;
+const TEXT_WAIT_TIMEOUT: number = 9000;
+const UI_IDLE_TIME: number = 200;
+const UI_IDLE_TIMEOUT: number = 2000;
+const EMPTY_OPTION_TEXT: string = 'Not set (empty value)';
+const SELECT_COMPONENT_TYPE: string = 'Select';
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 let driver: Driver | undefined = undefined;
 
 export function getDriver(): Driver {
@@ -181,7 +181,7 @@ export async function waitIdContains(id: string, expected: string,
 
 export async function swipeOnId(id: string, fromRatio: number = 0.75, toRatio: number = 0.25): Promise<void> {
   const component: Component = await waitId(id);
-  const bounds = await component.getBounds();
+  const bounds: Rect = await component.getBounds();
   const centerX: number = (bounds.left + bounds.right) / 2;
   const fromY: number = bounds.top + (bounds.bottom - bounds.top) * fromRatio;
   const toY: number = bounds.top + (bounds.bottom - bounds.top) * toRatio;
@@ -201,7 +201,8 @@ export async function runCase(name: string, action: () => Promise<void>, done: F
     done();
   }
 }
-export async function addLog(format: string,...args: string[]): Promise<void> {
+
+export async function addLog(format: string, ...args: string[]): Promise<void> {
   hilog.info(DOMAIN, TAG, format, ...args);
 }
 
@@ -285,7 +286,7 @@ export async function resetToIndex(): Promise<void> {
 
 export async function getComponentBounds(id: string): Promise<Record<string, number>> {
   const component: Component = await waitId(id);
-  const bounds = await component.getBounds();
+  const bounds: Rect = await component.getBounds();
   const result: Record<string, number> = {};
   result['left'] = bounds.left;
   result['top'] = bounds.top;

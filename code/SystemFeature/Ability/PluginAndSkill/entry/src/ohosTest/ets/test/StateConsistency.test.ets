@@ -30,12 +30,12 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const BUNDLE_SELECT_ID = 'skill_bundle_select';
-const FLAG_SELECT_ID = 'skill_flag_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const BUNDLE_SELECT_ID: string = 'skill_bundle_select';
+const FLAG_SELECT_ID: string = 'skill_flag_select';
 
 export default function stateConsistencyTest(): void {
   describe('StateConsistencyTest', () => {
@@ -72,9 +72,9 @@ export default function stateConsistencyTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const moduleText = await textOfId('skill_module_select');
+        const moduleText: string = await textOfId('skill_module_select');
         expect(moduleText).assertEqual('entry');
-        const skillText = await textOfId('skill_name_select');
+        const skillText: string = await textOfId('skill_name_select');
         expect(skillText).assertEqual('skill-test');
       }, done);
     });
@@ -95,9 +95,9 @@ export default function stateConsistencyTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const bundleText = await textOfId('skill_bundle_select');
+        const bundleText: string = await textOfId('skill_bundle_select');
         expect(bundleText).assertEqual(BUNDLE_NAME);
-        const moduleText = await textOfId('skill_module_select');
+        const moduleText: string = await textOfId('skill_module_select');
         expect(moduleText).assertEqual('entry');
       }, done);
     });
@@ -118,10 +118,10 @@ export default function stateConsistencyTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const flagText = await textOfId(FLAG_SELECT_ID);
+        const flagText: string = await textOfId(FLAG_SELECT_ID);
         expect(flagText).assertEqual('+ Description');
         await clickId('query_self_skill_button');
-        const flagTextAfter = await textOfId(FLAG_SELECT_ID);
+        const flagTextAfter: string = await textOfId(FLAG_SELECT_ID);
         expect(flagTextAfter).assertEqual('+ Description');
       }, done);
     });
@@ -140,10 +140,10 @@ export default function stateConsistencyTest(): void {
         await selectValue(FLAG_SELECT_ID, '+ SrcEntries');
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const flagText = await textOfId(FLAG_SELECT_ID);
+        const flagText: string = await textOfId(FLAG_SELECT_ID);
         expect(flagText).assertEqual('+ SrcEntries');
         await clickId('query_all_skills_button');
-        const flagTextAfter = await textOfId(FLAG_SELECT_ID);
+        const flagTextAfter: string = await textOfId(FLAG_SELECT_ID);
         expect(flagTextAfter).assertEqual('+ SrcEntries');
       }, done);
     });
@@ -194,7 +194,7 @@ export default function stateConsistencyTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-echo');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual('skill-echo');
       }, done);
     });
@@ -217,7 +217,7 @@ export default function stateConsistencyTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-calculator');
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual('skill-calculator');
       }, done);
     });

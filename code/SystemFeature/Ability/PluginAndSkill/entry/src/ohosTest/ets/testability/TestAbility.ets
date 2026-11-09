@@ -20,8 +20,8 @@ import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-const DOMAIN = 0xF811;
-const TAG = '[Sample_PluginAndSkill]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_PluginAndSkill]';
 
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {

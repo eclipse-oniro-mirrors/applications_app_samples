@@ -24,16 +24,15 @@ import {
   runCase,
   selectValue,
   startApp,
-  textOfId,
-  waitId
+  textOfId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const COMPARE_MODULE_A_SELECT = 'compare_module_a_select';
-const COMPARE_SKILL_A_SELECT = 'compare_skill_a_select';
-const COMPARE_MODULE_B_SELECT = 'compare_module_b_select';
-const COMPARE_SKILL_B_SELECT = 'compare_skill_b_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const COMPARE_MODULE_A_SELECT: string = 'compare_module_a_select';
+const COMPARE_SKILL_A_SELECT: string = 'compare_skill_a_select';
+const COMPARE_MODULE_B_SELECT: string = 'compare_module_b_select';
+const COMPARE_SKILL_B_SELECT: string = 'compare_skill_b_select';
 
 export default function skillCompareAndHistoryTest(): void {
   describe('SkillCompareAndHistoryTest', () => {
@@ -95,7 +94,7 @@ export default function skillCompareAndHistoryTest(): void {
         await selectValue(COMPARE_MODULE_B_SELECT, 'entry');
         await selectValue(COMPARE_SKILL_B_SELECT, 'skill-echo');
         await clickId('compare_skills_button');
-        const resultText = await textOfId('compare_operation_result');
+        const resultText: string = await textOfId('compare_operation_result');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('compare_operation_result')).assertTrue();
       }, done);
@@ -120,7 +119,7 @@ export default function skillCompareAndHistoryTest(): void {
         await clickId('compare_skills_button');
         expect(await existsId('compare_operation_result')).assertTrue();
         expect(await existsId('compare_match_rate')).assertTrue();
-        const matchRate = await textOfId('compare_match_rate');
+        const matchRate: string = await textOfId('compare_match_rate');
         expect(matchRate).assertContain('100%');
       }, done);
     });
@@ -205,7 +204,7 @@ export default function skillCompareAndHistoryTest(): void {
         await navigateToSkillHistory();
         expect(await existsId('skill_history_page_title')).assertTrue();
         await clickId('history_query_all_button');
-        const resultText = await textOfId('history_operation_result');
+        const resultText: string = await textOfId('history_operation_result');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('history_operation_result')).assertTrue();
       }, done);
@@ -224,7 +223,7 @@ export default function skillCompareAndHistoryTest(): void {
         await navigateToSkillHistory();
         expect(await existsId('skill_history_page_title')).assertTrue();
         await clickId('history_query_all_button');
-        const totalCount = await textOfId('history_total_count');
+        const totalCount: string = await textOfId('history_total_count');
         expect(Number(totalCount)).assertLarger(0);
         expect(await existsId('history_total_count')).assertTrue();
       }, done);
@@ -244,7 +243,7 @@ export default function skillCompareAndHistoryTest(): void {
         await clickId('history_query_all_button');
         await clickId('history_clear_button');
         expect(await existsId('skill_history_page_title')).assertTrue();
-        const totalCount = await textOfId('history_total_count');
+        const totalCount: string = await textOfId('history_total_count');
         expect(totalCount).assertEqual('0');
         expect(await existsId('history_no_records')).assertTrue();
       }, done);

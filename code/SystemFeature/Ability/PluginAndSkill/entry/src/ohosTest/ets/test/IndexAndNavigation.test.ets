@@ -30,8 +30,8 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
 
 export default function indexAndNavigationTest(): void {
   describe('IndexAndNavigationTest', () => {
@@ -63,10 +63,10 @@ export default function indexAndNavigationTest(): void {
      */
     it('testIndexNavigation0001', 0, async (done: Function) => {
       await runCase('testIndexNavigation0001', async (): Promise<void> => {
-        const titleText = await textOfId('EntryAbility_label');
+        const titleText: string = await textOfId('EntryAbility_label');
         expect(titleText.length).assertLarger(0);
         expect(await existsId('skillButton')).assertTrue();
-        const buttonText = await textOfId('skillButton');
+        const buttonText: string = await textOfId('skillButton');
         expect(buttonText.length).assertLarger(0);
       }, done);
     });
@@ -82,7 +82,7 @@ export default function indexAndNavigationTest(): void {
     it('testIndexNavigation0002', 0, async (done: Function) => {
       await runCase('testIndexNavigation0002', async (): Promise<void> => {
         expect(await existsId('home_description')).assertTrue();
-        const descText = await textOfId('home_description');
+        const descText: string = await textOfId('home_description');
         expect(descText.length).assertLarger(0);
         expect(await existsId('skillButton')).assertTrue();
       }, done);
@@ -100,7 +100,7 @@ export default function indexAndNavigationTest(): void {
       await runCase('testIndexNavigation0003', async (): Promise<void> => {
         await navigateToSkillManagerHome();
         expect(await existsId('skill_page_title')).assertTrue();
-        const titleText = await textOfId('skill_page_title');
+        const titleText: string = await textOfId('skill_page_title');
         expect(titleText.length).assertLarger(0);
         expect(await existsId('skill_page_description')).assertTrue();
       }, done);
@@ -120,7 +120,7 @@ export default function indexAndNavigationTest(): void {
         expect(await existsId('skill_page_title')).assertTrue();
         await pressBack();
         expect(await existsId('skillButton')).assertTrue();
-        const buttonText = await textOfId('skillButton');
+        const buttonText: string = await textOfId('skillButton');
         expect(buttonText.length).assertLarger(0);
       }, done);
     });
@@ -141,7 +141,7 @@ export default function indexAndNavigationTest(): void {
         expect(await existsId('self_skill_query_button')).assertTrue();
         expect(await existsId('bundle_skill_query_button')).assertTrue();
         expect(await existsId('all_skills_query_button')).assertTrue();
-        const selfText = await textOfId('self_skill_query_button');
+        const selfText: string = await textOfId('self_skill_query_button');
         expect(selfText.length).assertLarger(0);
       }, done);
     });
@@ -158,7 +158,7 @@ export default function indexAndNavigationTest(): void {
       await runCase('testIndexNavigation0006', async (): Promise<void> => {
         await navigateToSelfSkillQuery();
         expect(await existsId('self_skill_page_title')).assertTrue();
-        const titleText = await textOfId('self_skill_page_title');
+        const titleText: string = await textOfId('self_skill_page_title');
         expect(titleText.length).assertLarger(0);
         expect(await existsId('query_self_skill_button')).assertTrue();
       }, done);
@@ -176,7 +176,7 @@ export default function indexAndNavigationTest(): void {
       await runCase('testIndexNavigation0007', async (): Promise<void> => {
         await navigateToBundleSkillQuery();
         expect(await existsId('bundle_skill_page_title')).assertTrue();
-        const titleText = await textOfId('bundle_skill_page_title');
+        const titleText: string = await textOfId('bundle_skill_page_title');
         expect(titleText.length).assertLarger(0);
         expect(await existsId('query_bundle_skill_button')).assertTrue();
       }, done);
@@ -196,7 +196,7 @@ export default function indexAndNavigationTest(): void {
       await runCase('testIndexNavigation0008', async (): Promise<void> => {
         await navigateToAllSkillsQuery();
         expect(await existsId('all_skills_page_title')).assertTrue();
-        const titleText = await textOfId('all_skills_page_title');
+        const titleText: string = await textOfId('all_skills_page_title');
         expect(titleText.length).assertLarger(0);
         expect(await existsId('query_all_skills_button')).assertTrue();
       }, done);

@@ -14,19 +14,18 @@
  */
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@ohos/hypium';
-import {
-  TestReportGenerator,
-  TestCaseReportEntry,
-  FullTestReport,
-  SuiteReportSection
-} from '../../../main/ets/util/TestReportGenerator';
+import { FullTestReport, SuiteReportSection, TestReportGenerator } from '../../../main/ets/util/TestReportGenerator';
 
 export default function testReportGeneratorTest(): void {
   describe('TestReportGeneratorTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => {
+    })
+    beforeEach(() => {
+    })
+    afterEach(() => {
+    })
+    afterAll(() => {
+    })
 
     // ==================== setReportTitle (1 用例) ====================
 
@@ -39,9 +38,9 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testSetReportTitle0001', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.setReportTitle('My Custom Report');
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.reportTitle).assertEqual('My Custom Report');
       expect(report.reportTitle.length).assertLarger(0);
       expect(report.generatedAt).assertLarger(0);
@@ -59,11 +58,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAddEntry0002', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addEntry('id1', 'case1', 'desc1', 'suite1', 'passed',
         1000, 1500, '', 5, 5, 0, ['tag1']);
       expect(gen.getEntryCount()).assertEqual(1);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].caseId).assertEqual('id1');
       expect(report.caseEntries[0].caseName).assertEqual('case1');
       done();
@@ -78,10 +77,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testTrgAddEntry0003', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addEntry('id2', 'case2', 'desc2', 'suite1', 'passed',
         1000, 1300, '', 3, 3, 0, []);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].duration).assertEqual(300);
       expect(report.caseEntries[0].startTime).assertEqual(1000);
       expect(report.caseEntries[0].endTime).assertEqual(1300);
@@ -97,11 +96,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testTrgAddEntry0004', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       const tags: string[] = ['smoke', 'regression'];
       gen.addEntry('id3', 'case3', 'desc3', 'suite1', 'passed',
         0, 100, '', 2, 2, 0, tags);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].tags.length).assertEqual(2);
       expect(report.caseEntries[0].tags[0]).assertEqual('smoke');
       expect(report.caseEntries[0].tags[1]).assertEqual('regression');
@@ -119,10 +118,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAddPassedEntry0005', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'passCase', 'suite1', 200, 5);
       expect(gen.getEntryCount()).assertEqual(1);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].status).assertEqual('passed');
       expect(report.caseEntries[0].assertionCount).assertEqual(5);
       done();
@@ -137,9 +136,9 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAddPassedEntry0006', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p2', 'passCase2', 'suite1', 100, 3);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].passedAssertions).assertEqual(3);
       expect(report.caseEntries[0].failedAssertions).assertEqual(0);
       expect(report.caseEntries[0].errorMessage).assertEqual('');
@@ -157,10 +156,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAddFailedEntry0007', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addFailedEntry('f1', 'failCase', 'suite1', 300, 'assertion error', 4);
       expect(gen.getEntryCount()).assertEqual(1);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].status).assertEqual('failed');
       expect(report.caseEntries[0].errorMessage).assertEqual('assertion error');
       done();
@@ -175,9 +174,9 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAddFailedEntry0008', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addFailedEntry('f2', 'failCase2', 'suite1', 150, 'timeout', 6);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.caseEntries[0].passedAssertions).assertEqual(0);
       expect(report.caseEntries[0].failedAssertions).assertEqual(6);
       expect(report.caseEntries[0].assertionCount).assertEqual(6);
@@ -195,8 +194,8 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0009', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
-      const report = gen.generateReport();
+      const gen: TestReportGenerator = new TestReportGenerator();
+      const report: FullTestReport = gen.generateReport();
       expect(report.totalCases).assertEqual(0);
       expect(report.totalPassed).assertEqual(0);
       expect(report.totalFailed).assertEqual(0);
@@ -212,11 +211,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0010', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       gen.addPassedEntry('p2', 'c2', 's1', 200, 4);
       gen.addFailedEntry('f1', 'c3', 's1', 50, 'err', 2);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.totalCases).assertEqual(3);
       expect(report.totalPassed).assertEqual(2);
       expect(report.totalFailed).assertEqual(1);
@@ -232,12 +231,12 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0011', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       gen.addPassedEntry('p2', 'c2', 's1', 100, 3);
       gen.addPassedEntry('p3', 'c3', 's1', 100, 3);
       gen.addFailedEntry('f1', 'c4', 's1', 100, 'err', 3);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.overallPassRate).assertEqual(75);
       expect(report.totalSkipped).assertEqual(0);
       expect(report.totalCases).assertEqual(4);
@@ -255,8 +254,8 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testQualityScore0012', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
-      const report = gen.generateReport();
+      const gen: TestReportGenerator = new TestReportGenerator();
+      const report: FullTestReport = gen.generateReport();
       expect(report.qualityScore).assertEqual(0);
       expect(report.qualityGrade).assertEqual('F');
       expect(report.totalCases).assertEqual(0);
@@ -272,11 +271,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testQualityScore0013', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
-      for (let i = 0; i < 10; i++) {
+      const gen: TestReportGenerator = new TestReportGenerator();
+      for (let i: number = 0; i < 10; i++) {
         gen.addPassedEntry('id' + String(i), 'case' + String(i), 'suite1', 100, 5);
       }
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.qualityGrade).assertEqual('A');
       expect(report.qualityScore >= 90).assertTrue();
       expect(report.overallPassRate).assertEqual(100);
@@ -292,12 +291,12 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testQualityScore0014', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 5);
-      for (let i = 0; i < 5; i++) {
+      for (let i: number = 0; i < 5; i++) {
         gen.addFailedEntry('f' + String(i), 'fc' + String(i), 's1', 100, 'err', 5);
       }
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.totalFailed).assertEqual(5);
       expect(report.qualityScore < 90).assertTrue();
       expect(report.overallPassRate < 50).assertTrue();
@@ -308,18 +307,18 @@ export default function testReportGeneratorTest(): void {
 
     /*
      * @tc.number: SUB_TRG_1500
-     * @tc.name: testGenerateReportSuiteSections0015
+     * @tc.name: testGenerateReportSuiteReportSections0015
      * @tc.desc: Verify suiteSections groups entries by suiteName.
      * @tc.size: SmallTest
      * @tc.type: Function
      * @tc.level: Level 2
      */
-    it('testGenerateReportSuiteSections0015', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+    it('testGenerateReportSuiteReportSections0015', 0, async (done: Function) => {
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 'suiteA', 100, 3);
       gen.addPassedEntry('p2', 'c2', 'suiteA', 200, 4);
       gen.addFailedEntry('f1', 'c3', 'suiteB', 50, 'err', 2);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.totalSuites).assertEqual(2);
       expect(report.suiteSections.length).assertEqual(2);
       expect(report.suiteSections[0].suiteName).assertEqual('suiteA');
@@ -328,19 +327,19 @@ export default function testReportGeneratorTest(): void {
 
     /*
      * @tc.number: SUB_TRG_1600
-     * @tc.name: testGenerateReportSuiteSections0016
+     * @tc.name: testGenerateReportSuiteReportSections0016
      * @tc.desc: Verify suiteSection passRate and counts.
      * @tc.size: SmallTest
      * @tc.type: Function
      * @tc.level: Level 2
      */
-    it('testGenerateReportSuiteSections0016', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+    it('testGenerateReportSuiteReportSections0016', 0, async (done: Function) => {
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 'only', 100, 3);
       gen.addPassedEntry('p2', 'c2', 'only', 100, 3);
       gen.addFailedEntry('f1', 'c3', 'only', 100, 'err', 3);
-      const report = gen.generateReport();
-      const section = report.suiteSections[0];
+      const report: FullTestReport = gen.generateReport();
+      const section: SuiteReportSection = report.suiteSections[0];
       expect(section.totalCases).assertEqual(3);
       expect(section.passedCases).assertEqual(2);
       expect(section.failedCases).assertEqual(1);
@@ -358,10 +357,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateTextReport0017', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.setReportTitle('Text Report Test');
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
-      const text = gen.generateTextReport();
+      const text: string = gen.generateTextReport();
       expect(text.length).assertLarger(0);
       expect(text).assertContain('Text Report Test');
       expect(text).assertContain('End of Report');
@@ -377,9 +376,9 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateTextReport0018', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addFailedEntry('f1', 'failCase', 's1', 100, 'assertion mismatch', 3);
-      const text = gen.generateTextReport();
+      const text: string = gen.generateTextReport();
       expect(text).assertContain('Failed Cases');
       expect(text).assertContain('failCase');
       expect(text).assertContain('assertion mismatch');
@@ -395,10 +394,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateTextReport0019', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       gen.addPassedEntry('p2', 'c2', 's1', 100, 3);
-      const text = gen.generateTextReport();
+      const text: string = gen.generateTextReport();
       expect(text.includes('Failed Cases')).assertFalse()
       expect(text).assertContain('Pass Rate: 100%');
       expect(text).assertContain('Quality Score');
@@ -416,7 +415,7 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testTrgClear0020', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       gen.addPassedEntry('p2', 'c2', 's1', 100, 3);
       expect(gen.getEntryCount()).assertEqual(2);
@@ -435,7 +434,7 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGetEntryCount0021', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       expect(gen.getEntryCount()).assertEqual(0);
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       expect(gen.getEntryCount()).assertEqual(1);
@@ -455,11 +454,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testTotalDuration0022', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
       gen.addPassedEntry('p2', 'c2', 's1', 200, 3);
       gen.addFailedEntry('f1', 'c3', 's1', 300, 'err', 3);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.totalDuration).assertEqual(600);
       expect(report.totalDuration).assertLarger(0);
       expect(report.suiteSections.length).assertLarger(0);
@@ -477,10 +476,10 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testCaseEntriesCopy0023', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
-      const report1 = gen.generateReport();
-      const report2 = gen.generateReport();
+      const report1: FullTestReport = gen.generateReport();
+      const report2: FullTestReport = gen.generateReport();
       expect(report1.caseEntries === report2.caseEntries).assertFalse();
       expect(report1.caseEntries.length).assertEqual(report2.caseEntries.length);
       expect(report1.caseEntries[0].caseId).assertEqual(report2.caseEntries[0].caseId);
@@ -498,11 +497,11 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertionDensity0024', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 'mySuite', 100, 4);
       gen.addPassedEntry('p2', 'c2', 'mySuite', 100, 6);
-      const report = gen.generateReport();
-      const section = report.suiteSections[0];
+      const report: FullTestReport = gen.generateReport();
+      const section: SuiteReportSection = report.suiteSections[0];
       expect(section.assertionDensity).assertEqual(5);
       expect(section.totalCases).assertEqual(2);
       expect(section.passRate).assertEqual(100);
@@ -520,9 +519,9 @@ export default function testReportGeneratorTest(): void {
      * @tc.level: Level 2
      */
     it('testGeneratedAtFormatted0025', 0, async (done: Function) => {
-      const gen = new TestReportGenerator();
+      const gen: TestReportGenerator = new TestReportGenerator();
       gen.addPassedEntry('p1', 'c1', 's1', 100, 3);
-      const report = gen.generateReport();
+      const report: FullTestReport = gen.generateReport();
       expect(report.generatedAtFormatted.length).assertLarger(0);
       expect(report.generatedAt).assertLarger(-1);
       expect(report.generatedAtFormatted).assertContain('-');

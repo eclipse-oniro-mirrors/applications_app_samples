@@ -18,7 +18,6 @@ import {
   clickId,
   existsId,
   navigateToSkillExecution,
-  navigateToSkillHistory,
   pressBack,
   resetToIndex,
   runCase,
@@ -28,10 +27,10 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const EXEC_MODULE_SELECT = 'execution_module_select';
-const EXEC_SKILL_SELECT = 'execution_skill_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const EXEC_MODULE_SELECT: string = 'execution_module_select';
+const EXEC_SKILL_SELECT: string = 'execution_skill_select';
 
 export default function skillExecutionTest(): void {
   describe('SkillExecutionTest', () => {
@@ -89,7 +88,7 @@ export default function skillExecutionTest(): void {
       await runCase('testSkillExec0002', async (): Promise<void> => {
         await navigateToSkillExecution();
         expect(await existsId('skill_execution_page_title')).assertTrue();
-        const resultText = await textOfId('execution_result_text');
+        const resultText: string = await textOfId('execution_result_text');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('execution_no_history')).assertTrue();
       }, done);
@@ -130,7 +129,7 @@ export default function skillExecutionTest(): void {
         await selectValue(EXEC_MODULE_SELECT, 'entry');
         await selectValue(EXEC_SKILL_SELECT, 'skill-test');
         await clickId('execute_skill_button');
-        const resultText = await textOfId('execution_result_text');
+        const resultText: string = await textOfId('execution_result_text');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('execution_result_text')).assertTrue();
       }, done);
@@ -171,7 +170,7 @@ export default function skillExecutionTest(): void {
         await selectValue(EXEC_MODULE_SELECT, 'nonexistent_module');
         await selectValue(EXEC_SKILL_SELECT, 'skill-test');
         await clickId('execute_skill_button');
-        const resultText = await textOfId('execution_result_text');
+        const resultText: string = await textOfId('execution_result_text');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('execution_result_text')).assertTrue();
       }, done);
@@ -213,7 +212,7 @@ export default function skillExecutionTest(): void {
       await runCase('testSkillExec0008', async (): Promise<void> => {
         await navigateToSkillExecution();
         expect(await existsId('skill_execution_page_title')).assertTrue();
-        const moduleText = await textOfId('execution_module_select');
+        const moduleText: string = await textOfId('execution_module_select');
         expect(moduleText).assertContain('entry');
         expect(await existsId('execution_module_label')).assertTrue();
       }, done);
@@ -231,7 +230,7 @@ export default function skillExecutionTest(): void {
       await runCase('testSkillExec0009', async (): Promise<void> => {
         await navigateToSkillExecution();
         expect(await existsId('skill_execution_page_title')).assertTrue();
-        const skillText = await textOfId('execution_skill_select');
+        const skillText: string = await textOfId('execution_skill_select');
         expect(skillText).assertContain('skill-test');
         expect(await existsId('execution_skill_label')).assertTrue();
       }, done);
@@ -252,7 +251,7 @@ export default function skillExecutionTest(): void {
         await selectValue(EXEC_MODULE_SELECT, 'entry');
         await selectValue(EXEC_SKILL_SELECT, 'skill-validation');
         await clickId('execute_skill_button');
-        const resultText = await textOfId('execution_result_text');
+        const resultText: string = await textOfId('execution_result_text');
         expect(resultText.length).assertLarger(0);
         expect(await existsId('execution_result_text')).assertTrue();
       }, done);

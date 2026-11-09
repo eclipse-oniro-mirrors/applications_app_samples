@@ -20,21 +20,19 @@ import {
   navigateToAllSkillsQuery,
   navigateToBundleSkillQuery,
   navigateToSelfSkillQuery,
-  navigateToSkillManagerHome,
   pressBack,
   resetToIndex,
   runCase,
   selectValue,
   startApp,
-  textOfId,
-  waitId
+  textOfId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const BUNDLE_SELECT_ID = 'skill_bundle_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const BUNDLE_SELECT_ID: string = 'skill_bundle_select';
 
 export default function navigationFlowTest(): void {
   describe('NavigationFlowTest', () => {
@@ -134,7 +132,7 @@ export default function navigationFlowTest(): void {
         await pressBack();
         await pressBack();
         expect(await existsId('skillButton')).assertTrue();
-        const buttonText = await textOfId('skillButton');
+        const buttonText: string = await textOfId('skillButton');
         expect(buttonText.length).assertLarger(0);
       }, done);
     });
@@ -211,12 +209,12 @@ export default function navigationFlowTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const firstName = await textOfId('skill_result_name_0');
+        const firstName: string = await textOfId('skill_result_name_0');
         expect(firstName).assertEqual('skill-test');
         await selectValue(SKILL_SELECT_ID, 'skill-echo');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const secondName = await textOfId('skill_result_name_0');
+        const secondName: string = await textOfId('skill_result_name_0');
         expect(secondName).assertEqual('skill-echo');
       }, done);
     });
@@ -259,7 +257,7 @@ export default function navigationFlowTest(): void {
         expect(await existsId('skill_no_results')).assertFalse();
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual('skill-test');
       }, done);
     });

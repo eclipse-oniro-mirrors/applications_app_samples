@@ -29,8 +29,8 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
 
 export default function skillManagerHomeExtendedTest(): void {
   describe('SkillManagerHomeExtendedTest', () => {

@@ -21,25 +21,23 @@ import {
   navigateToAllSkillsQuery,
   navigateToBundleSkillQuery,
   navigateToSelfSkillQuery,
-  pressBack,
   resetToIndex,
   runCase,
   scrollToId,
   scrollToTop,
   selectValue,
   startApp,
-  textOfId,
-  waitId
+  textOfId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const BUNDLE_SELECT_ID = 'skill_bundle_select';
-const FLAG_SELECT_ID = 'skill_flag_select';
-const SKILL_NAME = 'skill-test';
-const MODULE_NAME = 'entry';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const BUNDLE_SELECT_ID: string = 'skill_bundle_select';
+const FLAG_SELECT_ID: string = 'skill_flag_select';
+const SKILL_NAME: string = 'skill-test';
+const MODULE_NAME: string = 'entry';
 
 export default function resultFieldValidationTest(): void {
   describe('ResultFieldValidationTest', () => {
@@ -79,7 +77,7 @@ export default function resultFieldValidationTest(): void {
         expect(await existsId('skill_no_results')).assertFalse();
         expect(await existsId('skill_result_name_0')).assertTrue();
         await assertTextExists('testResultField0001', SKILL_NAME);
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual(SKILL_NAME);
       }, done);
     });
@@ -100,7 +98,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_bundle_0_value');
-        const bundleText = await textOfId('skill_result_bundle_0_value');
+        const bundleText: string = await textOfId('skill_result_bundle_0_value');
         expect(bundleText).assertEqual(BUNDLE_NAME);
         expect(bundleText.length).assertLarger(0);
       }, done);
@@ -122,7 +120,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_module_0_value');
-        const moduleText = await textOfId('skill_result_module_0_value');
+        const moduleText: string = await textOfId('skill_result_module_0_value');
         expect(moduleText).assertEqual(MODULE_NAME);
         expect(moduleText.length).assertLarger(0);
       }, done);
@@ -144,7 +142,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_type_0_value');
-        const typeText = await textOfId('skill_result_type_0_value');
+        const typeText: string = await textOfId('skill_result_type_0_value');
         expect(typeText.length).assertLarger(0);
         expect(typeText).assertContain('0');
       }, done);
@@ -166,7 +164,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_path_0_value');
-        const pathText = await textOfId('skill_result_path_0_value');
+        const pathText: string = await textOfId('skill_result_path_0_value');
         expect(pathText.length).assertLarger(0);
         expect(pathText).assertContain('skill');
       }, done);
@@ -188,7 +186,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_ability_0_value');
-        const abilityText = await textOfId('skill_result_ability_0_value');
+        const abilityText: string = await textOfId('skill_result_ability_0_value');
         expect(abilityText.length).assertLarger(0);
         expect(await existsId('skill_result_ability_0_value')).assertTrue();
       }, done);
@@ -210,7 +208,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_version_code_0_value');
-        const versionCodeText = await textOfId('skill_result_version_code_0_value');
+        const versionCodeText: string = await textOfId('skill_result_version_code_0_value');
         expect(versionCodeText.length).assertLarger(0);
         expect(await existsId('skill_result_version_code_0_value')).assertTrue();
       }, done);
@@ -233,10 +231,10 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_description_0_value');
-        const descText = await textOfId('skill_result_description_0_value');
+        const descText: string = await textOfId('skill_result_description_0_value');
         expect(descText).assertEqual('-');
         await scrollToId('skill_result_src_entries_0_value');
-        const srcText = await textOfId('skill_result_src_entries_0_value');
+        const srcText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcText).assertEqual('-');
       }, done);
     });
@@ -260,7 +258,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         expect(await existsId('skill_result_name_0')).assertTrue();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual(SKILL_NAME);
       }, done);
     });
@@ -282,7 +280,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_bundle_0_value');
-        const bundleText = await textOfId('skill_result_bundle_0_value');
+        const bundleText: string = await textOfId('skill_result_bundle_0_value');
         expect(bundleText).assertEqual(BUNDLE_NAME);
         expect(bundleText.length).assertLarger(0);
       }, done);
@@ -305,7 +303,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_module_0_value');
-        const moduleText = await textOfId('skill_result_module_0_value');
+        const moduleText: string = await textOfId('skill_result_module_0_value');
         expect(moduleText).assertEqual(MODULE_NAME);
         expect(moduleText.length).assertLarger(0);
       }, done);
@@ -328,7 +326,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_path_0_value');
-        const pathText = await textOfId('skill_result_path_0_value');
+        const pathText: string = await textOfId('skill_result_path_0_value');
         expect(pathText.length).assertLarger(0);
         expect(pathText).assertContain('skills');
       }, done);
@@ -351,7 +349,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_version_code_0_value');
-        const versionCodeText = await textOfId('skill_result_version_code_0_value');
+        const versionCodeText: string = await textOfId('skill_result_version_code_0_value');
         expect(versionCodeText.length).assertLarger(0);
         expect(await existsId('skill_result_version_code_0_value')).assertTrue();
       }, done);
@@ -375,7 +373,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_src_entries_0_value');
-        const srcText = await textOfId('skill_result_src_entries_0_value');
+        const srcText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcText).assertEqual('-');
         expect(srcText.length).assertEqual(1);
       }, done);
@@ -397,7 +395,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         expect(await existsId('skill_result_name_0')).assertTrue();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText.length).assertLarger(0);
       }, done);
     });
@@ -416,7 +414,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_bundle_0_value');
-        const bundleText = await textOfId('skill_result_bundle_0_value');
+        const bundleText: string = await textOfId('skill_result_bundle_0_value');
         expect(bundleText.length).assertLarger(0);
         expect(bundleText).assertContain('.');
       }, done);
@@ -436,7 +434,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_module_0_value');
-        const moduleText = await textOfId('skill_result_module_0_value');
+        const moduleText: string = await textOfId('skill_result_module_0_value');
         expect(moduleText.length).assertLarger(0);
         expect(moduleText).assertEqual('entry');
       }, done);
@@ -457,7 +455,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_description_0_value');
-        const descText = await textOfId('skill_result_description_0_value');
+        const descText: string = await textOfId('skill_result_description_0_value');
         expect(descText.length).assertLarger(0);
         expect(await existsId('skill_result_description_0_value')).assertTrue();
       }, done);
@@ -478,7 +476,7 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_src_entries_0_value');
-        const srcText = await textOfId('skill_result_src_entries_0_value');
+        const srcText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcText.length).assertLarger(0);
         expect(await existsId('skill_result_src_entries_0_value')).assertTrue();
       }, done);
@@ -499,10 +497,10 @@ export default function resultFieldValidationTest(): void {
         await clickId('query_all_skills_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_permissions_0_value');
-        const permText = await textOfId('skill_result_permissions_0_value');
+        const permText: string = await textOfId('skill_result_permissions_0_value');
         expect(permText.length).assertLarger(0);
         await scrollToId('skill_result_request_permissions_0_value');
-        const reqPermText = await textOfId('skill_result_request_permissions_0_value');
+        const reqPermText: string = await textOfId('skill_result_request_permissions_0_value');
         expect(reqPermText.length).assertLarger(0);
       }, done);
     });

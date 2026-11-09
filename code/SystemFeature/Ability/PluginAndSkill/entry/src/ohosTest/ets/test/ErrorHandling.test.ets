@@ -17,25 +17,21 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import {
   clickId,
   existsId,
-  navigateToAllSkillsQuery,
   navigateToBundleSkillQuery,
   navigateToSelfSkillQuery,
-  pressBack,
   resetToIndex,
   runCase,
-  scrollToId,
   selectValue,
   startApp,
-  textOfId,
-  waitId
+  textOfId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const BUNDLE_SELECT_ID = 'skill_bundle_select';
-const FLAG_SELECT_ID = 'skill_flag_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const BUNDLE_SELECT_ID: string = 'skill_bundle_select';
+const FLAG_SELECT_ID: string = 'skill_flag_select';
 
 export default function errorHandlingTest(): void {
   describe('ErrorHandlingTest', () => {
@@ -72,7 +68,7 @@ export default function errorHandlingTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_operation_result')).assertTrue();
-        const resultText = await textOfId('skill_operation_result');
+        const resultText: string = await textOfId('skill_operation_result');
         expect(resultText).assertContain('BusinessError');
         expect(resultText.length).assertLarger(15);
       }, done);
@@ -93,7 +89,7 @@ export default function errorHandlingTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-nonexistent');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_operation_result')).assertTrue();
-        const resultText = await textOfId('skill_operation_result');
+        const resultText: string = await textOfId('skill_operation_result');
         expect(resultText).assertContain('BusinessError');
         expect(resultText).assertContain('17700093');
       }, done);
@@ -115,7 +111,7 @@ export default function errorHandlingTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_operation_result')).assertTrue();
-        const resultText = await textOfId('skill_operation_result');
+        const resultText: string = await textOfId('skill_operation_result');
         expect(resultText).assertContain('BusinessError');
         expect(resultText.length).assertLarger(15);
       }, done);
@@ -137,7 +133,7 @@ export default function errorHandlingTest(): void {
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_operation_result')).assertTrue();
-        const resultText = await textOfId('skill_operation_result');
+        const resultText: string = await textOfId('skill_operation_result');
         expect(resultText).assertContain('BusinessError');
         expect(resultText).assertContain(':');
       }, done);
@@ -221,12 +217,12 @@ export default function errorHandlingTest(): void {
         await selectValue(MODULE_SELECT_ID, 'nonexistent_module');
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
-        const errorText = await textOfId('skill_operation_result');
+        const errorText: string = await textOfId('skill_operation_result');
         expect(errorText).assertContain('BusinessError');
         await selectValue(MODULE_SELECT_ID, 'entry');
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual('skill-test');
       }, done);
     });
@@ -246,12 +242,12 @@ export default function errorHandlingTest(): void {
         await selectValue(MODULE_SELECT_ID, 'entry');
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_bundle_skill_button');
-        const errorText = await textOfId('skill_operation_result');
+        const errorText: string = await textOfId('skill_operation_result');
         expect(errorText).assertContain('BusinessError');
         await selectValue(BUNDLE_SELECT_ID, BUNDLE_NAME);
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
-        const nameText = await textOfId('skill_result_name_0');
+        const nameText: string = await textOfId('skill_result_name_0');
         expect(nameText).assertEqual('skill-test');
       }, done);
     });
@@ -270,7 +266,7 @@ export default function errorHandlingTest(): void {
         await selectValue(MODULE_SELECT_ID, 'nonexistent_module');
         await selectValue(SKILL_SELECT_ID, 'skill-test');
         await clickId('query_self_skill_button');
-        const resultText = await textOfId('skill_operation_result');
+        const resultText: string = await textOfId('skill_operation_result');
         expect(resultText).assertContain(':');
         expect(resultText.length).assertLarger(10);
         expect(await existsId('skill_no_results')).assertTrue();

@@ -18,10 +18,10 @@ import { AssertionHelper, AssertionResult, AssertionSummary } from '../../../mai
 
 export default function assertionHelperTest(): void {
   describe('AssertionHelperTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => { })
+    beforeEach(() => { })
+    afterEach(() => { })
+    afterAll(() => { })
 
     // ==================== assertEqual (3 用例) ====================
 
@@ -34,9 +34,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEqual0001', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEqual('hello', 'hello');
+      const result: AssertionResult = helper.assertEqual('hello', 'hello');
       expect(result.passed).assertTrue();
       expect(result.expected).assertEqual('hello');
       expect(result.actual).assertEqual('hello');
@@ -52,9 +52,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEqual0002', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEqual('hello', 'world');
+      const result: AssertionResult = helper.assertEqual('hello', 'world');
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual('world');
       expect(result.actual).assertEqual('hello');
@@ -70,9 +70,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEqual0003', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEqual('a', 'b', 'custom message');
+      const result: AssertionResult = helper.assertEqual('a', 'b', 'custom message');
       expect(result.passed).assertFalse();
       expect(result.message).assertEqual('custom message');
       expect(result.assertionType).assertEqual('assertEqual');
@@ -90,9 +90,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotEqual0004', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotEqual('hello', 'world');
+      const result: AssertionResult = helper.assertNotEqual('hello', 'world');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertNotEqual');
@@ -108,9 +108,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotEqual0005', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotEqual('same', 'same');
+      const result: AssertionResult = helper.assertNotEqual('same', 'same');
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual('not same');
       expect(result.message.length).assertLarger(0);
@@ -128,9 +128,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertTrue0006', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertTrue(true);
+      const result: AssertionResult = helper.assertTrue(true);
       expect(result.passed).assertTrue();
       expect(result.expected).assertEqual('true');
       expect(result.actual).assertEqual('true');
@@ -146,9 +146,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertTrue0007', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertTrue(false);
+      const result: AssertionResult = helper.assertTrue(false);
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual('true');
       expect(result.actual).assertEqual('false');
@@ -166,9 +166,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertFalse0008', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertFalse(false);
+      const result: AssertionResult = helper.assertFalse(false);
       expect(result.passed).assertTrue();
       expect(result.expected).assertEqual('false');
       expect(result.actual).assertEqual('false');
@@ -184,9 +184,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertFalse0009', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertFalse(true);
+      const result: AssertionResult = helper.assertFalse(true);
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual('false');
       expect(result.actual).assertEqual('true');
@@ -204,9 +204,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertContains0010', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertContains('hello world', 'world');
+      const result: AssertionResult = helper.assertContains('hello world', 'world');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello world');
       expect(result.assertionType).assertEqual('assertContains');
@@ -222,9 +222,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertContains0011', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertContains('hello', 'xyz');
+      const result: AssertionResult = helper.assertContains('hello', 'xyz');
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual("contains 'xyz'");
       expect(result.message.length).assertLarger(0);
@@ -240,9 +240,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertContains0012', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertContains('hello', '');
+      const result: AssertionResult = helper.assertContains('hello', '');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.expected).assertEqual("contains ''");
@@ -260,9 +260,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotContains0013', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotContains('hello', 'xyz');
+      const result: AssertionResult = helper.assertNotContains('hello', 'xyz');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertNotContains');
@@ -278,9 +278,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotContains0014', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotContains('hello world', 'world');
+      const result: AssertionResult = helper.assertNotContains('hello world', 'world');
       expect(result.passed).assertFalse();
       expect(result.expected).assertEqual("not contains 'world'");
       expect(result.message.length).assertLarger(0);
@@ -298,9 +298,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterThan0015', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterThan(10, 5);
+      const result: AssertionResult = helper.assertGreaterThan(10, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('10');
       expect(result.expected).assertEqual('> 5');
@@ -316,9 +316,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterThan0016', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterThan(5, 5);
+      const result: AssertionResult = helper.assertGreaterThan(5, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('5');
       expect(result.assertionType).assertEqual('assertGreaterThan');
@@ -334,9 +334,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterThan0017', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterThan(3, 5);
+      const result: AssertionResult = helper.assertGreaterThan(3, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('3');
       expect(result.expected).assertEqual('> 5');
@@ -354,9 +354,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterOrEqual0018', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterOrEqual(10, 5);
+      const result: AssertionResult = helper.assertGreaterOrEqual(10, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('10');
       expect(result.expected).assertEqual('>= 5');
@@ -372,9 +372,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterOrEqual0019', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterOrEqual(5, 5);
+      const result: AssertionResult = helper.assertGreaterOrEqual(5, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('5');
       expect(result.assertionType).assertEqual('assertGreaterOrEqual');
@@ -390,9 +390,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertGreaterOrEqual0020', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertGreaterOrEqual(3, 5);
+      const result: AssertionResult = helper.assertGreaterOrEqual(3, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('3');
       expect(result.expected).assertEqual('>= 5');
@@ -410,9 +410,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessThan0021', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessThan(3, 5);
+      const result: AssertionResult = helper.assertLessThan(3, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('3');
       expect(result.expected).assertEqual('< 5');
@@ -428,9 +428,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessThan0022', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessThan(5, 5);
+      const result: AssertionResult = helper.assertLessThan(5, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('5');
       expect(result.assertionType).assertEqual('assertLessThan');
@@ -446,9 +446,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessThan0023', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessThan(10, 5);
+      const result: AssertionResult = helper.assertLessThan(10, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('10');
       expect(result.expected).assertEqual('< 5');
@@ -466,9 +466,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessOrEqual0024', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessOrEqual(3, 5);
+      const result: AssertionResult = helper.assertLessOrEqual(3, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('3');
       expect(result.expected).assertEqual('<= 5');
@@ -484,9 +484,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessOrEqual0025', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessOrEqual(5, 5);
+      const result: AssertionResult = helper.assertLessOrEqual(5, 5);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('5');
       expect(result.assertionType).assertEqual('assertLessOrEqual');
@@ -502,9 +502,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertLessOrEqual0026', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertLessOrEqual(10, 5);
+      const result: AssertionResult = helper.assertLessOrEqual(10, 5);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('10');
       expect(result.expected).assertEqual('<= 5');
@@ -522,9 +522,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotEmpty0027', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotEmpty('hello');
+      const result: AssertionResult = helper.assertNotEmpty('hello');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.expected).assertEqual('non-empty');
@@ -540,9 +540,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotEmpty0028', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotEmpty('');
+      const result: AssertionResult = helper.assertNotEmpty('');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('');
       expect(result.assertionType).assertEqual('assertNotEmpty');
@@ -560,9 +560,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEmpty0029', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEmpty('');
+      const result: AssertionResult = helper.assertEmpty('');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('');
       expect(result.expected).assertEqual('empty');
@@ -578,9 +578,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEmpty0030', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEmpty('hello');
+      const result: AssertionResult = helper.assertEmpty('hello');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertEmpty');
@@ -598,9 +598,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNull0031', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNull(null);
+      const result: AssertionResult = helper.assertNull(null);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('null');
       expect(result.expected).assertEqual('null');
@@ -616,9 +616,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNull0032', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNull(undefined);
+      const result: AssertionResult = helper.assertNull(undefined);
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('undefined');
       expect(result.assertionType).assertEqual('assertNull');
@@ -634,9 +634,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNull0033', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNull('value');
+      const result: AssertionResult = helper.assertNull('value');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('value');
       expect(result.expected).assertEqual('null');
@@ -654,9 +654,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotNull0034', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotNull('value');
+      const result: AssertionResult = helper.assertNotNull('value');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('value');
       expect(result.expected).assertEqual('non-null');
@@ -672,9 +672,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotNull0035', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotNull(null);
+      const result: AssertionResult = helper.assertNotNull(null);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('null');
       expect(result.assertionType).assertEqual('assertNotNull');
@@ -690,9 +690,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertNotNull0036', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertNotNull(undefined);
+      const result: AssertionResult = helper.assertNotNull(undefined);
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('undefined');
       expect(result.expected).assertEqual('non-null');
@@ -710,9 +710,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertMatchesPattern0037', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertMatchesPattern('hello123', '[a-z]+[0-9]+');
+      const result: AssertionResult = helper.assertMatchesPattern('hello123', '[a-z]+[0-9]+');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello123');
       expect(result.expected).assertEqual('matches /[a-z]+[0-9]+/');
@@ -728,9 +728,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertMatchesPattern0038', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertMatchesPattern('hello', '^[0-9]+$');
+      const result: AssertionResult = helper.assertMatchesPattern('hello', '^[0-9]+$');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertMatchesPattern');
@@ -746,9 +746,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertMatchesPattern0039', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertMatchesPattern('test', 'xyz', 'custom msg');
+      const result: AssertionResult = helper.assertMatchesPattern('test', 'xyz', 'custom msg');
       expect(result.passed).assertFalse();
       expect(result.message).assertEqual('custom msg');
       expect(result.expected).assertEqual('matches /xyz/');
@@ -766,9 +766,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertStartsWith0040', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertStartsWith('hello world', 'hello');
+      const result: AssertionResult = helper.assertStartsWith('hello world', 'hello');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello world');
       expect(result.expected).assertEqual("starts with 'hello'");
@@ -784,9 +784,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertStartsWith0041', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertStartsWith('hello', 'world');
+      const result: AssertionResult = helper.assertStartsWith('hello', 'world');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertStartsWith');
@@ -802,9 +802,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertStartsWith0042', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertStartsWith('hello', '');
+      const result: AssertionResult = helper.assertStartsWith('hello', '');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.expected).assertEqual("starts with ''");
@@ -822,9 +822,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEndsWith0043', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEndsWith('hello world', 'world');
+      const result: AssertionResult = helper.assertEndsWith('hello world', 'world');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello world');
       expect(result.expected).assertEqual("ends with 'world'");
@@ -840,9 +840,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEndsWith0044', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEndsWith('hello', 'world');
+      const result: AssertionResult = helper.assertEndsWith('hello', 'world');
       expect(result.passed).assertFalse();
       expect(result.actual).assertEqual('hello');
       expect(result.assertionType).assertEqual('assertEndsWith');
@@ -858,9 +858,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testAssertEndsWith0045', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const result = helper.assertEndsWith('hello', '');
+      const result: AssertionResult = helper.assertEndsWith('hello', '');
       expect(result.passed).assertTrue();
       expect(result.actual).assertEqual('hello');
       expect(result.expected).assertEqual("ends with ''");
@@ -878,9 +878,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetResults0046', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const results = helper.getResults();
+      const results: AssertionResult[] = helper.getResults();
       expect(results.length).assertEqual(0);
       expect(Array.isArray(results)).assertTrue();
       expect(results.toString()).assertEqual('');
@@ -896,11 +896,11 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetResults0047', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'c');
-      const results = helper.getResults();
+      const results: AssertionResult[] = helper.getResults();
       expect(results.length).assertEqual(2);
       expect(results[0].passed).assertTrue();
       expect(results[1].passed).assertFalse();
@@ -916,11 +916,11 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetResults0048', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('test', 'test');
-      const results1 = helper.getResults();
-      const results2 = helper.getResults();
+      const results1: AssertionResult[] = helper.getResults();
+      const results2: AssertionResult[] = helper.getResults();
       expect(results1.length).assertEqual(results2.length);
       expect(results1[0].assertionType).assertEqual(results2[0].assertionType);
       expect(results1 === results2).assertFalse();
@@ -938,11 +938,11 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailedResults0049', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertTrue(true);
-      const failed = helper.getFailedResults();
+      const failed: AssertionResult[] = helper.getFailedResults();
       expect(failed.length).assertEqual(0);
       expect(Array.isArray(failed)).assertTrue();
       expect(failed.toString()).assertEqual('');
@@ -958,12 +958,12 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailedResults0050', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
       helper.assertTrue(true);
       helper.assertFalse(true);
-      const failed = helper.getFailedResults();
+      const failed: AssertionResult[] = helper.getFailedResults();
       expect(failed.length).assertEqual(2);
       expect(failed[0].passed).assertFalse();
       expect(failed[1].passed).assertFalse();
@@ -979,11 +979,11 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailedResults0051', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
       helper.assertNotEqual('x', 'x');
-      const failed = helper.getFailedResults();
+      const failed: AssertionResult[] = helper.getFailedResults();
       expect(failed.length).assertEqual(2);
       expect(failed[0].assertionType).assertEqual('assertEqual');
       expect(failed[1].assertionType).assertEqual('assertNotEqual');
@@ -1001,9 +1001,9 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0052', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
-      const summary = helper.summarize();
+      const summary: AssertionSummary = helper.summarize();
       expect(summary.totalAssertions).assertEqual(0);
       expect(summary.passedAssertions).assertEqual(0);
       expect(summary.failedAssertions).assertEqual(0);
@@ -1019,12 +1019,12 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0053', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'c');
       helper.assertTrue(true);
-      const summary = helper.summarize();
+      const summary: AssertionSummary = helper.summarize();
       expect(summary.totalAssertions).assertEqual(3);
       expect(summary.passedAssertions).assertEqual(2);
       expect(summary.failedAssertions).assertEqual(1);
@@ -1040,13 +1040,13 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0054', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'b');
       helper.assertEqual('c', 'd');
       helper.assertEqual('e', 'f');
-      const summary = helper.summarize();
+      const summary: AssertionSummary = helper.summarize();
       expect(summary.totalAssertions).assertEqual(4);
       expect(summary.passedAssertions).assertEqual(2);
       expect(summary.passRate).assertEqual(50);
@@ -1064,10 +1064,10 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0055', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
-      const report = helper.generateReport();
+      const report: string = helper.generateReport();
       expect(report.length).assertLarger(0);
       expect(report.indexOf('Assertion Report') >= 0).assertTrue();
       expect(report.indexOf('Failed Assertions') >= 0).assertTrue();
@@ -1083,10 +1083,10 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0056', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
-      const report = helper.generateReport();
+      const report: string = helper.generateReport();
       expect(report.length).assertLarger(0);
       expect(report.indexOf('Assertion Report') >= 0).assertTrue();
       expect(report.indexOf('Failed Assertions') < 0).assertTrue();
@@ -1104,7 +1104,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testClear0057', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
       helper.assertTrue(false);
@@ -1124,12 +1124,12 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testClear0058', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
       helper.clear();
       helper.assertTrue(true);
-      const results = helper.getResults();
+      const results: AssertionResult[] = helper.getResults();
       expect(results.length).assertEqual(1);
       expect(results[0].assertionType).assertEqual('assertTrue');
       expect(results[0].passed).assertTrue();
@@ -1147,7 +1147,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetTotalCount0059', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       expect(helper.getTotalCount()).assertEqual(0);
       expect(helper.getPassCount()).assertEqual(0);
@@ -1164,7 +1164,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetTotalCount0060', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'c');
@@ -1186,7 +1186,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetPassCount0061', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertTrue(true);
@@ -1206,7 +1206,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetPassCount0062', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'c');
@@ -1229,7 +1229,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailCount0063', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'b');
       helper.assertNotEqual('x', 'x');
@@ -1249,7 +1249,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailCount0064', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertTrue(true);
@@ -1270,7 +1270,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetPassRate0065', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       expect(helper.getPassRate()).assertEqual(0);
       expect(helper.getTotalCount()).assertEqual(0);
@@ -1287,7 +1287,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetPassRate0066', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertTrue(true);
@@ -1307,7 +1307,7 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetPassRate0067', 0, async (done: Function) => {
-      const helper = AssertionHelper.getInstance();
+      const helper: AssertionHelper = AssertionHelper.getInstance();
       helper.clear();
       helper.assertEqual('a', 'a');
       helper.assertEqual('b', 'c');
@@ -1330,12 +1330,12 @@ export default function assertionHelperTest(): void {
      * @tc.level: Level 2
      */
     it('testGetInstance0068', 0, async (done: Function) => {
-      const instance1 = AssertionHelper.getInstance();
+      const instance1: AssertionHelper = AssertionHelper.getInstance();
       instance1.clear();
       instance1.assertEqual('test', 'test');
-      const instance2 = AssertionHelper.getInstance();
-      const count1 = instance1.getTotalCount();
-      const count2 = instance2.getTotalCount();
+      const instance2: AssertionHelper = AssertionHelper.getInstance();
+      const count1: number = instance1.getTotalCount();
+      const count2: number = instance2.getTotalCount();
       expect(count1).assertEqual(count2);
       expect(count1).assertEqual(1);
       expect(count2).assertEqual(1);

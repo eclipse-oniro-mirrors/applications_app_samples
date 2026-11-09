@@ -1,33 +1,31 @@
-# Plugin and Skill Management
+# Skill Management
 
 ## Introduction
 
-This sample demonstrates how to use [@ohos.bundle.pluginBundleManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-pluginBundleManager.md) and [@ohos.bundle.skillManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) to manage local plugins and application skills.
+This sample demonstrates how to use [@ohos.bundle.skillManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-skillManager.md) to manage application skills.
 
 **Features:**
 
-1. Install and uninstall local plugins (HSP files) using `pluginBundleManager`.
-2. Query skill information registered by the current application or other applications using `skillManager`.
-3. Execute application skills using `scriptManager`.
-4. Compare skill information between two skills.
-5. View skill execution history with filtering and statistics.
-6. Batch execute multiple skills with selection toggles.
+1. Query skill information registered by the current application or other applications using `skillManager`.
+2. Execute application skills using `scriptManager`.
+3. Compare skill information between two skills.
+4. View skill execution history with filtering and statistics.
+5. Batch execute multiple skills with selection toggles.
 
 ## Preview
 
-| Plugin Management Page | Skill Management Page |
+| Home | Skill Query |
 |:---:|:---:|
-| Select HSP file and install/uninstall plugins | Query skills by bundle name, module name, and skill name |
+| ![Home](screenshots/index.svg) | ![Own skill query](screenshots/querySelf.svg) |
+
+| Application Skill Query | All Device Skills Query |
+|:---:|:---:|
+| ![Application skill query](screenshots/queryApplication.svg) | ![All device skills query](screenshots/queryAll.svg) |
 
 ## Usage
 
-1. On the home page, tap **Plugins** to enter the plugin management page.
-2. On the plugin management page:
-   - Tap **Select HSP** to choose a local HSP file using DocumentViewPicker.
-   - Tap **Install plugin** to install the selected HSP as a local plugin.
-   - Tap **Uninstall plugin** to remove an installed plugin.
-3. Return to the home page and tap **Skills** to enter the skill management page.
-4. On the skill management page:
+1. On the home page, tap **Skills** to enter the skill management page.
+2. On the skill management page:
    - Tap **Query own skill** to enter the own skill query page, where you can select module name and skill name using dropdown menus, select a query flag combination from the **Query flags** dropdown, then tap **Query own skill** to query a specific skill or **Query all own skills** to query all skills registered by the current application.
    - Tap **Query application skill** to enter the application skill query page, where you can select bundle name, module name, and skill name using dropdown menus, select a query flag combination from the **Query flags** dropdown, then tap **Query application skill** to query a specific skill or **Query application skills** to query all skills registered by a specified application.
    - Tap **Query all device skills** to enter the all skills query page, select a query flag combination from the **Query flags** dropdown, then tap **Query all device skills** to query all skills available on the device.
@@ -47,7 +45,6 @@ entry/src/main/ets/
 |---pages/
 |   |---Index.ets                     // Home page with navigation
 |---pluginandskill/pages/
-|   |---PluginManagerHome.ets         // Plugin management page
 |   |---SkillManagerHome.ets          // Skill management home page
 |   |---SelfSkillQueryPage.ets        // Own skill query page
 |   |---BundleSkillQueryPage.ets      // Application skill query page
@@ -78,7 +75,7 @@ entry/skills/
 |   |---ValidationSkill.ets           // Validation skill script
 entry/src/ohosTest/ets/test/
 |---List.test.ets                        // Test suite entry (with SUITE_MANIFEST)
-|---Ability.test.ets                     // App launch & page element tests (2 cases)
+|---Ability.test.ets                     // App launch & navigation tests (2 cases)
 |---SelfSkillQuery.test.ets              // Own skill query tests (15 cases)
 |---BundleSkillQuery.test.ets            // Application skill query tests (17 cases)
 |---AllSkillsQuery.test.ets              // All device skills query tests (8 cases)
@@ -110,11 +107,6 @@ entry/src/ohosTest/ets/test/
 
 ## Implementation
 
-- **Plugin management**: Uses `pluginBundleManager` APIs:
-  - `installLocalPlugin()`: Installs a local plugin from a sandbox path.
-  - `uninstallLocalPlugin()`: Uninstalls a local plugin by plugin ID.
-  - `getAllLocalPluginInfoForSelf()`: Queries all installed local plugins.
-
 - **Skill management**: Uses `skillManager` APIs:
   - `getSkillInfoForSelf()`: Queries a specific skill registered by the current application.
   - `getSkillInfosForSelf()`: Queries all skills registered by the current application.
@@ -130,15 +122,13 @@ entry/src/ohosTest/ets/test/
 
 - **Batch operations**: The batch page allows selecting multiple skills via individual toggles or select-all, then executes them in batch with result display and clear functionality.
 
-- **File selection**: The plugin page uses `DocumentViewPicker` to select HSP files, copies them to `context.cacheDir`, and passes the sandbox path to `installLocalPlugin()`.
-
 ## Testing
 
-This project includes an Instrument test suite (ohosTest) with **497 test cases** organized into **26 suites** via `SUITE_MANIFEST`:
+This project includes an Instrument test suite (ohosTest) with **495 test cases** organized into **25 suites** via `SUITE_MANIFEST`:
 
 | Suite | File | Cases | Description |
 |---|---|---:|---|
-| PluginAndSkillAbilityTest | Ability.test.ets | 2 | App launch and page element validation |
+| PluginAndSkillAbilityTest | Ability.test.ets | 2 | App launch and navigation validation |
 | SelfSkillQueryTest | SelfSkillQuery.test.ets | 15 | Own skill query: parameter validation, success, exception, flag verification |
 | BundleSkillQueryTest | BundleSkillQuery.test.ets | 17 | Application skill query: parameter validation, success, exception, flag verification |
 | AllSkillsQueryTest | AllSkillsQuery.test.ets | 8 | All device skills query: basic query, flag verification |
@@ -171,9 +161,7 @@ See [ohosTest.md](ohosTest.md) for the complete test case table, build instructi
 
 | Permission | Description |
 |---|---|
-| `ohos.permission.kernel.SUPPORT_LOCAL_PLUGIN` | Required to install and manage local plugins. |
 | `ohos.permission.MANAGE_SKILL_PRIVILEGE` | Required to manage skill privileges. |
-| `ohos.permission.READ_WRITE_USER_FILE` | Required to read HSP files selected by the user. |
 
 **Note:** These permissions are system-granted or require specific signing configurations.
 
@@ -182,8 +170,7 @@ See [ohosTest.md](ohosTest.md) for the complete test case table, build instructi
 1. This sample only supports standard system devices.
 2. This sample is based on the Stage model and requires API 26.0.0 SDK.
 3. This sample requires DevEco Studio 6.0.0 or later to compile and run.
-4. Local plugin installation requires the device to enable the "Install plugins from external sources" switch in system settings.
-5. The sample uses open-source SDK version 26.0.0.
+4. The sample uses open-source SDK version 26.0.0.
 
 ## Download
 

@@ -27,14 +27,14 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_NAME = 'entry';
-const SKILL_NAME = 'skill-test';
-const BUNDLE_SELECT_ID = 'skill_bundle_select';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const FLAG_SELECT_ID = 'skill_flag_select';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_NAME: string = 'entry';
+const SKILL_NAME: string = 'skill-test';
+const BUNDLE_SELECT_ID: string = 'skill_bundle_select';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const FLAG_SELECT_ID: string = 'skill_flag_select';
 
 export default function bundleSkillQueryTest(): void {
   describe('BundleSkillQueryTest', () => {
@@ -361,7 +361,7 @@ export default function bundleSkillQueryTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_src_entries_0_value');
-        const srcEntriesText = await textOfId('skill_result_src_entries_0_value');
+        const srcEntriesText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcEntriesText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -387,7 +387,7 @@ export default function bundleSkillQueryTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_description_0_value');
-        const descText = await textOfId('skill_result_description_0_value');
+        const descText: string = await textOfId('skill_result_description_0_value');
         expect(descText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -413,7 +413,7 @@ export default function bundleSkillQueryTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_permissions_0_value');
-        const permissionsText = await textOfId('skill_result_permissions_0_value');
+        const permissionsText: string = await textOfId('skill_result_permissions_0_value');
         expect(permissionsText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -439,7 +439,7 @@ export default function bundleSkillQueryTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_request_permissions_0_value');
-        const reqPermText = await textOfId('skill_result_request_permissions_0_value');
+        const reqPermText: string = await textOfId('skill_result_request_permissions_0_value');
         expect(reqPermText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -465,13 +465,13 @@ export default function bundleSkillQueryTest(): void {
         await clickId('query_bundle_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_request_permissions_0_value');
-        const descText = await textOfId('skill_result_description_0_value');
+        const descText: string = await textOfId('skill_result_description_0_value');
         expect(descText.length).assertLarger(1);
-        const srcText = await textOfId('skill_result_src_entries_0_value');
+        const srcText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcText.length).assertLarger(1);
-        const permText = await textOfId('skill_result_permissions_0_value');
+        const permText: string = await textOfId('skill_result_permissions_0_value');
         expect(permText.length).assertLarger(1);
-        const reqPermText = await textOfId('skill_result_request_permissions_0_value');
+        const reqPermText: string = await textOfId('skill_result_request_permissions_0_value');
         expect(reqPermText.length).assertLarger(1);
         await pressBack();
       }, done);

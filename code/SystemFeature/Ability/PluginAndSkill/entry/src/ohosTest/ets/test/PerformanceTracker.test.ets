@@ -14,18 +14,18 @@
  */
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@ohos/hypium';
-import {
-  PerformanceTracker,
-  PerformanceMetric,
-  PerformanceSummary
-} from '../../../main/ets/util/PerformanceTracker';
+import { PerformanceMetric, PerformanceSummary, PerformanceTracker } from '../../../main/ets/util/PerformanceTracker';
 
 export default function performanceTrackerTest(): void {
   describe('PerformanceTrackerTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => {
+    })
+    beforeEach(() => {
+    })
+    afterEach(() => {
+    })
+    afterAll(() => {
+    })
 
     // ==================== startTimer + stopTimer (3 用例) ====================
 
@@ -38,9 +38,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testTimer0001', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('op1');
-      const metric = tracker.stopTimer('op1');
+      const metric: PerformanceMetric | undefined = tracker.stopTimer('op1');
       expect(metric!.name).assertEqual('op1');
       expect(metric!.duration).assertLarger(-1);
       expect(metric!.category).assertEqual('default');
@@ -56,8 +56,8 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testTimer0002', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const metric = tracker.stopTimer('nonexistent');
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const metric: PerformanceMetric | undefined = tracker.stopTimer('nonexistent');
       expect(metric === undefined).assertTrue();
       expect(tracker.getActiveTimerCount()).assertEqual(0);
       expect(tracker.getMetricCount()).assertEqual(0);
@@ -73,9 +73,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testTimer0003', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('op2');
-      const metric = tracker.stopTimer('op2');
+      const metric: PerformanceMetric | undefined = tracker.stopTimer('op2');
       expect(metric!.category).assertEqual('default');
       expect(metric!.success).assertTrue();
       expect(tracker.getMetricCount()).assertEqual(1);
@@ -93,9 +93,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testTimerCustom0004', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('op3');
-      const metric = tracker.stopTimer('op3', 'network', false, 'timeout');
+      const metric: PerformanceMetric | undefined = tracker.stopTimer('op3', 'network', false, 'timeout');
       expect(metric!.category).assertEqual('network');
       expect(metric!.success).assertFalse();
       expect(tracker.getActiveTimerCount()).assertEqual(0);
@@ -111,10 +111,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testTimerCustom0005', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('op4');
       expect(tracker.getActiveTimerCount()).assertEqual(1);
-      const metric = tracker.stopTimer('op4', 'db', false, 'connection lost');
+      const metric: PerformanceMetric | undefined = tracker.stopTimer('op4', 'db', false, 'connection lost');
       expect(metric!.errorMessage).assertEqual('connection lost');
       expect(tracker.getActiveTimerCount()).assertEqual(0);
       expect(tracker.getMetricCount()).assertEqual(1);
@@ -132,9 +132,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testRecordMetric0006', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('direct', 150, 'compute', true);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics.length).assertEqual(1);
       expect(metrics[0].name).assertEqual('direct');
       expect(metrics[0].duration).assertEqual(150);
@@ -150,9 +150,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testRecordMetric0007', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('simple', 50);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics.length).assertEqual(1);
       expect(metrics[0].category).assertEqual('default');
       expect(metrics[0].success).assertTrue();
@@ -168,10 +168,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testRecordMetric0008', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const before = Date.now();
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const before: number = Date.now();
       tracker.recordMetric('timed', 200, 'test');
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics[0].endTime).assertLarger(-1);
       expect(metrics[0].startTime).assertLarger(-1);
       expect(metrics[0].duration).assertEqual(200);
@@ -189,13 +189,13 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testCapacity0009', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker(3);
+      const tracker: PerformanceTracker = new PerformanceTracker(3);
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 20);
       tracker.recordMetric('c', 30);
       tracker.recordMetric('d', 40);
       expect(tracker.getMetricCount()).assertEqual(3);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics[0].name).assertEqual('b');
       expect(metrics[2].name).assertEqual('d');
       done();
@@ -210,12 +210,12 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testCapacity0010', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      for (let i = 0; i < 100; i++) {
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      for (let i: number = 0; i < 100; i++) {
         tracker.recordMetric('m' + i, i);
       }
       expect(tracker.getMetricCount()).assertEqual(100);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics[0].name).assertEqual('m0');
       expect(metrics[99].name).assertEqual('m99');
       done();
@@ -232,8 +232,8 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetMetrics0011', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const metrics = tracker.getMetrics();
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics.length).assertEqual(0);
       expect(Array.isArray(metrics)).assertTrue();
       expect(tracker.getMetricCount()).assertEqual(0);
@@ -249,11 +249,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetMetrics0012', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 20);
       tracker.recordMetric('c', 30);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics.length).assertEqual(3);
       expect(metrics[0].name).assertEqual('a');
       expect(metrics[1].name).assertEqual('b');
@@ -269,10 +269,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetMetrics0013', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('x', 50, 'cat');
-      const first = tracker.getMetrics();
-      const second = tracker.getMetrics();
+      const first: PerformanceMetric[] = tracker.getMetrics();
+      const second: PerformanceMetric[] = tracker.getMetrics();
       expect(first.length).assertEqual(second.length);
       expect(first[0].name).assertEqual(second[0].name);
       expect(first === second).assertFalse();
@@ -290,9 +290,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByCategory0014', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'network');
-      const result = tracker.getMetricsByCategory('nonexistent');
+      const result: PerformanceMetric[] = tracker.getMetricsByCategory('nonexistent');
       expect(result.length).assertEqual(0);
       expect(Array.isArray(result)).assertTrue();
       expect(tracker.getMetricCount()).assertEqual(1);
@@ -308,11 +308,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByCategory0015', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'network');
       tracker.recordMetric('b', 20, 'compute');
       tracker.recordMetric('c', 30, 'network');
-      const result = tracker.getMetricsByCategory('network');
+      const result: PerformanceMetric[] = tracker.getMetricsByCategory('network');
       expect(result.length).assertEqual(2);
       expect(result[0].name).assertEqual('a');
       expect(result[1].name).assertEqual('c');
@@ -328,10 +328,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByCategory0016', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 20, 'custom');
-      const result = tracker.getMetricsByCategory('default');
+      const result: PerformanceMetric[] = tracker.getMetricsByCategory('default');
       expect(result.length).assertEqual(1);
       expect(result[0].name).assertEqual('a');
       expect(result[0].category).assertEqual('default');
@@ -349,9 +349,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByName0017', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
-      const result = tracker.getMetricsByName('nonexistent');
+      const result: PerformanceMetric[] = tracker.getMetricsByName('nonexistent');
       expect(result.length).assertEqual(0);
       expect(Array.isArray(result)).assertTrue();
       expect(tracker.getMetricCount()).assertEqual(1);
@@ -367,11 +367,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByName0018', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('query', 10, 'db');
       tracker.recordMetric('render', 20, 'ui');
       tracker.recordMetric('query', 30, 'db');
-      const result = tracker.getMetricsByName('query');
+      const result: PerformanceMetric[] = tracker.getMetricsByName('query');
       expect(result.length).assertEqual(2);
       expect(result[0].duration).assertEqual(10);
       expect(result[1].duration).assertEqual(30);
@@ -387,9 +387,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetByName0019', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('unique', 50);
-      const result = tracker.getMetricsByName('unique');
+      const result: PerformanceMetric[] = tracker.getMetricsByName('unique');
       expect(result.length).assertEqual(1);
       expect(result[0].name).assertEqual('unique');
       expect(result[0].duration).assertEqual(50);
@@ -407,10 +407,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailed0020', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'cat', true);
       tracker.recordMetric('b', 20, 'cat', true);
-      const failed = tracker.getFailedMetrics();
+      const failed: PerformanceMetric[] = tracker.getFailedMetrics();
       expect(failed.length).assertEqual(0);
       expect(Array.isArray(failed)).assertTrue();
       expect(tracker.getMetricCount()).assertEqual(2);
@@ -426,12 +426,12 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailed0021', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'cat', true);
       tracker.recordMetric('b', 20, 'cat', false, 'err1');
       tracker.recordMetric('c', 30, 'cat', true);
       tracker.recordMetric('d', 40, 'cat', false, 'err2');
-      const failed = tracker.getFailedMetrics();
+      const failed: PerformanceMetric[] = tracker.getFailedMetrics();
       expect(failed.length).assertEqual(2);
       expect(failed[0].name).assertEqual('b');
       expect(failed[1].name).assertEqual('d');
@@ -447,10 +447,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailed0022', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'cat', false, 'err');
       tracker.recordMetric('b', 20, 'cat', false, 'err');
-      const failed = tracker.getFailedMetrics();
+      const failed: PerformanceMetric[] = tracker.getFailedMetrics();
       expect(failed.length).assertEqual(2);
       expect(failed[0].errorMessage).assertEqual('err');
       expect(failed[1].success).assertFalse();
@@ -468,8 +468,8 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0023', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const summary = tracker.summarize();
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(0);
       expect(summary.averageDuration).assertEqual(0);
       expect(summary.minDuration).assertEqual(0);
@@ -485,9 +485,9 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0024', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('only', 100, 'test', true);
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(1);
       expect(summary.averageDuration).assertEqual(100);
       expect(summary.minDuration).assertEqual(100);
@@ -503,11 +503,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0025', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 50);
       tracker.recordMetric('c', 90);
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(3);
       expect(summary.minDuration).assertEqual(10);
       expect(summary.maxDuration).assertEqual(90);
@@ -523,11 +523,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarize0026', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'net', true);
       tracker.recordMetric('b', 20, 'net', false);
       tracker.recordMetric('c', 30, 'db', true);
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.successRate).assertEqual(67);
       expect(summary.totalMetrics).assertEqual(3);
       expect(summary.slowestMetrics.length).assertLarger(0);
@@ -545,8 +545,8 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0027', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const report = tracker.generateReport();
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const report: string = tracker.generateReport();
       expect(report.length).assertLarger(0);
       expect(report.indexOf('Performance Report') >= 0).assertTrue();
       expect(report.indexOf('End of Report') >= 0).assertTrue();
@@ -562,10 +562,10 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0028', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('slow-op', 500, 'network', true);
       tracker.recordMetric('fast-op', 10, 'compute', false, 'err');
-      const report = tracker.generateReport();
+      const report: string = tracker.generateReport();
       expect(report.indexOf('Metrics by Category') >= 0).assertTrue();
       expect(report.indexOf('Top 10 Slowest') >= 0).assertTrue();
       expect(report.indexOf('slow-op') >= 0).assertTrue();
@@ -583,7 +583,7 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testClear0029', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.startTimer('running');
       expect(tracker.getMetricCount()).assertEqual(1);
@@ -604,11 +604,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testClear0030', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.clear();
       tracker.recordMetric('b', 20);
-      const metrics = tracker.getMetrics();
+      const metrics: PerformanceMetric[] = tracker.getMetrics();
       expect(metrics.length).assertEqual(1);
       expect(metrics[0].name).assertEqual('b');
       expect(metrics[0].duration).assertEqual(20);
@@ -626,7 +626,7 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetMetricCount0031', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       expect(tracker.getMetricCount()).assertEqual(0);
       expect(tracker.getActiveTimerCount()).assertEqual(0);
       expect(tracker.getMetrics().length).assertEqual(0);
@@ -642,7 +642,7 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetMetricCount0032', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 20);
       tracker.startTimer('c');
@@ -664,7 +664,7 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetActiveTimerCount0033', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('t1');
       tracker.startTimer('t2');
       expect(tracker.getActiveTimerCount()).assertEqual(2);
@@ -684,7 +684,7 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetActiveTimerCount0034', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.startTimer('dup');
       tracker.startTimer('dup');
       expect(tracker.getActiveTimerCount()).assertEqual(1);
@@ -705,13 +705,13 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarizePercentiles0035', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10);
       tracker.recordMetric('b', 20);
       tracker.recordMetric('c', 30);
       tracker.recordMetric('d', 40);
       tracker.recordMetric('e', 50);
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(5);
       expect(summary.medianDuration >= 10).assertTrue();
       expect(summary.p90Duration >= 10).assertTrue();
@@ -727,11 +727,11 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarizePercentiles0036', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      for (let i = 0; i < 15; i++) {
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      for (let i: number = 0; i < 15; i++) {
         tracker.recordMetric('m' + i, (i + 1) * 10);
       }
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(15);
       expect(summary.slowestMetrics.length).assertEqual(10);
       expect(summary.slowestMetrics[0].duration).assertLarger(0);
@@ -749,13 +749,13 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarizeCategory0037', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
+      const tracker: PerformanceTracker = new PerformanceTracker();
       tracker.recordMetric('a', 10, 'network');
       tracker.recordMetric('b', 20, 'network');
       tracker.recordMetric('c', 30, 'compute');
-      const summary = tracker.summarize();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(3);
-      const networkCount = summary.metricsByCategory.get('network');
+      const networkCount: number | undefined = summary.metricsByCategory.get('network');
       expect(networkCount).assertEqual(2);
       expect(summary.metricsByCategory.size).assertLarger(0);
       done();
@@ -770,8 +770,8 @@ export default function performanceTrackerTest(): void {
      * @tc.level: Level 2
      */
     it('testSummarizeCategory0038', 0, async (done: Function) => {
-      const tracker = new PerformanceTracker();
-      const summary = tracker.summarize();
+      const tracker: PerformanceTracker = new PerformanceTracker();
+      const summary: PerformanceSummary = tracker.summarize();
       expect(summary.totalMetrics).assertEqual(0);
       expect(summary.metricsByCategory.size).assertEqual(0);
       expect(summary.slowestMetrics.length).assertEqual(0);

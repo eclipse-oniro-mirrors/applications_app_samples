@@ -23,10 +23,10 @@ import {
 
 export default function testLogAnalyzerTest(): void {
   describe('TestLogAnalyzerTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => { })
+    beforeEach(() => { })
+    afterEach(() => { })
+    afterAll(() => { })
 
     // ==================== 构造器 (2 用例) ====================
 
@@ -39,7 +39,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testConstructorDefault0001', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       expect(analyzer.getEntryCount()).assertEqual(0);
       expect(analyzer.getErrorCount()).assertEqual(0);
       expect(analyzer.getWarningCount()).assertEqual(0);
@@ -55,13 +55,13 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testConstructorCustomMax0002', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer(3);
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer(3);
       analyzer.logInfo('t', 'msg1');
       analyzer.logInfo('t', 'msg2');
       analyzer.logInfo('t', 'msg3');
       analyzer.logInfo('t', 'msg4');
       expect(analyzer.getEntryCount()).assertEqual(3);
-      const entries = analyzer.getEntries();
+      const entries: LogEntry[] = analyzer.getEntries();
       expect(entries[0].message).assertEqual('msg2');
       expect(entries[2].message).assertEqual('msg4');
       done();
@@ -78,11 +78,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testTlaAddEntry0003', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
-      const before = Date.now();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
+      const before: number = Date.now();
       analyzer.addEntry(LogLevel.INFO, 'myTag', 'hello', 0x1234);
-      const after = Date.now();
-      const entries = analyzer.getEntries();
+      const after: number = Date.now();
+      const entries: LogEntry[] = analyzer.getEntries();
       expect(entries.length).assertEqual(1);
       expect(entries[0].level).assertEqual(LogLevel.INFO);
       expect(entries[0].tag).assertEqual('myTag');
@@ -98,11 +98,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testTlaAddEntry0004', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
-      const before = Date.now();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
+      const before: number = Date.now();
       analyzer.addEntry(LogLevel.ERROR, 'tag', 'msg');
-      const after = Date.now();
-      const entries = analyzer.getEntries();
+      const after: number = Date.now();
+      const entries: LogEntry[] = analyzer.getEntries();
       expect(entries[0].timestamp >= before).assertTrue();
       expect(entries[0].timestamp <= after).assertTrue();
       expect(entries[0].domain).assertEqual(0xF811);
@@ -120,9 +120,9 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testLogDebug0005', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logDebug('dTag', 'debug msg');
-      const entries = analyzer.getEntries();
+      const entries: LogEntry[] = analyzer.getEntries();
       expect(entries.length).assertEqual(1);
       expect(entries[0].level).assertEqual(LogLevel.DEBUG);
       expect(entries[0].tag).assertEqual('dTag');
@@ -138,7 +138,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testLogInfo0006', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('iTag', 'info msg');
       expect(analyzer.getEntryCount()).assertEqual(1);
       expect(analyzer.getEntries()[0].level).assertEqual(LogLevel.INFO);
@@ -155,7 +155,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testLogWarn0007', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logWarn('wTag', 'warn msg');
       expect(analyzer.getWarningCount()).assertEqual(1);
       expect(analyzer.getEntries()[0].level).assertEqual(LogLevel.WARN);
@@ -172,7 +172,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testLogError0008', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('eTag', 'error msg');
       expect(analyzer.getErrorCount()).assertEqual(1);
       expect(analyzer.getEntries()[0].level).assertEqual(LogLevel.ERROR);
@@ -191,12 +191,12 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetEntriesByLevel0009', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'info1');
       analyzer.logError('t', 'err1');
       analyzer.logInfo('t', 'info2');
       analyzer.logError('t', 'err2');
-      const errors = analyzer.getEntriesByLevel(LogLevel.ERROR);
+      const errors: LogEntry[] = analyzer.getEntriesByLevel(LogLevel.ERROR);
       expect(errors.length).assertEqual(2);
       expect(errors[0].message).assertEqual('err1');
       expect(errors[1].message).assertEqual('err2');
@@ -212,9 +212,9 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetEntriesByLevel0010', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'msg');
-      const debugs = analyzer.getEntriesByLevel(LogLevel.DEBUG);
+      const debugs: LogEntry[] = analyzer.getEntriesByLevel(LogLevel.DEBUG);
       expect(debugs.length).assertEqual(0);
       expect(analyzer.getEntryCount()).assertEqual(1);
       expect(debugs.length === 0).assertTrue();
@@ -232,11 +232,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetEntriesByTag0011', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('alpha', 'a1');
       analyzer.logInfo('beta', 'b1');
       analyzer.logError('alpha', 'a2');
-      const alphaEntries = analyzer.getEntriesByTag('alpha');
+      const alphaEntries: LogEntry[] = analyzer.getEntriesByTag('alpha');
       expect(alphaEntries.length).assertEqual(2);
       expect(alphaEntries[0].message).assertEqual('a1');
       expect(alphaEntries[1].message).assertEqual('a2');
@@ -254,11 +254,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testSearchEntries0012', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'connection timeout');
       analyzer.logError('t', 'Connection refused');
       analyzer.logInfo('t', 'success');
-      const results = analyzer.searchEntries('connection');
+      const results: LogEntry[] = analyzer.searchEntries('connection');
       expect(results.length).assertEqual(2);
       expect(results[0].message).assertEqual('connection timeout');
       expect(results[1].message).assertEqual('Connection refused');
@@ -274,10 +274,10 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testSearchEntries0013', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('NetworkModule', 'msg1');
       analyzer.logInfo('OtherTag', 'msg2');
-      const results = analyzer.searchEntries('Network');
+      const results: LogEntry[] = analyzer.searchEntries('Network');
       expect(results.length).assertEqual(1);
       expect(results[0].tag).assertEqual('NetworkModule');
       expect(results[0].message).assertEqual('msg1');
@@ -295,13 +295,13 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testAnalyze0014', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logDebug('t', 'd1');
       analyzer.logInfo('t', 'i1');
       analyzer.logInfo('t', 'i2');
       analyzer.logWarn('t', 'w1');
       analyzer.logError('t', 'e1');
-      const result = analyzer.analyze();
+      const result: LogAnalysisResult = analyzer.analyze();
       expect(result.totalEntries).assertEqual(5);
       expect(result.debugCount).assertEqual(1);
       expect(result.infoCount).assertEqual(2);
@@ -317,12 +317,12 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testAnalyze0015', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('tagA', 'err1');
       analyzer.logError('tagA', 'err2');
       analyzer.logError('tagB', 'err3');
       analyzer.logInfo('tagC', 'info1');
-      const result = analyzer.analyze();
+      const result: LogAnalysisResult = analyzer.analyze();
       expect(result.uniqueTags).assertEqual(3);
       expect(result.errorCount).assertEqual(3);
       expect(result.warningCount).assertEqual(0);
@@ -338,11 +338,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testAnalyze0016', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('net', 'timeout');
       analyzer.logError('net', 'refused');
       analyzer.logError('db', 'conn lost');
-      const result = analyzer.analyze();
+      const result: LogAnalysisResult = analyzer.analyze();
       expect(result.errorsByTag.get('net')).assertEqual(2);
       expect(result.errorsByTag.get('db')).assertEqual(1);
       expect(result.errorsByTag.size).assertEqual(2);
@@ -360,11 +360,11 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testAnalyzeTestCaseResults0017', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'testA begin');
       analyzer.logInfo('t', 'testB begin');
       analyzer.logError('t', 'testB failed');
-      const result = analyzer.analyze();
+      const result: LogAnalysisResult = analyzer.analyze();
       expect(result.testCaseResults.get('testA')).assertTrue();
       expect(result.testCaseResults.get('testB')).assertFalse();
       expect(result.testCaseResults.size).assertEqual(2);
@@ -380,10 +380,10 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testAnalyzeTestCaseResults0018', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'caseX begin');
       analyzer.logInfo('t', 'caseX begin');
-      const result = analyzer.analyze();
+      const result: LogAnalysisResult = analyzer.analyze();
       expect(result.testCaseResults.size).assertEqual(1);
       expect(result.testCaseResults.get('caseX')).assertTrue();
       expect(result.totalEntries).assertEqual(2);
@@ -401,12 +401,12 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetTestPassRate0019', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'pass1 begin');
       analyzer.logInfo('t', 'pass2 begin');
       analyzer.logInfo('t', 'fail1 begin');
       analyzer.logError('t', 'fail1 failed');
-      const rate = analyzer.getTestPassRate();
+      const rate: number = analyzer.getTestPassRate();
       expect(rate).assertEqual(67);
       expect(rate).assertLarger(0);
       expect(rate < 100).assertTrue();
@@ -422,7 +422,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetTestPassRate0020', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'random message');
       expect(analyzer.getTestPassRate()).assertEqual(0);
       expect(analyzer.getEntryCount()).assertEqual(1);
@@ -441,7 +441,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testTlaClear0021', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('t', 'err');
       analyzer.logWarn('t', 'warn');
       analyzer.logInfo('t', 'info');
@@ -461,7 +461,7 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testCounts0022', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('t', 'e1');
       analyzer.logError('t', 'e2');
       analyzer.logWarn('t', 'w1');
@@ -482,13 +482,13 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetEntriesByTimeRange0023', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'msg1');
-      const midTime = Date.now();
+      const midTime: number = Date.now();
       analyzer.logInfo('t', 'msg2');
-      const allEntries = analyzer.getEntries();
-      const firstTime = allEntries[0].timestamp;
-      const rangeEntries = analyzer.getEntriesByTimeRange(firstTime, midTime);
+      const allEntries: LogEntry[] = analyzer.getEntries();
+      const firstTime: number = allEntries[0].timestamp;
+      const rangeEntries: LogEntry[] = analyzer.getEntriesByTimeRange(firstTime, midTime);
       expect(rangeEntries.length >= 1).assertTrue();
       expect(rangeEntries[0].message).assertEqual('msg1');
       expect(allEntries.length).assertEqual(2);
@@ -506,10 +506,10 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0024', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logInfo('t', 'testA begin');
       analyzer.logError('net', 'timeout');
-      const report = analyzer.generateReport();
+      const report: string = analyzer.generateReport();
       expect(report.length).assertLarger(0);
       expect(report).assertContain('Test Log Analysis Report');
       expect(report).assertContain('End of Report');
@@ -525,10 +525,10 @@ export default function testLogAnalyzerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateReport0025', 0, async (done: Function) => {
-      const analyzer = new TestLogAnalyzer();
+      const analyzer: TestLogAnalyzer = new TestLogAnalyzer();
       analyzer.logError('dbTag', 'conn lost');
       analyzer.logError('dbTag', 'query fail');
-      const report = analyzer.generateReport();
+      const report: string = analyzer.generateReport();
       expect(report).assertContain('Errors by Tag');
       expect(report).assertContain('dbTag');
       expect(report).assertContain('2 errors');

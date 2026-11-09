@@ -32,10 +32,10 @@ import {
 
 export default function testDataProviderTest(): void {
   describe('TestDataProviderTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => { })
+    beforeEach(() => { })
+    afterEach(() => { })
+    afterAll(() => { })
 
     // ==================== 单例模式 (2 用例) ====================
 
@@ -48,7 +48,7 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testTdpSingleton0001', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
       expect(provider.getAllSkillNames().length).assertLarger(0);
       expect(provider).assertEqual(provider);
       expect(provider.getCategories().length).assertEqual(4);
@@ -64,8 +64,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testTdpSingleton0002', 0, async (done: Function) => {
-      const first = TestDataProvider.getInstance();
-      const second = TestDataProvider.getInstance();
+      const first: TestDataProvider = TestDataProvider.getInstance();
+      const second: TestDataProvider = TestDataProvider.getInstance();
       expect(first === second).assertTrue();
       expect(first).assertEqual(second);
       expect(TestDataProvider.getInstance() === first).assertTrue();
@@ -83,8 +83,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateParams0003', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createParams('bundle.a', 'mod.a', 'skill.a', 1);
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createParams('bundle.a', 'mod.a', 'skill.a', 1);
       expect(params.bundleName).assertEqual('bundle.a');
       expect(params.moduleName).assertEqual('mod.a');
       expect(params.skillName).assertEqual('skill.a');
@@ -100,8 +100,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateParams0004', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createParams(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME, 2);
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createParams(DEFAULT_BUNDLE_NAME, DEFAULT_MODULE_NAME, DEFAULT_SKILL_NAME, 2);
       expect(params.flagIndex).assertEqual(2);
       expect(params.flagLabel).assertEqual(FLAG_LABELS[2]);
       expect(params.flagValue).assertEqual(FLAG_VALUES[2]);
@@ -119,8 +119,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateDefaultParams0005', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createDefaultParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createDefaultParams();
       expect(params.bundleName).assertEqual(DEFAULT_BUNDLE_NAME);
       expect(params.moduleName).assertEqual(DEFAULT_MODULE_NAME);
       expect(params.skillName).assertEqual(DEFAULT_SKILL_NAME);
@@ -138,8 +138,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateEmptyBundleParams0006', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createEmptyBundleParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createEmptyBundleParams();
       expect(params.bundleName).assertEqual('');
       expect(params.moduleName).assertEqual(DEFAULT_MODULE_NAME);
       expect(params.skillName).assertEqual(DEFAULT_SKILL_NAME);
@@ -155,8 +155,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateEmptyModuleParams0007', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createEmptyModuleParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createEmptyModuleParams();
       expect(params.moduleName).assertEqual('');
       expect(params.bundleName).assertEqual(DEFAULT_BUNDLE_NAME);
       expect(params.skillName).assertEqual(DEFAULT_SKILL_NAME);
@@ -172,8 +172,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateEmptySkillParams0008', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createEmptySkillParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createEmptySkillParams();
       expect(params.skillName).assertEqual('');
       expect(params.bundleName).assertEqual(DEFAULT_BUNDLE_NAME);
       expect(params.moduleName).assertEqual(DEFAULT_MODULE_NAME);
@@ -189,8 +189,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateAllEmptyParams0009', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createAllEmptyParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createAllEmptyParams();
       expect(params.bundleName).assertEqual('');
       expect(params.moduleName).assertEqual('');
       expect(params.skillName).assertEqual('');
@@ -208,8 +208,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateInvalidBundleParams0010', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createInvalidBundleParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createInvalidBundleParams();
       expect(params.bundleName).assertEqual(BUNDLE_NAME_ARRAY[1]);
       expect(params.bundleName !== DEFAULT_BUNDLE_NAME).assertTrue();
       expect(params.moduleName).assertEqual(MODULE_NAME_ARRAY[0]);
@@ -225,8 +225,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateInvalidModuleParams0011', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createInvalidModuleParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createInvalidModuleParams();
       expect(params.moduleName).assertEqual(MODULE_NAME_ARRAY[1]);
       expect(params.moduleName !== DEFAULT_MODULE_NAME).assertTrue();
       expect(params.bundleName).assertEqual(DEFAULT_BUNDLE_NAME);
@@ -242,8 +242,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testCreateInvalidSkillParams0012', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const params = provider.createInvalidSkillParams();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const params: SkillQueryParams = provider.createInvalidSkillParams();
       expect(params.skillName).assertEqual(SKILL_ARRAY[0]);
       expect(params.skillName).assertEqual('skill-nonexistent');
       expect(params.skillName !== DEFAULT_SKILL_NAME).assertTrue();
@@ -261,8 +261,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetAllSkillNames0013', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const names = provider.getAllSkillNames();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const names: string[] = provider.getAllSkillNames();
       expect(names.length).assertEqual(SKILL_ARRAY.length);
       expect(names[0]).assertEqual(SKILL_ARRAY[0]);
       expect(names[names.length - 1]).assertEqual(SKILL_ARRAY[SKILL_ARRAY.length - 1]);
@@ -278,11 +278,11 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetValidSkillNames0014', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const valid = provider.getValidSkillNames();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const valid: string[] = provider.getValidSkillNames();
       expect(valid.length).assertEqual(SKILL_ARRAY.length - 1);
-      let containsInvalid = false;
-      for (let i = 0; i < valid.length; i++) {
+      let containsInvalid: boolean = false;
+      for (let i: number = 0; i < valid.length; i++) {
         if (valid[i] === 'skill-nonexistent') {
           containsInvalid = true;
         }
@@ -303,8 +303,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetAllModuleNames0015', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const modules = provider.getAllModuleNames();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const modules: string[] = provider.getAllModuleNames();
       expect(modules.length).assertEqual(MODULE_NAME_ARRAY.length);
       expect(modules[0]).assertEqual(MODULE_NAME_ARRAY[0]);
       expect(modules[1]).assertEqual(MODULE_NAME_ARRAY[1]);
@@ -320,8 +320,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetAllBundleNames0016', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const bundles = provider.getAllBundleNames();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const bundles: string[] = provider.getAllBundleNames();
       expect(bundles.length).assertEqual(BUNDLE_NAME_ARRAY.length);
       expect(bundles[0]).assertEqual(BUNDLE_NAME_ARRAY[0]);
       expect(bundles[1]).assertEqual(BUNDLE_NAME_ARRAY[1]);
@@ -339,8 +339,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetAllFlagLabels0017', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const labels = provider.getAllFlagLabels();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const labels: string[] = provider.getAllFlagLabels();
       expect(labels.length).assertEqual(FLAG_LABELS.length);
       expect(labels[0]).assertEqual(FLAG_LABELS[0]);
       expect(labels[labels.length - 1]).assertEqual(FLAG_LABELS[FLAG_LABELS.length - 1]);
@@ -356,8 +356,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetAllFlagValues0018', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const values = provider.getAllFlagValues();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const values: number[] = provider.getAllFlagValues();
       expect(values.length).assertEqual(FLAG_VALUES.length);
       expect(values[0]).assertEqual(FLAG_VALUES[0]);
       expect(values[values.length - 1]).assertEqual(FLAG_VALUES[FLAG_VALUES.length - 1]);
@@ -375,7 +375,7 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFlagLabelByIndex0019', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
       expect(provider.getFlagLabelByIndex(0)).assertEqual(FLAG_LABELS[0]);
       expect(provider.getFlagLabelByIndex(3)).assertEqual(FLAG_LABELS[3]);
       expect(provider.getFlagLabelByIndex(FLAG_LABELS.length - 1)).assertEqual(FLAG_LABELS[FLAG_LABELS.length - 1]);
@@ -391,7 +391,7 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFlagLabelByIndex0020', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
       expect(provider.getFlagLabelByIndex(-1)).assertEqual(FLAG_LABELS[0]);
       expect(provider.getFlagLabelByIndex(FLAG_LABELS.length)).assertEqual(FLAG_LABELS[0]);
       expect(provider.getFlagLabelByIndex(999)).assertEqual(FLAG_LABELS[0]);
@@ -407,7 +407,7 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFlagValueByIndex0021', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
       expect(provider.getFlagValueByIndex(0)).assertEqual(FLAG_VALUES[0]);
       expect(provider.getFlagValueByIndex(2)).assertEqual(FLAG_VALUES[2]);
       expect(provider.getFlagValueByIndex(FLAG_VALUES.length - 1)).assertEqual(FLAG_VALUES[FLAG_VALUES.length - 1]);
@@ -423,7 +423,7 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFlagValueByIndex0022', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
       expect(provider.getFlagValueByIndex(-1)).assertEqual(FLAG_VALUES[0]);
       expect(provider.getFlagValueByIndex(FLAG_VALUES.length)).assertEqual(FLAG_VALUES[0]);
       expect(provider.getFlagValueByIndex(100)).assertEqual(FLAG_VALUES[0]);
@@ -441,9 +441,9 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateSelfSkillTestCases0023', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const cases = provider.generateSelfSkillTestCases();
-      const validCount = provider.getValidSkillNames().length;
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const cases: TestCaseDefinition[] = provider.generateSelfSkillTestCases();
+      const validCount: number = provider.getValidSkillNames().length;
       expect(cases.length).assertEqual(validCount);
       expect(cases[0].expected.shouldSucceed).assertTrue();
       expect(cases[0].category).assertEqual('SelfSkillQuery_Success');
@@ -461,9 +461,9 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateBundleSkillTestCases0024', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const cases = provider.generateBundleSkillTestCases();
-      const validCount = provider.getValidSkillNames().length;
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const cases: TestCaseDefinition[] = provider.generateBundleSkillTestCases();
+      const validCount: number = provider.getValidSkillNames().length;
       expect(cases.length).assertEqual(validCount);
       expect(cases[0].category).assertEqual('BundleSkillQuery_Success');
       expect(cases[0].expected.shouldSucceed).assertTrue();
@@ -481,8 +481,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateFlagCombinationCases0025', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const cases = provider.generateFlagCombinationCases();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const cases: TestCaseDefinition[] = provider.generateFlagCombinationCases();
       expect(cases.length).assertEqual(FLAG_LABELS.length);
       expect(cases[0].category).assertEqual('FlagCombination');
       expect(cases[cases.length - 1].params.flagIndex).assertEqual(FLAG_LABELS.length - 1);
@@ -500,8 +500,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateErrorTestCases0026', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const cases = provider.generateErrorTestCases();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const cases: TestCaseDefinition[] = provider.generateErrorTestCases();
       expect(cases.length).assertEqual(3);
       expect(cases[0].expected.shouldSucceed).assertFalse();
       expect(cases[0].category).assertEqual('ErrorHandling');
@@ -519,12 +519,12 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateAllTestCases0027', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const all = provider.generateAllTestCases();
-      const selfCount = provider.generateSelfSkillTestCases().length;
-      const bundleCount = provider.generateBundleSkillTestCases().length;
-      const flagCount = provider.generateFlagCombinationCases().length;
-      const errorCount = provider.generateErrorTestCases().length;
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const all: TestCaseDefinition[] = provider.generateAllTestCases();
+      const selfCount: number = provider.generateSelfSkillTestCases().length;
+      const bundleCount: number = provider.generateBundleSkillTestCases().length;
+      const flagCount: number = provider.generateFlagCombinationCases().length;
+      const errorCount: number = provider.generateErrorTestCases().length;
       expect(all.length).assertEqual(selfCount + bundleCount + flagCount + errorCount);
       expect(all.length).assertLarger(0);
       expect(all[0].id.length).assertLarger(0);
@@ -540,12 +540,12 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateAllTestCases0028', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const all = provider.generateAllTestCases();
-      const categories = provider.getCategories();
-      let foundCount = 0;
-      for (let c = 0; c < categories.length; c++) {
-        for (let i = 0; i < all.length; i++) {
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const all: TestCaseDefinition[] = provider.generateAllTestCases();
+      const categories: string[] = provider.getCategories();
+      let foundCount: number = 0;
+      for (let c: number = 0; c < categories.length; c++) {
+        for (let i: number = 0; i < all.length; i++) {
           if (all[i].category === categories[c]) {
             foundCount++;
             break;
@@ -569,9 +569,9 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetTotalCaseCount0029', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const total = provider.getTotalCaseCount();
-      const all = provider.generateAllTestCases();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const total: number = provider.getTotalCaseCount();
+      const all: TestCaseDefinition[] = provider.generateAllTestCases();
       expect(total).assertEqual(all.length);
       expect(total).assertLarger(0);
       expect(total > provider.generateErrorTestCases().length).assertTrue();
@@ -589,10 +589,10 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetCaseCountByCategory0030', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const errorCount = provider.getCaseCountByCategory('ErrorHandling');
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const errorCount: number = provider.getCaseCountByCategory('ErrorHandling');
       expect(errorCount).assertEqual(3);
-      const selfCount = provider.getCaseCountByCategory('SelfSkillQuery_Success');
+      const selfCount: number = provider.getCaseCountByCategory('SelfSkillQuery_Success');
       expect(selfCount).assertEqual(provider.getValidSkillNames().length);
       expect(selfCount).assertLarger(0);
       done();
@@ -607,10 +607,10 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetCaseCountByCategory0031', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const count = provider.getCaseCountByCategory('NonExistentCategory');
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const count: number = provider.getCaseCountByCategory('NonExistentCategory');
       expect(count).assertEqual(0);
-      const emptyCount = provider.getCaseCountByCategory('');
+      const emptyCount: number = provider.getCaseCountByCategory('');
       expect(emptyCount).assertEqual(0);
       expect(provider.getCaseCountByCategory('FlagCombination') > 0).assertTrue();
       done();
@@ -627,8 +627,8 @@ export default function testDataProviderTest(): void {
      * @tc.level: Level 2
      */
     it('testGetCategories0032', 0, async (done: Function) => {
-      const provider = TestDataProvider.getInstance();
-      const categories = provider.getCategories();
+      const provider: TestDataProvider = TestDataProvider.getInstance();
+      const categories: string[] = provider.getCategories();
       expect(categories.length).assertEqual(4);
       expect(categories[0]).assertEqual('SelfSkillQuery_Success');
       expect(categories[3]).assertEqual('ErrorHandling');

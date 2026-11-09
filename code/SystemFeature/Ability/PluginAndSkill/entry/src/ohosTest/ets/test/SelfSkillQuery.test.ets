@@ -27,12 +27,12 @@ import {
   waitId
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
-const MODULE_SELECT_ID = 'skill_module_select';
-const SKILL_SELECT_ID = 'skill_name_select';
-const FLAG_SELECT_ID = 'skill_flag_select';
-const SKILL_NAME = 'skill-test';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
+const MODULE_SELECT_ID: string = 'skill_module_select';
+const SKILL_SELECT_ID: string = 'skill_name_select';
+const FLAG_SELECT_ID: string = 'skill_flag_select';
+const SKILL_NAME: string = 'skill-test';
 
 export default function selfSkillQueryTest(): void {
   describe('SelfSkillQueryTest', () => {
@@ -334,7 +334,7 @@ export default function selfSkillQueryTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_description_0_value');
-        const text = await textOfId('skill_result_description_0_value');
+        const text: string = await textOfId('skill_result_description_0_value');
         expect(text.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -359,7 +359,7 @@ export default function selfSkillQueryTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_src_entries_0_value');
-        const srcEntriesText = await textOfId('skill_result_src_entries_0_value');
+        const srcEntriesText: string = await textOfId('skill_result_src_entries_0_value');
         expect(srcEntriesText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -384,7 +384,7 @@ export default function selfSkillQueryTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_permissions_0_value');
-        const permissionsText = await textOfId('skill_result_permissions_0_value');
+        const permissionsText: string = await textOfId('skill_result_permissions_0_value');
         expect(permissionsText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();
@@ -409,7 +409,7 @@ export default function selfSkillQueryTest(): void {
         await clickId('query_self_skill_button');
         expect(await existsId('skill_no_results')).assertFalse();
         await scrollToId('skill_result_request_permissions_0_value');
-        const requestPermissionsText = await textOfId('skill_result_request_permissions_0_value');
+        const requestPermissionsText: string = await textOfId('skill_result_request_permissions_0_value');
         expect(requestPermissionsText.length).assertLarger(1);
         expect(await existsId('skill_results_title')).assertTrue();
         await pressBack();

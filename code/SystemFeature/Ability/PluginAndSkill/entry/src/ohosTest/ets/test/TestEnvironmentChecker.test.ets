@@ -32,10 +32,10 @@ import {
 
 export default function testEnvironmentCheckerTest(): void {
   describe('TestEnvironmentCheckerTest', (): void => {
-    beforeAll(() => {})
-    beforeEach(() => {})
-    afterEach(() => {})
-    afterAll(() => {})
+    beforeAll(() => { })
+    beforeEach(() => { })
+    afterEach(() => { })
+    afterAll(() => { })
 
     // ==================== 单例模式 (2 用例) ====================
 
@@ -48,7 +48,7 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testTecSingleton0001', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       expect(checker.getResultCount()).assertEqual(0);
       expect(checker).assertEqual(checker);
       expect(checker.getFailedResults().length).assertEqual(0);
@@ -64,8 +64,8 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testTecSingleton0002', 0, async (done: Function) => {
-      const a = TestEnvironmentChecker.getInstance();
-      const b = TestEnvironmentChecker.getInstance();
+      const a: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
+      const b: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       expect(a === b).assertTrue();
       expect(a).assertEqual(b);
       expect(TestEnvironmentChecker.getInstance() === a).assertTrue();
@@ -83,11 +83,11 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckConstantsConfiguration0003', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkConstantsConfiguration();
       expect(checker.getResultCount()).assertEqual(9);
-      const results = checker.getResults();
+      const results: CheckResult[] = checker.getResults();
       expect(results.length).assertEqual(9);
       expect(results[0].checkName.length).assertLarger(0);
       done();
@@ -102,12 +102,12 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckConstantsConfiguration0004', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkConstantsConfiguration();
-      const results = checker.getResults();
-      let allPassed = true;
-      for (let i = 0; i < results.length; i++) {
+      const results: CheckResult[] = checker.getResults();
+      let allPassed: boolean = true;
+      for (let i: number = 0; i < results.length; i++) {
         if (!results[i].passed) {
           allPassed = false;
         }
@@ -127,10 +127,10 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckConstantsConfiguration0005', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkConstantsConfiguration();
-      const results = checker.getResults();
+      const results: CheckResult[] = checker.getResults();
       expect(results[0].checkName).assertEqual('DefaultBundleName');
       expect(results[1].checkName).assertEqual('DefaultModuleName');
       expect(results[2].checkName).assertEqual('DefaultSkillName');
@@ -148,11 +148,11 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckDefaultValuesExist0006', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkDefaultValuesExist();
       expect(checker.getResultCount()).assertEqual(3);
-      const failed = checker.getFailedResults();
+      const failed: CheckResult[] = checker.getFailedResults();
       expect(failed.length).assertEqual(0);
       expect(checker.getResults()[0].passed).assertTrue();
       done();
@@ -167,10 +167,10 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckDefaultValuesExist0007', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkDefaultValuesExist();
-      const results = checker.getResults();
+      const results: CheckResult[] = checker.getResults();
       expect(results[0].checkName).assertEqual('DefaultBundleInArray');
       expect(results[1].checkName).assertEqual('DefaultModuleInArray');
       expect(results[2].checkName).assertEqual('DefaultSkillInArray');
@@ -188,7 +188,7 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckDataIntegrity0008', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkDataIntegrity();
       expect(checker.getResultCount()).assertEqual(5);
@@ -206,10 +206,10 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckDataIntegrity0009', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkDataIntegrity();
-      const results = checker.getResults();
+      const results: CheckResult[] = checker.getResults();
       expect(results[0].checkName).assertEqual('ModuleNoDuplicates');
       expect(results[1].checkName).assertEqual('BundleNoDuplicates');
       expect(results[2].checkName).assertEqual('SkillNoDuplicates');
@@ -227,8 +227,8 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testRunAllChecks0010', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
-      const summary = checker.runAllChecks();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
+      const summary: EnvironmentSummary = checker.runAllChecks();
       expect(summary.totalChecks).assertEqual(17);
       expect(summary.passedChecks).assertEqual(17);
       expect(summary.failedChecks).assertEqual(0);
@@ -244,8 +244,8 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testRunAllChecks0011', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
-      const summary = checker.runAllChecks();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
+      const summary: EnvironmentSummary = checker.runAllChecks();
       expect(summary.overallPassed).assertTrue();
       expect(summary.readinessPercentage).assertEqual(100);
       expect(summary.readinessGrade).assertEqual('A');
@@ -261,10 +261,10 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testRunAllChecks0012', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkConstantsConfiguration();
-      const countBefore = checker.getResultCount();
+      const countBefore: number = checker.getResultCount();
       checker.runAllChecks();
       expect(checker.getResultCount()).assertEqual(17);
       expect(countBefore).assertEqual(9);
@@ -283,9 +283,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetSummary0013', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const summary = checker.getSummary();
+      const summary: EnvironmentSummary = checker.getSummary();
       expect(summary.warningChecks).assertEqual(0);
       expect(summary.totalChecks).assertEqual(summary.passedChecks + summary.failedChecks + summary.warningChecks);
       expect(summary.totalChecks).assertLarger(0);
@@ -301,9 +301,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetSummary0014', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const summary = checker.getSummary();
+      const summary: EnvironmentSummary = checker.getSummary();
       expect(summary.readinessGrade).assertEqual('A');
       expect(summary.readinessPercentage >= 95).assertTrue();
       expect(summary.overallPassed).assertTrue();
@@ -319,9 +319,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetSummary0015', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
-      const summary = checker.getSummary();
+      const summary: EnvironmentSummary = checker.getSummary();
       expect(summary.totalChecks).assertEqual(0);
       expect(summary.readinessPercentage).assertEqual(0);
       expect(summary.readinessGrade).assertEqual('F');
@@ -339,10 +339,10 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetResultsCopy0016', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const copy1 = checker.getResults();
-      const copy2 = checker.getResults();
+      const copy1: CheckResult[] = checker.getResults();
+      const copy2: CheckResult[] = checker.getResults();
       expect(copy1 === copy2).assertFalse();
       expect(copy1.length).assertEqual(copy2.length);
       expect(copy1[0].checkName).assertEqual(copy2[0].checkName);
@@ -360,9 +360,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetFailedResults0017', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const failed = checker.getFailedResults();
+      const failed: CheckResult[] = checker.getFailedResults();
       expect(failed.length).assertEqual(0);
       expect(checker.getFailedResults().length).assertEqual(0);
       expect(Array.isArray(failed)).assertTrue();
@@ -380,9 +380,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateCheckReport0018', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const report = checker.generateCheckReport();
+      const report: string = checker.generateCheckReport();
       expect(report.length).assertLarger(0);
       expect(report).assertContain('Environment Check Report');
       expect(report).assertContain('End of Report');
@@ -398,9 +398,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateCheckReport0019', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
-      const report = checker.generateCheckReport();
+      const report: string = checker.generateCheckReport();
       expect(report).assertContain('100%');
       expect(report).assertContain('READY');
       expect(report).assertContain('Total checks: 17');
@@ -416,9 +416,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGenerateCheckReport0020', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
-      const report = checker.generateCheckReport();
+      const report: string = checker.generateCheckReport();
       expect(report).assertContain('Total checks: 0');
       expect(report).assertContain('End of Report');
       expect(report.length).assertLarger(0);
@@ -436,7 +436,7 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testTecClear0021', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.runAllChecks();
       expect(checker.getResultCount()).assertLarger(0);
       checker.clear();
@@ -454,7 +454,7 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testGetResultCount0022', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       expect(checker.getResultCount()).assertEqual(0);
       checker.checkConstantsConfiguration();
@@ -475,12 +475,12 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckResultTimestamp0023', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
-      const before = Date.now();
+      const before: number = Date.now();
       checker.checkConstantsConfiguration();
-      const after = Date.now();
-      const results = checker.getResults();
+      const after: number = Date.now();
+      const results: CheckResult[] = checker.getResults();
       expect(results[0].timestamp).assertLarger(0);
       expect(results[0].timestamp).assertLarger(-1);
       expect(results[0].timestamp).assertLarger(0);
@@ -498,11 +498,11 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testCheckResultSeverity0024', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
       checker.clear();
       checker.checkConstantsConfiguration();
-      const results = checker.getResults();
-      for (let i = 0; i < results.length; i++) {
+      const results: CheckResult[] = checker.getResults();
+      for (let i: number = 0; i < results.length; i++) {
         if (results[i].passed) {
           expect(results[i].severity).assertEqual('info');
         }
@@ -523,9 +523,9 @@ export default function testEnvironmentCheckerTest(): void {
      * @tc.level: Level 2
      */
     it('testRunAllChecksSummaryConsistency0025', 0, async (done: Function) => {
-      const checker = TestEnvironmentChecker.getInstance();
-      const runSummary = checker.runAllChecks();
-      const separateSummary = checker.getSummary();
+      const checker: TestEnvironmentChecker = TestEnvironmentChecker.getInstance();
+      const runSummary: EnvironmentSummary = checker.runAllChecks();
+      const separateSummary: EnvironmentSummary = checker.getSummary();
       expect(runSummary.totalChecks).assertEqual(separateSummary.totalChecks);
       expect(runSummary.passedChecks).assertEqual(separateSummary.passedChecks);
       expect(runSummary.readinessGrade).assertEqual(separateSummary.readinessGrade);

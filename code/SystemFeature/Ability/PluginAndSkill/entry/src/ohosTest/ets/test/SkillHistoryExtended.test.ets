@@ -26,8 +26,8 @@ import {
   waitIdContains
 } from '../testkit/SharedDriver';
 
-const BUNDLE_NAME = 'com.samples.pluginandskill';
-const ABILITY_NAME = 'EntryAbility';
+const BUNDLE_NAME: string = 'com.samples.pluginandskill';
+const ABILITY_NAME: string = 'EntryAbility';
 
 export default function skillHistoryExtendedTest(): void {
   describe('SkillHistoryExtendedTest', () => {
