@@ -1,0 +1,136 @@
+{
+  "string": [
+    {
+      "name": "resend",
+      "value": "重发"
+    },
+    {
+      "name": "correct",
+      "value": "校正"
+    },
+    {
+      "name": "retry_failed",
+      "value": "仅重试失败项"
+    },
+    {
+      "name": "executing",
+      "value": "执行中"
+    },
+    {
+      "name": "no_logs",
+      "value": "暂无发送记录"
+    },
+    {
+      "name": "read_only_hint",
+      "value": "本设备无红外发射能力，无法发送红外指令"
+    },
+    {
+      "name": "send_success",
+      "value": "发送成功"
+    },
+    {
+      "name": "send_failed",
+      "value": "发送失败"
+    },
+    {
+      "name": "expected_on",
+      "value": "预期开启"
+    },
+    {
+      "name": "expected_off",
+      "value": "预期关闭"
+    },
+    {
+      "name": "expected_unknown",
+      "value": "状态未知"
+    },
+    {
+      "name": "status_pending",
+      "value": "待发送"
+    },
+    {
+      "name": "status_sending",
+      "value": "发送中"
+    },
+    {
+      "name": "status_success",
+      "value": "成功"
+    },
+    {
+      "name": "status_failed",
+      "value": "失败"
+    },
+    {
+      "name": "step_label",
+      "value": "第 %d 步"
+    },
+    {
+      "name": "step_dash",
+      "value": "—"
+    },
+    {
+      "name": "duration_ms",
+      "value": "%d ms"
+    },
+    {
+      "name": "msg_read_only_send",
+      "value": "本设备无红外发射能力，无法发送红外指令"
+    },
+    {
+      "name": "msg_busy_running",
+      "value": "正在执行中"
+    },
+    {
+      "name": "msg_busy",
+      "value": "忙碌"
+    },
+    {
+      "name": "msg_no_retry",
+      "value": "没有可重试的失败步骤"
+    },
+    {
+      "name": "msg_invalid_scene",
+      "value": "场景配置无效"
+    },
+    {
+      "name": "msg_scene_key_missing",
+      "value": "场景键位不存在"
+    },
+    {
+      "name": "msg_ir_code_missing",
+      "value": "红外码不存在"
+    },
+    {
+      "name": "msg_ir_compile_failed",
+      "value": "红外码编译失败"
+    },
+    {
+      "name": "msg_scene_no_steps",
+      "value": "场景没有可发送的步骤"
+    },
+    {
+      "name": "msg_scene_done",
+      "value": "场景执行完成"
+    },
+    {
+      "name": "msg_scene_partial",
+      "value": "部分步骤发送失败"
+    },
+    {
+      "name": "msg_device_missing",
+      "value": "设备不存在"
+    },
+    {
+      "name": "msg_device_no_keys",
+      "value": "该设备没有可用键位"
+    },
+    {
+      "name": "msg_key_missing",
+      "value": "键位不存在"
+    },
+    {
+      "name": "msg_run_summary",
+      "value": "成功 %d/%d 步"
+    }
+  ]
+}
