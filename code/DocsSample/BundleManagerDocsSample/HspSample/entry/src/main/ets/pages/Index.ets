@@ -14,9 +14,9 @@
  */
 
 import { Log, add, MyTitleBar, ResManager, nativeMulti } from 'library';
-import { BusinessError } from '@ohos.base';
+import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../logger/Logger';
-import router from '@ohos.router';
+import { router } from '@kit.ArkUI';
 
 const TAG = 'Index';
 
@@ -45,7 +45,7 @@ struct Index {
         .margin({ top: 30, bottom: 10 })
 
         ListItem() {
-          // ResManager返回的Resource对象，可以传给组件直接使用，也可以从中取出资源来使用
+          // ResManager���ص�Resource���󣬿��Դ������ֱ��ʹ�ã�Ҳ���Դ���ȡ����Դ��ʹ��
           Image(ResManager.getPic())
             .id('image')
             .borderRadius('48px')
@@ -90,7 +90,7 @@ struct Index {
         .margin({ top: 10, bottom: 10 })
         .padding({ left: 12, right: 12, top: 4, bottom: 4 })
         .onClick(() => {
-          // 先通过当前上下文获取hsp模块的上下文，再获取hsp模块的resourceManager，然后再调用resourceManager的接口获取资源
+          // ��ͨ����ǰ�����Ļ�ȡhspģ��������ģ��ٻ�ȡhspģ���resourceManager��Ȼ���ٵ���resourceManager�Ľӿڻ�ȡ��Դ
           getContext()
             .createModuleContext('library')
             .resourceManager
@@ -190,7 +190,7 @@ struct Index {
         .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
         .margin({ top: 10, bottom: 10 })
         .padding({ left: 12, right: 12, top: 4, bottom: 4 })
-        // 绑定点击事件
+        // �󶨵���¼�
         .onClick(() => {
           router.pushUrl({
             url: '@bundle:com.samples.hspsample/library/ets/pages/Back'
