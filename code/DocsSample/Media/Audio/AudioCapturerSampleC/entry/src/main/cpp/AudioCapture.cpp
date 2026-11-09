@@ -525,7 +525,8 @@ napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
     }
 
     OH_AudioStreamInfo streamInfo;
-    streamInfo.samplingRate = 48000;
+    const int SAMPLING_RATE_48K = 48000;
+    streamInfo.samplingRate = SAMPLING_RATE_48K;
     streamInfo.channelLayout = CH_LAYOUT_STEREO;
     streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
     streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
@@ -572,7 +573,8 @@ napi_value CreateUltraFastCapturer(napi_env env, napi_callback_info info)
     // [Start frameSize_UltraFast_Capture]
     // 超低时延模式回调数据长度为2.5ms：48000Hz下帧长须精确为120帧，否则建流失败。
     // [End frameSize_UltraFast_Capture]
-    OH_AudioStreamBuilder_SetFrameSizeInCallback(builder, 120);
+    const int ULTRA_FAST_FRAME_SIZE_IN_CALLBACK = 120; // 2.5ms@48kHz，超低时延模式要求精确帧长
+    OH_AudioStreamBuilder_SetFrameSizeInCallback(builder, ULTRA_FAST_FRAME_SIZE_IN_CALLBACK);
     OH_AudioStreamBuilder_SetSampleFormat(builder, AUDIOSTREAM_SAMPLE_S16LE);
     OH_AudioStreamBuilder_SetEncodingType(builder, AUDIOSTREAM_ENCODING_TYPE_RAW);
     OH_AudioStreamBuilder_SetCapturerInfo(builder, AUDIOSTREAM_SOURCE_TYPE_MIC);
