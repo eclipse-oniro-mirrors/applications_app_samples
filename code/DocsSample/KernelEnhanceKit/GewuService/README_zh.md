@@ -114,9 +114,8 @@ Gewu NDK 接口的调用与 NAPI 注册集中在 `napi_init.cpp`，源码参考�
 如需单独下载本工程，执行如下命令：
 
 ```text
-git init
+git clone --filter=blob:none https://gitcode.com/openharmony/applications_app_samples.git
+cd applications_app_samples
 git config core.sparsecheckout true
-echo code/BasicFeature/Native/GewuService/ > .git/info/sparse-checkout
-git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
-git pull origin master
+git sparse-checkout set code\DocsSample\KernelEnhanceKit\GewuService
 ```
