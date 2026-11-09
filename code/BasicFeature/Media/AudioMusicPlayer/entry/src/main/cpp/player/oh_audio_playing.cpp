@@ -599,6 +599,24 @@ static const char* GetFileExtension(const char* fileName)
     return strrchr(fileName, '.');
 }
 
+static bool PrepareSongFormat(uint32_t songFd, AudioFileOprInfo* info, const char* fileExt,
+    uint32_t songFileSize, uint32_t songFileOffset)
+{
+    if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
+        OH_LOG_INFO(LOG_APP, "Detected PCM file format");
+        // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
+        info->sampleRate = DEFAULT_SAMPLE_RATE;
+        info->channels = DEFAULT_CHANNEL_COUNT;
+        info->bitsPerSample = BITS_PER_SAMPLE_16;
+        return true;
+    }
+    if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
+        return HandleWavFile(songFd, info, songFileSize, songFileOffset);
+    }
+    OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
+    return false;
+}
+
 void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t songFileSize,
     uint32_t songFileOffset)
 {
@@ -617,35 +635,15 @@ void OHAudioPlayer::LoadSongInfo(const char *fileName, uint32_t songFd, uint32_t
         return;
     }
 
-    bool success = false;
-    if (strcmp(fileExt, ".wav") == 0 || strcmp(fileExt, ".WAV") == 0) {
-        success = HandleWavFile(songFd, audioFileOprInfo, songFileSize, songFileOffset);
-        if (!success) {
-            OH_LOG_ERROR(LOG_APP, "Load song failed, wav header invalid: %{public}s", fileName);
-            ReleaseCurrentSong();
-            return;
-        }
-        ReconfigurePlayer();
-        if (audioRenderer == nullptr) {
-            OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
-            ReleaseCurrentSong();
-            return;
-        }
-    } else if (strcmp(fileExt, ".pcm") == 0 || strcmp(fileExt, ".PCM") == 0) {
-        OH_LOG_INFO(LOG_APP, "Detected PCM file format");
-        // 裸 PCM 没有头信息，按渲染器的默认采样参数换算时长，否则格式缺省会让时长退化为 0。
-        audioFileOprInfo->sampleRate = DEFAULT_SAMPLE_RATE;
-        audioFileOprInfo->channels = DEFAULT_CHANNEL_COUNT;
-        audioFileOprInfo->bitsPerSample = BITS_PER_SAMPLE_16;
-        ReconfigurePlayer();
-        if (audioRenderer == nullptr) {
-            OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
-            ReleaseCurrentSong();
-            return;
-        }
-        success = true;
-    } else {
-        OH_LOG_ERROR(LOG_APP, "Unsupported file format: %{public}s", fileExt);
+    if (!PrepareSongFormat(songFd, audioFileOprInfo, fileExt, songFileSize, songFileOffset)) {
+        OH_LOG_ERROR(LOG_APP, "Load song failed, unsupported format or invalid header: %{public}s", fileName);
+        ReleaseCurrentSong();
+        return;
+    }
+
+    ReconfigurePlayer();
+    if (audioRenderer == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "Load song failed, reconfigure player failed: %{public}s", fileName);
         ReleaseCurrentSong();
         return;
     }
