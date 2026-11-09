@@ -61,3 +61,6 @@ export const HiCollieTestTimerNdk: () => void;
 // [Start MainThreadJank_Index.d.ts]
 export const RegisterMainThreadJankWatcher: () => void;
 // [End MainThreadJank_Index.d.ts]
+// [Start ExternalLog_Index.d.ts]
+export const registerExternalLogMgr: () => void;
+// [End ExternalLog_Index.d.ts]
