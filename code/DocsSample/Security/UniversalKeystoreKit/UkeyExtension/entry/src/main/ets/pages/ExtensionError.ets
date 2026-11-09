@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [extension_error_arkts]
+// [Start extension_error_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { util } from '@kit.ArkTS';
 
@@ -40,7 +40,7 @@ async function testExtensionError(): Promise<void> {
       value: stringToUint8Array(pin)
     }
   ];
-
+  
   /* 3.验证PIN码失败后获取错误信息 */
   try {
     await huksExternalCrypto.getUkeyPinAuthState(testResourceId, params);
@@ -52,4 +52,4 @@ async function testExtensionError(): Promise<void> {
     }
   }
 }
-// [extension_error_arkts]
+// [End extension_error_arkts]

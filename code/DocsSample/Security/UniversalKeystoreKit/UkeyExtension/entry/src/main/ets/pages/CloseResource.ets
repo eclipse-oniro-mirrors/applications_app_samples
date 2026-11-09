@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [close_resource_arkts]
+// [Start close_resource_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -40,4 +40,4 @@ async function closeResource(): Promise<void> {
     console.error('promise: closeResource input arg invalid.');
   }
 }
-// [close_resource_arkts]
+// [End close_resource_arkts]

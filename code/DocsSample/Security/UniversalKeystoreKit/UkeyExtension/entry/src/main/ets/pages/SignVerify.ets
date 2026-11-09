@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,10 @@
  * limitations under the License.
  */
 
-// [ukey_sign_verify_arkts]
+// [Start ukey_sign_verify_arkts]
+/*
+ * 密钥算法为RSA，摘要算法为SHA256，填充模式为PSS
+ */
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -106,4 +109,4 @@ async function signAndVerify() {
     console.error('signAndVerify input arg invalid.');
   }
 }
-// [ukey_sign_verify_arkts]
+// [End ukey_sign_verify_arkts]

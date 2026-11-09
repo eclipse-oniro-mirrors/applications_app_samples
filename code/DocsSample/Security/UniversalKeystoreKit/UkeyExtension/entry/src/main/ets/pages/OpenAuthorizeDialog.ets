@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [open_authorize_dialog_ets]
+// [Start open_authorize_dialog_ets]
 import { certificateManagerDialog, certificateManager } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
@@ -60,4 +60,4 @@ struct AuthorizeDialogPage {
     }
   }
 }
-// [open_authorize_dialog_ets]
+// [End open_authorize_dialog_ets]

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [extension_key_export_arkts]
+// [Start extension_key_export_arkts]
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -90,4 +90,4 @@ async function extensionKeyExport(): Promise<Uint8Array> {
   }
   return publicKey;
 }
-// [extension_key_export_arkts]
+// [End extension_key_export_arkts]

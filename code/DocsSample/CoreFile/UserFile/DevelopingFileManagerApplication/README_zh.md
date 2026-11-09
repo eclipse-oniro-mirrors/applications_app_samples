@@ -1,10 +1,10 @@
-# 开发用户文件管理器（仅对系统应用开放）
+# 开发用户文件管理器
 
 ### 介绍
 
-本示例主要展示了自行开发文件管理器与开发设备上下线，使用[@ohos.file.fileAccess](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md)等，实现了查询设备列表、浏览目录、操作文件或目录、监听设备上下线的功能。该工程中展示的代码详细描述可查如下链接。
+本示例主要展示了自行开发文件管理器与开发文件监听，使用[@ohos.file.fs](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-fs.md)（fileIo）等，实现了在应用沙箱目录下创建文件、监听目录文件变化的功能。该工程中展示的代码详细描述可查如下链接。
 
-- [开发用户文件管理器](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/file-management/dev-user-file-manager.md)
+- [开发用户文件管理器](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/dev-user-file-manager.md)
 
 ### 效果预览
 
@@ -23,8 +23,8 @@
 使用说明:
 
 1. 在主界面，可以选择点击DevelopingFileManagerApplication按钮切换到开发用户文件管理器页面，点击ListeningForDeviceOnline/OfflineStatus按钮切换到监听设备上下线页面。
-2. 在开发用户文件管理器页面，点击CreateFile按钮，将在指定目录创建一个文件，在日志中打印文件的uri，在页面文本框输出创建成功消息。
-3. 在监听用户上下线页面，点击RegisterToMonitorTheDevice按钮，此时开发板将监听外置存储设备的上下线，将U盘插入到开发板，日志将输出“NotifyType: ”与“NotifyUri:”，并将监听成功的结果输出到页面文本框。点击CancelMonitoringTheDevice按钮将取消监听。
+2. 在开发用户文件管理器页面，点击CreateFile按钮，将在应用沙箱目录下创建一个文件并写入内容，在日志中打印文件路径，在页面文本框输出创建成功消息。
+3. 在监听页面，点击RegisterToMonitorTheDevice按钮，应用将监听沙箱目录的文件变化，并自动创建一个演示文件触发监听回调，日志将输出“NotifyType: ”与“NotifyFile:”，并将监听成功的结果输出到页面文本框。点击CancelMonitoringTheDevice按钮将取消监听。
 
 ### 工程目录
 
@@ -49,21 +49,17 @@
 ### 具体实现
 
 * 开发用户文件管理器：
-    * 权限配置和导入模块。 申请ohos.permission.FILE_ACCESS_MANAGER和ohos.permission.GET_BUNDLE_INFO_PRIVILEGED权限，参见[申请应用权限](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/determine-application-mode.md)。
-    * 导入依赖模块。
-    * 创建一个文件访问助手对象，然后使用该对象获取根目录迭代器，并遍历所有根目录信息。
-    * 使用listfile接口遍历下一级所有文件（目录）的迭代器对象；通过scanfile过滤指定目录，获取满足条件的迭代器对象。
-    * 定义目标目录的 URI 和文件的显示名称，然后使用 [createFile](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md#createfile)方法创建文件。
-* 开发监听设备上下线：
-    * 权限配置和导入模块。
-    * 导入依赖模块。
-    * 根据[DEVICES_URI](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md#常量)，传入方法registerObserver()中，能监听设备上下线状态。传入方法unregisterObserver()中，能取消监听设备上线，下线状态。
+    * 通过 `getUIContext().getHostContext()` 获取应用上下文，使用 `filesDir` 定位应用沙箱目录。
+    * 使用 fileIo 的 `openSync`、`writeSync` 和 `closeSync` 在沙箱目录创建并写入文件；写入异常时通过 `finally` 关闭文件句柄。
+    * 创建成功后在页面显示 `CreateDocumentUriSuccess`，并在日志中打印文件路径。
+* 开发文件监听：
+    * 使用 `fs.createWatcher()` 监听应用沙箱目录，通过 `WATCH_EVENTS` 订阅文件变化事件。
+    * 调用 `watcher.start()` 启动监听，并在回调中输出 `NotifyType` 和 `NotifyFile`。
+    * 取消监听时调用 `watcher.stop()`；重复注册前先停止并释放旧 watcher。
 
 ### 相关权限
 
-[ohos.permission.FILE_ACCESS_MANAGER](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionfile_access_manager)
-
-[ohos.permission.GET_BUNDLE_INFO_PRIVILEGED](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionget_bundle_info_privileged)
+本示例仅在应用沙箱目录内操作和监听文件，无需申请特殊权限。
 
 ### 依赖
 
@@ -73,11 +69,11 @@
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例已适配API16版本SDK，版本号：5.1.0.47，镜像版本号：OpenHarmony5.1.0.47。
+2.本示例已适配API 26版本SDK，SDK版本号（API Version 26 Release）。
 
-3.本示例需要使用DevEco Studio （5.0.3.910）及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio （26.0.0 Release）及以上版本才可编译运行。
 
-4.本示例相关权限为system_basic级别，需要配置高权限签名，可参考[申请使用受控权限](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)。
+4.本示例使用应用沙箱目录进行文件操作与监听，无需申请特殊权限。
 
 ### 下载
 
@@ -87,6 +83,6 @@
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/CoreFile/UserFile/DevelopingFileManagerApplication > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

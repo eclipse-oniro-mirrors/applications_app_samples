@@ -1,0 +1,250 @@
+{
+  "string": [
+    {"name": "preview_text", "value": "预上屏文本"},
+    {
+      "name": "preview_sample_name",
+      "value": "预上屏样式",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "app_desc",
+      "value": "预上屏下划线样式示例",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "ime_desc",
+      "value": "向编辑器发送预上屏文字和样式",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "page_title",
+      "value": "预上屏样式示例",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "page_hint",
+      "value": "在输入法设置中选择“预上屏样式”，返回后绑定编辑器。",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "settings",
+      "value": "输入法设置",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "custom_hint",
+      "value": "点击“发送预上屏”显示红色波浪线，点击“结束预上屏”保留文字并清除下划线。",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "editor_placeholder",
+      "value": "预上屏文字将显示在这里",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "attach",
+      "value": "绑定编辑器",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "detach",
+      "value": "解绑编辑器",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "keyboard_title",
+      "value": "预上屏样式",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "finish",
+      "value": "结束预上屏",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "send_preview",
+      "value": "发送预上屏",
+      "description": "示例应用文案"
+    },
+    {
+      "name": "editor_attach_failed",
+      "value": "绑定失败（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_cleanup_failed",
+      "value": "；清理未完成（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_detach_failed",
+      "value": "解绑失败（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "open_c_editor_failed",
+      "value": "无法打开 C 编辑器（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_waiting",
+      "value": "等待绑定编辑器",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "preview_displayed",
+      "value": "预上屏已显示",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_connected_hint",
+      "value": "编辑器已绑定，请使用下方键盘",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_disconnected",
+      "value": "编辑器已解绑",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "open_c_editor",
+      "value": "打开 C 编辑器",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "waiting_editor_connection",
+      "value": "等待编辑器连接",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "keyboard_unavailable",
+      "value": "键盘暂不可用（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "keyboard_close_failed",
+      "value": "键盘关闭失败（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "preview_send_failed",
+      "value": "预上屏失败（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "preview_finish_failed",
+      "value": "结束预上屏失败（错误码 %d）",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "bind_editor_first",
+      "value": "请先绑定编辑器",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "editor_connected",
+      "value": "编辑器已连接",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "operation_busy",
+      "value": "正在处理，请稍候",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "preview_finished",
+      "value": "预上屏已结束",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "settings_open_failed",
+      "value": "输入法设置打开失败（错误码 %d），请检查系统输入法管理功能。",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "confirm",
+      "value": "确定",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "ime_enabled_hint",
+      "value": "示例输入法已启用，可以返回并绑定编辑器。",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "settings_unavailable_hint",
+      "value": "当前系统未提供输入法设置入口。请在具备输入法管理功能的系统中启用“预上屏样式”。",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "select_ime_hint",
+      "value": "请选择“预上屏样式”，然后返回本应用",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_start_hint",
+      "value": "点击编辑框或绑定按钮开始",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "native_module_unavailable",
+      "value": "当前运行环境无法加载原生模块",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_bound",
+      "value": "已绑定，等待输入",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_bind_failed",
+      "value": "绑定失败，返回码：%d",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_unbound",
+      "value": "已解绑",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_unbind_failed",
+      "value": "解绑失败，返回码：%d",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_preview_title",
+      "value": "C 预上屏样式示例",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "return_to_js",
+      "value": "返回 JS",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_editor_placeholder",
+      "value": "点击此处输入",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "unbind",
+      "value": "解绑",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "bind",
+      "value": "绑定",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_preview_received",
+      "value": "已收到预上屏样式",
+      "description": "示例界面文案"
+    },
+    {
+      "name": "c_preview_usage_hint",
+      "value": "启用本工程输入法后，点击“发送预上屏”。",
+      "description": "示例界面文案"
+    }
+  ]
+}

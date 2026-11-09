@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [get_resource_id_arkts]
+// [Start get_resource_id_arkts]
 import { huksExternalCrypto } from '@kit.UniversalKeystoreKit';
 import { util } from '@kit.ArkTS';
 
@@ -47,4 +47,4 @@ async function getResourceId(): Promise<string> {
   console.info(`promise: getResourceId success, resourceId: ${resourceId}`);
   return resourceId;
 }
-// [get_resource_id_arkts]
+// [End get_resource_id_arkts]

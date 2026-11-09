@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [ukey_best_practice_arkts]
+// [Start ukey_best_practice_arkts]
 import testNapi from 'libentry.so';
 @Entry
 @Component
@@ -37,4 +37,4 @@ struct Index {
         .height('100%')
     }
 }
-// [ukey_best_practice_arkts]
+// [End ukey_best_practice_arkts]
