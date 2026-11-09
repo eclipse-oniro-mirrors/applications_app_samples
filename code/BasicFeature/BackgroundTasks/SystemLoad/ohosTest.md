@@ -537,7 +537,7 @@
 
 ## a11y 与性能基准测试用例
 
-`AccessibilityPerformance.test.ets` 测试套件覆盖 a11y（无障碍）和性能基准测试。这些用例根据 skill 规范实施，确保系统的可访问性和性能稳定性。
+`AccessiblePerf.test.ets` 测试套件覆盖 a11y（无障碍）和性能基准测试。这些用例根据 skill 规范实施，确保系统的可访问性和性能稳定性。
 
 ### a11y 测试
 

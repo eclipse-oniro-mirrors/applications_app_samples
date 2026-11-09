@@ -28,7 +28,7 @@ import listenerStateManagementTest from './ListenerStateManagement.test';
 import uiComponentStateTest from './UIComponentState.test';
 import concurrencySafetyTest from './ConcurrencySafety.test';
 import i18nThemeTest from './I18nTheme.test';
-import accessibilityPerformanceTest from './AccessibilityPerformance.test';
+import accessiblePerfTest from './AccessiblePerf.test';
 import boundaryExtensionPart1Test from './BoundaryExtensionPart1.test';
 import boundaryExtensionPart2Test from './BoundaryExtensionPart2.test';
 import boundaryExtensionPart3Test from './BoundaryExtensionPart3.test';
@@ -50,7 +50,7 @@ export default function testsuite() {
   uiComponentStateTest();
   concurrencySafetyTest();
   i18nThemeTest();
-  accessibilityPerformanceTest();
+  accessiblePerfTest();
   boundaryExtensionPart1Test();
   boundaryExtensionPart2Test();
   boundaryExtensionPart3Test();

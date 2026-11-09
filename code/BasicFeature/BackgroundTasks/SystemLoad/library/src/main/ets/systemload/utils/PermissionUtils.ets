@@ -256,7 +256,7 @@ export class PermissionUtils {
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION
       );
       const permissions: string[] = [];
-      // ApplicationInfo.permissions是Array<string>类型，包含应用声明的权限列表
+      // ApplicationInfo.permissions是string[]类型，包含应用声明的权限列表
       const appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
       const appPermissions: string[] = appInfo.permissions;
       if (appPermissions) {

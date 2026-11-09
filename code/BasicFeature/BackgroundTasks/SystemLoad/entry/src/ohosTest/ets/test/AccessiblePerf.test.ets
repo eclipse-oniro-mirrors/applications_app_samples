@@ -23,7 +23,7 @@ import { BusinessError, systemLoad } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN_NUMBER = 0x0000;
-const BUNDLE = 'AccessibilityPerformanceTest: ';
+const BUNDLE = 'AccessiblePerfTest: ';
 
 type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
 
@@ -34,19 +34,19 @@ interface Logger {
 }
 
 const logger: Logger = {
-  info: (msg: string) => hilog.info(DOMAIN_NUMBER, 'AccessibilityPerformanceTest', msg),
-  warn: (msg: string) => hilog.warn(DOMAIN_NUMBER, 'AccessibilityPerformanceTest', msg),
-  error: (msg: string) => hilog.error(DOMAIN_NUMBER, 'AccessibilityPerformanceTest', msg)
+  info: (msg: string) => hilog.info(DOMAIN_NUMBER, 'AccessiblePerfTest', msg),
+  warn: (msg: string) => hilog.warn(DOMAIN_NUMBER, 'AccessiblePerfTest', msg),
+  error: (msg: string) => hilog.error(DOMAIN_NUMBER, 'AccessiblePerfTest', msg)
 };
 
 function isValidLevel(level: systemLoad.SystemLoadLevel): boolean {
   return level >= systemLoad.SystemLoadLevel.LOW && level <= systemLoad.SystemLoadLevel.ESCAPE;
 }
 
-export default function accessibilityPerformanceTest() {
+export default function accessiblePerfTest() {
   let registeredCallbacks: SystemLoadCallback[] = [];
 
-  describe('SystemLoadAccessibilityPerformanceTest', () => {
+  describe('SystemLoadAccessiblePerfTest', () => {
     afterEach(() => {
       for (const callback of registeredCallbacks) {
         try {
@@ -64,15 +64,15 @@ export default function accessibilityPerformanceTest() {
     // ========================================================================
 
     /**
-     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0100
-     * @tc.name      testAccessibilityScreenReaderSupport0001
+     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0100
+     * @tc.name      testAccessibleScreenReaderSupport0001
      * @tc.desc      Verify that UI elements support screen reader 无障碍功能
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testAccessibilityScreenReaderSupport0001', 0, async () => {
-      logger.info(`${BUNDLE}testAccessibilityScreenReaderSupport0001, begin`);
+    it('testAccessibleScreenReaderSupport0001', 0, async () => {
+      logger.info(`${BUNDLE}testAccessibleScreenReaderSupport0001, begin`);
 
       const uiElements: string[] = [
         'level_card',
@@ -99,15 +99,15 @@ export default function accessibilityPerformanceTest() {
     });
 
     /**
-     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBILITY_0200
-     * @tc.name      testAccessibilityKeyboardNavigation0002
+     * @tc.number    SUB_SYSTEMLOAD_ACCESSIBLE_0200
+     * @tc.name      testAccessibleKeyboardNavigation0002
      * @tc.desc      Verify that interactive elements support keyboard navigation 无障碍功能
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 5
      */
-    it('testAccessibilityKeyboardNavigation0002', 0, async () => {
-      logger.info(`${BUNDLE}testAccessibilityKeyboardNavigation0002, begin`);
+    it('testAccessibleKeyboardNavigation0002', 0, async () => {
+      logger.info(`${BUNDLE}testAccessibleKeyboardNavigation0002, begin`);
 
       const focusableElements: string[] = [
         'mock_data_button',

@@ -256,7 +256,7 @@ export class AppEventUtils {
   static subscribe(
     watcherName: string,
     domain: string,
-    callback: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => void
+    callback: (domain: string, appEventGroups: hiAppEvent.AppEventGroup[]) => void
   ): boolean {
     // 记录方法调用日志
     hilog.debug(DOMAIN, TAG, `subscribe() called with watcher: ${watcherName}`);
