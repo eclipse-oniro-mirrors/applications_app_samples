@@ -28,7 +28,7 @@ import cloudDisk, {
   SyncFolder
 } from 'libentry.so';
 
-const BUNDLE_NAME: string = 'com.cloud.disk001';
+const BUNDLE_NAME: string = 'com.samples.clouddisk';
 const ABILITY_NAME: string = 'EntryAbility';
 const TAG: string = 'CloudDiskTest';
 const DOMAIN: number = 0xF812;
@@ -205,6 +205,16 @@ async function findWithScroll(driver: Driver, id: string): Promise<Component> {
   return component;
 }
 
+async function assertComponentId(component: Component, id: string): Promise<void> {
+  if (!component) {
+    log('component not found: ' + id);
+    expect().assertFail();
+    return;
+  }
+  log('verify component: ' + id);
+  expect(await component.getId()).assertEqual(id);
+}
+
 async function openSubpage(driver: Driver, buttonId: string, pageId: string): Promise<boolean> {
   if (!await ensureMain(driver)) {
     return false;
@@ -270,7 +280,13 @@ export default function cloudDiskTest() {
           ];
           for (let i = 0; i < ids.length; i++) {
             const component: Component = await driver.findComponent(ON.id(ids[i]));
-            expect(await component.getId()).assertEqual(ids[i]);
+            if (!component) {
+              log('component not found: ' + ids[i]);
+              expect().assertFail();
+              return;
+            }
+            log('verify component: ' + ids[i]);
+            await assertComponentId(component, ids[i]);
           }
           expect(await getTextById(driver, 'noSyncRootText')).assertEqual('未注册同步根');
         } catch (err) {
@@ -296,11 +312,23 @@ export default function cloudDiskTest() {
           expect(await switchToPlaceholderTab(driver)).assertTrue();
           expect(await getTextById(driver, 'placeholderTitle')).assertEqual(MODULE_TITLES[0]);
           const backTab: Component = await driver.waitForComponent(ON.id('tabSyncRoot'), 3000);
-          expect(await backTab.getId()).assertEqual('tabSyncRoot');
+          if (!backTab) {
+            log('back tab not found');
+            expect().assertFail();
+            return;
+          }
+          log('verify back tab');
+          await assertComponentId(backTab, 'tabSyncRoot');
           await backTab.click();
           await sleep(800);
           const register: Component = await driver.findComponent(ON.id('registerSyncRootBtn'));
-          expect(await register.getId()).assertEqual('registerSyncRootBtn');
+          if (!register) {
+            log('register button not found');
+            expect().assertFail();
+            return;
+          }
+          log('verify register button');
+          await assertComponentId(register, 'registerSyncRootBtn');
         } catch (err) {
           log(`testTabSwitch0002 failed: ${String(err)}`);
           expect().assertFail();
@@ -339,16 +367,24 @@ export default function cloudDiskTest() {
               await sleep(300);
               menu = await driver.findComponent(ON.id(menuId));
             }
-            expect(await menu.getId()).assertEqual(menuId);
             if (!menu) {
               log('menu not found: ' + menuId);
+              expect().assertFail();
               break;
             }
+            log('verify menu: ' + menuId);
+            await assertComponentId(menu, menuId);
             await menu.click();
             await sleep(150);
             const title: Component = await driver.findComponent(ON.id('placeholderTitle'));
-            expect(await title.getId()).assertEqual('placeholderTitle');
-            const titleText: string = title ? await title.getText() : '';
+            if (!title) {
+              log('placeholder title not found');
+              expect().assertFail();
+              break;
+            }
+            log('verify placeholder title');
+            await assertComponentId(title, 'placeholderTitle');
+            const titleText: string = await title.getText();
             expect(titleText).assertEqual(MODULE_TITLES[i]);
           }
         } catch (err) {
@@ -378,14 +414,23 @@ export default function cloudDiskTest() {
           }
           for (let i = 0; i < 6; i++) {
             const menu: Component = await driver.findComponent(ON.id('placeholderMenu' + i));
-            expect(await menu.getId()).assertEqual('placeholderMenu' + i);
             if (!menu) {
+              log('menu not found: placeholderMenu' + i);
+              expect().assertFail();
               break;
             }
+            log('verify menu: placeholderMenu' + i);
+            await assertComponentId(menu, 'placeholderMenu' + i);
             await menu.click();
             await sleep(150);
             const button: Component = await findWithScroll(driver, MODULE_BUTTONS[i]);
-            expect(await button.getId()).assertEqual(MODULE_BUTTONS[i]);
+            if (!button) {
+              log('button not found: ' + MODULE_BUTTONS[i]);
+              expect().assertFail();
+              break;
+            }
+            log('verify button: ' + MODULE_BUTTONS[i]);
+            await assertComponentId(button, MODULE_BUTTONS[i]);
           }
         } catch (err) {
           log(`testModulePrimaryButtons0004 failed: ${String(err)}`);
@@ -425,16 +470,24 @@ export default function cloudDiskTest() {
               await sleep(300);
               menu = await driver.findComponent(ON.id(menuId));
             }
-            expect(await menu.getId()).assertEqual(menuId);
             if (!menu) {
               log('menu not found: ' + menuId);
+              expect().assertFail();
               break;
             }
+            log('verify menu: ' + menuId);
+            await assertComponentId(menu, menuId);
             await menu.click();
             await sleep(150);
             const title: Component = await driver.findComponent(ON.id('placeholderTitle'));
-            expect(await title.getId()).assertEqual('placeholderTitle');
-            const titleText: string = title ? await title.getText() : '';
+            if (!title) {
+              log('placeholder title not found');
+              expect().assertFail();
+              break;
+            }
+            log('verify placeholder title');
+            await assertComponentId(title, 'placeholderTitle');
+            const titleText: string = await title.getText();
             expect(titleText).assertEqual(MODULE_TITLES[i]);
           }
         } catch (err) {
@@ -460,14 +513,23 @@ export default function cloudDiskTest() {
           expect(await switchToPlaceholderTab(driver)).assertTrue();
           for (let i = 6; i < 9; i++) {
             const menu: Component = await driver.findComponent(ON.id('placeholderMenu' + i));
-            expect(await menu.getId()).assertEqual('placeholderMenu' + i);
             if (!menu) {
+              log('menu not found: placeholderMenu' + i);
+              expect().assertFail();
               break;
             }
+            log('verify menu: placeholderMenu' + i);
+            await assertComponentId(menu, 'placeholderMenu' + i);
             await menu.click();
             await sleep(150);
             const button: Component = await findWithScroll(driver, MODULE_BUTTONS[i]);
-            expect(await button.getId()).assertEqual(MODULE_BUTTONS[i]);
+            if (!button) {
+              log('button not found: ' + MODULE_BUTTONS[i]);
+              expect().assertFail();
+              break;
+            }
+            log('verify button: ' + MODULE_BUTTONS[i]);
+            await assertComponentId(button, MODULE_BUTTONS[i]);
           }
         } catch (err) {
           log(`testModulePrimaryButtons0006 failed: ${String(err)}`);
@@ -501,14 +563,14 @@ export default function cloudDiskTest() {
           for (let i = 9; i < MODULE_TITLES.length; i++) {
             log('checking module ' + i.toString());
             const menu: Component = await driver.findComponent(ON.id('placeholderMenu' + i));
-            expect(await menu.getId()).assertEqual('placeholderMenu' + i);
+            await assertComponentId(menu, 'placeholderMenu' + i);
             if (!menu) {
               break;
             }
             await menu.click();
             await sleep(150);
             const title: Component = await driver.findComponent(ON.id('placeholderTitle'));
-            expect(await title.getId()).assertEqual('placeholderTitle');
+            await assertComponentId(title, 'placeholderTitle');
             const titleText: string = title ? await title.getText() : '';
             expect(titleText).assertEqual(MODULE_TITLES[i]);
           }
@@ -534,7 +596,7 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await ensureMain(driver)).assertTrue();
           const register: Component = await driver.waitForComponent(ON.id('registerSyncRootBtn'), 3000);
-          expect(await register.getId()).assertEqual('registerSyncRootBtn');
+          await assertComponentId(register, 'registerSyncRootBtn');
           await register.click();
           await sleep(1000);
           const title: Component = await driver.waitForComponent(ON.text('执行失败'), 3000);
@@ -566,7 +628,7 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await openModule(driver, 0)).assertTrue();
           const create: Component = await driver.waitForComponent(ON.id('createPlaceholderBtn'), 3000);
-          expect(await create.getId()).assertEqual('createPlaceholderBtn');
+          await assertComponentId(create, 'createPlaceholderBtn');
           await create.click();
           await sleep(1000);
           const title: Component = await driver.waitForComponent(ON.text('创建失败'), 3000);
@@ -620,15 +682,15 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await openSubpage(driver, 'setSyncStatesBtn', 'setSyncStatesPage')).assertTrue();
           const add: Component = await driver.waitForComponent(ON.id('setAddRowBtn'), 3000);
-          expect(await add.getId()).assertEqual('setAddRowBtn');
+          await assertComponentId(add, 'setAddRowBtn');
           await add.click();
           await sleep(500);
           const submit: Component = await driver.findComponent(ON.id('setSubmitBtn'));
-          expect(await submit.getId()).assertEqual('setSubmitBtn');
+          await assertComponentId(submit, 'setSubmitBtn');
           await submit.click();
           await sleep(800);
           const page: Component = await driver.findComponent(ON.id('setSyncStatesPage'));
-          expect(await page.getId()).assertEqual('setSyncStatesPage');
+          await assertComponentId(page, 'setSyncStatesPage');
         } catch (err) {
           log(`testSetSyncStatesPage0011 failed: ${String(err)}`);
           expect().assertFail();
@@ -651,15 +713,15 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await openSubpage(driver, 'getSyncStatesBtn', 'getSyncStatesPage')).assertTrue();
           const add: Component = await driver.waitForComponent(ON.id('getAddRowBtn'), 3000);
-          expect(await add.getId()).assertEqual('getAddRowBtn');
+          await assertComponentId(add, 'getAddRowBtn');
           await add.click();
           await sleep(500);
           const submit: Component = await driver.findComponent(ON.id('getSubmitBtn'));
-          expect(await submit.getId()).assertEqual('getSubmitBtn');
+          await assertComponentId(submit, 'getSubmitBtn');
           await submit.click();
           await sleep(800);
           const page: Component = await driver.findComponent(ON.id('getSyncStatesPage'));
-          expect(await page.getId()).assertEqual('getSyncStatesPage');
+          await assertComponentId(page, 'getSyncStatesPage');
         } catch (err) {
           log(`testGetSyncStatesPage0012 failed: ${String(err)}`);
           expect().assertFail();
@@ -833,7 +895,7 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await ensureMain(driver)).assertTrue();
           const clear: Component = await driver.waitForComponent(ON.id('clearAllSyncRootsBtn'), 3000);
-          expect(await clear.getId()).assertEqual('clearAllSyncRootsBtn');
+          await assertComponentId(clear, 'clearAllSyncRootsBtn');
           await clear.click();
           await sleep(800);
           expect(await getTextById(driver, 'noSyncRootText')).assertEqual('未注册同步根');
@@ -860,7 +922,7 @@ export default function cloudDiskTest() {
           const driver: Driver = Driver.create();
           expect(await ensureMain(driver)).assertTrue();
           const input: Component = await driver.waitForComponent(ON.id('aliasInput'), 3000);
-          expect(await input.getId()).assertEqual('aliasInput');
+          await assertComponentId(input, 'aliasInput');
           await input.click();
           await sleep(500);
           await input.clearText();
@@ -891,12 +953,12 @@ export default function cloudDiskTest() {
           for (let i = 0; i < 3; i++) {
             expect(await switchToPlaceholderTab(driver)).assertTrue();
             const backTab: Component = await driver.waitForComponent(ON.id('tabSyncRoot'), 3000);
-            expect(await backTab.getId()).assertEqual('tabSyncRoot');
+            await assertComponentId(backTab, 'tabSyncRoot');
             await backTab.click();
             await sleep(600);
           }
           const register: Component = await driver.findComponent(ON.id('registerSyncRootBtn'));
-          expect(await register.getId()).assertEqual('registerSyncRootBtn');
+          await assertComponentId(register, 'registerSyncRootBtn');
         } catch (err) {
           log(`testRepeatedTabSwitch0020 failed: ${String(err)}`);
           expect().assertFail();

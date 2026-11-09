@@ -16,7 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { BundleInfo, getBundleInfo } from '../../../main/ets/common/Utils';
 
-const BUNDLE_NAME: string = 'com.cloud.disk001';
+const BUNDLE_NAME: string = 'com.samples.clouddisk';
 const ABILITY_NAME: string = 'EntryAbility';
 
 export default function cloudDiskBundleInfoTest(): void {

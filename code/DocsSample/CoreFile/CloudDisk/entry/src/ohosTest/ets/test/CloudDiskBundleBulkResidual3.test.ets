@@ -30,7 +30,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
@@ -118,7 +118,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
@@ -206,7 +206,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
@@ -294,7 +294,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
@@ -382,7 +382,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
@@ -470,7 +470,7 @@ export default function cloudDiskBundleBulkResidual3Test(): void {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const info: BundleInfo = getBundleInfo() as BundleInfo;
-          expect(info.bundleName).assertEqual('com.cloud.disk001');
+          expect(info.bundleName).assertEqual('com.samples.clouddisk');
           expect(info.abilityName).assertEqual('EntryAbility');
           expect(info.bundleName.length > 0).assertTrue();
         } catch (err) {
