@@ -26,9 +26,9 @@ import { text } from '../common/L10n';
 
 export class PatternSpec {
   public index: number;
-  /** 资源名（如 list_pattern_zh_label）：模块级常量在绑定资源管理器前就已构造，只能存名字 */
+  /** 资源名称（如 list_pattern_zh_label）：模块级常量在绑定资源管理器前就已构造，只能存名字 */
   public label: string;
-  /** 资源名（如 list_pattern_zh_hint），理由同上 */
+  /** 资源名称（如 list_pattern_zh_hint），理由同上 */
   public hint: string;
 
   constructor(index: number, label: string, hint: string) {

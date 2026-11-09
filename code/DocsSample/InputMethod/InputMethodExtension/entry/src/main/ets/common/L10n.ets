@@ -14,11 +14,11 @@
  */
 
 /**
- * 文案解析层：model/utils 只产出资源名，真正的文案统一从 string.json 取。
+ * 文案解析层：model/utils 只产出资源名称，真正的文案统一从 string.json 取。
  *
  * 为什么不直接用 $r()：$r 的入参必须是编译期字面量，而这一层要按状态返回不同资源
  * （例如 ApiStatus 有 6 种取值），只能用字符串名查表。bind 之后 text() 返回本地化文案；
- * 未 bind（纯逻辑单测早期）时原样返回资源名，便于直接发现初始化遗漏，不会静默给出错误文案。
+ * 未 bind（纯逻辑单测早期）时原样返回资源名称，便于直接发现初始化遗漏，不会静默给出错误文案。
  */
 
 import { resourceManager } from '@kit.LocalizationKit';
@@ -33,7 +33,7 @@ export function hasResourceManager(): boolean {
   return manager !== undefined;
 }
 
-/** 按资源名取文案；带占位符的模板最多支持三个参数（%s 传字符串，%d 传数字） */
+/** 按资源名称取文案；带占位符的模板最多支持三个参数（%s 传字符串，%d 传数字） */
 export function text(name: string, first?: string | number, second?: string | number,
                      third?: string | number): string {
   const current = manager;

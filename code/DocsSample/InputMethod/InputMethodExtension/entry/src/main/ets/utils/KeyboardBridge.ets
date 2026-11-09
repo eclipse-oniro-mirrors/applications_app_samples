@@ -31,7 +31,7 @@ const SOURCE: string = 'Keyboard';
 
 export class KeyboardBridge {
   private static client: inputMethodEngine.InputClient | undefined = undefined;
-  /** 当前状态的资源名：类加载早于资源管理器绑定，不能在这里存已解析的文案 */
+  /** 当前状态的资源名称：类加载早于资源管理器绑定，不能在这里存已解析的文案 */
   private static status: string = 'bridge_status_disconnected';
 
   static attach(client: inputMethodEngine.InputClient): void {
