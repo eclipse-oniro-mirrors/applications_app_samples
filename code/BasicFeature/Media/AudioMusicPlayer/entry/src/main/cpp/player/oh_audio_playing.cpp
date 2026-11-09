@@ -405,12 +405,12 @@ void OHAudioPlayer::InitPlayer()
         return;
     }
     // [Start GetLatency]
-    int32_t latencyNs = 0;
-    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    int32_t latencyMs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyMs);
     if (latencyRet == AUDIOSTREAM_SUCCESS) {
-        // 创建播放器后，启动播放器前，根据获取的时延信息，进行音乐播放器进度条进度校准等操作
-        audioLatencyNs = latencyNs;
-        OH_LOG_INFO(LOG_APP, "Audio latency after create: %{public}lld ns", (long long)latencyNs);
+        // 创建播放器后，启动播放器前，根据获取的时延信息，进行音乐播放器播放进度校准等操作。
+        audioLatencyMs = latencyMs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after create: %{public}d ms", latencyMs);
     } else {
         OH_LOG_ERROR(LOG_APP, "Get audio latency after create failed, ret: %{public}d", latencyRet);
     }
@@ -470,11 +470,11 @@ void OHAudioPlayer::ReconfigurePlayer()
         return;
     }
 
-    int32_t latencyNs = 0;
-    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    int32_t latencyMs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyMs);
     if (latencyRet == AUDIOSTREAM_SUCCESS) {
-        audioLatencyNs = latencyNs;
-        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}lld ns", (long long)latencyNs);
+        audioLatencyMs = latencyMs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}d ms", latencyMs);
     } else {
         OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
     }
@@ -1066,13 +1066,12 @@ static void QueryAudioTimestampIfNeeded(std::chrono::steady_clock::time_point& l
     // [Start GetAudioTimestampInfo]
     int64_t framePosition = 0;
     int64_t timestampNs = 0;
-    auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(renderer, &framePosition, &timestampNs);
+    auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer, &framePosition, &timestampNs);
     if (tsRet == AUDIOSTREAM_SUCCESS) {
-        // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器进度条进度校准等操作
+        // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器播放进度校准等操作。
         OH_LOG_INFO(LOG_APP,
-            "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}lld ns",
-            (long long)framePosition, (long long)timestampNs,
-            (long long)OHAudioPlayer::GetInstance().audioLatencyNs);
+            "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}d ms",
+            (long long)framePosition, (long long)timestampNs, audioLatencyMs);
     } else {
         OH_LOG_ERROR(LOG_APP, "GetAudioTimestampInfo failed, ret: %{public}d", tsRet);
     }
