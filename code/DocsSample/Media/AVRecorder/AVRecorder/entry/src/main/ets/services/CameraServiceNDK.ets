@@ -186,7 +186,7 @@ export default class CameraServiceNDK {
         let index: number = this.selectVideoProfile(this.videoProfiles, this.videoResolution);
         this.videoOutput = this.cameraManager.createVideoOutput(this.videoProfiles[index], surfaceId);
         if (!this.videoOutput) {
-          console.error('[CameraServiceNDK/createVideoOutput] create videoOutPut fail');
+          console.error('[CameraServiceNDK/createVideoOutput] create videoOutput fail');
           return;
         }
       } else {

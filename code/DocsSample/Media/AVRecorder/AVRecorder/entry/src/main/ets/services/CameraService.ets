@@ -195,7 +195,7 @@ export default class CameraService {
         let index: number = this.selectVideoProfile(this.videoProfiles, this.videoResolution);
         this.videoOutput = this.cameraManager.createVideoOutput(this.videoProfiles[index], surfaceId);
         if (!this.videoOutput) {
-          console.error('[CameraService/createVideoOutput] create videoOutPut fail');
+          console.error('[CameraService/createVideoOutput] create videoOutput fail');
           return;
         }
       } else {

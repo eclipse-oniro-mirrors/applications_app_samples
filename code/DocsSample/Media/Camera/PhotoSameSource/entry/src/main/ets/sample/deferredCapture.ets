@@ -35,8 +35,8 @@ class DeferredCapture {
   getPhotoOutput(cameraManager: camera.CameraManager,
     cameraOutputCapability: camera.CameraOutputCapability): camera.PhotoOutput | undefined {
     let photoProfilesArray: camera.Profile[] = cameraOutputCapability.photoProfiles;
-    if (photoProfilesArray===null || photoProfilesArray===undefined) {
-      console.error(`createOutput photoProfilesArray is null!`);
+    if (!photoProfilesArray || photoProfilesArray.length === 0) {
+      console.error(`photoProfilesArray is null or []`);
       return undefined;
     }
     let photoOutput: camera.PhotoOutput | undefined = undefined;

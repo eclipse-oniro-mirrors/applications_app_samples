@@ -42,7 +42,7 @@ export default class CameraService {
   private cameraId: string = '';
   private cameraInput: camera.CameraInput = undefined;
   private previewOutput: camera.PreviewOutput = undefined;
-  private photoOutPut: camera.PhotoOutput = undefined;
+  private photoOutput: camera.PhotoOutput = undefined;
   private captureSession: camera.CaptureSession = undefined;
   private mReceiver: image.ImageReceiver = undefined;
   private photoUri: string = '';
@@ -155,14 +155,14 @@ export default class CameraService {
     Logger.info(this.tag, 'createPreviewOutput');
     let mSurfaceId = await this.mReceiver.getReceivingSurfaceId();
     let profile = this.cameraOutputCapability.photoProfiles[0];
-    this.photoOutPut = this.cameraManager.createPhotoOutput(profile, mSurfaceId);
+    this.photoOutput = this.cameraManager.createPhotoOutput(profile, mSurfaceId);
     this.captureSession = this.cameraManager.createCaptureSession();
     Logger.info(this.tag, 'createCaptureSession');
     this.captureSession.beginConfig();
     Logger.info(this.tag, 'beginConfig');
     this.captureSession.addInput(this.cameraInput);
     this.captureSession.addOutput(this.previewOutput);
-    this.captureSession.addOutput(this.photoOutPut);
+    this.captureSession.addOutput(this.photoOutput);
     await this.captureSession.commitConfig();
     await this.captureSession.start();
     Logger.info(this.tag, 'captureSession start');
@@ -187,7 +187,7 @@ export default class CameraService {
       },
       mirror: false
     }
-    await this.photoOutPut.capture(photoSettings)
+    await this.photoOutput.capture(photoSettings)
     Logger.info(this.tag, 'takePicture done')
   }
 
@@ -197,12 +197,12 @@ export default class CameraService {
     this.captureSession.beginConfig();
     if (this.curMode === CameraMode.MODE_PHOTO) {
       this.curMode = CameraMode.MODE_VIDEO;
-      if (this.photoOutPut) {
+      if (this.photoOutput) {
         try {
-          this.captureSession.removeOutput(this.photoOutPut);
-          this.photoOutPut.release();
+          this.captureSession.removeOutput(this.photoOutput);
+          this.photoOutput.release();
         } catch (err) {
-          Logger.error(this.tag, 'remove photoOutPut error: ' + JSON.stringify(err));
+          Logger.error(this.tag, 'remove photoOutput error: ' + JSON.stringify(err));
         }
       }
     } else {
@@ -265,8 +265,8 @@ export default class CameraService {
       if (this.previewOutput) {
         await this.previewOutput.release();
       }
-      if (this.photoOutPut) {
-        await this.photoOutPut.release();
+      if (this.photoOutput) {
+        await this.photoOutput.release();
       }
       if (this.videoOutput) {
         await this.videoOutput.release();

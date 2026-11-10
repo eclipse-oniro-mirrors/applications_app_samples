@@ -58,7 +58,7 @@ class CameraService {
   private camerasArray?: camera.CameraDevice[] = undefined;
   private cameraInput?: camera.CameraInput = undefined;
   private previewOutput?: camera.PreviewOutput = undefined;
-  private photoOutPut?: camera.PhotoOutput = undefined;
+  private photoOutput?: camera.PhotoOutput = undefined;
   private capSession?: camera.CaptureSession = undefined;
   private capability?: camera.CameraOutputCapability = undefined;
   private context?: common.UIAbilityContext = undefined;
@@ -251,7 +251,7 @@ class CameraService {
     // 创建拍照流
     try {
       if (photoProfile && this.cameraMgr) {
-        this.photoOutPut = this.cameraMgr.createPhotoOutput(
+        this.photoOutput = this.cameraMgr.createPhotoOutput(
           photoProfile
         );
       }
@@ -260,8 +260,8 @@ class CameraService {
       Logger.error(TAG, `createPhotoOutput ${JSON.stringify(error.code)}==msg==${error.message}`);
     }
     // 设置拍照回调
-    if (this.photoOutPut) {
-      this.setPhotoOutputCb(this.photoOutPut);
+    if (this.photoOutput) {
+      this.setPhotoOutputCb(this.photoOutput);
     }
     // 创建会话
     try {
@@ -286,8 +286,8 @@ class CameraService {
         this.capSession.addInput(this.cameraInput);
       }
       // 向会话中添加拍照输出流
-      if (this.capSession && this.photoOutPut) {
-        this.capSession.addOutput(this.photoOutPut);
+      if (this.capSession && this.photoOutput) {
+        this.capSession.addOutput(this.photoOutput);
       }
       // 向会话中添加预览输出流
       if (this.capSession && this.previewOutput) {
@@ -352,8 +352,8 @@ class CameraService {
       this.distributedTakePicture(surfaceId);
     } else {
       Logger.info(TAG, 'LocalCapture takePicture');
-      if (this.photoOutPut) {
-        this.photoOutPut.capture(photoSettings, async (err: BusinessError) => {
+      if (this.photoOutput) {
+        this.photoOutput.capture(photoSettings, async (err: BusinessError) => {
           if (err) {
             Logger.error(TAG, `Failed to capture the photo. error: ${JSON.stringify(err)}`);
             return;
@@ -376,9 +376,9 @@ class CameraService {
     if (this.previewOutput) {
       await this.previewOutput.release();
     }
-    if (this.photoOutPut) {
-      this.clearPhotoOutputCb(this.photoOutPut);
-      await this.photoOutPut.release();
+    if (this.photoOutput) {
+      this.clearPhotoOutputCb(this.photoOutput);
+      await this.photoOutput.release();
     }
     if (this.capSession) {
       await this.capSession.release();
