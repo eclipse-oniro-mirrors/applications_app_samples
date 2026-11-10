@@ -1,0 +1,73 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "default"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    // Requested only after an explicit user action. This is an additional condition
+    // for complete distributed flows, not a diagnosis of every on/off failure.
+    // A grant alone does not prove that a peer or a system migration entry exists.
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.DISTRIBUTED_DATASYNC",
+        "reason": "$string:distributed_datasync_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      }
+    ],
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:app_icon_continuation",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:app_icon_continuation",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        // `continuable` marks this Ability as participating in cross-device
+        // continuation, and `continueType` must match on both devices. The
+        // `_ContinueQuickStart` suffix is the platform convention that opts into the
+        // two-launch quick-start flow (PREPARE_CONTINUATION, then CONTINUATION).
+        "continuable": true,
+        "continueType": [
+          "com.example.appcontinuation_ContinueQuickStart"
+        ],
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ],
+      }
+    ]
+  }
+}

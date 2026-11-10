@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/CallDetailPage",
+    "pages/ProcessPage",
+    "pages/ScenarioPage",
+    "pages/NoteScenePage",
+    "pages/ReadingScenePage",
+    "pages/FormScenePage"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "接续接口调用与运行诊断"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "调用接续接口，保存文本并查看运行结果"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "接续接口指南"
+    },
+    {
+      "name": "distributed_datasync_reason",
+      "value": "用于跨设备应用接续，在设备之间同步当前业务状态"
+    }
+  ]
+}
