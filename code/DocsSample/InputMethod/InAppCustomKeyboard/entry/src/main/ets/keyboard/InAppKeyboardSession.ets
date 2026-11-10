@@ -24,6 +24,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_InAppCustomKeyboard]';
 
 export class InAppKeyboardSession {
+  // 保存代理对象和最近一次绑定的编辑会话，实例在获取前为空。
   private ability: inputMethodEngine.ProxyInputMethodAbility | null = null;
   private delegate: inputMethodEngine.ProxyKeyboardDelegate | null = null;
   private client: inputMethodEngine.ProxyTextInputClient | null = null;
@@ -39,6 +40,7 @@ export class InAppKeyboardSession {
     this.updateVisible = updateVisible;
   }
 
+  // 编辑框绑定时更新客户端和控制器，后续操作使用最新实例。
   private handleInputStart: inputMethodEngine.ProxyInputStartCallback =
     (client: inputMethodEngine.ProxyTextInputClient, controller: inputMethodEngine.ProxyKeyboardController) => {
     if (this.active) {
@@ -52,25 +54,28 @@ export class InAppKeyboardSession {
   private handleHide: () => void = () => {
     if (this.active) { this.updateVisible(false); }
   };
+  // 被动注销后清理失效实例，并尝试在应用获焦时重新注册。
   private handleUnregister: () => void = () => {
     this.client = null;
     this.controller = null;
     this.registered = false;
     if (this.active) {
       this.updateVisible(false);
-      // Passive unregister: re-register if the app is still active and needs the proxy.
+      // 未获焦时注册会失败，页面通过窗口获焦事件再次发起注册。
       this.register().catch((error: BusinessError) => {
         hilog.error(DOMAIN, TAG, 'Re-registration after passive unregister failed. Code: %{public}d, message: %{public}s',
           error.code, error.message);
       });
     }
   };
+  // 返回false，将物理按键事件继续交给编辑框处理。
   private handleKeyEvent: inputMethodEngine.InputKeyEventCallback = (event: KeyEvent) => {
     return false;
   };
 
   /**
-   * Activate the session, incrementing the generation counter to invalidate stale async operations.
+   * 允许当前页面注册代理输入法并进行文本操作。
+   * 递增generation计数器，用于在注册完成后识别过期的注册结果。
    */
   activate(): void {
     this.generation++;
@@ -78,15 +83,17 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Register the in-app proxy input method. Subscribes to IME callbacks if not already subscribed,
-   * then calls registerInAppProxyIme. Guards against re-entry and stale generation.
-   * @returns Promise that resolves on success and rejects with BusinessError on failure.
+   * 注册应用内代理输入法。先订阅输入法回调，再调用registerInAppProxyIme。
+   * 通过registering标记避免重复注册。
+   * 注册完成后比较generation计数器的值，判断该结果是否仍属于当前会话。
+   * @returns Promise对象，无返回结果。注册失败时可捕获BusinessError。
    */
   async register(): Promise<void> {
     if (!this.active || this.registering || this.registered) { return; }
     this.registering = true;
     const generation: number = this.generation;
     try {
+      // 先获取对象并订阅回调，再注册代理，避免错过立即触发的绑定事件。
       if (this.ability === null) {
         const ability: inputMethodEngine.ProxyInputMethodAbility | null =
           inputMethodEngine.getProxyInputMethodAbility();
@@ -107,11 +114,12 @@ export class InAppKeyboardSession {
         this.delegate = delegate;
         delegate.onKeyEvent(this.handleKeyEvent);
       }
+      // 仅为普通文本编辑框启用自定义键盘。
       await inputMethodEngine.registerInAppProxyIme({
         inputPatternTypes: [inputMethodEngine.PATTERN_TEXT]
       });
       this.registered = true;
-      // A completed registration must not outlive a page that has already left.
+      // 注册完成时若页面已离开，须立即注销，避免残留注册。
       if (!this.active || generation !== this.generation) {
         await inputMethodEngine.unregisterInAppProxyIme();
         this.registered = false;
@@ -126,9 +134,9 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Insert text into the edit field via the proxy text input client.
-   * @param text - The text to insert.
-   * @returns Promise that resolves when the text is inserted.
+   * 通过代理文本客户端在当前编辑框的光标位置插入文本。
+   * @param text - 待插入的文本。
+   * @returns Promise对象，无返回结果。
    */
   async insert(text: string): Promise<void> {
     const client: inputMethodEngine.ProxyTextInputClient | null = this.client;
@@ -142,8 +150,8 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Delete one character before the cursor (backspace) via the proxy text input client.
-   * @returns Promise that resolves when the deletion is complete.
+   * 通过代理文本客户端删除光标前的一个字符，实现退格操作。
+   * @returns Promise对象，无返回结果。
    */
   async deleteBeforeCursor(): Promise<void> {
     const client: inputMethodEngine.ProxyTextInputClient | null = this.client;
@@ -157,8 +165,8 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Hide the custom keyboard and notify the system via hideSelf.
-   * @returns Promise that resolves when the keyboard is hidden.
+   * 隐藏自定义键盘，再通过hideSelf通知框架和编辑框。
+   * @returns Promise对象，无返回结果。
    */
   async hide(): Promise<void> {
     const controller: inputMethodEngine.ProxyKeyboardController | null = this.controller;
@@ -173,8 +181,8 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Unregister the in-app proxy input method and clear client/controller references.
-   * @returns Promise that resolves on success and rejects with BusinessError on failure.
+   * 注销应用内代理输入法，并清理文本客户端和键盘控制器引用。
+   * @returns Promise对象，无返回结果。注销失败时可捕获BusinessError。
    */
   async unregister(): Promise<void> {
     if (!this.registered) { return; }
@@ -191,9 +199,9 @@ export class InAppKeyboardSession {
   }
 
   /**
-   * Dispose the session: unregister the proxy, unsubscribe all IME callbacks, and clear references.
-   * Idempotent via the disposed flag.
-   * @returns Promise that resolves when cleanup is complete.
+   * 释放会话，注销代理、退订全部输入法回调并清理引用。
+   * 通过disposed标记避免重复释放。
+   * @returns Promise对象，无返回结果。
    */
   async dispose(): Promise<void> {
     if (this.disposed) { return; }
