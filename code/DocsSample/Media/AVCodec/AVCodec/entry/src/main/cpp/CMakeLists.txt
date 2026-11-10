@@ -45,6 +45,8 @@ set(BASE_LIBRARY
     libnative_media_avmuxer.so
     libohaudio.so
     libdl.so
+    libnative_drm.so
+    libnative_media_avcencinfo.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/napi/DeviceCodecCapabilityNative.cpp
