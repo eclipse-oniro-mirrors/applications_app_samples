@@ -2135,7 +2135,7 @@ class CameraService {
   // [End camera_setWhiteBalance]
 
   // [Start camera_systemPressureLevelChange]
-  systemPressureLevelcallback(err: BusinessError, systemPressureLevel: camera.SystemPressureLevel): void {
+  systemPressureLevelCallback(err: BusinessError, systemPressureLevel: camera.SystemPressureLevel): void {
     if (err !== undefined && err.code !== 0) {
       console.error(`Callback Error, errorCode: ${err.code}`);
       return;
@@ -2144,7 +2144,7 @@ class CameraService {
   }
 
   registerSystemPressureLevelChangeCallback(photoSession: camera.PhotoSession): void {
-    photoSession.on('systemPressureLevelChange', this.systemPressureLevelcallback);
+    photoSession.on('systemPressureLevelChange', this.systemPressureLevelCallback);
   }
   // [End camera_systemPressureLevelChange]
 
@@ -2173,7 +2173,7 @@ class CameraService {
   // [End camera_enableControlCenter]
 
   // [Start camera_controlCenterStatusChange]
-  controlCenterEffectStatusChangecallback(err: BusinessError, status: camera.ControlCenterStatusInfo): void {
+  controlCenterEffectStatusChangeCallback(err: BusinessError, status: camera.ControlCenterStatusInfo): void {
     if (err !== undefined && err.code !== 0) {
       console.error(`Callback Error, errorCode: ${err.code}`);
       return;
@@ -2182,7 +2182,7 @@ class CameraService {
   }
 
   registerControlCenterEffectStatusChangeCallback(videoSession: camera.VideoSession): void {
-    videoSession.on('controlCenterEffectStatusChange', this.controlCenterEffectStatusChangecallback);
+    videoSession.on('controlCenterEffectStatusChange', this.controlCenterEffectStatusChangeCallback);
   }
   // [End camera_controlCenterStatusChange]
 
@@ -2202,7 +2202,7 @@ class CameraService {
   // [End camera_enableMacro]
 
   // [Start camera_macroStatusChange]
-  macroStatuscallback(err: BusinessError, macroStatus: boolean): void {
+  macroStatusCallback(err: BusinessError, macroStatus: boolean): void {
     if (err !== undefined && err.code !== 0) {
       console.error(`Callback Error, errorCode: ${err.code}`);
       return;
@@ -2212,7 +2212,7 @@ class CameraService {
 
   // 注册回调函数。
   registerMacroStatusChanged(photoSession: camera.PhotoSession): void {
-    photoSession.on('macroStatusChanged', this.macroStatuscallback);
+    photoSession.on('macroStatusChanged', this.macroStatusCallback);
   }
 
   // 解注册。
