@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { beforeEachIt } from '@ohos/hypium';
 import meetingSceneTest from './MeetingScene.test';
 import commonUtilsLogicTest from './CommonUtilsLogic.test';
 import irCoreLogicTest from './IrCoreLogic.test';
@@ -31,6 +32,12 @@ import securityFileLogicTest from './SecurityFileLogic.test';
 import stringUtilsLogicTest from './StringUtilsLogic.test';
 
 export default function testsuite() {
+  // Zero-delay timers may stay in the same native UV batch instead of yielding to EventHandler.
+  beforeEachIt((): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => resolve(), 1);
+    });
+  });
   meetingSceneTest();
   commonUtilsLogicTest();
   irCoreLogicTest();
