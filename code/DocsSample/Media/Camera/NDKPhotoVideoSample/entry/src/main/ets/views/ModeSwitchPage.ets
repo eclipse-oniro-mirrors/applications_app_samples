@@ -277,7 +277,7 @@ export struct modeSwitchPage {
   build() {
     if (this.isModeBol) {
       Column() {
-        Text('拍照')
+        Text($r('app.string.PHOTO_MODE'))
           .size({ width: 64, height: 28 })
           .borderRadius(14)
           .fontSize(15)
@@ -292,7 +292,7 @@ export struct modeSwitchPage {
       }.position({ x: '45%', y: '77%' })
 
       Column() {
-        Text('录像')
+        Text($r('app.string.VIDEO_MODE'))
           .fontSize(15)
           .fontColor(Color.White)
           .borderRadius(14)

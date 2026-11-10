@@ -43,6 +43,14 @@
     {
       "name": "save",
       "value": "save"
+    },
+    {
+      "name": "photo_mode",
+      "value": "Photo"
+    },
+    {
+      "name": "video_mode",
+      "value": "Video"
     }
   ]
 }

@@ -73,7 +73,7 @@ export struct ModeComponent {
     Column() {
       Row({ space: Constants.COLUMN_SPACE_24 }) {
         Column() {
-          Text('拍照')
+          Text($r('app.string.photo_mode'))
             .fontSize(Constants.FONT_SIZE_14)
             .fontColor(Color.White)
         }
@@ -99,7 +99,7 @@ export struct ModeComponent {
 
         // 录像。
         Column() {
-          Text('录像')
+          Text($r('app.string.video_mode'))
             .fontSize(Constants.FONT_SIZE_14)
             .fontColor(Color.White)
         }
