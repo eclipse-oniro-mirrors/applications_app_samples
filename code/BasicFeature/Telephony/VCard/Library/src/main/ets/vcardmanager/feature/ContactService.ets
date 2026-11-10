@@ -114,7 +114,7 @@ export class ContactService {
     }
     const oldPrimary: string = current.length > 0 ? current[0] : '';
     for (const value of current) {
-      if (value !== oldPrimary) {
+      if (value !== oldPrimary && value !== primary) {
         merged.push(value);
       }
     }
