@@ -25,15 +25,15 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = async (event: MessageEvents) => {
   console.info(`onmessage in`);
   // [Start ExecuteTranscodingLogic]
-  //worker线程接收参数
+  // worker线程接收参数。
   const sendableObject: SendableObject = event.data;
   const sendableContext: sendableContextManager.SendableContext =
     sendableObject.getSendableContext() as sendableContextManager.SendableContext;
   const context: common.Context =
     sendableContextManager.convertToContext(sendableContext) as common.Context;
-  //执行转码逻辑
+  // 执行转码逻辑。
   await doSome(context);
-  // 向主线程发送消息
+  // 向主线程发送消息。
   workerPort.postMessage('start end');
   // [End ExecuteTranscodingLogic]
 };
@@ -63,12 +63,12 @@ async function doSome(context: common.Context) {
       if (transcoder.fdSrc != undefined) {
         fs.closeSync(transcoder.fdSrc.fd);
       }
-      // 向主线程发送转码结束的消息
+      // 向主线程发送转码结束的消息。
       workerPort.postMessage('complete');
     })
     // [End transcoderCompleteCallback]
 
-    // 转码错误回调函数
+    // 转码错误回调函数。
     transcoder.on('error', async (err: BusinessError) => {
       await transcoder?.release();
       if (transcoder.fdDst != undefined) {
