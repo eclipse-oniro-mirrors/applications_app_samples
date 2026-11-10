@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +15,6 @@
 
 // [Start input_case_input_CustomInput]
 // [Start input_case_input_CustomInputText]
-import {
-  Component, State, Text, focusControl
-} from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { inputMethod } from '@kit.IMEKit';
 import Log from '../model/Log';
@@ -59,10 +55,10 @@ export struct CustomInput {
         }
       });
       if (!this.isAttach) {
-        this.inputController?.onInsertText((text) => {
+        this.inputController?.on('insertText', (text: string) => {
           this.inputText += text;
         })
-        this.inputController?.onDeleteLeft((length) => {
+        this.inputController?.on('deleteLeft', (length: number) => {
           this.inputText = this.inputText.substring(0, this.inputText.length - length);
         })
         this.isAttach = true;
@@ -75,8 +71,8 @@ export struct CustomInput {
 
   off(): void {
     this.isAttach = false;
-    this.inputController?.offInsertText();
-    this.inputController?.offDeleteLeft();
+    this.inputController?.off('insertText');
+    this.inputController?.off('deleteLeft');
   }
 }
 
