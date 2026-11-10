@@ -59,6 +59,22 @@ import fileDescriptor8wTest from './FileDescriptor8W.test';
 import syncState8wTest from './SyncState8W.test';
 import resourceIntegrity8wTest from './ResourceIntegrity8W.test';
 
+import subtitleSafeParseCoreTest from './SubtitleSafeParseCore.test';
+import subtitleSafeParseTailTest from './SubtitleSafeParseTail.test';
+import subtitleSafeStateCoreTest from './SubtitleSafeStateCore.test';
+import subtitleSafeStateTailTest from './SubtitleSafeStateTail.test';
+import subtitleSafeBoundaryCoreTest from './SubtitleSafeBoundaryCore.test';
+import subtitleSafeBoundaryTailTest from './SubtitleSafeBoundaryTail.test';
+import SubtitleSafeFileIoCoreFirstTest from './SubtitleSafeFileIoCoreFirst.test';
+import SubtitleSafeFileIoCoreSecondTest from './SubtitleSafeFileIoCoreSecond.test';
+import SubtitleSafeFileIoMiddleFirstTest from './SubtitleSafeFileIoMiddleFirst.test';
+import SubtitleSafeFileIoMiddleSecondTest from './SubtitleSafeFileIoMiddleSecond.test';
+import SubtitleSafeFileIoTailFirstTest from './SubtitleSafeFileIoTailFirst.test';
+import SubtitleSafeFileIoTailSecondTest from './SubtitleSafeFileIoTailSecond.test';
+import playerContractSafeCoreTest from './PlayerContractSafeCore.test';
+import playerContractSafeTailTest from './PlayerContractSafeTail.test';
+import uiSmokeSafeTest from './UiSmokeSafe.test';
+
 export default function testsuite() {
   abilityTest();
   subtitleTimeExpandedTest();
@@ -97,4 +113,19 @@ export default function testsuite() {
   fileDescriptor8wTest();
   syncState8wTest();
   resourceIntegrity8wTest();
+  subtitleSafeParseCoreTest();
+  subtitleSafeParseTailTest();
+  subtitleSafeStateCoreTest();
+  subtitleSafeStateTailTest();
+  subtitleSafeBoundaryCoreTest();
+  subtitleSafeBoundaryTailTest();
+  SubtitleSafeFileIoCoreFirstTest();
+  SubtitleSafeFileIoCoreSecondTest();
+  SubtitleSafeFileIoMiddleFirstTest();
+  SubtitleSafeFileIoMiddleSecondTest();
+  SubtitleSafeFileIoTailFirstTest();
+  SubtitleSafeFileIoTailSecondTest();
+  playerContractSafeCoreTest();
+  playerContractSafeTailTest();
+  uiSmokeSafeTest();
 }
