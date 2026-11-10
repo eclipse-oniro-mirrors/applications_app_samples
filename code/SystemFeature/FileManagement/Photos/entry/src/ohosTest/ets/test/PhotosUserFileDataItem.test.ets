@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { UserFileDataItem } from '../../../main/ets/base/UserFileDataItem';
 import { ViewType } from '../../../main/ets/models/ViewType';
@@ -32,7 +32,7 @@ export default function PhotosUserFileDataItemTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInit0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInit0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInit0001 begin');
       const item: UserFileDataItem = new UserFileDataItem('media.selection', ['arg1', 'arg2'], 'device-1', 7);
       expect(item.selections).assertEqual('media.selection');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -42,7 +42,7 @@ export default function PhotosUserFileDataItemTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInit0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInit0001 end');
     })
 
     /**
@@ -54,7 +54,7 @@ export default function PhotosUserFileDataItemTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemLoadState0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemLoadState0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemLoadState0002 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 1);
       expect(item.isLoad()).assertFalse();
       item.status = MediaConstants.PART_LOADED;
@@ -64,7 +64,7 @@ export default function PhotosUserFileDataItemTest(): void {
       item.status = MediaConstants.TRASHED;
       expect(item.isLoad()).assertTrue();
       expect(item.status).assertEqual(MediaConstants.TRASHED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemLoadState0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemLoadState0002 end');
     })
 
     /**
@@ -76,7 +76,7 @@ export default function PhotosUserFileDataItemTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHash0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHash0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHash0003 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 9);
       expect(item.getHashCode()).assertEqual('9');
       item.status = MediaConstants.PART_LOADED;
@@ -86,7 +86,7 @@ export default function PhotosUserFileDataItemTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/11 90 true');
       expect(item.getHashCode() === '9').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHash0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHash0003 end');
     })
 
     /**
@@ -98,7 +98,7 @@ export default function PhotosUserFileDataItemTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemMutableState0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemMutableState0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemMutableState0004 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 2);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/2';
@@ -111,7 +111,7 @@ export default function PhotosUserFileDataItemTest(): void {
       expect(firstHash).assertEqual('file://media/20 0 false');
       expect(favoriteHash).assertEqual('file://media/21 0 false');
       expect(firstHash === favoriteHash).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemMutableState0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemMutableState0004 end');
     })
   })
 }

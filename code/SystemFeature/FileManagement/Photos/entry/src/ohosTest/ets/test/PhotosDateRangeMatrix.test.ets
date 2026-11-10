@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,9 +30,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0001 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0002 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0003 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0003 end');
     })
 
 
@@ -73,9 +73,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0004 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 2, 0, 0, 0).getTime(), new Date(2024, 1, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0004 end');
     })
 
     /**
@@ -87,9 +87,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0005 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 2, 0, 0, 0).getTime(), new Date(2024, 1, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0005 end');
     })
 
     /**
@@ -101,9 +101,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0006 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 2, 0, 0, 0).getTime(), new Date(2024, 1, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0006 end');
     })
 
 
@@ -116,9 +116,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0007 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0007 end');
     })
 
     /**
@@ -130,9 +130,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0008 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0008 end');
     })
 
     /**
@@ -144,9 +144,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0009 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0009 end');
     })
 
 
@@ -159,9 +159,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0010 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 4, 0, 0, 0).getTime(), new Date(2024, 3, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0010 end');
     })
 
     /**
@@ -173,9 +173,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0011 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 4, 0, 0, 0).getTime(), new Date(2024, 3, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0011 end');
     })
 
     /**
@@ -187,9 +187,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0012 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 4, 0, 0, 0).getTime(), new Date(2024, 3, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0012 end');
     })
 
 
@@ -202,9 +202,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0013 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0013 end');
     })
 
     /**
@@ -216,9 +216,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0014 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0014 end');
     })
 
     /**
@@ -230,9 +230,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0015 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0015 end');
     })
 
 
@@ -245,9 +245,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0016 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 6, 0, 0, 0).getTime(), new Date(2024, 5, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0016 end');
     })
 
     /**
@@ -259,9 +259,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0017 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 6, 0, 0, 0).getTime(), new Date(2024, 5, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0017 end');
     })
 
     /**
@@ -273,9 +273,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0018 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 6, 0, 0, 0).getTime(), new Date(2024, 5, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0018 end');
     })
 
 
@@ -288,9 +288,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0019 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0019 end');
     })
 
     /**
@@ -302,9 +302,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0020 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0020 end');
     })
 
     /**
@@ -316,9 +316,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0021 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0021 end');
     })
 
 
@@ -331,9 +331,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0022 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 8, 0, 0, 0).getTime(), new Date(2024, 7, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0022 end');
     })
 
     /**
@@ -345,9 +345,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0023 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 8, 0, 0, 0).getTime(), new Date(2024, 7, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0023 end');
     })
 
     /**
@@ -359,9 +359,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0024 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 8, 0, 0, 0).getTime(), new Date(2024, 7, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0024 end');
     })
 
 
@@ -374,9 +374,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0025 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0025 end');
     })
 
     /**
@@ -388,9 +388,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0026 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0026 end');
     })
 
     /**
@@ -402,9 +402,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0027 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0027 end');
     })
 
 
@@ -417,9 +417,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0028 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 10, 0, 0, 0).getTime(), new Date(2024, 9, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0028 end');
     })
 
     /**
@@ -431,9 +431,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0029 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 10, 0, 0, 0).getTime(), new Date(2024, 9, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0029 end');
     })
 
     /**
@@ -445,9 +445,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0030 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 10, 0, 0, 0).getTime(), new Date(2024, 9, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0030 end');
     })
 
 
@@ -460,9 +460,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0031 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0031 end');
     })
 
     /**
@@ -474,9 +474,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0032 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0032 end');
     })
 
     /**
@@ -488,9 +488,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0033 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0033 end');
     })
 
 
@@ -503,9 +503,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0034 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 12, 0, 0, 0).getTime(), new Date(2024, 11, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0034 end');
     })
 
     /**
@@ -517,9 +517,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0035 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 12, 0, 0, 0).getTime(), new Date(2024, 11, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0035 end');
     })
 
     /**
@@ -531,9 +531,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0036 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 12, 0, 0, 0).getTime(), new Date(2024, 11, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0036 end');
     })
 
 
@@ -546,9 +546,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0037 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 13, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0037 end');
     })
 
     /**
@@ -560,9 +560,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0038 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 13, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0038 end');
     })
 
     /**
@@ -574,9 +574,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0039 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 14, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0039 end');
     })
 
 
@@ -589,9 +589,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0040 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 14, 0, 0, 0).getTime(), new Date(2024, 1, 14, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0040 end');
     })
 
     /**
@@ -603,9 +603,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0041 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 14, 0, 0, 0).getTime(), new Date(2024, 1, 14, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0041 end');
     })
 
     /**
@@ -617,9 +617,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0042 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 14, 0, 0, 0).getTime(), new Date(2024, 1, 15, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0042 end');
     })
 
 
@@ -632,9 +632,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0043 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 15, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0043 end');
     })
 
     /**
@@ -646,9 +646,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0044 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 15, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0044 end');
     })
 
     /**
@@ -660,9 +660,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0045 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 16, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0045 end');
     })
 
 
@@ -675,9 +675,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0046 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 16, 0, 0, 0).getTime(), new Date(2024, 3, 16, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0046 end');
     })
 
     /**
@@ -689,9 +689,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0047 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 16, 0, 0, 0).getTime(), new Date(2024, 3, 16, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0047 end');
     })
 
     /**
@@ -703,9 +703,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0048 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 16, 0, 0, 0).getTime(), new Date(2024, 3, 17, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0048 end');
     })
 
 
@@ -718,9 +718,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0049 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 17, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0049 end');
     })
 
     /**
@@ -732,9 +732,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0050 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 17, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0050 end');
     })
 
     /**
@@ -746,9 +746,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0051 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 18, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0051 end');
     })
 
 
@@ -761,9 +761,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0052 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 18, 0, 0, 0).getTime(), new Date(2024, 5, 18, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0052 end');
     })
 
     /**
@@ -775,9 +775,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0053 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 18, 0, 0, 0).getTime(), new Date(2024, 5, 18, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0053 end');
     })
 
     /**
@@ -789,9 +789,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0054 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 18, 0, 0, 0).getTime(), new Date(2024, 5, 19, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0054 end');
     })
 
 
@@ -804,9 +804,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0055 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 19, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0055 end');
     })
 
     /**
@@ -818,9 +818,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0056 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 19, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0056 end');
     })
 
     /**
@@ -832,9 +832,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0057 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 20, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0057 end');
     })
 
 
@@ -847,9 +847,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0058 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 20, 0, 0, 0).getTime(), new Date(2024, 7, 20, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0058 end');
     })
 
     /**
@@ -861,9 +861,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0059 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 20, 0, 0, 0).getTime(), new Date(2024, 7, 20, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0059 end');
     })
 
     /**
@@ -875,9 +875,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0060 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 20, 0, 0, 0).getTime(), new Date(2024, 7, 21, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0060 end');
     })
 
 
@@ -890,9 +890,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0061 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 21, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0061 end');
     })
 
     /**
@@ -904,9 +904,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0062 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 21, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0062 end');
     })
 
     /**
@@ -918,9 +918,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0063 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 22, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0063 end');
     })
 
 
@@ -933,9 +933,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0064 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 22, 0, 0, 0).getTime(), new Date(2024, 9, 22, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0064 end');
     })
 
     /**
@@ -947,9 +947,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0065 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 22, 0, 0, 0).getTime(), new Date(2024, 9, 22, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0065 end');
     })
 
     /**
@@ -961,9 +961,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0066 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 22, 0, 0, 0).getTime(), new Date(2024, 9, 23, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0066 end');
     })
 
 
@@ -976,9 +976,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0067 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 23, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0067 end');
     })
 
     /**
@@ -990,9 +990,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0068 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 23, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0068 end');
     })
 
     /**
@@ -1004,9 +1004,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0069 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 24, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0069 end');
     })
 
 
@@ -1019,9 +1019,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0070 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 24, 0, 0, 0).getTime(), new Date(2024, 11, 24, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0070 end');
     })
 
     /**
@@ -1033,9 +1033,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0071 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 24, 0, 0, 0).getTime(), new Date(2024, 11, 24, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0071 end');
     })
 
     /**
@@ -1047,9 +1047,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0072 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 24, 0, 0, 0).getTime(), new Date(2024, 11, 25, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0072 end');
     })
 
 
@@ -1062,9 +1062,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0073 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 25, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0073 end');
     })
 
     /**
@@ -1076,9 +1076,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0074 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 25, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0074 end');
     })
 
     /**
@@ -1090,9 +1090,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0075 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 26, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0075 end');
     })
 
 
@@ -1105,9 +1105,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0076 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 26, 0, 0, 0).getTime(), new Date(2024, 1, 26, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0076 end');
     })
 
     /**
@@ -1119,9 +1119,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0077 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 26, 0, 0, 0).getTime(), new Date(2024, 1, 26, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0077 end');
     })
 
     /**
@@ -1133,9 +1133,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0078 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 26, 0, 0, 0).getTime(), new Date(2024, 1, 27, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0078 end');
     })
 
 
@@ -1148,9 +1148,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0079 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 27, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0079 end');
     })
 
     /**
@@ -1162,9 +1162,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0080 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 27, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0080 end');
     })
 
     /**
@@ -1176,9 +1176,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0081 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 28, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0081 end');
     })
 
 
@@ -1191,9 +1191,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0082 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 28, 0, 0, 0).getTime(), new Date(2024, 3, 28, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0082 end');
     })
 
     /**
@@ -1205,9 +1205,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0083 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 28, 0, 0, 0).getTime(), new Date(2024, 3, 28, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0083 end');
     })
 
     /**
@@ -1219,9 +1219,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0084 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 28, 0, 0, 0).getTime(), new Date(2024, 3, 29, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0084 end');
     })
 
 
@@ -1234,9 +1234,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0085 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 1, 0, 0, 0).getTime(), new Date(2024, 4, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0085 end');
     })
 
     /**
@@ -1248,9 +1248,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0086 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 1, 0, 0, 0).getTime(), new Date(2024, 4, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0086 end');
     })
 
     /**
@@ -1262,9 +1262,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0087 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 1, 0, 0, 0).getTime(), new Date(2024, 4, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0087 end');
     })
 
 
@@ -1277,9 +1277,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0088 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 2, 0, 0, 0).getTime(), new Date(2024, 5, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0088 end');
     })
 
     /**
@@ -1291,9 +1291,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0089 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 2, 0, 0, 0).getTime(), new Date(2024, 5, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0089 end');
     })
 
     /**
@@ -1305,9 +1305,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0090 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 5, 2, 0, 0, 0).getTime(), new Date(2024, 5, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0090 end');
     })
 
 
@@ -1320,9 +1320,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0091 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 3, 0, 0, 0).getTime(), new Date(2024, 6, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0091 end');
     })
 
     /**
@@ -1334,9 +1334,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0092 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 3, 0, 0, 0).getTime(), new Date(2024, 6, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0092 end');
     })
 
     /**
@@ -1348,9 +1348,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0093 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 3, 0, 0, 0).getTime(), new Date(2024, 6, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0093 end');
     })
 
 
@@ -1363,9 +1363,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0094 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 4, 0, 0, 0).getTime(), new Date(2024, 7, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0094 end');
     })
 
     /**
@@ -1377,9 +1377,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0095 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 4, 0, 0, 0).getTime(), new Date(2024, 7, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0095 end');
     })
 
     /**
@@ -1391,9 +1391,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0096 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 7, 4, 0, 0, 0).getTime(), new Date(2024, 7, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0096 end');
     })
 
 
@@ -1406,9 +1406,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0097 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 5, 0, 0, 0).getTime(), new Date(2024, 8, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0097 end');
     })
 
     /**
@@ -1420,9 +1420,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0098 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 5, 0, 0, 0).getTime(), new Date(2024, 8, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0098 end');
     })
 
     /**
@@ -1434,9 +1434,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0099 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 5, 0, 0, 0).getTime(), new Date(2024, 8, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0099 end');
     })
 
 
@@ -1449,9 +1449,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0100 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 6, 0, 0, 0).getTime(), new Date(2024, 9, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0100 end');
     })
 
     /**
@@ -1463,9 +1463,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0101 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 6, 0, 0, 0).getTime(), new Date(2024, 9, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0101 end');
     })
 
     /**
@@ -1477,9 +1477,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0102 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 9, 6, 0, 0, 0).getTime(), new Date(2024, 9, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0102 end');
     })
 
 
@@ -1492,9 +1492,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0103 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 7, 0, 0, 0).getTime(), new Date(2024, 10, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0103 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0104 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 7, 0, 0, 0).getTime(), new Date(2024, 10, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0104 end');
     })
 
     /**
@@ -1520,9 +1520,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0105 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 7, 0, 0, 0).getTime(), new Date(2024, 10, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0105 end');
     })
 
 
@@ -1535,9 +1535,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0106 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 8, 0, 0, 0).getTime(), new Date(2024, 11, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0106 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0107 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 8, 0, 0, 0).getTime(), new Date(2024, 11, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0107 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0108 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 11, 8, 0, 0, 0).getTime(), new Date(2024, 11, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0108 end');
     })
 
 
@@ -1578,9 +1578,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0109 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 9, 0, 0, 0).getTime(), new Date(2024, 0, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0109 end');
     })
 
     /**
@@ -1592,9 +1592,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0110 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 9, 0, 0, 0).getTime(), new Date(2024, 0, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0110 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0111 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 9, 0, 0, 0).getTime(), new Date(2024, 0, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0111 end');
     })
 
 
@@ -1621,9 +1621,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0112 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 10, 0, 0, 0).getTime(), new Date(2024, 1, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0112 end');
     })
 
     /**
@@ -1635,9 +1635,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0113 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 10, 0, 0, 0).getTime(), new Date(2024, 1, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0113 end');
     })
 
     /**
@@ -1649,9 +1649,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0114 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 1, 10, 0, 0, 0).getTime(), new Date(2024, 1, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0114 end');
     })
 
 
@@ -1664,9 +1664,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0115 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 11, 0, 0, 0).getTime(), new Date(2024, 2, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0115 end');
     })
 
     /**
@@ -1678,9 +1678,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0116 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 11, 0, 0, 0).getTime(), new Date(2024, 2, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0116 end');
     })
 
     /**
@@ -1692,9 +1692,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0117 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 11, 0, 0, 0).getTime(), new Date(2024, 2, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0117 end');
     })
 
 
@@ -1707,9 +1707,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0118 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 12, 0, 0, 0).getTime(), new Date(2024, 3, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0118 end');
     })
 
     /**
@@ -1721,9 +1721,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0119 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 12, 0, 0, 0).getTime(), new Date(2024, 3, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0119 end');
     })
 
     /**
@@ -1735,9 +1735,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayMatrix0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0120 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 3, 12, 0, 0, 0).getTime(), new Date(2024, 3, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayMatrix0120 end');
     })
 
 
@@ -1750,9 +1750,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0001 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 0, 1, 0, 0, 0).getTime(), new Date(2000, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0001 end');
     })
 
     /**
@@ -1764,9 +1764,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0002 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 0, 1, 0, 0, 0).getTime(), new Date(2000, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0002 end');
     })
 
     /**
@@ -1778,9 +1778,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0003 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 11, 31, 23, 59, 59).getTime(), new Date(2001, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0003 end');
     })
 
 
@@ -1793,9 +1793,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0004 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 0, 1, 0, 0, 0).getTime(), new Date(2001, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0004 end');
     })
 
     /**
@@ -1807,9 +1807,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0005 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 0, 1, 0, 0, 0).getTime(), new Date(2001, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0005 end');
     })
 
     /**
@@ -1821,9 +1821,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0006 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 11, 31, 23, 59, 59).getTime(), new Date(2002, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0006 end');
     })
 
 
@@ -1836,9 +1836,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0007 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 0, 1, 0, 0, 0).getTime(), new Date(2002, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0007 end');
     })
 
     /**
@@ -1850,9 +1850,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0008 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 0, 1, 0, 0, 0).getTime(), new Date(2002, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0008 end');
     })
 
     /**
@@ -1864,9 +1864,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0009 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 11, 31, 23, 59, 59).getTime(), new Date(2003, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0009 end');
     })
 
 
@@ -1879,9 +1879,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0010 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 0, 1, 0, 0, 0).getTime(), new Date(2003, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0010 end');
     })
 
     /**
@@ -1893,9 +1893,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0011 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 0, 1, 0, 0, 0).getTime(), new Date(2003, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0011 end');
     })
 
     /**
@@ -1907,9 +1907,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0012 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 11, 31, 23, 59, 59).getTime(), new Date(2004, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0012 end');
     })
 
 
@@ -1922,9 +1922,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0013 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 0, 1, 0, 0, 0).getTime(), new Date(2004, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0013 end');
     })
 
     /**
@@ -1936,9 +1936,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0014 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 0, 1, 0, 0, 0).getTime(), new Date(2004, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0014 end');
     })
 
     /**
@@ -1950,9 +1950,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0015 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 11, 31, 23, 59, 59).getTime(), new Date(2005, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0015 end');
     })
 
 
@@ -1965,9 +1965,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0016 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 0, 1, 0, 0, 0).getTime(), new Date(2005, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0016 end');
     })
 
     /**
@@ -1979,9 +1979,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0017 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 0, 1, 0, 0, 0).getTime(), new Date(2005, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0017 end');
     })
 
     /**
@@ -1993,9 +1993,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0018 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 11, 31, 23, 59, 59).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0018 end');
     })
 
 
@@ -2008,9 +2008,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0019 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0019 end');
     })
 
     /**
@@ -2022,9 +2022,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0020 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0020 end');
     })
 
     /**
@@ -2036,9 +2036,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0021 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 11, 31, 23, 59, 59).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0021 end');
     })
 
 
@@ -2051,9 +2051,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0022 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0022 end');
     })
 
     /**
@@ -2065,9 +2065,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0023 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0023 end');
     })
 
     /**
@@ -2079,9 +2079,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0024 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 11, 31, 23, 59, 59).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0024 end');
     })
 
 
@@ -2094,9 +2094,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0025 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0025 end');
     })
 
     /**
@@ -2108,9 +2108,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0026 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0026 end');
     })
 
     /**
@@ -2122,9 +2122,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0027 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 11, 31, 23, 59, 59).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0027 end');
     })
 
 
@@ -2137,9 +2137,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0028 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0028 end');
     })
 
     /**
@@ -2151,9 +2151,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0029 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0029 end');
     })
 
     /**
@@ -2165,9 +2165,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0030 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 11, 31, 23, 59, 59).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0030 end');
     })
 
 
@@ -2180,9 +2180,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0031 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0031 end');
     })
 
     /**
@@ -2194,9 +2194,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0032 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0032 end');
     })
 
     /**
@@ -2208,9 +2208,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0033 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 11, 31, 23, 59, 59).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0033 end');
     })
 
 
@@ -2223,9 +2223,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0034 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0034 end');
     })
 
     /**
@@ -2237,9 +2237,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0035 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0035 end');
     })
 
     /**
@@ -2251,9 +2251,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0036 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 11, 31, 23, 59, 59).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0036 end');
     })
 
 
@@ -2266,9 +2266,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0037 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0037 end');
     })
 
     /**
@@ -2280,9 +2280,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0038 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0038 end');
     })
 
     /**
@@ -2294,9 +2294,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0039 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 11, 31, 23, 59, 59).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0039 end');
     })
 
 
@@ -2309,9 +2309,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0040 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0040 end');
     })
 
     /**
@@ -2323,9 +2323,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0041 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0041 end');
     })
 
     /**
@@ -2337,9 +2337,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0042 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 11, 31, 23, 59, 59).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0042 end');
     })
 
 
@@ -2352,9 +2352,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0043 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0043 end');
     })
 
     /**
@@ -2366,9 +2366,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0044 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0044 end');
     })
 
     /**
@@ -2380,9 +2380,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0045 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 11, 31, 23, 59, 59).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0045 end');
     })
 
 
@@ -2395,9 +2395,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0046 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0046 end');
     })
 
     /**
@@ -2409,9 +2409,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0047 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0047 end');
     })
 
     /**
@@ -2423,9 +2423,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0048 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 11, 31, 23, 59, 59).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0048 end');
     })
 
 
@@ -2438,9 +2438,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0049 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0049 end');
     })
 
     /**
@@ -2452,9 +2452,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0050 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0050 end');
     })
 
     /**
@@ -2466,9 +2466,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0051 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 11, 31, 23, 59, 59).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0051 end');
     })
 
 
@@ -2481,9 +2481,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0052 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0052 end');
     })
 
     /**
@@ -2495,9 +2495,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0053 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0053 end');
     })
 
     /**
@@ -2509,9 +2509,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0054 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 11, 31, 23, 59, 59).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0054 end');
     })
 
 
@@ -2524,9 +2524,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0055 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0055 end');
     })
 
     /**
@@ -2538,9 +2538,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0056 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0056 end');
     })
 
     /**
@@ -2552,9 +2552,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0057 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 11, 31, 23, 59, 59).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0057 end');
     })
 
 
@@ -2567,9 +2567,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0058 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0058 end');
     })
 
     /**
@@ -2581,9 +2581,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0059 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0059 end');
     })
 
     /**
@@ -2595,9 +2595,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0060 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 11, 31, 23, 59, 59).getTime(), new Date(2020, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0060 end');
     })
 
 
@@ -2610,9 +2610,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0061 begin');
       expect(DateUtil.isTheSameYear(new Date(2020, 0, 1, 0, 0, 0).getTime(), new Date(2020, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0061 end');
     })
 
     /**
@@ -2624,9 +2624,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0062 begin');
       expect(DateUtil.isTheSameYear(new Date(2020, 0, 1, 0, 0, 0).getTime(), new Date(2020, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0062 end');
     })
 
     /**
@@ -2638,9 +2638,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0063 begin');
       expect(DateUtil.isTheSameYear(new Date(2020, 11, 31, 23, 59, 59).getTime(), new Date(2021, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0063 end');
     })
 
 
@@ -2653,9 +2653,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0064 begin');
       expect(DateUtil.isTheSameYear(new Date(2021, 0, 1, 0, 0, 0).getTime(), new Date(2021, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0064 end');
     })
 
     /**
@@ -2667,9 +2667,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0065 begin');
       expect(DateUtil.isTheSameYear(new Date(2021, 0, 1, 0, 0, 0).getTime(), new Date(2021, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0065 end');
     })
 
     /**
@@ -2681,9 +2681,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0066 begin');
       expect(DateUtil.isTheSameYear(new Date(2021, 11, 31, 23, 59, 59).getTime(), new Date(2022, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0066 end');
     })
 
 
@@ -2696,9 +2696,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0067 begin');
       expect(DateUtil.isTheSameYear(new Date(2022, 0, 1, 0, 0, 0).getTime(), new Date(2022, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0067 end');
     })
 
     /**
@@ -2710,9 +2710,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0068 begin');
       expect(DateUtil.isTheSameYear(new Date(2022, 0, 1, 0, 0, 0).getTime(), new Date(2022, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0068 end');
     })
 
     /**
@@ -2724,9 +2724,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0069 begin');
       expect(DateUtil.isTheSameYear(new Date(2022, 11, 31, 23, 59, 59).getTime(), new Date(2023, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0069 end');
     })
 
 
@@ -2739,9 +2739,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0070 begin');
       expect(DateUtil.isTheSameYear(new Date(2023, 0, 1, 0, 0, 0).getTime(), new Date(2023, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0070 end');
     })
 
     /**
@@ -2753,9 +2753,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0071 begin');
       expect(DateUtil.isTheSameYear(new Date(2023, 0, 1, 0, 0, 0).getTime(), new Date(2023, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0071 end');
     })
 
     /**
@@ -2767,9 +2767,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0072 begin');
       expect(DateUtil.isTheSameYear(new Date(2023, 11, 31, 23, 59, 59).getTime(), new Date(2024, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0072 end');
     })
 
 
@@ -2782,9 +2782,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0073 begin');
       expect(DateUtil.isTheSameYear(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0073 end');
     })
 
     /**
@@ -2796,9 +2796,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0074 begin');
       expect(DateUtil.isTheSameYear(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0074 end');
     })
 
     /**
@@ -2810,9 +2810,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0075 begin');
       expect(DateUtil.isTheSameYear(new Date(2024, 11, 31, 23, 59, 59).getTime(), new Date(2025, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0075 end');
     })
 
 
@@ -2825,9 +2825,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0076 begin');
       expect(DateUtil.isTheSameYear(new Date(2025, 0, 1, 0, 0, 0).getTime(), new Date(2025, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0076 end');
     })
 
     /**
@@ -2839,9 +2839,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0077 begin');
       expect(DateUtil.isTheSameYear(new Date(2025, 0, 1, 0, 0, 0).getTime(), new Date(2025, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0077 end');
     })
 
     /**
@@ -2853,9 +2853,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0078 begin');
       expect(DateUtil.isTheSameYear(new Date(2025, 11, 31, 23, 59, 59).getTime(), new Date(2026, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0078 end');
     })
 
 
@@ -2868,9 +2868,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0079 begin');
       expect(DateUtil.isTheSameYear(new Date(2026, 0, 1, 0, 0, 0).getTime(), new Date(2026, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0079 end');
     })
 
     /**
@@ -2882,9 +2882,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0080 begin');
       expect(DateUtil.isTheSameYear(new Date(2026, 0, 1, 0, 0, 0).getTime(), new Date(2026, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0080 end');
     })
 
     /**
@@ -2896,9 +2896,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0081 begin');
       expect(DateUtil.isTheSameYear(new Date(2026, 11, 31, 23, 59, 59).getTime(), new Date(2027, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0081 end');
     })
 
 
@@ -2911,9 +2911,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0082 begin');
       expect(DateUtil.isTheSameYear(new Date(2027, 0, 1, 0, 0, 0).getTime(), new Date(2027, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0082 end');
     })
 
     /**
@@ -2925,9 +2925,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0083 begin');
       expect(DateUtil.isTheSameYear(new Date(2027, 0, 1, 0, 0, 0).getTime(), new Date(2027, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0083 end');
     })
 
     /**
@@ -2939,9 +2939,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0084 begin');
       expect(DateUtil.isTheSameYear(new Date(2027, 11, 31, 23, 59, 59).getTime(), new Date(2028, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0084 end');
     })
 
 
@@ -2954,9 +2954,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0085 begin');
       expect(DateUtil.isTheSameYear(new Date(2028, 0, 1, 0, 0, 0).getTime(), new Date(2028, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0085 end');
     })
 
     /**
@@ -2968,9 +2968,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0086 begin');
       expect(DateUtil.isTheSameYear(new Date(2028, 0, 1, 0, 0, 0).getTime(), new Date(2028, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0086 end');
     })
 
     /**
@@ -2982,9 +2982,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0087 begin');
       expect(DateUtil.isTheSameYear(new Date(2028, 11, 31, 23, 59, 59).getTime(), new Date(2029, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0087 end');
     })
 
 
@@ -2997,9 +2997,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0088 begin');
       expect(DateUtil.isTheSameYear(new Date(2029, 0, 1, 0, 0, 0).getTime(), new Date(2029, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0088 end');
     })
 
     /**
@@ -3011,9 +3011,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0089 begin');
       expect(DateUtil.isTheSameYear(new Date(2029, 0, 1, 0, 0, 0).getTime(), new Date(2029, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0089 end');
     })
 
     /**
@@ -3025,9 +3025,9 @@ export default function PhotosDateRangeMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearMatrix0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0090 begin');
       expect(DateUtil.isTheSameYear(new Date(2029, 11, 31, 23, 59, 59).getTime(), new Date(2030, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearMatrix0090 end');
     })
 
   })

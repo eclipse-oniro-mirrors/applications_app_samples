@@ -23,16 +23,15 @@ import { util } from '@kit.ArkTS';
 let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
 let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 let jsonPath: string = 'mock/mock-config.json';
-let tag: string = 'testTag';
+const TAG: string = 'testTag';
 const UNLOCK_ERROR = -3;
-const global: object = new Function('return this')();
 
 async function onAbilityCreateCallback(data: UIAbility) {
-  hilog.info(0x0000, tag, 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));
+  hilog.info(0x0000, TAG, 'onAbilityCreateCallback, data: %{public}s', JSON.stringify(data));
 }
 
 async function addAbilityMonitorCallback(err: BusinessError) {
-  hilog.info(0x0000, tag, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+  hilog.info(0x0000, TAG, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -40,23 +39,14 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 
   onPrepare() {
-    hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner OnPrepare');
+    hilog.info(0x0000, TAG, '%{public}s', 'OpenHarmonyTestRunner OnPrepare');
   }
 
   async onRun() {
-    hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun run');
+    hilog.info(0x0000, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
     let moduleName = abilityDelegatorArguments.parameters['-m'];
-
-    const savePath: string = '__savePath__';
-    const readPath: string = '__readPath__';
-    const testMode: string = '__testMode__';
-    let uid: number = Math.floor(abilityDelegator.getAppContext().applicationInfo.uid / 200000);
-    const bundleName: string = abilityDelegatorArguments.bundleName;
-    global[savePath] = '/data/storage/el2/base/js_coverage.json';
-    global[readPath] = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
-    global[testMode] = 'ohostest';
 
     try {
       application.createModuleContext(abilityDelegator.getAppContext().getApplicationContext(), moduleName)
@@ -79,7 +69,7 @@ async function doOnRun(context: common.Context, moduleName: string) {
   const bundleName = abilityDelegatorArguments.bundleName;
   const testAbilityName: string = 'TestAbility';
   const parameters = abilityDelegatorArguments.parameters;
-  const isDebug = parameters['-D'] == 'true';
+  const isDebug = parameters['-D'] === 'true';
   let lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
     abilityName: testAbilityName,
     onAbilityCreate: onAbilityCreateCallback,
@@ -87,7 +77,7 @@ async function doOnRun(context: common.Context, moduleName: string) {
   };
   abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
   await startAbility(bundleName, testAbilityName, moduleName, isDebug);
-  hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun end');
+  hilog.info(0x0000, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
 }
 
 async function startAbility(bundleName: string, abilityName: string, moduleName: string, isDebug: boolean) {
@@ -98,12 +88,12 @@ async function startAbility(bundleName: string, abilityName: string, moduleName:
   await abilityDelegator.executeShellCommand(command).then(result => {
     if (result.stdResult.includes('error: unlock screen failed in developer mode') ||
       result.stdResult.includes('10106102')) {
-      hilog.info(0x0000, tag, '%{public}s', `startAbility failed ${result.stdResult}`);
+      hilog.info(0x0000, TAG, '%{public}s', `startAbility failed ${result.stdResult}`);
       abilityDelegator.finishTest('', UNLOCK_ERROR, () => {});
       return;
     }
-  }).catch((err: string) => {
-    hilog.info(0x0000, tag, '%{public}s', `startAbility error: ${err}`);
+  }).catch((err: BusinessError) => {
+    hilog.error(0x0000, TAG, '%{public}s', `startAbility error: ${err}`);
   })
 }
 
@@ -111,7 +101,7 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
   let rawFile: Uint8Array;
   try {
     rawFile = resourceManager.getRawFileContentSync(jsonPath);
-    hilog.info(0x0000, tag, 'MockList file exists');
+    hilog.info(0x0000, TAG, 'MockList file exists');
     let mockStr: string = util.TextDecoder.create('utf-8', { ignoreBOM: true }).decodeToString(rawFile);
     let mockMap: Record<string, string> = getMockList(mockStr);
     try {
@@ -119,12 +109,12 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
     } catch (error) {
       let code = (error as BusinessError).code;
       let message = (error as BusinessError).message;
-      hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
+      hilog.error(0x0000, TAG, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
     }
   } catch (error) {
     let code = (error as BusinessError).code;
     let message = (error as BusinessError).message;
-    hilog.error(0x0000, tag, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
+    hilog.error(0x0000, TAG, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
   }
 }
 
@@ -136,6 +126,6 @@ function getMockList(jsonStr: string) {
     let realValue: string = value['source'].toString();
     mockList[key] = realValue;
   });
-  hilog.info(0x0000, tag, '%{public}s', 'mock-json value:' + JSON.stringify(mockList) ?? '');
+  hilog.info(0x0000, TAG, '%{public}s', 'mock-json value:' + JSON.stringify(mockList) ?? '');
   return mockList;
 }

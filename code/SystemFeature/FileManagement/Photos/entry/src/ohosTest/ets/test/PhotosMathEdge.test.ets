@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { MathUtils } from '../../../main/ets/utils/MathUtils';
 
@@ -30,9 +30,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0001 begin');
       expect(MathUtils.clamp(-100.25, -100, -99)).assertEqual(-100);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0002 begin');
       expect(MathUtils.clamp(-100, -100, -99)).assertEqual(-100);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0003 begin');
       expect(MathUtils.clamp(-99.5, -100, -99)).assertEqual(-99.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0003 end');
     })
 
     /**
@@ -72,9 +72,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0004 begin');
       expect(MathUtils.clamp(-99, -100, -99)).assertEqual(-99);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0004 end');
     })
 
     /**
@@ -86,9 +86,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0005 begin');
       expect(MathUtils.clamp(-98.75, -100, -99)).assertEqual(-99);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0005 end');
     })
 
 
@@ -101,9 +101,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0006 begin');
       expect(MathUtils.clamp(-100, -99.75, -97.75)).assertEqual(-99.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0006 end');
     })
 
     /**
@@ -115,9 +115,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0007 begin');
       expect(MathUtils.clamp(-99.75, -99.75, -97.75)).assertEqual(-99.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0007 end');
     })
 
     /**
@@ -129,9 +129,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0008 begin');
       expect(MathUtils.clamp(-98.75, -99.75, -97.75)).assertEqual(-98.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0008 end');
     })
 
     /**
@@ -143,9 +143,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0009 begin');
       expect(MathUtils.clamp(-97.75, -99.75, -97.75)).assertEqual(-97.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0009 end');
     })
 
     /**
@@ -157,9 +157,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0010 begin');
       expect(MathUtils.clamp(-97.5, -99.75, -97.75)).assertEqual(-97.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0010 end');
     })
 
 
@@ -172,9 +172,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0011 begin');
       expect(MathUtils.clamp(-99.75, -99.5, -96.5)).assertEqual(-99.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0011 end');
     })
 
     /**
@@ -186,9 +186,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0012 begin');
       expect(MathUtils.clamp(-99.5, -99.5, -96.5)).assertEqual(-99.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0012 end');
     })
 
     /**
@@ -200,9 +200,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0013 begin');
       expect(MathUtils.clamp(-98, -99.5, -96.5)).assertEqual(-98);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0013 end');
     })
 
     /**
@@ -214,9 +214,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0014 begin');
       expect(MathUtils.clamp(-96.5, -99.5, -96.5)).assertEqual(-96.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0014 end');
     })
 
     /**
@@ -228,9 +228,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0015 begin');
       expect(MathUtils.clamp(-96.25, -99.5, -96.5)).assertEqual(-96.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0015 end');
     })
 
 
@@ -243,9 +243,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0016 begin');
       expect(MathUtils.clamp(-99.5, -99.25, -95.25)).assertEqual(-99.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0016 end');
     })
 
     /**
@@ -257,9 +257,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0017 begin');
       expect(MathUtils.clamp(-99.25, -99.25, -95.25)).assertEqual(-99.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0017 end');
     })
 
     /**
@@ -271,9 +271,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0018 begin');
       expect(MathUtils.clamp(-97.25, -99.25, -95.25)).assertEqual(-97.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0018 end');
     })
 
     /**
@@ -285,9 +285,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0019 begin');
       expect(MathUtils.clamp(-95.25, -99.25, -95.25)).assertEqual(-95.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0019 end');
     })
 
     /**
@@ -299,9 +299,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0020 begin');
       expect(MathUtils.clamp(-95, -99.25, -95.25)).assertEqual(-95.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0020 end');
     })
 
 
@@ -314,9 +314,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0021 begin');
       expect(MathUtils.clamp(-99.25, -99, -94)).assertEqual(-99);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0021 end');
     })
 
     /**
@@ -328,9 +328,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0022 begin');
       expect(MathUtils.clamp(-99, -99, -94)).assertEqual(-99);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0022 end');
     })
 
     /**
@@ -342,9 +342,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0023 begin');
       expect(MathUtils.clamp(-96.5, -99, -94)).assertEqual(-96.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0023 end');
     })
 
     /**
@@ -356,9 +356,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0024 begin');
       expect(MathUtils.clamp(-94, -99, -94)).assertEqual(-94);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0024 end');
     })
 
     /**
@@ -370,9 +370,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0025 begin');
       expect(MathUtils.clamp(-93.75, -99, -94)).assertEqual(-94);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0025 end');
     })
 
 
@@ -385,9 +385,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0026 begin');
       expect(MathUtils.clamp(-99, -98.75, -92.75)).assertEqual(-98.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0026 end');
     })
 
     /**
@@ -399,9 +399,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0027 begin');
       expect(MathUtils.clamp(-98.75, -98.75, -92.75)).assertEqual(-98.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0027 end');
     })
 
     /**
@@ -413,9 +413,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0028 begin');
       expect(MathUtils.clamp(-95.75, -98.75, -92.75)).assertEqual(-95.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0028 end');
     })
 
     /**
@@ -427,9 +427,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0029 begin');
       expect(MathUtils.clamp(-92.75, -98.75, -92.75)).assertEqual(-92.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0029 end');
     })
 
     /**
@@ -441,9 +441,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0030 begin');
       expect(MathUtils.clamp(-92.5, -98.75, -92.75)).assertEqual(-92.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0030 end');
     })
 
 
@@ -456,9 +456,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0031 begin');
       expect(MathUtils.clamp(-98.75, -98.5, -91.5)).assertEqual(-98.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0031 end');
     })
 
     /**
@@ -470,9 +470,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0032 begin');
       expect(MathUtils.clamp(-98.5, -98.5, -91.5)).assertEqual(-98.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0032 end');
     })
 
     /**
@@ -484,9 +484,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0033 begin');
       expect(MathUtils.clamp(-95, -98.5, -91.5)).assertEqual(-95);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0033 end');
     })
 
     /**
@@ -498,9 +498,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0034 begin');
       expect(MathUtils.clamp(-91.5, -98.5, -91.5)).assertEqual(-91.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0034 end');
     })
 
     /**
@@ -512,9 +512,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0035 begin');
       expect(MathUtils.clamp(-91.25, -98.5, -91.5)).assertEqual(-91.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0035 end');
     })
 
 
@@ -527,9 +527,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0036 begin');
       expect(MathUtils.clamp(-98.5, -98.25, -90.25)).assertEqual(-98.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0036 end');
     })
 
     /**
@@ -541,9 +541,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0037 begin');
       expect(MathUtils.clamp(-98.25, -98.25, -90.25)).assertEqual(-98.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0037 end');
     })
 
     /**
@@ -555,9 +555,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0038 begin');
       expect(MathUtils.clamp(-94.25, -98.25, -90.25)).assertEqual(-94.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0038 end');
     })
 
     /**
@@ -569,9 +569,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0039 begin');
       expect(MathUtils.clamp(-90.25, -98.25, -90.25)).assertEqual(-90.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0039 end');
     })
 
     /**
@@ -583,9 +583,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0040 begin');
       expect(MathUtils.clamp(-90, -98.25, -90.25)).assertEqual(-90.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0040 end');
     })
 
 
@@ -598,9 +598,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0041 begin');
       expect(MathUtils.clamp(-98.25, -98, -89)).assertEqual(-98);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0041 end');
     })
 
     /**
@@ -612,9 +612,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0042 begin');
       expect(MathUtils.clamp(-98, -98, -89)).assertEqual(-98);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0042 end');
     })
 
     /**
@@ -626,9 +626,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0043 begin');
       expect(MathUtils.clamp(-93.5, -98, -89)).assertEqual(-93.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0043 end');
     })
 
     /**
@@ -640,9 +640,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0044 begin');
       expect(MathUtils.clamp(-89, -98, -89)).assertEqual(-89);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0044 end');
     })
 
     /**
@@ -654,9 +654,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0045 begin');
       expect(MathUtils.clamp(-88.75, -98, -89)).assertEqual(-89);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0045 end');
     })
 
 
@@ -669,9 +669,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0046 begin');
       expect(MathUtils.clamp(-98, -97.75, -87.75)).assertEqual(-97.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0046 end');
     })
 
     /**
@@ -683,9 +683,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0047 begin');
       expect(MathUtils.clamp(-97.75, -97.75, -87.75)).assertEqual(-97.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0047 end');
     })
 
     /**
@@ -697,9 +697,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0048 begin');
       expect(MathUtils.clamp(-92.75, -97.75, -87.75)).assertEqual(-92.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0048 end');
     })
 
     /**
@@ -711,9 +711,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0049 begin');
       expect(MathUtils.clamp(-87.75, -97.75, -87.75)).assertEqual(-87.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0049 end');
     })
 
     /**
@@ -725,9 +725,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0050 begin');
       expect(MathUtils.clamp(-87.5, -97.75, -87.75)).assertEqual(-87.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0050 end');
     })
 
 
@@ -740,9 +740,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0051 begin');
       expect(MathUtils.clamp(-97.75, -97.5, -86.5)).assertEqual(-97.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0051 end');
     })
 
     /**
@@ -754,9 +754,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0052 begin');
       expect(MathUtils.clamp(-97.5, -97.5, -86.5)).assertEqual(-97.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0052 end');
     })
 
     /**
@@ -768,9 +768,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0053 begin');
       expect(MathUtils.clamp(-92, -97.5, -86.5)).assertEqual(-92);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0053 end');
     })
 
     /**
@@ -782,9 +782,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0054 begin');
       expect(MathUtils.clamp(-86.5, -97.5, -86.5)).assertEqual(-86.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0054 end');
     })
 
     /**
@@ -796,9 +796,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0055 begin');
       expect(MathUtils.clamp(-86.25, -97.5, -86.5)).assertEqual(-86.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0055 end');
     })
 
 
@@ -811,9 +811,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0056 begin');
       expect(MathUtils.clamp(-97.5, -97.25, -85.25)).assertEqual(-97.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0056 end');
     })
 
     /**
@@ -825,9 +825,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0057 begin');
       expect(MathUtils.clamp(-97.25, -97.25, -85.25)).assertEqual(-97.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0057 end');
     })
 
     /**
@@ -839,9 +839,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0058 begin');
       expect(MathUtils.clamp(-91.25, -97.25, -85.25)).assertEqual(-91.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0058 end');
     })
 
     /**
@@ -853,9 +853,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0059 begin');
       expect(MathUtils.clamp(-85.25, -97.25, -85.25)).assertEqual(-85.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0059 end');
     })
 
     /**
@@ -867,9 +867,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0060 begin');
       expect(MathUtils.clamp(-85, -97.25, -85.25)).assertEqual(-85.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0060 end');
     })
 
 
@@ -882,9 +882,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0061 begin');
       expect(MathUtils.clamp(-97.25, -97, -84)).assertEqual(-97);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0061 end');
     })
 
     /**
@@ -896,9 +896,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0062 begin');
       expect(MathUtils.clamp(-97, -97, -84)).assertEqual(-97);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0062 end');
     })
 
     /**
@@ -910,9 +910,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0063 begin');
       expect(MathUtils.clamp(-90.5, -97, -84)).assertEqual(-90.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0063 end');
     })
 
     /**
@@ -924,9 +924,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0064 begin');
       expect(MathUtils.clamp(-84, -97, -84)).assertEqual(-84);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0064 end');
     })
 
     /**
@@ -938,9 +938,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0065 begin');
       expect(MathUtils.clamp(-83.75, -97, -84)).assertEqual(-84);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0065 end');
     })
 
 
@@ -953,9 +953,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0066 begin');
       expect(MathUtils.clamp(-97, -96.75, -82.75)).assertEqual(-96.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0066 end');
     })
 
     /**
@@ -967,9 +967,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0067 begin');
       expect(MathUtils.clamp(-96.75, -96.75, -82.75)).assertEqual(-96.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0067 end');
     })
 
     /**
@@ -981,9 +981,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0068 begin');
       expect(MathUtils.clamp(-89.75, -96.75, -82.75)).assertEqual(-89.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0068 end');
     })
 
     /**
@@ -995,9 +995,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0069 begin');
       expect(MathUtils.clamp(-82.75, -96.75, -82.75)).assertEqual(-82.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0069 end');
     })
 
     /**
@@ -1009,9 +1009,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0070 begin');
       expect(MathUtils.clamp(-82.5, -96.75, -82.75)).assertEqual(-82.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0070 end');
     })
 
 
@@ -1024,9 +1024,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0071 begin');
       expect(MathUtils.clamp(-96.75, -96.5, -81.5)).assertEqual(-96.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0071 end');
     })
 
     /**
@@ -1038,9 +1038,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0072 begin');
       expect(MathUtils.clamp(-96.5, -96.5, -81.5)).assertEqual(-96.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0072 end');
     })
 
     /**
@@ -1052,9 +1052,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0073 begin');
       expect(MathUtils.clamp(-89, -96.5, -81.5)).assertEqual(-89);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0073 end');
     })
 
     /**
@@ -1066,9 +1066,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0074 begin');
       expect(MathUtils.clamp(-81.5, -96.5, -81.5)).assertEqual(-81.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0074 end');
     })
 
     /**
@@ -1080,9 +1080,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0075 begin');
       expect(MathUtils.clamp(-81.25, -96.5, -81.5)).assertEqual(-81.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0075 end');
     })
 
 
@@ -1095,9 +1095,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0076 begin');
       expect(MathUtils.clamp(-96.5, -96.25, -80.25)).assertEqual(-96.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0076 end');
     })
 
     /**
@@ -1109,9 +1109,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0077 begin');
       expect(MathUtils.clamp(-96.25, -96.25, -80.25)).assertEqual(-96.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0077 end');
     })
 
     /**
@@ -1123,9 +1123,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0078 begin');
       expect(MathUtils.clamp(-88.25, -96.25, -80.25)).assertEqual(-88.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0078 end');
     })
 
     /**
@@ -1137,9 +1137,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0079 begin');
       expect(MathUtils.clamp(-80.25, -96.25, -80.25)).assertEqual(-80.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0079 end');
     })
 
     /**
@@ -1151,9 +1151,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0080 begin');
       expect(MathUtils.clamp(-80, -96.25, -80.25)).assertEqual(-80.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0080 end');
     })
 
 
@@ -1166,9 +1166,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0081 begin');
       expect(MathUtils.clamp(-96.25, -96, -95)).assertEqual(-96);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0081 end');
     })
 
     /**
@@ -1180,9 +1180,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0082 begin');
       expect(MathUtils.clamp(-96, -96, -95)).assertEqual(-96);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0082 end');
     })
 
     /**
@@ -1194,9 +1194,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0083 begin');
       expect(MathUtils.clamp(-95.5, -96, -95)).assertEqual(-95.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0083 end');
     })
 
     /**
@@ -1208,9 +1208,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0084 begin');
       expect(MathUtils.clamp(-95, -96, -95)).assertEqual(-95);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0084 end');
     })
 
     /**
@@ -1222,9 +1222,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0085 begin');
       expect(MathUtils.clamp(-94.75, -96, -95)).assertEqual(-95);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0085 end');
     })
 
 
@@ -1237,9 +1237,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0086 begin');
       expect(MathUtils.clamp(-96, -95.75, -93.75)).assertEqual(-95.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0086 end');
     })
 
     /**
@@ -1251,9 +1251,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0087 begin');
       expect(MathUtils.clamp(-95.75, -95.75, -93.75)).assertEqual(-95.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0087 end');
     })
 
     /**
@@ -1265,9 +1265,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0088 begin');
       expect(MathUtils.clamp(-94.75, -95.75, -93.75)).assertEqual(-94.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0088 end');
     })
 
     /**
@@ -1279,9 +1279,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0089 begin');
       expect(MathUtils.clamp(-93.75, -95.75, -93.75)).assertEqual(-93.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0089 end');
     })
 
     /**
@@ -1293,9 +1293,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0090 begin');
       expect(MathUtils.clamp(-93.5, -95.75, -93.75)).assertEqual(-93.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0090 end');
     })
 
 
@@ -1308,9 +1308,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0091 begin');
       expect(MathUtils.clamp(-95.75, -95.5, -92.5)).assertEqual(-95.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0091 end');
     })
 
     /**
@@ -1322,9 +1322,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0092 begin');
       expect(MathUtils.clamp(-95.5, -95.5, -92.5)).assertEqual(-95.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0092 end');
     })
 
     /**
@@ -1336,9 +1336,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0093 begin');
       expect(MathUtils.clamp(-94, -95.5, -92.5)).assertEqual(-94);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0093 end');
     })
 
     /**
@@ -1350,9 +1350,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0094 begin');
       expect(MathUtils.clamp(-92.5, -95.5, -92.5)).assertEqual(-92.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0094 end');
     })
 
     /**
@@ -1364,9 +1364,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0095 begin');
       expect(MathUtils.clamp(-92.25, -95.5, -92.5)).assertEqual(-92.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0095 end');
     })
 
 
@@ -1379,9 +1379,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0096 begin');
       expect(MathUtils.clamp(-95.5, -95.25, -91.25)).assertEqual(-95.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0096 end');
     })
 
     /**
@@ -1393,9 +1393,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0097 begin');
       expect(MathUtils.clamp(-95.25, -95.25, -91.25)).assertEqual(-95.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0097 end');
     })
 
     /**
@@ -1407,9 +1407,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0098 begin');
       expect(MathUtils.clamp(-93.25, -95.25, -91.25)).assertEqual(-93.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0098 end');
     })
 
     /**
@@ -1421,9 +1421,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0099 begin');
       expect(MathUtils.clamp(-91.25, -95.25, -91.25)).assertEqual(-91.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0099 end');
     })
 
     /**
@@ -1435,9 +1435,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0100 begin');
       expect(MathUtils.clamp(-91, -95.25, -91.25)).assertEqual(-91.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0100 end');
     })
 
 
@@ -1450,9 +1450,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0101 begin');
       expect(MathUtils.clamp(-95.25, -95, -90)).assertEqual(-95);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0101 end');
     })
 
     /**
@@ -1464,9 +1464,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0102 begin');
       expect(MathUtils.clamp(-95, -95, -90)).assertEqual(-95);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0102 end');
     })
 
     /**
@@ -1478,9 +1478,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0103 begin');
       expect(MathUtils.clamp(-92.5, -95, -90)).assertEqual(-92.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0103 end');
     })
 
     /**
@@ -1492,9 +1492,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0104 begin');
       expect(MathUtils.clamp(-90, -95, -90)).assertEqual(-90);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0104 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0105 begin');
       expect(MathUtils.clamp(-89.75, -95, -90)).assertEqual(-90);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0105 end');
     })
 
 
@@ -1521,9 +1521,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0106 begin');
       expect(MathUtils.clamp(-95, -94.75, -88.75)).assertEqual(-94.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0106 end');
     })
 
     /**
@@ -1535,9 +1535,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0107 begin');
       expect(MathUtils.clamp(-94.75, -94.75, -88.75)).assertEqual(-94.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0107 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0108 begin');
       expect(MathUtils.clamp(-91.75, -94.75, -88.75)).assertEqual(-91.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0108 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0109 begin');
       expect(MathUtils.clamp(-88.75, -94.75, -88.75)).assertEqual(-88.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0109 end');
     })
 
     /**
@@ -1577,9 +1577,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0110 begin');
       expect(MathUtils.clamp(-88.5, -94.75, -88.75)).assertEqual(-88.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0110 end');
     })
 
 
@@ -1592,9 +1592,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0111 begin');
       expect(MathUtils.clamp(-94.75, -94.5, -87.5)).assertEqual(-94.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0111 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0112 begin');
       expect(MathUtils.clamp(-94.5, -94.5, -87.5)).assertEqual(-94.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0112 end');
     })
 
     /**
@@ -1620,9 +1620,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0113 begin');
       expect(MathUtils.clamp(-91, -94.5, -87.5)).assertEqual(-91);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0113 end');
     })
 
     /**
@@ -1634,9 +1634,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0114 begin');
       expect(MathUtils.clamp(-87.5, -94.5, -87.5)).assertEqual(-87.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0114 end');
     })
 
     /**
@@ -1648,9 +1648,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0115 begin');
       expect(MathUtils.clamp(-87.25, -94.5, -87.5)).assertEqual(-87.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0115 end');
     })
 
 
@@ -1663,9 +1663,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0116 begin');
       expect(MathUtils.clamp(-94.5, -94.25, -86.25)).assertEqual(-94.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0116 end');
     })
 
     /**
@@ -1677,9 +1677,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0117 begin');
       expect(MathUtils.clamp(-94.25, -94.25, -86.25)).assertEqual(-94.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0117 end');
     })
 
     /**
@@ -1691,9 +1691,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0118 begin');
       expect(MathUtils.clamp(-90.25, -94.25, -86.25)).assertEqual(-90.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0118 end');
     })
 
     /**
@@ -1705,9 +1705,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0119 begin');
       expect(MathUtils.clamp(-86.25, -94.25, -86.25)).assertEqual(-86.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0119 end');
     })
 
     /**
@@ -1719,9 +1719,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0120 begin');
       expect(MathUtils.clamp(-86, -94.25, -86.25)).assertEqual(-86.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0120 end');
     })
 
 
@@ -1734,9 +1734,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0121 begin');
       expect(MathUtils.clamp(-94.25, -94, -85)).assertEqual(-94);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0121 end');
     })
 
     /**
@@ -1748,9 +1748,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0122 begin');
       expect(MathUtils.clamp(-94, -94, -85)).assertEqual(-94);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0122 end');
     })
 
     /**
@@ -1762,9 +1762,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0123 begin');
       expect(MathUtils.clamp(-89.5, -94, -85)).assertEqual(-89.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0123 end');
     })
 
     /**
@@ -1776,9 +1776,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0124 begin');
       expect(MathUtils.clamp(-85, -94, -85)).assertEqual(-85);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0124 end');
     })
 
     /**
@@ -1790,9 +1790,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0125 begin');
       expect(MathUtils.clamp(-84.75, -94, -85)).assertEqual(-85);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0125 end');
     })
 
 
@@ -1805,9 +1805,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0126 begin');
       expect(MathUtils.clamp(-94, -93.75, -83.75)).assertEqual(-93.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0126 end');
     })
 
     /**
@@ -1819,9 +1819,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0127 begin');
       expect(MathUtils.clamp(-93.75, -93.75, -83.75)).assertEqual(-93.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0127 end');
     })
 
     /**
@@ -1833,9 +1833,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0128 begin');
       expect(MathUtils.clamp(-88.75, -93.75, -83.75)).assertEqual(-88.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0128 end');
     })
 
     /**
@@ -1847,9 +1847,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0129 begin');
       expect(MathUtils.clamp(-83.75, -93.75, -83.75)).assertEqual(-83.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0129 end');
     })
 
     /**
@@ -1861,9 +1861,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0130 begin');
       expect(MathUtils.clamp(-83.5, -93.75, -83.75)).assertEqual(-83.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0130 end');
     })
 
 
@@ -1876,9 +1876,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0131 begin');
       expect(MathUtils.clamp(-93.75, -93.5, -82.5)).assertEqual(-93.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0131 end');
     })
 
     /**
@@ -1890,9 +1890,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0132 begin');
       expect(MathUtils.clamp(-93.5, -93.5, -82.5)).assertEqual(-93.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0132 end');
     })
 
     /**
@@ -1904,9 +1904,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0133 begin');
       expect(MathUtils.clamp(-88, -93.5, -82.5)).assertEqual(-88);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0133 end');
     })
 
     /**
@@ -1918,9 +1918,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0134 begin');
       expect(MathUtils.clamp(-82.5, -93.5, -82.5)).assertEqual(-82.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0134 end');
     })
 
     /**
@@ -1932,9 +1932,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0135 begin');
       expect(MathUtils.clamp(-82.25, -93.5, -82.5)).assertEqual(-82.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0135 end');
     })
 
 
@@ -1947,9 +1947,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0136 begin');
       expect(MathUtils.clamp(-93.5, -93.25, -81.25)).assertEqual(-93.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0136 end');
     })
 
     /**
@@ -1961,9 +1961,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0137 begin');
       expect(MathUtils.clamp(-93.25, -93.25, -81.25)).assertEqual(-93.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0137 end');
     })
 
     /**
@@ -1975,9 +1975,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0138 begin');
       expect(MathUtils.clamp(-87.25, -93.25, -81.25)).assertEqual(-87.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0138 end');
     })
 
     /**
@@ -1989,9 +1989,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0139 begin');
       expect(MathUtils.clamp(-81.25, -93.25, -81.25)).assertEqual(-81.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0139 end');
     })
 
     /**
@@ -2003,9 +2003,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0140 begin');
       expect(MathUtils.clamp(-81, -93.25, -81.25)).assertEqual(-81.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0140 end');
     })
 
 
@@ -2018,9 +2018,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0141 begin');
       expect(MathUtils.clamp(-93.25, -93, -80)).assertEqual(-93);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0141 end');
     })
 
     /**
@@ -2032,9 +2032,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0142 begin');
       expect(MathUtils.clamp(-93, -93, -80)).assertEqual(-93);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0142 end');
     })
 
     /**
@@ -2046,9 +2046,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0143 begin');
       expect(MathUtils.clamp(-86.5, -93, -80)).assertEqual(-86.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0143 end');
     })
 
     /**
@@ -2060,9 +2060,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0144 begin');
       expect(MathUtils.clamp(-80, -93, -80)).assertEqual(-80);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0144 end');
     })
 
     /**
@@ -2074,9 +2074,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0145 begin');
       expect(MathUtils.clamp(-79.75, -93, -80)).assertEqual(-80);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0145 end');
     })
 
 
@@ -2089,9 +2089,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0146 begin');
       expect(MathUtils.clamp(-93, -92.75, -78.75)).assertEqual(-92.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0146 end');
     })
 
     /**
@@ -2103,9 +2103,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0147 begin');
       expect(MathUtils.clamp(-92.75, -92.75, -78.75)).assertEqual(-92.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0147 end');
     })
 
     /**
@@ -2117,9 +2117,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0148 begin');
       expect(MathUtils.clamp(-85.75, -92.75, -78.75)).assertEqual(-85.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0148 end');
     })
 
     /**
@@ -2131,9 +2131,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0149 begin');
       expect(MathUtils.clamp(-78.75, -92.75, -78.75)).assertEqual(-78.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0149 end');
     })
 
     /**
@@ -2145,9 +2145,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0150 begin');
       expect(MathUtils.clamp(-78.5, -92.75, -78.75)).assertEqual(-78.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0150 end');
     })
 
 
@@ -2160,9 +2160,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0151 begin');
       expect(MathUtils.clamp(-92.75, -92.5, -77.5)).assertEqual(-92.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0151 end');
     })
 
     /**
@@ -2174,9 +2174,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0152 begin');
       expect(MathUtils.clamp(-92.5, -92.5, -77.5)).assertEqual(-92.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0152 end');
     })
 
     /**
@@ -2188,9 +2188,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0153 begin');
       expect(MathUtils.clamp(-85, -92.5, -77.5)).assertEqual(-85);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0153 end');
     })
 
     /**
@@ -2202,9 +2202,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0154 begin');
       expect(MathUtils.clamp(-77.5, -92.5, -77.5)).assertEqual(-77.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0154 end');
     })
 
     /**
@@ -2216,9 +2216,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0155 begin');
       expect(MathUtils.clamp(-77.25, -92.5, -77.5)).assertEqual(-77.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0155 end');
     })
 
 
@@ -2231,9 +2231,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0156 begin');
       expect(MathUtils.clamp(-92.5, -92.25, -76.25)).assertEqual(-92.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0156 end');
     })
 
     /**
@@ -2245,9 +2245,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0157 begin');
       expect(MathUtils.clamp(-92.25, -92.25, -76.25)).assertEqual(-92.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0157 end');
     })
 
     /**
@@ -2259,9 +2259,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0158 begin');
       expect(MathUtils.clamp(-84.25, -92.25, -76.25)).assertEqual(-84.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0158 end');
     })
 
     /**
@@ -2273,9 +2273,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0159 begin');
       expect(MathUtils.clamp(-76.25, -92.25, -76.25)).assertEqual(-76.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0159 end');
     })
 
     /**
@@ -2287,9 +2287,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0160 begin');
       expect(MathUtils.clamp(-76, -92.25, -76.25)).assertEqual(-76.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0160 end');
     })
 
 
@@ -2302,9 +2302,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0161 begin');
       expect(MathUtils.clamp(-92.25, -92, -91)).assertEqual(-92);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0161 end');
     })
 
     /**
@@ -2316,9 +2316,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0162 begin');
       expect(MathUtils.clamp(-92, -92, -91)).assertEqual(-92);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0162 end');
     })
 
     /**
@@ -2330,9 +2330,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0163 begin');
       expect(MathUtils.clamp(-91.5, -92, -91)).assertEqual(-91.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0163 end');
     })
 
     /**
@@ -2344,9 +2344,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0164 begin');
       expect(MathUtils.clamp(-91, -92, -91)).assertEqual(-91);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0164 end');
     })
 
     /**
@@ -2358,9 +2358,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0165 begin');
       expect(MathUtils.clamp(-90.75, -92, -91)).assertEqual(-91);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0165 end');
     })
 
 
@@ -2373,9 +2373,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0166 begin');
       expect(MathUtils.clamp(-92, -91.75, -89.75)).assertEqual(-91.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0166 end');
     })
 
     /**
@@ -2387,9 +2387,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0167 begin');
       expect(MathUtils.clamp(-91.75, -91.75, -89.75)).assertEqual(-91.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0167 end');
     })
 
     /**
@@ -2401,9 +2401,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0168 begin');
       expect(MathUtils.clamp(-90.75, -91.75, -89.75)).assertEqual(-90.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0168 end');
     })
 
     /**
@@ -2415,9 +2415,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0169 begin');
       expect(MathUtils.clamp(-89.75, -91.75, -89.75)).assertEqual(-89.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0169 end');
     })
 
     /**
@@ -2429,9 +2429,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0170 begin');
       expect(MathUtils.clamp(-89.5, -91.75, -89.75)).assertEqual(-89.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0170 end');
     })
 
 
@@ -2444,9 +2444,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0171 begin');
       expect(MathUtils.clamp(-91.75, -91.5, -88.5)).assertEqual(-91.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0171 end');
     })
 
     /**
@@ -2458,9 +2458,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0172 begin');
       expect(MathUtils.clamp(-91.5, -91.5, -88.5)).assertEqual(-91.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0172 end');
     })
 
     /**
@@ -2472,9 +2472,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0173 begin');
       expect(MathUtils.clamp(-90, -91.5, -88.5)).assertEqual(-90);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0173 end');
     })
 
     /**
@@ -2486,9 +2486,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0174 begin');
       expect(MathUtils.clamp(-88.5, -91.5, -88.5)).assertEqual(-88.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0174 end');
     })
 
     /**
@@ -2500,9 +2500,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0175 begin');
       expect(MathUtils.clamp(-88.25, -91.5, -88.5)).assertEqual(-88.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0175 end');
     })
 
 
@@ -2515,9 +2515,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0176 begin');
       expect(MathUtils.clamp(-91.5, -91.25, -87.25)).assertEqual(-91.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0176 end');
     })
 
     /**
@@ -2529,9 +2529,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0177 begin');
       expect(MathUtils.clamp(-91.25, -91.25, -87.25)).assertEqual(-91.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0177 end');
     })
 
     /**
@@ -2543,9 +2543,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0178 begin');
       expect(MathUtils.clamp(-89.25, -91.25, -87.25)).assertEqual(-89.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0178 end');
     })
 
     /**
@@ -2557,9 +2557,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0179 begin');
       expect(MathUtils.clamp(-87.25, -91.25, -87.25)).assertEqual(-87.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0179 end');
     })
 
     /**
@@ -2571,9 +2571,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0180 begin');
       expect(MathUtils.clamp(-87, -91.25, -87.25)).assertEqual(-87.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0180 end');
     })
 
 
@@ -2586,9 +2586,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0181 begin');
       expect(MathUtils.clamp(-91.25, -91, -86)).assertEqual(-91);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0181 end');
     })
 
     /**
@@ -2600,9 +2600,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0182 begin');
       expect(MathUtils.clamp(-91, -91, -86)).assertEqual(-91);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0182 end');
     })
 
     /**
@@ -2614,9 +2614,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0183 begin');
       expect(MathUtils.clamp(-88.5, -91, -86)).assertEqual(-88.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0183 end');
     })
 
     /**
@@ -2628,9 +2628,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0184 begin');
       expect(MathUtils.clamp(-86, -91, -86)).assertEqual(-86);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0184 end');
     })
 
     /**
@@ -2642,9 +2642,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0185 begin');
       expect(MathUtils.clamp(-85.75, -91, -86)).assertEqual(-86);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0185 end');
     })
 
 
@@ -2657,9 +2657,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0186 begin');
       expect(MathUtils.clamp(-91, -90.75, -84.75)).assertEqual(-90.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0186 end');
     })
 
     /**
@@ -2671,9 +2671,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0187 begin');
       expect(MathUtils.clamp(-90.75, -90.75, -84.75)).assertEqual(-90.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0187 end');
     })
 
     /**
@@ -2685,9 +2685,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0188 begin');
       expect(MathUtils.clamp(-87.75, -90.75, -84.75)).assertEqual(-87.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0188 end');
     })
 
     /**
@@ -2699,9 +2699,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0189 begin');
       expect(MathUtils.clamp(-84.75, -90.75, -84.75)).assertEqual(-84.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0189 end');
     })
 
     /**
@@ -2713,9 +2713,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0190 begin');
       expect(MathUtils.clamp(-84.5, -90.75, -84.75)).assertEqual(-84.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0190 end');
     })
 
 
@@ -2728,9 +2728,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0191 begin');
       expect(MathUtils.clamp(-90.75, -90.5, -83.5)).assertEqual(-90.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0191 end');
     })
 
     /**
@@ -2742,9 +2742,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0192 begin');
       expect(MathUtils.clamp(-90.5, -90.5, -83.5)).assertEqual(-90.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0192 end');
     })
 
     /**
@@ -2756,9 +2756,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0193 begin');
       expect(MathUtils.clamp(-87, -90.5, -83.5)).assertEqual(-87);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0193 end');
     })
 
     /**
@@ -2770,9 +2770,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0194 begin');
       expect(MathUtils.clamp(-83.5, -90.5, -83.5)).assertEqual(-83.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0194 end');
     })
 
     /**
@@ -2784,9 +2784,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0195 begin');
       expect(MathUtils.clamp(-83.25, -90.5, -83.5)).assertEqual(-83.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0195 end');
     })
 
 
@@ -2799,9 +2799,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0196 begin');
       expect(MathUtils.clamp(-90.5, -90.25, -82.25)).assertEqual(-90.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0196 end');
     })
 
     /**
@@ -2813,9 +2813,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0197 begin');
       expect(MathUtils.clamp(-90.25, -90.25, -82.25)).assertEqual(-90.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0197 end');
     })
 
     /**
@@ -2827,9 +2827,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0198 begin');
       expect(MathUtils.clamp(-86.25, -90.25, -82.25)).assertEqual(-86.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0198 end');
     })
 
     /**
@@ -2841,9 +2841,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0199 begin');
       expect(MathUtils.clamp(-82.25, -90.25, -82.25)).assertEqual(-82.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0199 end');
     })
 
     /**
@@ -2855,9 +2855,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0200 begin');
       expect(MathUtils.clamp(-82, -90.25, -82.25)).assertEqual(-82.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0200 end');
     })
 
 
@@ -2870,9 +2870,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0201 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0201 begin');
       expect(MathUtils.clamp(-90.25, -90, -81)).assertEqual(-90);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0201 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0201 end');
     })
 
     /**
@@ -2884,9 +2884,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0202 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0202 begin');
       expect(MathUtils.clamp(-90, -90, -81)).assertEqual(-90);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0202 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0202 end');
     })
 
     /**
@@ -2898,9 +2898,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0203 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0203 begin');
       expect(MathUtils.clamp(-85.5, -90, -81)).assertEqual(-85.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0203 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0203 end');
     })
 
     /**
@@ -2912,9 +2912,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0204 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0204 begin');
       expect(MathUtils.clamp(-81, -90, -81)).assertEqual(-81);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0204 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0204 end');
     })
 
     /**
@@ -2926,9 +2926,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0205 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0205 begin');
       expect(MathUtils.clamp(-80.75, -90, -81)).assertEqual(-81);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0205 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0205 end');
     })
 
 
@@ -2941,9 +2941,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0206 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0206 begin');
       expect(MathUtils.clamp(-90, -89.75, -79.75)).assertEqual(-89.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0206 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0206 end');
     })
 
     /**
@@ -2955,9 +2955,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0207 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0207 begin');
       expect(MathUtils.clamp(-89.75, -89.75, -79.75)).assertEqual(-89.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0207 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0207 end');
     })
 
     /**
@@ -2969,9 +2969,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0208 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0208 begin');
       expect(MathUtils.clamp(-84.75, -89.75, -79.75)).assertEqual(-84.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0208 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0208 end');
     })
 
     /**
@@ -2983,9 +2983,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0209 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0209 begin');
       expect(MathUtils.clamp(-79.75, -89.75, -79.75)).assertEqual(-79.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0209 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0209 end');
     })
 
     /**
@@ -2997,9 +2997,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0210 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0210 begin');
       expect(MathUtils.clamp(-79.5, -89.75, -79.75)).assertEqual(-79.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0210 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0210 end');
     })
 
 
@@ -3012,9 +3012,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0211 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0211 begin');
       expect(MathUtils.clamp(-89.75, -89.5, -78.5)).assertEqual(-89.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0211 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0211 end');
     })
 
     /**
@@ -3026,9 +3026,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0212 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0212 begin');
       expect(MathUtils.clamp(-89.5, -89.5, -78.5)).assertEqual(-89.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0212 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0212 end');
     })
 
     /**
@@ -3040,9 +3040,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0213 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0213 begin');
       expect(MathUtils.clamp(-84, -89.5, -78.5)).assertEqual(-84);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0213 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0213 end');
     })
 
     /**
@@ -3054,9 +3054,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0214 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0214 begin');
       expect(MathUtils.clamp(-78.5, -89.5, -78.5)).assertEqual(-78.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0214 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0214 end');
     })
 
     /**
@@ -3068,9 +3068,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0215 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0215 begin');
       expect(MathUtils.clamp(-78.25, -89.5, -78.5)).assertEqual(-78.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0215 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0215 end');
     })
 
 
@@ -3083,9 +3083,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0216 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0216 begin');
       expect(MathUtils.clamp(-89.5, -89.25, -77.25)).assertEqual(-89.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0216 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0216 end');
     })
 
     /**
@@ -3097,9 +3097,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0217 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0217 begin');
       expect(MathUtils.clamp(-89.25, -89.25, -77.25)).assertEqual(-89.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0217 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0217 end');
     })
 
     /**
@@ -3111,9 +3111,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0218 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0218 begin');
       expect(MathUtils.clamp(-83.25, -89.25, -77.25)).assertEqual(-83.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0218 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0218 end');
     })
 
     /**
@@ -3125,9 +3125,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0219 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0219 begin');
       expect(MathUtils.clamp(-77.25, -89.25, -77.25)).assertEqual(-77.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0219 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0219 end');
     })
 
     /**
@@ -3139,9 +3139,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0220 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0220 begin');
       expect(MathUtils.clamp(-77, -89.25, -77.25)).assertEqual(-77.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0220 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0220 end');
     })
 
 
@@ -3154,9 +3154,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0221', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0221 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0221 begin');
       expect(MathUtils.clamp(-89.25, -89, -76)).assertEqual(-89);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0221 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0221 end');
     })
 
     /**
@@ -3168,9 +3168,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0222 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0222 begin');
       expect(MathUtils.clamp(-89, -89, -76)).assertEqual(-89);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0222 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0222 end');
     })
 
     /**
@@ -3182,9 +3182,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0223', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0223 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0223 begin');
       expect(MathUtils.clamp(-82.5, -89, -76)).assertEqual(-82.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0223 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0223 end');
     })
 
     /**
@@ -3196,9 +3196,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0224', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0224 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0224 begin');
       expect(MathUtils.clamp(-76, -89, -76)).assertEqual(-76);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0224 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0224 end');
     })
 
     /**
@@ -3210,9 +3210,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0225 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0225 begin');
       expect(MathUtils.clamp(-75.75, -89, -76)).assertEqual(-76);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0225 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0225 end');
     })
 
 
@@ -3225,9 +3225,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0226 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0226 begin');
       expect(MathUtils.clamp(-89, -88.75, -74.75)).assertEqual(-88.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0226 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0226 end');
     })
 
     /**
@@ -3239,9 +3239,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0227 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0227 begin');
       expect(MathUtils.clamp(-88.75, -88.75, -74.75)).assertEqual(-88.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0227 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0227 end');
     })
 
     /**
@@ -3253,9 +3253,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0228 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0228 begin');
       expect(MathUtils.clamp(-81.75, -88.75, -74.75)).assertEqual(-81.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0228 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0228 end');
     })
 
     /**
@@ -3267,9 +3267,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0229 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0229 begin');
       expect(MathUtils.clamp(-74.75, -88.75, -74.75)).assertEqual(-74.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0229 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0229 end');
     })
 
     /**
@@ -3281,9 +3281,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0230 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0230 begin');
       expect(MathUtils.clamp(-74.5, -88.75, -74.75)).assertEqual(-74.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0230 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0230 end');
     })
 
 
@@ -3296,9 +3296,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0231 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0231 begin');
       expect(MathUtils.clamp(-88.75, -88.5, -73.5)).assertEqual(-88.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0231 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0231 end');
     })
 
     /**
@@ -3310,9 +3310,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0232 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0232 begin');
       expect(MathUtils.clamp(-88.5, -88.5, -73.5)).assertEqual(-88.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0232 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0232 end');
     })
 
     /**
@@ -3324,9 +3324,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0233 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0233 begin');
       expect(MathUtils.clamp(-81, -88.5, -73.5)).assertEqual(-81);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0233 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0233 end');
     })
 
     /**
@@ -3338,9 +3338,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0234 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0234 begin');
       expect(MathUtils.clamp(-73.5, -88.5, -73.5)).assertEqual(-73.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0234 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0234 end');
     })
 
     /**
@@ -3352,9 +3352,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0235 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0235 begin');
       expect(MathUtils.clamp(-73.25, -88.5, -73.5)).assertEqual(-73.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0235 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0235 end');
     })
 
 
@@ -3367,9 +3367,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0236 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0236 begin');
       expect(MathUtils.clamp(-88.5, -88.25, -72.25)).assertEqual(-88.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0236 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0236 end');
     })
 
     /**
@@ -3381,9 +3381,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0237 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0237 begin');
       expect(MathUtils.clamp(-88.25, -88.25, -72.25)).assertEqual(-88.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0237 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0237 end');
     })
 
     /**
@@ -3395,9 +3395,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0238 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0238 begin');
       expect(MathUtils.clamp(-80.25, -88.25, -72.25)).assertEqual(-80.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0238 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0238 end');
     })
 
     /**
@@ -3409,9 +3409,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0239 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0239 begin');
       expect(MathUtils.clamp(-72.25, -88.25, -72.25)).assertEqual(-72.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0239 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0239 end');
     })
 
     /**
@@ -3423,9 +3423,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0240 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0240 begin');
       expect(MathUtils.clamp(-72, -88.25, -72.25)).assertEqual(-72.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0240 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0240 end');
     })
 
 
@@ -3438,9 +3438,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0241 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0241 begin');
       expect(MathUtils.clamp(-88.25, -88, -87)).assertEqual(-88);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0241 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0241 end');
     })
 
     /**
@@ -3452,9 +3452,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0242 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0242 begin');
       expect(MathUtils.clamp(-88, -88, -87)).assertEqual(-88);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0242 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0242 end');
     })
 
     /**
@@ -3466,9 +3466,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0243 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0243 begin');
       expect(MathUtils.clamp(-87.5, -88, -87)).assertEqual(-87.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0243 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0243 end');
     })
 
     /**
@@ -3480,9 +3480,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0244 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0244 begin');
       expect(MathUtils.clamp(-87, -88, -87)).assertEqual(-87);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0244 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0244 end');
     })
 
     /**
@@ -3494,9 +3494,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0245 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0245 begin');
       expect(MathUtils.clamp(-86.75, -88, -87)).assertEqual(-87);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0245 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0245 end');
     })
 
 
@@ -3509,9 +3509,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0246 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0246 begin');
       expect(MathUtils.clamp(-88, -87.75, -85.75)).assertEqual(-87.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0246 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0246 end');
     })
 
     /**
@@ -3523,9 +3523,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0247 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0247 begin');
       expect(MathUtils.clamp(-87.75, -87.75, -85.75)).assertEqual(-87.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0247 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0247 end');
     })
 
     /**
@@ -3537,9 +3537,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0248 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0248 begin');
       expect(MathUtils.clamp(-86.75, -87.75, -85.75)).assertEqual(-86.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0248 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0248 end');
     })
 
     /**
@@ -3551,9 +3551,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0249 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0249 begin');
       expect(MathUtils.clamp(-85.75, -87.75, -85.75)).assertEqual(-85.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0249 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0249 end');
     })
 
     /**
@@ -3565,9 +3565,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0250 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0250 begin');
       expect(MathUtils.clamp(-85.5, -87.75, -85.75)).assertEqual(-85.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0250 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0250 end');
     })
 
 
@@ -3580,9 +3580,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0251 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0251 begin');
       expect(MathUtils.clamp(-87.75, -87.5, -84.5)).assertEqual(-87.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0251 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0251 end');
     })
 
     /**
@@ -3594,9 +3594,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0252 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0252 begin');
       expect(MathUtils.clamp(-87.5, -87.5, -84.5)).assertEqual(-87.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0252 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0252 end');
     })
 
     /**
@@ -3608,9 +3608,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0253 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0253 begin');
       expect(MathUtils.clamp(-86, -87.5, -84.5)).assertEqual(-86);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0253 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0253 end');
     })
 
     /**
@@ -3622,9 +3622,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0254 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0254 begin');
       expect(MathUtils.clamp(-84.5, -87.5, -84.5)).assertEqual(-84.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0254 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0254 end');
     })
 
     /**
@@ -3636,9 +3636,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0255 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0255 begin');
       expect(MathUtils.clamp(-84.25, -87.5, -84.5)).assertEqual(-84.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0255 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0255 end');
     })
 
 
@@ -3651,9 +3651,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0256 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0256 begin');
       expect(MathUtils.clamp(-87.5, -87.25, -83.25)).assertEqual(-87.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0256 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0256 end');
     })
 
     /**
@@ -3665,9 +3665,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0257 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0257 begin');
       expect(MathUtils.clamp(-87.25, -87.25, -83.25)).assertEqual(-87.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0257 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0257 end');
     })
 
     /**
@@ -3679,9 +3679,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0258 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0258 begin');
       expect(MathUtils.clamp(-85.25, -87.25, -83.25)).assertEqual(-85.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0258 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0258 end');
     })
 
     /**
@@ -3693,9 +3693,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0259', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0259 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0259 begin');
       expect(MathUtils.clamp(-83.25, -87.25, -83.25)).assertEqual(-83.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0259 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0259 end');
     })
 
     /**
@@ -3707,9 +3707,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0260', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0260 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0260 begin');
       expect(MathUtils.clamp(-83, -87.25, -83.25)).assertEqual(-83.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0260 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0260 end');
     })
 
 
@@ -3722,9 +3722,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0261', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0261 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0261 begin');
       expect(MathUtils.clamp(-87.25, -87, -82)).assertEqual(-87);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0261 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0261 end');
     })
 
     /**
@@ -3736,9 +3736,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0262', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0262 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0262 begin');
       expect(MathUtils.clamp(-87, -87, -82)).assertEqual(-87);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0262 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0262 end');
     })
 
     /**
@@ -3750,9 +3750,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0263 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0263 begin');
       expect(MathUtils.clamp(-84.5, -87, -82)).assertEqual(-84.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0263 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0263 end');
     })
 
     /**
@@ -3764,9 +3764,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0264 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0264 begin');
       expect(MathUtils.clamp(-82, -87, -82)).assertEqual(-82);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0264 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0264 end');
     })
 
     /**
@@ -3778,9 +3778,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0265 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0265 begin');
       expect(MathUtils.clamp(-81.75, -87, -82)).assertEqual(-82);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0265 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0265 end');
     })
 
 
@@ -3793,9 +3793,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0266 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0266 begin');
       expect(MathUtils.clamp(-87, -86.75, -80.75)).assertEqual(-86.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0266 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0266 end');
     })
 
     /**
@@ -3807,9 +3807,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0267 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0267 begin');
       expect(MathUtils.clamp(-86.75, -86.75, -80.75)).assertEqual(-86.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0267 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0267 end');
     })
 
     /**
@@ -3821,9 +3821,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0268 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0268 begin');
       expect(MathUtils.clamp(-83.75, -86.75, -80.75)).assertEqual(-83.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0268 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0268 end');
     })
 
     /**
@@ -3835,9 +3835,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0269 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0269 begin');
       expect(MathUtils.clamp(-80.75, -86.75, -80.75)).assertEqual(-80.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0269 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0269 end');
     })
 
     /**
@@ -3849,9 +3849,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0270 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0270 begin');
       expect(MathUtils.clamp(-80.5, -86.75, -80.75)).assertEqual(-80.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0270 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0270 end');
     })
 
 
@@ -3864,9 +3864,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0271 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0271 begin');
       expect(MathUtils.clamp(-86.75, -86.5, -79.5)).assertEqual(-86.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0271 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0271 end');
     })
 
     /**
@@ -3878,9 +3878,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0272 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0272 begin');
       expect(MathUtils.clamp(-86.5, -86.5, -79.5)).assertEqual(-86.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0272 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0272 end');
     })
 
     /**
@@ -3892,9 +3892,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0273 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0273 begin');
       expect(MathUtils.clamp(-83, -86.5, -79.5)).assertEqual(-83);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0273 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0273 end');
     })
 
     /**
@@ -3906,9 +3906,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0274 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0274 begin');
       expect(MathUtils.clamp(-79.5, -86.5, -79.5)).assertEqual(-79.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0274 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0274 end');
     })
 
     /**
@@ -3920,9 +3920,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0275 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0275 begin');
       expect(MathUtils.clamp(-79.25, -86.5, -79.5)).assertEqual(-79.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0275 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0275 end');
     })
 
 
@@ -3935,9 +3935,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0276 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0276 begin');
       expect(MathUtils.clamp(-86.5, -86.25, -78.25)).assertEqual(-86.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0276 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0276 end');
     })
 
     /**
@@ -3949,9 +3949,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0277 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0277 begin');
       expect(MathUtils.clamp(-86.25, -86.25, -78.25)).assertEqual(-86.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0277 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0277 end');
     })
 
     /**
@@ -3963,9 +3963,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0278 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0278 begin');
       expect(MathUtils.clamp(-82.25, -86.25, -78.25)).assertEqual(-82.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0278 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0278 end');
     })
 
     /**
@@ -3977,9 +3977,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0279 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0279 begin');
       expect(MathUtils.clamp(-78.25, -86.25, -78.25)).assertEqual(-78.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0279 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0279 end');
     })
 
     /**
@@ -3991,9 +3991,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0280 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0280 begin');
       expect(MathUtils.clamp(-78, -86.25, -78.25)).assertEqual(-78.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0280 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0280 end');
     })
 
 
@@ -4006,9 +4006,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0281 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0281 begin');
       expect(MathUtils.clamp(-86.25, -86, -77)).assertEqual(-86);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0281 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0281 end');
     })
 
     /**
@@ -4020,9 +4020,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0282 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0282 begin');
       expect(MathUtils.clamp(-86, -86, -77)).assertEqual(-86);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0282 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0282 end');
     })
 
     /**
@@ -4034,9 +4034,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0283 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0283 begin');
       expect(MathUtils.clamp(-81.5, -86, -77)).assertEqual(-81.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0283 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0283 end');
     })
 
     /**
@@ -4048,9 +4048,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0284 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0284 begin');
       expect(MathUtils.clamp(-77, -86, -77)).assertEqual(-77);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0284 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0284 end');
     })
 
     /**
@@ -4062,9 +4062,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0285 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0285 begin');
       expect(MathUtils.clamp(-76.75, -86, -77)).assertEqual(-77);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0285 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0285 end');
     })
 
 
@@ -4077,9 +4077,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0286 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0286 begin');
       expect(MathUtils.clamp(-86, -85.75, -75.75)).assertEqual(-85.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0286 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0286 end');
     })
 
     /**
@@ -4091,9 +4091,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0287 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0287 begin');
       expect(MathUtils.clamp(-85.75, -85.75, -75.75)).assertEqual(-85.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0287 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0287 end');
     })
 
     /**
@@ -4105,9 +4105,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0288 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0288 begin');
       expect(MathUtils.clamp(-80.75, -85.75, -75.75)).assertEqual(-80.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0288 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0288 end');
     })
 
     /**
@@ -4119,9 +4119,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0289 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0289 begin');
       expect(MathUtils.clamp(-75.75, -85.75, -75.75)).assertEqual(-75.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0289 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0289 end');
     })
 
     /**
@@ -4133,9 +4133,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0290 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0290 begin');
       expect(MathUtils.clamp(-75.5, -85.75, -75.75)).assertEqual(-75.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0290 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0290 end');
     })
 
 
@@ -4148,9 +4148,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0291 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0291 begin');
       expect(MathUtils.clamp(-85.75, -85.5, -74.5)).assertEqual(-85.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0291 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0291 end');
     })
 
     /**
@@ -4162,9 +4162,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0292 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0292 begin');
       expect(MathUtils.clamp(-85.5, -85.5, -74.5)).assertEqual(-85.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0292 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0292 end');
     })
 
     /**
@@ -4176,9 +4176,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0293 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0293 begin');
       expect(MathUtils.clamp(-80, -85.5, -74.5)).assertEqual(-80);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0293 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0293 end');
     })
 
     /**
@@ -4190,9 +4190,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0294 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0294 begin');
       expect(MathUtils.clamp(-74.5, -85.5, -74.5)).assertEqual(-74.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0294 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0294 end');
     })
 
     /**
@@ -4204,9 +4204,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0295 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0295 begin');
       expect(MathUtils.clamp(-74.25, -85.5, -74.5)).assertEqual(-74.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0295 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0295 end');
     })
 
 
@@ -4219,9 +4219,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0296 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0296 begin');
       expect(MathUtils.clamp(-85.5, -85.25, -73.25)).assertEqual(-85.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0296 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0296 end');
     })
 
     /**
@@ -4233,9 +4233,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0297 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0297 begin');
       expect(MathUtils.clamp(-85.25, -85.25, -73.25)).assertEqual(-85.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0297 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0297 end');
     })
 
     /**
@@ -4247,9 +4247,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0298 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0298 begin');
       expect(MathUtils.clamp(-79.25, -85.25, -73.25)).assertEqual(-79.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0298 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0298 end');
     })
 
     /**
@@ -4261,9 +4261,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0299 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0299 begin');
       expect(MathUtils.clamp(-73.25, -85.25, -73.25)).assertEqual(-73.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0299 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0299 end');
     })
 
     /**
@@ -4275,9 +4275,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0300 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0300 begin');
       expect(MathUtils.clamp(-73, -85.25, -73.25)).assertEqual(-73.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0300 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0300 end');
     })
 
 
@@ -4290,9 +4290,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0301 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0301 begin');
       expect(MathUtils.clamp(-85.25, -85, -72)).assertEqual(-85);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0301 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0301 end');
     })
 
     /**
@@ -4304,9 +4304,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0302 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0302 begin');
       expect(MathUtils.clamp(-85, -85, -72)).assertEqual(-85);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0302 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0302 end');
     })
 
     /**
@@ -4318,9 +4318,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0303 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0303 begin');
       expect(MathUtils.clamp(-78.5, -85, -72)).assertEqual(-78.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0303 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0303 end');
     })
 
     /**
@@ -4332,9 +4332,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0304 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0304 begin');
       expect(MathUtils.clamp(-72, -85, -72)).assertEqual(-72);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0304 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0304 end');
     })
 
     /**
@@ -4346,9 +4346,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0305 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0305 begin');
       expect(MathUtils.clamp(-71.75, -85, -72)).assertEqual(-72);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0305 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0305 end');
     })
 
 
@@ -4361,9 +4361,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0306 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0306 begin');
       expect(MathUtils.clamp(-85, -84.75, -70.75)).assertEqual(-84.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0306 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0306 end');
     })
 
     /**
@@ -4375,9 +4375,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0307 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0307 begin');
       expect(MathUtils.clamp(-84.75, -84.75, -70.75)).assertEqual(-84.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0307 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0307 end');
     })
 
     /**
@@ -4389,9 +4389,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0308 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0308 begin');
       expect(MathUtils.clamp(-77.75, -84.75, -70.75)).assertEqual(-77.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0308 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0308 end');
     })
 
     /**
@@ -4403,9 +4403,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0309 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0309 begin');
       expect(MathUtils.clamp(-70.75, -84.75, -70.75)).assertEqual(-70.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0309 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0309 end');
     })
 
     /**
@@ -4417,9 +4417,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0310 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0310 begin');
       expect(MathUtils.clamp(-70.5, -84.75, -70.75)).assertEqual(-70.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0310 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0310 end');
     })
 
 
@@ -4432,9 +4432,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0311 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0311 begin');
       expect(MathUtils.clamp(-84.75, -84.5, -69.5)).assertEqual(-84.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0311 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0311 end');
     })
 
     /**
@@ -4446,9 +4446,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0312 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0312 begin');
       expect(MathUtils.clamp(-84.5, -84.5, -69.5)).assertEqual(-84.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0312 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0312 end');
     })
 
     /**
@@ -4460,9 +4460,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0313 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0313 begin');
       expect(MathUtils.clamp(-77, -84.5, -69.5)).assertEqual(-77);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0313 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0313 end');
     })
 
     /**
@@ -4474,9 +4474,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0314 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0314 begin');
       expect(MathUtils.clamp(-69.5, -84.5, -69.5)).assertEqual(-69.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0314 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0314 end');
     })
 
     /**
@@ -4488,9 +4488,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0315 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0315 begin');
       expect(MathUtils.clamp(-69.25, -84.5, -69.5)).assertEqual(-69.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0315 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0315 end');
     })
 
 
@@ -4503,9 +4503,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0316 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0316 begin');
       expect(MathUtils.clamp(-84.5, -84.25, -68.25)).assertEqual(-84.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0316 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0316 end');
     })
 
     /**
@@ -4517,9 +4517,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0317 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0317 begin');
       expect(MathUtils.clamp(-84.25, -84.25, -68.25)).assertEqual(-84.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0317 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0317 end');
     })
 
     /**
@@ -4531,9 +4531,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0318 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0318 begin');
       expect(MathUtils.clamp(-76.25, -84.25, -68.25)).assertEqual(-76.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0318 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0318 end');
     })
 
     /**
@@ -4545,9 +4545,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0319 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0319 begin');
       expect(MathUtils.clamp(-68.25, -84.25, -68.25)).assertEqual(-68.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0319 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0319 end');
     })
 
     /**
@@ -4559,9 +4559,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0320 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0320 begin');
       expect(MathUtils.clamp(-68, -84.25, -68.25)).assertEqual(-68.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0320 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0320 end');
     })
 
 
@@ -4574,9 +4574,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0321 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0321 begin');
       expect(MathUtils.clamp(-84.25, -84, -83)).assertEqual(-84);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0321 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0321 end');
     })
 
     /**
@@ -4588,9 +4588,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0322 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0322 begin');
       expect(MathUtils.clamp(-84, -84, -83)).assertEqual(-84);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0322 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0322 end');
     })
 
     /**
@@ -4602,9 +4602,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0323 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0323 begin');
       expect(MathUtils.clamp(-83.5, -84, -83)).assertEqual(-83.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0323 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0323 end');
     })
 
     /**
@@ -4616,9 +4616,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0324 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0324 begin');
       expect(MathUtils.clamp(-83, -84, -83)).assertEqual(-83);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0324 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0324 end');
     })
 
     /**
@@ -4630,9 +4630,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0325 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0325 begin');
       expect(MathUtils.clamp(-82.75, -84, -83)).assertEqual(-83);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0325 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0325 end');
     })
 
 
@@ -4645,9 +4645,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0326 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0326 begin');
       expect(MathUtils.clamp(-84, -83.75, -81.75)).assertEqual(-83.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0326 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0326 end');
     })
 
     /**
@@ -4659,9 +4659,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0327 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0327 begin');
       expect(MathUtils.clamp(-83.75, -83.75, -81.75)).assertEqual(-83.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0327 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0327 end');
     })
 
     /**
@@ -4673,9 +4673,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0328 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0328 begin');
       expect(MathUtils.clamp(-82.75, -83.75, -81.75)).assertEqual(-82.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0328 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0328 end');
     })
 
     /**
@@ -4687,9 +4687,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0329 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0329 begin');
       expect(MathUtils.clamp(-81.75, -83.75, -81.75)).assertEqual(-81.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0329 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0329 end');
     })
 
     /**
@@ -4701,9 +4701,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0330 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0330 begin');
       expect(MathUtils.clamp(-81.5, -83.75, -81.75)).assertEqual(-81.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0330 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0330 end');
     })
 
 
@@ -4716,9 +4716,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0331 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0331 begin');
       expect(MathUtils.clamp(-83.75, -83.5, -80.5)).assertEqual(-83.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0331 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0331 end');
     })
 
     /**
@@ -4730,9 +4730,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0332 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0332 begin');
       expect(MathUtils.clamp(-83.5, -83.5, -80.5)).assertEqual(-83.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0332 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0332 end');
     })
 
     /**
@@ -4744,9 +4744,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0333 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0333 begin');
       expect(MathUtils.clamp(-82, -83.5, -80.5)).assertEqual(-82);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0333 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0333 end');
     })
 
     /**
@@ -4758,9 +4758,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0334 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0334 begin');
       expect(MathUtils.clamp(-80.5, -83.5, -80.5)).assertEqual(-80.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0334 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0334 end');
     })
 
     /**
@@ -4772,9 +4772,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0335 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0335 begin');
       expect(MathUtils.clamp(-80.25, -83.5, -80.5)).assertEqual(-80.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0335 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0335 end');
     })
 
 
@@ -4787,9 +4787,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0336 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0336 begin');
       expect(MathUtils.clamp(-83.5, -83.25, -79.25)).assertEqual(-83.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0336 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0336 end');
     })
 
     /**
@@ -4801,9 +4801,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0337 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0337 begin');
       expect(MathUtils.clamp(-83.25, -83.25, -79.25)).assertEqual(-83.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0337 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0337 end');
     })
 
     /**
@@ -4815,9 +4815,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0338 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0338 begin');
       expect(MathUtils.clamp(-81.25, -83.25, -79.25)).assertEqual(-81.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0338 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0338 end');
     })
 
     /**
@@ -4829,9 +4829,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0339 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0339 begin');
       expect(MathUtils.clamp(-79.25, -83.25, -79.25)).assertEqual(-79.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0339 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0339 end');
     })
 
     /**
@@ -4843,9 +4843,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0340 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0340 begin');
       expect(MathUtils.clamp(-79, -83.25, -79.25)).assertEqual(-79.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0340 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0340 end');
     })
 
 
@@ -4858,9 +4858,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0341 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0341 begin');
       expect(MathUtils.clamp(-83.25, -83, -78)).assertEqual(-83);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0341 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0341 end');
     })
 
     /**
@@ -4872,9 +4872,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0342 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0342 begin');
       expect(MathUtils.clamp(-83, -83, -78)).assertEqual(-83);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0342 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0342 end');
     })
 
     /**
@@ -4886,9 +4886,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0343 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0343 begin');
       expect(MathUtils.clamp(-80.5, -83, -78)).assertEqual(-80.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0343 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0343 end');
     })
 
     /**
@@ -4900,9 +4900,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0344 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0344 begin');
       expect(MathUtils.clamp(-78, -83, -78)).assertEqual(-78);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0344 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0344 end');
     })
 
     /**
@@ -4914,9 +4914,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0345 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0345 begin');
       expect(MathUtils.clamp(-77.75, -83, -78)).assertEqual(-78);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0345 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0345 end');
     })
 
 
@@ -4929,9 +4929,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0346 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0346 begin');
       expect(MathUtils.clamp(-83, -82.75, -76.75)).assertEqual(-82.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0346 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0346 end');
     })
 
     /**
@@ -4943,9 +4943,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0347 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0347 begin');
       expect(MathUtils.clamp(-82.75, -82.75, -76.75)).assertEqual(-82.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0347 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0347 end');
     })
 
     /**
@@ -4957,9 +4957,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0348 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0348 begin');
       expect(MathUtils.clamp(-79.75, -82.75, -76.75)).assertEqual(-79.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0348 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0348 end');
     })
 
     /**
@@ -4971,9 +4971,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0349 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0349 begin');
       expect(MathUtils.clamp(-76.75, -82.75, -76.75)).assertEqual(-76.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0349 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0349 end');
     })
 
     /**
@@ -4985,9 +4985,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0350 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0350 begin');
       expect(MathUtils.clamp(-76.5, -82.75, -76.75)).assertEqual(-76.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0350 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0350 end');
     })
 
 
@@ -5000,9 +5000,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0351 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0351 begin');
       expect(MathUtils.clamp(-82.75, -82.5, -75.5)).assertEqual(-82.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0351 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0351 end');
     })
 
     /**
@@ -5014,9 +5014,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0352 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0352 begin');
       expect(MathUtils.clamp(-82.5, -82.5, -75.5)).assertEqual(-82.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0352 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0352 end');
     })
 
     /**
@@ -5028,9 +5028,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0353 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0353 begin');
       expect(MathUtils.clamp(-79, -82.5, -75.5)).assertEqual(-79);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0353 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0353 end');
     })
 
     /**
@@ -5042,9 +5042,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0354 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0354 begin');
       expect(MathUtils.clamp(-75.5, -82.5, -75.5)).assertEqual(-75.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0354 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0354 end');
     })
 
     /**
@@ -5056,9 +5056,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0355 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0355 begin');
       expect(MathUtils.clamp(-75.25, -82.5, -75.5)).assertEqual(-75.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0355 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0355 end');
     })
 
 
@@ -5071,9 +5071,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0356 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0356 begin');
       expect(MathUtils.clamp(-82.5, -82.25, -74.25)).assertEqual(-82.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0356 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0356 end');
     })
 
     /**
@@ -5085,9 +5085,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0357 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0357 begin');
       expect(MathUtils.clamp(-82.25, -82.25, -74.25)).assertEqual(-82.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0357 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0357 end');
     })
 
     /**
@@ -5099,9 +5099,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0358 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0358 begin');
       expect(MathUtils.clamp(-78.25, -82.25, -74.25)).assertEqual(-78.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0358 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0358 end');
     })
 
     /**
@@ -5113,9 +5113,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0359 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0359 begin');
       expect(MathUtils.clamp(-74.25, -82.25, -74.25)).assertEqual(-74.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0359 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0359 end');
     })
 
     /**
@@ -5127,9 +5127,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0360 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0360 begin');
       expect(MathUtils.clamp(-74, -82.25, -74.25)).assertEqual(-74.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0360 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0360 end');
     })
 
 
@@ -5142,9 +5142,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0361 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0361 begin');
       expect(MathUtils.clamp(-82.25, -82, -73)).assertEqual(-82);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0361 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0361 end');
     })
 
     /**
@@ -5156,9 +5156,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0362 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0362 begin');
       expect(MathUtils.clamp(-82, -82, -73)).assertEqual(-82);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0362 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0362 end');
     })
 
     /**
@@ -5170,9 +5170,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0363 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0363 begin');
       expect(MathUtils.clamp(-77.5, -82, -73)).assertEqual(-77.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0363 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0363 end');
     })
 
     /**
@@ -5184,9 +5184,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0364 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0364 begin');
       expect(MathUtils.clamp(-73, -82, -73)).assertEqual(-73);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0364 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0364 end');
     })
 
     /**
@@ -5198,9 +5198,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0365 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0365 begin');
       expect(MathUtils.clamp(-72.75, -82, -73)).assertEqual(-73);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0365 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0365 end');
     })
 
 
@@ -5213,9 +5213,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0366 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0366 begin');
       expect(MathUtils.clamp(-82, -81.75, -71.75)).assertEqual(-81.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0366 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0366 end');
     })
 
     /**
@@ -5227,9 +5227,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0367', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0367 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0367 begin');
       expect(MathUtils.clamp(-81.75, -81.75, -71.75)).assertEqual(-81.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0367 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0367 end');
     })
 
     /**
@@ -5241,9 +5241,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0368', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0368 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0368 begin');
       expect(MathUtils.clamp(-76.75, -81.75, -71.75)).assertEqual(-76.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0368 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0368 end');
     })
 
     /**
@@ -5255,9 +5255,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0369', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0369 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0369 begin');
       expect(MathUtils.clamp(-71.75, -81.75, -71.75)).assertEqual(-71.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0369 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0369 end');
     })
 
     /**
@@ -5269,9 +5269,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0370', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0370 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0370 begin');
       expect(MathUtils.clamp(-71.5, -81.75, -71.75)).assertEqual(-71.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0370 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0370 end');
     })
 
 
@@ -5284,9 +5284,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0371', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0371 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0371 begin');
       expect(MathUtils.clamp(-81.75, -81.5, -70.5)).assertEqual(-81.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0371 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0371 end');
     })
 
     /**
@@ -5298,9 +5298,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0372', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0372 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0372 begin');
       expect(MathUtils.clamp(-81.5, -81.5, -70.5)).assertEqual(-81.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0372 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0372 end');
     })
 
     /**
@@ -5312,9 +5312,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0373', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0373 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0373 begin');
       expect(MathUtils.clamp(-76, -81.5, -70.5)).assertEqual(-76);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0373 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0373 end');
     })
 
     /**
@@ -5326,9 +5326,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0374', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0374 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0374 begin');
       expect(MathUtils.clamp(-70.5, -81.5, -70.5)).assertEqual(-70.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0374 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0374 end');
     })
 
     /**
@@ -5340,9 +5340,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0375', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0375 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0375 begin');
       expect(MathUtils.clamp(-70.25, -81.5, -70.5)).assertEqual(-70.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0375 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0375 end');
     })
 
 
@@ -5355,9 +5355,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0376', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0376 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0376 begin');
       expect(MathUtils.clamp(-81.5, -81.25, -69.25)).assertEqual(-81.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0376 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0376 end');
     })
 
     /**
@@ -5369,9 +5369,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0377', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0377 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0377 begin');
       expect(MathUtils.clamp(-81.25, -81.25, -69.25)).assertEqual(-81.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0377 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0377 end');
     })
 
     /**
@@ -5383,9 +5383,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0378', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0378 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0378 begin');
       expect(MathUtils.clamp(-75.25, -81.25, -69.25)).assertEqual(-75.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0378 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0378 end');
     })
 
     /**
@@ -5397,9 +5397,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0379', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0379 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0379 begin');
       expect(MathUtils.clamp(-69.25, -81.25, -69.25)).assertEqual(-69.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0379 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0379 end');
     })
 
     /**
@@ -5411,9 +5411,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0380', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0380 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0380 begin');
       expect(MathUtils.clamp(-69, -81.25, -69.25)).assertEqual(-69.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0380 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0380 end');
     })
 
 
@@ -5426,9 +5426,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0381', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0381 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0381 begin');
       expect(MathUtils.clamp(-81.25, -81, -68)).assertEqual(-81);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0381 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0381 end');
     })
 
     /**
@@ -5440,9 +5440,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0382', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0382 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0382 begin');
       expect(MathUtils.clamp(-81, -81, -68)).assertEqual(-81);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0382 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0382 end');
     })
 
     /**
@@ -5454,9 +5454,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0383', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0383 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0383 begin');
       expect(MathUtils.clamp(-74.5, -81, -68)).assertEqual(-74.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0383 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0383 end');
     })
 
     /**
@@ -5468,9 +5468,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0384', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0384 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0384 begin');
       expect(MathUtils.clamp(-68, -81, -68)).assertEqual(-68);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0384 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0384 end');
     })
 
     /**
@@ -5482,9 +5482,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0385', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0385 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0385 begin');
       expect(MathUtils.clamp(-67.75, -81, -68)).assertEqual(-68);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0385 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0385 end');
     })
 
 
@@ -5497,9 +5497,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0386', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0386 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0386 begin');
       expect(MathUtils.clamp(-81, -80.75, -66.75)).assertEqual(-80.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0386 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0386 end');
     })
 
     /**
@@ -5511,9 +5511,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0387', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0387 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0387 begin');
       expect(MathUtils.clamp(-80.75, -80.75, -66.75)).assertEqual(-80.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0387 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0387 end');
     })
 
     /**
@@ -5525,9 +5525,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0388', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0388 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0388 begin');
       expect(MathUtils.clamp(-73.75, -80.75, -66.75)).assertEqual(-73.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0388 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0388 end');
     })
 
     /**
@@ -5539,9 +5539,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0389', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0389 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0389 begin');
       expect(MathUtils.clamp(-66.75, -80.75, -66.75)).assertEqual(-66.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0389 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0389 end');
     })
 
     /**
@@ -5553,9 +5553,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0390', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0390 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0390 begin');
       expect(MathUtils.clamp(-66.5, -80.75, -66.75)).assertEqual(-66.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0390 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0390 end');
     })
 
 
@@ -5568,9 +5568,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0391', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0391 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0391 begin');
       expect(MathUtils.clamp(-80.75, -80.5, -65.5)).assertEqual(-80.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0391 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0391 end');
     })
 
     /**
@@ -5582,9 +5582,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0392', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0392 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0392 begin');
       expect(MathUtils.clamp(-80.5, -80.5, -65.5)).assertEqual(-80.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0392 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0392 end');
     })
 
     /**
@@ -5596,9 +5596,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0393', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0393 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0393 begin');
       expect(MathUtils.clamp(-73, -80.5, -65.5)).assertEqual(-73);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0393 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0393 end');
     })
 
     /**
@@ -5610,9 +5610,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0394', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0394 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0394 begin');
       expect(MathUtils.clamp(-65.5, -80.5, -65.5)).assertEqual(-65.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0394 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0394 end');
     })
 
     /**
@@ -5624,9 +5624,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0395', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0395 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0395 begin');
       expect(MathUtils.clamp(-65.25, -80.5, -65.5)).assertEqual(-65.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0395 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0395 end');
     })
 
 
@@ -5639,9 +5639,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0396', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0396 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0396 begin');
       expect(MathUtils.clamp(-80.5, -80.25, -64.25)).assertEqual(-80.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0396 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0396 end');
     })
 
     /**
@@ -5653,9 +5653,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0397 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0397 begin');
       expect(MathUtils.clamp(-80.25, -80.25, -64.25)).assertEqual(-80.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0397 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0397 end');
     })
 
     /**
@@ -5667,9 +5667,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0398 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0398 begin');
       expect(MathUtils.clamp(-72.25, -80.25, -64.25)).assertEqual(-72.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0398 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0398 end');
     })
 
     /**
@@ -5681,9 +5681,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0399 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0399 begin');
       expect(MathUtils.clamp(-64.25, -80.25, -64.25)).assertEqual(-64.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0399 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0399 end');
     })
 
     /**
@@ -5695,9 +5695,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0400 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0400 begin');
       expect(MathUtils.clamp(-64, -80.25, -64.25)).assertEqual(-64.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0400 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0400 end');
     })
 
 
@@ -5710,9 +5710,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0401', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0401 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0401 begin');
       expect(MathUtils.clamp(-80.25, -80, -79)).assertEqual(-80);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0401 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0401 end');
     })
 
     /**
@@ -5724,9 +5724,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0402', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0402 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0402 begin');
       expect(MathUtils.clamp(-80, -80, -79)).assertEqual(-80);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0402 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0402 end');
     })
 
     /**
@@ -5738,9 +5738,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0403', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0403 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0403 begin');
       expect(MathUtils.clamp(-79.5, -80, -79)).assertEqual(-79.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0403 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0403 end');
     })
 
     /**
@@ -5752,9 +5752,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0404', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0404 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0404 begin');
       expect(MathUtils.clamp(-79, -80, -79)).assertEqual(-79);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0404 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0404 end');
     })
 
     /**
@@ -5766,9 +5766,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0405', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0405 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0405 begin');
       expect(MathUtils.clamp(-78.75, -80, -79)).assertEqual(-79);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0405 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0405 end');
     })
 
 
@@ -5781,9 +5781,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0406', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0406 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0406 begin');
       expect(MathUtils.clamp(-80, -79.75, -77.75)).assertEqual(-79.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0406 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0406 end');
     })
 
     /**
@@ -5795,9 +5795,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0407', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0407 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0407 begin');
       expect(MathUtils.clamp(-79.75, -79.75, -77.75)).assertEqual(-79.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0407 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0407 end');
     })
 
     /**
@@ -5809,9 +5809,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0408', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0408 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0408 begin');
       expect(MathUtils.clamp(-78.75, -79.75, -77.75)).assertEqual(-78.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0408 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0408 end');
     })
 
     /**
@@ -5823,9 +5823,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0409', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0409 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0409 begin');
       expect(MathUtils.clamp(-77.75, -79.75, -77.75)).assertEqual(-77.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0409 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0409 end');
     })
 
     /**
@@ -5837,9 +5837,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0410 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0410 begin');
       expect(MathUtils.clamp(-77.5, -79.75, -77.75)).assertEqual(-77.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0410 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0410 end');
     })
 
 
@@ -5852,9 +5852,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0411 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0411 begin');
       expect(MathUtils.clamp(-79.75, -79.5, -76.5)).assertEqual(-79.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0411 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0411 end');
     })
 
     /**
@@ -5866,9 +5866,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0412 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0412 begin');
       expect(MathUtils.clamp(-79.5, -79.5, -76.5)).assertEqual(-79.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0412 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0412 end');
     })
 
     /**
@@ -5880,9 +5880,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0413 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0413 begin');
       expect(MathUtils.clamp(-78, -79.5, -76.5)).assertEqual(-78);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0413 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0413 end');
     })
 
     /**
@@ -5894,9 +5894,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0414 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0414 begin');
       expect(MathUtils.clamp(-76.5, -79.5, -76.5)).assertEqual(-76.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0414 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0414 end');
     })
 
     /**
@@ -5908,9 +5908,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0415 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0415 begin');
       expect(MathUtils.clamp(-76.25, -79.5, -76.5)).assertEqual(-76.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0415 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0415 end');
     })
 
 
@@ -5923,9 +5923,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0416 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0416 begin');
       expect(MathUtils.clamp(-79.5, -79.25, -75.25)).assertEqual(-79.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0416 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0416 end');
     })
 
     /**
@@ -5937,9 +5937,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0417 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0417 begin');
       expect(MathUtils.clamp(-79.25, -79.25, -75.25)).assertEqual(-79.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0417 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0417 end');
     })
 
     /**
@@ -5951,9 +5951,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0418 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0418 begin');
       expect(MathUtils.clamp(-77.25, -79.25, -75.25)).assertEqual(-77.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0418 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0418 end');
     })
 
     /**
@@ -5965,9 +5965,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0419 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0419 begin');
       expect(MathUtils.clamp(-75.25, -79.25, -75.25)).assertEqual(-75.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0419 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0419 end');
     })
 
     /**
@@ -5979,9 +5979,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0420 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0420 begin');
       expect(MathUtils.clamp(-75, -79.25, -75.25)).assertEqual(-75.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0420 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0420 end');
     })
 
 
@@ -5994,9 +5994,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0421 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0421 begin');
       expect(MathUtils.clamp(-79.25, -79, -74)).assertEqual(-79);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0421 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0421 end');
     })
 
     /**
@@ -6008,9 +6008,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0422 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0422 begin');
       expect(MathUtils.clamp(-79, -79, -74)).assertEqual(-79);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0422 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0422 end');
     })
 
     /**
@@ -6022,9 +6022,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0423 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0423 begin');
       expect(MathUtils.clamp(-76.5, -79, -74)).assertEqual(-76.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0423 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0423 end');
     })
 
     /**
@@ -6036,9 +6036,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0424 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0424 begin');
       expect(MathUtils.clamp(-74, -79, -74)).assertEqual(-74);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0424 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0424 end');
     })
 
     /**
@@ -6050,9 +6050,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0425 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0425 begin');
       expect(MathUtils.clamp(-73.75, -79, -74)).assertEqual(-74);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0425 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0425 end');
     })
 
 
@@ -6065,9 +6065,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0426 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0426 begin');
       expect(MathUtils.clamp(-79, -78.75, -72.75)).assertEqual(-78.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0426 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0426 end');
     })
 
     /**
@@ -6079,9 +6079,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0427 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0427 begin');
       expect(MathUtils.clamp(-78.75, -78.75, -72.75)).assertEqual(-78.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0427 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0427 end');
     })
 
     /**
@@ -6093,9 +6093,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0428 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0428 begin');
       expect(MathUtils.clamp(-75.75, -78.75, -72.75)).assertEqual(-75.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0428 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0428 end');
     })
 
     /**
@@ -6107,9 +6107,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0429 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0429 begin');
       expect(MathUtils.clamp(-72.75, -78.75, -72.75)).assertEqual(-72.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0429 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0429 end');
     })
 
     /**
@@ -6121,9 +6121,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0430 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0430 begin');
       expect(MathUtils.clamp(-72.5, -78.75, -72.75)).assertEqual(-72.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0430 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0430 end');
     })
 
 
@@ -6136,9 +6136,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0431 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0431 begin');
       expect(MathUtils.clamp(-78.75, -78.5, -71.5)).assertEqual(-78.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0431 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0431 end');
     })
 
     /**
@@ -6150,9 +6150,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0432 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0432 begin');
       expect(MathUtils.clamp(-78.5, -78.5, -71.5)).assertEqual(-78.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0432 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0432 end');
     })
 
     /**
@@ -6164,9 +6164,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0433 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0433 begin');
       expect(MathUtils.clamp(-75, -78.5, -71.5)).assertEqual(-75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0433 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0433 end');
     })
 
     /**
@@ -6178,9 +6178,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0434 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0434 begin');
       expect(MathUtils.clamp(-71.5, -78.5, -71.5)).assertEqual(-71.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0434 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0434 end');
     })
 
     /**
@@ -6192,9 +6192,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0435 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0435 begin');
       expect(MathUtils.clamp(-71.25, -78.5, -71.5)).assertEqual(-71.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0435 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0435 end');
     })
 
 
@@ -6207,9 +6207,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0436 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0436 begin');
       expect(MathUtils.clamp(-78.5, -78.25, -70.25)).assertEqual(-78.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0436 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0436 end');
     })
 
     /**
@@ -6221,9 +6221,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0437 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0437 begin');
       expect(MathUtils.clamp(-78.25, -78.25, -70.25)).assertEqual(-78.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0437 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0437 end');
     })
 
     /**
@@ -6235,9 +6235,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0438 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0438 begin');
       expect(MathUtils.clamp(-74.25, -78.25, -70.25)).assertEqual(-74.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0438 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0438 end');
     })
 
     /**
@@ -6249,9 +6249,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0439 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0439 begin');
       expect(MathUtils.clamp(-70.25, -78.25, -70.25)).assertEqual(-70.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0439 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0439 end');
     })
 
     /**
@@ -6263,9 +6263,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0440 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0440 begin');
       expect(MathUtils.clamp(-70, -78.25, -70.25)).assertEqual(-70.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0440 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0440 end');
     })
 
 
@@ -6278,9 +6278,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0441 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0441 begin');
       expect(MathUtils.clamp(-78.25, -78, -69)).assertEqual(-78);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0441 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0441 end');
     })
 
     /**
@@ -6292,9 +6292,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0442 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0442 begin');
       expect(MathUtils.clamp(-78, -78, -69)).assertEqual(-78);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0442 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0442 end');
     })
 
     /**
@@ -6306,9 +6306,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0443 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0443 begin');
       expect(MathUtils.clamp(-73.5, -78, -69)).assertEqual(-73.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0443 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0443 end');
     })
 
     /**
@@ -6320,9 +6320,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0444 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0444 begin');
       expect(MathUtils.clamp(-69, -78, -69)).assertEqual(-69);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0444 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0444 end');
     })
 
     /**
@@ -6334,9 +6334,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0445 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0445 begin');
       expect(MathUtils.clamp(-68.75, -78, -69)).assertEqual(-69);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0445 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0445 end');
     })
 
 
@@ -6349,9 +6349,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0446 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0446 begin');
       expect(MathUtils.clamp(-78, -77.75, -67.75)).assertEqual(-77.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0446 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0446 end');
     })
 
     /**
@@ -6363,9 +6363,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0447 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0447 begin');
       expect(MathUtils.clamp(-77.75, -77.75, -67.75)).assertEqual(-77.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0447 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0447 end');
     })
 
     /**
@@ -6377,9 +6377,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0448 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0448 begin');
       expect(MathUtils.clamp(-72.75, -77.75, -67.75)).assertEqual(-72.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0448 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0448 end');
     })
 
     /**
@@ -6391,9 +6391,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0449 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0449 begin');
       expect(MathUtils.clamp(-67.75, -77.75, -67.75)).assertEqual(-67.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0449 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0449 end');
     })
 
     /**
@@ -6405,9 +6405,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0450 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0450 begin');
       expect(MathUtils.clamp(-67.5, -77.75, -67.75)).assertEqual(-67.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0450 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0450 end');
     })
 
 
@@ -6420,9 +6420,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0451', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0451 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0451 begin');
       expect(MathUtils.clamp(-77.75, -77.5, -66.5)).assertEqual(-77.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0451 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0451 end');
     })
 
     /**
@@ -6434,9 +6434,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0452', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0452 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0452 begin');
       expect(MathUtils.clamp(-77.5, -77.5, -66.5)).assertEqual(-77.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0452 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0452 end');
     })
 
     /**
@@ -6448,9 +6448,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0453', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0453 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0453 begin');
       expect(MathUtils.clamp(-72, -77.5, -66.5)).assertEqual(-72);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0453 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0453 end');
     })
 
     /**
@@ -6462,9 +6462,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0454', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0454 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0454 begin');
       expect(MathUtils.clamp(-66.5, -77.5, -66.5)).assertEqual(-66.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0454 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0454 end');
     })
 
     /**
@@ -6476,9 +6476,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0455', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0455 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0455 begin');
       expect(MathUtils.clamp(-66.25, -77.5, -66.5)).assertEqual(-66.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0455 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0455 end');
     })
 
 
@@ -6491,9 +6491,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0456', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0456 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0456 begin');
       expect(MathUtils.clamp(-77.5, -77.25, -65.25)).assertEqual(-77.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0456 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0456 end');
     })
 
     /**
@@ -6505,9 +6505,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0457', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0457 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0457 begin');
       expect(MathUtils.clamp(-77.25, -77.25, -65.25)).assertEqual(-77.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0457 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0457 end');
     })
 
     /**
@@ -6519,9 +6519,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0458', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0458 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0458 begin');
       expect(MathUtils.clamp(-71.25, -77.25, -65.25)).assertEqual(-71.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0458 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0458 end');
     })
 
     /**
@@ -6533,9 +6533,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0459', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0459 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0459 begin');
       expect(MathUtils.clamp(-65.25, -77.25, -65.25)).assertEqual(-65.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0459 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0459 end');
     })
 
     /**
@@ -6547,9 +6547,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0460', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0460 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0460 begin');
       expect(MathUtils.clamp(-65, -77.25, -65.25)).assertEqual(-65.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0460 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0460 end');
     })
 
 
@@ -6562,9 +6562,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0461', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0461 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0461 begin');
       expect(MathUtils.clamp(-77.25, -77, -64)).assertEqual(-77);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0461 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0461 end');
     })
 
     /**
@@ -6576,9 +6576,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0462', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0462 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0462 begin');
       expect(MathUtils.clamp(-77, -77, -64)).assertEqual(-77);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0462 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0462 end');
     })
 
     /**
@@ -6590,9 +6590,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0463', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0463 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0463 begin');
       expect(MathUtils.clamp(-70.5, -77, -64)).assertEqual(-70.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0463 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0463 end');
     })
 
     /**
@@ -6604,9 +6604,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0464', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0464 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0464 begin');
       expect(MathUtils.clamp(-64, -77, -64)).assertEqual(-64);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0464 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0464 end');
     })
 
     /**
@@ -6618,9 +6618,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0465', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0465 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0465 begin');
       expect(MathUtils.clamp(-63.75, -77, -64)).assertEqual(-64);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0465 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0465 end');
     })
 
 
@@ -6633,9 +6633,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0466', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0466 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0466 begin');
       expect(MathUtils.clamp(-77, -76.75, -62.75)).assertEqual(-76.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0466 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0466 end');
     })
 
     /**
@@ -6647,9 +6647,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0467', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0467 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0467 begin');
       expect(MathUtils.clamp(-76.75, -76.75, -62.75)).assertEqual(-76.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0467 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0467 end');
     })
 
     /**
@@ -6661,9 +6661,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0468', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0468 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0468 begin');
       expect(MathUtils.clamp(-69.75, -76.75, -62.75)).assertEqual(-69.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0468 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0468 end');
     })
 
     /**
@@ -6675,9 +6675,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0469', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0469 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0469 begin');
       expect(MathUtils.clamp(-62.75, -76.75, -62.75)).assertEqual(-62.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0469 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0469 end');
     })
 
     /**
@@ -6689,9 +6689,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0470', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0470 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0470 begin');
       expect(MathUtils.clamp(-62.5, -76.75, -62.75)).assertEqual(-62.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0470 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0470 end');
     })
 
 
@@ -6704,9 +6704,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0471', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0471 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0471 begin');
       expect(MathUtils.clamp(-76.75, -76.5, -61.5)).assertEqual(-76.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0471 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0471 end');
     })
 
     /**
@@ -6718,9 +6718,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0472', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0472 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0472 begin');
       expect(MathUtils.clamp(-76.5, -76.5, -61.5)).assertEqual(-76.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0472 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0472 end');
     })
 
     /**
@@ -6732,9 +6732,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0473', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0473 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0473 begin');
       expect(MathUtils.clamp(-69, -76.5, -61.5)).assertEqual(-69);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0473 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0473 end');
     })
 
     /**
@@ -6746,9 +6746,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0474', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0474 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0474 begin');
       expect(MathUtils.clamp(-61.5, -76.5, -61.5)).assertEqual(-61.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0474 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0474 end');
     })
 
     /**
@@ -6760,9 +6760,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0475', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0475 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0475 begin');
       expect(MathUtils.clamp(-61.25, -76.5, -61.5)).assertEqual(-61.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0475 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0475 end');
     })
 
 
@@ -6775,9 +6775,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0476', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0476 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0476 begin');
       expect(MathUtils.clamp(-76.5, -76.25, -60.25)).assertEqual(-76.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0476 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0476 end');
     })
 
     /**
@@ -6789,9 +6789,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0477', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0477 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0477 begin');
       expect(MathUtils.clamp(-76.25, -76.25, -60.25)).assertEqual(-76.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0477 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0477 end');
     })
 
     /**
@@ -6803,9 +6803,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0478', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0478 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0478 begin');
       expect(MathUtils.clamp(-68.25, -76.25, -60.25)).assertEqual(-68.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0478 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0478 end');
     })
 
     /**
@@ -6817,9 +6817,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0479', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0479 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0479 begin');
       expect(MathUtils.clamp(-60.25, -76.25, -60.25)).assertEqual(-60.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0479 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0479 end');
     })
 
     /**
@@ -6831,9 +6831,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0480', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0480 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0480 begin');
       expect(MathUtils.clamp(-60, -76.25, -60.25)).assertEqual(-60.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0480 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0480 end');
     })
 
 
@@ -6846,9 +6846,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0481', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0481 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0481 begin');
       expect(MathUtils.clamp(-76.25, -76, -75)).assertEqual(-76);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0481 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0481 end');
     })
 
     /**
@@ -6860,9 +6860,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0482', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0482 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0482 begin');
       expect(MathUtils.clamp(-76, -76, -75)).assertEqual(-76);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0482 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0482 end');
     })
 
     /**
@@ -6874,9 +6874,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0483', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0483 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0483 begin');
       expect(MathUtils.clamp(-75.5, -76, -75)).assertEqual(-75.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0483 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0483 end');
     })
 
     /**
@@ -6888,9 +6888,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0484', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0484 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0484 begin');
       expect(MathUtils.clamp(-75, -76, -75)).assertEqual(-75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0484 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0484 end');
     })
 
     /**
@@ -6902,9 +6902,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0485', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0485 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0485 begin');
       expect(MathUtils.clamp(-74.75, -76, -75)).assertEqual(-75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0485 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0485 end');
     })
 
 
@@ -6917,9 +6917,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0486', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0486 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0486 begin');
       expect(MathUtils.clamp(-76, -75.75, -73.75)).assertEqual(-75.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0486 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0486 end');
     })
 
     /**
@@ -6931,9 +6931,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0487', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0487 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0487 begin');
       expect(MathUtils.clamp(-75.75, -75.75, -73.75)).assertEqual(-75.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0487 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0487 end');
     })
 
     /**
@@ -6945,9 +6945,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0488', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0488 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0488 begin');
       expect(MathUtils.clamp(-74.75, -75.75, -73.75)).assertEqual(-74.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0488 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0488 end');
     })
 
     /**
@@ -6959,9 +6959,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0489', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0489 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0489 begin');
       expect(MathUtils.clamp(-73.75, -75.75, -73.75)).assertEqual(-73.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0489 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0489 end');
     })
 
     /**
@@ -6973,9 +6973,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0490', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0490 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0490 begin');
       expect(MathUtils.clamp(-73.5, -75.75, -73.75)).assertEqual(-73.75);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0490 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0490 end');
     })
 
 
@@ -6988,9 +6988,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0491', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0491 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0491 begin');
       expect(MathUtils.clamp(-75.75, -75.5, -72.5)).assertEqual(-75.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0491 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0491 end');
     })
 
     /**
@@ -7002,9 +7002,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0492', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0492 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0492 begin');
       expect(MathUtils.clamp(-75.5, -75.5, -72.5)).assertEqual(-75.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0492 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0492 end');
     })
 
     /**
@@ -7016,9 +7016,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0493', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0493 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0493 begin');
       expect(MathUtils.clamp(-74, -75.5, -72.5)).assertEqual(-74);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0493 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0493 end');
     })
 
     /**
@@ -7030,9 +7030,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0494', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0494 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0494 begin');
       expect(MathUtils.clamp(-72.5, -75.5, -72.5)).assertEqual(-72.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0494 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0494 end');
     })
 
     /**
@@ -7044,9 +7044,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0495', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0495 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0495 begin');
       expect(MathUtils.clamp(-72.25, -75.5, -72.5)).assertEqual(-72.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0495 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0495 end');
     })
 
 
@@ -7059,9 +7059,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0496', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0496 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0496 begin');
       expect(MathUtils.clamp(-75.5, -75.25, -71.25)).assertEqual(-75.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0496 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0496 end');
     })
 
     /**
@@ -7073,9 +7073,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0497', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0497 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0497 begin');
       expect(MathUtils.clamp(-75.25, -75.25, -71.25)).assertEqual(-75.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0497 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0497 end');
     })
 
     /**
@@ -7087,9 +7087,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0498', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0498 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0498 begin');
       expect(MathUtils.clamp(-73.25, -75.25, -71.25)).assertEqual(-73.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0498 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0498 end');
     })
 
     /**
@@ -7101,9 +7101,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0499', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0499 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0499 begin');
       expect(MathUtils.clamp(-71.25, -75.25, -71.25)).assertEqual(-71.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0499 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0499 end');
     })
 
     /**
@@ -7115,9 +7115,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0500', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0500 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0500 begin');
       expect(MathUtils.clamp(-71, -75.25, -71.25)).assertEqual(-71.25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0500 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0500 end');
     })
 
 
@@ -7130,9 +7130,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0501', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0501 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0501 begin');
       expect(MathUtils.clamp(-1000000, -1000000, 1000000)).assertEqual(-1000000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0501 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0501 end');
     })
 
     /**
@@ -7144,9 +7144,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0502', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0502 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0502 begin');
       expect(MathUtils.clamp(0, -1000000, 1000000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0502 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0502 end');
     })
 
     /**
@@ -7158,9 +7158,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0503', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0503 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0503 begin');
       expect(MathUtils.clamp(1000000, -1000000, 1000000)).assertEqual(1000000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0503 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0503 end');
     })
 
     /**
@@ -7172,9 +7172,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0504', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0504 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0504 begin');
       expect(MathUtils.clamp(1000001, -1000000, 1000000)).assertEqual(1000000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0504 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0504 end');
     })
 
 
@@ -7187,9 +7187,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0505', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0505 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0505 begin');
       expect(MathUtils.clamp(-1001000, -1001000, 1001000)).assertEqual(-1001000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0505 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0505 end');
     })
 
     /**
@@ -7201,9 +7201,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0506', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0506 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0506 begin');
       expect(MathUtils.clamp(0, -1001000, 1001000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0506 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0506 end');
     })
 
     /**
@@ -7215,9 +7215,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0507', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0507 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0507 begin');
       expect(MathUtils.clamp(1001000, -1001000, 1001000)).assertEqual(1001000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0507 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0507 end');
     })
 
     /**
@@ -7229,9 +7229,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0508', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0508 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0508 begin');
       expect(MathUtils.clamp(1001001, -1001000, 1001000)).assertEqual(1001000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0508 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0508 end');
     })
 
 
@@ -7244,9 +7244,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0509', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0509 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0509 begin');
       expect(MathUtils.clamp(-1002000, -1002000, 1002000)).assertEqual(-1002000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0509 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0509 end');
     })
 
     /**
@@ -7258,9 +7258,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0510', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0510 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0510 begin');
       expect(MathUtils.clamp(0, -1002000, 1002000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0510 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0510 end');
     })
 
     /**
@@ -7272,9 +7272,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0511', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0511 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0511 begin');
       expect(MathUtils.clamp(1002000, -1002000, 1002000)).assertEqual(1002000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0511 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0511 end');
     })
 
     /**
@@ -7286,9 +7286,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0512', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0512 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0512 begin');
       expect(MathUtils.clamp(1002001, -1002000, 1002000)).assertEqual(1002000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0512 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0512 end');
     })
 
 
@@ -7301,9 +7301,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0513', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0513 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0513 begin');
       expect(MathUtils.clamp(-1003000, -1003000, 1003000)).assertEqual(-1003000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0513 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0513 end');
     })
 
     /**
@@ -7315,9 +7315,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0514', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0514 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0514 begin');
       expect(MathUtils.clamp(0, -1003000, 1003000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0514 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0514 end');
     })
 
     /**
@@ -7329,9 +7329,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0515', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0515 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0515 begin');
       expect(MathUtils.clamp(1003000, -1003000, 1003000)).assertEqual(1003000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0515 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0515 end');
     })
 
     /**
@@ -7343,9 +7343,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0516', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0516 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0516 begin');
       expect(MathUtils.clamp(1003001, -1003000, 1003000)).assertEqual(1003000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0516 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0516 end');
     })
 
 
@@ -7358,9 +7358,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0517', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0517 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0517 begin');
       expect(MathUtils.clamp(-1004000, -1004000, 1004000)).assertEqual(-1004000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0517 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0517 end');
     })
 
     /**
@@ -7372,9 +7372,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0518', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0518 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0518 begin');
       expect(MathUtils.clamp(0, -1004000, 1004000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0518 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0518 end');
     })
 
     /**
@@ -7386,9 +7386,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0519', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0519 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0519 begin');
       expect(MathUtils.clamp(1004000, -1004000, 1004000)).assertEqual(1004000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0519 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0519 end');
     })
 
     /**
@@ -7400,9 +7400,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0520', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0520 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0520 begin');
       expect(MathUtils.clamp(1004001, -1004000, 1004000)).assertEqual(1004000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0520 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0520 end');
     })
 
 
@@ -7415,9 +7415,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0521', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0521 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0521 begin');
       expect(MathUtils.clamp(-1005000, -1005000, 1005000)).assertEqual(-1005000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0521 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0521 end');
     })
 
     /**
@@ -7429,9 +7429,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0522', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0522 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0522 begin');
       expect(MathUtils.clamp(0, -1005000, 1005000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0522 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0522 end');
     })
 
     /**
@@ -7443,9 +7443,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0523', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0523 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0523 begin');
       expect(MathUtils.clamp(1005000, -1005000, 1005000)).assertEqual(1005000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0523 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0523 end');
     })
 
     /**
@@ -7457,9 +7457,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0524', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0524 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0524 begin');
       expect(MathUtils.clamp(1005001, -1005000, 1005000)).assertEqual(1005000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0524 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0524 end');
     })
 
 
@@ -7472,9 +7472,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0525', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0525 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0525 begin');
       expect(MathUtils.clamp(-1006000, -1006000, 1006000)).assertEqual(-1006000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0525 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0525 end');
     })
 
     /**
@@ -7486,9 +7486,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0526', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0526 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0526 begin');
       expect(MathUtils.clamp(0, -1006000, 1006000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0526 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0526 end');
     })
 
     /**
@@ -7500,9 +7500,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0527', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0527 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0527 begin');
       expect(MathUtils.clamp(1006000, -1006000, 1006000)).assertEqual(1006000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0527 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0527 end');
     })
 
     /**
@@ -7514,9 +7514,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0528', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0528 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0528 begin');
       expect(MathUtils.clamp(1006001, -1006000, 1006000)).assertEqual(1006000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0528 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0528 end');
     })
 
 
@@ -7529,9 +7529,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0529', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0529 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0529 begin');
       expect(MathUtils.clamp(-1007000, -1007000, 1007000)).assertEqual(-1007000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0529 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0529 end');
     })
 
     /**
@@ -7543,9 +7543,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0530', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0530 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0530 begin');
       expect(MathUtils.clamp(0, -1007000, 1007000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0530 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0530 end');
     })
 
     /**
@@ -7557,9 +7557,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0531', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0531 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0531 begin');
       expect(MathUtils.clamp(1007000, -1007000, 1007000)).assertEqual(1007000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0531 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0531 end');
     })
 
     /**
@@ -7571,9 +7571,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0532', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0532 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0532 begin');
       expect(MathUtils.clamp(1007001, -1007000, 1007000)).assertEqual(1007000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0532 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0532 end');
     })
 
 
@@ -7586,9 +7586,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0533', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0533 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0533 begin');
       expect(MathUtils.clamp(-1008000, -1008000, 1008000)).assertEqual(-1008000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0533 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0533 end');
     })
 
     /**
@@ -7600,9 +7600,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0534', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0534 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0534 begin');
       expect(MathUtils.clamp(0, -1008000, 1008000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0534 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0534 end');
     })
 
     /**
@@ -7614,9 +7614,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0535', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0535 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0535 begin');
       expect(MathUtils.clamp(1008000, -1008000, 1008000)).assertEqual(1008000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0535 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0535 end');
     })
 
     /**
@@ -7628,9 +7628,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0536', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0536 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0536 begin');
       expect(MathUtils.clamp(1008001, -1008000, 1008000)).assertEqual(1008000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0536 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0536 end');
     })
 
 
@@ -7643,9 +7643,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0537', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0537 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0537 begin');
       expect(MathUtils.clamp(-1009000, -1009000, 1009000)).assertEqual(-1009000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0537 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0537 end');
     })
 
     /**
@@ -7657,9 +7657,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0538', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0538 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0538 begin');
       expect(MathUtils.clamp(0, -1009000, 1009000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0538 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0538 end');
     })
 
     /**
@@ -7671,9 +7671,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0539', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0539 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0539 begin');
       expect(MathUtils.clamp(1009000, -1009000, 1009000)).assertEqual(1009000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0539 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0539 end');
     })
 
     /**
@@ -7685,9 +7685,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0540', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0540 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0540 begin');
       expect(MathUtils.clamp(1009001, -1009000, 1009000)).assertEqual(1009000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0540 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0540 end');
     })
 
 
@@ -7700,9 +7700,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0541', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0541 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0541 begin');
       expect(MathUtils.clamp(-1010000, -1010000, 1010000)).assertEqual(-1010000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0541 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0541 end');
     })
 
     /**
@@ -7714,9 +7714,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0542', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0542 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0542 begin');
       expect(MathUtils.clamp(0, -1010000, 1010000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0542 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0542 end');
     })
 
     /**
@@ -7728,9 +7728,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0543', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0543 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0543 begin');
       expect(MathUtils.clamp(1010000, -1010000, 1010000)).assertEqual(1010000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0543 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0543 end');
     })
 
     /**
@@ -7742,9 +7742,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0544', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0544 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0544 begin');
       expect(MathUtils.clamp(1010001, -1010000, 1010000)).assertEqual(1010000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0544 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0544 end');
     })
 
 
@@ -7757,9 +7757,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0545', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0545 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0545 begin');
       expect(MathUtils.clamp(-1011000, -1011000, 1011000)).assertEqual(-1011000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0545 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0545 end');
     })
 
     /**
@@ -7771,9 +7771,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0546', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0546 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0546 begin');
       expect(MathUtils.clamp(0, -1011000, 1011000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0546 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0546 end');
     })
 
     /**
@@ -7785,9 +7785,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0547', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0547 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0547 begin');
       expect(MathUtils.clamp(1011000, -1011000, 1011000)).assertEqual(1011000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0547 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0547 end');
     })
 
     /**
@@ -7799,9 +7799,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0548', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0548 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0548 begin');
       expect(MathUtils.clamp(1011001, -1011000, 1011000)).assertEqual(1011000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0548 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0548 end');
     })
 
 
@@ -7814,9 +7814,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0549', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0549 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0549 begin');
       expect(MathUtils.clamp(-1012000, -1012000, 1012000)).assertEqual(-1012000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0549 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0549 end');
     })
 
     /**
@@ -7828,9 +7828,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0550', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0550 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0550 begin');
       expect(MathUtils.clamp(0, -1012000, 1012000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0550 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0550 end');
     })
 
     /**
@@ -7842,9 +7842,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0551', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 begin');
       expect(MathUtils.clamp(1012000, -1012000, 1012000)).assertEqual(1012000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 end');
     })
 
     /**
@@ -7856,9 +7856,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0552', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 begin');
       expect(MathUtils.clamp(1012001, -1012000, 1012000)).assertEqual(1012000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 end');
     })
 
 
@@ -7871,9 +7871,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0553', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 begin');
       expect(MathUtils.clamp(-1013000, -1013000, 1013000)).assertEqual(-1013000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 end');
     })
 
     /**
@@ -7885,9 +7885,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0554', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 begin');
       expect(MathUtils.clamp(0, -1013000, 1013000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 end');
     })
 
     /**
@@ -7899,9 +7899,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0555', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 begin');
       expect(MathUtils.clamp(1013000, -1013000, 1013000)).assertEqual(1013000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 end');
     })
 
     /**
@@ -7913,9 +7913,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0556', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 begin');
       expect(MathUtils.clamp(1013001, -1013000, 1013000)).assertEqual(1013000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 end');
     })
 
 
@@ -7928,9 +7928,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0557', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 begin');
       expect(MathUtils.clamp(-1014000, -1014000, 1014000)).assertEqual(-1014000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 end');
     })
 
     /**
@@ -7942,9 +7942,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0558', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 begin');
       expect(MathUtils.clamp(0, -1014000, 1014000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 end');
     })
 
     /**
@@ -7956,9 +7956,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0559', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 begin');
       expect(MathUtils.clamp(1014000, -1014000, 1014000)).assertEqual(1014000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 end');
     })
 
     /**
@@ -7970,9 +7970,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0560', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 begin');
       expect(MathUtils.clamp(1014001, -1014000, 1014000)).assertEqual(1014000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 end');
     })
 
 
@@ -7985,9 +7985,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0561', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 begin');
       expect(MathUtils.clamp(-1015000, -1015000, 1015000)).assertEqual(-1015000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 end');
     })
 
     /**
@@ -7999,9 +7999,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0562', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 begin');
       expect(MathUtils.clamp(0, -1015000, 1015000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 end');
     })
 
     /**
@@ -8013,9 +8013,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0563', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 begin');
       expect(MathUtils.clamp(1015000, -1015000, 1015000)).assertEqual(1015000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 end');
     })
 
     /**
@@ -8027,9 +8027,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0564', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 begin');
       expect(MathUtils.clamp(1015001, -1015000, 1015000)).assertEqual(1015000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 end');
     })
 
 
@@ -8042,9 +8042,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0565', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 begin');
       expect(MathUtils.clamp(-1016000, -1016000, 1016000)).assertEqual(-1016000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 end');
     })
 
     /**
@@ -8056,9 +8056,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0566', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 begin');
       expect(MathUtils.clamp(0, -1016000, 1016000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 end');
     })
 
     /**
@@ -8070,9 +8070,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0567', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 begin');
       expect(MathUtils.clamp(1016000, -1016000, 1016000)).assertEqual(1016000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 end');
     })
 
     /**
@@ -8084,9 +8084,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0568', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 begin');
       expect(MathUtils.clamp(1016001, -1016000, 1016000)).assertEqual(1016000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 end');
     })
 
 
@@ -8099,9 +8099,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0569', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 begin');
       expect(MathUtils.clamp(-1017000, -1017000, 1017000)).assertEqual(-1017000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 end');
     })
 
     /**
@@ -8113,9 +8113,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0570', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 begin');
       expect(MathUtils.clamp(0, -1017000, 1017000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 end');
     })
 
     /**
@@ -8127,9 +8127,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0571', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 begin');
       expect(MathUtils.clamp(1017000, -1017000, 1017000)).assertEqual(1017000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 end');
     })
 
     /**
@@ -8141,9 +8141,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0572', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 begin');
       expect(MathUtils.clamp(1017001, -1017000, 1017000)).assertEqual(1017000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 end');
     })
 
 
@@ -8156,9 +8156,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0573', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 begin');
       expect(MathUtils.clamp(-1018000, -1018000, 1018000)).assertEqual(-1018000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 end');
     })
 
     /**
@@ -8170,9 +8170,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0574', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 begin');
       expect(MathUtils.clamp(0, -1018000, 1018000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 end');
     })
 
     /**
@@ -8184,9 +8184,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0575', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 begin');
       expect(MathUtils.clamp(1018000, -1018000, 1018000)).assertEqual(1018000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 end');
     })
 
     /**
@@ -8198,9 +8198,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0576', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 begin');
       expect(MathUtils.clamp(1018001, -1018000, 1018000)).assertEqual(1018000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 end');
     })
 
 
@@ -8213,9 +8213,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0577', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 begin');
       expect(MathUtils.clamp(-1019000, -1019000, 1019000)).assertEqual(-1019000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 end');
     })
 
     /**
@@ -8227,9 +8227,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0578', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 begin');
       expect(MathUtils.clamp(0, -1019000, 1019000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 end');
     })
 
     /**
@@ -8241,9 +8241,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0579', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 begin');
       expect(MathUtils.clamp(1019000, -1019000, 1019000)).assertEqual(1019000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 end');
     })
 
     /**
@@ -8255,9 +8255,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0580', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 begin');
       expect(MathUtils.clamp(1019001, -1019000, 1019000)).assertEqual(1019000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 end');
     })
 
 
@@ -8270,9 +8270,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0581', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 begin');
       expect(MathUtils.clamp(-1020000, -1020000, 1020000)).assertEqual(-1020000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 end');
     })
 
     /**
@@ -8284,9 +8284,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0582', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 begin');
       expect(MathUtils.clamp(0, -1020000, 1020000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 end');
     })
 
     /**
@@ -8298,9 +8298,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0583', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 begin');
       expect(MathUtils.clamp(1020000, -1020000, 1020000)).assertEqual(1020000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 end');
     })
 
     /**
@@ -8312,9 +8312,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0584', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 begin');
       expect(MathUtils.clamp(1020001, -1020000, 1020000)).assertEqual(1020000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 end');
     })
 
 
@@ -8327,9 +8327,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0585', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 begin');
       expect(MathUtils.clamp(-1021000, -1021000, 1021000)).assertEqual(-1021000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 end');
     })
 
     /**
@@ -8341,9 +8341,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0586', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 begin');
       expect(MathUtils.clamp(0, -1021000, 1021000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 end');
     })
 
     /**
@@ -8355,9 +8355,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0587', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 begin');
       expect(MathUtils.clamp(1021000, -1021000, 1021000)).assertEqual(1021000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 end');
     })
 
     /**
@@ -8369,9 +8369,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0588', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 begin');
       expect(MathUtils.clamp(1021001, -1021000, 1021000)).assertEqual(1021000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 end');
     })
 
 
@@ -8384,9 +8384,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0589', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 begin');
       expect(MathUtils.clamp(-1022000, -1022000, 1022000)).assertEqual(-1022000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 end');
     })
 
     /**
@@ -8398,9 +8398,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0590', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 begin');
       expect(MathUtils.clamp(0, -1022000, 1022000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 end');
     })
 
     /**
@@ -8412,9 +8412,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0591', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 begin');
       expect(MathUtils.clamp(1022000, -1022000, 1022000)).assertEqual(1022000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 end');
     })
 
     /**
@@ -8426,9 +8426,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0592', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 begin');
       expect(MathUtils.clamp(1022001, -1022000, 1022000)).assertEqual(1022000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 end');
     })
 
 
@@ -8441,9 +8441,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0593', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 begin');
       expect(MathUtils.clamp(-1023000, -1023000, 1023000)).assertEqual(-1023000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 end');
     })
 
     /**
@@ -8455,9 +8455,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0594', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 begin');
       expect(MathUtils.clamp(0, -1023000, 1023000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 end');
     })
 
     /**
@@ -8469,9 +8469,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0595', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 begin');
       expect(MathUtils.clamp(1023000, -1023000, 1023000)).assertEqual(1023000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 end');
     })
 
     /**
@@ -8483,9 +8483,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0596', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 begin');
       expect(MathUtils.clamp(1023001, -1023000, 1023000)).assertEqual(1023000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 end');
     })
 
 
@@ -8498,9 +8498,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0597', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 begin');
       expect(MathUtils.clamp(-1024000, -1024000, 1024000)).assertEqual(-1024000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 end');
     })
 
     /**
@@ -8512,9 +8512,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0598', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 begin');
       expect(MathUtils.clamp(0, -1024000, 1024000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 end');
     })
 
     /**
@@ -8526,9 +8526,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0599', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 begin');
       expect(MathUtils.clamp(1024000, -1024000, 1024000)).assertEqual(1024000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 end');
     })
 
     /**
@@ -8540,9 +8540,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0600', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 begin');
       expect(MathUtils.clamp(1024001, -1024000, 1024000)).assertEqual(1024000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 end');
     })
 
 
@@ -8555,9 +8555,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0601', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 begin');
       expect(MathUtils.clamp(-1025000, -1025000, 1025000)).assertEqual(-1025000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 end');
     })
 
     /**
@@ -8569,9 +8569,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0602', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 begin');
       expect(MathUtils.clamp(0, -1025000, 1025000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 end');
     })
 
     /**
@@ -8583,9 +8583,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0603', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 begin');
       expect(MathUtils.clamp(1025000, -1025000, 1025000)).assertEqual(1025000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 end');
     })
 
     /**
@@ -8597,9 +8597,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0604', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 begin');
       expect(MathUtils.clamp(1025001, -1025000, 1025000)).assertEqual(1025000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 end');
     })
 
 
@@ -8612,9 +8612,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0605', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 begin');
       expect(MathUtils.clamp(-1026000, -1026000, 1026000)).assertEqual(-1026000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 end');
     })
 
     /**
@@ -8626,9 +8626,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0606', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 begin');
       expect(MathUtils.clamp(0, -1026000, 1026000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 end');
     })
 
     /**
@@ -8640,9 +8640,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0607', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 begin');
       expect(MathUtils.clamp(1026000, -1026000, 1026000)).assertEqual(1026000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 end');
     })
 
     /**
@@ -8654,9 +8654,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0608', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 begin');
       expect(MathUtils.clamp(1026001, -1026000, 1026000)).assertEqual(1026000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 end');
     })
 
 
@@ -8669,9 +8669,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0609', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 begin');
       expect(MathUtils.clamp(-1027000, -1027000, 1027000)).assertEqual(-1027000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 end');
     })
 
     /**
@@ -8683,9 +8683,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0610', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 begin');
       expect(MathUtils.clamp(0, -1027000, 1027000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 end');
     })
 
     /**
@@ -8697,9 +8697,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0611', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 begin');
       expect(MathUtils.clamp(1027000, -1027000, 1027000)).assertEqual(1027000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 end');
     })
 
     /**
@@ -8711,9 +8711,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0612', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 begin');
       expect(MathUtils.clamp(1027001, -1027000, 1027000)).assertEqual(1027000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 end');
     })
 
 
@@ -8726,9 +8726,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0613', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 begin');
       expect(MathUtils.clamp(-1028000, -1028000, 1028000)).assertEqual(-1028000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 end');
     })
 
     /**
@@ -8740,9 +8740,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0614', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 begin');
       expect(MathUtils.clamp(0, -1028000, 1028000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 end');
     })
 
     /**
@@ -8754,9 +8754,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0615', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 begin');
       expect(MathUtils.clamp(1028000, -1028000, 1028000)).assertEqual(1028000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 end');
     })
 
     /**
@@ -8768,9 +8768,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0616', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 begin');
       expect(MathUtils.clamp(1028001, -1028000, 1028000)).assertEqual(1028000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 end');
     })
 
 
@@ -8783,9 +8783,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0617', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 begin');
       expect(MathUtils.clamp(-1029000, -1029000, 1029000)).assertEqual(-1029000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 end');
     })
 
     /**
@@ -8797,9 +8797,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0618', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 begin');
       expect(MathUtils.clamp(0, -1029000, 1029000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 end');
     })
 
     /**
@@ -8811,9 +8811,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0619', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 begin');
       expect(MathUtils.clamp(1029000, -1029000, 1029000)).assertEqual(1029000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 end');
     })
 
     /**
@@ -8825,9 +8825,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0620', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 begin');
       expect(MathUtils.clamp(1029001, -1029000, 1029000)).assertEqual(1029000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 end');
     })
 
 
@@ -8840,9 +8840,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0621', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 begin');
       expect(MathUtils.clamp(-1030000, -1030000, 1030000)).assertEqual(-1030000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 end');
     })
 
     /**
@@ -8854,9 +8854,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0622', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 begin');
       expect(MathUtils.clamp(0, -1030000, 1030000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 end');
     })
 
     /**
@@ -8868,9 +8868,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0623', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 begin');
       expect(MathUtils.clamp(1030000, -1030000, 1030000)).assertEqual(1030000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 end');
     })
 
     /**
@@ -8882,9 +8882,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0624', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 begin');
       expect(MathUtils.clamp(1030001, -1030000, 1030000)).assertEqual(1030000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 end');
     })
 
 
@@ -8897,9 +8897,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0625', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 begin');
       expect(MathUtils.clamp(-1031000, -1031000, 1031000)).assertEqual(-1031000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 end');
     })
 
     /**
@@ -8911,9 +8911,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0626', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 begin');
       expect(MathUtils.clamp(0, -1031000, 1031000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 end');
     })
 
     /**
@@ -8925,9 +8925,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0627', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 begin');
       expect(MathUtils.clamp(1031000, -1031000, 1031000)).assertEqual(1031000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 end');
     })
 
     /**
@@ -8939,9 +8939,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0628', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 begin');
       expect(MathUtils.clamp(1031001, -1031000, 1031000)).assertEqual(1031000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 end');
     })
 
 
@@ -8954,9 +8954,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0629', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 begin');
       expect(MathUtils.clamp(-1032000, -1032000, 1032000)).assertEqual(-1032000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 end');
     })
 
     /**
@@ -8968,9 +8968,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0630', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 begin');
       expect(MathUtils.clamp(0, -1032000, 1032000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 end');
     })
 
     /**
@@ -8982,9 +8982,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0631', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 begin');
       expect(MathUtils.clamp(1032000, -1032000, 1032000)).assertEqual(1032000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 end');
     })
 
     /**
@@ -8996,9 +8996,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0632', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 begin');
       expect(MathUtils.clamp(1032001, -1032000, 1032000)).assertEqual(1032000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 end');
     })
 
 
@@ -9011,9 +9011,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0633', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 begin');
       expect(MathUtils.clamp(-1033000, -1033000, 1033000)).assertEqual(-1033000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 end');
     })
 
     /**
@@ -9025,9 +9025,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0634', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 begin');
       expect(MathUtils.clamp(0, -1033000, 1033000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 end');
     })
 
     /**
@@ -9039,9 +9039,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0635', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 begin');
       expect(MathUtils.clamp(1033000, -1033000, 1033000)).assertEqual(1033000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 end');
     })
 
     /**
@@ -9053,9 +9053,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0636', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 begin');
       expect(MathUtils.clamp(1033001, -1033000, 1033000)).assertEqual(1033000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 end');
     })
 
 
@@ -9068,9 +9068,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0637', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 begin');
       expect(MathUtils.clamp(-1034000, -1034000, 1034000)).assertEqual(-1034000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 end');
     })
 
     /**
@@ -9082,9 +9082,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0638', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 begin');
       expect(MathUtils.clamp(0, -1034000, 1034000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 end');
     })
 
     /**
@@ -9096,9 +9096,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0639', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 begin');
       expect(MathUtils.clamp(1034000, -1034000, 1034000)).assertEqual(1034000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 end');
     })
 
     /**
@@ -9110,9 +9110,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0640', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 begin');
       expect(MathUtils.clamp(1034001, -1034000, 1034000)).assertEqual(1034000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 end');
     })
 
 
@@ -9125,9 +9125,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0641', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 begin');
       expect(MathUtils.clamp(-1035000, -1035000, 1035000)).assertEqual(-1035000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 end');
     })
 
     /**
@@ -9139,9 +9139,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0642', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 begin');
       expect(MathUtils.clamp(0, -1035000, 1035000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 end');
     })
 
     /**
@@ -9153,9 +9153,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0643', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 begin');
       expect(MathUtils.clamp(1035000, -1035000, 1035000)).assertEqual(1035000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 end');
     })
 
     /**
@@ -9167,9 +9167,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0644', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 begin');
       expect(MathUtils.clamp(1035001, -1035000, 1035000)).assertEqual(1035000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 end');
     })
 
 
@@ -9182,9 +9182,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0645', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 begin');
       expect(MathUtils.clamp(-1036000, -1036000, 1036000)).assertEqual(-1036000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 end');
     })
 
     /**
@@ -9196,9 +9196,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0646', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 begin');
       expect(MathUtils.clamp(0, -1036000, 1036000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 end');
     })
 
     /**
@@ -9210,9 +9210,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0647', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 begin');
       expect(MathUtils.clamp(1036000, -1036000, 1036000)).assertEqual(1036000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 end');
     })
 
     /**
@@ -9224,9 +9224,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0648', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 begin');
       expect(MathUtils.clamp(1036001, -1036000, 1036000)).assertEqual(1036000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 end');
     })
 
 
@@ -9239,9 +9239,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0649', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 begin');
       expect(MathUtils.clamp(-1037000, -1037000, 1037000)).assertEqual(-1037000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 end');
     })
 
     /**
@@ -9253,9 +9253,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0650', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 begin');
       expect(MathUtils.clamp(0, -1037000, 1037000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 end');
     })
 
     /**
@@ -9267,9 +9267,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0651', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 begin');
       expect(MathUtils.clamp(1037000, -1037000, 1037000)).assertEqual(1037000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 end');
     })
 
     /**
@@ -9281,9 +9281,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0652', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 begin');
       expect(MathUtils.clamp(1037001, -1037000, 1037000)).assertEqual(1037000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 end');
     })
 
 
@@ -9296,9 +9296,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0653', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 begin');
       expect(MathUtils.clamp(-1038000, -1038000, 1038000)).assertEqual(-1038000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 end');
     })
 
     /**
@@ -9310,9 +9310,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0654', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 begin');
       expect(MathUtils.clamp(0, -1038000, 1038000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 end');
     })
 
     /**
@@ -9324,9 +9324,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0655', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 begin');
       expect(MathUtils.clamp(1038000, -1038000, 1038000)).assertEqual(1038000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 end');
     })
 
     /**
@@ -9338,9 +9338,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0656', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 begin');
       expect(MathUtils.clamp(1038001, -1038000, 1038000)).assertEqual(1038000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 end');
     })
 
 
@@ -9353,9 +9353,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0657', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 begin');
       expect(MathUtils.clamp(-1039000, -1039000, 1039000)).assertEqual(-1039000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 end');
     })
 
     /**
@@ -9367,9 +9367,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0658', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 begin');
       expect(MathUtils.clamp(0, -1039000, 1039000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 end');
     })
 
     /**
@@ -9381,9 +9381,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0659', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 begin');
       expect(MathUtils.clamp(1039000, -1039000, 1039000)).assertEqual(1039000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 end');
     })
 
     /**
@@ -9395,9 +9395,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0660', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 begin');
       expect(MathUtils.clamp(1039001, -1039000, 1039000)).assertEqual(1039000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 end');
     })
 
 
@@ -9410,9 +9410,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0661', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 begin');
       expect(MathUtils.clamp(-1040000, -1040000, 1040000)).assertEqual(-1040000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 end');
     })
 
     /**
@@ -9424,9 +9424,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0662', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 begin');
       expect(MathUtils.clamp(0, -1040000, 1040000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 end');
     })
 
     /**
@@ -9438,9 +9438,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0663', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 begin');
       expect(MathUtils.clamp(1040000, -1040000, 1040000)).assertEqual(1040000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 end');
     })
 
     /**
@@ -9452,9 +9452,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0664', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 begin');
       expect(MathUtils.clamp(1040001, -1040000, 1040000)).assertEqual(1040000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 end');
     })
 
 
@@ -9467,9 +9467,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0665', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 begin');
       expect(MathUtils.clamp(-1041000, -1041000, 1041000)).assertEqual(-1041000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 end');
     })
 
     /**
@@ -9481,9 +9481,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0666', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 begin');
       expect(MathUtils.clamp(0, -1041000, 1041000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 end');
     })
 
     /**
@@ -9495,9 +9495,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0667', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 begin');
       expect(MathUtils.clamp(1041000, -1041000, 1041000)).assertEqual(1041000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 end');
     })
 
     /**
@@ -9509,9 +9509,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0668', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 begin');
       expect(MathUtils.clamp(1041001, -1041000, 1041000)).assertEqual(1041000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 end');
     })
 
 
@@ -9524,9 +9524,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0669', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 begin');
       expect(MathUtils.clamp(-1042000, -1042000, 1042000)).assertEqual(-1042000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 end');
     })
 
     /**
@@ -9538,9 +9538,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0670', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 begin');
       expect(MathUtils.clamp(0, -1042000, 1042000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 end');
     })
 
     /**
@@ -9552,9 +9552,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0671', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 begin');
       expect(MathUtils.clamp(1042000, -1042000, 1042000)).assertEqual(1042000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 end');
     })
 
     /**
@@ -9566,9 +9566,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0672', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 begin');
       expect(MathUtils.clamp(1042001, -1042000, 1042000)).assertEqual(1042000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 end');
     })
 
 
@@ -9581,9 +9581,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0673', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 begin');
       expect(MathUtils.clamp(-1043000, -1043000, 1043000)).assertEqual(-1043000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 end');
     })
 
     /**
@@ -9595,9 +9595,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0674', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 begin');
       expect(MathUtils.clamp(0, -1043000, 1043000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 end');
     })
 
     /**
@@ -9609,9 +9609,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0675', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 begin');
       expect(MathUtils.clamp(1043000, -1043000, 1043000)).assertEqual(1043000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 end');
     })
 
     /**
@@ -9623,9 +9623,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0676', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 begin');
       expect(MathUtils.clamp(1043001, -1043000, 1043000)).assertEqual(1043000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 end');
     })
 
 
@@ -9638,9 +9638,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0677', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 begin');
       expect(MathUtils.clamp(-1044000, -1044000, 1044000)).assertEqual(-1044000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 end');
     })
 
     /**
@@ -9652,9 +9652,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0678', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 begin');
       expect(MathUtils.clamp(0, -1044000, 1044000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 end');
     })
 
     /**
@@ -9666,9 +9666,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0679', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 begin');
       expect(MathUtils.clamp(1044000, -1044000, 1044000)).assertEqual(1044000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 end');
     })
 
     /**
@@ -9680,9 +9680,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0680', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 begin');
       expect(MathUtils.clamp(1044001, -1044000, 1044000)).assertEqual(1044000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 end');
     })
 
 
@@ -9695,9 +9695,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0681', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 begin');
       expect(MathUtils.clamp(-1045000, -1045000, 1045000)).assertEqual(-1045000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 end');
     })
 
     /**
@@ -9709,9 +9709,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0682', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 begin');
       expect(MathUtils.clamp(0, -1045000, 1045000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 end');
     })
 
     /**
@@ -9723,9 +9723,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0683', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 begin');
       expect(MathUtils.clamp(1045000, -1045000, 1045000)).assertEqual(1045000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 end');
     })
 
     /**
@@ -9737,9 +9737,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0684', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 begin');
       expect(MathUtils.clamp(1045001, -1045000, 1045000)).assertEqual(1045000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 end');
     })
 
 
@@ -9752,9 +9752,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0685', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 begin');
       expect(MathUtils.clamp(-1046000, -1046000, 1046000)).assertEqual(-1046000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 end');
     })
 
     /**
@@ -9766,9 +9766,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0686', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 begin');
       expect(MathUtils.clamp(0, -1046000, 1046000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 end');
     })
 
     /**
@@ -9780,9 +9780,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0687', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0687 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0687 begin');
       expect(MathUtils.clamp(1046000, -1046000, 1046000)).assertEqual(1046000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0687 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0687 end');
     })
 
     /**
@@ -9794,9 +9794,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0688', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0688 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0688 begin');
       expect(MathUtils.clamp(1046001, -1046000, 1046000)).assertEqual(1046000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0688 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0688 end');
     })
 
 
@@ -9809,9 +9809,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0689', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0689 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0689 begin');
       expect(MathUtils.clamp(-1047000, -1047000, 1047000)).assertEqual(-1047000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0689 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0689 end');
     })
 
     /**
@@ -9823,9 +9823,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0690', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0690 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0690 begin');
       expect(MathUtils.clamp(0, -1047000, 1047000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0690 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0690 end');
     })
 
     /**
@@ -9837,9 +9837,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0691', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0691 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0691 begin');
       expect(MathUtils.clamp(1047000, -1047000, 1047000)).assertEqual(1047000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0691 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0691 end');
     })
 
     /**
@@ -9851,9 +9851,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0692', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0692 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0692 begin');
       expect(MathUtils.clamp(1047001, -1047000, 1047000)).assertEqual(1047000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0692 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0692 end');
     })
 
 
@@ -9866,9 +9866,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0693', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0693 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0693 begin');
       expect(MathUtils.clamp(-1048000, -1048000, 1048000)).assertEqual(-1048000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0693 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0693 end');
     })
 
     /**
@@ -9880,9 +9880,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0694', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0694 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0694 begin');
       expect(MathUtils.clamp(0, -1048000, 1048000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0694 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0694 end');
     })
 
     /**
@@ -9894,9 +9894,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0695', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0695 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0695 begin');
       expect(MathUtils.clamp(1048000, -1048000, 1048000)).assertEqual(1048000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0695 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0695 end');
     })
 
     /**
@@ -9908,9 +9908,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0696', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0696 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0696 begin');
       expect(MathUtils.clamp(1048001, -1048000, 1048000)).assertEqual(1048000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0696 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0696 end');
     })
 
 
@@ -9923,9 +9923,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0697', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0697 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0697 begin');
       expect(MathUtils.clamp(-1049000, -1049000, 1049000)).assertEqual(-1049000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0697 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0697 end');
     })
 
     /**
@@ -9937,9 +9937,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0698', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0698 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0698 begin');
       expect(MathUtils.clamp(0, -1049000, 1049000)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0698 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0698 end');
     })
 
     /**
@@ -9951,9 +9951,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0699', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0699 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0699 begin');
       expect(MathUtils.clamp(1049000, -1049000, 1049000)).assertEqual(1049000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0699 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0699 end');
     })
 
     /**
@@ -9965,9 +9965,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0700', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0700 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0700 begin');
       expect(MathUtils.clamp(1049001, -1049000, 1049000)).assertEqual(1049000);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0700 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0700 end');
     })
 
 
@@ -9980,9 +9980,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0701', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0701 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0701 begin');
       expect(MathUtils.clamp(110, 100, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0701 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0701 end');
     })
 
     /**
@@ -9994,9 +9994,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0702', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0702 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0702 begin');
       expect(MathUtils.clamp(0.5, 100, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0702 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0702 end');
     })
 
     /**
@@ -10008,9 +10008,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0703', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0703 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0703 begin');
       expect(MathUtils.clamp(-10, 100, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0703 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0703 end');
     })
 
 
@@ -10023,9 +10023,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0704', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0704 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0704 begin');
       expect(MathUtils.clamp(111, 101, 1)).assertEqual(1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0704 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0704 end');
     })
 
     /**
@@ -10037,9 +10037,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0705', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0705 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0705 begin');
       expect(MathUtils.clamp(1.5, 101, 1)).assertEqual(1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0705 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0705 end');
     })
 
     /**
@@ -10051,9 +10051,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0706', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0706 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0706 begin');
       expect(MathUtils.clamp(-9, 101, 1)).assertEqual(1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0706 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0706 end');
     })
 
 
@@ -10066,9 +10066,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0707', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0707 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0707 begin');
       expect(MathUtils.clamp(112, 102, 2)).assertEqual(2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0707 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0707 end');
     })
 
     /**
@@ -10080,9 +10080,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0708', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0708 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0708 begin');
       expect(MathUtils.clamp(2.5, 102, 2)).assertEqual(2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0708 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0708 end');
     })
 
     /**
@@ -10094,9 +10094,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0709', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0709 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0709 begin');
       expect(MathUtils.clamp(-8, 102, 2)).assertEqual(2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0709 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0709 end');
     })
 
 
@@ -10109,9 +10109,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0710', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0710 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0710 begin');
       expect(MathUtils.clamp(113, 103, 3)).assertEqual(3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0710 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0710 end');
     })
 
     /**
@@ -10123,9 +10123,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0711', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0711 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0711 begin');
       expect(MathUtils.clamp(3.5, 103, 3)).assertEqual(3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0711 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0711 end');
     })
 
     /**
@@ -10137,9 +10137,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0712', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0712 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0712 begin');
       expect(MathUtils.clamp(-7, 103, 3)).assertEqual(3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0712 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0712 end');
     })
 
 
@@ -10152,9 +10152,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0713', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0713 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0713 begin');
       expect(MathUtils.clamp(114, 104, 4)).assertEqual(4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0713 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0713 end');
     })
 
     /**
@@ -10166,9 +10166,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0714', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0714 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0714 begin');
       expect(MathUtils.clamp(4.5, 104, 4)).assertEqual(4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0714 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0714 end');
     })
 
     /**
@@ -10180,9 +10180,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0715', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0715 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0715 begin');
       expect(MathUtils.clamp(-6, 104, 4)).assertEqual(4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0715 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0715 end');
     })
 
 
@@ -10195,9 +10195,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0716', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0716 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0716 begin');
       expect(MathUtils.clamp(115, 105, 5)).assertEqual(5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0716 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0716 end');
     })
 
     /**
@@ -10209,9 +10209,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0717', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0717 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0717 begin');
       expect(MathUtils.clamp(5.5, 105, 5)).assertEqual(5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0717 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0717 end');
     })
 
     /**
@@ -10223,9 +10223,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0718', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0718 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0718 begin');
       expect(MathUtils.clamp(-5, 105, 5)).assertEqual(5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0718 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0718 end');
     })
 
 
@@ -10238,9 +10238,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0719', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0719 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0719 begin');
       expect(MathUtils.clamp(116, 106, 6)).assertEqual(6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0719 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0719 end');
     })
 
     /**
@@ -10252,9 +10252,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0720', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0720 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0720 begin');
       expect(MathUtils.clamp(6.5, 106, 6)).assertEqual(6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0720 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0720 end');
     })
 
     /**
@@ -10266,9 +10266,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0721', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0721 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0721 begin');
       expect(MathUtils.clamp(-4, 106, 6)).assertEqual(6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0721 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0721 end');
     })
 
 
@@ -10281,9 +10281,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0722', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0722 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0722 begin');
       expect(MathUtils.clamp(117, 107, 7)).assertEqual(7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0722 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0722 end');
     })
 
     /**
@@ -10295,9 +10295,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0723', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0723 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0723 begin');
       expect(MathUtils.clamp(7.5, 107, 7)).assertEqual(7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0723 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0723 end');
     })
 
     /**
@@ -10309,9 +10309,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0724', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0724 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0724 begin');
       expect(MathUtils.clamp(-3, 107, 7)).assertEqual(7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0724 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0724 end');
     })
 
 
@@ -10324,9 +10324,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0725', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0725 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0725 begin');
       expect(MathUtils.clamp(118, 108, 8)).assertEqual(8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0725 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0725 end');
     })
 
     /**
@@ -10338,9 +10338,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0726', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0726 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0726 begin');
       expect(MathUtils.clamp(8.5, 108, 8)).assertEqual(8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0726 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0726 end');
     })
 
     /**
@@ -10352,9 +10352,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0727', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0727 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0727 begin');
       expect(MathUtils.clamp(-2, 108, 8)).assertEqual(8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0727 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0727 end');
     })
 
 
@@ -10367,9 +10367,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0728', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0728 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0728 begin');
       expect(MathUtils.clamp(119, 109, 9)).assertEqual(9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0728 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0728 end');
     })
 
     /**
@@ -10381,9 +10381,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0729', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0729 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0729 begin');
       expect(MathUtils.clamp(9.5, 109, 9)).assertEqual(9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0729 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0729 end');
     })
 
     /**
@@ -10395,9 +10395,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0730', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0730 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0730 begin');
       expect(MathUtils.clamp(-1, 109, 9)).assertEqual(9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0730 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0730 end');
     })
 
 
@@ -10410,9 +10410,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0731', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0731 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0731 begin');
       expect(MathUtils.clamp(120, 110, 10)).assertEqual(10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0731 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0731 end');
     })
 
     /**
@@ -10424,9 +10424,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0732', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0732 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0732 begin');
       expect(MathUtils.clamp(10.5, 110, 10)).assertEqual(10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0732 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0732 end');
     })
 
     /**
@@ -10438,9 +10438,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0733', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0733 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0733 begin');
       expect(MathUtils.clamp(0, 110, 10)).assertEqual(10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0733 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0733 end');
     })
 
 
@@ -10453,9 +10453,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0734', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0734 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0734 begin');
       expect(MathUtils.clamp(121, 111, 11)).assertEqual(11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0734 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0734 end');
     })
 
     /**
@@ -10467,9 +10467,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0735', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0735 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0735 begin');
       expect(MathUtils.clamp(11.5, 111, 11)).assertEqual(11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0735 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0735 end');
     })
 
     /**
@@ -10481,9 +10481,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0736', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0736 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0736 begin');
       expect(MathUtils.clamp(1, 111, 11)).assertEqual(11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0736 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0736 end');
     })
 
 
@@ -10496,9 +10496,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0737', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0737 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0737 begin');
       expect(MathUtils.clamp(122, 112, 12)).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0737 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0737 end');
     })
 
     /**
@@ -10510,9 +10510,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0738', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0738 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0738 begin');
       expect(MathUtils.clamp(12.5, 112, 12)).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0738 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0738 end');
     })
 
     /**
@@ -10524,9 +10524,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0739', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0739 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0739 begin');
       expect(MathUtils.clamp(2, 112, 12)).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0739 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0739 end');
     })
 
 
@@ -10539,9 +10539,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0740', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0740 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0740 begin');
       expect(MathUtils.clamp(123, 113, 13)).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0740 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0740 end');
     })
 
     /**
@@ -10553,9 +10553,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0741', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0741 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0741 begin');
       expect(MathUtils.clamp(13.5, 113, 13)).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0741 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0741 end');
     })
 
     /**
@@ -10567,9 +10567,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0742', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0742 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0742 begin');
       expect(MathUtils.clamp(3, 113, 13)).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0742 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0742 end');
     })
 
 
@@ -10582,9 +10582,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0743', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0743 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0743 begin');
       expect(MathUtils.clamp(124, 114, 14)).assertEqual(14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0743 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0743 end');
     })
 
     /**
@@ -10596,9 +10596,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0744', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0744 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0744 begin');
       expect(MathUtils.clamp(14.5, 114, 14)).assertEqual(14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0744 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0744 end');
     })
 
     /**
@@ -10610,9 +10610,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0745', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0745 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0745 begin');
       expect(MathUtils.clamp(4, 114, 14)).assertEqual(14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0745 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0745 end');
     })
 
 
@@ -10625,9 +10625,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0746', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0746 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0746 begin');
       expect(MathUtils.clamp(125, 115, 15)).assertEqual(15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0746 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0746 end');
     })
 
     /**
@@ -10639,9 +10639,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0747', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0747 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0747 begin');
       expect(MathUtils.clamp(15.5, 115, 15)).assertEqual(15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0747 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0747 end');
     })
 
     /**
@@ -10653,9 +10653,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0748', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0748 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0748 begin');
       expect(MathUtils.clamp(5, 115, 15)).assertEqual(15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0748 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0748 end');
     })
 
 
@@ -10668,9 +10668,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0749', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0749 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0749 begin');
       expect(MathUtils.clamp(126, 116, 16)).assertEqual(16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0749 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0749 end');
     })
 
     /**
@@ -10682,9 +10682,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0750', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0750 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0750 begin');
       expect(MathUtils.clamp(16.5, 116, 16)).assertEqual(16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0750 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0750 end');
     })
 
     /**
@@ -10696,9 +10696,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0751', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0751 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0751 begin');
       expect(MathUtils.clamp(6, 116, 16)).assertEqual(16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0751 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0751 end');
     })
 
 
@@ -10711,9 +10711,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0752', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0752 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0752 begin');
       expect(MathUtils.clamp(127, 117, 17)).assertEqual(17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0752 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0752 end');
     })
 
     /**
@@ -10725,9 +10725,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0753', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0753 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0753 begin');
       expect(MathUtils.clamp(17.5, 117, 17)).assertEqual(17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0753 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0753 end');
     })
 
     /**
@@ -10739,9 +10739,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0754', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0754 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0754 begin');
       expect(MathUtils.clamp(7, 117, 17)).assertEqual(17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0754 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0754 end');
     })
 
 
@@ -10754,9 +10754,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0755', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0755 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0755 begin');
       expect(MathUtils.clamp(128, 118, 18)).assertEqual(18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0755 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0755 end');
     })
 
     /**
@@ -10768,9 +10768,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0756', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0756 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0756 begin');
       expect(MathUtils.clamp(18.5, 118, 18)).assertEqual(18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0756 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0756 end');
     })
 
     /**
@@ -10782,9 +10782,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0757', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0757 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0757 begin');
       expect(MathUtils.clamp(8, 118, 18)).assertEqual(18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0757 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0757 end');
     })
 
 
@@ -10797,9 +10797,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0758', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0758 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0758 begin');
       expect(MathUtils.clamp(129, 119, 19)).assertEqual(19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0758 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0758 end');
     })
 
     /**
@@ -10811,9 +10811,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0759', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0759 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0759 begin');
       expect(MathUtils.clamp(19.5, 119, 19)).assertEqual(19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0759 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0759 end');
     })
 
     /**
@@ -10825,9 +10825,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0760', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0760 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0760 begin');
       expect(MathUtils.clamp(9, 119, 19)).assertEqual(19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0760 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0760 end');
     })
 
 
@@ -10840,9 +10840,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0761', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0761 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0761 begin');
       expect(MathUtils.clamp(130, 120, 20)).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0761 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0761 end');
     })
 
     /**
@@ -10854,9 +10854,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0762', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0762 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0762 begin');
       expect(MathUtils.clamp(20.5, 120, 20)).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0762 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0762 end');
     })
 
     /**
@@ -10868,9 +10868,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0763', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0763 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0763 begin');
       expect(MathUtils.clamp(10, 120, 20)).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0763 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0763 end');
     })
 
 
@@ -10883,9 +10883,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0764', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0764 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0764 begin');
       expect(MathUtils.clamp(131, 121, 21)).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0764 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0764 end');
     })
 
     /**
@@ -10897,9 +10897,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0765', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0765 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0765 begin');
       expect(MathUtils.clamp(21.5, 121, 21)).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0765 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0765 end');
     })
 
     /**
@@ -10911,9 +10911,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0766', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0766 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0766 begin');
       expect(MathUtils.clamp(11, 121, 21)).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0766 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0766 end');
     })
 
 
@@ -10926,9 +10926,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0767', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0767 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0767 begin');
       expect(MathUtils.clamp(132, 122, 22)).assertEqual(22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0767 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0767 end');
     })
 
     /**
@@ -10940,9 +10940,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0768', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0768 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0768 begin');
       expect(MathUtils.clamp(22.5, 122, 22)).assertEqual(22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0768 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0768 end');
     })
 
     /**
@@ -10954,9 +10954,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0769', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0769 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0769 begin');
       expect(MathUtils.clamp(12, 122, 22)).assertEqual(22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0769 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0769 end');
     })
 
 
@@ -10969,9 +10969,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0770', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0770 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0770 begin');
       expect(MathUtils.clamp(133, 123, 23)).assertEqual(23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0770 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0770 end');
     })
 
     /**
@@ -10983,9 +10983,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0771', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0771 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0771 begin');
       expect(MathUtils.clamp(23.5, 123, 23)).assertEqual(23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0771 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0771 end');
     })
 
     /**
@@ -10997,9 +10997,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0772', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0772 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0772 begin');
       expect(MathUtils.clamp(13, 123, 23)).assertEqual(23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0772 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0772 end');
     })
 
 
@@ -11012,9 +11012,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0773', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0773 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0773 begin');
       expect(MathUtils.clamp(134, 124, 24)).assertEqual(24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0773 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0773 end');
     })
 
     /**
@@ -11026,9 +11026,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0774', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0774 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0774 begin');
       expect(MathUtils.clamp(24.5, 124, 24)).assertEqual(24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0774 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0774 end');
     })
 
     /**
@@ -11040,9 +11040,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0775', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0775 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0775 begin');
       expect(MathUtils.clamp(14, 124, 24)).assertEqual(24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0775 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0775 end');
     })
 
 
@@ -11055,9 +11055,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0776', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0776 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0776 begin');
       expect(MathUtils.clamp(135, 125, 25)).assertEqual(25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0776 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0776 end');
     })
 
     /**
@@ -11069,9 +11069,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0777', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0777 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0777 begin');
       expect(MathUtils.clamp(25.5, 125, 25)).assertEqual(25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0777 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0777 end');
     })
 
     /**
@@ -11083,9 +11083,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0778', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0778 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0778 begin');
       expect(MathUtils.clamp(15, 125, 25)).assertEqual(25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0778 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0778 end');
     })
 
 
@@ -11098,9 +11098,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0779', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0779 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0779 begin');
       expect(MathUtils.clamp(136, 126, 26)).assertEqual(26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0779 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0779 end');
     })
 
     /**
@@ -11112,9 +11112,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0780', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0780 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0780 begin');
       expect(MathUtils.clamp(26.5, 126, 26)).assertEqual(26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0780 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0780 end');
     })
 
     /**
@@ -11126,9 +11126,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0781', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0781 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0781 begin');
       expect(MathUtils.clamp(16, 126, 26)).assertEqual(26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0781 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0781 end');
     })
 
 
@@ -11141,9 +11141,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0782', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0782 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0782 begin');
       expect(MathUtils.clamp(137, 127, 27)).assertEqual(27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0782 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0782 end');
     })
 
     /**
@@ -11155,9 +11155,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0783', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0783 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0783 begin');
       expect(MathUtils.clamp(27.5, 127, 27)).assertEqual(27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0783 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0783 end');
     })
 
     /**
@@ -11169,9 +11169,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0784', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0784 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0784 begin');
       expect(MathUtils.clamp(17, 127, 27)).assertEqual(27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0784 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0784 end');
     })
 
 
@@ -11184,9 +11184,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0785', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0785 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0785 begin');
       expect(MathUtils.clamp(138, 128, 28)).assertEqual(28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0785 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0785 end');
     })
 
     /**
@@ -11198,9 +11198,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0786', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0786 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0786 begin');
       expect(MathUtils.clamp(28.5, 128, 28)).assertEqual(28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0786 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0786 end');
     })
 
     /**
@@ -11212,9 +11212,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0787', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0787 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0787 begin');
       expect(MathUtils.clamp(18, 128, 28)).assertEqual(28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0787 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0787 end');
     })
 
 
@@ -11227,9 +11227,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0788', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0788 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0788 begin');
       expect(MathUtils.clamp(139, 129, 29)).assertEqual(29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0788 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0788 end');
     })
 
     /**
@@ -11241,9 +11241,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0789', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0789 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0789 begin');
       expect(MathUtils.clamp(29.5, 129, 29)).assertEqual(29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0789 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0789 end');
     })
 
     /**
@@ -11255,9 +11255,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0790', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0790 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0790 begin');
       expect(MathUtils.clamp(19, 129, 29)).assertEqual(29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0790 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0790 end');
     })
 
 
@@ -11270,9 +11270,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0791', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0791 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0791 begin');
       expect(MathUtils.clamp(140, 130, 30)).assertEqual(30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0791 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0791 end');
     })
 
     /**
@@ -11284,9 +11284,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0792', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0792 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0792 begin');
       expect(MathUtils.clamp(30.5, 130, 30)).assertEqual(30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0792 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0792 end');
     })
 
     /**
@@ -11298,9 +11298,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0793', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0793 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0793 begin');
       expect(MathUtils.clamp(20, 130, 30)).assertEqual(30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0793 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0793 end');
     })
 
 
@@ -11313,9 +11313,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0794', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0794 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0794 begin');
       expect(MathUtils.clamp(141, 131, 31)).assertEqual(31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0794 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0794 end');
     })
 
     /**
@@ -11327,9 +11327,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0795', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0795 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0795 begin');
       expect(MathUtils.clamp(31.5, 131, 31)).assertEqual(31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0795 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0795 end');
     })
 
     /**
@@ -11341,9 +11341,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0796', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0796 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0796 begin');
       expect(MathUtils.clamp(21, 131, 31)).assertEqual(31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0796 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0796 end');
     })
 
 
@@ -11356,9 +11356,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0797', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0797 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0797 begin');
       expect(MathUtils.clamp(142, 132, 32)).assertEqual(32);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0797 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0797 end');
     })
 
     /**
@@ -11370,9 +11370,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0798', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0798 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0798 begin');
       expect(MathUtils.clamp(32.5, 132, 32)).assertEqual(32);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0798 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0798 end');
     })
 
     /**
@@ -11384,9 +11384,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0799', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0799 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0799 begin');
       expect(MathUtils.clamp(22, 132, 32)).assertEqual(32);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0799 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0799 end');
     })
 
 
@@ -11399,9 +11399,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0800', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0800 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0800 begin');
       expect(MathUtils.clamp(143, 133, 33)).assertEqual(33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0800 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0800 end');
     })
 
     /**
@@ -11413,9 +11413,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0801', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0801 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0801 begin');
       expect(MathUtils.clamp(33.5, 133, 33)).assertEqual(33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0801 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0801 end');
     })
 
     /**
@@ -11427,9 +11427,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0802', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0802 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0802 begin');
       expect(MathUtils.clamp(23, 133, 33)).assertEqual(33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0802 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0802 end');
     })
 
 
@@ -11442,9 +11442,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0803', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0803 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0803 begin');
       expect(MathUtils.clamp(144, 134, 34)).assertEqual(34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0803 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0803 end');
     })
 
     /**
@@ -11456,9 +11456,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0804', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0804 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0804 begin');
       expect(MathUtils.clamp(34.5, 134, 34)).assertEqual(34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0804 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0804 end');
     })
 
     /**
@@ -11470,9 +11470,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0805', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0805 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0805 begin');
       expect(MathUtils.clamp(24, 134, 34)).assertEqual(34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0805 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0805 end');
     })
 
 
@@ -11485,9 +11485,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0806', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0806 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0806 begin');
       expect(MathUtils.clamp(145, 135, 35)).assertEqual(35);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0806 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0806 end');
     })
 
     /**
@@ -11499,9 +11499,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0807', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0807 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0807 begin');
       expect(MathUtils.clamp(35.5, 135, 35)).assertEqual(35);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0807 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0807 end');
     })
 
     /**
@@ -11513,9 +11513,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0808', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0808 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0808 begin');
       expect(MathUtils.clamp(25, 135, 35)).assertEqual(35);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0808 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0808 end');
     })
 
 
@@ -11528,9 +11528,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0809', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0809 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0809 begin');
       expect(MathUtils.clamp(146, 136, 36)).assertEqual(36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0809 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0809 end');
     })
 
     /**
@@ -11542,9 +11542,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0810', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0810 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0810 begin');
       expect(MathUtils.clamp(36.5, 136, 36)).assertEqual(36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0810 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0810 end');
     })
 
     /**
@@ -11556,9 +11556,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0811', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0811 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0811 begin');
       expect(MathUtils.clamp(26, 136, 36)).assertEqual(36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0811 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0811 end');
     })
 
 
@@ -11571,9 +11571,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0812', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0812 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0812 begin');
       expect(MathUtils.clamp(147, 137, 37)).assertEqual(37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0812 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0812 end');
     })
 
     /**
@@ -11585,9 +11585,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0813', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0813 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0813 begin');
       expect(MathUtils.clamp(37.5, 137, 37)).assertEqual(37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0813 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0813 end');
     })
 
     /**
@@ -11599,9 +11599,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0814', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0814 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0814 begin');
       expect(MathUtils.clamp(27, 137, 37)).assertEqual(37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0814 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0814 end');
     })
 
 
@@ -11614,9 +11614,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0815', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0815 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0815 begin');
       expect(MathUtils.clamp(148, 138, 38)).assertEqual(38);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0815 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0815 end');
     })
 
     /**
@@ -11628,9 +11628,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0816', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0816 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0816 begin');
       expect(MathUtils.clamp(38.5, 138, 38)).assertEqual(38);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0816 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0816 end');
     })
 
     /**
@@ -11642,9 +11642,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0817', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0817 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0817 begin');
       expect(MathUtils.clamp(28, 138, 38)).assertEqual(38);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0817 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0817 end');
     })
 
 
@@ -11657,9 +11657,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0818', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0818 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0818 begin');
       expect(MathUtils.clamp(149, 139, 39)).assertEqual(39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0818 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0818 end');
     })
 
     /**
@@ -11671,9 +11671,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0819', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0819 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0819 begin');
       expect(MathUtils.clamp(39.5, 139, 39)).assertEqual(39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0819 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0819 end');
     })
 
     /**
@@ -11685,9 +11685,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0820', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0820 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0820 begin');
       expect(MathUtils.clamp(29, 139, 39)).assertEqual(39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0820 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0820 end');
     })
 
 
@@ -11700,9 +11700,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0821', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0821 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0821 begin');
       expect(MathUtils.clamp(150, 140, 40)).assertEqual(40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0821 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0821 end');
     })
 
     /**
@@ -11714,9 +11714,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0822', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0822 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0822 begin');
       expect(MathUtils.clamp(40.5, 140, 40)).assertEqual(40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0822 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0822 end');
     })
 
     /**
@@ -11728,9 +11728,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0823', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0823 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0823 begin');
       expect(MathUtils.clamp(30, 140, 40)).assertEqual(40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0823 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0823 end');
     })
 
 
@@ -11743,9 +11743,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0824', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0824 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0824 begin');
       expect(MathUtils.clamp(151, 141, 41)).assertEqual(41);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0824 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0824 end');
     })
 
     /**
@@ -11757,9 +11757,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0825', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0825 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0825 begin');
       expect(MathUtils.clamp(41.5, 141, 41)).assertEqual(41);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0825 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0825 end');
     })
 
     /**
@@ -11771,9 +11771,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0826', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0826 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0826 begin');
       expect(MathUtils.clamp(31, 141, 41)).assertEqual(41);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0826 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0826 end');
     })
 
 
@@ -11786,9 +11786,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0827', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0827 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0827 begin');
       expect(MathUtils.clamp(152, 142, 42)).assertEqual(42);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0827 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0827 end');
     })
 
     /**
@@ -11800,9 +11800,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0828', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0828 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0828 begin');
       expect(MathUtils.clamp(42.5, 142, 42)).assertEqual(42);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0828 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0828 end');
     })
 
     /**
@@ -11814,9 +11814,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0829', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0829 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0829 begin');
       expect(MathUtils.clamp(32, 142, 42)).assertEqual(42);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0829 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0829 end');
     })
 
 
@@ -11829,9 +11829,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0830', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0830 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0830 begin');
       expect(MathUtils.clamp(153, 143, 43)).assertEqual(43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0830 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0830 end');
     })
 
     /**
@@ -11843,9 +11843,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0831', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0831 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0831 begin');
       expect(MathUtils.clamp(43.5, 143, 43)).assertEqual(43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0831 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0831 end');
     })
 
     /**
@@ -11857,9 +11857,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0832', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0832 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0832 begin');
       expect(MathUtils.clamp(33, 143, 43)).assertEqual(43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0832 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0832 end');
     })
 
 
@@ -11872,9 +11872,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0833', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0833 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0833 begin');
       expect(MathUtils.clamp(154, 144, 44)).assertEqual(44);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0833 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0833 end');
     })
 
     /**
@@ -11886,9 +11886,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0834', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0834 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0834 begin');
       expect(MathUtils.clamp(44.5, 144, 44)).assertEqual(44);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0834 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0834 end');
     })
 
     /**
@@ -11900,9 +11900,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0835', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0835 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0835 begin');
       expect(MathUtils.clamp(34, 144, 44)).assertEqual(44);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0835 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0835 end');
     })
 
 
@@ -11915,9 +11915,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0836', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0836 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0836 begin');
       expect(MathUtils.clamp(155, 145, 45)).assertEqual(45);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0836 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0836 end');
     })
 
     /**
@@ -11929,9 +11929,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0837', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0837 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0837 begin');
       expect(MathUtils.clamp(45.5, 145, 45)).assertEqual(45);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0837 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0837 end');
     })
 
     /**
@@ -11943,9 +11943,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0838', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0838 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0838 begin');
       expect(MathUtils.clamp(35, 145, 45)).assertEqual(45);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0838 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0838 end');
     })
 
 
@@ -11958,9 +11958,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0839', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0839 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0839 begin');
       expect(MathUtils.clamp(156, 146, 46)).assertEqual(46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0839 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0839 end');
     })
 
     /**
@@ -11972,9 +11972,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0840', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0840 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0840 begin');
       expect(MathUtils.clamp(46.5, 146, 46)).assertEqual(46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0840 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0840 end');
     })
 
     /**
@@ -11986,9 +11986,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0841', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0841 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0841 begin');
       expect(MathUtils.clamp(36, 146, 46)).assertEqual(46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0841 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0841 end');
     })
 
 
@@ -12001,9 +12001,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0842', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0842 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0842 begin');
       expect(MathUtils.clamp(157, 147, 47)).assertEqual(47);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0842 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0842 end');
     })
 
     /**
@@ -12015,9 +12015,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0843', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0843 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0843 begin');
       expect(MathUtils.clamp(47.5, 147, 47)).assertEqual(47);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0843 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0843 end');
     })
 
     /**
@@ -12029,9 +12029,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0844', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0844 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0844 begin');
       expect(MathUtils.clamp(37, 147, 47)).assertEqual(47);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0844 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0844 end');
     })
 
 
@@ -12044,9 +12044,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0845', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0845 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0845 begin');
       expect(MathUtils.clamp(158, 148, 48)).assertEqual(48);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0845 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0845 end');
     })
 
     /**
@@ -12058,9 +12058,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0846', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0846 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0846 begin');
       expect(MathUtils.clamp(48.5, 148, 48)).assertEqual(48);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0846 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0846 end');
     })
 
     /**
@@ -12072,9 +12072,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0847', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0847 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0847 begin');
       expect(MathUtils.clamp(38, 148, 48)).assertEqual(48);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0847 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0847 end');
     })
 
 
@@ -12087,9 +12087,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0848', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0848 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0848 begin');
       expect(MathUtils.clamp(159, 149, 49)).assertEqual(49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0848 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0848 end');
     })
 
     /**
@@ -12101,9 +12101,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0849', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0849 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0849 begin');
       expect(MathUtils.clamp(49.5, 149, 49)).assertEqual(49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0849 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0849 end');
     })
 
     /**
@@ -12115,9 +12115,9 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathEdge0850', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0850 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0850 begin');
       expect(MathUtils.clamp(39, 149, 49)).assertEqual(49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0850 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0850 end');
     })
 
   })

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { UserFileDataItem } from '../../../main/ets/base/UserFileDataItem';
 import { MediaConstants } from '../../../main/ets/constants/MediaConstants';
@@ -31,7 +31,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0001 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_0', 1000);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/0';
@@ -42,7 +42,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1000').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_0');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0001 end');
     })
 
     /**
@@ -54,7 +54,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0002 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_1', 1001);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/1';
@@ -65,7 +65,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1001').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_1');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0002 end');
     })
 
     /**
@@ -77,7 +77,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0003 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_2', 1002);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/2';
@@ -88,7 +88,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1002').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_2');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0003 end');
     })
 
     /**
@@ -100,7 +100,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0004 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_3', 1003);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/3';
@@ -111,7 +111,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1003').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_3');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0004 end');
     })
 
     /**
@@ -123,7 +123,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0005 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_4', 1004);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/4';
@@ -134,7 +134,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1004').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_4');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0005 end');
     })
 
     /**
@@ -146,7 +146,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0006 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_5', 1005);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/5';
@@ -157,7 +157,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1005').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_5');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0006 end');
     })
 
     /**
@@ -169,7 +169,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0007 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_6', 1006);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/6';
@@ -180,7 +180,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1006').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_6');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0007 end');
     })
 
     /**
@@ -192,7 +192,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0008 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_7', 1007);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/7';
@@ -203,7 +203,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1007').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_7');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0008 end');
     })
 
     /**
@@ -215,7 +215,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0009 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_8', 1008);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/8';
@@ -226,7 +226,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1008').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_8');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0009 end');
     })
 
     /**
@@ -238,7 +238,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0010 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_9', 1009);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/9';
@@ -249,7 +249,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1009').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_9');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0010 end');
     })
 
     /**
@@ -261,7 +261,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0011 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_10', 1010);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/10';
@@ -272,7 +272,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1010').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_10');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0011 end');
     })
 
     /**
@@ -284,7 +284,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0012 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_11', 1011);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/11';
@@ -295,7 +295,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1011').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_11');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0012 end');
     })
 
     /**
@@ -307,7 +307,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0013 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_12', 1012);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/12';
@@ -318,7 +318,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1012').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_12');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0013 end');
     })
 
     /**
@@ -330,7 +330,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0014 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_13', 1013);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/13';
@@ -341,7 +341,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1013').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_13');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0014 end');
     })
 
     /**
@@ -353,7 +353,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0015 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_14', 1014);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/14';
@@ -364,7 +364,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1014').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0015 end');
     })
 
     /**
@@ -376,7 +376,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0016 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_15', 1015);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/15';
@@ -387,7 +387,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1015').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0016 end');
     })
 
     /**
@@ -399,7 +399,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0017 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_16', 1016);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/16';
@@ -410,7 +410,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1016').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_16');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0017 end');
     })
 
     /**
@@ -422,7 +422,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0018 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_17', 1017);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/17';
@@ -433,7 +433,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1017').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_17');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0018 end');
     })
 
     /**
@@ -445,7 +445,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0019 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_18', 1018);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/18';
@@ -456,7 +456,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1018').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_18');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0019 end');
     })
 
     /**
@@ -468,7 +468,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0020 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_19', 1019);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/19';
@@ -479,7 +479,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1019').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_19');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0020 end');
     })
 
     /**
@@ -491,7 +491,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0021 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_20', 1020);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/20';
@@ -502,7 +502,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1020').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_20');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0021 end');
     })
 
     /**
@@ -514,7 +514,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0022 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_21', 1021);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/21';
@@ -525,7 +525,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1021').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_21');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0022 end');
     })
 
     /**
@@ -537,7 +537,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0023 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_22', 1022);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/22';
@@ -548,7 +548,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1022').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_22');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0023 end');
     })
 
     /**
@@ -560,7 +560,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0024 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_23', 1023);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/23';
@@ -571,7 +571,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1023').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_23');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0024 end');
     })
 
     /**
@@ -583,7 +583,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0025 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_24', 1024);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/24';
@@ -594,7 +594,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1024').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_24');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0025 end');
     })
 
     /**
@@ -606,7 +606,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0026 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_25', 1025);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/25';
@@ -617,7 +617,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1025').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_25');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0026 end');
     })
 
     /**
@@ -629,7 +629,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0027 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_26', 1026);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/26';
@@ -640,7 +640,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1026').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_26');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0027 end');
     })
 
     /**
@@ -652,7 +652,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0028 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_27', 1027);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/27';
@@ -663,7 +663,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1027').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_27');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0028 end');
     })
 
     /**
@@ -675,7 +675,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0029 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_28', 1028);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/28';
@@ -686,7 +686,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1028').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_28');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0029 end');
     })
 
     /**
@@ -698,7 +698,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0030 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_29', 1029);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/29';
@@ -709,7 +709,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1029').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0030 end');
     })
 
     /**
@@ -721,7 +721,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0031 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_30', 1030);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/30';
@@ -732,7 +732,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1030').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0031 end');
     })
 
     /**
@@ -744,7 +744,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0032 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_31', 1031);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/31';
@@ -755,7 +755,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1031').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_31');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0032 end');
     })
 
     /**
@@ -767,7 +767,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0033 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_32', 1032);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/32';
@@ -778,7 +778,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1032').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_32');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0033 end');
     })
 
     /**
@@ -790,7 +790,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0034 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_33', 1033);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/33';
@@ -801,7 +801,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1033').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_33');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0034 end');
     })
 
     /**
@@ -813,7 +813,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0035 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_34', 1034);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/34';
@@ -824,7 +824,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1034').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_34');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0035 end');
     })
 
     /**
@@ -836,7 +836,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0036 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_35', 1035);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/35';
@@ -847,7 +847,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1035').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_35');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0036 end');
     })
 
     /**
@@ -859,7 +859,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0037 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_36', 1036);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/36';
@@ -870,7 +870,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1036').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_36');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0037 end');
     })
 
     /**
@@ -882,7 +882,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0038 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_37', 1037);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/37';
@@ -893,7 +893,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1037').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_37');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0038 end');
     })
 
     /**
@@ -905,7 +905,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0039 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_38', 1038);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/38';
@@ -916,7 +916,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1038').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_38');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0039 end');
     })
 
     /**
@@ -928,7 +928,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0040 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_39', 1039);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/39';
@@ -939,7 +939,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1039').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_39');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0040 end');
     })
 
     /**
@@ -951,7 +951,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0041 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_40', 1040);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/40';
@@ -962,7 +962,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1040').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_40');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0041 end');
     })
 
     /**
@@ -974,7 +974,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0042 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_41', 1041);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/41';
@@ -985,7 +985,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1041').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_41');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0042 end');
     })
 
     /**
@@ -997,7 +997,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0043 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_42', 1042);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/42';
@@ -1008,7 +1008,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1042').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_42');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0043 end');
     })
 
     /**
@@ -1020,7 +1020,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0044 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_43', 1043);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/43';
@@ -1031,7 +1031,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1043').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_43');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0044 end');
     })
 
     /**
@@ -1043,7 +1043,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0045 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_44', 1044);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/44';
@@ -1054,7 +1054,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1044').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0045 end');
     })
 
     /**
@@ -1066,7 +1066,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0046 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_45', 1045);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/45';
@@ -1077,7 +1077,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1045').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0046 end');
     })
 
     /**
@@ -1089,7 +1089,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0047 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_46', 1046);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/46';
@@ -1100,7 +1100,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1046').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_46');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0047 end');
     })
 
     /**
@@ -1112,7 +1112,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0048 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_47', 1047);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/47';
@@ -1123,7 +1123,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1047').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_47');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0048 end');
     })
 
     /**
@@ -1135,7 +1135,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0049 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_48', 1048);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/48';
@@ -1146,7 +1146,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1048').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_48');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0049 end');
     })
 
     /**
@@ -1158,7 +1158,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0050 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_49', 1049);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/49';
@@ -1169,7 +1169,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1049').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_49');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0050 end');
     })
 
     /**
@@ -1181,7 +1181,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0051 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_50', 1050);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/50';
@@ -1192,7 +1192,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1050').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_50');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0051 end');
     })
 
     /**
@@ -1204,7 +1204,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0052 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_51', 1051);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/51';
@@ -1215,7 +1215,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1051').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_51');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0052 end');
     })
 
     /**
@@ -1227,7 +1227,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0053 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_52', 1052);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/52';
@@ -1238,7 +1238,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1052').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_52');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0053 end');
     })
 
     /**
@@ -1250,7 +1250,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0054 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_53', 1053);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/53';
@@ -1261,7 +1261,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1053').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_53');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0054 end');
     })
 
     /**
@@ -1273,7 +1273,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0055 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_54', 1054);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/54';
@@ -1284,7 +1284,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1054').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_54');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0055 end');
     })
 
     /**
@@ -1296,7 +1296,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0056 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_55', 1055);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/55';
@@ -1307,7 +1307,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1055').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_55');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0056 end');
     })
 
     /**
@@ -1319,7 +1319,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0057 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_56', 1056);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/56';
@@ -1330,7 +1330,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1056').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_56');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0057 end');
     })
 
     /**
@@ -1342,7 +1342,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0058 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_57', 1057);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/57';
@@ -1353,7 +1353,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1057').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_57');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0058 end');
     })
 
     /**
@@ -1365,7 +1365,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0059 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_58', 1058);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/58';
@@ -1376,7 +1376,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1058').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_58');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0059 end');
     })
 
     /**
@@ -1388,7 +1388,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0060 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_59', 1059);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/59';
@@ -1399,7 +1399,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1059').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0060 end');
     })
 
     /**
@@ -1411,7 +1411,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0061 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_60', 1060);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/60';
@@ -1422,7 +1422,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1060').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_60');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0061 end');
     })
 
     /**
@@ -1434,7 +1434,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0062 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_61', 1061);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/61';
@@ -1445,7 +1445,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1061').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_61');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0062 end');
     })
 
     /**
@@ -1457,7 +1457,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0063 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_62', 1062);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/62';
@@ -1468,7 +1468,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1062').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_62');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0063 end');
     })
 
     /**
@@ -1480,7 +1480,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0064 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_63', 1063);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/63';
@@ -1491,7 +1491,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1063').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_63');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0064 end');
     })
 
     /**
@@ -1503,7 +1503,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0065 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_64', 1064);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/64';
@@ -1514,7 +1514,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1064').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_64');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0065 end');
     })
 
     /**
@@ -1526,7 +1526,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0066 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_65', 1065);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/65';
@@ -1537,7 +1537,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1065').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_65');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0066 end');
     })
 
     /**
@@ -1549,7 +1549,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0067 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_66', 1066);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/66';
@@ -1560,7 +1560,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1066').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_66');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0067 end');
     })
 
     /**
@@ -1572,7 +1572,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0068 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_67', 1067);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/67';
@@ -1583,7 +1583,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1067').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_67');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0068 end');
     })
 
     /**
@@ -1595,7 +1595,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0069 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_68', 1068);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/68';
@@ -1606,7 +1606,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1068').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_68');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0069 end');
     })
 
     /**
@@ -1618,7 +1618,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0070 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_69', 1069);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/69';
@@ -1629,7 +1629,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1069').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_69');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0070 end');
     })
 
     /**
@@ -1641,7 +1641,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0071 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_70', 1070);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/70';
@@ -1652,7 +1652,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1070').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_70');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0071 end');
     })
 
     /**
@@ -1664,7 +1664,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0072 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_71', 1071);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/71';
@@ -1675,7 +1675,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1071').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_71');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0072 end');
     })
 
     /**
@@ -1687,7 +1687,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0073 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_72', 1072);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/72';
@@ -1698,7 +1698,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1072').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_72');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0073 end');
     })
 
     /**
@@ -1710,7 +1710,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0074 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_73', 1073);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/73';
@@ -1721,7 +1721,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1073').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_73');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0074 end');
     })
 
     /**
@@ -1733,7 +1733,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0075 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_74', 1074);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/74';
@@ -1744,7 +1744,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1074').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_74');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0075 end');
     })
 
     /**
@@ -1756,7 +1756,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0076 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_75', 1075);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/75';
@@ -1767,7 +1767,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1075').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_75');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0076 end');
     })
 
     /**
@@ -1779,7 +1779,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0077 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_76', 1076);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/76';
@@ -1790,7 +1790,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1076').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_76');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0077 end');
     })
 
     /**
@@ -1802,7 +1802,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0078 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_77', 1077);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/77';
@@ -1813,7 +1813,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1077').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_77');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0078 end');
     })
 
     /**
@@ -1825,7 +1825,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0079 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_78', 1078);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/78';
@@ -1836,7 +1836,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1078').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_78');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0079 end');
     })
 
     /**
@@ -1848,7 +1848,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0080 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_79', 1079);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/79';
@@ -1859,7 +1859,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1079').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_79');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0080 end');
     })
 
     /**
@@ -1871,7 +1871,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0081 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_80', 1080);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/80';
@@ -1882,7 +1882,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1080').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_80');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0081 end');
     })
 
     /**
@@ -1894,7 +1894,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0082 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_81', 1081);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/81';
@@ -1905,7 +1905,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1081').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_81');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0082 end');
     })
 
     /**
@@ -1917,7 +1917,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0083 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_82', 1082);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/82';
@@ -1928,7 +1928,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1082').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_82');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0083 end');
     })
 
     /**
@@ -1940,7 +1940,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0084 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_83', 1083);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/83';
@@ -1951,7 +1951,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1083').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_83');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0084 end');
     })
 
     /**
@@ -1963,7 +1963,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0085 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_84', 1084);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/84';
@@ -1974,7 +1974,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1084').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_84');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0085 end');
     })
 
     /**
@@ -1986,7 +1986,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0086 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_85', 1085);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/85';
@@ -1997,7 +1997,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1085').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_85');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0086 end');
     })
 
     /**
@@ -2009,7 +2009,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0087 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_86', 1086);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/86';
@@ -2020,7 +2020,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1086').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_86');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0087 end');
     })
 
     /**
@@ -2032,7 +2032,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0088 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_87', 1087);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/87';
@@ -2043,7 +2043,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1087').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_87');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0088 end');
     })
 
     /**
@@ -2055,7 +2055,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0089 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_88', 1088);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/88';
@@ -2066,7 +2066,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1088').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_88');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0089 end');
     })
 
     /**
@@ -2078,7 +2078,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0090 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_89', 1089);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/89';
@@ -2089,7 +2089,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1089').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_89');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0090 end');
     })
 
     /**
@@ -2101,7 +2101,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0091 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_90', 1090);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/90';
@@ -2112,7 +2112,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1090').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_90');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0091 end');
     })
 
     /**
@@ -2124,7 +2124,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0092 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_91', 1091);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/91';
@@ -2135,7 +2135,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1091').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_91');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0092 end');
     })
 
     /**
@@ -2147,7 +2147,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0093 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_92', 1092);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/92';
@@ -2158,7 +2158,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1092').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_92');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0093 end');
     })
 
     /**
@@ -2170,7 +2170,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0094 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_93', 1093);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/93';
@@ -2181,7 +2181,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1093').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_93');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0094 end');
     })
 
     /**
@@ -2193,7 +2193,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0095 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_94', 1094);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/94';
@@ -2204,7 +2204,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1094').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_94');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0095 end');
     })
 
     /**
@@ -2216,7 +2216,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0096 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_95', 1095);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/95';
@@ -2227,7 +2227,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1095').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_95');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0096 end');
     })
 
     /**
@@ -2239,7 +2239,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0097 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_96', 1096);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/96';
@@ -2250,7 +2250,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1096').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_96');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0097 end');
     })
 
     /**
@@ -2262,7 +2262,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0098 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_97', 1097);
       item.status = MediaConstants.LOADED;
       item.uri = 'file://media/boundary/97';
@@ -2273,7 +2273,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1097').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_97');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0098 end');
     })
 
     /**
@@ -2285,7 +2285,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0099 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_98', 1098);
       item.status = MediaConstants.TRASHED;
       item.uri = 'file://media/boundary/98';
@@ -2296,7 +2296,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1098').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_98');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0099 end');
     })
 
     /**
@@ -2308,7 +2308,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0100 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'boundary_device_99', 1099);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/boundary/99';
@@ -2319,7 +2319,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.getHashCode() === '1099').assertFalse();
       expect(item.isLoad()).assertTrue();
       expect(item.deviceId).assertEqual('boundary_device_99');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0100 end');
     })
 
     /**
@@ -2331,7 +2331,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0101 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_0', 1200);
       expect(item.getHashCode()).assertEqual('1200');
       item.status = MediaConstants.LOADED;
@@ -2344,7 +2344,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/01 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0101 end');
     })
 
     /**
@@ -2356,7 +2356,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0102 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_1', 1201);
       expect(item.getHashCode()).assertEqual('1201');
       item.status = MediaConstants.LOADED;
@@ -2369,7 +2369,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/10 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0102 end');
     })
 
     /**
@@ -2381,7 +2381,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0103 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_2', 1202);
       expect(item.getHashCode()).assertEqual('1202');
       item.status = MediaConstants.LOADED;
@@ -2394,7 +2394,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/21 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0103 end');
     })
 
     /**
@@ -2406,7 +2406,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0104 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_3', 1203);
       expect(item.getHashCode()).assertEqual('1203');
       item.status = MediaConstants.LOADED;
@@ -2419,7 +2419,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/30 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0104 end');
     })
 
     /**
@@ -2431,7 +2431,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0105 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_4', 1204);
       expect(item.getHashCode()).assertEqual('1204');
       item.status = MediaConstants.LOADED;
@@ -2444,7 +2444,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/41 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0105 end');
     })
 
     /**
@@ -2456,7 +2456,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0106 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_5', 1205);
       expect(item.getHashCode()).assertEqual('1205');
       item.status = MediaConstants.LOADED;
@@ -2469,7 +2469,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/50 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0106 end');
     })
 
     /**
@@ -2481,7 +2481,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0107 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_6', 1206);
       expect(item.getHashCode()).assertEqual('1206');
       item.status = MediaConstants.LOADED;
@@ -2494,7 +2494,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/61 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0107 end');
     })
 
     /**
@@ -2506,7 +2506,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0108 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_7', 1207);
       expect(item.getHashCode()).assertEqual('1207');
       item.status = MediaConstants.LOADED;
@@ -2519,7 +2519,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/70 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0108 end');
     })
 
     /**
@@ -2531,7 +2531,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0109 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_8', 1208);
       expect(item.getHashCode()).assertEqual('1208');
       item.status = MediaConstants.LOADED;
@@ -2544,7 +2544,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/81 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0109 end');
     })
 
     /**
@@ -2556,7 +2556,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0110 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_9', 1209);
       expect(item.getHashCode()).assertEqual('1209');
       item.status = MediaConstants.LOADED;
@@ -2569,7 +2569,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/90 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0110 end');
     })
 
     /**
@@ -2581,7 +2581,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0111 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_10', 1210);
       expect(item.getHashCode()).assertEqual('1210');
       item.status = MediaConstants.LOADED;
@@ -2594,7 +2594,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/101 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0111 end');
     })
 
     /**
@@ -2606,7 +2606,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0112 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_11', 1211);
       expect(item.getHashCode()).assertEqual('1211');
       item.status = MediaConstants.LOADED;
@@ -2619,7 +2619,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/110 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0112 end');
     })
 
     /**
@@ -2631,7 +2631,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0113 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_12', 1212);
       expect(item.getHashCode()).assertEqual('1212');
       item.status = MediaConstants.LOADED;
@@ -2644,7 +2644,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/121 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0113 end');
     })
 
     /**
@@ -2656,7 +2656,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0114 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_13', 1213);
       expect(item.getHashCode()).assertEqual('1213');
       item.status = MediaConstants.LOADED;
@@ -2669,7 +2669,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/130 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0114 end');
     })
 
     /**
@@ -2681,7 +2681,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0115 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_14', 1214);
       expect(item.getHashCode()).assertEqual('1214');
       item.status = MediaConstants.LOADED;
@@ -2694,7 +2694,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/141 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0115 end');
     })
 
     /**
@@ -2706,7 +2706,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0116 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_15', 1215);
       expect(item.getHashCode()).assertEqual('1215');
       item.status = MediaConstants.LOADED;
@@ -2719,7 +2719,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/150 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0116 end');
     })
 
     /**
@@ -2731,7 +2731,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0117 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_16', 1216);
       expect(item.getHashCode()).assertEqual('1216');
       item.status = MediaConstants.LOADED;
@@ -2744,7 +2744,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/161 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0117 end');
     })
 
     /**
@@ -2756,7 +2756,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0118 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_17', 1217);
       expect(item.getHashCode()).assertEqual('1217');
       item.status = MediaConstants.LOADED;
@@ -2769,7 +2769,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/170 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0118 end');
     })
 
     /**
@@ -2781,7 +2781,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0119 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_18', 1218);
       expect(item.getHashCode()).assertEqual('1218');
       item.status = MediaConstants.LOADED;
@@ -2794,7 +2794,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/181 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0119 end');
     })
 
     /**
@@ -2806,7 +2806,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0120 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_19', 1219);
       expect(item.getHashCode()).assertEqual('1219');
       item.status = MediaConstants.LOADED;
@@ -2819,7 +2819,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/190 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0120 end');
     })
 
     /**
@@ -2831,7 +2831,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0121 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_20', 1220);
       expect(item.getHashCode()).assertEqual('1220');
       item.status = MediaConstants.LOADED;
@@ -2844,7 +2844,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/201 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0121 end');
     })
 
     /**
@@ -2856,7 +2856,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0122 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_21', 1221);
       expect(item.getHashCode()).assertEqual('1221');
       item.status = MediaConstants.LOADED;
@@ -2869,7 +2869,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/210 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0122 end');
     })
 
     /**
@@ -2881,7 +2881,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0123 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_22', 1222);
       expect(item.getHashCode()).assertEqual('1222');
       item.status = MediaConstants.LOADED;
@@ -2894,7 +2894,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/221 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0123 end');
     })
 
     /**
@@ -2906,7 +2906,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0124 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_23', 1223);
       expect(item.getHashCode()).assertEqual('1223');
       item.status = MediaConstants.LOADED;
@@ -2919,7 +2919,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/230 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0124 end');
     })
 
     /**
@@ -2931,7 +2931,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0125 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_24', 1224);
       expect(item.getHashCode()).assertEqual('1224');
       item.status = MediaConstants.LOADED;
@@ -2944,7 +2944,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/241 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0125 end');
     })
 
     /**
@@ -2956,7 +2956,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0126 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_25', 1225);
       expect(item.getHashCode()).assertEqual('1225');
       item.status = MediaConstants.LOADED;
@@ -2969,7 +2969,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/250 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0126 end');
     })
 
     /**
@@ -2981,7 +2981,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0127 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_26', 1226);
       expect(item.getHashCode()).assertEqual('1226');
       item.status = MediaConstants.LOADED;
@@ -2994,7 +2994,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/261 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0127 end');
     })
 
     /**
@@ -3006,7 +3006,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_27', 1227);
       expect(item.getHashCode()).assertEqual('1227');
       item.status = MediaConstants.LOADED;
@@ -3019,7 +3019,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/270 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 end');
     })
 
     /**
@@ -3031,7 +3031,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_28', 1228);
       expect(item.getHashCode()).assertEqual('1228');
       item.status = MediaConstants.LOADED;
@@ -3044,7 +3044,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/281 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 end');
     })
 
     /**
@@ -3056,7 +3056,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_29', 1229);
       expect(item.getHashCode()).assertEqual('1229');
       item.status = MediaConstants.LOADED;
@@ -3069,7 +3069,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/290 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 end');
     })
 
     /**
@@ -3081,7 +3081,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_30', 1230);
       expect(item.getHashCode()).assertEqual('1230');
       item.status = MediaConstants.LOADED;
@@ -3094,7 +3094,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/301 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 end');
     })
 
     /**
@@ -3106,7 +3106,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_31', 1231);
       expect(item.getHashCode()).assertEqual('1231');
       item.status = MediaConstants.LOADED;
@@ -3119,7 +3119,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/310 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 end');
     })
 
     /**
@@ -3131,7 +3131,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_32', 1232);
       expect(item.getHashCode()).assertEqual('1232');
       item.status = MediaConstants.LOADED;
@@ -3144,7 +3144,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/321 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 end');
     })
 
     /**
@@ -3156,7 +3156,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_33', 1233);
       expect(item.getHashCode()).assertEqual('1233');
       item.status = MediaConstants.LOADED;
@@ -3169,7 +3169,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/330 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 end');
     })
 
     /**
@@ -3181,7 +3181,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_34', 1234);
       expect(item.getHashCode()).assertEqual('1234');
       item.status = MediaConstants.LOADED;
@@ -3194,7 +3194,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/341 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 end');
     })
 
     /**
@@ -3206,7 +3206,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_35', 1235);
       expect(item.getHashCode()).assertEqual('1235');
       item.status = MediaConstants.LOADED;
@@ -3219,7 +3219,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/350 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 end');
     })
 
     /**
@@ -3231,7 +3231,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_36', 1236);
       expect(item.getHashCode()).assertEqual('1236');
       item.status = MediaConstants.LOADED;
@@ -3244,7 +3244,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/361 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 end');
     })
 
     /**
@@ -3256,7 +3256,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_37', 1237);
       expect(item.getHashCode()).assertEqual('1237');
       item.status = MediaConstants.LOADED;
@@ -3269,7 +3269,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/370 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 end');
     })
 
     /**
@@ -3281,7 +3281,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_38', 1238);
       expect(item.getHashCode()).assertEqual('1238');
       item.status = MediaConstants.LOADED;
@@ -3294,7 +3294,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/381 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 end');
     })
 
     /**
@@ -3306,7 +3306,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_39', 1239);
       expect(item.getHashCode()).assertEqual('1239');
       item.status = MediaConstants.LOADED;
@@ -3319,7 +3319,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/390 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 end');
     })
 
     /**
@@ -3331,7 +3331,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_40', 1240);
       expect(item.getHashCode()).assertEqual('1240');
       item.status = MediaConstants.LOADED;
@@ -3344,7 +3344,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/401 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 end');
     })
 
     /**
@@ -3356,7 +3356,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_41', 1241);
       expect(item.getHashCode()).assertEqual('1241');
       item.status = MediaConstants.LOADED;
@@ -3369,7 +3369,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/410 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 end');
     })
 
     /**
@@ -3381,7 +3381,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_42', 1242);
       expect(item.getHashCode()).assertEqual('1242');
       item.status = MediaConstants.LOADED;
@@ -3394,7 +3394,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/421 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 end');
     })
 
     /**
@@ -3406,7 +3406,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_43', 1243);
       expect(item.getHashCode()).assertEqual('1243');
       item.status = MediaConstants.LOADED;
@@ -3419,7 +3419,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/430 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 end');
     })
 
     /**
@@ -3431,7 +3431,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_44', 1244);
       expect(item.getHashCode()).assertEqual('1244');
       item.status = MediaConstants.LOADED;
@@ -3444,7 +3444,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/441 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 end');
     })
 
     /**
@@ -3456,7 +3456,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_45', 1245);
       expect(item.getHashCode()).assertEqual('1245');
       item.status = MediaConstants.LOADED;
@@ -3469,7 +3469,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/450 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 end');
     })
 
     /**
@@ -3481,7 +3481,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_46', 1246);
       expect(item.getHashCode()).assertEqual('1246');
       item.status = MediaConstants.LOADED;
@@ -3494,7 +3494,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/461 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 end');
     })
 
     /**
@@ -3506,7 +3506,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_47', 1247);
       expect(item.getHashCode()).assertEqual('1247');
       item.status = MediaConstants.LOADED;
@@ -3519,7 +3519,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/470 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 end');
     })
 
     /**
@@ -3531,7 +3531,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_48', 1248);
       expect(item.getHashCode()).assertEqual('1248');
       item.status = MediaConstants.LOADED;
@@ -3544,7 +3544,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/481 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 end');
     })
 
     /**
@@ -3556,7 +3556,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_49', 1249);
       expect(item.getHashCode()).assertEqual('1249');
       item.status = MediaConstants.LOADED;
@@ -3569,7 +3569,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/490 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 end');
     })
 
     /**
@@ -3581,7 +3581,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_50', 1250);
       expect(item.getHashCode()).assertEqual('1250');
       item.status = MediaConstants.LOADED;
@@ -3594,7 +3594,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/501 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 end');
     })
 
     /**
@@ -3606,7 +3606,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_51', 1251);
       expect(item.getHashCode()).assertEqual('1251');
       item.status = MediaConstants.LOADED;
@@ -3619,7 +3619,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/510 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 end');
     })
 
     /**
@@ -3631,7 +3631,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_52', 1252);
       expect(item.getHashCode()).assertEqual('1252');
       item.status = MediaConstants.LOADED;
@@ -3644,7 +3644,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/521 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 end');
     })
 
     /**
@@ -3656,7 +3656,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_53', 1253);
       expect(item.getHashCode()).assertEqual('1253');
       item.status = MediaConstants.LOADED;
@@ -3669,7 +3669,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/530 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 end');
     })
 
     /**
@@ -3681,7 +3681,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_54', 1254);
       expect(item.getHashCode()).assertEqual('1254');
       item.status = MediaConstants.LOADED;
@@ -3694,7 +3694,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/541 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 end');
     })
 
     /**
@@ -3706,7 +3706,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_55', 1255);
       expect(item.getHashCode()).assertEqual('1255');
       item.status = MediaConstants.LOADED;
@@ -3719,7 +3719,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/550 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 end');
     })
 
     /**
@@ -3731,7 +3731,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_56', 1256);
       expect(item.getHashCode()).assertEqual('1256');
       item.status = MediaConstants.LOADED;
@@ -3744,7 +3744,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/561 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 end');
     })
 
     /**
@@ -3756,7 +3756,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_57', 1257);
       expect(item.getHashCode()).assertEqual('1257');
       item.status = MediaConstants.LOADED;
@@ -3769,7 +3769,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/570 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 end');
     })
 
     /**
@@ -3781,7 +3781,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_58', 1258);
       expect(item.getHashCode()).assertEqual('1258');
       item.status = MediaConstants.LOADED;
@@ -3794,7 +3794,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/581 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 end');
     })
 
     /**
@@ -3806,7 +3806,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_59', 1259);
       expect(item.getHashCode()).assertEqual('1259');
       item.status = MediaConstants.LOADED;
@@ -3819,7 +3819,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/590 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 end');
     })
 
     /**
@@ -3831,7 +3831,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_60', 1260);
       expect(item.getHashCode()).assertEqual('1260');
       item.status = MediaConstants.LOADED;
@@ -3844,7 +3844,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/601 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 end');
     })
 
     /**
@@ -3856,7 +3856,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_61', 1261);
       expect(item.getHashCode()).assertEqual('1261');
       item.status = MediaConstants.LOADED;
@@ -3869,7 +3869,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/610 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 end');
     })
 
     /**
@@ -3881,7 +3881,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_62', 1262);
       expect(item.getHashCode()).assertEqual('1262');
       item.status = MediaConstants.LOADED;
@@ -3894,7 +3894,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/621 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 end');
     })
 
     /**
@@ -3906,7 +3906,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_63', 1263);
       expect(item.getHashCode()).assertEqual('1263');
       item.status = MediaConstants.LOADED;
@@ -3919,7 +3919,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/630 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 end');
     })
 
     /**
@@ -3931,7 +3931,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_64', 1264);
       expect(item.getHashCode()).assertEqual('1264');
       item.status = MediaConstants.LOADED;
@@ -3944,7 +3944,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/641 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 end');
     })
 
     /**
@@ -3956,7 +3956,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_65', 1265);
       expect(item.getHashCode()).assertEqual('1265');
       item.status = MediaConstants.LOADED;
@@ -3969,7 +3969,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/650 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 end');
     })
 
     /**
@@ -3981,7 +3981,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_66', 1266);
       expect(item.getHashCode()).assertEqual('1266');
       item.status = MediaConstants.LOADED;
@@ -3994,7 +3994,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/661 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 end');
     })
 
     /**
@@ -4006,7 +4006,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_67', 1267);
       expect(item.getHashCode()).assertEqual('1267');
       item.status = MediaConstants.LOADED;
@@ -4019,7 +4019,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/670 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 end');
     })
 
     /**
@@ -4031,7 +4031,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_68', 1268);
       expect(item.getHashCode()).assertEqual('1268');
       item.status = MediaConstants.LOADED;
@@ -4044,7 +4044,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/681 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 end');
     })
 
     /**
@@ -4056,7 +4056,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_69', 1269);
       expect(item.getHashCode()).assertEqual('1269');
       item.status = MediaConstants.LOADED;
@@ -4069,7 +4069,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/690 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 end');
     })
 
     /**
@@ -4081,7 +4081,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_70', 1270);
       expect(item.getHashCode()).assertEqual('1270');
       item.status = MediaConstants.LOADED;
@@ -4094,7 +4094,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/701 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 end');
     })
 
     /**
@@ -4106,7 +4106,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_71', 1271);
       expect(item.getHashCode()).assertEqual('1271');
       item.status = MediaConstants.LOADED;
@@ -4119,7 +4119,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/710 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 end');
     })
 
     /**
@@ -4131,7 +4131,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_72', 1272);
       expect(item.getHashCode()).assertEqual('1272');
       item.status = MediaConstants.LOADED;
@@ -4144,7 +4144,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/721 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 end');
     })
 
     /**
@@ -4156,7 +4156,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_73', 1273);
       expect(item.getHashCode()).assertEqual('1273');
       item.status = MediaConstants.LOADED;
@@ -4169,7 +4169,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/730 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 end');
     })
 
     /**
@@ -4181,7 +4181,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_74', 1274);
       expect(item.getHashCode()).assertEqual('1274');
       item.status = MediaConstants.LOADED;
@@ -4194,7 +4194,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/741 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 end');
     })
 
     /**
@@ -4206,7 +4206,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_75', 1275);
       expect(item.getHashCode()).assertEqual('1275');
       item.status = MediaConstants.LOADED;
@@ -4219,7 +4219,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/750 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 end');
     })
 
     /**
@@ -4231,7 +4231,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_76', 1276);
       expect(item.getHashCode()).assertEqual('1276');
       item.status = MediaConstants.LOADED;
@@ -4244,7 +4244,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/761 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 end');
     })
 
     /**
@@ -4256,7 +4256,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_77', 1277);
       expect(item.getHashCode()).assertEqual('1277');
       item.status = MediaConstants.LOADED;
@@ -4269,7 +4269,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/770 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 end');
     })
 
     /**
@@ -4281,7 +4281,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_78', 1278);
       expect(item.getHashCode()).assertEqual('1278');
       item.status = MediaConstants.LOADED;
@@ -4294,7 +4294,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/781 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 end');
     })
 
     /**
@@ -4306,7 +4306,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_79', 1279);
       expect(item.getHashCode()).assertEqual('1279');
       item.status = MediaConstants.LOADED;
@@ -4319,7 +4319,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/790 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 end');
     })
 
     /**
@@ -4331,7 +4331,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_80', 1280);
       expect(item.getHashCode()).assertEqual('1280');
       item.status = MediaConstants.LOADED;
@@ -4344,7 +4344,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/801 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 end');
     })
 
     /**
@@ -4356,7 +4356,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_81', 1281);
       expect(item.getHashCode()).assertEqual('1281');
       item.status = MediaConstants.LOADED;
@@ -4369,7 +4369,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/810 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 end');
     })
 
     /**
@@ -4381,7 +4381,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_82', 1282);
       expect(item.getHashCode()).assertEqual('1282');
       item.status = MediaConstants.LOADED;
@@ -4394,7 +4394,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/821 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 end');
     })
 
     /**
@@ -4406,7 +4406,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_83', 1283);
       expect(item.getHashCode()).assertEqual('1283');
       item.status = MediaConstants.LOADED;
@@ -4419,7 +4419,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/830 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 end');
     })
 
     /**
@@ -4431,7 +4431,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_84', 1284);
       expect(item.getHashCode()).assertEqual('1284');
       item.status = MediaConstants.LOADED;
@@ -4444,7 +4444,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/841 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 end');
     })
 
     /**
@@ -4456,7 +4456,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_85', 1285);
       expect(item.getHashCode()).assertEqual('1285');
       item.status = MediaConstants.LOADED;
@@ -4469,7 +4469,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/850 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 end');
     })
 
     /**
@@ -4481,7 +4481,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_86', 1286);
       expect(item.getHashCode()).assertEqual('1286');
       item.status = MediaConstants.LOADED;
@@ -4494,7 +4494,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/861 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 end');
     })
 
     /**
@@ -4506,7 +4506,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_87', 1287);
       expect(item.getHashCode()).assertEqual('1287');
       item.status = MediaConstants.LOADED;
@@ -4519,7 +4519,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/870 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 end');
     })
 
     /**
@@ -4531,7 +4531,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_88', 1288);
       expect(item.getHashCode()).assertEqual('1288');
       item.status = MediaConstants.LOADED;
@@ -4544,7 +4544,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/881 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 end');
     })
 
     /**
@@ -4556,7 +4556,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_89', 1289);
       expect(item.getHashCode()).assertEqual('1289');
       item.status = MediaConstants.LOADED;
@@ -4569,7 +4569,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/890 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 end');
     })
 
     /**
@@ -4581,7 +4581,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_90', 1290);
       expect(item.getHashCode()).assertEqual('1290');
       item.status = MediaConstants.LOADED;
@@ -4594,7 +4594,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/901 180 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 end');
     })
 
     /**
@@ -4606,7 +4606,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_91', 1291);
       expect(item.getHashCode()).assertEqual('1291');
       item.status = MediaConstants.LOADED;
@@ -4619,7 +4619,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/910 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 end');
     })
 
     /**
@@ -4631,7 +4631,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_92', 1292);
       expect(item.getHashCode()).assertEqual('1292');
       item.status = MediaConstants.LOADED;
@@ -4644,7 +4644,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/921 0 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 end');
     })
 
     /**
@@ -4656,7 +4656,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_93', 1293);
       expect(item.getHashCode()).assertEqual('1293');
       item.status = MediaConstants.LOADED;
@@ -4669,7 +4669,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/930 90 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 end');
     })
 
     /**
@@ -4681,7 +4681,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_94', 1294);
       expect(item.getHashCode()).assertEqual('1294');
       item.status = MediaConstants.LOADED;
@@ -4694,7 +4694,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/941 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 end');
     })
 
     /**
@@ -4706,7 +4706,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_95', 1295);
       expect(item.getHashCode()).assertEqual('1295');
       item.status = MediaConstants.LOADED;
@@ -4719,7 +4719,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/950 270 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 end');
     })
 
     /**
@@ -4731,7 +4731,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_96', 1296);
       expect(item.getHashCode()).assertEqual('1296');
       item.status = MediaConstants.LOADED;
@@ -4744,7 +4744,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/961 0 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 end');
     })
 
     /**
@@ -4756,7 +4756,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_97', 1297);
       expect(item.getHashCode()).assertEqual('1297');
       item.status = MediaConstants.LOADED;
@@ -4769,7 +4769,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/970 90 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 end');
     })
 
     /**
@@ -4781,7 +4781,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_98', 1298);
       expect(item.getHashCode()).assertEqual('1298');
       item.status = MediaConstants.LOADED;
@@ -4794,7 +4794,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = true;
       expect(item.getHashCode()).assertEqual('file://media/transition/981 180 true');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 end');
     })
 
     /**
@@ -4806,7 +4806,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_99', 1299);
       expect(item.getHashCode()).assertEqual('1299');
       item.status = MediaConstants.LOADED;
@@ -4819,7 +4819,7 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       item.isSelect = false;
       expect(item.getHashCode()).assertEqual('file://media/transition/990 270 false');
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 end');
     })
   })
 }

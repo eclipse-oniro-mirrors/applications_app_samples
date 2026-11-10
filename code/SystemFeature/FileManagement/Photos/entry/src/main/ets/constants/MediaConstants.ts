@@ -48,6 +48,7 @@ export class MediaConstants {
   static readonly ALBUM_TYPE_USER = photoAccessHelper.AlbumType.USER;
   static readonly ALBUM_TYPE_SYSTEM = photoAccessHelper.AlbumType.SYSTEM;
   // album subtype
+  // These album subtype values are media-library system values not all exposed by API 26 AlbumSubtype.
   static readonly ALBUM_SUBTYPE_ALL = photoAccessHelper.AlbumSubtype.ANY
   static readonly ALBUM_SUBTYPE_CAMERA = 1027;
   static readonly ALBUM_SUBTYPE_VIDEO = 1029;

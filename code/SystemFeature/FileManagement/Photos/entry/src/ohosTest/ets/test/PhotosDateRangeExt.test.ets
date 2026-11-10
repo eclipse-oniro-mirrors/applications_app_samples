@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,9 +30,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0001 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0002 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0003 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 1, 0, 0, 0).getTime(), new Date(2024, 0, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0003 end');
     })
 
 
@@ -73,9 +73,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0004 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 2, 0, 0, 0).getTime(), new Date(2023, 1, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0004 end');
     })
 
     /**
@@ -87,9 +87,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0005 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 2, 0, 0, 0).getTime(), new Date(2023, 1, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0005 end');
     })
 
     /**
@@ -101,9 +101,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0006 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 2, 0, 0, 0).getTime(), new Date(2023, 1, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0006 end');
     })
 
 
@@ -116,9 +116,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0007 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0007 end');
     })
 
     /**
@@ -130,9 +130,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0008 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0008 end');
     })
 
     /**
@@ -144,9 +144,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0009 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 3, 0, 0, 0).getTime(), new Date(2024, 2, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0009 end');
     })
 
 
@@ -159,9 +159,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0010 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 4, 0, 0, 0).getTime(), new Date(2023, 3, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0010 end');
     })
 
     /**
@@ -173,9 +173,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0011 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 4, 0, 0, 0).getTime(), new Date(2023, 3, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0011 end');
     })
 
     /**
@@ -187,9 +187,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0012 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 4, 0, 0, 0).getTime(), new Date(2023, 3, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0012 end');
     })
 
 
@@ -202,9 +202,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0013 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0013 end');
     })
 
     /**
@@ -216,9 +216,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0014 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0014 end');
     })
 
     /**
@@ -230,9 +230,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0015 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 5, 0, 0, 0).getTime(), new Date(2024, 4, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0015 end');
     })
 
 
@@ -245,9 +245,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0016 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 6, 0, 0, 0).getTime(), new Date(2023, 5, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0016 end');
     })
 
     /**
@@ -259,9 +259,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0017 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 6, 0, 0, 0).getTime(), new Date(2023, 5, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0017 end');
     })
 
     /**
@@ -273,9 +273,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0018 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 6, 0, 0, 0).getTime(), new Date(2023, 5, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0018 end');
     })
 
 
@@ -288,9 +288,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0019 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0019 end');
     })
 
     /**
@@ -302,9 +302,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0020 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0020 end');
     })
 
     /**
@@ -316,9 +316,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0021 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 7, 0, 0, 0).getTime(), new Date(2024, 6, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0021 end');
     })
 
 
@@ -331,9 +331,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0022 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 8, 0, 0, 0).getTime(), new Date(2023, 7, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0022 end');
     })
 
     /**
@@ -345,9 +345,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0023 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 8, 0, 0, 0).getTime(), new Date(2023, 7, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0023 end');
     })
 
     /**
@@ -359,9 +359,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0024 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 8, 0, 0, 0).getTime(), new Date(2023, 7, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0024 end');
     })
 
 
@@ -374,9 +374,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0025 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0025 end');
     })
 
     /**
@@ -388,9 +388,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0026 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0026 end');
     })
 
     /**
@@ -402,9 +402,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0027 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 9, 0, 0, 0).getTime(), new Date(2024, 8, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0027 end');
     })
 
 
@@ -417,9 +417,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0028 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 10, 0, 0, 0).getTime(), new Date(2023, 9, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0028 end');
     })
 
     /**
@@ -431,9 +431,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0029 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 10, 0, 0, 0).getTime(), new Date(2023, 9, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0029 end');
     })
 
     /**
@@ -445,9 +445,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0030 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 10, 0, 0, 0).getTime(), new Date(2023, 9, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0030 end');
     })
 
 
@@ -460,9 +460,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0031 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0031 end');
     })
 
     /**
@@ -474,9 +474,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0032 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0032 end');
     })
 
     /**
@@ -488,9 +488,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0033 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 11, 0, 0, 0).getTime(), new Date(2024, 10, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0033 end');
     })
 
 
@@ -503,9 +503,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0034 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 12, 0, 0, 0).getTime(), new Date(2023, 11, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0034 end');
     })
 
     /**
@@ -517,9 +517,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0035 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 12, 0, 0, 0).getTime(), new Date(2023, 11, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0035 end');
     })
 
     /**
@@ -531,9 +531,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0036 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 12, 0, 0, 0).getTime(), new Date(2023, 11, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0036 end');
     })
 
 
@@ -546,9 +546,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0037 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 13, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0037 end');
     })
 
     /**
@@ -560,9 +560,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0038 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 13, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0038 end');
     })
 
     /**
@@ -574,9 +574,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0039 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 13, 0, 0, 0).getTime(), new Date(2024, 0, 14, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0039 end');
     })
 
 
@@ -589,9 +589,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0040 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 14, 0, 0, 0).getTime(), new Date(2023, 1, 14, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0040 end');
     })
 
     /**
@@ -603,9 +603,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0041 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 14, 0, 0, 0).getTime(), new Date(2023, 1, 14, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0041 end');
     })
 
     /**
@@ -617,9 +617,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0042 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 14, 0, 0, 0).getTime(), new Date(2023, 1, 15, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0042 end');
     })
 
 
@@ -632,9 +632,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0043 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 15, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0043 end');
     })
 
     /**
@@ -646,9 +646,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0044 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 15, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0044 end');
     })
 
     /**
@@ -660,9 +660,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0045 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 15, 0, 0, 0).getTime(), new Date(2024, 2, 16, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0045 end');
     })
 
 
@@ -675,9 +675,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0046 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 16, 0, 0, 0).getTime(), new Date(2023, 3, 16, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0046 end');
     })
 
     /**
@@ -689,9 +689,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0047 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 16, 0, 0, 0).getTime(), new Date(2023, 3, 16, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0047 end');
     })
 
     /**
@@ -703,9 +703,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0048 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 16, 0, 0, 0).getTime(), new Date(2023, 3, 17, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0048 end');
     })
 
 
@@ -718,9 +718,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0049 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 17, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0049 end');
     })
 
     /**
@@ -732,9 +732,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0050 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 17, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0050 end');
     })
 
     /**
@@ -746,9 +746,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0051 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 17, 0, 0, 0).getTime(), new Date(2024, 4, 18, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0051 end');
     })
 
 
@@ -761,9 +761,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0052 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 18, 0, 0, 0).getTime(), new Date(2023, 5, 18, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0052 end');
     })
 
     /**
@@ -775,9 +775,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0053 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 18, 0, 0, 0).getTime(), new Date(2023, 5, 18, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0053 end');
     })
 
     /**
@@ -789,9 +789,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0054 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 18, 0, 0, 0).getTime(), new Date(2023, 5, 19, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0054 end');
     })
 
 
@@ -804,9 +804,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0055 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 19, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0055 end');
     })
 
     /**
@@ -818,9 +818,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0056 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 19, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0056 end');
     })
 
     /**
@@ -832,9 +832,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0057 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 19, 0, 0, 0).getTime(), new Date(2024, 6, 20, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0057 end');
     })
 
 
@@ -847,9 +847,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0058 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 20, 0, 0, 0).getTime(), new Date(2023, 7, 20, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0058 end');
     })
 
     /**
@@ -861,9 +861,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0059 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 20, 0, 0, 0).getTime(), new Date(2023, 7, 20, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0059 end');
     })
 
     /**
@@ -875,9 +875,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0060 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 20, 0, 0, 0).getTime(), new Date(2023, 7, 21, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0060 end');
     })
 
 
@@ -890,9 +890,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0061 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 21, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0061 end');
     })
 
     /**
@@ -904,9 +904,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0062 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 21, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0062 end');
     })
 
     /**
@@ -918,9 +918,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0063 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 21, 0, 0, 0).getTime(), new Date(2024, 8, 22, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0063 end');
     })
 
 
@@ -933,9 +933,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0064 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 22, 0, 0, 0).getTime(), new Date(2023, 9, 22, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0064 end');
     })
 
     /**
@@ -947,9 +947,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0065 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 22, 0, 0, 0).getTime(), new Date(2023, 9, 22, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0065 end');
     })
 
     /**
@@ -961,9 +961,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0066 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 22, 0, 0, 0).getTime(), new Date(2023, 9, 23, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0066 end');
     })
 
 
@@ -976,9 +976,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0067 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 23, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0067 end');
     })
 
     /**
@@ -990,9 +990,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0068 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 23, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0068 end');
     })
 
     /**
@@ -1004,9 +1004,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0069 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 23, 0, 0, 0).getTime(), new Date(2024, 10, 24, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0069 end');
     })
 
 
@@ -1019,9 +1019,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0070 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 24, 0, 0, 0).getTime(), new Date(2023, 11, 24, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0070 end');
     })
 
     /**
@@ -1033,9 +1033,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0071 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 24, 0, 0, 0).getTime(), new Date(2023, 11, 24, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0071 end');
     })
 
     /**
@@ -1047,9 +1047,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0072 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 24, 0, 0, 0).getTime(), new Date(2023, 11, 25, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0072 end');
     })
 
 
@@ -1062,9 +1062,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0073 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 25, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0073 end');
     })
 
     /**
@@ -1076,9 +1076,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0074 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 25, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0074 end');
     })
 
     /**
@@ -1090,9 +1090,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0075 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 25, 0, 0, 0).getTime(), new Date(2024, 0, 26, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0075 end');
     })
 
 
@@ -1105,9 +1105,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0076 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 26, 0, 0, 0).getTime(), new Date(2023, 1, 26, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0076 end');
     })
 
     /**
@@ -1119,9 +1119,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0077 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 26, 0, 0, 0).getTime(), new Date(2023, 1, 26, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0077 end');
     })
 
     /**
@@ -1133,9 +1133,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0078 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 26, 0, 0, 0).getTime(), new Date(2023, 1, 27, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0078 end');
     })
 
 
@@ -1148,9 +1148,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0079 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 27, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0079 end');
     })
 
     /**
@@ -1162,9 +1162,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0080 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 27, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0080 end');
     })
 
     /**
@@ -1176,9 +1176,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0081 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 27, 0, 0, 0).getTime(), new Date(2024, 2, 28, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0081 end');
     })
 
 
@@ -1191,9 +1191,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0082 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 1, 0, 0, 0).getTime(), new Date(2023, 3, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0082 end');
     })
 
     /**
@@ -1205,9 +1205,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0083 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 1, 0, 0, 0).getTime(), new Date(2023, 3, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0083 end');
     })
 
     /**
@@ -1219,9 +1219,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0084 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 1, 0, 0, 0).getTime(), new Date(2023, 3, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0084 end');
     })
 
 
@@ -1234,9 +1234,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0085 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 2, 0, 0, 0).getTime(), new Date(2024, 4, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0085 end');
     })
 
     /**
@@ -1248,9 +1248,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0086 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 2, 0, 0, 0).getTime(), new Date(2024, 4, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0086 end');
     })
 
     /**
@@ -1262,9 +1262,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0087 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 2, 0, 0, 0).getTime(), new Date(2024, 4, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0087 end');
     })
 
 
@@ -1277,9 +1277,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0088 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 3, 0, 0, 0).getTime(), new Date(2023, 5, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0088 end');
     })
 
     /**
@@ -1291,9 +1291,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0089 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 3, 0, 0, 0).getTime(), new Date(2023, 5, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0089 end');
     })
 
     /**
@@ -1305,9 +1305,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0090 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 3, 0, 0, 0).getTime(), new Date(2023, 5, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0090 end');
     })
 
 
@@ -1320,9 +1320,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0091 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 4, 0, 0, 0).getTime(), new Date(2024, 6, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0091 end');
     })
 
     /**
@@ -1334,9 +1334,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0092 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 4, 0, 0, 0).getTime(), new Date(2024, 6, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0092 end');
     })
 
     /**
@@ -1348,9 +1348,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0093 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 4, 0, 0, 0).getTime(), new Date(2024, 6, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0093 end');
     })
 
 
@@ -1363,9 +1363,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0094 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 5, 0, 0, 0).getTime(), new Date(2023, 7, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0094 end');
     })
 
     /**
@@ -1377,9 +1377,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0095 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 5, 0, 0, 0).getTime(), new Date(2023, 7, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0095 end');
     })
 
     /**
@@ -1391,9 +1391,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0096 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 5, 0, 0, 0).getTime(), new Date(2023, 7, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0096 end');
     })
 
 
@@ -1406,9 +1406,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0097 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 6, 0, 0, 0).getTime(), new Date(2024, 8, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0097 end');
     })
 
     /**
@@ -1420,9 +1420,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0098 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 6, 0, 0, 0).getTime(), new Date(2024, 8, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0098 end');
     })
 
     /**
@@ -1434,9 +1434,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0099 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 6, 0, 0, 0).getTime(), new Date(2024, 8, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0099 end');
     })
 
 
@@ -1449,9 +1449,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0100 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 7, 0, 0, 0).getTime(), new Date(2023, 9, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0100 end');
     })
 
     /**
@@ -1463,9 +1463,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0101 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 7, 0, 0, 0).getTime(), new Date(2023, 9, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0101 end');
     })
 
     /**
@@ -1477,9 +1477,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0102 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 7, 0, 0, 0).getTime(), new Date(2023, 9, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0102 end');
     })
 
 
@@ -1492,9 +1492,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0103 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 8, 0, 0, 0).getTime(), new Date(2024, 10, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0103 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0104 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 8, 0, 0, 0).getTime(), new Date(2024, 10, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0104 end');
     })
 
     /**
@@ -1520,9 +1520,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0105 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 8, 0, 0, 0).getTime(), new Date(2024, 10, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0105 end');
     })
 
 
@@ -1535,9 +1535,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0106 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 9, 0, 0, 0).getTime(), new Date(2023, 11, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0106 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0107 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 9, 0, 0, 0).getTime(), new Date(2023, 11, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0107 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0108 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 9, 0, 0, 0).getTime(), new Date(2023, 11, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0108 end');
     })
 
 
@@ -1578,9 +1578,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0109 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 10, 0, 0, 0).getTime(), new Date(2024, 0, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0109 end');
     })
 
     /**
@@ -1592,9 +1592,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0110 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 10, 0, 0, 0).getTime(), new Date(2024, 0, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0110 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0111 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 10, 0, 0, 0).getTime(), new Date(2024, 0, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0111 end');
     })
 
 
@@ -1621,9 +1621,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0112 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 11, 0, 0, 0).getTime(), new Date(2023, 1, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0112 end');
     })
 
     /**
@@ -1635,9 +1635,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0113 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 11, 0, 0, 0).getTime(), new Date(2023, 1, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0113 end');
     })
 
     /**
@@ -1649,9 +1649,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0114 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 11, 0, 0, 0).getTime(), new Date(2023, 1, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0114 end');
     })
 
 
@@ -1664,9 +1664,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0115 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 12, 0, 0, 0).getTime(), new Date(2024, 2, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0115 end');
     })
 
     /**
@@ -1678,9 +1678,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0116 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 12, 0, 0, 0).getTime(), new Date(2024, 2, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0116 end');
     })
 
     /**
@@ -1692,9 +1692,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0117 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 12, 0, 0, 0).getTime(), new Date(2024, 2, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0117 end');
     })
 
 
@@ -1707,9 +1707,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0118 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 13, 0, 0, 0).getTime(), new Date(2023, 3, 13, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0118 end');
     })
 
     /**
@@ -1721,9 +1721,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0119 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 13, 0, 0, 0).getTime(), new Date(2023, 3, 13, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0119 end');
     })
 
     /**
@@ -1735,9 +1735,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0120 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 13, 0, 0, 0).getTime(), new Date(2023, 3, 14, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0120 end');
     })
 
 
@@ -1750,9 +1750,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0121 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 14, 0, 0, 0).getTime(), new Date(2024, 4, 14, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0121 end');
     })
 
     /**
@@ -1764,9 +1764,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0122 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 14, 0, 0, 0).getTime(), new Date(2024, 4, 14, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0122 end');
     })
 
     /**
@@ -1778,9 +1778,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0123 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 14, 0, 0, 0).getTime(), new Date(2024, 4, 15, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0123 end');
     })
 
 
@@ -1793,9 +1793,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0124 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 15, 0, 0, 0).getTime(), new Date(2023, 5, 15, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0124 end');
     })
 
     /**
@@ -1807,9 +1807,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0125 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 15, 0, 0, 0).getTime(), new Date(2023, 5, 15, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0125 end');
     })
 
     /**
@@ -1821,9 +1821,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0126 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 15, 0, 0, 0).getTime(), new Date(2023, 5, 16, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0126 end');
     })
 
 
@@ -1836,9 +1836,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0127 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 16, 0, 0, 0).getTime(), new Date(2024, 6, 16, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0127 end');
     })
 
     /**
@@ -1850,9 +1850,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0128 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 16, 0, 0, 0).getTime(), new Date(2024, 6, 16, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0128 end');
     })
 
     /**
@@ -1864,9 +1864,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0129 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 16, 0, 0, 0).getTime(), new Date(2024, 6, 17, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0129 end');
     })
 
 
@@ -1879,9 +1879,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0130 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 17, 0, 0, 0).getTime(), new Date(2023, 7, 17, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0130 end');
     })
 
     /**
@@ -1893,9 +1893,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0131 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 17, 0, 0, 0).getTime(), new Date(2023, 7, 17, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0131 end');
     })
 
     /**
@@ -1907,9 +1907,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0132 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 17, 0, 0, 0).getTime(), new Date(2023, 7, 18, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0132 end');
     })
 
 
@@ -1922,9 +1922,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0133 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 18, 0, 0, 0).getTime(), new Date(2024, 8, 18, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0133 end');
     })
 
     /**
@@ -1936,9 +1936,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0134 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 18, 0, 0, 0).getTime(), new Date(2024, 8, 18, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0134 end');
     })
 
     /**
@@ -1950,9 +1950,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0135 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 18, 0, 0, 0).getTime(), new Date(2024, 8, 19, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0135 end');
     })
 
 
@@ -1965,9 +1965,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0136 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 19, 0, 0, 0).getTime(), new Date(2023, 9, 19, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0136 end');
     })
 
     /**
@@ -1979,9 +1979,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0137 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 19, 0, 0, 0).getTime(), new Date(2023, 9, 19, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0137 end');
     })
 
     /**
@@ -1993,9 +1993,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0138 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 19, 0, 0, 0).getTime(), new Date(2023, 9, 20, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0138 end');
     })
 
 
@@ -2008,9 +2008,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0139 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 20, 0, 0, 0).getTime(), new Date(2024, 10, 20, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0139 end');
     })
 
     /**
@@ -2022,9 +2022,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0140 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 20, 0, 0, 0).getTime(), new Date(2024, 10, 20, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0140 end');
     })
 
     /**
@@ -2036,9 +2036,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0141 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 20, 0, 0, 0).getTime(), new Date(2024, 10, 21, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0141 end');
     })
 
 
@@ -2051,9 +2051,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0142 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 21, 0, 0, 0).getTime(), new Date(2023, 11, 21, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0142 end');
     })
 
     /**
@@ -2065,9 +2065,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0143 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 21, 0, 0, 0).getTime(), new Date(2023, 11, 21, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0143 end');
     })
 
     /**
@@ -2079,9 +2079,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0144 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 21, 0, 0, 0).getTime(), new Date(2023, 11, 22, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0144 end');
     })
 
 
@@ -2094,9 +2094,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0145 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 22, 0, 0, 0).getTime(), new Date(2024, 0, 22, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0145 end');
     })
 
     /**
@@ -2108,9 +2108,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0146 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 22, 0, 0, 0).getTime(), new Date(2024, 0, 22, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0146 end');
     })
 
     /**
@@ -2122,9 +2122,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0147 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 22, 0, 0, 0).getTime(), new Date(2024, 0, 23, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0147 end');
     })
 
 
@@ -2137,9 +2137,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0148 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 23, 0, 0, 0).getTime(), new Date(2023, 1, 23, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0148 end');
     })
 
     /**
@@ -2151,9 +2151,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0149 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 23, 0, 0, 0).getTime(), new Date(2023, 1, 23, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0149 end');
     })
 
     /**
@@ -2165,9 +2165,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0150 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 23, 0, 0, 0).getTime(), new Date(2023, 1, 24, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0150 end');
     })
 
 
@@ -2180,9 +2180,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0151 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 24, 0, 0, 0).getTime(), new Date(2024, 2, 24, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0151 end');
     })
 
     /**
@@ -2194,9 +2194,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0152 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 24, 0, 0, 0).getTime(), new Date(2024, 2, 24, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0152 end');
     })
 
     /**
@@ -2208,9 +2208,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0153 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 24, 0, 0, 0).getTime(), new Date(2024, 2, 25, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0153 end');
     })
 
 
@@ -2223,9 +2223,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0154 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 25, 0, 0, 0).getTime(), new Date(2023, 3, 25, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0154 end');
     })
 
     /**
@@ -2237,9 +2237,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0155 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 25, 0, 0, 0).getTime(), new Date(2023, 3, 25, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0155 end');
     })
 
     /**
@@ -2251,9 +2251,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0156 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 25, 0, 0, 0).getTime(), new Date(2023, 3, 26, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0156 end');
     })
 
 
@@ -2266,9 +2266,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0157 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 26, 0, 0, 0).getTime(), new Date(2024, 4, 26, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0157 end');
     })
 
     /**
@@ -2280,9 +2280,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0158 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 26, 0, 0, 0).getTime(), new Date(2024, 4, 26, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0158 end');
     })
 
     /**
@@ -2294,9 +2294,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0159 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 26, 0, 0, 0).getTime(), new Date(2024, 4, 27, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0159 end');
     })
 
 
@@ -2309,9 +2309,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0160 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 27, 0, 0, 0).getTime(), new Date(2023, 5, 27, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0160 end');
     })
 
     /**
@@ -2323,9 +2323,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0161 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 27, 0, 0, 0).getTime(), new Date(2023, 5, 27, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0161 end');
     })
 
     /**
@@ -2337,9 +2337,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0162 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 27, 0, 0, 0).getTime(), new Date(2023, 5, 28, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0162 end');
     })
 
 
@@ -2352,9 +2352,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0163 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 1, 0, 0, 0).getTime(), new Date(2024, 6, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0163 end');
     })
 
     /**
@@ -2366,9 +2366,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0164 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 1, 0, 0, 0).getTime(), new Date(2024, 6, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0164 end');
     })
 
     /**
@@ -2380,9 +2380,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0165 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 1, 0, 0, 0).getTime(), new Date(2024, 6, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0165 end');
     })
 
 
@@ -2395,9 +2395,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0166 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 2, 0, 0, 0).getTime(), new Date(2023, 7, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0166 end');
     })
 
     /**
@@ -2409,9 +2409,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0167 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 2, 0, 0, 0).getTime(), new Date(2023, 7, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0167 end');
     })
 
     /**
@@ -2423,9 +2423,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0168 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 2, 0, 0, 0).getTime(), new Date(2023, 7, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0168 end');
     })
 
 
@@ -2438,9 +2438,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0169 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 3, 0, 0, 0).getTime(), new Date(2024, 8, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0169 end');
     })
 
     /**
@@ -2452,9 +2452,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0170 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 3, 0, 0, 0).getTime(), new Date(2024, 8, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0170 end');
     })
 
     /**
@@ -2466,9 +2466,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0171 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 3, 0, 0, 0).getTime(), new Date(2024, 8, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0171 end');
     })
 
 
@@ -2481,9 +2481,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0172 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 4, 0, 0, 0).getTime(), new Date(2023, 9, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0172 end');
     })
 
     /**
@@ -2495,9 +2495,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0173 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 4, 0, 0, 0).getTime(), new Date(2023, 9, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0173 end');
     })
 
     /**
@@ -2509,9 +2509,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0174 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 4, 0, 0, 0).getTime(), new Date(2023, 9, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0174 end');
     })
 
 
@@ -2524,9 +2524,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0175 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 5, 0, 0, 0).getTime(), new Date(2024, 10, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0175 end');
     })
 
     /**
@@ -2538,9 +2538,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0176 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 5, 0, 0, 0).getTime(), new Date(2024, 10, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0176 end');
     })
 
     /**
@@ -2552,9 +2552,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0177 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 5, 0, 0, 0).getTime(), new Date(2024, 10, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0177 end');
     })
 
 
@@ -2567,9 +2567,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0178 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 6, 0, 0, 0).getTime(), new Date(2023, 11, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0178 end');
     })
 
     /**
@@ -2581,9 +2581,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0179 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 6, 0, 0, 0).getTime(), new Date(2023, 11, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0179 end');
     })
 
     /**
@@ -2595,9 +2595,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0180 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 6, 0, 0, 0).getTime(), new Date(2023, 11, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0180 end');
     })
 
 
@@ -2610,9 +2610,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0181 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 7, 0, 0, 0).getTime(), new Date(2024, 0, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0181 end');
     })
 
     /**
@@ -2624,9 +2624,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0182 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 7, 0, 0, 0).getTime(), new Date(2024, 0, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0182 end');
     })
 
     /**
@@ -2638,9 +2638,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0183 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 7, 0, 0, 0).getTime(), new Date(2024, 0, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0183 end');
     })
 
 
@@ -2653,9 +2653,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0184 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 8, 0, 0, 0).getTime(), new Date(2023, 1, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0184 end');
     })
 
     /**
@@ -2667,9 +2667,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0185 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 8, 0, 0, 0).getTime(), new Date(2023, 1, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0185 end');
     })
 
     /**
@@ -2681,9 +2681,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0186 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 8, 0, 0, 0).getTime(), new Date(2023, 1, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0186 end');
     })
 
 
@@ -2696,9 +2696,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0187 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 9, 0, 0, 0).getTime(), new Date(2024, 2, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0187 end');
     })
 
     /**
@@ -2710,9 +2710,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0188 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 9, 0, 0, 0).getTime(), new Date(2024, 2, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0188 end');
     })
 
     /**
@@ -2724,9 +2724,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0189 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 9, 0, 0, 0).getTime(), new Date(2024, 2, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0189 end');
     })
 
 
@@ -2739,9 +2739,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0190 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 10, 0, 0, 0).getTime(), new Date(2023, 3, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0190 end');
     })
 
     /**
@@ -2753,9 +2753,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0191 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 10, 0, 0, 0).getTime(), new Date(2023, 3, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0191 end');
     })
 
     /**
@@ -2767,9 +2767,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0192 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 10, 0, 0, 0).getTime(), new Date(2023, 3, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0192 end');
     })
 
 
@@ -2782,9 +2782,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0193 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 11, 0, 0, 0).getTime(), new Date(2024, 4, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0193 end');
     })
 
     /**
@@ -2796,9 +2796,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0194 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 11, 0, 0, 0).getTime(), new Date(2024, 4, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0194 end');
     })
 
     /**
@@ -2810,9 +2810,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0195 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 11, 0, 0, 0).getTime(), new Date(2024, 4, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0195 end');
     })
 
 
@@ -2825,9 +2825,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0196 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 12, 0, 0, 0).getTime(), new Date(2023, 5, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0196 end');
     })
 
     /**
@@ -2839,9 +2839,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0197 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 12, 0, 0, 0).getTime(), new Date(2023, 5, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0197 end');
     })
 
     /**
@@ -2853,9 +2853,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0198 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 12, 0, 0, 0).getTime(), new Date(2023, 5, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0198 end');
     })
 
 
@@ -2868,9 +2868,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0199 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 13, 0, 0, 0).getTime(), new Date(2024, 6, 13, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0199 end');
     })
 
     /**
@@ -2882,9 +2882,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0200 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 13, 0, 0, 0).getTime(), new Date(2024, 6, 13, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0200 end');
     })
 
     /**
@@ -2896,9 +2896,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0201 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0201 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 13, 0, 0, 0).getTime(), new Date(2024, 6, 14, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0201 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0201 end');
     })
 
 
@@ -2911,9 +2911,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0202 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0202 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 14, 0, 0, 0).getTime(), new Date(2023, 7, 14, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0202 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0202 end');
     })
 
     /**
@@ -2925,9 +2925,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0203 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0203 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 14, 0, 0, 0).getTime(), new Date(2023, 7, 14, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0203 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0203 end');
     })
 
     /**
@@ -2939,9 +2939,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0204 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0204 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 14, 0, 0, 0).getTime(), new Date(2023, 7, 15, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0204 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0204 end');
     })
 
 
@@ -2954,9 +2954,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0205 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0205 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 15, 0, 0, 0).getTime(), new Date(2024, 8, 15, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0205 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0205 end');
     })
 
     /**
@@ -2968,9 +2968,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0206 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0206 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 15, 0, 0, 0).getTime(), new Date(2024, 8, 15, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0206 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0206 end');
     })
 
     /**
@@ -2982,9 +2982,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0207 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0207 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 15, 0, 0, 0).getTime(), new Date(2024, 8, 16, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0207 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0207 end');
     })
 
 
@@ -2997,9 +2997,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0208 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0208 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 16, 0, 0, 0).getTime(), new Date(2023, 9, 16, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0208 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0208 end');
     })
 
     /**
@@ -3011,9 +3011,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0209 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0209 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 16, 0, 0, 0).getTime(), new Date(2023, 9, 16, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0209 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0209 end');
     })
 
     /**
@@ -3025,9 +3025,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0210 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0210 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 16, 0, 0, 0).getTime(), new Date(2023, 9, 17, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0210 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0210 end');
     })
 
 
@@ -3040,9 +3040,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0211 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0211 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 17, 0, 0, 0).getTime(), new Date(2024, 10, 17, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0211 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0211 end');
     })
 
     /**
@@ -3054,9 +3054,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0212 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0212 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 17, 0, 0, 0).getTime(), new Date(2024, 10, 17, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0212 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0212 end');
     })
 
     /**
@@ -3068,9 +3068,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0213 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0213 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 17, 0, 0, 0).getTime(), new Date(2024, 10, 18, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0213 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0213 end');
     })
 
 
@@ -3083,9 +3083,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0214 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0214 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 18, 0, 0, 0).getTime(), new Date(2023, 11, 18, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0214 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0214 end');
     })
 
     /**
@@ -3097,9 +3097,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0215 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0215 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 18, 0, 0, 0).getTime(), new Date(2023, 11, 18, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0215 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0215 end');
     })
 
     /**
@@ -3111,9 +3111,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0216 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0216 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 18, 0, 0, 0).getTime(), new Date(2023, 11, 19, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0216 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0216 end');
     })
 
 
@@ -3126,9 +3126,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0217 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0217 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 19, 0, 0, 0).getTime(), new Date(2024, 0, 19, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0217 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0217 end');
     })
 
     /**
@@ -3140,9 +3140,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0218 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0218 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 19, 0, 0, 0).getTime(), new Date(2024, 0, 19, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0218 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0218 end');
     })
 
     /**
@@ -3154,9 +3154,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0219 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0219 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 19, 0, 0, 0).getTime(), new Date(2024, 0, 20, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0219 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0219 end');
     })
 
 
@@ -3169,9 +3169,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0220 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0220 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 20, 0, 0, 0).getTime(), new Date(2023, 1, 20, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0220 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0220 end');
     })
 
     /**
@@ -3183,9 +3183,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0221', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0221 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0221 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 20, 0, 0, 0).getTime(), new Date(2023, 1, 20, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0221 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0221 end');
     })
 
     /**
@@ -3197,9 +3197,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0222 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0222 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 20, 0, 0, 0).getTime(), new Date(2023, 1, 21, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0222 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0222 end');
     })
 
 
@@ -3212,9 +3212,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0223', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0223 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0223 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 21, 0, 0, 0).getTime(), new Date(2024, 2, 21, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0223 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0223 end');
     })
 
     /**
@@ -3226,9 +3226,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0224', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0224 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0224 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 21, 0, 0, 0).getTime(), new Date(2024, 2, 21, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0224 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0224 end');
     })
 
     /**
@@ -3240,9 +3240,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0225 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0225 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 21, 0, 0, 0).getTime(), new Date(2024, 2, 22, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0225 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0225 end');
     })
 
 
@@ -3255,9 +3255,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0226 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0226 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 22, 0, 0, 0).getTime(), new Date(2023, 3, 22, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0226 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0226 end');
     })
 
     /**
@@ -3269,9 +3269,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0227 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0227 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 22, 0, 0, 0).getTime(), new Date(2023, 3, 22, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0227 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0227 end');
     })
 
     /**
@@ -3283,9 +3283,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0228 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0228 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 22, 0, 0, 0).getTime(), new Date(2023, 3, 23, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0228 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0228 end');
     })
 
 
@@ -3298,9 +3298,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0229 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0229 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 23, 0, 0, 0).getTime(), new Date(2024, 4, 23, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0229 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0229 end');
     })
 
     /**
@@ -3312,9 +3312,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0230 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0230 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 23, 0, 0, 0).getTime(), new Date(2024, 4, 23, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0230 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0230 end');
     })
 
     /**
@@ -3326,9 +3326,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0231 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0231 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 23, 0, 0, 0).getTime(), new Date(2024, 4, 24, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0231 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0231 end');
     })
 
 
@@ -3341,9 +3341,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0232 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0232 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 24, 0, 0, 0).getTime(), new Date(2023, 5, 24, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0232 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0232 end');
     })
 
     /**
@@ -3355,9 +3355,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0233 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0233 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 24, 0, 0, 0).getTime(), new Date(2023, 5, 24, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0233 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0233 end');
     })
 
     /**
@@ -3369,9 +3369,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0234 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0234 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 24, 0, 0, 0).getTime(), new Date(2023, 5, 25, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0234 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0234 end');
     })
 
 
@@ -3384,9 +3384,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0235 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0235 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 25, 0, 0, 0).getTime(), new Date(2024, 6, 25, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0235 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0235 end');
     })
 
     /**
@@ -3398,9 +3398,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0236 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0236 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 25, 0, 0, 0).getTime(), new Date(2024, 6, 25, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0236 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0236 end');
     })
 
     /**
@@ -3412,9 +3412,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0237 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0237 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 25, 0, 0, 0).getTime(), new Date(2024, 6, 26, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0237 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0237 end');
     })
 
 
@@ -3427,9 +3427,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0238 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0238 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 26, 0, 0, 0).getTime(), new Date(2023, 7, 26, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0238 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0238 end');
     })
 
     /**
@@ -3441,9 +3441,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0239 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0239 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 26, 0, 0, 0).getTime(), new Date(2023, 7, 26, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0239 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0239 end');
     })
 
     /**
@@ -3455,9 +3455,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0240 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0240 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 26, 0, 0, 0).getTime(), new Date(2023, 7, 27, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0240 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0240 end');
     })
 
 
@@ -3470,9 +3470,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0241 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0241 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 27, 0, 0, 0).getTime(), new Date(2024, 8, 27, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0241 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0241 end');
     })
 
     /**
@@ -3484,9 +3484,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0242 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0242 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 27, 0, 0, 0).getTime(), new Date(2024, 8, 27, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0242 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0242 end');
     })
 
     /**
@@ -3498,9 +3498,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0243 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0243 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 27, 0, 0, 0).getTime(), new Date(2024, 8, 28, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0243 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0243 end');
     })
 
 
@@ -3513,9 +3513,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0244 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0244 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 1, 0, 0, 0).getTime(), new Date(2023, 9, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0244 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0244 end');
     })
 
     /**
@@ -3527,9 +3527,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0245 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0245 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 1, 0, 0, 0).getTime(), new Date(2023, 9, 1, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0245 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0245 end');
     })
 
     /**
@@ -3541,9 +3541,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0246 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0246 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 1, 0, 0, 0).getTime(), new Date(2023, 9, 2, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0246 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0246 end');
     })
 
 
@@ -3556,9 +3556,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0247 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0247 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 2, 0, 0, 0).getTime(), new Date(2024, 10, 2, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0247 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0247 end');
     })
 
     /**
@@ -3570,9 +3570,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0248 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0248 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 2, 0, 0, 0).getTime(), new Date(2024, 10, 2, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0248 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0248 end');
     })
 
     /**
@@ -3584,9 +3584,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0249 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0249 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 2, 0, 0, 0).getTime(), new Date(2024, 10, 3, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0249 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0249 end');
     })
 
 
@@ -3599,9 +3599,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0250 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0250 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 3, 0, 0, 0).getTime(), new Date(2023, 11, 3, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0250 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0250 end');
     })
 
     /**
@@ -3613,9 +3613,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0251 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0251 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 3, 0, 0, 0).getTime(), new Date(2023, 11, 3, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0251 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0251 end');
     })
 
     /**
@@ -3627,9 +3627,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0252 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0252 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 3, 0, 0, 0).getTime(), new Date(2023, 11, 4, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0252 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0252 end');
     })
 
 
@@ -3642,9 +3642,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0253 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0253 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 4, 0, 0, 0).getTime(), new Date(2024, 0, 4, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0253 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0253 end');
     })
 
     /**
@@ -3656,9 +3656,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0254 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0254 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 4, 0, 0, 0).getTime(), new Date(2024, 0, 4, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0254 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0254 end');
     })
 
     /**
@@ -3670,9 +3670,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0255 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0255 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 4, 0, 0, 0).getTime(), new Date(2024, 0, 5, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0255 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0255 end');
     })
 
 
@@ -3685,9 +3685,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0256 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0256 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 5, 0, 0, 0).getTime(), new Date(2023, 1, 5, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0256 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0256 end');
     })
 
     /**
@@ -3699,9 +3699,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0257 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0257 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 5, 0, 0, 0).getTime(), new Date(2023, 1, 5, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0257 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0257 end');
     })
 
     /**
@@ -3713,9 +3713,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0258 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0258 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 5, 0, 0, 0).getTime(), new Date(2023, 1, 6, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0258 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0258 end');
     })
 
 
@@ -3728,9 +3728,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0259', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0259 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0259 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 6, 0, 0, 0).getTime(), new Date(2024, 2, 6, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0259 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0259 end');
     })
 
     /**
@@ -3742,9 +3742,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0260', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0260 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0260 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 6, 0, 0, 0).getTime(), new Date(2024, 2, 6, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0260 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0260 end');
     })
 
     /**
@@ -3756,9 +3756,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0261', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0261 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0261 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 6, 0, 0, 0).getTime(), new Date(2024, 2, 7, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0261 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0261 end');
     })
 
 
@@ -3771,9 +3771,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0262', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0262 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0262 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 7, 0, 0, 0).getTime(), new Date(2023, 3, 7, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0262 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0262 end');
     })
 
     /**
@@ -3785,9 +3785,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0263 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0263 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 7, 0, 0, 0).getTime(), new Date(2023, 3, 7, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0263 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0263 end');
     })
 
     /**
@@ -3799,9 +3799,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0264 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0264 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 7, 0, 0, 0).getTime(), new Date(2023, 3, 8, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0264 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0264 end');
     })
 
 
@@ -3814,9 +3814,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0265 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0265 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 8, 0, 0, 0).getTime(), new Date(2024, 4, 8, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0265 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0265 end');
     })
 
     /**
@@ -3828,9 +3828,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0266 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0266 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 8, 0, 0, 0).getTime(), new Date(2024, 4, 8, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0266 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0266 end');
     })
 
     /**
@@ -3842,9 +3842,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0267 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0267 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 4, 8, 0, 0, 0).getTime(), new Date(2024, 4, 9, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0267 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0267 end');
     })
 
 
@@ -3857,9 +3857,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0268 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0268 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 9, 0, 0, 0).getTime(), new Date(2023, 5, 9, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0268 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0268 end');
     })
 
     /**
@@ -3871,9 +3871,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0269 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0269 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 9, 0, 0, 0).getTime(), new Date(2023, 5, 9, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0269 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0269 end');
     })
 
     /**
@@ -3885,9 +3885,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0270 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0270 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 5, 9, 0, 0, 0).getTime(), new Date(2023, 5, 10, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0270 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0270 end');
     })
 
 
@@ -3900,9 +3900,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0271 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0271 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 10, 0, 0, 0).getTime(), new Date(2024, 6, 10, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0271 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0271 end');
     })
 
     /**
@@ -3914,9 +3914,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0272 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0272 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 10, 0, 0, 0).getTime(), new Date(2024, 6, 10, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0272 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0272 end');
     })
 
     /**
@@ -3928,9 +3928,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0273 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0273 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 6, 10, 0, 0, 0).getTime(), new Date(2024, 6, 11, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0273 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0273 end');
     })
 
 
@@ -3943,9 +3943,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0274 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0274 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 11, 0, 0, 0).getTime(), new Date(2023, 7, 11, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0274 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0274 end');
     })
 
     /**
@@ -3957,9 +3957,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0275 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0275 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 11, 0, 0, 0).getTime(), new Date(2023, 7, 11, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0275 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0275 end');
     })
 
     /**
@@ -3971,9 +3971,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0276 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0276 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 7, 11, 0, 0, 0).getTime(), new Date(2023, 7, 12, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0276 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0276 end');
     })
 
 
@@ -3986,9 +3986,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0277 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0277 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 12, 0, 0, 0).getTime(), new Date(2024, 8, 12, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0277 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0277 end');
     })
 
     /**
@@ -4000,9 +4000,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0278 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0278 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 12, 0, 0, 0).getTime(), new Date(2024, 8, 12, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0278 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0278 end');
     })
 
     /**
@@ -4014,9 +4014,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0279 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0279 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 8, 12, 0, 0, 0).getTime(), new Date(2024, 8, 13, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0279 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0279 end');
     })
 
 
@@ -4029,9 +4029,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0280 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0280 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 13, 0, 0, 0).getTime(), new Date(2023, 9, 13, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0280 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0280 end');
     })
 
     /**
@@ -4043,9 +4043,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0281 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0281 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 13, 0, 0, 0).getTime(), new Date(2023, 9, 13, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0281 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0281 end');
     })
 
     /**
@@ -4057,9 +4057,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0282 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0282 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 9, 13, 0, 0, 0).getTime(), new Date(2023, 9, 14, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0282 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0282 end');
     })
 
 
@@ -4072,9 +4072,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0283 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0283 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 14, 0, 0, 0).getTime(), new Date(2024, 10, 14, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0283 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0283 end');
     })
 
     /**
@@ -4086,9 +4086,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0284 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0284 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 14, 0, 0, 0).getTime(), new Date(2024, 10, 14, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0284 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0284 end');
     })
 
     /**
@@ -4100,9 +4100,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0285 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0285 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 10, 14, 0, 0, 0).getTime(), new Date(2024, 10, 15, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0285 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0285 end');
     })
 
 
@@ -4115,9 +4115,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0286 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0286 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 15, 0, 0, 0).getTime(), new Date(2023, 11, 15, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0286 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0286 end');
     })
 
     /**
@@ -4129,9 +4129,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0287 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0287 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 15, 0, 0, 0).getTime(), new Date(2023, 11, 15, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0287 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0287 end');
     })
 
     /**
@@ -4143,9 +4143,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0288 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0288 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 11, 15, 0, 0, 0).getTime(), new Date(2023, 11, 16, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0288 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0288 end');
     })
 
 
@@ -4158,9 +4158,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0289 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0289 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 16, 0, 0, 0).getTime(), new Date(2024, 0, 16, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0289 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0289 end');
     })
 
     /**
@@ -4172,9 +4172,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0290 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0290 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 16, 0, 0, 0).getTime(), new Date(2024, 0, 16, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0290 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0290 end');
     })
 
     /**
@@ -4186,9 +4186,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0291 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0291 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 0, 16, 0, 0, 0).getTime(), new Date(2024, 0, 17, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0291 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0291 end');
     })
 
 
@@ -4201,9 +4201,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0292 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0292 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 17, 0, 0, 0).getTime(), new Date(2023, 1, 17, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0292 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0292 end');
     })
 
     /**
@@ -4215,9 +4215,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0293 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0293 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 17, 0, 0, 0).getTime(), new Date(2023, 1, 17, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0293 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0293 end');
     })
 
     /**
@@ -4229,9 +4229,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0294 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0294 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 1, 17, 0, 0, 0).getTime(), new Date(2023, 1, 18, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0294 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0294 end');
     })
 
 
@@ -4244,9 +4244,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0295 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0295 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 18, 0, 0, 0).getTime(), new Date(2024, 2, 18, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0295 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0295 end');
     })
 
     /**
@@ -4258,9 +4258,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0296 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0296 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 18, 0, 0, 0).getTime(), new Date(2024, 2, 18, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0296 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0296 end');
     })
 
     /**
@@ -4272,9 +4272,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0297 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0297 begin');
       expect(DateUtil.isTheSameDay(new Date(2024, 2, 18, 0, 0, 0).getTime(), new Date(2024, 2, 19, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0297 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0297 end');
     })
 
 
@@ -4287,9 +4287,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0298 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0298 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 19, 0, 0, 0).getTime(), new Date(2023, 3, 19, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0298 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0298 end');
     })
 
     /**
@@ -4301,9 +4301,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0299 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0299 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 19, 0, 0, 0).getTime(), new Date(2023, 3, 19, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0299 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0299 end');
     })
 
     /**
@@ -4315,9 +4315,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameDayExt0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0300 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0300 begin');
       expect(DateUtil.isTheSameDay(new Date(2023, 3, 19, 0, 0, 0).getTime(), new Date(2023, 3, 20, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0300 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameDayExt0300 end');
     })
 
 
@@ -4330,9 +4330,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0001 begin');
       expect(DateUtil.isTheSameYear(new Date(1970, 0, 1, 0, 0, 0).getTime(), new Date(1970, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0001 end');
     })
 
     /**
@@ -4344,9 +4344,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0002 begin');
       expect(DateUtil.isTheSameYear(new Date(1970, 0, 1, 0, 0, 0).getTime(), new Date(1970, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0002 end');
     })
 
     /**
@@ -4358,9 +4358,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0003 begin');
       expect(DateUtil.isTheSameYear(new Date(1970, 11, 31, 23, 59, 59).getTime(), new Date(1971, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0003 end');
     })
 
 
@@ -4373,9 +4373,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0004 begin');
       expect(DateUtil.isTheSameYear(new Date(1971, 0, 1, 0, 0, 0).getTime(), new Date(1971, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0004 end');
     })
 
     /**
@@ -4387,9 +4387,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0005 begin');
       expect(DateUtil.isTheSameYear(new Date(1971, 0, 1, 0, 0, 0).getTime(), new Date(1971, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0005 end');
     })
 
     /**
@@ -4401,9 +4401,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0006 begin');
       expect(DateUtil.isTheSameYear(new Date(1971, 11, 31, 23, 59, 59).getTime(), new Date(1972, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0006 end');
     })
 
 
@@ -4416,9 +4416,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0007 begin');
       expect(DateUtil.isTheSameYear(new Date(1972, 0, 1, 0, 0, 0).getTime(), new Date(1972, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0007 end');
     })
 
     /**
@@ -4430,9 +4430,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0008 begin');
       expect(DateUtil.isTheSameYear(new Date(1972, 0, 1, 0, 0, 0).getTime(), new Date(1972, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0008 end');
     })
 
     /**
@@ -4444,9 +4444,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0009 begin');
       expect(DateUtil.isTheSameYear(new Date(1972, 11, 31, 23, 59, 59).getTime(), new Date(1973, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0009 end');
     })
 
 
@@ -4459,9 +4459,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0010 begin');
       expect(DateUtil.isTheSameYear(new Date(1973, 0, 1, 0, 0, 0).getTime(), new Date(1973, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0010 end');
     })
 
     /**
@@ -4473,9 +4473,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0011 begin');
       expect(DateUtil.isTheSameYear(new Date(1973, 0, 1, 0, 0, 0).getTime(), new Date(1973, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0011 end');
     })
 
     /**
@@ -4487,9 +4487,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0012 begin');
       expect(DateUtil.isTheSameYear(new Date(1973, 11, 31, 23, 59, 59).getTime(), new Date(1974, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0012 end');
     })
 
 
@@ -4502,9 +4502,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0013 begin');
       expect(DateUtil.isTheSameYear(new Date(1974, 0, 1, 0, 0, 0).getTime(), new Date(1974, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0013 end');
     })
 
     /**
@@ -4516,9 +4516,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0014 begin');
       expect(DateUtil.isTheSameYear(new Date(1974, 0, 1, 0, 0, 0).getTime(), new Date(1974, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0014 end');
     })
 
     /**
@@ -4530,9 +4530,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0015 begin');
       expect(DateUtil.isTheSameYear(new Date(1974, 11, 31, 23, 59, 59).getTime(), new Date(1975, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0015 end');
     })
 
 
@@ -4545,9 +4545,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0016 begin');
       expect(DateUtil.isTheSameYear(new Date(1975, 0, 1, 0, 0, 0).getTime(), new Date(1975, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0016 end');
     })
 
     /**
@@ -4559,9 +4559,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0017 begin');
       expect(DateUtil.isTheSameYear(new Date(1975, 0, 1, 0, 0, 0).getTime(), new Date(1975, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0017 end');
     })
 
     /**
@@ -4573,9 +4573,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0018 begin');
       expect(DateUtil.isTheSameYear(new Date(1975, 11, 31, 23, 59, 59).getTime(), new Date(1976, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0018 end');
     })
 
 
@@ -4588,9 +4588,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0019 begin');
       expect(DateUtil.isTheSameYear(new Date(1976, 0, 1, 0, 0, 0).getTime(), new Date(1976, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0019 end');
     })
 
     /**
@@ -4602,9 +4602,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0020 begin');
       expect(DateUtil.isTheSameYear(new Date(1976, 0, 1, 0, 0, 0).getTime(), new Date(1976, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0020 end');
     })
 
     /**
@@ -4616,9 +4616,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0021 begin');
       expect(DateUtil.isTheSameYear(new Date(1976, 11, 31, 23, 59, 59).getTime(), new Date(1977, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0021 end');
     })
 
 
@@ -4631,9 +4631,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0022 begin');
       expect(DateUtil.isTheSameYear(new Date(1977, 0, 1, 0, 0, 0).getTime(), new Date(1977, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0022 end');
     })
 
     /**
@@ -4645,9 +4645,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0023 begin');
       expect(DateUtil.isTheSameYear(new Date(1977, 0, 1, 0, 0, 0).getTime(), new Date(1977, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0023 end');
     })
 
     /**
@@ -4659,9 +4659,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0024 begin');
       expect(DateUtil.isTheSameYear(new Date(1977, 11, 31, 23, 59, 59).getTime(), new Date(1978, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0024 end');
     })
 
 
@@ -4674,9 +4674,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0025 begin');
       expect(DateUtil.isTheSameYear(new Date(1978, 0, 1, 0, 0, 0).getTime(), new Date(1978, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0025 end');
     })
 
     /**
@@ -4688,9 +4688,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0026 begin');
       expect(DateUtil.isTheSameYear(new Date(1978, 0, 1, 0, 0, 0).getTime(), new Date(1978, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0026 end');
     })
 
     /**
@@ -4702,9 +4702,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0027 begin');
       expect(DateUtil.isTheSameYear(new Date(1978, 11, 31, 23, 59, 59).getTime(), new Date(1979, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0027 end');
     })
 
 
@@ -4717,9 +4717,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0028 begin');
       expect(DateUtil.isTheSameYear(new Date(1979, 0, 1, 0, 0, 0).getTime(), new Date(1979, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0028 end');
     })
 
     /**
@@ -4731,9 +4731,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0029 begin');
       expect(DateUtil.isTheSameYear(new Date(1979, 0, 1, 0, 0, 0).getTime(), new Date(1979, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0029 end');
     })
 
     /**
@@ -4745,9 +4745,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0030 begin');
       expect(DateUtil.isTheSameYear(new Date(1979, 11, 31, 23, 59, 59).getTime(), new Date(1980, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0030 end');
     })
 
 
@@ -4760,9 +4760,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0031 begin');
       expect(DateUtil.isTheSameYear(new Date(1980, 0, 1, 0, 0, 0).getTime(), new Date(1980, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0031 end');
     })
 
     /**
@@ -4774,9 +4774,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0032 begin');
       expect(DateUtil.isTheSameYear(new Date(1980, 0, 1, 0, 0, 0).getTime(), new Date(1980, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0032 end');
     })
 
     /**
@@ -4788,9 +4788,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0033 begin');
       expect(DateUtil.isTheSameYear(new Date(1980, 11, 31, 23, 59, 59).getTime(), new Date(1981, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0033 end');
     })
 
 
@@ -4803,9 +4803,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0034 begin');
       expect(DateUtil.isTheSameYear(new Date(1981, 0, 1, 0, 0, 0).getTime(), new Date(1981, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0034 end');
     })
 
     /**
@@ -4817,9 +4817,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0035 begin');
       expect(DateUtil.isTheSameYear(new Date(1981, 0, 1, 0, 0, 0).getTime(), new Date(1981, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0035 end');
     })
 
     /**
@@ -4831,9 +4831,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0036 begin');
       expect(DateUtil.isTheSameYear(new Date(1981, 11, 31, 23, 59, 59).getTime(), new Date(1982, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0036 end');
     })
 
 
@@ -4846,9 +4846,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0037 begin');
       expect(DateUtil.isTheSameYear(new Date(1982, 0, 1, 0, 0, 0).getTime(), new Date(1982, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0037 end');
     })
 
     /**
@@ -4860,9 +4860,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0038 begin');
       expect(DateUtil.isTheSameYear(new Date(1982, 0, 1, 0, 0, 0).getTime(), new Date(1982, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0038 end');
     })
 
     /**
@@ -4874,9 +4874,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0039 begin');
       expect(DateUtil.isTheSameYear(new Date(1982, 11, 31, 23, 59, 59).getTime(), new Date(1983, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0039 end');
     })
 
 
@@ -4889,9 +4889,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0040 begin');
       expect(DateUtil.isTheSameYear(new Date(1983, 0, 1, 0, 0, 0).getTime(), new Date(1983, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0040 end');
     })
 
     /**
@@ -4903,9 +4903,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0041 begin');
       expect(DateUtil.isTheSameYear(new Date(1983, 0, 1, 0, 0, 0).getTime(), new Date(1983, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0041 end');
     })
 
     /**
@@ -4917,9 +4917,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0042 begin');
       expect(DateUtil.isTheSameYear(new Date(1983, 11, 31, 23, 59, 59).getTime(), new Date(1984, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0042 end');
     })
 
 
@@ -4932,9 +4932,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0043 begin');
       expect(DateUtil.isTheSameYear(new Date(1984, 0, 1, 0, 0, 0).getTime(), new Date(1984, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0043 end');
     })
 
     /**
@@ -4946,9 +4946,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0044 begin');
       expect(DateUtil.isTheSameYear(new Date(1984, 0, 1, 0, 0, 0).getTime(), new Date(1984, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0044 end');
     })
 
     /**
@@ -4960,9 +4960,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0045 begin');
       expect(DateUtil.isTheSameYear(new Date(1984, 11, 31, 23, 59, 59).getTime(), new Date(1985, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0045 end');
     })
 
 
@@ -4975,9 +4975,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0046 begin');
       expect(DateUtil.isTheSameYear(new Date(1985, 0, 1, 0, 0, 0).getTime(), new Date(1985, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0046 end');
     })
 
     /**
@@ -4989,9 +4989,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0047 begin');
       expect(DateUtil.isTheSameYear(new Date(1985, 0, 1, 0, 0, 0).getTime(), new Date(1985, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0047 end');
     })
 
     /**
@@ -5003,9 +5003,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0048 begin');
       expect(DateUtil.isTheSameYear(new Date(1985, 11, 31, 23, 59, 59).getTime(), new Date(1986, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0048 end');
     })
 
 
@@ -5018,9 +5018,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0049 begin');
       expect(DateUtil.isTheSameYear(new Date(1986, 0, 1, 0, 0, 0).getTime(), new Date(1986, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0049 end');
     })
 
     /**
@@ -5032,9 +5032,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0050 begin');
       expect(DateUtil.isTheSameYear(new Date(1986, 0, 1, 0, 0, 0).getTime(), new Date(1986, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0050 end');
     })
 
     /**
@@ -5046,9 +5046,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0051 begin');
       expect(DateUtil.isTheSameYear(new Date(1986, 11, 31, 23, 59, 59).getTime(), new Date(1987, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0051 end');
     })
 
 
@@ -5061,9 +5061,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0052 begin');
       expect(DateUtil.isTheSameYear(new Date(1987, 0, 1, 0, 0, 0).getTime(), new Date(1987, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0052 end');
     })
 
     /**
@@ -5075,9 +5075,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0053 begin');
       expect(DateUtil.isTheSameYear(new Date(1987, 0, 1, 0, 0, 0).getTime(), new Date(1987, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0053 end');
     })
 
     /**
@@ -5089,9 +5089,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0054 begin');
       expect(DateUtil.isTheSameYear(new Date(1987, 11, 31, 23, 59, 59).getTime(), new Date(1988, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0054 end');
     })
 
 
@@ -5104,9 +5104,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0055 begin');
       expect(DateUtil.isTheSameYear(new Date(1988, 0, 1, 0, 0, 0).getTime(), new Date(1988, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0055 end');
     })
 
     /**
@@ -5118,9 +5118,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0056 begin');
       expect(DateUtil.isTheSameYear(new Date(1988, 0, 1, 0, 0, 0).getTime(), new Date(1988, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0056 end');
     })
 
     /**
@@ -5132,9 +5132,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0057 begin');
       expect(DateUtil.isTheSameYear(new Date(1988, 11, 31, 23, 59, 59).getTime(), new Date(1989, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0057 end');
     })
 
 
@@ -5147,9 +5147,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0058 begin');
       expect(DateUtil.isTheSameYear(new Date(1989, 0, 1, 0, 0, 0).getTime(), new Date(1989, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0058 end');
     })
 
     /**
@@ -5161,9 +5161,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0059 begin');
       expect(DateUtil.isTheSameYear(new Date(1989, 0, 1, 0, 0, 0).getTime(), new Date(1989, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0059 end');
     })
 
     /**
@@ -5175,9 +5175,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0060 begin');
       expect(DateUtil.isTheSameYear(new Date(1989, 11, 31, 23, 59, 59).getTime(), new Date(1990, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0060 end');
     })
 
 
@@ -5190,9 +5190,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0061 begin');
       expect(DateUtil.isTheSameYear(new Date(1990, 0, 1, 0, 0, 0).getTime(), new Date(1990, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0061 end');
     })
 
     /**
@@ -5204,9 +5204,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0062 begin');
       expect(DateUtil.isTheSameYear(new Date(1990, 0, 1, 0, 0, 0).getTime(), new Date(1990, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0062 end');
     })
 
     /**
@@ -5218,9 +5218,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0063 begin');
       expect(DateUtil.isTheSameYear(new Date(1990, 11, 31, 23, 59, 59).getTime(), new Date(1991, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0063 end');
     })
 
 
@@ -5233,9 +5233,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0064 begin');
       expect(DateUtil.isTheSameYear(new Date(1991, 0, 1, 0, 0, 0).getTime(), new Date(1991, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0064 end');
     })
 
     /**
@@ -5247,9 +5247,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0065 begin');
       expect(DateUtil.isTheSameYear(new Date(1991, 0, 1, 0, 0, 0).getTime(), new Date(1991, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0065 end');
     })
 
     /**
@@ -5261,9 +5261,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0066 begin');
       expect(DateUtil.isTheSameYear(new Date(1991, 11, 31, 23, 59, 59).getTime(), new Date(1992, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0066 end');
     })
 
 
@@ -5276,9 +5276,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0067 begin');
       expect(DateUtil.isTheSameYear(new Date(1992, 0, 1, 0, 0, 0).getTime(), new Date(1992, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0067 end');
     })
 
     /**
@@ -5290,9 +5290,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0068 begin');
       expect(DateUtil.isTheSameYear(new Date(1992, 0, 1, 0, 0, 0).getTime(), new Date(1992, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0068 end');
     })
 
     /**
@@ -5304,9 +5304,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0069 begin');
       expect(DateUtil.isTheSameYear(new Date(1992, 11, 31, 23, 59, 59).getTime(), new Date(1993, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0069 end');
     })
 
 
@@ -5319,9 +5319,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0070 begin');
       expect(DateUtil.isTheSameYear(new Date(1993, 0, 1, 0, 0, 0).getTime(), new Date(1993, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0070 end');
     })
 
     /**
@@ -5333,9 +5333,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0071 begin');
       expect(DateUtil.isTheSameYear(new Date(1993, 0, 1, 0, 0, 0).getTime(), new Date(1993, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0071 end');
     })
 
     /**
@@ -5347,9 +5347,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0072 begin');
       expect(DateUtil.isTheSameYear(new Date(1993, 11, 31, 23, 59, 59).getTime(), new Date(1994, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0072 end');
     })
 
 
@@ -5362,9 +5362,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0073 begin');
       expect(DateUtil.isTheSameYear(new Date(1994, 0, 1, 0, 0, 0).getTime(), new Date(1994, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0073 end');
     })
 
     /**
@@ -5376,9 +5376,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0074 begin');
       expect(DateUtil.isTheSameYear(new Date(1994, 0, 1, 0, 0, 0).getTime(), new Date(1994, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0074 end');
     })
 
     /**
@@ -5390,9 +5390,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0075 begin');
       expect(DateUtil.isTheSameYear(new Date(1994, 11, 31, 23, 59, 59).getTime(), new Date(1995, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0075 end');
     })
 
 
@@ -5405,9 +5405,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0076 begin');
       expect(DateUtil.isTheSameYear(new Date(1995, 0, 1, 0, 0, 0).getTime(), new Date(1995, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0076 end');
     })
 
     /**
@@ -5419,9 +5419,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0077 begin');
       expect(DateUtil.isTheSameYear(new Date(1995, 0, 1, 0, 0, 0).getTime(), new Date(1995, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0077 end');
     })
 
     /**
@@ -5433,9 +5433,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0078 begin');
       expect(DateUtil.isTheSameYear(new Date(1995, 11, 31, 23, 59, 59).getTime(), new Date(1996, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0078 end');
     })
 
 
@@ -5448,9 +5448,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0079 begin');
       expect(DateUtil.isTheSameYear(new Date(1996, 0, 1, 0, 0, 0).getTime(), new Date(1996, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0079 end');
     })
 
     /**
@@ -5462,9 +5462,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0080 begin');
       expect(DateUtil.isTheSameYear(new Date(1996, 0, 1, 0, 0, 0).getTime(), new Date(1996, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0080 end');
     })
 
     /**
@@ -5476,9 +5476,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0081 begin');
       expect(DateUtil.isTheSameYear(new Date(1996, 11, 31, 23, 59, 59).getTime(), new Date(1997, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0081 end');
     })
 
 
@@ -5491,9 +5491,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0082 begin');
       expect(DateUtil.isTheSameYear(new Date(1997, 0, 1, 0, 0, 0).getTime(), new Date(1997, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0082 end');
     })
 
     /**
@@ -5505,9 +5505,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0083 begin');
       expect(DateUtil.isTheSameYear(new Date(1997, 0, 1, 0, 0, 0).getTime(), new Date(1997, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0083 end');
     })
 
     /**
@@ -5519,9 +5519,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0084 begin');
       expect(DateUtil.isTheSameYear(new Date(1997, 11, 31, 23, 59, 59).getTime(), new Date(1998, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0084 end');
     })
 
 
@@ -5534,9 +5534,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0085 begin');
       expect(DateUtil.isTheSameYear(new Date(1998, 0, 1, 0, 0, 0).getTime(), new Date(1998, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0085 end');
     })
 
     /**
@@ -5548,9 +5548,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0086 begin');
       expect(DateUtil.isTheSameYear(new Date(1998, 0, 1, 0, 0, 0).getTime(), new Date(1998, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0086 end');
     })
 
     /**
@@ -5562,9 +5562,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0087 begin');
       expect(DateUtil.isTheSameYear(new Date(1998, 11, 31, 23, 59, 59).getTime(), new Date(1999, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0087 end');
     })
 
 
@@ -5577,9 +5577,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0088 begin');
       expect(DateUtil.isTheSameYear(new Date(1999, 0, 1, 0, 0, 0).getTime(), new Date(1999, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0088 end');
     })
 
     /**
@@ -5591,9 +5591,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0089 begin');
       expect(DateUtil.isTheSameYear(new Date(1999, 0, 1, 0, 0, 0).getTime(), new Date(1999, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0089 end');
     })
 
     /**
@@ -5605,9 +5605,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0090 begin');
       expect(DateUtil.isTheSameYear(new Date(1999, 11, 31, 23, 59, 59).getTime(), new Date(2000, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0090 end');
     })
 
 
@@ -5620,9 +5620,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0091 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 0, 1, 0, 0, 0).getTime(), new Date(2000, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0091 end');
     })
 
     /**
@@ -5634,9 +5634,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0092 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 0, 1, 0, 0, 0).getTime(), new Date(2000, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0092 end');
     })
 
     /**
@@ -5648,9 +5648,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0093 begin');
       expect(DateUtil.isTheSameYear(new Date(2000, 11, 31, 23, 59, 59).getTime(), new Date(2001, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0093 end');
     })
 
 
@@ -5663,9 +5663,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0094 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 0, 1, 0, 0, 0).getTime(), new Date(2001, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0094 end');
     })
 
     /**
@@ -5677,9 +5677,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0095 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 0, 1, 0, 0, 0).getTime(), new Date(2001, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0095 end');
     })
 
     /**
@@ -5691,9 +5691,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0096 begin');
       expect(DateUtil.isTheSameYear(new Date(2001, 11, 31, 23, 59, 59).getTime(), new Date(2002, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0096 end');
     })
 
 
@@ -5706,9 +5706,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0097 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 0, 1, 0, 0, 0).getTime(), new Date(2002, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0097 end');
     })
 
     /**
@@ -5720,9 +5720,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0098 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 0, 1, 0, 0, 0).getTime(), new Date(2002, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0098 end');
     })
 
     /**
@@ -5734,9 +5734,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0099 begin');
       expect(DateUtil.isTheSameYear(new Date(2002, 11, 31, 23, 59, 59).getTime(), new Date(2003, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0099 end');
     })
 
 
@@ -5749,9 +5749,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0100 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 0, 1, 0, 0, 0).getTime(), new Date(2003, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0100 end');
     })
 
     /**
@@ -5763,9 +5763,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0101 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 0, 1, 0, 0, 0).getTime(), new Date(2003, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0101 end');
     })
 
     /**
@@ -5777,9 +5777,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0102 begin');
       expect(DateUtil.isTheSameYear(new Date(2003, 11, 31, 23, 59, 59).getTime(), new Date(2004, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0102 end');
     })
 
 
@@ -5792,9 +5792,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0103 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 0, 1, 0, 0, 0).getTime(), new Date(2004, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0103 end');
     })
 
     /**
@@ -5806,9 +5806,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0104 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 0, 1, 0, 0, 0).getTime(), new Date(2004, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0104 end');
     })
 
     /**
@@ -5820,9 +5820,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0105 begin');
       expect(DateUtil.isTheSameYear(new Date(2004, 11, 31, 23, 59, 59).getTime(), new Date(2005, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0105 end');
     })
 
 
@@ -5835,9 +5835,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0106 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 0, 1, 0, 0, 0).getTime(), new Date(2005, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0106 end');
     })
 
     /**
@@ -5849,9 +5849,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 0, 1, 0, 0, 0).getTime(), new Date(2005, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0107 end');
     })
 
     /**
@@ -5863,9 +5863,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 begin');
       expect(DateUtil.isTheSameYear(new Date(2005, 11, 31, 23, 59, 59).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0108 end');
     })
 
 
@@ -5878,9 +5878,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0109 end');
     })
 
     /**
@@ -5892,9 +5892,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 0, 1, 0, 0, 0).getTime(), new Date(2006, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0110 end');
     })
 
     /**
@@ -5906,9 +5906,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 begin');
       expect(DateUtil.isTheSameYear(new Date(2006, 11, 31, 23, 59, 59).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0111 end');
     })
 
 
@@ -5921,9 +5921,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0112 end');
     })
 
     /**
@@ -5935,9 +5935,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 0, 1, 0, 0, 0).getTime(), new Date(2007, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0113 end');
     })
 
     /**
@@ -5949,9 +5949,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 begin');
       expect(DateUtil.isTheSameYear(new Date(2007, 11, 31, 23, 59, 59).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0114 end');
     })
 
 
@@ -5964,9 +5964,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0115 end');
     })
 
     /**
@@ -5978,9 +5978,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 0, 1, 0, 0, 0).getTime(), new Date(2008, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0116 end');
     })
 
     /**
@@ -5992,9 +5992,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 begin');
       expect(DateUtil.isTheSameYear(new Date(2008, 11, 31, 23, 59, 59).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0117 end');
     })
 
 
@@ -6007,9 +6007,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0118 end');
     })
 
     /**
@@ -6021,9 +6021,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 0, 1, 0, 0, 0).getTime(), new Date(2009, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0119 end');
     })
 
     /**
@@ -6035,9 +6035,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 begin');
       expect(DateUtil.isTheSameYear(new Date(2009, 11, 31, 23, 59, 59).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0120 end');
     })
 
 
@@ -6050,9 +6050,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0121 end');
     })
 
     /**
@@ -6064,9 +6064,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 0, 1, 0, 0, 0).getTime(), new Date(2010, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0122 end');
     })
 
     /**
@@ -6078,9 +6078,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 begin');
       expect(DateUtil.isTheSameYear(new Date(2010, 11, 31, 23, 59, 59).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0123 end');
     })
 
 
@@ -6093,9 +6093,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0124 end');
     })
 
     /**
@@ -6107,9 +6107,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 0, 1, 0, 0, 0).getTime(), new Date(2011, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0125 end');
     })
 
     /**
@@ -6121,9 +6121,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 begin');
       expect(DateUtil.isTheSameYear(new Date(2011, 11, 31, 23, 59, 59).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0126 end');
     })
 
 
@@ -6136,9 +6136,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0127 end');
     })
 
     /**
@@ -6150,9 +6150,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 0, 1, 0, 0, 0).getTime(), new Date(2012, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0128 end');
     })
 
     /**
@@ -6164,9 +6164,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 begin');
       expect(DateUtil.isTheSameYear(new Date(2012, 11, 31, 23, 59, 59).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0129 end');
     })
 
 
@@ -6179,9 +6179,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0130 end');
     })
 
     /**
@@ -6193,9 +6193,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 0, 1, 0, 0, 0).getTime(), new Date(2013, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0131 end');
     })
 
     /**
@@ -6207,9 +6207,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 begin');
       expect(DateUtil.isTheSameYear(new Date(2013, 11, 31, 23, 59, 59).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0132 end');
     })
 
 
@@ -6222,9 +6222,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0133 end');
     })
 
     /**
@@ -6236,9 +6236,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 0, 1, 0, 0, 0).getTime(), new Date(2014, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0134 end');
     })
 
     /**
@@ -6250,9 +6250,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 begin');
       expect(DateUtil.isTheSameYear(new Date(2014, 11, 31, 23, 59, 59).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0135 end');
     })
 
 
@@ -6265,9 +6265,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0136 end');
     })
 
     /**
@@ -6279,9 +6279,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 0, 1, 0, 0, 0).getTime(), new Date(2015, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0137 end');
     })
 
     /**
@@ -6293,9 +6293,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 begin');
       expect(DateUtil.isTheSameYear(new Date(2015, 11, 31, 23, 59, 59).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0138 end');
     })
 
 
@@ -6308,9 +6308,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0139 end');
     })
 
     /**
@@ -6322,9 +6322,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 0, 1, 0, 0, 0).getTime(), new Date(2016, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0140 end');
     })
 
     /**
@@ -6336,9 +6336,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 begin');
       expect(DateUtil.isTheSameYear(new Date(2016, 11, 31, 23, 59, 59).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0141 end');
     })
 
 
@@ -6351,9 +6351,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0142 end');
     })
 
     /**
@@ -6365,9 +6365,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 0, 1, 0, 0, 0).getTime(), new Date(2017, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0143 end');
     })
 
     /**
@@ -6379,9 +6379,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 begin');
       expect(DateUtil.isTheSameYear(new Date(2017, 11, 31, 23, 59, 59).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0144 end');
     })
 
 
@@ -6394,9 +6394,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0145 end');
     })
 
     /**
@@ -6408,9 +6408,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 0, 1, 0, 0, 0).getTime(), new Date(2018, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0146 end');
     })
 
     /**
@@ -6422,9 +6422,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 begin');
       expect(DateUtil.isTheSameYear(new Date(2018, 11, 31, 23, 59, 59).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0147 end');
     })
 
 
@@ -6437,9 +6437,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 0, 1, 0, 0, 0).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0148 end');
     })
 
     /**
@@ -6451,9 +6451,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 0, 1, 0, 0, 0).getTime(), new Date(2019, 11, 31, 23, 59, 59).getTime())).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0149 end');
     })
 
     /**
@@ -6465,9 +6465,9 @@ export default function PhotosDateRangeExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateSameYearExt0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 begin');
       expect(DateUtil.isTheSameYear(new Date(2019, 11, 31, 23, 59, 59).getTime(), new Date(2020, 0, 1, 0, 0, 0).getTime())).assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateSameYearExt0150 end');
     })
 
   })

@@ -20,7 +20,7 @@ const TAG = 'hisysEventUtil';
 
 export function hiSysEventDataQueryTimedOut(interfaceName: string): number {
   let timeOutId = setTimeout((): void => {
-    hilog.error(0xF001, TAG, interfaceName + ' Querying 1s data timed out.');
+    hilog.error(0xF811, TAG, `${interfaceName} Querying 1s data timed out.`);
   },1000);
   return timeOutId;
 }

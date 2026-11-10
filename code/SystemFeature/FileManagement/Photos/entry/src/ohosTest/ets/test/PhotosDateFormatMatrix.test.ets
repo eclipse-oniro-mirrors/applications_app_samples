@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,9 +30,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0001 begin');
       expect(DateUtil.format(new Date(2024, 0, 1, 0, 0, 0), 'MM/dd HH:mm:ss')).assertEqual('01/01 00:00:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0002 begin');
       expect(DateUtil.format(new Date(2024, 3, 1, 5, 0, 0), 'MM/dd HH:mm:ss')).assertEqual('04/01 05:00:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0003 begin');
       expect(DateUtil.format(new Date(2024, 7, 1, 9, 0, 0), 'MM/dd HH:mm:ss')).assertEqual('08/01 09:00:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0003 end');
     })
 
 
@@ -73,9 +73,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0004 begin');
       expect(DateUtil.format(new Date(2024, 1, 2, 1, 7, 13), 'MM-dd HH:mm')).assertEqual('02-02 01:07');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0004 end');
     })
 
     /**
@@ -87,9 +87,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0005 begin');
       expect(DateUtil.format(new Date(2024, 4, 6, 6, 11, 17), 'MM-dd HH:mm')).assertEqual('05-06 06:11');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0005 end');
     })
 
     /**
@@ -101,9 +101,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0006 begin');
       expect(DateUtil.format(new Date(2024, 8, 10, 10, 19, 23), 'MM-dd HH:mm')).assertEqual('09-10 10:19');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0006 end');
     })
 
 
@@ -116,9 +116,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0007 begin');
       expect(DateUtil.format(new Date(2024, 2, 3, 2, 14, 26), 'HH:mm:ss')).assertEqual('02:14:26');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0007 end');
     })
 
     /**
@@ -130,9 +130,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0008 begin');
       expect(DateUtil.format(new Date(2024, 5, 11, 7, 22, 34), 'HH:mm:ss')).assertEqual('07:22:34');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0008 end');
     })
 
     /**
@@ -144,9 +144,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0009 begin');
       expect(DateUtil.format(new Date(2024, 9, 19, 11, 38, 46), 'HH:mm:ss')).assertEqual('11:38:46');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0009 end');
     })
 
 
@@ -159,9 +159,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0010 begin');
       expect(DateUtil.format(new Date(2024, 3, 4, 3, 21, 39), 'MM/dd')).assertEqual('04/04');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0010 end');
     })
 
     /**
@@ -173,9 +173,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0011 begin');
       expect(DateUtil.format(new Date(2024, 6, 16, 8, 33, 51), 'MM/dd')).assertEqual('07/16');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0011 end');
     })
 
     /**
@@ -187,9 +187,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0012 begin');
       expect(DateUtil.format(new Date(2024, 10, 28, 12, 57, 9), 'MM/dd')).assertEqual('11/28');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0012 end');
     })
 
 
@@ -202,9 +202,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0013 begin');
       expect(DateUtil.format(new Date(2024, 4, 5, 4, 28, 52), 'HH:mm')).assertEqual('04:28');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0013 end');
     })
 
     /**
@@ -216,9 +216,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0014 begin');
       expect(DateUtil.format(new Date(2024, 7, 21, 9, 44, 8), 'HH:mm')).assertEqual('09:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0014 end');
     })
 
     /**
@@ -230,9 +230,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0015 begin');
       expect(DateUtil.format(new Date(2024, 11, 9, 13, 16, 32), 'HH:mm')).assertEqual('13:16');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0015 end');
     })
 
 
@@ -245,9 +245,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0016 begin');
       expect(DateUtil.format(new Date(2024, 5, 6, 5, 35, 5), 'MM/dd HH:mm:ss')).assertEqual('06/06 05:35:05');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0016 end');
     })
 
     /**
@@ -259,9 +259,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0017 begin');
       expect(DateUtil.format(new Date(2024, 8, 26, 10, 55, 25), 'MM/dd HH:mm:ss')).assertEqual('09/26 10:55:25');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0017 end');
     })
 
     /**
@@ -273,9 +273,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0018 begin');
       expect(DateUtil.format(new Date(2024, 0, 18, 14, 35, 55), 'MM/dd HH:mm:ss')).assertEqual('01/18 14:35:55');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0018 end');
     })
 
 
@@ -288,9 +288,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0019 begin');
       expect(DateUtil.format(new Date(2024, 6, 7, 6, 42, 18), 'MM-dd HH:mm')).assertEqual('07-07 06:42');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0019 end');
     })
 
     /**
@@ -302,9 +302,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0020 begin');
       expect(DateUtil.format(new Date(2024, 9, 3, 11, 6, 42), 'MM-dd HH:mm')).assertEqual('10-03 11:06');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0020 end');
     })
 
     /**
@@ -316,9 +316,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0021 begin');
       expect(DateUtil.format(new Date(2024, 1, 27, 15, 54, 18), 'MM-dd HH:mm')).assertEqual('02-27 15:54');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0021 end');
     })
 
 
@@ -331,9 +331,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0022 begin');
       expect(DateUtil.format(new Date(2024, 7, 8, 7, 49, 31), 'HH:mm:ss')).assertEqual('07:49:31');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0022 end');
     })
 
     /**
@@ -345,9 +345,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0023 begin');
       expect(DateUtil.format(new Date(2024, 10, 8, 12, 17, 59), 'HH:mm:ss')).assertEqual('12:17:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0023 end');
     })
 
     /**
@@ -359,9 +359,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0024 begin');
       expect(DateUtil.format(new Date(2024, 2, 8, 16, 13, 41), 'HH:mm:ss')).assertEqual('16:13:41');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0024 end');
     })
 
 
@@ -374,9 +374,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0025 begin');
       expect(DateUtil.format(new Date(2024, 8, 9, 8, 56, 44), 'MM/dd')).assertEqual('09/09');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0025 end');
     })
 
     /**
@@ -388,9 +388,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0026 begin');
       expect(DateUtil.format(new Date(2024, 11, 13, 13, 28, 16), 'MM/dd')).assertEqual('12/13');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0026 end');
     })
 
     /**
@@ -402,9 +402,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0027 begin');
       expect(DateUtil.format(new Date(2024, 3, 17, 17, 32, 4), 'MM/dd')).assertEqual('04/17');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0027 end');
     })
 
 
@@ -417,9 +417,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0028 begin');
       expect(DateUtil.format(new Date(2024, 9, 10, 9, 3, 57), 'HH:mm')).assertEqual('09:03');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0028 end');
     })
 
     /**
@@ -431,9 +431,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0029 begin');
       expect(DateUtil.format(new Date(2024, 0, 18, 14, 39, 33), 'HH:mm')).assertEqual('14:39');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0029 end');
     })
 
     /**
@@ -445,9 +445,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0030 begin');
       expect(DateUtil.format(new Date(2024, 4, 26, 18, 51, 27), 'HH:mm')).assertEqual('18:51');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0030 end');
     })
 
 
@@ -460,9 +460,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0031 begin');
       expect(DateUtil.format(new Date(2024, 10, 11, 10, 10, 10), 'MM/dd HH:mm:ss')).assertEqual('11/11 10:10:10');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0031 end');
     })
 
     /**
@@ -474,9 +474,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0032 begin');
       expect(DateUtil.format(new Date(2024, 1, 23, 15, 50, 50), 'MM/dd HH:mm:ss')).assertEqual('02/23 15:50:50');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0032 end');
     })
 
     /**
@@ -488,9 +488,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0033 begin');
       expect(DateUtil.format(new Date(2024, 5, 7, 19, 10, 50), 'MM/dd HH:mm:ss')).assertEqual('06/07 19:10:50');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0033 end');
     })
 
 
@@ -503,9 +503,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0034 begin');
       expect(DateUtil.format(new Date(2024, 11, 12, 11, 17, 23), 'MM-dd HH:mm')).assertEqual('12-12 11:17');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0034 end');
     })
 
     /**
@@ -517,9 +517,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0035 begin');
       expect(DateUtil.format(new Date(2024, 2, 28, 16, 1, 7), 'MM-dd HH:mm')).assertEqual('03-28 16:01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0035 end');
     })
 
     /**
@@ -531,9 +531,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0036 begin');
       expect(DateUtil.format(new Date(2024, 6, 16, 20, 29, 13), 'MM-dd HH:mm')).assertEqual('07-16 20:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0036 end');
     })
 
 
@@ -546,9 +546,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0037 begin');
       expect(DateUtil.format(new Date(2024, 0, 13, 12, 24, 36), 'HH:mm:ss')).assertEqual('12:24:36');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0037 end');
     })
 
     /**
@@ -560,9 +560,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0038 begin');
       expect(DateUtil.format(new Date(2024, 3, 5, 17, 12, 24), 'HH:mm:ss')).assertEqual('17:12:24');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0038 end');
     })
 
     /**
@@ -574,9 +574,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0039 begin');
       expect(DateUtil.format(new Date(2024, 7, 25, 21, 48, 36), 'HH:mm:ss')).assertEqual('21:48:36');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0039 end');
     })
 
 
@@ -589,9 +589,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0040 begin');
       expect(DateUtil.format(new Date(2024, 1, 14, 13, 31, 49), 'MM/dd')).assertEqual('02/14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0040 end');
     })
 
     /**
@@ -603,9 +603,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0041 begin');
       expect(DateUtil.format(new Date(2024, 4, 10, 18, 23, 41), 'MM/dd')).assertEqual('05/10');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0041 end');
     })
 
     /**
@@ -617,9 +617,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0042 begin');
       expect(DateUtil.format(new Date(2024, 8, 6, 22, 7, 59), 'MM/dd')).assertEqual('09/06');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0042 end');
     })
 
 
@@ -632,9 +632,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0043 begin');
       expect(DateUtil.format(new Date(2024, 2, 15, 14, 38, 2), 'HH:mm')).assertEqual('14:38');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0043 end');
     })
 
     /**
@@ -646,9 +646,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0044 begin');
       expect(DateUtil.format(new Date(2024, 5, 15, 19, 34, 58), 'HH:mm')).assertEqual('19:34');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0044 end');
     })
 
     /**
@@ -660,9 +660,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0045 begin');
       expect(DateUtil.format(new Date(2024, 9, 15, 23, 26, 22), 'HH:mm')).assertEqual('23:26');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0045 end');
     })
 
 
@@ -675,9 +675,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0046 begin');
       expect(DateUtil.format(new Date(2024, 3, 16, 15, 45, 15), 'MM/dd HH:mm:ss')).assertEqual('04/16 15:45:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0046 end');
     })
 
     /**
@@ -689,9 +689,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0047 begin');
       expect(DateUtil.format(new Date(2024, 6, 20, 20, 45, 15), 'MM/dd HH:mm:ss')).assertEqual('07/20 20:45:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0047 end');
     })
 
     /**
@@ -703,9 +703,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0048 begin');
       expect(DateUtil.format(new Date(2024, 10, 24, 0, 45, 45), 'MM/dd HH:mm:ss')).assertEqual('11/24 00:45:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0048 end');
     })
 
 
@@ -718,9 +718,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0049 begin');
       expect(DateUtil.format(new Date(2024, 4, 17, 16, 52, 28), 'MM-dd HH:mm')).assertEqual('05-17 16:52');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0049 end');
     })
 
     /**
@@ -732,9 +732,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0050 begin');
       expect(DateUtil.format(new Date(2024, 7, 25, 21, 56, 32), 'MM-dd HH:mm')).assertEqual('08-25 21:56');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0050 end');
     })
 
     /**
@@ -746,9 +746,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0051 begin');
       expect(DateUtil.format(new Date(2024, 11, 5, 1, 4, 8), 'MM-dd HH:mm')).assertEqual('12-05 01:04');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0051 end');
     })
 
 
@@ -761,9 +761,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0052 begin');
       expect(DateUtil.format(new Date(2024, 5, 18, 17, 59, 41), 'HH:mm:ss')).assertEqual('17:59:41');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0052 end');
     })
 
     /**
@@ -775,9 +775,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0053 begin');
       expect(DateUtil.format(new Date(2024, 8, 2, 22, 7, 49), 'HH:mm:ss')).assertEqual('22:07:49');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0053 end');
     })
 
     /**
@@ -789,9 +789,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0054 begin');
       expect(DateUtil.format(new Date(2024, 0, 14, 2, 23, 31), 'HH:mm:ss')).assertEqual('02:23:31');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0054 end');
     })
 
 
@@ -804,9 +804,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0055 begin');
       expect(DateUtil.format(new Date(2024, 6, 19, 18, 6, 54), 'MM/dd')).assertEqual('07/19');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0055 end');
     })
 
     /**
@@ -818,9 +818,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0056 begin');
       expect(DateUtil.format(new Date(2024, 9, 7, 23, 18, 6), 'MM/dd')).assertEqual('10/07');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0056 end');
     })
 
     /**
@@ -832,9 +832,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0057 begin');
       expect(DateUtil.format(new Date(2024, 1, 23, 3, 42, 54), 'MM/dd')).assertEqual('02/23');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0057 end');
     })
 
 
@@ -847,9 +847,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0058 begin');
       expect(DateUtil.format(new Date(2024, 7, 20, 19, 13, 7), 'HH:mm')).assertEqual('19:13');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0058 end');
     })
 
     /**
@@ -861,9 +861,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0059 begin');
       expect(DateUtil.format(new Date(2024, 10, 12, 0, 29, 23), 'HH:mm')).assertEqual('00:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0059 end');
     })
 
     /**
@@ -875,9 +875,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0060 begin');
       expect(DateUtil.format(new Date(2024, 2, 4, 4, 1, 17), 'HH:mm')).assertEqual('04:01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0060 end');
     })
 
 
@@ -890,9 +890,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0061 begin');
       expect(DateUtil.format(new Date(2024, 8, 21, 20, 20, 20), 'MM/dd HH:mm:ss')).assertEqual('09/21 20:20:20');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0061 end');
     })
 
     /**
@@ -904,9 +904,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0062 begin');
       expect(DateUtil.format(new Date(2024, 11, 17, 1, 40, 40), 'MM/dd HH:mm:ss')).assertEqual('12/17 01:40:40');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0062 end');
     })
 
     /**
@@ -918,9 +918,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0063 begin');
       expect(DateUtil.format(new Date(2024, 3, 13, 5, 20, 40), 'MM/dd HH:mm:ss')).assertEqual('04/13 05:20:40');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0063 end');
     })
 
 
@@ -933,9 +933,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0064 begin');
       expect(DateUtil.format(new Date(2024, 9, 22, 21, 27, 33), 'MM-dd HH:mm')).assertEqual('10-22 21:27');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0064 end');
     })
 
     /**
@@ -947,9 +947,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0065 begin');
       expect(DateUtil.format(new Date(2024, 0, 22, 2, 51, 57), 'MM-dd HH:mm')).assertEqual('01-22 02:51');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0065 end');
     })
 
     /**
@@ -961,9 +961,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0066 begin');
       expect(DateUtil.format(new Date(2024, 4, 22, 6, 39, 3), 'MM-dd HH:mm')).assertEqual('05-22 06:39');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0066 end');
     })
 
 
@@ -976,9 +976,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0067 begin');
       expect(DateUtil.format(new Date(2024, 10, 23, 22, 34, 46), 'HH:mm:ss')).assertEqual('22:34:46');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0067 end');
     })
 
     /**
@@ -990,9 +990,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0068 begin');
       expect(DateUtil.format(new Date(2024, 1, 27, 3, 2, 14), 'HH:mm:ss')).assertEqual('03:02:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0068 end');
     })
 
     /**
@@ -1004,9 +1004,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0069 begin');
       expect(DateUtil.format(new Date(2024, 5, 3, 7, 58, 26), 'HH:mm:ss')).assertEqual('07:58:26');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0069 end');
     })
 
 
@@ -1019,9 +1019,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0070 begin');
       expect(DateUtil.format(new Date(2024, 11, 24, 23, 41, 59), 'MM/dd')).assertEqual('12/24');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0070 end');
     })
 
     /**
@@ -1033,9 +1033,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0071 begin');
       expect(DateUtil.format(new Date(2024, 2, 4, 4, 13, 31), 'MM/dd')).assertEqual('03/04');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0071 end');
     })
 
     /**
@@ -1047,9 +1047,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0072 begin');
       expect(DateUtil.format(new Date(2024, 6, 12, 8, 17, 49), 'MM/dd')).assertEqual('07/12');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0072 end');
     })
 
 
@@ -1062,9 +1062,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0073 begin');
       expect(DateUtil.format(new Date(2024, 0, 25, 0, 48, 12), 'HH:mm')).assertEqual('00:48');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0073 end');
     })
 
     /**
@@ -1076,9 +1076,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0074 begin');
       expect(DateUtil.format(new Date(2024, 3, 9, 5, 24, 48), 'HH:mm')).assertEqual('05:24');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0074 end');
     })
 
     /**
@@ -1090,9 +1090,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0075 begin');
       expect(DateUtil.format(new Date(2024, 7, 21, 9, 36, 12), 'HH:mm')).assertEqual('09:36');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0075 end');
     })
 
 
@@ -1105,9 +1105,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0076 begin');
       expect(DateUtil.format(new Date(2024, 1, 26, 1, 55, 25), 'MM/dd HH:mm:ss')).assertEqual('02/26 01:55:25');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0076 end');
     })
 
     /**
@@ -1119,9 +1119,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0077 begin');
       expect(DateUtil.format(new Date(2024, 4, 14, 6, 35, 5), 'MM/dd HH:mm:ss')).assertEqual('05/14 06:35:05');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0077 end');
     })
 
     /**
@@ -1133,9 +1133,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0078 begin');
       expect(DateUtil.format(new Date(2024, 8, 2, 10, 55, 35), 'MM/dd HH:mm:ss')).assertEqual('09/02 10:55:35');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0078 end');
     })
 
 
@@ -1148,9 +1148,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0079 begin');
       expect(DateUtil.format(new Date(2024, 2, 27, 2, 2, 38), 'MM-dd HH:mm')).assertEqual('03-27 02:02');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0079 end');
     })
 
     /**
@@ -1162,9 +1162,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0080 begin');
       expect(DateUtil.format(new Date(2024, 5, 19, 7, 46, 22), 'MM-dd HH:mm')).assertEqual('06-19 07:46');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0080 end');
     })
 
     /**
@@ -1176,9 +1176,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0081 begin');
       expect(DateUtil.format(new Date(2024, 9, 11, 11, 14, 58), 'MM-dd HH:mm')).assertEqual('10-11 11:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0081 end');
     })
 
 
@@ -1191,9 +1191,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0082 begin');
       expect(DateUtil.format(new Date(2024, 3, 28, 3, 9, 51), 'HH:mm:ss')).assertEqual('03:09:51');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0082 end');
     })
 
     /**
@@ -1205,9 +1205,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0083 begin');
       expect(DateUtil.format(new Date(2024, 6, 24, 8, 57, 39), 'HH:mm:ss')).assertEqual('08:57:39');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0083 end');
     })
 
     /**
@@ -1219,9 +1219,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0084 begin');
       expect(DateUtil.format(new Date(2024, 10, 20, 12, 33, 21), 'HH:mm:ss')).assertEqual('12:33:21');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0084 end');
     })
 
 
@@ -1234,9 +1234,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0085 begin');
       expect(DateUtil.format(new Date(2024, 4, 1, 4, 16, 4), 'MM/dd')).assertEqual('05/01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0085 end');
     })
 
     /**
@@ -1248,9 +1248,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0086 begin');
       expect(DateUtil.format(new Date(2024, 7, 1, 9, 8, 56), 'MM/dd')).assertEqual('08/01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0086 end');
     })
 
     /**
@@ -1262,9 +1262,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0087 begin');
       expect(DateUtil.format(new Date(2024, 11, 1, 13, 52, 44), 'MM/dd')).assertEqual('12/01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0087 end');
     })
 
 
@@ -1277,9 +1277,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0088 begin');
       expect(DateUtil.format(new Date(2024, 5, 2, 5, 23, 17), 'HH:mm')).assertEqual('05:23');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0088 end');
     })
 
     /**
@@ -1291,9 +1291,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0089 begin');
       expect(DateUtil.format(new Date(2024, 8, 6, 10, 19, 13), 'HH:mm')).assertEqual('10:19');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0089 end');
     })
 
     /**
@@ -1305,9 +1305,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0090 begin');
       expect(DateUtil.format(new Date(2024, 0, 10, 14, 11, 7), 'HH:mm')).assertEqual('14:11');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0090 end');
     })
 
 
@@ -1320,9 +1320,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0091 begin');
       expect(DateUtil.format(new Date(2024, 6, 3, 6, 30, 30), 'MM/dd HH:mm:ss')).assertEqual('07/03 06:30:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0091 end');
     })
 
     /**
@@ -1334,9 +1334,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0092 begin');
       expect(DateUtil.format(new Date(2024, 9, 11, 11, 30, 30), 'MM/dd HH:mm:ss')).assertEqual('10/11 11:30:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0092 end');
     })
 
     /**
@@ -1348,9 +1348,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0093 begin');
       expect(DateUtil.format(new Date(2024, 1, 19, 15, 30, 30), 'MM/dd HH:mm:ss')).assertEqual('02/19 15:30:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0093 end');
     })
 
 
@@ -1363,9 +1363,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0094 begin');
       expect(DateUtil.format(new Date(2024, 7, 4, 7, 37, 43), 'MM-dd HH:mm')).assertEqual('08-04 07:37');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0094 end');
     })
 
     /**
@@ -1377,9 +1377,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0095 begin');
       expect(DateUtil.format(new Date(2024, 10, 16, 12, 41, 47), 'MM-dd HH:mm')).assertEqual('11-16 12:41');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0095 end');
     })
 
     /**
@@ -1391,9 +1391,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0096 begin');
       expect(DateUtil.format(new Date(2024, 2, 28, 16, 49, 53), 'MM-dd HH:mm')).assertEqual('03-28 16:49');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0096 end');
     })
 
 
@@ -1406,9 +1406,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0097 begin');
       expect(DateUtil.format(new Date(2024, 8, 5, 8, 44, 56), 'HH:mm:ss')).assertEqual('08:44:56');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0097 end');
     })
 
     /**
@@ -1420,9 +1420,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0098 begin');
       expect(DateUtil.format(new Date(2024, 11, 21, 13, 52, 4), 'HH:mm:ss')).assertEqual('13:52:04');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0098 end');
     })
 
     /**
@@ -1434,9 +1434,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0099 begin');
       expect(DateUtil.format(new Date(2024, 3, 9, 17, 8, 16), 'HH:mm:ss')).assertEqual('17:08:16');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0099 end');
     })
 
 
@@ -1449,9 +1449,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0100 begin');
       expect(DateUtil.format(new Date(2024, 9, 6, 9, 51, 9), 'MM/dd')).assertEqual('10/06');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0100 end');
     })
 
     /**
@@ -1463,9 +1463,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0101 begin');
       expect(DateUtil.format(new Date(2024, 0, 26, 14, 3, 21), 'MM/dd')).assertEqual('01/26');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0101 end');
     })
 
     /**
@@ -1477,9 +1477,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0102 begin');
       expect(DateUtil.format(new Date(2024, 4, 18, 18, 27, 39), 'MM/dd')).assertEqual('05/18');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0102 end');
     })
 
 
@@ -1492,9 +1492,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0103 begin');
       expect(DateUtil.format(new Date(2024, 10, 7, 10, 58, 22), 'HH:mm')).assertEqual('10:58');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0103 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0104 begin');
       expect(DateUtil.format(new Date(2024, 1, 3, 15, 14, 38), 'HH:mm')).assertEqual('15:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0104 end');
     })
 
     /**
@@ -1520,9 +1520,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0105 begin');
       expect(DateUtil.format(new Date(2024, 5, 27, 19, 46, 2), 'HH:mm')).assertEqual('19:46');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0105 end');
     })
 
 
@@ -1535,9 +1535,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0106 begin');
       expect(DateUtil.format(new Date(2024, 11, 8, 11, 5, 35), 'MM/dd HH:mm:ss')).assertEqual('12/08 11:05:35');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0106 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0107 begin');
       expect(DateUtil.format(new Date(2024, 2, 8, 16, 25, 55), 'MM/dd HH:mm:ss')).assertEqual('03/08 16:25:55');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0107 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0108 begin');
       expect(DateUtil.format(new Date(2024, 6, 8, 20, 5, 25), 'MM/dd HH:mm:ss')).assertEqual('07/08 20:05:25');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0108 end');
     })
 
 
@@ -1578,9 +1578,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0109 begin');
       expect(DateUtil.format(new Date(2024, 0, 9, 12, 12, 48), 'MM-dd HH:mm')).assertEqual('01-09 12:12');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0109 end');
     })
 
     /**
@@ -1592,9 +1592,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0110 begin');
       expect(DateUtil.format(new Date(2024, 3, 13, 17, 36, 12), 'MM-dd HH:mm')).assertEqual('04-13 17:36');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0110 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0111 begin');
       expect(DateUtil.format(new Date(2024, 7, 17, 21, 24, 48), 'MM-dd HH:mm')).assertEqual('08-17 21:24');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0111 end');
     })
 
 
@@ -1621,9 +1621,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0112 begin');
       expect(DateUtil.format(new Date(2024, 1, 10, 13, 19, 1), 'HH:mm:ss')).assertEqual('13:19:01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0112 end');
     })
 
     /**
@@ -1635,9 +1635,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0113 begin');
       expect(DateUtil.format(new Date(2024, 4, 18, 18, 47, 29), 'HH:mm:ss')).assertEqual('18:47:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0113 end');
     })
 
     /**
@@ -1649,9 +1649,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0114 begin');
       expect(DateUtil.format(new Date(2024, 8, 26, 22, 43, 11), 'HH:mm:ss')).assertEqual('22:43:11');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0114 end');
     })
 
 
@@ -1664,9 +1664,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0115 begin');
       expect(DateUtil.format(new Date(2024, 2, 11, 14, 26, 14), 'MM/dd')).assertEqual('03/11');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0115 end');
     })
 
     /**
@@ -1678,9 +1678,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0116 begin');
       expect(DateUtil.format(new Date(2024, 5, 23, 19, 58, 46), 'MM/dd')).assertEqual('06/23');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0116 end');
     })
 
     /**
@@ -1692,9 +1692,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0117 begin');
       expect(DateUtil.format(new Date(2024, 9, 7, 23, 2, 34), 'MM/dd')).assertEqual('10/07');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0117 end');
     })
 
 
@@ -1707,9 +1707,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0118 begin');
       expect(DateUtil.format(new Date(2024, 3, 12, 15, 33, 27), 'HH:mm')).assertEqual('15:33');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0118 end');
     })
 
     /**
@@ -1721,9 +1721,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0119 begin');
       expect(DateUtil.format(new Date(2024, 6, 28, 20, 9, 3), 'HH:mm')).assertEqual('20:09');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0119 end');
     })
 
     /**
@@ -1735,9 +1735,9 @@ export default function PhotosDateFormatMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateFormatMatrix0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0120 begin');
       expect(DateUtil.format(new Date(2024, 10, 16, 0, 21, 57), 'HH:mm')).assertEqual('00:21');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMatrix0120 end');
     })
 
   })

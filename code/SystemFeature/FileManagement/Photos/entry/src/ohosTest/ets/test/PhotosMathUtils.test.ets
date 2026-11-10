@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { MathUtils } from '../../../main/ets/utils/MathUtils';
 
@@ -30,11 +30,11 @@ export default function PhotosMathUtilsTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathClamp0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClamp0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClamp0001 begin');
       expect(MathUtils.clamp(-1, 0, 10)).assertEqual(0);
       expect(MathUtils.clamp(5, 0, 10)).assertEqual(5);
       expect(MathUtils.clamp(11, 0, 10)).assertEqual(10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClamp0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClamp0001 end');
     })
 
     /**
@@ -46,12 +46,12 @@ export default function PhotosMathUtilsTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathClampBoundary0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampBoundary0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampBoundary0002 begin');
       expect(MathUtils.clamp(0, 0, 10)).assertEqual(0);
       expect(MathUtils.clamp(10, 0, 10)).assertEqual(10);
       expect(MathUtils.clamp(5, 5, 5)).assertEqual(5);
       expect(MathUtils.clamp(0, 0, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampBoundary0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampBoundary0002 end');
     })
 
     /**
@@ -63,12 +63,12 @@ export default function PhotosMathUtilsTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathClampNegative0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampNegative0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampNegative0003 begin');
       expect(MathUtils.clamp(-100, -10, 10)).assertEqual(-10);
       expect(MathUtils.clamp(100, -10, 10)).assertEqual(10);
       expect(MathUtils.clamp(3, 3, 7)).assertEqual(3);
       expect(MathUtils.clamp(-3, -10, 10)).assertEqual(-3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampNegative0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathClampNegative0003 end');
     })
   })
 }

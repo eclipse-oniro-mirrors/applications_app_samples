@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { MathUtils } from '../../../main/ets/utils/MathUtils';
 
@@ -30,9 +30,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0001 begin');
       expect(MathUtils.clamp(-50.5, -50, -49)).assertEqual(-50);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0002 begin');
       expect(MathUtils.clamp(-50, -50, -49)).assertEqual(-50);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0003 begin');
       expect(MathUtils.clamp(-49.5, -50, -49)).assertEqual(-49.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0003 end');
     })
 
     /**
@@ -72,9 +72,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0004 begin');
       expect(MathUtils.clamp(-49, -50, -49)).assertEqual(-49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0004 end');
     })
 
     /**
@@ -86,9 +86,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0005 begin');
       expect(MathUtils.clamp(-48.5, -50, -49)).assertEqual(-49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0005 end');
     })
 
 
@@ -101,9 +101,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0006 begin');
       expect(MathUtils.clamp(-50, -49.5, -47.5)).assertEqual(-49.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0006 end');
     })
 
     /**
@@ -115,9 +115,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0007 begin');
       expect(MathUtils.clamp(-49.5, -49.5, -47.5)).assertEqual(-49.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0007 end');
     })
 
     /**
@@ -129,9 +129,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0008 begin');
       expect(MathUtils.clamp(-48.5, -49.5, -47.5)).assertEqual(-48.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0008 end');
     })
 
     /**
@@ -143,9 +143,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0009 begin');
       expect(MathUtils.clamp(-47.5, -49.5, -47.5)).assertEqual(-47.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0009 end');
     })
 
     /**
@@ -157,9 +157,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0010 begin');
       expect(MathUtils.clamp(-47, -49.5, -47.5)).assertEqual(-47.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0010 end');
     })
 
 
@@ -172,9 +172,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0011 begin');
       expect(MathUtils.clamp(-49.5, -49, -46)).assertEqual(-49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0011 end');
     })
 
     /**
@@ -186,9 +186,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0012 begin');
       expect(MathUtils.clamp(-49, -49, -46)).assertEqual(-49);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0012 end');
     })
 
     /**
@@ -200,9 +200,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0013 begin');
       expect(MathUtils.clamp(-47.5, -49, -46)).assertEqual(-47.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0013 end');
     })
 
     /**
@@ -214,9 +214,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0014 begin');
       expect(MathUtils.clamp(-46, -49, -46)).assertEqual(-46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0014 end');
     })
 
     /**
@@ -228,9 +228,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0015 begin');
       expect(MathUtils.clamp(-45.5, -49, -46)).assertEqual(-46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0015 end');
     })
 
 
@@ -243,9 +243,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0016 begin');
       expect(MathUtils.clamp(-49, -48.5, -44.5)).assertEqual(-48.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0016 end');
     })
 
     /**
@@ -257,9 +257,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0017 begin');
       expect(MathUtils.clamp(-48.5, -48.5, -44.5)).assertEqual(-48.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0017 end');
     })
 
     /**
@@ -271,9 +271,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0018 begin');
       expect(MathUtils.clamp(-46.5, -48.5, -44.5)).assertEqual(-46.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0018 end');
     })
 
     /**
@@ -285,9 +285,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0019 begin');
       expect(MathUtils.clamp(-44.5, -48.5, -44.5)).assertEqual(-44.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0019 end');
     })
 
     /**
@@ -299,9 +299,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0020 begin');
       expect(MathUtils.clamp(-44, -48.5, -44.5)).assertEqual(-44.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0020 end');
     })
 
 
@@ -314,9 +314,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0021 begin');
       expect(MathUtils.clamp(-48.5, -48, -43)).assertEqual(-48);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0021 end');
     })
 
     /**
@@ -328,9 +328,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0022 begin');
       expect(MathUtils.clamp(-48, -48, -43)).assertEqual(-48);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0022 end');
     })
 
     /**
@@ -342,9 +342,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0023 begin');
       expect(MathUtils.clamp(-45.5, -48, -43)).assertEqual(-45.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0023 end');
     })
 
     /**
@@ -356,9 +356,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0024 begin');
       expect(MathUtils.clamp(-43, -48, -43)).assertEqual(-43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0024 end');
     })
 
     /**
@@ -370,9 +370,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0025 begin');
       expect(MathUtils.clamp(-42.5, -48, -43)).assertEqual(-43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0025 end');
     })
 
 
@@ -385,9 +385,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0026 begin');
       expect(MathUtils.clamp(-48, -47.5, -41.5)).assertEqual(-47.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0026 end');
     })
 
     /**
@@ -399,9 +399,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0027 begin');
       expect(MathUtils.clamp(-47.5, -47.5, -41.5)).assertEqual(-47.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0027 end');
     })
 
     /**
@@ -413,9 +413,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0028 begin');
       expect(MathUtils.clamp(-44.5, -47.5, -41.5)).assertEqual(-44.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0028 end');
     })
 
     /**
@@ -427,9 +427,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0029 begin');
       expect(MathUtils.clamp(-41.5, -47.5, -41.5)).assertEqual(-41.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0029 end');
     })
 
     /**
@@ -441,9 +441,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0030 begin');
       expect(MathUtils.clamp(-41, -47.5, -41.5)).assertEqual(-41.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0030 end');
     })
 
 
@@ -456,9 +456,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0031 begin');
       expect(MathUtils.clamp(-47.5, -47, -40)).assertEqual(-47);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0031 end');
     })
 
     /**
@@ -470,9 +470,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0032 begin');
       expect(MathUtils.clamp(-47, -47, -40)).assertEqual(-47);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0032 end');
     })
 
     /**
@@ -484,9 +484,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0033 begin');
       expect(MathUtils.clamp(-43.5, -47, -40)).assertEqual(-43.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0033 end');
     })
 
     /**
@@ -498,9 +498,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0034 begin');
       expect(MathUtils.clamp(-40, -47, -40)).assertEqual(-40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0034 end');
     })
 
     /**
@@ -512,9 +512,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0035 begin');
       expect(MathUtils.clamp(-39.5, -47, -40)).assertEqual(-40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0035 end');
     })
 
 
@@ -527,9 +527,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0036 begin');
       expect(MathUtils.clamp(-47, -46.5, -38.5)).assertEqual(-46.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0036 end');
     })
 
     /**
@@ -541,9 +541,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0037 begin');
       expect(MathUtils.clamp(-46.5, -46.5, -38.5)).assertEqual(-46.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0037 end');
     })
 
     /**
@@ -555,9 +555,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0038 begin');
       expect(MathUtils.clamp(-42.5, -46.5, -38.5)).assertEqual(-42.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0038 end');
     })
 
     /**
@@ -569,9 +569,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0039 begin');
       expect(MathUtils.clamp(-38.5, -46.5, -38.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0039 end');
     })
 
     /**
@@ -583,9 +583,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0040 begin');
       expect(MathUtils.clamp(-38, -46.5, -38.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0040 end');
     })
 
 
@@ -598,9 +598,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0041 begin');
       expect(MathUtils.clamp(-46.5, -46, -37)).assertEqual(-46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0041 end');
     })
 
     /**
@@ -612,9 +612,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0042 begin');
       expect(MathUtils.clamp(-46, -46, -37)).assertEqual(-46);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0042 end');
     })
 
     /**
@@ -626,9 +626,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0043 begin');
       expect(MathUtils.clamp(-41.5, -46, -37)).assertEqual(-41.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0043 end');
     })
 
     /**
@@ -640,9 +640,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0044 begin');
       expect(MathUtils.clamp(-37, -46, -37)).assertEqual(-37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0044 end');
     })
 
     /**
@@ -654,9 +654,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0045 begin');
       expect(MathUtils.clamp(-36.5, -46, -37)).assertEqual(-37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0045 end');
     })
 
 
@@ -669,9 +669,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0046 begin');
       expect(MathUtils.clamp(-46, -45.5, -35.5)).assertEqual(-45.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0046 end');
     })
 
     /**
@@ -683,9 +683,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0047 begin');
       expect(MathUtils.clamp(-45.5, -45.5, -35.5)).assertEqual(-45.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0047 end');
     })
 
     /**
@@ -697,9 +697,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0048 begin');
       expect(MathUtils.clamp(-40.5, -45.5, -35.5)).assertEqual(-40.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0048 end');
     })
 
     /**
@@ -711,9 +711,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0049 begin');
       expect(MathUtils.clamp(-35.5, -45.5, -35.5)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0049 end');
     })
 
     /**
@@ -725,9 +725,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0050 begin');
       expect(MathUtils.clamp(-35, -45.5, -35.5)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0050 end');
     })
 
 
@@ -740,9 +740,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0051 begin');
       expect(MathUtils.clamp(-45.5, -45, -34)).assertEqual(-45);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0051 end');
     })
 
     /**
@@ -754,9 +754,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0052 begin');
       expect(MathUtils.clamp(-45, -45, -34)).assertEqual(-45);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0052 end');
     })
 
     /**
@@ -768,9 +768,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0053 begin');
       expect(MathUtils.clamp(-39.5, -45, -34)).assertEqual(-39.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0053 end');
     })
 
     /**
@@ -782,9 +782,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0054 begin');
       expect(MathUtils.clamp(-34, -45, -34)).assertEqual(-34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0054 end');
     })
 
     /**
@@ -796,9 +796,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0055 begin');
       expect(MathUtils.clamp(-33.5, -45, -34)).assertEqual(-34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0055 end');
     })
 
 
@@ -811,9 +811,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0056 begin');
       expect(MathUtils.clamp(-45, -44.5, -32.5)).assertEqual(-44.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0056 end');
     })
 
     /**
@@ -825,9 +825,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0057 begin');
       expect(MathUtils.clamp(-44.5, -44.5, -32.5)).assertEqual(-44.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0057 end');
     })
 
     /**
@@ -839,9 +839,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0058 begin');
       expect(MathUtils.clamp(-38.5, -44.5, -32.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0058 end');
     })
 
     /**
@@ -853,9 +853,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0059 begin');
       expect(MathUtils.clamp(-32.5, -44.5, -32.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0059 end');
     })
 
     /**
@@ -867,9 +867,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0060 begin');
       expect(MathUtils.clamp(-32, -44.5, -32.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0060 end');
     })
 
 
@@ -882,9 +882,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0061 begin');
       expect(MathUtils.clamp(-44.5, -44, -31)).assertEqual(-44);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0061 end');
     })
 
     /**
@@ -896,9 +896,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0062 begin');
       expect(MathUtils.clamp(-44, -44, -31)).assertEqual(-44);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0062 end');
     })
 
     /**
@@ -910,9 +910,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0063 begin');
       expect(MathUtils.clamp(-37.5, -44, -31)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0063 end');
     })
 
     /**
@@ -924,9 +924,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0064 begin');
       expect(MathUtils.clamp(-31, -44, -31)).assertEqual(-31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0064 end');
     })
 
     /**
@@ -938,9 +938,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0065 begin');
       expect(MathUtils.clamp(-30.5, -44, -31)).assertEqual(-31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0065 end');
     })
 
 
@@ -953,9 +953,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0066 begin');
       expect(MathUtils.clamp(-44, -43.5, -29.5)).assertEqual(-43.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0066 end');
     })
 
     /**
@@ -967,9 +967,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0067 begin');
       expect(MathUtils.clamp(-43.5, -43.5, -29.5)).assertEqual(-43.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0067 end');
     })
 
     /**
@@ -981,9 +981,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0068 begin');
       expect(MathUtils.clamp(-36.5, -43.5, -29.5)).assertEqual(-36.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0068 end');
     })
 
     /**
@@ -995,9 +995,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0069 begin');
       expect(MathUtils.clamp(-29.5, -43.5, -29.5)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0069 end');
     })
 
     /**
@@ -1009,9 +1009,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0070 begin');
       expect(MathUtils.clamp(-29, -43.5, -29.5)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0070 end');
     })
 
 
@@ -1024,9 +1024,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0071 begin');
       expect(MathUtils.clamp(-43.5, -43, -28)).assertEqual(-43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0071 end');
     })
 
     /**
@@ -1038,9 +1038,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0072 begin');
       expect(MathUtils.clamp(-43, -43, -28)).assertEqual(-43);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0072 end');
     })
 
     /**
@@ -1052,9 +1052,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0073 begin');
       expect(MathUtils.clamp(-35.5, -43, -28)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0073 end');
     })
 
     /**
@@ -1066,9 +1066,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0074 begin');
       expect(MathUtils.clamp(-28, -43, -28)).assertEqual(-28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0074 end');
     })
 
     /**
@@ -1080,9 +1080,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0075 begin');
       expect(MathUtils.clamp(-27.5, -43, -28)).assertEqual(-28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0075 end');
     })
 
 
@@ -1095,9 +1095,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0076 begin');
       expect(MathUtils.clamp(-43, -42.5, -26.5)).assertEqual(-42.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0076 end');
     })
 
     /**
@@ -1109,9 +1109,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0077 begin');
       expect(MathUtils.clamp(-42.5, -42.5, -26.5)).assertEqual(-42.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0077 end');
     })
 
     /**
@@ -1123,9 +1123,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0078 begin');
       expect(MathUtils.clamp(-34.5, -42.5, -26.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0078 end');
     })
 
     /**
@@ -1137,9 +1137,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0079 begin');
       expect(MathUtils.clamp(-26.5, -42.5, -26.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0079 end');
     })
 
     /**
@@ -1151,9 +1151,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0080 begin');
       expect(MathUtils.clamp(-26, -42.5, -26.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0080 end');
     })
 
 
@@ -1166,9 +1166,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0081 begin');
       expect(MathUtils.clamp(-42.5, -42, -25)).assertEqual(-42);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0081 end');
     })
 
     /**
@@ -1180,9 +1180,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0082 begin');
       expect(MathUtils.clamp(-42, -42, -25)).assertEqual(-42);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0082 end');
     })
 
     /**
@@ -1194,9 +1194,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0083 begin');
       expect(MathUtils.clamp(-33.5, -42, -25)).assertEqual(-33.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0083 end');
     })
 
     /**
@@ -1208,9 +1208,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0084 begin');
       expect(MathUtils.clamp(-25, -42, -25)).assertEqual(-25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0084 end');
     })
 
     /**
@@ -1222,9 +1222,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0085 begin');
       expect(MathUtils.clamp(-24.5, -42, -25)).assertEqual(-25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0085 end');
     })
 
 
@@ -1237,9 +1237,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0086 begin');
       expect(MathUtils.clamp(-42, -41.5, -23.5)).assertEqual(-41.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0086 end');
     })
 
     /**
@@ -1251,9 +1251,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0087 begin');
       expect(MathUtils.clamp(-41.5, -41.5, -23.5)).assertEqual(-41.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0087 end');
     })
 
     /**
@@ -1265,9 +1265,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0088 begin');
       expect(MathUtils.clamp(-32.5, -41.5, -23.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0088 end');
     })
 
     /**
@@ -1279,9 +1279,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0089 begin');
       expect(MathUtils.clamp(-23.5, -41.5, -23.5)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0089 end');
     })
 
     /**
@@ -1293,9 +1293,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0090 begin');
       expect(MathUtils.clamp(-23, -41.5, -23.5)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0090 end');
     })
 
 
@@ -1308,9 +1308,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0091 begin');
       expect(MathUtils.clamp(-41.5, -41, -22)).assertEqual(-41);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0091 end');
     })
 
     /**
@@ -1322,9 +1322,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0092 begin');
       expect(MathUtils.clamp(-41, -41, -22)).assertEqual(-41);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0092 end');
     })
 
     /**
@@ -1336,9 +1336,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0093 begin');
       expect(MathUtils.clamp(-31.5, -41, -22)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0093 end');
     })
 
     /**
@@ -1350,9 +1350,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0094 begin');
       expect(MathUtils.clamp(-22, -41, -22)).assertEqual(-22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0094 end');
     })
 
     /**
@@ -1364,9 +1364,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0095 begin');
       expect(MathUtils.clamp(-21.5, -41, -22)).assertEqual(-22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0095 end');
     })
 
 
@@ -1379,9 +1379,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0096 begin');
       expect(MathUtils.clamp(-41, -40.5, -20.5)).assertEqual(-40.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0096 end');
     })
 
     /**
@@ -1393,9 +1393,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0097 begin');
       expect(MathUtils.clamp(-40.5, -40.5, -20.5)).assertEqual(-40.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0097 end');
     })
 
     /**
@@ -1407,9 +1407,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0098 begin');
       expect(MathUtils.clamp(-30.5, -40.5, -20.5)).assertEqual(-30.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0098 end');
     })
 
     /**
@@ -1421,9 +1421,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0099 begin');
       expect(MathUtils.clamp(-20.5, -40.5, -20.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0099 end');
     })
 
     /**
@@ -1435,9 +1435,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0100 begin');
       expect(MathUtils.clamp(-20, -40.5, -20.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0100 end');
     })
 
 
@@ -1450,9 +1450,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0101 begin');
       expect(MathUtils.clamp(-40.5, -40, -39)).assertEqual(-40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0101 end');
     })
 
     /**
@@ -1464,9 +1464,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0102 begin');
       expect(MathUtils.clamp(-40, -40, -39)).assertEqual(-40);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0102 end');
     })
 
     /**
@@ -1478,9 +1478,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0103 begin');
       expect(MathUtils.clamp(-39.5, -40, -39)).assertEqual(-39.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0103 end');
     })
 
     /**
@@ -1492,9 +1492,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0104 begin');
       expect(MathUtils.clamp(-39, -40, -39)).assertEqual(-39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0104 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0105 begin');
       expect(MathUtils.clamp(-38.5, -40, -39)).assertEqual(-39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0105 end');
     })
 
 
@@ -1521,9 +1521,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0106 begin');
       expect(MathUtils.clamp(-40, -39.5, -37.5)).assertEqual(-39.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0106 end');
     })
 
     /**
@@ -1535,9 +1535,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0107 begin');
       expect(MathUtils.clamp(-39.5, -39.5, -37.5)).assertEqual(-39.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0107 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0108 begin');
       expect(MathUtils.clamp(-38.5, -39.5, -37.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0108 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0109 begin');
       expect(MathUtils.clamp(-37.5, -39.5, -37.5)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0109 end');
     })
 
     /**
@@ -1577,9 +1577,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0110 begin');
       expect(MathUtils.clamp(-37, -39.5, -37.5)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0110 end');
     })
 
 
@@ -1592,9 +1592,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0111 begin');
       expect(MathUtils.clamp(-39.5, -39, -36)).assertEqual(-39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0111 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0112 begin');
       expect(MathUtils.clamp(-39, -39, -36)).assertEqual(-39);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0112 end');
     })
 
     /**
@@ -1620,9 +1620,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0113 begin');
       expect(MathUtils.clamp(-37.5, -39, -36)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0113 end');
     })
 
     /**
@@ -1634,9 +1634,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0114 begin');
       expect(MathUtils.clamp(-36, -39, -36)).assertEqual(-36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0114 end');
     })
 
     /**
@@ -1648,9 +1648,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0115 begin');
       expect(MathUtils.clamp(-35.5, -39, -36)).assertEqual(-36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0115 end');
     })
 
 
@@ -1663,9 +1663,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0116 begin');
       expect(MathUtils.clamp(-39, -38.5, -34.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0116 end');
     })
 
     /**
@@ -1677,9 +1677,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0117 begin');
       expect(MathUtils.clamp(-38.5, -38.5, -34.5)).assertEqual(-38.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0117 end');
     })
 
     /**
@@ -1691,9 +1691,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0118 begin');
       expect(MathUtils.clamp(-36.5, -38.5, -34.5)).assertEqual(-36.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0118 end');
     })
 
     /**
@@ -1705,9 +1705,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0119 begin');
       expect(MathUtils.clamp(-34.5, -38.5, -34.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0119 end');
     })
 
     /**
@@ -1719,9 +1719,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0120 begin');
       expect(MathUtils.clamp(-34, -38.5, -34.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0120 end');
     })
 
 
@@ -1734,9 +1734,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0121 begin');
       expect(MathUtils.clamp(-38.5, -38, -33)).assertEqual(-38);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0121 end');
     })
 
     /**
@@ -1748,9 +1748,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0122 begin');
       expect(MathUtils.clamp(-38, -38, -33)).assertEqual(-38);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0122 end');
     })
 
     /**
@@ -1762,9 +1762,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0123 begin');
       expect(MathUtils.clamp(-35.5, -38, -33)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0123 end');
     })
 
     /**
@@ -1776,9 +1776,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0124 begin');
       expect(MathUtils.clamp(-33, -38, -33)).assertEqual(-33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0124 end');
     })
 
     /**
@@ -1790,9 +1790,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0125 begin');
       expect(MathUtils.clamp(-32.5, -38, -33)).assertEqual(-33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0125 end');
     })
 
 
@@ -1805,9 +1805,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0126 begin');
       expect(MathUtils.clamp(-38, -37.5, -31.5)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0126 end');
     })
 
     /**
@@ -1819,9 +1819,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0127 begin');
       expect(MathUtils.clamp(-37.5, -37.5, -31.5)).assertEqual(-37.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0127 end');
     })
 
     /**
@@ -1833,9 +1833,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0128 begin');
       expect(MathUtils.clamp(-34.5, -37.5, -31.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0128 end');
     })
 
     /**
@@ -1847,9 +1847,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0129 begin');
       expect(MathUtils.clamp(-31.5, -37.5, -31.5)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0129 end');
     })
 
     /**
@@ -1861,9 +1861,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0130 begin');
       expect(MathUtils.clamp(-31, -37.5, -31.5)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0130 end');
     })
 
 
@@ -1876,9 +1876,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0131 begin');
       expect(MathUtils.clamp(-37.5, -37, -30)).assertEqual(-37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0131 end');
     })
 
     /**
@@ -1890,9 +1890,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0132 begin');
       expect(MathUtils.clamp(-37, -37, -30)).assertEqual(-37);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0132 end');
     })
 
     /**
@@ -1904,9 +1904,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0133 begin');
       expect(MathUtils.clamp(-33.5, -37, -30)).assertEqual(-33.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0133 end');
     })
 
     /**
@@ -1918,9 +1918,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0134 begin');
       expect(MathUtils.clamp(-30, -37, -30)).assertEqual(-30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0134 end');
     })
 
     /**
@@ -1932,9 +1932,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0135 begin');
       expect(MathUtils.clamp(-29.5, -37, -30)).assertEqual(-30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0135 end');
     })
 
 
@@ -1947,9 +1947,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0136 begin');
       expect(MathUtils.clamp(-37, -36.5, -28.5)).assertEqual(-36.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0136 end');
     })
 
     /**
@@ -1961,9 +1961,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0137 begin');
       expect(MathUtils.clamp(-36.5, -36.5, -28.5)).assertEqual(-36.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0137 end');
     })
 
     /**
@@ -1975,9 +1975,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0138 begin');
       expect(MathUtils.clamp(-32.5, -36.5, -28.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0138 end');
     })
 
     /**
@@ -1989,9 +1989,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0139 begin');
       expect(MathUtils.clamp(-28.5, -36.5, -28.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0139 end');
     })
 
     /**
@@ -2003,9 +2003,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0140 begin');
       expect(MathUtils.clamp(-28, -36.5, -28.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0140 end');
     })
 
 
@@ -2018,9 +2018,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0141 begin');
       expect(MathUtils.clamp(-36.5, -36, -27)).assertEqual(-36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0141 end');
     })
 
     /**
@@ -2032,9 +2032,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0142 begin');
       expect(MathUtils.clamp(-36, -36, -27)).assertEqual(-36);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0142 end');
     })
 
     /**
@@ -2046,9 +2046,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0143 begin');
       expect(MathUtils.clamp(-31.5, -36, -27)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0143 end');
     })
 
     /**
@@ -2060,9 +2060,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0144 begin');
       expect(MathUtils.clamp(-27, -36, -27)).assertEqual(-27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0144 end');
     })
 
     /**
@@ -2074,9 +2074,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0145 begin');
       expect(MathUtils.clamp(-26.5, -36, -27)).assertEqual(-27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0145 end');
     })
 
 
@@ -2089,9 +2089,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0146 begin');
       expect(MathUtils.clamp(-36, -35.5, -25.5)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0146 end');
     })
 
     /**
@@ -2103,9 +2103,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0147 begin');
       expect(MathUtils.clamp(-35.5, -35.5, -25.5)).assertEqual(-35.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0147 end');
     })
 
     /**
@@ -2117,9 +2117,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0148 begin');
       expect(MathUtils.clamp(-30.5, -35.5, -25.5)).assertEqual(-30.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0148 end');
     })
 
     /**
@@ -2131,9 +2131,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0149 begin');
       expect(MathUtils.clamp(-25.5, -35.5, -25.5)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0149 end');
     })
 
     /**
@@ -2145,9 +2145,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0150 begin');
       expect(MathUtils.clamp(-25, -35.5, -25.5)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0150 end');
     })
 
 
@@ -2160,9 +2160,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0151 begin');
       expect(MathUtils.clamp(-35.5, -35, -24)).assertEqual(-35);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0151 end');
     })
 
     /**
@@ -2174,9 +2174,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0152 begin');
       expect(MathUtils.clamp(-35, -35, -24)).assertEqual(-35);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0152 end');
     })
 
     /**
@@ -2188,9 +2188,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0153 begin');
       expect(MathUtils.clamp(-29.5, -35, -24)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0153 end');
     })
 
     /**
@@ -2202,9 +2202,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0154 begin');
       expect(MathUtils.clamp(-24, -35, -24)).assertEqual(-24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0154 end');
     })
 
     /**
@@ -2216,9 +2216,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0155 begin');
       expect(MathUtils.clamp(-23.5, -35, -24)).assertEqual(-24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0155 end');
     })
 
 
@@ -2231,9 +2231,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0156 begin');
       expect(MathUtils.clamp(-35, -34.5, -22.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0156 end');
     })
 
     /**
@@ -2245,9 +2245,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0157 begin');
       expect(MathUtils.clamp(-34.5, -34.5, -22.5)).assertEqual(-34.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0157 end');
     })
 
     /**
@@ -2259,9 +2259,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0158 begin');
       expect(MathUtils.clamp(-28.5, -34.5, -22.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0158 end');
     })
 
     /**
@@ -2273,9 +2273,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0159 begin');
       expect(MathUtils.clamp(-22.5, -34.5, -22.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0159 end');
     })
 
     /**
@@ -2287,9 +2287,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0160 begin');
       expect(MathUtils.clamp(-22, -34.5, -22.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0160 end');
     })
 
 
@@ -2302,9 +2302,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0161 begin');
       expect(MathUtils.clamp(-34.5, -34, -21)).assertEqual(-34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0161 end');
     })
 
     /**
@@ -2316,9 +2316,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0162 begin');
       expect(MathUtils.clamp(-34, -34, -21)).assertEqual(-34);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0162 end');
     })
 
     /**
@@ -2330,9 +2330,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0163 begin');
       expect(MathUtils.clamp(-27.5, -34, -21)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0163 end');
     })
 
     /**
@@ -2344,9 +2344,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0164 begin');
       expect(MathUtils.clamp(-21, -34, -21)).assertEqual(-21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0164 end');
     })
 
     /**
@@ -2358,9 +2358,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0165 begin');
       expect(MathUtils.clamp(-20.5, -34, -21)).assertEqual(-21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0165 end');
     })
 
 
@@ -2373,9 +2373,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0166 begin');
       expect(MathUtils.clamp(-34, -33.5, -19.5)).assertEqual(-33.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0166 end');
     })
 
     /**
@@ -2387,9 +2387,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0167 begin');
       expect(MathUtils.clamp(-33.5, -33.5, -19.5)).assertEqual(-33.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0167 end');
     })
 
     /**
@@ -2401,9 +2401,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0168 begin');
       expect(MathUtils.clamp(-26.5, -33.5, -19.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0168 end');
     })
 
     /**
@@ -2415,9 +2415,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0169 begin');
       expect(MathUtils.clamp(-19.5, -33.5, -19.5)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0169 end');
     })
 
     /**
@@ -2429,9 +2429,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0170 begin');
       expect(MathUtils.clamp(-19, -33.5, -19.5)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0170 end');
     })
 
 
@@ -2444,9 +2444,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0171 begin');
       expect(MathUtils.clamp(-33.5, -33, -18)).assertEqual(-33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0171 end');
     })
 
     /**
@@ -2458,9 +2458,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0172 begin');
       expect(MathUtils.clamp(-33, -33, -18)).assertEqual(-33);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0172 end');
     })
 
     /**
@@ -2472,9 +2472,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0173 begin');
       expect(MathUtils.clamp(-25.5, -33, -18)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0173 end');
     })
 
     /**
@@ -2486,9 +2486,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0174 begin');
       expect(MathUtils.clamp(-18, -33, -18)).assertEqual(-18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0174 end');
     })
 
     /**
@@ -2500,9 +2500,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0175 begin');
       expect(MathUtils.clamp(-17.5, -33, -18)).assertEqual(-18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0175 end');
     })
 
 
@@ -2515,9 +2515,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0176 begin');
       expect(MathUtils.clamp(-33, -32.5, -16.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0176 end');
     })
 
     /**
@@ -2529,9 +2529,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0177 begin');
       expect(MathUtils.clamp(-32.5, -32.5, -16.5)).assertEqual(-32.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0177 end');
     })
 
     /**
@@ -2543,9 +2543,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0178 begin');
       expect(MathUtils.clamp(-24.5, -32.5, -16.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0178 end');
     })
 
     /**
@@ -2557,9 +2557,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0179 begin');
       expect(MathUtils.clamp(-16.5, -32.5, -16.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0179 end');
     })
 
     /**
@@ -2571,9 +2571,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0180 begin');
       expect(MathUtils.clamp(-16, -32.5, -16.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0180 end');
     })
 
 
@@ -2586,9 +2586,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0181 begin');
       expect(MathUtils.clamp(-32.5, -32, -15)).assertEqual(-32);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0181 end');
     })
 
     /**
@@ -2600,9 +2600,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0182 begin');
       expect(MathUtils.clamp(-32, -32, -15)).assertEqual(-32);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0182 end');
     })
 
     /**
@@ -2614,9 +2614,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0183 begin');
       expect(MathUtils.clamp(-23.5, -32, -15)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0183 end');
     })
 
     /**
@@ -2628,9 +2628,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0184 begin');
       expect(MathUtils.clamp(-15, -32, -15)).assertEqual(-15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0184 end');
     })
 
     /**
@@ -2642,9 +2642,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0185 begin');
       expect(MathUtils.clamp(-14.5, -32, -15)).assertEqual(-15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0185 end');
     })
 
 
@@ -2657,9 +2657,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0186 begin');
       expect(MathUtils.clamp(-32, -31.5, -13.5)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0186 end');
     })
 
     /**
@@ -2671,9 +2671,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0187 begin');
       expect(MathUtils.clamp(-31.5, -31.5, -13.5)).assertEqual(-31.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0187 end');
     })
 
     /**
@@ -2685,9 +2685,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0188 begin');
       expect(MathUtils.clamp(-22.5, -31.5, -13.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0188 end');
     })
 
     /**
@@ -2699,9 +2699,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0189 begin');
       expect(MathUtils.clamp(-13.5, -31.5, -13.5)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0189 end');
     })
 
     /**
@@ -2713,9 +2713,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0190 begin');
       expect(MathUtils.clamp(-13, -31.5, -13.5)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0190 end');
     })
 
 
@@ -2728,9 +2728,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0191 begin');
       expect(MathUtils.clamp(-31.5, -31, -12)).assertEqual(-31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0191 end');
     })
 
     /**
@@ -2742,9 +2742,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0192 begin');
       expect(MathUtils.clamp(-31, -31, -12)).assertEqual(-31);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0192 end');
     })
 
     /**
@@ -2756,9 +2756,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0193 begin');
       expect(MathUtils.clamp(-21.5, -31, -12)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0193 end');
     })
 
     /**
@@ -2770,9 +2770,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0194 begin');
       expect(MathUtils.clamp(-12, -31, -12)).assertEqual(-12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0194 end');
     })
 
     /**
@@ -2784,9 +2784,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0195 begin');
       expect(MathUtils.clamp(-11.5, -31, -12)).assertEqual(-12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0195 end');
     })
 
 
@@ -2799,9 +2799,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0196 begin');
       expect(MathUtils.clamp(-31, -30.5, -10.5)).assertEqual(-30.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0196 end');
     })
 
     /**
@@ -2813,9 +2813,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0197 begin');
       expect(MathUtils.clamp(-30.5, -30.5, -10.5)).assertEqual(-30.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0197 end');
     })
 
     /**
@@ -2827,9 +2827,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0198 begin');
       expect(MathUtils.clamp(-20.5, -30.5, -10.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0198 end');
     })
 
     /**
@@ -2841,9 +2841,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0199 begin');
       expect(MathUtils.clamp(-10.5, -30.5, -10.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0199 end');
     })
 
     /**
@@ -2855,9 +2855,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0200 begin');
       expect(MathUtils.clamp(-10, -30.5, -10.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0200 end');
     })
 
 
@@ -2870,9 +2870,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0201 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0201 begin');
       expect(MathUtils.clamp(-30.5, -30, -29)).assertEqual(-30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0201 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0201 end');
     })
 
     /**
@@ -2884,9 +2884,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0202 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0202 begin');
       expect(MathUtils.clamp(-30, -30, -29)).assertEqual(-30);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0202 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0202 end');
     })
 
     /**
@@ -2898,9 +2898,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0203 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0203 begin');
       expect(MathUtils.clamp(-29.5, -30, -29)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0203 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0203 end');
     })
 
     /**
@@ -2912,9 +2912,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0204 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0204 begin');
       expect(MathUtils.clamp(-29, -30, -29)).assertEqual(-29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0204 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0204 end');
     })
 
     /**
@@ -2926,9 +2926,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0205 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0205 begin');
       expect(MathUtils.clamp(-28.5, -30, -29)).assertEqual(-29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0205 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0205 end');
     })
 
 
@@ -2941,9 +2941,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0206 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0206 begin');
       expect(MathUtils.clamp(-30, -29.5, -27.5)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0206 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0206 end');
     })
 
     /**
@@ -2955,9 +2955,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0207 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0207 begin');
       expect(MathUtils.clamp(-29.5, -29.5, -27.5)).assertEqual(-29.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0207 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0207 end');
     })
 
     /**
@@ -2969,9 +2969,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0208 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0208 begin');
       expect(MathUtils.clamp(-28.5, -29.5, -27.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0208 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0208 end');
     })
 
     /**
@@ -2983,9 +2983,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0209 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0209 begin');
       expect(MathUtils.clamp(-27.5, -29.5, -27.5)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0209 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0209 end');
     })
 
     /**
@@ -2997,9 +2997,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0210 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0210 begin');
       expect(MathUtils.clamp(-27, -29.5, -27.5)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0210 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0210 end');
     })
 
 
@@ -3012,9 +3012,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0211 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0211 begin');
       expect(MathUtils.clamp(-29.5, -29, -26)).assertEqual(-29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0211 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0211 end');
     })
 
     /**
@@ -3026,9 +3026,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0212 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0212 begin');
       expect(MathUtils.clamp(-29, -29, -26)).assertEqual(-29);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0212 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0212 end');
     })
 
     /**
@@ -3040,9 +3040,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0213 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0213 begin');
       expect(MathUtils.clamp(-27.5, -29, -26)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0213 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0213 end');
     })
 
     /**
@@ -3054,9 +3054,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0214 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0214 begin');
       expect(MathUtils.clamp(-26, -29, -26)).assertEqual(-26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0214 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0214 end');
     })
 
     /**
@@ -3068,9 +3068,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0215 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0215 begin');
       expect(MathUtils.clamp(-25.5, -29, -26)).assertEqual(-26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0215 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0215 end');
     })
 
 
@@ -3083,9 +3083,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0216 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0216 begin');
       expect(MathUtils.clamp(-29, -28.5, -24.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0216 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0216 end');
     })
 
     /**
@@ -3097,9 +3097,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0217 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0217 begin');
       expect(MathUtils.clamp(-28.5, -28.5, -24.5)).assertEqual(-28.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0217 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0217 end');
     })
 
     /**
@@ -3111,9 +3111,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0218 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0218 begin');
       expect(MathUtils.clamp(-26.5, -28.5, -24.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0218 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0218 end');
     })
 
     /**
@@ -3125,9 +3125,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0219 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0219 begin');
       expect(MathUtils.clamp(-24.5, -28.5, -24.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0219 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0219 end');
     })
 
     /**
@@ -3139,9 +3139,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0220 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0220 begin');
       expect(MathUtils.clamp(-24, -28.5, -24.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0220 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0220 end');
     })
 
 
@@ -3154,9 +3154,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0221', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0221 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0221 begin');
       expect(MathUtils.clamp(-28.5, -28, -23)).assertEqual(-28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0221 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0221 end');
     })
 
     /**
@@ -3168,9 +3168,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0222 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0222 begin');
       expect(MathUtils.clamp(-28, -28, -23)).assertEqual(-28);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0222 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0222 end');
     })
 
     /**
@@ -3182,9 +3182,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0223', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0223 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0223 begin');
       expect(MathUtils.clamp(-25.5, -28, -23)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0223 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0223 end');
     })
 
     /**
@@ -3196,9 +3196,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0224', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0224 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0224 begin');
       expect(MathUtils.clamp(-23, -28, -23)).assertEqual(-23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0224 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0224 end');
     })
 
     /**
@@ -3210,9 +3210,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0225 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0225 begin');
       expect(MathUtils.clamp(-22.5, -28, -23)).assertEqual(-23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0225 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0225 end');
     })
 
 
@@ -3225,9 +3225,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0226 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0226 begin');
       expect(MathUtils.clamp(-28, -27.5, -21.5)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0226 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0226 end');
     })
 
     /**
@@ -3239,9 +3239,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0227 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0227 begin');
       expect(MathUtils.clamp(-27.5, -27.5, -21.5)).assertEqual(-27.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0227 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0227 end');
     })
 
     /**
@@ -3253,9 +3253,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0228 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0228 begin');
       expect(MathUtils.clamp(-24.5, -27.5, -21.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0228 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0228 end');
     })
 
     /**
@@ -3267,9 +3267,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0229 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0229 begin');
       expect(MathUtils.clamp(-21.5, -27.5, -21.5)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0229 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0229 end');
     })
 
     /**
@@ -3281,9 +3281,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0230 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0230 begin');
       expect(MathUtils.clamp(-21, -27.5, -21.5)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0230 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0230 end');
     })
 
 
@@ -3296,9 +3296,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0231 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0231 begin');
       expect(MathUtils.clamp(-27.5, -27, -20)).assertEqual(-27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0231 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0231 end');
     })
 
     /**
@@ -3310,9 +3310,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0232 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0232 begin');
       expect(MathUtils.clamp(-27, -27, -20)).assertEqual(-27);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0232 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0232 end');
     })
 
     /**
@@ -3324,9 +3324,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0233 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0233 begin');
       expect(MathUtils.clamp(-23.5, -27, -20)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0233 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0233 end');
     })
 
     /**
@@ -3338,9 +3338,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0234 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0234 begin');
       expect(MathUtils.clamp(-20, -27, -20)).assertEqual(-20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0234 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0234 end');
     })
 
     /**
@@ -3352,9 +3352,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0235 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0235 begin');
       expect(MathUtils.clamp(-19.5, -27, -20)).assertEqual(-20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0235 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0235 end');
     })
 
 
@@ -3367,9 +3367,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0236 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0236 begin');
       expect(MathUtils.clamp(-27, -26.5, -18.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0236 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0236 end');
     })
 
     /**
@@ -3381,9 +3381,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0237 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0237 begin');
       expect(MathUtils.clamp(-26.5, -26.5, -18.5)).assertEqual(-26.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0237 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0237 end');
     })
 
     /**
@@ -3395,9 +3395,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0238 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0238 begin');
       expect(MathUtils.clamp(-22.5, -26.5, -18.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0238 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0238 end');
     })
 
     /**
@@ -3409,9 +3409,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0239 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0239 begin');
       expect(MathUtils.clamp(-18.5, -26.5, -18.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0239 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0239 end');
     })
 
     /**
@@ -3423,9 +3423,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0240 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0240 begin');
       expect(MathUtils.clamp(-18, -26.5, -18.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0240 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0240 end');
     })
 
 
@@ -3438,9 +3438,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0241 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0241 begin');
       expect(MathUtils.clamp(-26.5, -26, -17)).assertEqual(-26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0241 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0241 end');
     })
 
     /**
@@ -3452,9 +3452,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0242 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0242 begin');
       expect(MathUtils.clamp(-26, -26, -17)).assertEqual(-26);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0242 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0242 end');
     })
 
     /**
@@ -3466,9 +3466,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0243 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0243 begin');
       expect(MathUtils.clamp(-21.5, -26, -17)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0243 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0243 end');
     })
 
     /**
@@ -3480,9 +3480,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0244 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0244 begin');
       expect(MathUtils.clamp(-17, -26, -17)).assertEqual(-17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0244 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0244 end');
     })
 
     /**
@@ -3494,9 +3494,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0245 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0245 begin');
       expect(MathUtils.clamp(-16.5, -26, -17)).assertEqual(-17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0245 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0245 end');
     })
 
 
@@ -3509,9 +3509,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0246 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0246 begin');
       expect(MathUtils.clamp(-26, -25.5, -15.5)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0246 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0246 end');
     })
 
     /**
@@ -3523,9 +3523,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0247 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0247 begin');
       expect(MathUtils.clamp(-25.5, -25.5, -15.5)).assertEqual(-25.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0247 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0247 end');
     })
 
     /**
@@ -3537,9 +3537,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0248 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0248 begin');
       expect(MathUtils.clamp(-20.5, -25.5, -15.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0248 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0248 end');
     })
 
     /**
@@ -3551,9 +3551,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0249 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0249 begin');
       expect(MathUtils.clamp(-15.5, -25.5, -15.5)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0249 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0249 end');
     })
 
     /**
@@ -3565,9 +3565,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0250 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0250 begin');
       expect(MathUtils.clamp(-15, -25.5, -15.5)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0250 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0250 end');
     })
 
 
@@ -3580,9 +3580,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0251 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0251 begin');
       expect(MathUtils.clamp(-25.5, -25, -14)).assertEqual(-25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0251 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0251 end');
     })
 
     /**
@@ -3594,9 +3594,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0252 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0252 begin');
       expect(MathUtils.clamp(-25, -25, -14)).assertEqual(-25);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0252 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0252 end');
     })
 
     /**
@@ -3608,9 +3608,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0253 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0253 begin');
       expect(MathUtils.clamp(-19.5, -25, -14)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0253 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0253 end');
     })
 
     /**
@@ -3622,9 +3622,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0254 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0254 begin');
       expect(MathUtils.clamp(-14, -25, -14)).assertEqual(-14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0254 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0254 end');
     })
 
     /**
@@ -3636,9 +3636,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0255 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0255 begin');
       expect(MathUtils.clamp(-13.5, -25, -14)).assertEqual(-14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0255 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0255 end');
     })
 
 
@@ -3651,9 +3651,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0256 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0256 begin');
       expect(MathUtils.clamp(-25, -24.5, -12.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0256 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0256 end');
     })
 
     /**
@@ -3665,9 +3665,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0257 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0257 begin');
       expect(MathUtils.clamp(-24.5, -24.5, -12.5)).assertEqual(-24.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0257 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0257 end');
     })
 
     /**
@@ -3679,9 +3679,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0258 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0258 begin');
       expect(MathUtils.clamp(-18.5, -24.5, -12.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0258 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0258 end');
     })
 
     /**
@@ -3693,9 +3693,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0259', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0259 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0259 begin');
       expect(MathUtils.clamp(-12.5, -24.5, -12.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0259 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0259 end');
     })
 
     /**
@@ -3707,9 +3707,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0260', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0260 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0260 begin');
       expect(MathUtils.clamp(-12, -24.5, -12.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0260 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0260 end');
     })
 
 
@@ -3722,9 +3722,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0261', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0261 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0261 begin');
       expect(MathUtils.clamp(-24.5, -24, -11)).assertEqual(-24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0261 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0261 end');
     })
 
     /**
@@ -3736,9 +3736,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0262', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0262 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0262 begin');
       expect(MathUtils.clamp(-24, -24, -11)).assertEqual(-24);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0262 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0262 end');
     })
 
     /**
@@ -3750,9 +3750,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0263 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0263 begin');
       expect(MathUtils.clamp(-17.5, -24, -11)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0263 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0263 end');
     })
 
     /**
@@ -3764,9 +3764,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0264 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0264 begin');
       expect(MathUtils.clamp(-11, -24, -11)).assertEqual(-11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0264 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0264 end');
     })
 
     /**
@@ -3778,9 +3778,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0265 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0265 begin');
       expect(MathUtils.clamp(-10.5, -24, -11)).assertEqual(-11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0265 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0265 end');
     })
 
 
@@ -3793,9 +3793,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0266 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0266 begin');
       expect(MathUtils.clamp(-24, -23.5, -9.5)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0266 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0266 end');
     })
 
     /**
@@ -3807,9 +3807,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0267 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0267 begin');
       expect(MathUtils.clamp(-23.5, -23.5, -9.5)).assertEqual(-23.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0267 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0267 end');
     })
 
     /**
@@ -3821,9 +3821,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0268 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0268 begin');
       expect(MathUtils.clamp(-16.5, -23.5, -9.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0268 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0268 end');
     })
 
     /**
@@ -3835,9 +3835,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0269 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0269 begin');
       expect(MathUtils.clamp(-9.5, -23.5, -9.5)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0269 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0269 end');
     })
 
     /**
@@ -3849,9 +3849,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0270 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0270 begin');
       expect(MathUtils.clamp(-9, -23.5, -9.5)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0270 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0270 end');
     })
 
 
@@ -3864,9 +3864,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0271 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0271 begin');
       expect(MathUtils.clamp(-23.5, -23, -8)).assertEqual(-23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0271 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0271 end');
     })
 
     /**
@@ -3878,9 +3878,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0272 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0272 begin');
       expect(MathUtils.clamp(-23, -23, -8)).assertEqual(-23);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0272 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0272 end');
     })
 
     /**
@@ -3892,9 +3892,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0273 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0273 begin');
       expect(MathUtils.clamp(-15.5, -23, -8)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0273 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0273 end');
     })
 
     /**
@@ -3906,9 +3906,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0274 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0274 begin');
       expect(MathUtils.clamp(-8, -23, -8)).assertEqual(-8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0274 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0274 end');
     })
 
     /**
@@ -3920,9 +3920,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0275 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0275 begin');
       expect(MathUtils.clamp(-7.5, -23, -8)).assertEqual(-8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0275 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0275 end');
     })
 
 
@@ -3935,9 +3935,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0276 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0276 begin');
       expect(MathUtils.clamp(-23, -22.5, -6.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0276 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0276 end');
     })
 
     /**
@@ -3949,9 +3949,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0277 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0277 begin');
       expect(MathUtils.clamp(-22.5, -22.5, -6.5)).assertEqual(-22.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0277 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0277 end');
     })
 
     /**
@@ -3963,9 +3963,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0278 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0278 begin');
       expect(MathUtils.clamp(-14.5, -22.5, -6.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0278 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0278 end');
     })
 
     /**
@@ -3977,9 +3977,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0279 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0279 begin');
       expect(MathUtils.clamp(-6.5, -22.5, -6.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0279 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0279 end');
     })
 
     /**
@@ -3991,9 +3991,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0280 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0280 begin');
       expect(MathUtils.clamp(-6, -22.5, -6.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0280 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0280 end');
     })
 
 
@@ -4006,9 +4006,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0281 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0281 begin');
       expect(MathUtils.clamp(-22.5, -22, -5)).assertEqual(-22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0281 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0281 end');
     })
 
     /**
@@ -4020,9 +4020,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0282 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0282 begin');
       expect(MathUtils.clamp(-22, -22, -5)).assertEqual(-22);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0282 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0282 end');
     })
 
     /**
@@ -4034,9 +4034,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0283 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0283 begin');
       expect(MathUtils.clamp(-13.5, -22, -5)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0283 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0283 end');
     })
 
     /**
@@ -4048,9 +4048,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0284 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0284 begin');
       expect(MathUtils.clamp(-5, -22, -5)).assertEqual(-5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0284 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0284 end');
     })
 
     /**
@@ -4062,9 +4062,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0285 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0285 begin');
       expect(MathUtils.clamp(-4.5, -22, -5)).assertEqual(-5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0285 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0285 end');
     })
 
 
@@ -4077,9 +4077,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0286 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0286 begin');
       expect(MathUtils.clamp(-22, -21.5, -3.5)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0286 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0286 end');
     })
 
     /**
@@ -4091,9 +4091,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0287 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0287 begin');
       expect(MathUtils.clamp(-21.5, -21.5, -3.5)).assertEqual(-21.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0287 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0287 end');
     })
 
     /**
@@ -4105,9 +4105,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0288 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0288 begin');
       expect(MathUtils.clamp(-12.5, -21.5, -3.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0288 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0288 end');
     })
 
     /**
@@ -4119,9 +4119,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0289 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0289 begin');
       expect(MathUtils.clamp(-3.5, -21.5, -3.5)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0289 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0289 end');
     })
 
     /**
@@ -4133,9 +4133,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0290 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0290 begin');
       expect(MathUtils.clamp(-3, -21.5, -3.5)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0290 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0290 end');
     })
 
 
@@ -4148,9 +4148,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0291 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0291 begin');
       expect(MathUtils.clamp(-21.5, -21, -2)).assertEqual(-21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0291 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0291 end');
     })
 
     /**
@@ -4162,9 +4162,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0292 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0292 begin');
       expect(MathUtils.clamp(-21, -21, -2)).assertEqual(-21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0292 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0292 end');
     })
 
     /**
@@ -4176,9 +4176,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0293 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0293 begin');
       expect(MathUtils.clamp(-11.5, -21, -2)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0293 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0293 end');
     })
 
     /**
@@ -4190,9 +4190,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0294 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0294 begin');
       expect(MathUtils.clamp(-2, -21, -2)).assertEqual(-2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0294 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0294 end');
     })
 
     /**
@@ -4204,9 +4204,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0295 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0295 begin');
       expect(MathUtils.clamp(-1.5, -21, -2)).assertEqual(-2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0295 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0295 end');
     })
 
 
@@ -4219,9 +4219,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0296 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0296 begin');
       expect(MathUtils.clamp(-21, -20.5, -0.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0296 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0296 end');
     })
 
     /**
@@ -4233,9 +4233,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0297 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0297 begin');
       expect(MathUtils.clamp(-20.5, -20.5, -0.5)).assertEqual(-20.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0297 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0297 end');
     })
 
     /**
@@ -4247,9 +4247,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0298 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0298 begin');
       expect(MathUtils.clamp(-10.5, -20.5, -0.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0298 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0298 end');
     })
 
     /**
@@ -4261,9 +4261,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0299 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0299 begin');
       expect(MathUtils.clamp(-0.5, -20.5, -0.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0299 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0299 end');
     })
 
     /**
@@ -4275,9 +4275,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0300 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0300 begin');
       expect(MathUtils.clamp(0, -20.5, -0.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0300 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0300 end');
     })
 
 
@@ -4290,9 +4290,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0301 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0301 begin');
       expect(MathUtils.clamp(-20.5, -20, -19)).assertEqual(-20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0301 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0301 end');
     })
 
     /**
@@ -4304,9 +4304,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0302 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0302 begin');
       expect(MathUtils.clamp(-20, -20, -19)).assertEqual(-20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0302 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0302 end');
     })
 
     /**
@@ -4318,9 +4318,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0303 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0303 begin');
       expect(MathUtils.clamp(-19.5, -20, -19)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0303 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0303 end');
     })
 
     /**
@@ -4332,9 +4332,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0304 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0304 begin');
       expect(MathUtils.clamp(-19, -20, -19)).assertEqual(-19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0304 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0304 end');
     })
 
     /**
@@ -4346,9 +4346,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0305 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0305 begin');
       expect(MathUtils.clamp(-18.5, -20, -19)).assertEqual(-19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0305 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0305 end');
     })
 
 
@@ -4361,9 +4361,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0306 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0306 begin');
       expect(MathUtils.clamp(-20, -19.5, -17.5)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0306 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0306 end');
     })
 
     /**
@@ -4375,9 +4375,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0307 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0307 begin');
       expect(MathUtils.clamp(-19.5, -19.5, -17.5)).assertEqual(-19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0307 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0307 end');
     })
 
     /**
@@ -4389,9 +4389,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0308 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0308 begin');
       expect(MathUtils.clamp(-18.5, -19.5, -17.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0308 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0308 end');
     })
 
     /**
@@ -4403,9 +4403,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0309 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0309 begin');
       expect(MathUtils.clamp(-17.5, -19.5, -17.5)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0309 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0309 end');
     })
 
     /**
@@ -4417,9 +4417,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0310 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0310 begin');
       expect(MathUtils.clamp(-17, -19.5, -17.5)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0310 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0310 end');
     })
 
 
@@ -4432,9 +4432,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0311 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0311 begin');
       expect(MathUtils.clamp(-19.5, -19, -16)).assertEqual(-19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0311 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0311 end');
     })
 
     /**
@@ -4446,9 +4446,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0312 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0312 begin');
       expect(MathUtils.clamp(-19, -19, -16)).assertEqual(-19);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0312 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0312 end');
     })
 
     /**
@@ -4460,9 +4460,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0313 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0313 begin');
       expect(MathUtils.clamp(-17.5, -19, -16)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0313 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0313 end');
     })
 
     /**
@@ -4474,9 +4474,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0314 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0314 begin');
       expect(MathUtils.clamp(-16, -19, -16)).assertEqual(-16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0314 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0314 end');
     })
 
     /**
@@ -4488,9 +4488,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0315 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0315 begin');
       expect(MathUtils.clamp(-15.5, -19, -16)).assertEqual(-16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0315 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0315 end');
     })
 
 
@@ -4503,9 +4503,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0316 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0316 begin');
       expect(MathUtils.clamp(-19, -18.5, -14.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0316 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0316 end');
     })
 
     /**
@@ -4517,9 +4517,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0317 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0317 begin');
       expect(MathUtils.clamp(-18.5, -18.5, -14.5)).assertEqual(-18.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0317 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0317 end');
     })
 
     /**
@@ -4531,9 +4531,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0318 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0318 begin');
       expect(MathUtils.clamp(-16.5, -18.5, -14.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0318 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0318 end');
     })
 
     /**
@@ -4545,9 +4545,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0319 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0319 begin');
       expect(MathUtils.clamp(-14.5, -18.5, -14.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0319 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0319 end');
     })
 
     /**
@@ -4559,9 +4559,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0320 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0320 begin');
       expect(MathUtils.clamp(-14, -18.5, -14.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0320 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0320 end');
     })
 
 
@@ -4574,9 +4574,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0321 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0321 begin');
       expect(MathUtils.clamp(-18.5, -18, -13)).assertEqual(-18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0321 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0321 end');
     })
 
     /**
@@ -4588,9 +4588,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0322 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0322 begin');
       expect(MathUtils.clamp(-18, -18, -13)).assertEqual(-18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0322 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0322 end');
     })
 
     /**
@@ -4602,9 +4602,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0323 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0323 begin');
       expect(MathUtils.clamp(-15.5, -18, -13)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0323 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0323 end');
     })
 
     /**
@@ -4616,9 +4616,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0324 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0324 begin');
       expect(MathUtils.clamp(-13, -18, -13)).assertEqual(-13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0324 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0324 end');
     })
 
     /**
@@ -4630,9 +4630,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0325 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0325 begin');
       expect(MathUtils.clamp(-12.5, -18, -13)).assertEqual(-13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0325 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0325 end');
     })
 
 
@@ -4645,9 +4645,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0326 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0326 begin');
       expect(MathUtils.clamp(-18, -17.5, -11.5)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0326 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0326 end');
     })
 
     /**
@@ -4659,9 +4659,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0327 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0327 begin');
       expect(MathUtils.clamp(-17.5, -17.5, -11.5)).assertEqual(-17.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0327 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0327 end');
     })
 
     /**
@@ -4673,9 +4673,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0328 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0328 begin');
       expect(MathUtils.clamp(-14.5, -17.5, -11.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0328 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0328 end');
     })
 
     /**
@@ -4687,9 +4687,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0329 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0329 begin');
       expect(MathUtils.clamp(-11.5, -17.5, -11.5)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0329 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0329 end');
     })
 
     /**
@@ -4701,9 +4701,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0330 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0330 begin');
       expect(MathUtils.clamp(-11, -17.5, -11.5)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0330 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0330 end');
     })
 
 
@@ -4716,9 +4716,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0331 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0331 begin');
       expect(MathUtils.clamp(-17.5, -17, -10)).assertEqual(-17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0331 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0331 end');
     })
 
     /**
@@ -4730,9 +4730,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0332 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0332 begin');
       expect(MathUtils.clamp(-17, -17, -10)).assertEqual(-17);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0332 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0332 end');
     })
 
     /**
@@ -4744,9 +4744,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0333 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0333 begin');
       expect(MathUtils.clamp(-13.5, -17, -10)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0333 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0333 end');
     })
 
     /**
@@ -4758,9 +4758,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0334 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0334 begin');
       expect(MathUtils.clamp(-10, -17, -10)).assertEqual(-10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0334 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0334 end');
     })
 
     /**
@@ -4772,9 +4772,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0335 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0335 begin');
       expect(MathUtils.clamp(-9.5, -17, -10)).assertEqual(-10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0335 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0335 end');
     })
 
 
@@ -4787,9 +4787,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0336 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0336 begin');
       expect(MathUtils.clamp(-17, -16.5, -8.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0336 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0336 end');
     })
 
     /**
@@ -4801,9 +4801,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0337 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0337 begin');
       expect(MathUtils.clamp(-16.5, -16.5, -8.5)).assertEqual(-16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0337 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0337 end');
     })
 
     /**
@@ -4815,9 +4815,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0338 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0338 begin');
       expect(MathUtils.clamp(-12.5, -16.5, -8.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0338 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0338 end');
     })
 
     /**
@@ -4829,9 +4829,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0339 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0339 begin');
       expect(MathUtils.clamp(-8.5, -16.5, -8.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0339 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0339 end');
     })
 
     /**
@@ -4843,9 +4843,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0340 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0340 begin');
       expect(MathUtils.clamp(-8, -16.5, -8.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0340 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0340 end');
     })
 
 
@@ -4858,9 +4858,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0341 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0341 begin');
       expect(MathUtils.clamp(-16.5, -16, -7)).assertEqual(-16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0341 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0341 end');
     })
 
     /**
@@ -4872,9 +4872,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0342 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0342 begin');
       expect(MathUtils.clamp(-16, -16, -7)).assertEqual(-16);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0342 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0342 end');
     })
 
     /**
@@ -4886,9 +4886,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0343 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0343 begin');
       expect(MathUtils.clamp(-11.5, -16, -7)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0343 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0343 end');
     })
 
     /**
@@ -4900,9 +4900,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0344 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0344 begin');
       expect(MathUtils.clamp(-7, -16, -7)).assertEqual(-7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0344 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0344 end');
     })
 
     /**
@@ -4914,9 +4914,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0345 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0345 begin');
       expect(MathUtils.clamp(-6.5, -16, -7)).assertEqual(-7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0345 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0345 end');
     })
 
 
@@ -4929,9 +4929,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0346 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0346 begin');
       expect(MathUtils.clamp(-16, -15.5, -5.5)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0346 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0346 end');
     })
 
     /**
@@ -4943,9 +4943,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0347 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0347 begin');
       expect(MathUtils.clamp(-15.5, -15.5, -5.5)).assertEqual(-15.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0347 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0347 end');
     })
 
     /**
@@ -4957,9 +4957,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0348 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0348 begin');
       expect(MathUtils.clamp(-10.5, -15.5, -5.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0348 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0348 end');
     })
 
     /**
@@ -4971,9 +4971,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0349 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0349 begin');
       expect(MathUtils.clamp(-5.5, -15.5, -5.5)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0349 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0349 end');
     })
 
     /**
@@ -4985,9 +4985,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0350 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0350 begin');
       expect(MathUtils.clamp(-5, -15.5, -5.5)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0350 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0350 end');
     })
 
 
@@ -5000,9 +5000,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0351 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0351 begin');
       expect(MathUtils.clamp(-15.5, -15, -4)).assertEqual(-15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0351 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0351 end');
     })
 
     /**
@@ -5014,9 +5014,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0352 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0352 begin');
       expect(MathUtils.clamp(-15, -15, -4)).assertEqual(-15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0352 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0352 end');
     })
 
     /**
@@ -5028,9 +5028,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0353 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0353 begin');
       expect(MathUtils.clamp(-9.5, -15, -4)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0353 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0353 end');
     })
 
     /**
@@ -5042,9 +5042,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0354 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0354 begin');
       expect(MathUtils.clamp(-4, -15, -4)).assertEqual(-4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0354 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0354 end');
     })
 
     /**
@@ -5056,9 +5056,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0355 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0355 begin');
       expect(MathUtils.clamp(-3.5, -15, -4)).assertEqual(-4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0355 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0355 end');
     })
 
 
@@ -5071,9 +5071,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0356 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0356 begin');
       expect(MathUtils.clamp(-15, -14.5, -2.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0356 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0356 end');
     })
 
     /**
@@ -5085,9 +5085,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0357 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0357 begin');
       expect(MathUtils.clamp(-14.5, -14.5, -2.5)).assertEqual(-14.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0357 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0357 end');
     })
 
     /**
@@ -5099,9 +5099,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0358 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0358 begin');
       expect(MathUtils.clamp(-8.5, -14.5, -2.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0358 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0358 end');
     })
 
     /**
@@ -5113,9 +5113,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0359 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0359 begin');
       expect(MathUtils.clamp(-2.5, -14.5, -2.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0359 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0359 end');
     })
 
     /**
@@ -5127,9 +5127,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0360 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0360 begin');
       expect(MathUtils.clamp(-2, -14.5, -2.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0360 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0360 end');
     })
 
 
@@ -5142,9 +5142,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0361 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0361 begin');
       expect(MathUtils.clamp(-14.5, -14, -1)).assertEqual(-14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0361 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0361 end');
     })
 
     /**
@@ -5156,9 +5156,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0362 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0362 begin');
       expect(MathUtils.clamp(-14, -14, -1)).assertEqual(-14);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0362 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0362 end');
     })
 
     /**
@@ -5170,9 +5170,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0363 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0363 begin');
       expect(MathUtils.clamp(-7.5, -14, -1)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0363 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0363 end');
     })
 
     /**
@@ -5184,9 +5184,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0364 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0364 begin');
       expect(MathUtils.clamp(-1, -14, -1)).assertEqual(-1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0364 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0364 end');
     })
 
     /**
@@ -5198,9 +5198,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0365 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0365 begin');
       expect(MathUtils.clamp(-0.5, -14, -1)).assertEqual(-1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0365 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0365 end');
     })
 
 
@@ -5213,9 +5213,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0366 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0366 begin');
       expect(MathUtils.clamp(-14, -13.5, 0.5)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0366 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0366 end');
     })
 
     /**
@@ -5227,9 +5227,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0367', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0367 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0367 begin');
       expect(MathUtils.clamp(-13.5, -13.5, 0.5)).assertEqual(-13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0367 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0367 end');
     })
 
     /**
@@ -5241,9 +5241,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0368', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0368 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0368 begin');
       expect(MathUtils.clamp(-6.5, -13.5, 0.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0368 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0368 end');
     })
 
     /**
@@ -5255,9 +5255,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0369', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0369 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0369 begin');
       expect(MathUtils.clamp(0.5, -13.5, 0.5)).assertEqual(0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0369 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0369 end');
     })
 
     /**
@@ -5269,9 +5269,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0370', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0370 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0370 begin');
       expect(MathUtils.clamp(1, -13.5, 0.5)).assertEqual(0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0370 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0370 end');
     })
 
 
@@ -5284,9 +5284,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0371', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0371 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0371 begin');
       expect(MathUtils.clamp(-13.5, -13, 2)).assertEqual(-13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0371 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0371 end');
     })
 
     /**
@@ -5298,9 +5298,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0372', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0372 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0372 begin');
       expect(MathUtils.clamp(-13, -13, 2)).assertEqual(-13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0372 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0372 end');
     })
 
     /**
@@ -5312,9 +5312,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0373', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0373 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0373 begin');
       expect(MathUtils.clamp(-5.5, -13, 2)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0373 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0373 end');
     })
 
     /**
@@ -5326,9 +5326,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0374', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0374 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0374 begin');
       expect(MathUtils.clamp(2, -13, 2)).assertEqual(2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0374 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0374 end');
     })
 
     /**
@@ -5340,9 +5340,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0375', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0375 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0375 begin');
       expect(MathUtils.clamp(2.5, -13, 2)).assertEqual(2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0375 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0375 end');
     })
 
 
@@ -5355,9 +5355,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0376', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0376 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0376 begin');
       expect(MathUtils.clamp(-13, -12.5, 3.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0376 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0376 end');
     })
 
     /**
@@ -5369,9 +5369,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0377', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0377 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0377 begin');
       expect(MathUtils.clamp(-12.5, -12.5, 3.5)).assertEqual(-12.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0377 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0377 end');
     })
 
     /**
@@ -5383,9 +5383,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0378', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0378 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0378 begin');
       expect(MathUtils.clamp(-4.5, -12.5, 3.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0378 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0378 end');
     })
 
     /**
@@ -5397,9 +5397,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0379', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0379 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0379 begin');
       expect(MathUtils.clamp(3.5, -12.5, 3.5)).assertEqual(3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0379 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0379 end');
     })
 
     /**
@@ -5411,9 +5411,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0380', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0380 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0380 begin');
       expect(MathUtils.clamp(4, -12.5, 3.5)).assertEqual(3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0380 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0380 end');
     })
 
 
@@ -5426,9 +5426,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0381', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0381 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0381 begin');
       expect(MathUtils.clamp(-12.5, -12, 5)).assertEqual(-12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0381 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0381 end');
     })
 
     /**
@@ -5440,9 +5440,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0382', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0382 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0382 begin');
       expect(MathUtils.clamp(-12, -12, 5)).assertEqual(-12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0382 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0382 end');
     })
 
     /**
@@ -5454,9 +5454,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0383', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0383 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0383 begin');
       expect(MathUtils.clamp(-3.5, -12, 5)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0383 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0383 end');
     })
 
     /**
@@ -5468,9 +5468,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0384', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0384 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0384 begin');
       expect(MathUtils.clamp(5, -12, 5)).assertEqual(5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0384 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0384 end');
     })
 
     /**
@@ -5482,9 +5482,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0385', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0385 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0385 begin');
       expect(MathUtils.clamp(5.5, -12, 5)).assertEqual(5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0385 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0385 end');
     })
 
 
@@ -5497,9 +5497,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0386', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0386 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0386 begin');
       expect(MathUtils.clamp(-12, -11.5, 6.5)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0386 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0386 end');
     })
 
     /**
@@ -5511,9 +5511,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0387', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0387 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0387 begin');
       expect(MathUtils.clamp(-11.5, -11.5, 6.5)).assertEqual(-11.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0387 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0387 end');
     })
 
     /**
@@ -5525,9 +5525,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0388', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0388 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0388 begin');
       expect(MathUtils.clamp(-2.5, -11.5, 6.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0388 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0388 end');
     })
 
     /**
@@ -5539,9 +5539,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0389', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0389 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0389 begin');
       expect(MathUtils.clamp(6.5, -11.5, 6.5)).assertEqual(6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0389 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0389 end');
     })
 
     /**
@@ -5553,9 +5553,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0390', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0390 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0390 begin');
       expect(MathUtils.clamp(7, -11.5, 6.5)).assertEqual(6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0390 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0390 end');
     })
 
 
@@ -5568,9 +5568,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0391', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0391 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0391 begin');
       expect(MathUtils.clamp(-11.5, -11, 8)).assertEqual(-11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0391 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0391 end');
     })
 
     /**
@@ -5582,9 +5582,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0392', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0392 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0392 begin');
       expect(MathUtils.clamp(-11, -11, 8)).assertEqual(-11);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0392 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0392 end');
     })
 
     /**
@@ -5596,9 +5596,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0393', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0393 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0393 begin');
       expect(MathUtils.clamp(-1.5, -11, 8)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0393 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0393 end');
     })
 
     /**
@@ -5610,9 +5610,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0394', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0394 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0394 begin');
       expect(MathUtils.clamp(8, -11, 8)).assertEqual(8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0394 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0394 end');
     })
 
     /**
@@ -5624,9 +5624,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0395', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0395 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0395 begin');
       expect(MathUtils.clamp(8.5, -11, 8)).assertEqual(8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0395 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0395 end');
     })
 
 
@@ -5639,9 +5639,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0396', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0396 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0396 begin');
       expect(MathUtils.clamp(-11, -10.5, 9.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0396 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0396 end');
     })
 
     /**
@@ -5653,9 +5653,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0397 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0397 begin');
       expect(MathUtils.clamp(-10.5, -10.5, 9.5)).assertEqual(-10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0397 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0397 end');
     })
 
     /**
@@ -5667,9 +5667,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0398 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0398 begin');
       expect(MathUtils.clamp(-0.5, -10.5, 9.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0398 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0398 end');
     })
 
     /**
@@ -5681,9 +5681,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0399 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0399 begin');
       expect(MathUtils.clamp(9.5, -10.5, 9.5)).assertEqual(9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0399 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0399 end');
     })
 
     /**
@@ -5695,9 +5695,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0400 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0400 begin');
       expect(MathUtils.clamp(10, -10.5, 9.5)).assertEqual(9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0400 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0400 end');
     })
 
 
@@ -5710,9 +5710,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0401', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0401 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0401 begin');
       expect(MathUtils.clamp(-10.5, -10, -9)).assertEqual(-10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0401 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0401 end');
     })
 
     /**
@@ -5724,9 +5724,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0402', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0402 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0402 begin');
       expect(MathUtils.clamp(-10, -10, -9)).assertEqual(-10);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0402 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0402 end');
     })
 
     /**
@@ -5738,9 +5738,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0403', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0403 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0403 begin');
       expect(MathUtils.clamp(-9.5, -10, -9)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0403 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0403 end');
     })
 
     /**
@@ -5752,9 +5752,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0404', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0404 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0404 begin');
       expect(MathUtils.clamp(-9, -10, -9)).assertEqual(-9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0404 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0404 end');
     })
 
     /**
@@ -5766,9 +5766,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0405', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0405 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0405 begin');
       expect(MathUtils.clamp(-8.5, -10, -9)).assertEqual(-9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0405 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0405 end');
     })
 
 
@@ -5781,9 +5781,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0406', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0406 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0406 begin');
       expect(MathUtils.clamp(-10, -9.5, -7.5)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0406 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0406 end');
     })
 
     /**
@@ -5795,9 +5795,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0407', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0407 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0407 begin');
       expect(MathUtils.clamp(-9.5, -9.5, -7.5)).assertEqual(-9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0407 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0407 end');
     })
 
     /**
@@ -5809,9 +5809,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0408', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0408 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0408 begin');
       expect(MathUtils.clamp(-8.5, -9.5, -7.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0408 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0408 end');
     })
 
     /**
@@ -5823,9 +5823,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0409', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0409 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0409 begin');
       expect(MathUtils.clamp(-7.5, -9.5, -7.5)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0409 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0409 end');
     })
 
     /**
@@ -5837,9 +5837,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0410 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0410 begin');
       expect(MathUtils.clamp(-7, -9.5, -7.5)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0410 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0410 end');
     })
 
 
@@ -5852,9 +5852,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0411 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0411 begin');
       expect(MathUtils.clamp(-9.5, -9, -6)).assertEqual(-9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0411 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0411 end');
     })
 
     /**
@@ -5866,9 +5866,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0412 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0412 begin');
       expect(MathUtils.clamp(-9, -9, -6)).assertEqual(-9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0412 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0412 end');
     })
 
     /**
@@ -5880,9 +5880,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0413 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0413 begin');
       expect(MathUtils.clamp(-7.5, -9, -6)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0413 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0413 end');
     })
 
     /**
@@ -5894,9 +5894,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0414 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0414 begin');
       expect(MathUtils.clamp(-6, -9, -6)).assertEqual(-6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0414 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0414 end');
     })
 
     /**
@@ -5908,9 +5908,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0415 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0415 begin');
       expect(MathUtils.clamp(-5.5, -9, -6)).assertEqual(-6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0415 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0415 end');
     })
 
 
@@ -5923,9 +5923,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0416 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0416 begin');
       expect(MathUtils.clamp(-9, -8.5, -4.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0416 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0416 end');
     })
 
     /**
@@ -5937,9 +5937,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0417 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0417 begin');
       expect(MathUtils.clamp(-8.5, -8.5, -4.5)).assertEqual(-8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0417 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0417 end');
     })
 
     /**
@@ -5951,9 +5951,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0418 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0418 begin');
       expect(MathUtils.clamp(-6.5, -8.5, -4.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0418 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0418 end');
     })
 
     /**
@@ -5965,9 +5965,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0419 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0419 begin');
       expect(MathUtils.clamp(-4.5, -8.5, -4.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0419 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0419 end');
     })
 
     /**
@@ -5979,9 +5979,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0420 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0420 begin');
       expect(MathUtils.clamp(-4, -8.5, -4.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0420 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0420 end');
     })
 
 
@@ -5994,9 +5994,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0421 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0421 begin');
       expect(MathUtils.clamp(-8.5, -8, -3)).assertEqual(-8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0421 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0421 end');
     })
 
     /**
@@ -6008,9 +6008,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0422 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0422 begin');
       expect(MathUtils.clamp(-8, -8, -3)).assertEqual(-8);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0422 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0422 end');
     })
 
     /**
@@ -6022,9 +6022,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0423 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0423 begin');
       expect(MathUtils.clamp(-5.5, -8, -3)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0423 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0423 end');
     })
 
     /**
@@ -6036,9 +6036,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0424 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0424 begin');
       expect(MathUtils.clamp(-3, -8, -3)).assertEqual(-3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0424 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0424 end');
     })
 
     /**
@@ -6050,9 +6050,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0425 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0425 begin');
       expect(MathUtils.clamp(-2.5, -8, -3)).assertEqual(-3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0425 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0425 end');
     })
 
 
@@ -6065,9 +6065,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0426 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0426 begin');
       expect(MathUtils.clamp(-8, -7.5, -1.5)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0426 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0426 end');
     })
 
     /**
@@ -6079,9 +6079,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0427 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0427 begin');
       expect(MathUtils.clamp(-7.5, -7.5, -1.5)).assertEqual(-7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0427 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0427 end');
     })
 
     /**
@@ -6093,9 +6093,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0428 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0428 begin');
       expect(MathUtils.clamp(-4.5, -7.5, -1.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0428 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0428 end');
     })
 
     /**
@@ -6107,9 +6107,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0429 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0429 begin');
       expect(MathUtils.clamp(-1.5, -7.5, -1.5)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0429 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0429 end');
     })
 
     /**
@@ -6121,9 +6121,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0430 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0430 begin');
       expect(MathUtils.clamp(-1, -7.5, -1.5)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0430 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0430 end');
     })
 
 
@@ -6136,9 +6136,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0431 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0431 begin');
       expect(MathUtils.clamp(-7.5, -7, 0)).assertEqual(-7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0431 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0431 end');
     })
 
     /**
@@ -6150,9 +6150,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0432 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0432 begin');
       expect(MathUtils.clamp(-7, -7, 0)).assertEqual(-7);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0432 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0432 end');
     })
 
     /**
@@ -6164,9 +6164,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0433 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0433 begin');
       expect(MathUtils.clamp(-3.5, -7, 0)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0433 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0433 end');
     })
 
     /**
@@ -6178,9 +6178,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0434 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0434 begin');
       expect(MathUtils.clamp(0, -7, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0434 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0434 end');
     })
 
     /**
@@ -6192,9 +6192,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0435 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0435 begin');
       expect(MathUtils.clamp(0.5, -7, 0)).assertEqual(0);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0435 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0435 end');
     })
 
 
@@ -6207,9 +6207,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0436 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0436 begin');
       expect(MathUtils.clamp(-7, -6.5, 1.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0436 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0436 end');
     })
 
     /**
@@ -6221,9 +6221,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0437 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0437 begin');
       expect(MathUtils.clamp(-6.5, -6.5, 1.5)).assertEqual(-6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0437 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0437 end');
     })
 
     /**
@@ -6235,9 +6235,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0438 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0438 begin');
       expect(MathUtils.clamp(-2.5, -6.5, 1.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0438 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0438 end');
     })
 
     /**
@@ -6249,9 +6249,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0439 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0439 begin');
       expect(MathUtils.clamp(1.5, -6.5, 1.5)).assertEqual(1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0439 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0439 end');
     })
 
     /**
@@ -6263,9 +6263,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0440 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0440 begin');
       expect(MathUtils.clamp(2, -6.5, 1.5)).assertEqual(1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0440 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0440 end');
     })
 
 
@@ -6278,9 +6278,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0441 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0441 begin');
       expect(MathUtils.clamp(-6.5, -6, 3)).assertEqual(-6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0441 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0441 end');
     })
 
     /**
@@ -6292,9 +6292,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0442 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0442 begin');
       expect(MathUtils.clamp(-6, -6, 3)).assertEqual(-6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0442 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0442 end');
     })
 
     /**
@@ -6306,9 +6306,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0443 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0443 begin');
       expect(MathUtils.clamp(-1.5, -6, 3)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0443 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0443 end');
     })
 
     /**
@@ -6320,9 +6320,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0444 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0444 begin');
       expect(MathUtils.clamp(3, -6, 3)).assertEqual(3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0444 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0444 end');
     })
 
     /**
@@ -6334,9 +6334,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0445 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0445 begin');
       expect(MathUtils.clamp(3.5, -6, 3)).assertEqual(3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0445 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0445 end');
     })
 
 
@@ -6349,9 +6349,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0446 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0446 begin');
       expect(MathUtils.clamp(-6, -5.5, 4.5)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0446 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0446 end');
     })
 
     /**
@@ -6363,9 +6363,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0447 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0447 begin');
       expect(MathUtils.clamp(-5.5, -5.5, 4.5)).assertEqual(-5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0447 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0447 end');
     })
 
     /**
@@ -6377,9 +6377,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0448 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0448 begin');
       expect(MathUtils.clamp(-0.5, -5.5, 4.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0448 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0448 end');
     })
 
     /**
@@ -6391,9 +6391,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0449 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0449 begin');
       expect(MathUtils.clamp(4.5, -5.5, 4.5)).assertEqual(4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0449 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0449 end');
     })
 
     /**
@@ -6405,9 +6405,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0450 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0450 begin');
       expect(MathUtils.clamp(5, -5.5, 4.5)).assertEqual(4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0450 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0450 end');
     })
 
 
@@ -6420,9 +6420,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0451', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0451 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0451 begin');
       expect(MathUtils.clamp(-5.5, -5, 6)).assertEqual(-5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0451 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0451 end');
     })
 
     /**
@@ -6434,9 +6434,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0452', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0452 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0452 begin');
       expect(MathUtils.clamp(-5, -5, 6)).assertEqual(-5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0452 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0452 end');
     })
 
     /**
@@ -6448,9 +6448,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0453', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0453 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0453 begin');
       expect(MathUtils.clamp(0.5, -5, 6)).assertEqual(0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0453 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0453 end');
     })
 
     /**
@@ -6462,9 +6462,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0454', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0454 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0454 begin');
       expect(MathUtils.clamp(6, -5, 6)).assertEqual(6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0454 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0454 end');
     })
 
     /**
@@ -6476,9 +6476,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0455', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0455 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0455 begin');
       expect(MathUtils.clamp(6.5, -5, 6)).assertEqual(6);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0455 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0455 end');
     })
 
 
@@ -6491,9 +6491,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0456', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0456 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0456 begin');
       expect(MathUtils.clamp(-5, -4.5, 7.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0456 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0456 end');
     })
 
     /**
@@ -6505,9 +6505,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0457', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0457 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0457 begin');
       expect(MathUtils.clamp(-4.5, -4.5, 7.5)).assertEqual(-4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0457 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0457 end');
     })
 
     /**
@@ -6519,9 +6519,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0458', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0458 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0458 begin');
       expect(MathUtils.clamp(1.5, -4.5, 7.5)).assertEqual(1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0458 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0458 end');
     })
 
     /**
@@ -6533,9 +6533,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0459', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0459 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0459 begin');
       expect(MathUtils.clamp(7.5, -4.5, 7.5)).assertEqual(7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0459 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0459 end');
     })
 
     /**
@@ -6547,9 +6547,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0460', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0460 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0460 begin');
       expect(MathUtils.clamp(8, -4.5, 7.5)).assertEqual(7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0460 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0460 end');
     })
 
 
@@ -6562,9 +6562,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0461', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0461 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0461 begin');
       expect(MathUtils.clamp(-4.5, -4, 9)).assertEqual(-4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0461 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0461 end');
     })
 
     /**
@@ -6576,9 +6576,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0462', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0462 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0462 begin');
       expect(MathUtils.clamp(-4, -4, 9)).assertEqual(-4);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0462 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0462 end');
     })
 
     /**
@@ -6590,9 +6590,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0463', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0463 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0463 begin');
       expect(MathUtils.clamp(2.5, -4, 9)).assertEqual(2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0463 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0463 end');
     })
 
     /**
@@ -6604,9 +6604,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0464', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0464 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0464 begin');
       expect(MathUtils.clamp(9, -4, 9)).assertEqual(9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0464 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0464 end');
     })
 
     /**
@@ -6618,9 +6618,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0465', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0465 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0465 begin');
       expect(MathUtils.clamp(9.5, -4, 9)).assertEqual(9);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0465 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0465 end');
     })
 
 
@@ -6633,9 +6633,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0466', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0466 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0466 begin');
       expect(MathUtils.clamp(-4, -3.5, 10.5)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0466 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0466 end');
     })
 
     /**
@@ -6647,9 +6647,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0467', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0467 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0467 begin');
       expect(MathUtils.clamp(-3.5, -3.5, 10.5)).assertEqual(-3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0467 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0467 end');
     })
 
     /**
@@ -6661,9 +6661,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0468', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0468 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0468 begin');
       expect(MathUtils.clamp(3.5, -3.5, 10.5)).assertEqual(3.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0468 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0468 end');
     })
 
     /**
@@ -6675,9 +6675,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0469', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0469 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0469 begin');
       expect(MathUtils.clamp(10.5, -3.5, 10.5)).assertEqual(10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0469 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0469 end');
     })
 
     /**
@@ -6689,9 +6689,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0470', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0470 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0470 begin');
       expect(MathUtils.clamp(11, -3.5, 10.5)).assertEqual(10.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0470 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0470 end');
     })
 
 
@@ -6704,9 +6704,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0471', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0471 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0471 begin');
       expect(MathUtils.clamp(-3.5, -3, 12)).assertEqual(-3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0471 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0471 end');
     })
 
     /**
@@ -6718,9 +6718,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0472', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0472 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0472 begin');
       expect(MathUtils.clamp(-3, -3, 12)).assertEqual(-3);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0472 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0472 end');
     })
 
     /**
@@ -6732,9 +6732,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0473', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0473 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0473 begin');
       expect(MathUtils.clamp(4.5, -3, 12)).assertEqual(4.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0473 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0473 end');
     })
 
     /**
@@ -6746,9 +6746,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0474', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0474 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0474 begin');
       expect(MathUtils.clamp(12, -3, 12)).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0474 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0474 end');
     })
 
     /**
@@ -6760,9 +6760,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0475', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0475 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0475 begin');
       expect(MathUtils.clamp(12.5, -3, 12)).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0475 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0475 end');
     })
 
 
@@ -6775,9 +6775,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0476', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0476 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0476 begin');
       expect(MathUtils.clamp(-3, -2.5, 13.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0476 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0476 end');
     })
 
     /**
@@ -6789,9 +6789,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0477', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0477 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0477 begin');
       expect(MathUtils.clamp(-2.5, -2.5, 13.5)).assertEqual(-2.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0477 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0477 end');
     })
 
     /**
@@ -6803,9 +6803,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0478', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0478 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0478 begin');
       expect(MathUtils.clamp(5.5, -2.5, 13.5)).assertEqual(5.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0478 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0478 end');
     })
 
     /**
@@ -6817,9 +6817,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0479', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0479 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0479 begin');
       expect(MathUtils.clamp(13.5, -2.5, 13.5)).assertEqual(13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0479 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0479 end');
     })
 
     /**
@@ -6831,9 +6831,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0480', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0480 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0480 begin');
       expect(MathUtils.clamp(14, -2.5, 13.5)).assertEqual(13.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0480 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0480 end');
     })
 
 
@@ -6846,9 +6846,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0481', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0481 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0481 begin');
       expect(MathUtils.clamp(-2.5, -2, 15)).assertEqual(-2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0481 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0481 end');
     })
 
     /**
@@ -6860,9 +6860,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0482', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0482 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0482 begin');
       expect(MathUtils.clamp(-2, -2, 15)).assertEqual(-2);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0482 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0482 end');
     })
 
     /**
@@ -6874,9 +6874,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0483', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0483 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0483 begin');
       expect(MathUtils.clamp(6.5, -2, 15)).assertEqual(6.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0483 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0483 end');
     })
 
     /**
@@ -6888,9 +6888,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0484', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0484 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0484 begin');
       expect(MathUtils.clamp(15, -2, 15)).assertEqual(15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0484 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0484 end');
     })
 
     /**
@@ -6902,9 +6902,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0485', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0485 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0485 begin');
       expect(MathUtils.clamp(15.5, -2, 15)).assertEqual(15);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0485 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0485 end');
     })
 
 
@@ -6917,9 +6917,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0486', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0486 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0486 begin');
       expect(MathUtils.clamp(-2, -1.5, 16.5)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0486 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0486 end');
     })
 
     /**
@@ -6931,9 +6931,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0487', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0487 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0487 begin');
       expect(MathUtils.clamp(-1.5, -1.5, 16.5)).assertEqual(-1.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0487 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0487 end');
     })
 
     /**
@@ -6945,9 +6945,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0488', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0488 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0488 begin');
       expect(MathUtils.clamp(7.5, -1.5, 16.5)).assertEqual(7.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0488 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0488 end');
     })
 
     /**
@@ -6959,9 +6959,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0489', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0489 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0489 begin');
       expect(MathUtils.clamp(16.5, -1.5, 16.5)).assertEqual(16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0489 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0489 end');
     })
 
     /**
@@ -6973,9 +6973,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0490', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0490 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0490 begin');
       expect(MathUtils.clamp(17, -1.5, 16.5)).assertEqual(16.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0490 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0490 end');
     })
 
 
@@ -6988,9 +6988,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0491', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0491 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0491 begin');
       expect(MathUtils.clamp(-1.5, -1, 18)).assertEqual(-1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0491 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0491 end');
     })
 
     /**
@@ -7002,9 +7002,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0492', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0492 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0492 begin');
       expect(MathUtils.clamp(-1, -1, 18)).assertEqual(-1);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0492 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0492 end');
     })
 
     /**
@@ -7016,9 +7016,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0493', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0493 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0493 begin');
       expect(MathUtils.clamp(8.5, -1, 18)).assertEqual(8.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0493 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0493 end');
     })
 
     /**
@@ -7030,9 +7030,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0494', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0494 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0494 begin');
       expect(MathUtils.clamp(18, -1, 18)).assertEqual(18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0494 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0494 end');
     })
 
     /**
@@ -7044,9 +7044,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0495', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0495 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0495 begin');
       expect(MathUtils.clamp(18.5, -1, 18)).assertEqual(18);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0495 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0495 end');
     })
 
 
@@ -7059,9 +7059,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0496', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0496 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0496 begin');
       expect(MathUtils.clamp(-1, -0.5, 19.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0496 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0496 end');
     })
 
     /**
@@ -7073,9 +7073,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0497', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0497 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0497 begin');
       expect(MathUtils.clamp(-0.5, -0.5, 19.5)).assertEqual(-0.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0497 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0497 end');
     })
 
     /**
@@ -7087,9 +7087,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0498', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0498 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0498 begin');
       expect(MathUtils.clamp(9.5, -0.5, 19.5)).assertEqual(9.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0498 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0498 end');
     })
 
     /**
@@ -7101,9 +7101,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0499', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0499 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0499 begin');
       expect(MathUtils.clamp(19.5, -0.5, 19.5)).assertEqual(19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0499 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0499 end');
     })
 
     /**
@@ -7115,9 +7115,9 @@ export default function PhotosMathExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosMathExt0500', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0500 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0500 begin');
       expect(MathUtils.clamp(20, -0.5, 19.5)).assertEqual(19.5);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0500 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathExt0500 end');
     })
 
   })

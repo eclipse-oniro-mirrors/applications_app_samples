@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,12 +30,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0001 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_1.jpg');
       expect(result.startsWith('photo_1_edit_')).assertTrue();
       expect(result.length > 'photo_1_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0001 end');
     })
 
     /**
@@ -47,12 +47,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0002 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_2.jpg');
       expect(result.startsWith('photo_2_edit_')).assertTrue();
       expect(result.length > 'photo_2_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0002 end');
     })
 
     /**
@@ -64,12 +64,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0003 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_3.jpg');
       expect(result.startsWith('photo_3_edit_')).assertTrue();
       expect(result.length > 'photo_3_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0003 end');
     })
 
     /**
@@ -81,12 +81,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0004 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_4.jpg');
       expect(result.startsWith('photo_4_edit_')).assertTrue();
       expect(result.length > 'photo_4_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0004 end');
     })
 
     /**
@@ -98,12 +98,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0005 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_5.jpg');
       expect(result.startsWith('photo_5_edit_')).assertTrue();
       expect(result.length > 'photo_5_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0005 end');
     })
 
     /**
@@ -115,12 +115,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0006 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_6.jpg');
       expect(result.startsWith('photo_6_edit_')).assertTrue();
       expect(result.length > 'photo_6_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0006 end');
     })
 
     /**
@@ -132,12 +132,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0007 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_7.jpg');
       expect(result.startsWith('photo_7_edit_')).assertTrue();
       expect(result.length > 'photo_7_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0007 end');
     })
 
     /**
@@ -149,12 +149,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0008 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_8.jpg');
       expect(result.startsWith('photo_8_edit_')).assertTrue();
       expect(result.length > 'photo_8_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0008 end');
     })
 
     /**
@@ -166,12 +166,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0009 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_9.jpg');
       expect(result.startsWith('photo_9_edit_')).assertTrue();
       expect(result.length > 'photo_9_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0009 end');
     })
 
     /**
@@ -183,12 +183,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0010 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_10.jpg');
       expect(result.startsWith('photo_10_edit_')).assertTrue();
       expect(result.length > 'photo_10_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0010 end');
     })
 
     /**
@@ -200,12 +200,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0011 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_11.jpg');
       expect(result.startsWith('photo_11_edit_')).assertTrue();
       expect(result.length > 'photo_11_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0011 end');
     })
 
     /**
@@ -217,12 +217,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0012 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_12.jpg');
       expect(result.startsWith('photo_12_edit_')).assertTrue();
       expect(result.length > 'photo_12_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0012 end');
     })
 
     /**
@@ -234,12 +234,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0013 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_13.jpg');
       expect(result.startsWith('photo_13_edit_')).assertTrue();
       expect(result.length > 'photo_13_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0013 end');
     })
 
     /**
@@ -251,12 +251,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0014 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_14.jpg');
       expect(result.startsWith('photo_14_edit_')).assertTrue();
       expect(result.length > 'photo_14_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0014 end');
     })
 
     /**
@@ -268,12 +268,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0015 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_15.jpg');
       expect(result.startsWith('photo_15_edit_')).assertTrue();
       expect(result.length > 'photo_15_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0015 end');
     })
 
     /**
@@ -285,12 +285,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0016 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_16.jpg');
       expect(result.startsWith('photo_16_edit_')).assertTrue();
       expect(result.length > 'photo_16_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0016 end');
     })
 
     /**
@@ -302,12 +302,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0017 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_17.jpg');
       expect(result.startsWith('photo_17_edit_')).assertTrue();
       expect(result.length > 'photo_17_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0017 end');
     })
 
     /**
@@ -319,12 +319,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0018 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_18.jpg');
       expect(result.startsWith('photo_18_edit_')).assertTrue();
       expect(result.length > 'photo_18_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0018 end');
     })
 
     /**
@@ -336,12 +336,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0019 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_19.jpg');
       expect(result.startsWith('photo_19_edit_')).assertTrue();
       expect(result.length > 'photo_19_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0019 end');
     })
 
     /**
@@ -353,12 +353,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0020 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_20.jpg');
       expect(result.startsWith('photo_20_edit_')).assertTrue();
       expect(result.length > 'photo_20_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0020 end');
     })
 
     /**
@@ -370,12 +370,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0021 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_21.jpg');
       expect(result.startsWith('photo_21_edit_')).assertTrue();
       expect(result.length > 'photo_21_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0021 end');
     })
 
     /**
@@ -387,12 +387,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0022 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_22.jpg');
       expect(result.startsWith('photo_22_edit_')).assertTrue();
       expect(result.length > 'photo_22_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0022 end');
     })
 
     /**
@@ -404,12 +404,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0023 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_23.jpg');
       expect(result.startsWith('photo_23_edit_')).assertTrue();
       expect(result.length > 'photo_23_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0023 end');
     })
 
     /**
@@ -421,12 +421,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0024 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_24.jpg');
       expect(result.startsWith('photo_24_edit_')).assertTrue();
       expect(result.length > 'photo_24_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0024 end');
     })
 
     /**
@@ -438,12 +438,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0025 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_25.jpg');
       expect(result.startsWith('photo_25_edit_')).assertTrue();
       expect(result.length > 'photo_25_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0025 end');
     })
 
     /**
@@ -455,12 +455,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0026 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_26.jpg');
       expect(result.startsWith('photo_26_edit_')).assertTrue();
       expect(result.length > 'photo_26_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0026 end');
     })
 
     /**
@@ -472,12 +472,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0027 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_27.jpg');
       expect(result.startsWith('photo_27_edit_')).assertTrue();
       expect(result.length > 'photo_27_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0027 end');
     })
 
     /**
@@ -489,12 +489,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0028 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_28.jpg');
       expect(result.startsWith('photo_28_edit_')).assertTrue();
       expect(result.length > 'photo_28_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0028 end');
     })
 
     /**
@@ -506,12 +506,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0029 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_29.jpg');
       expect(result.startsWith('photo_29_edit_')).assertTrue();
       expect(result.length > 'photo_29_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0029 end');
     })
 
     /**
@@ -523,12 +523,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0030 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_30.jpg');
       expect(result.startsWith('photo_30_edit_')).assertTrue();
       expect(result.length > 'photo_30_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0030 end');
     })
 
     /**
@@ -540,12 +540,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0031 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_31.jpg');
       expect(result.startsWith('photo_31_edit_')).assertTrue();
       expect(result.length > 'photo_31_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0031 end');
     })
 
     /**
@@ -557,12 +557,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0032 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_32.jpg');
       expect(result.startsWith('photo_32_edit_')).assertTrue();
       expect(result.length > 'photo_32_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0032 end');
     })
 
     /**
@@ -574,12 +574,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0033 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_33.jpg');
       expect(result.startsWith('photo_33_edit_')).assertTrue();
       expect(result.length > 'photo_33_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0033 end');
     })
 
     /**
@@ -591,12 +591,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0034 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_34.jpg');
       expect(result.startsWith('photo_34_edit_')).assertTrue();
       expect(result.length > 'photo_34_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0034 end');
     })
 
     /**
@@ -608,12 +608,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0035 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_35.jpg');
       expect(result.startsWith('photo_35_edit_')).assertTrue();
       expect(result.length > 'photo_35_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0035 end');
     })
 
     /**
@@ -625,12 +625,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0036 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_36.jpg');
       expect(result.startsWith('photo_36_edit_')).assertTrue();
       expect(result.length > 'photo_36_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0036 end');
     })
 
     /**
@@ -642,12 +642,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0037 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_37.jpg');
       expect(result.startsWith('photo_37_edit_')).assertTrue();
       expect(result.length > 'photo_37_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0037 end');
     })
 
     /**
@@ -659,12 +659,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0038 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_38.jpg');
       expect(result.startsWith('photo_38_edit_')).assertTrue();
       expect(result.length > 'photo_38_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0038 end');
     })
 
     /**
@@ -676,12 +676,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0039 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_39.jpg');
       expect(result.startsWith('photo_39_edit_')).assertTrue();
       expect(result.length > 'photo_39_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0039 end');
     })
 
     /**
@@ -693,12 +693,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0040 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_40.jpg');
       expect(result.startsWith('photo_40_edit_')).assertTrue();
       expect(result.length > 'photo_40_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0040 end');
     })
 
     /**
@@ -710,12 +710,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0041 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_1.jpg');
       expect(result).assertEqual('photo_edit_1');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0041 end');
     })
 
     /**
@@ -727,12 +727,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0042 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_2.jpg');
       expect(result).assertEqual('photo_edit_2');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0042 end');
     })
 
     /**
@@ -744,12 +744,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0043 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_3.jpg');
       expect(result).assertEqual('photo_edit_3');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0043 end');
     })
 
     /**
@@ -761,12 +761,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0044 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_4.jpg');
       expect(result).assertEqual('photo_edit_4');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0044 end');
     })
 
     /**
@@ -778,12 +778,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0045 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_5.jpg');
       expect(result).assertEqual('photo_edit_5');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0045 end');
     })
 
     /**
@@ -795,12 +795,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0046 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_6.jpg');
       expect(result).assertEqual('photo_edit_6');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0046 end');
     })
 
     /**
@@ -812,12 +812,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0047 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_7.jpg');
       expect(result).assertEqual('photo_edit_7');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0047 end');
     })
 
     /**
@@ -829,12 +829,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0048 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_8.jpg');
       expect(result).assertEqual('photo_edit_8');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0048 end');
     })
 
     /**
@@ -846,12 +846,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0049 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_9.jpg');
       expect(result).assertEqual('photo_edit_9');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(12);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0049 end');
     })
 
     /**
@@ -863,12 +863,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0050 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_10.jpg');
       expect(result).assertEqual('photo_edit_10');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0050 end');
     })
 
     /**
@@ -880,12 +880,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0051 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_11.jpg');
       expect(result).assertEqual('photo_edit_11');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0051 end');
     })
 
     /**
@@ -897,12 +897,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0052 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_12.jpg');
       expect(result).assertEqual('photo_edit_12');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0052 end');
     })
 
     /**
@@ -914,12 +914,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0053 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_13.jpg');
       expect(result).assertEqual('photo_edit_13');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0053 end');
     })
 
     /**
@@ -931,12 +931,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0054 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_14.jpg');
       expect(result).assertEqual('photo_edit_14');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0054 end');
     })
 
     /**
@@ -948,12 +948,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0055 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_15.jpg');
       expect(result).assertEqual('photo_edit_15');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0055 end');
     })
 
     /**
@@ -965,12 +965,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0056 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_16.jpg');
       expect(result).assertEqual('photo_edit_16');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0056 end');
     })
 
     /**
@@ -982,12 +982,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0057 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_17.jpg');
       expect(result).assertEqual('photo_edit_17');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0057 end');
     })
 
     /**
@@ -999,12 +999,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0058 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_18.jpg');
       expect(result).assertEqual('photo_edit_18');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0058 end');
     })
 
     /**
@@ -1016,12 +1016,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0059 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_19.jpg');
       expect(result).assertEqual('photo_edit_19');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0059 end');
     })
 
     /**
@@ -1033,12 +1033,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0060 begin');
       const result: string = DateUtil.nameByDate(true, 'photo_edit_20.jpg');
       expect(result).assertEqual('photo_edit_20');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(13);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0060 end');
     })
 
     /**
@@ -1050,12 +1050,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0061 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0061 end');
     })
 
     /**
@@ -1067,12 +1067,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0062 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0062 end');
     })
 
     /**
@@ -1084,12 +1084,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0063 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0063 end');
     })
 
     /**
@@ -1101,12 +1101,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0064 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0064 end');
     })
 
     /**
@@ -1118,12 +1118,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0065 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0065 end');
     })
 
     /**
@@ -1135,12 +1135,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0066 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0066 end');
     })
 
     /**
@@ -1152,12 +1152,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0067 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0067 end');
     })
 
     /**
@@ -1169,12 +1169,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0068 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0068 end');
     })
 
     /**
@@ -1186,12 +1186,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0069 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0069 end');
     })
 
     /**
@@ -1203,12 +1203,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0070 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0070 end');
     })
 
     /**
@@ -1220,12 +1220,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0071 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0071 end');
     })
 
     /**
@@ -1237,12 +1237,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0072 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0072 end');
     })
 
     /**
@@ -1254,12 +1254,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0073 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0073 end');
     })
 
     /**
@@ -1271,12 +1271,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0074 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0074 end');
     })
 
     /**
@@ -1288,12 +1288,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0075 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0075 end');
     })
 
     /**
@@ -1305,12 +1305,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0076 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0076 end');
     })
 
     /**
@@ -1322,12 +1322,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0077 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0077 end');
     })
 
     /**
@@ -1339,12 +1339,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0078 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0078 end');
     })
 
     /**
@@ -1356,12 +1356,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0079 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0079 end');
     })
 
     /**
@@ -1373,12 +1373,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0080 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0080 end');
     })
 
     /**
@@ -1390,12 +1390,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0081 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0081 end');
     })
 
     /**
@@ -1407,12 +1407,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0082 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0082 end');
     })
 
     /**
@@ -1424,12 +1424,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0083 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0083 end');
     })
 
     /**
@@ -1441,12 +1441,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0084 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0084 end');
     })
 
     /**
@@ -1458,12 +1458,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0085 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0085 end');
     })
 
     /**
@@ -1475,12 +1475,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0086 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0086 end');
     })
 
     /**
@@ -1492,12 +1492,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0087 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0087 end');
     })
 
     /**
@@ -1509,12 +1509,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0088 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0088 end');
     })
 
     /**
@@ -1526,12 +1526,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0089 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0089 end');
     })
 
     /**
@@ -1543,12 +1543,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0090 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0090 end');
     })
 
     /**
@@ -1560,12 +1560,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0091 end');
     })
 
     /**
@@ -1577,12 +1577,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0092 end');
     })
 
     /**
@@ -1594,12 +1594,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0093 end');
     })
 
     /**
@@ -1611,12 +1611,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0094 end');
     })
 
     /**
@@ -1628,12 +1628,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0095 end');
     })
 
     /**
@@ -1645,12 +1645,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0096 end');
     })
 
     /**
@@ -1662,12 +1662,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0097 end');
     })
 
     /**
@@ -1679,12 +1679,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0098 end');
     })
 
     /**
@@ -1696,12 +1696,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0099 end');
     })
 
     /**
@@ -1713,12 +1713,12 @@ export default function PhotosDateNameExtTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameExt0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(12)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameExt0100 end');
     })
   })
 }

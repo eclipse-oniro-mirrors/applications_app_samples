@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { UserFileDataItem } from '../../../main/ets/base/UserFileDataItem';
 import { ViewType } from '../../../main/ets/models/ViewType';
@@ -32,7 +32,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0001 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_0', ['arg_a_0', 'arg_b_0'], 'device_0', 3);
       expect(item.selections).assertEqual('selection_0');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -42,7 +42,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0001 end');
     })
 
     /**
@@ -54,7 +54,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0002 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_1', ['arg_a_1', 'arg_b_1'], 'device_1', 4);
       expect(item.selections).assertEqual('selection_1');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -64,7 +64,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0002 end');
     })
 
     /**
@@ -76,7 +76,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0003 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_2', ['arg_a_2', 'arg_b_2'], 'device_2', 5);
       expect(item.selections).assertEqual('selection_2');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -86,7 +86,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0003 end');
     })
 
     /**
@@ -98,7 +98,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0004 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_3', ['arg_a_3', 'arg_b_3'], 'device_3', 6);
       expect(item.selections).assertEqual('selection_3');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -108,7 +108,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0004 end');
     })
 
     /**
@@ -120,7 +120,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0005 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_4', ['arg_a_4', 'arg_b_4'], 'device_4', 7);
       expect(item.selections).assertEqual('selection_4');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -130,7 +130,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0005 end');
     })
 
     /**
@@ -142,7 +142,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0006 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_5', ['arg_a_5', 'arg_b_5'], 'device_5', 8);
       expect(item.selections).assertEqual('selection_5');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -152,7 +152,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0006 end');
     })
 
     /**
@@ -164,7 +164,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0007 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_6', ['arg_a_6', 'arg_b_6'], 'device_6', 9);
       expect(item.selections).assertEqual('selection_6');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -174,7 +174,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0007 end');
     })
 
     /**
@@ -186,7 +186,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0008 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_7', ['arg_a_7', 'arg_b_7'], 'device_7', 10);
       expect(item.selections).assertEqual('selection_7');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -196,7 +196,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0008 end');
     })
 
     /**
@@ -208,7 +208,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0009 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_8', ['arg_a_8', 'arg_b_8'], 'device_8', 11);
       expect(item.selections).assertEqual('selection_8');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -218,7 +218,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0009 end');
     })
 
     /**
@@ -230,7 +230,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0010 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_9', ['arg_a_9', 'arg_b_9'], 'device_9', 12);
       expect(item.selections).assertEqual('selection_9');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -240,7 +240,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0010 end');
     })
 
     /**
@@ -252,7 +252,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0011 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_10', ['arg_a_10', 'arg_b_10'], 'device_10', 13);
       expect(item.selections).assertEqual('selection_10');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -262,7 +262,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0011 end');
     })
 
     /**
@@ -274,7 +274,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0012 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_11', ['arg_a_11', 'arg_b_11'], 'device_11', 14);
       expect(item.selections).assertEqual('selection_11');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -284,7 +284,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0012 end');
     })
 
     /**
@@ -296,7 +296,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0013 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_12', ['arg_a_12', 'arg_b_12'], 'device_12', 15);
       expect(item.selections).assertEqual('selection_12');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -306,7 +306,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0013 end');
     })
 
     /**
@@ -318,7 +318,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0014 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_13', ['arg_a_13', 'arg_b_13'], 'device_13', 16);
       expect(item.selections).assertEqual('selection_13');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -328,7 +328,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0014 end');
     })
 
     /**
@@ -340,7 +340,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0015 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_14', ['arg_a_14', 'arg_b_14'], 'device_14', 17);
       expect(item.selections).assertEqual('selection_14');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -350,7 +350,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0015 end');
     })
 
     /**
@@ -362,7 +362,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0016 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_15', ['arg_a_15', 'arg_b_15'], 'device_15', 18);
       expect(item.selections).assertEqual('selection_15');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -372,7 +372,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0016 end');
     })
 
     /**
@@ -384,7 +384,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0017 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_16', ['arg_a_16', 'arg_b_16'], 'device_16', 19);
       expect(item.selections).assertEqual('selection_16');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -394,7 +394,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0017 end');
     })
 
     /**
@@ -406,7 +406,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0018 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_17', ['arg_a_17', 'arg_b_17'], 'device_17', 20);
       expect(item.selections).assertEqual('selection_17');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -416,7 +416,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0018 end');
     })
 
     /**
@@ -428,7 +428,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0019 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_18', ['arg_a_18', 'arg_b_18'], 'device_18', 21);
       expect(item.selections).assertEqual('selection_18');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -438,7 +438,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0019 end');
     })
 
     /**
@@ -450,7 +450,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0020 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_19', ['arg_a_19', 'arg_b_19'], 'device_19', 22);
       expect(item.selections).assertEqual('selection_19');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -460,7 +460,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0020 end');
     })
 
     /**
@@ -472,7 +472,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0021 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_20', ['arg_a_20', 'arg_b_20'], 'device_20', 23);
       expect(item.selections).assertEqual('selection_20');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -482,7 +482,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0021 end');
     })
 
     /**
@@ -494,7 +494,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0022 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_21', ['arg_a_21', 'arg_b_21'], 'device_21', 24);
       expect(item.selections).assertEqual('selection_21');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -504,7 +504,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0022 end');
     })
 
     /**
@@ -516,7 +516,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0023 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_22', ['arg_a_22', 'arg_b_22'], 'device_22', 25);
       expect(item.selections).assertEqual('selection_22');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -526,7 +526,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0023 end');
     })
 
     /**
@@ -538,7 +538,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0024 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_23', ['arg_a_23', 'arg_b_23'], 'device_23', 26);
       expect(item.selections).assertEqual('selection_23');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -548,7 +548,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0024 end');
     })
 
     /**
@@ -560,7 +560,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0025 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_24', ['arg_a_24', 'arg_b_24'], 'device_24', 27);
       expect(item.selections).assertEqual('selection_24');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -570,7 +570,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0025 end');
     })
 
     /**
@@ -582,7 +582,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0026 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_25', ['arg_a_25', 'arg_b_25'], 'device_25', 28);
       expect(item.selections).assertEqual('selection_25');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -592,7 +592,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0026 end');
     })
 
     /**
@@ -604,7 +604,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0027 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_26', ['arg_a_26', 'arg_b_26'], 'device_26', 29);
       expect(item.selections).assertEqual('selection_26');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -614,7 +614,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0027 end');
     })
 
     /**
@@ -626,7 +626,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0028 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_27', ['arg_a_27', 'arg_b_27'], 'device_27', 30);
       expect(item.selections).assertEqual('selection_27');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -636,7 +636,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0028 end');
     })
 
     /**
@@ -648,7 +648,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0029 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_28', ['arg_a_28', 'arg_b_28'], 'device_28', 31);
       expect(item.selections).assertEqual('selection_28');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -658,7 +658,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0029 end');
     })
 
     /**
@@ -670,7 +670,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0030 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_29', ['arg_a_29', 'arg_b_29'], 'device_29', 32);
       expect(item.selections).assertEqual('selection_29');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -680,7 +680,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0030 end');
     })
 
     /**
@@ -692,7 +692,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0031 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_30', ['arg_a_30', 'arg_b_30'], 'device_30', 33);
       expect(item.selections).assertEqual('selection_30');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -702,7 +702,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0031 end');
     })
 
     /**
@@ -714,7 +714,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0032 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_31', ['arg_a_31', 'arg_b_31'], 'device_31', 34);
       expect(item.selections).assertEqual('selection_31');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -724,7 +724,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0032 end');
     })
 
     /**
@@ -736,7 +736,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0033 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_32', ['arg_a_32', 'arg_b_32'], 'device_32', 35);
       expect(item.selections).assertEqual('selection_32');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -746,7 +746,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0033 end');
     })
 
     /**
@@ -758,7 +758,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0034 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_33', ['arg_a_33', 'arg_b_33'], 'device_33', 36);
       expect(item.selections).assertEqual('selection_33');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -768,7 +768,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0034 end');
     })
 
     /**
@@ -780,7 +780,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0035 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_34', ['arg_a_34', 'arg_b_34'], 'device_34', 37);
       expect(item.selections).assertEqual('selection_34');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -790,7 +790,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0035 end');
     })
 
     /**
@@ -802,7 +802,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0036 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_35', ['arg_a_35', 'arg_b_35'], 'device_35', 38);
       expect(item.selections).assertEqual('selection_35');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -812,7 +812,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0036 end');
     })
 
     /**
@@ -824,7 +824,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0037 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_36', ['arg_a_36', 'arg_b_36'], 'device_36', 39);
       expect(item.selections).assertEqual('selection_36');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -834,7 +834,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0037 end');
     })
 
     /**
@@ -846,7 +846,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0038 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_37', ['arg_a_37', 'arg_b_37'], 'device_37', 40);
       expect(item.selections).assertEqual('selection_37');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -856,7 +856,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0038 end');
     })
 
     /**
@@ -868,7 +868,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0039 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_38', ['arg_a_38', 'arg_b_38'], 'device_38', 41);
       expect(item.selections).assertEqual('selection_38');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -878,7 +878,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0039 end');
     })
 
     /**
@@ -890,7 +890,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0040 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_39', ['arg_a_39', 'arg_b_39'], 'device_39', 42);
       expect(item.selections).assertEqual('selection_39');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -900,7 +900,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0040 end');
     })
 
     /**
@@ -912,7 +912,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0041 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_40', ['arg_a_40', 'arg_b_40'], 'device_40', 43);
       expect(item.selections).assertEqual('selection_40');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -922,7 +922,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0041 end');
     })
 
     /**
@@ -934,7 +934,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0042 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_41', ['arg_a_41', 'arg_b_41'], 'device_41', 44);
       expect(item.selections).assertEqual('selection_41');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -944,7 +944,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0042 end');
     })
 
     /**
@@ -956,7 +956,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0043 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_42', ['arg_a_42', 'arg_b_42'], 'device_42', 45);
       expect(item.selections).assertEqual('selection_42');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -966,7 +966,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0043 end');
     })
 
     /**
@@ -978,7 +978,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0044 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_43', ['arg_a_43', 'arg_b_43'], 'device_43', 46);
       expect(item.selections).assertEqual('selection_43');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -988,7 +988,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0044 end');
     })
 
     /**
@@ -1000,7 +1000,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0045 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_44', ['arg_a_44', 'arg_b_44'], 'device_44', 47);
       expect(item.selections).assertEqual('selection_44');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1010,7 +1010,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0045 end');
     })
 
     /**
@@ -1022,7 +1022,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0046 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_45', ['arg_a_45', 'arg_b_45'], 'device_45', 48);
       expect(item.selections).assertEqual('selection_45');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1032,7 +1032,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0046 end');
     })
 
     /**
@@ -1044,7 +1044,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0047 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_46', ['arg_a_46', 'arg_b_46'], 'device_46', 49);
       expect(item.selections).assertEqual('selection_46');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1054,7 +1054,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0047 end');
     })
 
     /**
@@ -1066,7 +1066,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0048 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_47', ['arg_a_47', 'arg_b_47'], 'device_47', 50);
       expect(item.selections).assertEqual('selection_47');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1076,7 +1076,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0048 end');
     })
 
     /**
@@ -1088,7 +1088,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0049 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_48', ['arg_a_48', 'arg_b_48'], 'device_48', 51);
       expect(item.selections).assertEqual('selection_48');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1098,7 +1098,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0049 end');
     })
 
     /**
@@ -1110,7 +1110,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0050 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_49', ['arg_a_49', 'arg_b_49'], 'device_49', 52);
       expect(item.selections).assertEqual('selection_49');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1120,7 +1120,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0050 end');
     })
 
     /**
@@ -1132,7 +1132,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0051 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_50', ['arg_a_50', 'arg_b_50'], 'device_50', 53);
       expect(item.selections).assertEqual('selection_50');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1142,7 +1142,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0051 end');
     })
 
     /**
@@ -1154,7 +1154,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0052 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_51', ['arg_a_51', 'arg_b_51'], 'device_51', 54);
       expect(item.selections).assertEqual('selection_51');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1164,7 +1164,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0052 end');
     })
 
     /**
@@ -1176,7 +1176,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0053 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_52', ['arg_a_52', 'arg_b_52'], 'device_52', 55);
       expect(item.selections).assertEqual('selection_52');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1186,7 +1186,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0053 end');
     })
 
     /**
@@ -1198,7 +1198,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0054 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_53', ['arg_a_53', 'arg_b_53'], 'device_53', 56);
       expect(item.selections).assertEqual('selection_53');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1208,7 +1208,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0054 end');
     })
 
     /**
@@ -1220,7 +1220,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0055 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_54', ['arg_a_54', 'arg_b_54'], 'device_54', 57);
       expect(item.selections).assertEqual('selection_54');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1230,7 +1230,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0055 end');
     })
 
     /**
@@ -1242,7 +1242,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0056 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_55', ['arg_a_55', 'arg_b_55'], 'device_55', 58);
       expect(item.selections).assertEqual('selection_55');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1252,7 +1252,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0056 end');
     })
 
     /**
@@ -1264,7 +1264,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0057 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_56', ['arg_a_56', 'arg_b_56'], 'device_56', 59);
       expect(item.selections).assertEqual('selection_56');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1274,7 +1274,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0057 end');
     })
 
     /**
@@ -1286,7 +1286,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0058 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_57', ['arg_a_57', 'arg_b_57'], 'device_57', 60);
       expect(item.selections).assertEqual('selection_57');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1296,7 +1296,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0058 end');
     })
 
     /**
@@ -1308,7 +1308,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0059 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_58', ['arg_a_58', 'arg_b_58'], 'device_58', 61);
       expect(item.selections).assertEqual('selection_58');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1318,7 +1318,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0059 end');
     })
 
     /**
@@ -1330,7 +1330,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemInitMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0060 begin');
       const item: UserFileDataItem = new UserFileDataItem('selection_59', ['arg_a_59', 'arg_b_59'], 'device_59', 62);
       expect(item.selections).assertEqual('selection_59');
       expect(item.selectionArgs.length).assertEqual(2);
@@ -1340,7 +1340,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.viewType).assertEqual(ViewType.ITEM);
       expect(item.isSelect).assertFalse();
       expect(item.status).assertEqual(MediaConstants.UNDEFINED);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemInitMatrix0060 end');
     })
 
     /**
@@ -1352,7 +1352,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0001 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 1);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/0';
@@ -1362,7 +1362,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/00 0 true');
       expect(item.getHashCode() === '1').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0001 end');
     })
 
     /**
@@ -1374,7 +1374,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0002 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 2);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/1';
@@ -1384,7 +1384,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/11 90 false');
       expect(item.getHashCode() === '2').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0002 end');
     })
 
     /**
@@ -1396,7 +1396,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0003 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 3);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/2';
@@ -1406,7 +1406,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/20 180 false');
       expect(item.getHashCode() === '3').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0003 end');
     })
 
     /**
@@ -1418,7 +1418,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0004 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 4);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/3';
@@ -1428,7 +1428,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/31 270 true');
       expect(item.getHashCode() === '4').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0004 end');
     })
 
     /**
@@ -1440,7 +1440,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0005 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 5);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/4';
@@ -1450,7 +1450,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/40 0 false');
       expect(item.getHashCode() === '5').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0005 end');
     })
 
     /**
@@ -1462,7 +1462,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0006 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 6);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/5';
@@ -1472,7 +1472,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/51 90 false');
       expect(item.getHashCode() === '6').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0006 end');
     })
 
     /**
@@ -1484,7 +1484,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0007 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 7);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/6';
@@ -1494,7 +1494,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/60 180 true');
       expect(item.getHashCode() === '7').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0007 end');
     })
 
     /**
@@ -1506,7 +1506,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0008 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 8);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/7';
@@ -1516,7 +1516,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/71 270 false');
       expect(item.getHashCode() === '8').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0008 end');
     })
 
     /**
@@ -1528,7 +1528,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0009 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 9);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/8';
@@ -1538,7 +1538,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/80 0 false');
       expect(item.getHashCode() === '9').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0009 end');
     })
 
     /**
@@ -1550,7 +1550,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0010 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 10);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/9';
@@ -1560,7 +1560,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/91 90 true');
       expect(item.getHashCode() === '10').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0010 end');
     })
 
     /**
@@ -1572,7 +1572,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0011 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 11);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/10';
@@ -1582,7 +1582,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/100 180 false');
       expect(item.getHashCode() === '11').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0011 end');
     })
 
     /**
@@ -1594,7 +1594,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0012 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 12);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/11';
@@ -1604,7 +1604,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/111 270 false');
       expect(item.getHashCode() === '12').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0012 end');
     })
 
     /**
@@ -1616,7 +1616,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0013 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 13);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/12';
@@ -1626,7 +1626,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/120 0 true');
       expect(item.getHashCode() === '13').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0013 end');
     })
 
     /**
@@ -1638,7 +1638,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0014 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 14);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/13';
@@ -1648,7 +1648,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/131 90 false');
       expect(item.getHashCode() === '14').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0014 end');
     })
 
     /**
@@ -1660,7 +1660,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0015 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 15);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/14';
@@ -1670,7 +1670,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/140 180 false');
       expect(item.getHashCode() === '15').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0015 end');
     })
 
     /**
@@ -1682,7 +1682,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0016 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 16);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/15';
@@ -1692,7 +1692,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/151 270 true');
       expect(item.getHashCode() === '16').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0016 end');
     })
 
     /**
@@ -1704,7 +1704,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0017 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 17);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/16';
@@ -1714,7 +1714,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/160 0 false');
       expect(item.getHashCode() === '17').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0017 end');
     })
 
     /**
@@ -1726,7 +1726,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0018 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 18);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/17';
@@ -1736,7 +1736,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/171 90 false');
       expect(item.getHashCode() === '18').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0018 end');
     })
 
     /**
@@ -1748,7 +1748,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0019 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 19);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/18';
@@ -1758,7 +1758,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/180 180 true');
       expect(item.getHashCode() === '19').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0019 end');
     })
 
     /**
@@ -1770,7 +1770,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0020 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 20);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/19';
@@ -1780,7 +1780,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/191 270 false');
       expect(item.getHashCode() === '20').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0020 end');
     })
 
     /**
@@ -1792,7 +1792,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0021 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 21);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/20';
@@ -1802,7 +1802,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/200 0 false');
       expect(item.getHashCode() === '21').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0021 end');
     })
 
     /**
@@ -1814,7 +1814,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0022 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 22);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/21';
@@ -1824,7 +1824,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/211 90 true');
       expect(item.getHashCode() === '22').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0022 end');
     })
 
     /**
@@ -1836,7 +1836,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0023 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 23);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/22';
@@ -1846,7 +1846,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/220 180 false');
       expect(item.getHashCode() === '23').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0023 end');
     })
 
     /**
@@ -1858,7 +1858,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0024 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 24);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/23';
@@ -1868,7 +1868,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/231 270 false');
       expect(item.getHashCode() === '24').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0024 end');
     })
 
     /**
@@ -1880,7 +1880,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0025 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 25);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/24';
@@ -1890,7 +1890,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/240 0 true');
       expect(item.getHashCode() === '25').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0025 end');
     })
 
     /**
@@ -1902,7 +1902,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0026 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 26);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/25';
@@ -1912,7 +1912,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/251 90 false');
       expect(item.getHashCode() === '26').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0026 end');
     })
 
     /**
@@ -1924,7 +1924,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0027 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 27);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/26';
@@ -1934,7 +1934,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/260 180 false');
       expect(item.getHashCode() === '27').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0027 end');
     })
 
     /**
@@ -1946,7 +1946,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0028 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 28);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/27';
@@ -1956,7 +1956,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/271 270 true');
       expect(item.getHashCode() === '28').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0028 end');
     })
 
     /**
@@ -1968,7 +1968,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0029 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 29);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/28';
@@ -1978,7 +1978,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/280 0 false');
       expect(item.getHashCode() === '29').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0029 end');
     })
 
     /**
@@ -1990,7 +1990,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUserFileDataItemHashMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0030 begin');
       const item: UserFileDataItem = new UserFileDataItem('', [], '', 30);
       item.status = MediaConstants.PART_LOADED;
       item.uri = 'file://media/29';
@@ -2000,7 +2000,7 @@ export default function PhotosUserFileDataItemMatrixTest(): void {
       expect(item.getHashCode()).assertEqual('file://media/291 90 false');
       expect(item.getHashCode() === '30').assertFalse();
       expect(item.isLoad()).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashMatrix0030 end');
     })
   })
 }

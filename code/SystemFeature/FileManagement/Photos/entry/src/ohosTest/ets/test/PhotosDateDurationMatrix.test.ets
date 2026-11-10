@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,9 +30,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0001 begin');
       expect(DateUtil.getFormattedDuration(1)).assertEqual('00:01');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0001 end');
     })
 
     /**
@@ -44,9 +44,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0002 begin');
       expect(DateUtil.getFormattedDuration(59999)).assertEqual('00:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0002 end');
     })
 
     /**
@@ -58,9 +58,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0003 begin');
       expect(DateUtil.getFormattedDuration(60000)).assertEqual('01:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0003 end');
     })
 
 
@@ -73,9 +73,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0004 begin');
       expect(DateUtil.getFormattedDuration(45001)).assertEqual('00:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0004 end');
     })
 
     /**
@@ -87,9 +87,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0005 begin');
       expect(DateUtil.getFormattedDuration(104999)).assertEqual('01:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0005 end');
     })
 
     /**
@@ -101,9 +101,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0006 begin');
       expect(DateUtil.getFormattedDuration(105000)).assertEqual('01:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0006 end');
     })
 
 
@@ -116,9 +116,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0007 begin');
       expect(DateUtil.getFormattedDuration(90001)).assertEqual('01:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0007 end');
     })
 
     /**
@@ -130,9 +130,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0008 begin');
       expect(DateUtil.getFormattedDuration(149999)).assertEqual('02:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0008 end');
     })
 
     /**
@@ -144,9 +144,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0009 begin');
       expect(DateUtil.getFormattedDuration(150000)).assertEqual('02:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0009 end');
     })
 
 
@@ -159,9 +159,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0010 begin');
       expect(DateUtil.getFormattedDuration(135001)).assertEqual('02:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0010 end');
     })
 
     /**
@@ -173,9 +173,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0011 begin');
       expect(DateUtil.getFormattedDuration(194999)).assertEqual('03:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0011 end');
     })
 
     /**
@@ -187,9 +187,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0012 begin');
       expect(DateUtil.getFormattedDuration(195000)).assertEqual('03:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0012 end');
     })
 
 
@@ -202,9 +202,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0013 begin');
       expect(DateUtil.getFormattedDuration(180001)).assertEqual('03:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0013 end');
     })
 
     /**
@@ -216,9 +216,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0014 begin');
       expect(DateUtil.getFormattedDuration(239999)).assertEqual('03:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0014 end');
     })
 
     /**
@@ -230,9 +230,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0015 begin');
       expect(DateUtil.getFormattedDuration(240000)).assertEqual('04:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0015 end');
     })
 
 
@@ -245,9 +245,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0016 begin');
       expect(DateUtil.getFormattedDuration(225001)).assertEqual('03:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0016 end');
     })
 
     /**
@@ -259,9 +259,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0017 begin');
       expect(DateUtil.getFormattedDuration(284999)).assertEqual('04:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0017 end');
     })
 
     /**
@@ -273,9 +273,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0018 begin');
       expect(DateUtil.getFormattedDuration(285000)).assertEqual('04:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0018 end');
     })
 
 
@@ -288,9 +288,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0019 begin');
       expect(DateUtil.getFormattedDuration(270001)).assertEqual('04:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0019 end');
     })
 
     /**
@@ -302,9 +302,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0020 begin');
       expect(DateUtil.getFormattedDuration(329999)).assertEqual('05:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0020 end');
     })
 
     /**
@@ -316,9 +316,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0021 begin');
       expect(DateUtil.getFormattedDuration(330000)).assertEqual('05:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0021 end');
     })
 
 
@@ -331,9 +331,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0022 begin');
       expect(DateUtil.getFormattedDuration(315001)).assertEqual('05:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0022 end');
     })
 
     /**
@@ -345,9 +345,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0023 begin');
       expect(DateUtil.getFormattedDuration(374999)).assertEqual('06:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0023 end');
     })
 
     /**
@@ -359,9 +359,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0024 begin');
       expect(DateUtil.getFormattedDuration(375000)).assertEqual('06:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0024 end');
     })
 
 
@@ -374,9 +374,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0025 begin');
       expect(DateUtil.getFormattedDuration(360001)).assertEqual('06:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0025 end');
     })
 
     /**
@@ -388,9 +388,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0026 begin');
       expect(DateUtil.getFormattedDuration(419999)).assertEqual('06:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0026 end');
     })
 
     /**
@@ -402,9 +402,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0027 begin');
       expect(DateUtil.getFormattedDuration(420000)).assertEqual('07:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0027 end');
     })
 
 
@@ -417,9 +417,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0028 begin');
       expect(DateUtil.getFormattedDuration(405001)).assertEqual('06:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0028 end');
     })
 
     /**
@@ -431,9 +431,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0029 begin');
       expect(DateUtil.getFormattedDuration(464999)).assertEqual('07:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0029 end');
     })
 
     /**
@@ -445,9 +445,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0030 begin');
       expect(DateUtil.getFormattedDuration(465000)).assertEqual('07:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0030 end');
     })
 
 
@@ -460,9 +460,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0031 begin');
       expect(DateUtil.getFormattedDuration(450001)).assertEqual('07:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0031 end');
     })
 
     /**
@@ -474,9 +474,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0032 begin');
       expect(DateUtil.getFormattedDuration(509999)).assertEqual('08:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0032 end');
     })
 
     /**
@@ -488,9 +488,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0033 begin');
       expect(DateUtil.getFormattedDuration(510000)).assertEqual('08:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0033 end');
     })
 
 
@@ -503,9 +503,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0034 begin');
       expect(DateUtil.getFormattedDuration(495001)).assertEqual('08:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0034 end');
     })
 
     /**
@@ -517,9 +517,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0035 begin');
       expect(DateUtil.getFormattedDuration(554999)).assertEqual('09:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0035 end');
     })
 
     /**
@@ -531,9 +531,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0036 begin');
       expect(DateUtil.getFormattedDuration(555000)).assertEqual('09:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0036 end');
     })
 
 
@@ -546,9 +546,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0037 begin');
       expect(DateUtil.getFormattedDuration(540001)).assertEqual('09:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0037 end');
     })
 
     /**
@@ -560,9 +560,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0038 begin');
       expect(DateUtil.getFormattedDuration(599999)).assertEqual('09:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0038 end');
     })
 
     /**
@@ -574,9 +574,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0039 begin');
       expect(DateUtil.getFormattedDuration(600000)).assertEqual('10:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0039 end');
     })
 
 
@@ -589,9 +589,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0040 begin');
       expect(DateUtil.getFormattedDuration(585001)).assertEqual('09:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0040 end');
     })
 
     /**
@@ -603,9 +603,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0041 begin');
       expect(DateUtil.getFormattedDuration(644999)).assertEqual('10:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0041 end');
     })
 
     /**
@@ -617,9 +617,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0042 begin');
       expect(DateUtil.getFormattedDuration(645000)).assertEqual('10:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0042 end');
     })
 
 
@@ -632,9 +632,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0043 begin');
       expect(DateUtil.getFormattedDuration(630001)).assertEqual('10:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0043 end');
     })
 
     /**
@@ -646,9 +646,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0044 begin');
       expect(DateUtil.getFormattedDuration(689999)).assertEqual('11:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0044 end');
     })
 
     /**
@@ -660,9 +660,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0045 begin');
       expect(DateUtil.getFormattedDuration(690000)).assertEqual('11:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0045 end');
     })
 
 
@@ -675,9 +675,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0046 begin');
       expect(DateUtil.getFormattedDuration(675001)).assertEqual('11:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0046 end');
     })
 
     /**
@@ -689,9 +689,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0047 begin');
       expect(DateUtil.getFormattedDuration(734999)).assertEqual('12:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0047 end');
     })
 
     /**
@@ -703,9 +703,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0048 begin');
       expect(DateUtil.getFormattedDuration(735000)).assertEqual('12:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0048 end');
     })
 
 
@@ -718,9 +718,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0049 begin');
       expect(DateUtil.getFormattedDuration(720001)).assertEqual('12:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0049 end');
     })
 
     /**
@@ -732,9 +732,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0050 begin');
       expect(DateUtil.getFormattedDuration(779999)).assertEqual('12:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0050 end');
     })
 
     /**
@@ -746,9 +746,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0051 begin');
       expect(DateUtil.getFormattedDuration(780000)).assertEqual('13:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0051 end');
     })
 
 
@@ -761,9 +761,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0052 begin');
       expect(DateUtil.getFormattedDuration(765001)).assertEqual('12:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0052 end');
     })
 
     /**
@@ -775,9 +775,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0053 begin');
       expect(DateUtil.getFormattedDuration(824999)).assertEqual('13:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0053 end');
     })
 
     /**
@@ -789,9 +789,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0054 begin');
       expect(DateUtil.getFormattedDuration(825000)).assertEqual('13:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0054 end');
     })
 
 
@@ -804,9 +804,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0055 begin');
       expect(DateUtil.getFormattedDuration(810001)).assertEqual('13:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0055 end');
     })
 
     /**
@@ -818,9 +818,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0056 begin');
       expect(DateUtil.getFormattedDuration(869999)).assertEqual('14:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0056 end');
     })
 
     /**
@@ -832,9 +832,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0057 begin');
       expect(DateUtil.getFormattedDuration(870000)).assertEqual('14:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0057 end');
     })
 
 
@@ -847,9 +847,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0058 begin');
       expect(DateUtil.getFormattedDuration(855001)).assertEqual('14:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0058 end');
     })
 
     /**
@@ -861,9 +861,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0059 begin');
       expect(DateUtil.getFormattedDuration(914999)).assertEqual('15:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0059 end');
     })
 
     /**
@@ -875,9 +875,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0060 begin');
       expect(DateUtil.getFormattedDuration(915000)).assertEqual('15:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0060 end');
     })
 
 
@@ -890,9 +890,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0061 begin');
       expect(DateUtil.getFormattedDuration(900001)).assertEqual('15:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0061 end');
     })
 
     /**
@@ -904,9 +904,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0062 begin');
       expect(DateUtil.getFormattedDuration(959999)).assertEqual('15:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0062 end');
     })
 
     /**
@@ -918,9 +918,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0063 begin');
       expect(DateUtil.getFormattedDuration(960000)).assertEqual('16:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0063 end');
     })
 
 
@@ -933,9 +933,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0064 begin');
       expect(DateUtil.getFormattedDuration(945001)).assertEqual('15:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0064 end');
     })
 
     /**
@@ -947,9 +947,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0065 begin');
       expect(DateUtil.getFormattedDuration(1004999)).assertEqual('16:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0065 end');
     })
 
     /**
@@ -961,9 +961,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0066 begin');
       expect(DateUtil.getFormattedDuration(1005000)).assertEqual('16:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0066 end');
     })
 
 
@@ -976,9 +976,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0067 begin');
       expect(DateUtil.getFormattedDuration(990001)).assertEqual('16:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0067 end');
     })
 
     /**
@@ -990,9 +990,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0068 begin');
       expect(DateUtil.getFormattedDuration(1049999)).assertEqual('17:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0068 end');
     })
 
     /**
@@ -1004,9 +1004,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0069 begin');
       expect(DateUtil.getFormattedDuration(1050000)).assertEqual('17:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0069 end');
     })
 
 
@@ -1019,9 +1019,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0070 begin');
       expect(DateUtil.getFormattedDuration(1035001)).assertEqual('17:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0070 end');
     })
 
     /**
@@ -1033,9 +1033,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0071 begin');
       expect(DateUtil.getFormattedDuration(1094999)).assertEqual('18:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0071 end');
     })
 
     /**
@@ -1047,9 +1047,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0072 begin');
       expect(DateUtil.getFormattedDuration(1095000)).assertEqual('18:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0072 end');
     })
 
 
@@ -1062,9 +1062,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0073 begin');
       expect(DateUtil.getFormattedDuration(1080001)).assertEqual('18:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0073 end');
     })
 
     /**
@@ -1076,9 +1076,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0074 begin');
       expect(DateUtil.getFormattedDuration(1139999)).assertEqual('18:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0074 end');
     })
 
     /**
@@ -1090,9 +1090,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0075 begin');
       expect(DateUtil.getFormattedDuration(1140000)).assertEqual('19:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0075 end');
     })
 
 
@@ -1105,9 +1105,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0076 begin');
       expect(DateUtil.getFormattedDuration(1125001)).assertEqual('18:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0076 end');
     })
 
     /**
@@ -1119,9 +1119,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0077 begin');
       expect(DateUtil.getFormattedDuration(1184999)).assertEqual('19:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0077 end');
     })
 
     /**
@@ -1133,9 +1133,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0078 begin');
       expect(DateUtil.getFormattedDuration(1185000)).assertEqual('19:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0078 end');
     })
 
 
@@ -1148,9 +1148,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0079 begin');
       expect(DateUtil.getFormattedDuration(1170001)).assertEqual('19:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0079 end');
     })
 
     /**
@@ -1162,9 +1162,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0080 begin');
       expect(DateUtil.getFormattedDuration(1229999)).assertEqual('20:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0080 end');
     })
 
     /**
@@ -1176,9 +1176,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0081 begin');
       expect(DateUtil.getFormattedDuration(1230000)).assertEqual('20:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0081 end');
     })
 
 
@@ -1191,9 +1191,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0082 begin');
       expect(DateUtil.getFormattedDuration(1215001)).assertEqual('20:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0082 end');
     })
 
     /**
@@ -1205,9 +1205,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0083 begin');
       expect(DateUtil.getFormattedDuration(1274999)).assertEqual('21:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0083 end');
     })
 
     /**
@@ -1219,9 +1219,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0084 begin');
       expect(DateUtil.getFormattedDuration(1275000)).assertEqual('21:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0084 end');
     })
 
 
@@ -1234,9 +1234,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0085 begin');
       expect(DateUtil.getFormattedDuration(1260001)).assertEqual('21:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0085 end');
     })
 
     /**
@@ -1248,9 +1248,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0086 begin');
       expect(DateUtil.getFormattedDuration(1319999)).assertEqual('21:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0086 end');
     })
 
     /**
@@ -1262,9 +1262,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0087 begin');
       expect(DateUtil.getFormattedDuration(1320000)).assertEqual('22:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0087 end');
     })
 
 
@@ -1277,9 +1277,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0088 begin');
       expect(DateUtil.getFormattedDuration(1305001)).assertEqual('21:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0088 end');
     })
 
     /**
@@ -1291,9 +1291,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0089 begin');
       expect(DateUtil.getFormattedDuration(1364999)).assertEqual('22:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0089 end');
     })
 
     /**
@@ -1305,9 +1305,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0090 begin');
       expect(DateUtil.getFormattedDuration(1365000)).assertEqual('22:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0090 end');
     })
 
 
@@ -1320,9 +1320,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0091 begin');
       expect(DateUtil.getFormattedDuration(1350001)).assertEqual('22:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0091 end');
     })
 
     /**
@@ -1334,9 +1334,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0092 begin');
       expect(DateUtil.getFormattedDuration(1409999)).assertEqual('23:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0092 end');
     })
 
     /**
@@ -1348,9 +1348,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0093 begin');
       expect(DateUtil.getFormattedDuration(1410000)).assertEqual('23:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0093 end');
     })
 
 
@@ -1363,9 +1363,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0094 begin');
       expect(DateUtil.getFormattedDuration(1395001)).assertEqual('23:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0094 end');
     })
 
     /**
@@ -1377,9 +1377,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0095 begin');
       expect(DateUtil.getFormattedDuration(1454999)).assertEqual('24:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0095 end');
     })
 
     /**
@@ -1391,9 +1391,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0096 begin');
       expect(DateUtil.getFormattedDuration(1455000)).assertEqual('24:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0096 end');
     })
 
 
@@ -1406,9 +1406,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0097 begin');
       expect(DateUtil.getFormattedDuration(1440001)).assertEqual('24:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0097 end');
     })
 
     /**
@@ -1420,9 +1420,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0098 begin');
       expect(DateUtil.getFormattedDuration(1499999)).assertEqual('24:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0098 end');
     })
 
     /**
@@ -1434,9 +1434,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0099 begin');
       expect(DateUtil.getFormattedDuration(1500000)).assertEqual('25:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0099 end');
     })
 
 
@@ -1449,9 +1449,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0100 begin');
       expect(DateUtil.getFormattedDuration(1485001)).assertEqual('24:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0100 end');
     })
 
     /**
@@ -1463,9 +1463,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0101 begin');
       expect(DateUtil.getFormattedDuration(1544999)).assertEqual('25:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0101 end');
     })
 
     /**
@@ -1477,9 +1477,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0102 begin');
       expect(DateUtil.getFormattedDuration(1545000)).assertEqual('25:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0102 end');
     })
 
 
@@ -1492,9 +1492,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0103 begin');
       expect(DateUtil.getFormattedDuration(1530001)).assertEqual('25:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0103 end');
     })
 
     /**
@@ -1506,9 +1506,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0104 begin');
       expect(DateUtil.getFormattedDuration(1589999)).assertEqual('26:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0104 end');
     })
 
     /**
@@ -1520,9 +1520,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0105 begin');
       expect(DateUtil.getFormattedDuration(1590000)).assertEqual('26:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0105 end');
     })
 
 
@@ -1535,9 +1535,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0106 begin');
       expect(DateUtil.getFormattedDuration(1575001)).assertEqual('26:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0106 end');
     })
 
     /**
@@ -1549,9 +1549,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0107 begin');
       expect(DateUtil.getFormattedDuration(1634999)).assertEqual('27:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0107 end');
     })
 
     /**
@@ -1563,9 +1563,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0108 begin');
       expect(DateUtil.getFormattedDuration(1635000)).assertEqual('27:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0108 end');
     })
 
 
@@ -1578,9 +1578,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0109 begin');
       expect(DateUtil.getFormattedDuration(1620001)).assertEqual('27:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0109 end');
     })
 
     /**
@@ -1592,9 +1592,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0110 begin');
       expect(DateUtil.getFormattedDuration(1679999)).assertEqual('27:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0110 end');
     })
 
     /**
@@ -1606,9 +1606,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0111 begin');
       expect(DateUtil.getFormattedDuration(1680000)).assertEqual('28:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0111 end');
     })
 
 
@@ -1621,9 +1621,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0112 begin');
       expect(DateUtil.getFormattedDuration(1665001)).assertEqual('27:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0112 end');
     })
 
     /**
@@ -1635,9 +1635,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0113 begin');
       expect(DateUtil.getFormattedDuration(1724999)).assertEqual('28:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0113 end');
     })
 
     /**
@@ -1649,9 +1649,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0114 begin');
       expect(DateUtil.getFormattedDuration(1725000)).assertEqual('28:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0114 end');
     })
 
 
@@ -1664,9 +1664,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0115 begin');
       expect(DateUtil.getFormattedDuration(1710001)).assertEqual('28:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0115 end');
     })
 
     /**
@@ -1678,9 +1678,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0116 begin');
       expect(DateUtil.getFormattedDuration(1769999)).assertEqual('29:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0116 end');
     })
 
     /**
@@ -1692,9 +1692,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0117 begin');
       expect(DateUtil.getFormattedDuration(1770000)).assertEqual('29:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0117 end');
     })
 
 
@@ -1707,9 +1707,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0118 begin');
       expect(DateUtil.getFormattedDuration(1755001)).assertEqual('29:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0118 end');
     })
 
     /**
@@ -1721,9 +1721,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0119 begin');
       expect(DateUtil.getFormattedDuration(1814999)).assertEqual('30:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0119 end');
     })
 
     /**
@@ -1735,9 +1735,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0120 begin');
       expect(DateUtil.getFormattedDuration(1815000)).assertEqual('30:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0120 end');
     })
 
 
@@ -1750,9 +1750,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0121 begin');
       expect(DateUtil.getFormattedDuration(1800001)).assertEqual('30:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0121 end');
     })
 
     /**
@@ -1764,9 +1764,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0122 begin');
       expect(DateUtil.getFormattedDuration(1859999)).assertEqual('30:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0122 end');
     })
 
     /**
@@ -1778,9 +1778,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0123 begin');
       expect(DateUtil.getFormattedDuration(1860000)).assertEqual('31:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0123 end');
     })
 
 
@@ -1793,9 +1793,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0124 begin');
       expect(DateUtil.getFormattedDuration(1845001)).assertEqual('30:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0124 end');
     })
 
     /**
@@ -1807,9 +1807,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0125 begin');
       expect(DateUtil.getFormattedDuration(1904999)).assertEqual('31:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0125 end');
     })
 
     /**
@@ -1821,9 +1821,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0126 begin');
       expect(DateUtil.getFormattedDuration(1905000)).assertEqual('31:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0126 end');
     })
 
 
@@ -1836,9 +1836,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0127 begin');
       expect(DateUtil.getFormattedDuration(1890001)).assertEqual('31:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0127 end');
     })
 
     /**
@@ -1850,9 +1850,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0128 begin');
       expect(DateUtil.getFormattedDuration(1949999)).assertEqual('32:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0128 end');
     })
 
     /**
@@ -1864,9 +1864,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0129 begin');
       expect(DateUtil.getFormattedDuration(1950000)).assertEqual('32:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0129 end');
     })
 
 
@@ -1879,9 +1879,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0130 begin');
       expect(DateUtil.getFormattedDuration(1935001)).assertEqual('32:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0130 end');
     })
 
     /**
@@ -1893,9 +1893,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0131 begin');
       expect(DateUtil.getFormattedDuration(1994999)).assertEqual('33:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0131 end');
     })
 
     /**
@@ -1907,9 +1907,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0132 begin');
       expect(DateUtil.getFormattedDuration(1995000)).assertEqual('33:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0132 end');
     })
 
 
@@ -1922,9 +1922,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0133 begin');
       expect(DateUtil.getFormattedDuration(1980001)).assertEqual('33:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0133 end');
     })
 
     /**
@@ -1936,9 +1936,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0134 begin');
       expect(DateUtil.getFormattedDuration(2039999)).assertEqual('33:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0134 end');
     })
 
     /**
@@ -1950,9 +1950,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0135 begin');
       expect(DateUtil.getFormattedDuration(2040000)).assertEqual('34:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0135 end');
     })
 
 
@@ -1965,9 +1965,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0136 begin');
       expect(DateUtil.getFormattedDuration(2025001)).assertEqual('33:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0136 end');
     })
 
     /**
@@ -1979,9 +1979,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0137 begin');
       expect(DateUtil.getFormattedDuration(2084999)).assertEqual('34:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0137 end');
     })
 
     /**
@@ -1993,9 +1993,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0138 begin');
       expect(DateUtil.getFormattedDuration(2085000)).assertEqual('34:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0138 end');
     })
 
 
@@ -2008,9 +2008,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0139 begin');
       expect(DateUtil.getFormattedDuration(2070001)).assertEqual('34:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0139 end');
     })
 
     /**
@@ -2022,9 +2022,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0140 begin');
       expect(DateUtil.getFormattedDuration(2129999)).assertEqual('35:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0140 end');
     })
 
     /**
@@ -2036,9 +2036,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0141 begin');
       expect(DateUtil.getFormattedDuration(2130000)).assertEqual('35:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0141 end');
     })
 
 
@@ -2051,9 +2051,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0142 begin');
       expect(DateUtil.getFormattedDuration(2115001)).assertEqual('35:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0142 end');
     })
 
     /**
@@ -2065,9 +2065,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0143 begin');
       expect(DateUtil.getFormattedDuration(2174999)).assertEqual('36:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0143 end');
     })
 
     /**
@@ -2079,9 +2079,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0144 begin');
       expect(DateUtil.getFormattedDuration(2175000)).assertEqual('36:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0144 end');
     })
 
 
@@ -2094,9 +2094,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0145 begin');
       expect(DateUtil.getFormattedDuration(2160001)).assertEqual('36:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0145 end');
     })
 
     /**
@@ -2108,9 +2108,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0146 begin');
       expect(DateUtil.getFormattedDuration(2219999)).assertEqual('36:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0146 end');
     })
 
     /**
@@ -2122,9 +2122,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0147 begin');
       expect(DateUtil.getFormattedDuration(2220000)).assertEqual('37:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0147 end');
     })
 
 
@@ -2137,9 +2137,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0148 begin');
       expect(DateUtil.getFormattedDuration(2205001)).assertEqual('36:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0148 end');
     })
 
     /**
@@ -2151,9 +2151,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0149 begin');
       expect(DateUtil.getFormattedDuration(2264999)).assertEqual('37:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0149 end');
     })
 
     /**
@@ -2165,9 +2165,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0150 begin');
       expect(DateUtil.getFormattedDuration(2265000)).assertEqual('37:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0150 end');
     })
 
 
@@ -2180,9 +2180,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0151 begin');
       expect(DateUtil.getFormattedDuration(2250001)).assertEqual('37:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0151 end');
     })
 
     /**
@@ -2194,9 +2194,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0152 begin');
       expect(DateUtil.getFormattedDuration(2309999)).assertEqual('38:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0152 end');
     })
 
     /**
@@ -2208,9 +2208,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0153 begin');
       expect(DateUtil.getFormattedDuration(2310000)).assertEqual('38:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0153 end');
     })
 
 
@@ -2223,9 +2223,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0154 begin');
       expect(DateUtil.getFormattedDuration(2295001)).assertEqual('38:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0154 end');
     })
 
     /**
@@ -2237,9 +2237,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0155 begin');
       expect(DateUtil.getFormattedDuration(2354999)).assertEqual('39:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0155 end');
     })
 
     /**
@@ -2251,9 +2251,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0156 begin');
       expect(DateUtil.getFormattedDuration(2355000)).assertEqual('39:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0156 end');
     })
 
 
@@ -2266,9 +2266,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0157 begin');
       expect(DateUtil.getFormattedDuration(2340001)).assertEqual('39:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0157 end');
     })
 
     /**
@@ -2280,9 +2280,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0158 begin');
       expect(DateUtil.getFormattedDuration(2399999)).assertEqual('39:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0158 end');
     })
 
     /**
@@ -2294,9 +2294,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0159 begin');
       expect(DateUtil.getFormattedDuration(2400000)).assertEqual('40:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0159 end');
     })
 
 
@@ -2309,9 +2309,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0160 begin');
       expect(DateUtil.getFormattedDuration(2385001)).assertEqual('39:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0160 end');
     })
 
     /**
@@ -2323,9 +2323,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0161 begin');
       expect(DateUtil.getFormattedDuration(2444999)).assertEqual('40:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0161 end');
     })
 
     /**
@@ -2337,9 +2337,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0162 begin');
       expect(DateUtil.getFormattedDuration(2445000)).assertEqual('40:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0162 end');
     })
 
 
@@ -2352,9 +2352,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0163 begin');
       expect(DateUtil.getFormattedDuration(2430001)).assertEqual('40:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0163 end');
     })
 
     /**
@@ -2366,9 +2366,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0164 begin');
       expect(DateUtil.getFormattedDuration(2489999)).assertEqual('41:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0164 end');
     })
 
     /**
@@ -2380,9 +2380,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0165 begin');
       expect(DateUtil.getFormattedDuration(2490000)).assertEqual('41:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0165 end');
     })
 
 
@@ -2395,9 +2395,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0166 begin');
       expect(DateUtil.getFormattedDuration(2475001)).assertEqual('41:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0166 end');
     })
 
     /**
@@ -2409,9 +2409,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0167 begin');
       expect(DateUtil.getFormattedDuration(2534999)).assertEqual('42:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0167 end');
     })
 
     /**
@@ -2423,9 +2423,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0168 begin');
       expect(DateUtil.getFormattedDuration(2535000)).assertEqual('42:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0168 end');
     })
 
 
@@ -2438,9 +2438,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0169 begin');
       expect(DateUtil.getFormattedDuration(2520001)).assertEqual('42:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0169 end');
     })
 
     /**
@@ -2452,9 +2452,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0170 begin');
       expect(DateUtil.getFormattedDuration(2579999)).assertEqual('42:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0170 end');
     })
 
     /**
@@ -2466,9 +2466,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0171 begin');
       expect(DateUtil.getFormattedDuration(2580000)).assertEqual('43:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0171 end');
     })
 
 
@@ -2481,9 +2481,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0172 begin');
       expect(DateUtil.getFormattedDuration(2565001)).assertEqual('42:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0172 end');
     })
 
     /**
@@ -2495,9 +2495,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0173 begin');
       expect(DateUtil.getFormattedDuration(2624999)).assertEqual('43:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0173 end');
     })
 
     /**
@@ -2509,9 +2509,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0174 begin');
       expect(DateUtil.getFormattedDuration(2625000)).assertEqual('43:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0174 end');
     })
 
 
@@ -2524,9 +2524,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0175 begin');
       expect(DateUtil.getFormattedDuration(2610001)).assertEqual('43:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0175 end');
     })
 
     /**
@@ -2538,9 +2538,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0176 begin');
       expect(DateUtil.getFormattedDuration(2669999)).assertEqual('44:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0176 end');
     })
 
     /**
@@ -2552,9 +2552,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0177 begin');
       expect(DateUtil.getFormattedDuration(2670000)).assertEqual('44:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0177 end');
     })
 
 
@@ -2567,9 +2567,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0178 begin');
       expect(DateUtil.getFormattedDuration(2655001)).assertEqual('44:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0178 end');
     })
 
     /**
@@ -2581,9 +2581,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0179 begin');
       expect(DateUtil.getFormattedDuration(2714999)).assertEqual('45:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0179 end');
     })
 
     /**
@@ -2595,9 +2595,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0180 begin');
       expect(DateUtil.getFormattedDuration(2715000)).assertEqual('45:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0180 end');
     })
 
 
@@ -2610,9 +2610,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0181 begin');
       expect(DateUtil.getFormattedDuration(2700001)).assertEqual('45:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0181 end');
     })
 
     /**
@@ -2624,9 +2624,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0182 begin');
       expect(DateUtil.getFormattedDuration(2759999)).assertEqual('45:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0182 end');
     })
 
     /**
@@ -2638,9 +2638,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0183 begin');
       expect(DateUtil.getFormattedDuration(2760000)).assertEqual('46:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0183 end');
     })
 
 
@@ -2653,9 +2653,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0184 begin');
       expect(DateUtil.getFormattedDuration(2745001)).assertEqual('45:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0184 end');
     })
 
     /**
@@ -2667,9 +2667,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0185 begin');
       expect(DateUtil.getFormattedDuration(2804999)).assertEqual('46:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0185 end');
     })
 
     /**
@@ -2681,9 +2681,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0186 begin');
       expect(DateUtil.getFormattedDuration(2805000)).assertEqual('46:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0186 end');
     })
 
 
@@ -2696,9 +2696,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0187 begin');
       expect(DateUtil.getFormattedDuration(2790001)).assertEqual('46:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0187 end');
     })
 
     /**
@@ -2710,9 +2710,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0188 begin');
       expect(DateUtil.getFormattedDuration(2849999)).assertEqual('47:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0188 end');
     })
 
     /**
@@ -2724,9 +2724,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0189 begin');
       expect(DateUtil.getFormattedDuration(2850000)).assertEqual('47:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0189 end');
     })
 
 
@@ -2739,9 +2739,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0190 begin');
       expect(DateUtil.getFormattedDuration(2835001)).assertEqual('47:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0190 end');
     })
 
     /**
@@ -2753,9 +2753,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0191 begin');
       expect(DateUtil.getFormattedDuration(2894999)).assertEqual('48:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0191 end');
     })
 
     /**
@@ -2767,9 +2767,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0192 begin');
       expect(DateUtil.getFormattedDuration(2895000)).assertEqual('48:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0192 end');
     })
 
 
@@ -2782,9 +2782,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0193 begin');
       expect(DateUtil.getFormattedDuration(2880001)).assertEqual('48:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0193 end');
     })
 
     /**
@@ -2796,9 +2796,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0194 begin');
       expect(DateUtil.getFormattedDuration(2939999)).assertEqual('48:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0194 end');
     })
 
     /**
@@ -2810,9 +2810,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0195 begin');
       expect(DateUtil.getFormattedDuration(2940000)).assertEqual('49:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0195 end');
     })
 
 
@@ -2825,9 +2825,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0196 begin');
       expect(DateUtil.getFormattedDuration(2925001)).assertEqual('48:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0196 end');
     })
 
     /**
@@ -2839,9 +2839,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0197 begin');
       expect(DateUtil.getFormattedDuration(2984999)).assertEqual('49:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0197 end');
     })
 
     /**
@@ -2853,9 +2853,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0198 begin');
       expect(DateUtil.getFormattedDuration(2985000)).assertEqual('49:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0198 end');
     })
 
 
@@ -2868,9 +2868,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0199 begin');
       expect(DateUtil.getFormattedDuration(2970001)).assertEqual('49:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0199 end');
     })
 
     /**
@@ -2882,9 +2882,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0200 begin');
       expect(DateUtil.getFormattedDuration(3029999)).assertEqual('50:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0200 end');
     })
 
     /**
@@ -2896,9 +2896,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0201 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0201 begin');
       expect(DateUtil.getFormattedDuration(3030000)).assertEqual('50:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0201 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0201 end');
     })
 
 
@@ -2911,9 +2911,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0202 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0202 begin');
       expect(DateUtil.getFormattedDuration(3015001)).assertEqual('50:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0202 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0202 end');
     })
 
     /**
@@ -2925,9 +2925,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0203 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0203 begin');
       expect(DateUtil.getFormattedDuration(3074999)).assertEqual('51:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0203 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0203 end');
     })
 
     /**
@@ -2939,9 +2939,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0204 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0204 begin');
       expect(DateUtil.getFormattedDuration(3075000)).assertEqual('51:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0204 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0204 end');
     })
 
 
@@ -2954,9 +2954,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0205 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0205 begin');
       expect(DateUtil.getFormattedDuration(3060001)).assertEqual('51:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0205 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0205 end');
     })
 
     /**
@@ -2968,9 +2968,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0206 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0206 begin');
       expect(DateUtil.getFormattedDuration(3119999)).assertEqual('51:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0206 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0206 end');
     })
 
     /**
@@ -2982,9 +2982,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0207 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0207 begin');
       expect(DateUtil.getFormattedDuration(3120000)).assertEqual('52:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0207 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0207 end');
     })
 
 
@@ -2997,9 +2997,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0208 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0208 begin');
       expect(DateUtil.getFormattedDuration(3105001)).assertEqual('51:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0208 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0208 end');
     })
 
     /**
@@ -3011,9 +3011,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0209 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0209 begin');
       expect(DateUtil.getFormattedDuration(3164999)).assertEqual('52:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0209 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0209 end');
     })
 
     /**
@@ -3025,9 +3025,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0210 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0210 begin');
       expect(DateUtil.getFormattedDuration(3165000)).assertEqual('52:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0210 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0210 end');
     })
 
 
@@ -3040,9 +3040,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0211 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0211 begin');
       expect(DateUtil.getFormattedDuration(3150001)).assertEqual('52:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0211 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0211 end');
     })
 
     /**
@@ -3054,9 +3054,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0212 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0212 begin');
       expect(DateUtil.getFormattedDuration(3209999)).assertEqual('53:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0212 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0212 end');
     })
 
     /**
@@ -3068,9 +3068,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0213 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0213 begin');
       expect(DateUtil.getFormattedDuration(3210000)).assertEqual('53:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0213 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0213 end');
     })
 
 
@@ -3083,9 +3083,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0214 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0214 begin');
       expect(DateUtil.getFormattedDuration(3195001)).assertEqual('53:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0214 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0214 end');
     })
 
     /**
@@ -3097,9 +3097,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0215 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0215 begin');
       expect(DateUtil.getFormattedDuration(3254999)).assertEqual('54:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0215 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0215 end');
     })
 
     /**
@@ -3111,9 +3111,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0216 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0216 begin');
       expect(DateUtil.getFormattedDuration(3255000)).assertEqual('54:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0216 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0216 end');
     })
 
 
@@ -3126,9 +3126,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0217 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0217 begin');
       expect(DateUtil.getFormattedDuration(3240001)).assertEqual('54:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0217 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0217 end');
     })
 
     /**
@@ -3140,9 +3140,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0218 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0218 begin');
       expect(DateUtil.getFormattedDuration(3299999)).assertEqual('54:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0218 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0218 end');
     })
 
     /**
@@ -3154,9 +3154,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0219 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0219 begin');
       expect(DateUtil.getFormattedDuration(3300000)).assertEqual('55:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0219 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0219 end');
     })
 
 
@@ -3169,9 +3169,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0220 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0220 begin');
       expect(DateUtil.getFormattedDuration(3285001)).assertEqual('54:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0220 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0220 end');
     })
 
     /**
@@ -3183,9 +3183,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0221', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0221 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0221 begin');
       expect(DateUtil.getFormattedDuration(3344999)).assertEqual('55:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0221 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0221 end');
     })
 
     /**
@@ -3197,9 +3197,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0222 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0222 begin');
       expect(DateUtil.getFormattedDuration(3345000)).assertEqual('55:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0222 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0222 end');
     })
 
 
@@ -3212,9 +3212,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0223', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0223 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0223 begin');
       expect(DateUtil.getFormattedDuration(3330001)).assertEqual('55:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0223 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0223 end');
     })
 
     /**
@@ -3226,9 +3226,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0224', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0224 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0224 begin');
       expect(DateUtil.getFormattedDuration(3389999)).assertEqual('56:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0224 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0224 end');
     })
 
     /**
@@ -3240,9 +3240,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0225 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0225 begin');
       expect(DateUtil.getFormattedDuration(3390000)).assertEqual('56:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0225 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0225 end');
     })
 
 
@@ -3255,9 +3255,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0226 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0226 begin');
       expect(DateUtil.getFormattedDuration(3375001)).assertEqual('56:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0226 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0226 end');
     })
 
     /**
@@ -3269,9 +3269,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0227 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0227 begin');
       expect(DateUtil.getFormattedDuration(3434999)).assertEqual('57:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0227 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0227 end');
     })
 
     /**
@@ -3283,9 +3283,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0228 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0228 begin');
       expect(DateUtil.getFormattedDuration(3435000)).assertEqual('57:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0228 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0228 end');
     })
 
 
@@ -3298,9 +3298,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0229 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0229 begin');
       expect(DateUtil.getFormattedDuration(3420001)).assertEqual('57:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0229 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0229 end');
     })
 
     /**
@@ -3312,9 +3312,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0230 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0230 begin');
       expect(DateUtil.getFormattedDuration(3479999)).assertEqual('57:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0230 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0230 end');
     })
 
     /**
@@ -3326,9 +3326,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0231 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0231 begin');
       expect(DateUtil.getFormattedDuration(3480000)).assertEqual('58:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0231 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0231 end');
     })
 
 
@@ -3341,9 +3341,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0232 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0232 begin');
       expect(DateUtil.getFormattedDuration(3465001)).assertEqual('57:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0232 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0232 end');
     })
 
     /**
@@ -3355,9 +3355,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0233 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0233 begin');
       expect(DateUtil.getFormattedDuration(3524999)).assertEqual('58:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0233 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0233 end');
     })
 
     /**
@@ -3369,9 +3369,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0234 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0234 begin');
       expect(DateUtil.getFormattedDuration(3525000)).assertEqual('58:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0234 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0234 end');
     })
 
 
@@ -3384,9 +3384,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0235 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0235 begin');
       expect(DateUtil.getFormattedDuration(3510001)).assertEqual('58:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0235 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0235 end');
     })
 
     /**
@@ -3398,9 +3398,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0236 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0236 begin');
       expect(DateUtil.getFormattedDuration(3569999)).assertEqual('59:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0236 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0236 end');
     })
 
     /**
@@ -3412,9 +3412,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0237 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0237 begin');
       expect(DateUtil.getFormattedDuration(3570000)).assertEqual('59:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0237 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0237 end');
     })
 
 
@@ -3427,9 +3427,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0238 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0238 begin');
       expect(DateUtil.getFormattedDuration(3555001)).assertEqual('59:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0238 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0238 end');
     })
 
     /**
@@ -3441,9 +3441,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0239 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0239 begin');
       expect(DateUtil.getFormattedDuration(3614999)).assertEqual('1:00:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0239 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0239 end');
     })
 
     /**
@@ -3455,9 +3455,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0240 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0240 begin');
       expect(DateUtil.getFormattedDuration(3615000)).assertEqual('1:00:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0240 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0240 end');
     })
 
 
@@ -3470,9 +3470,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0241 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0241 begin');
       expect(DateUtil.getFormattedDuration(3600001)).assertEqual('1:00:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0241 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0241 end');
     })
 
     /**
@@ -3484,9 +3484,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0242 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0242 begin');
       expect(DateUtil.getFormattedDuration(3659999)).assertEqual('1:00:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0242 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0242 end');
     })
 
     /**
@@ -3498,9 +3498,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0243 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0243 begin');
       expect(DateUtil.getFormattedDuration(3660000)).assertEqual('1:01:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0243 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0243 end');
     })
 
 
@@ -3513,9 +3513,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0244 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0244 begin');
       expect(DateUtil.getFormattedDuration(3645001)).assertEqual('1:00:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0244 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0244 end');
     })
 
     /**
@@ -3527,9 +3527,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0245 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0245 begin');
       expect(DateUtil.getFormattedDuration(3704999)).assertEqual('1:01:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0245 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0245 end');
     })
 
     /**
@@ -3541,9 +3541,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0246 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0246 begin');
       expect(DateUtil.getFormattedDuration(3705000)).assertEqual('1:01:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0246 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0246 end');
     })
 
 
@@ -3556,9 +3556,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0247 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0247 begin');
       expect(DateUtil.getFormattedDuration(3690001)).assertEqual('1:01:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0247 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0247 end');
     })
 
     /**
@@ -3570,9 +3570,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0248 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0248 begin');
       expect(DateUtil.getFormattedDuration(3749999)).assertEqual('1:02:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0248 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0248 end');
     })
 
     /**
@@ -3584,9 +3584,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0249 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0249 begin');
       expect(DateUtil.getFormattedDuration(3750000)).assertEqual('1:02:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0249 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0249 end');
     })
 
 
@@ -3599,9 +3599,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0250 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0250 begin');
       expect(DateUtil.getFormattedDuration(3735001)).assertEqual('1:02:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0250 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0250 end');
     })
 
     /**
@@ -3613,9 +3613,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0251 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0251 begin');
       expect(DateUtil.getFormattedDuration(3794999)).assertEqual('1:03:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0251 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0251 end');
     })
 
     /**
@@ -3627,9 +3627,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0252 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0252 begin');
       expect(DateUtil.getFormattedDuration(3795000)).assertEqual('1:03:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0252 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0252 end');
     })
 
 
@@ -3642,9 +3642,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0253 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0253 begin');
       expect(DateUtil.getFormattedDuration(3780001)).assertEqual('1:03:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0253 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0253 end');
     })
 
     /**
@@ -3656,9 +3656,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0254 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0254 begin');
       expect(DateUtil.getFormattedDuration(3839999)).assertEqual('1:03:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0254 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0254 end');
     })
 
     /**
@@ -3670,9 +3670,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0255 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0255 begin');
       expect(DateUtil.getFormattedDuration(3840000)).assertEqual('1:04:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0255 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0255 end');
     })
 
 
@@ -3685,9 +3685,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0256 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0256 begin');
       expect(DateUtil.getFormattedDuration(3825001)).assertEqual('1:03:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0256 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0256 end');
     })
 
     /**
@@ -3699,9 +3699,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0257 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0257 begin');
       expect(DateUtil.getFormattedDuration(3884999)).assertEqual('1:04:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0257 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0257 end');
     })
 
     /**
@@ -3713,9 +3713,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0258 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0258 begin');
       expect(DateUtil.getFormattedDuration(3885000)).assertEqual('1:04:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0258 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0258 end');
     })
 
 
@@ -3728,9 +3728,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0259', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0259 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0259 begin');
       expect(DateUtil.getFormattedDuration(3870001)).assertEqual('1:04:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0259 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0259 end');
     })
 
     /**
@@ -3742,9 +3742,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0260', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0260 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0260 begin');
       expect(DateUtil.getFormattedDuration(3929999)).assertEqual('1:05:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0260 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0260 end');
     })
 
     /**
@@ -3756,9 +3756,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0261', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0261 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0261 begin');
       expect(DateUtil.getFormattedDuration(3930000)).assertEqual('1:05:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0261 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0261 end');
     })
 
 
@@ -3771,9 +3771,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0262', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0262 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0262 begin');
       expect(DateUtil.getFormattedDuration(3915001)).assertEqual('1:05:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0262 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0262 end');
     })
 
     /**
@@ -3785,9 +3785,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0263 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0263 begin');
       expect(DateUtil.getFormattedDuration(3974999)).assertEqual('1:06:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0263 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0263 end');
     })
 
     /**
@@ -3799,9 +3799,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0264 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0264 begin');
       expect(DateUtil.getFormattedDuration(3975000)).assertEqual('1:06:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0264 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0264 end');
     })
 
 
@@ -3814,9 +3814,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0265 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0265 begin');
       expect(DateUtil.getFormattedDuration(3960001)).assertEqual('1:06:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0265 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0265 end');
     })
 
     /**
@@ -3828,9 +3828,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0266 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0266 begin');
       expect(DateUtil.getFormattedDuration(4019999)).assertEqual('1:06:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0266 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0266 end');
     })
 
     /**
@@ -3842,9 +3842,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0267 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0267 begin');
       expect(DateUtil.getFormattedDuration(4020000)).assertEqual('1:07:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0267 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0267 end');
     })
 
 
@@ -3857,9 +3857,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0268 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0268 begin');
       expect(DateUtil.getFormattedDuration(4005001)).assertEqual('1:06:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0268 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0268 end');
     })
 
     /**
@@ -3871,9 +3871,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0269 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0269 begin');
       expect(DateUtil.getFormattedDuration(4064999)).assertEqual('1:07:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0269 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0269 end');
     })
 
     /**
@@ -3885,9 +3885,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0270 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0270 begin');
       expect(DateUtil.getFormattedDuration(4065000)).assertEqual('1:07:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0270 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0270 end');
     })
 
 
@@ -3900,9 +3900,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0271 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0271 begin');
       expect(DateUtil.getFormattedDuration(4050001)).assertEqual('1:07:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0271 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0271 end');
     })
 
     /**
@@ -3914,9 +3914,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0272 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0272 begin');
       expect(DateUtil.getFormattedDuration(4109999)).assertEqual('1:08:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0272 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0272 end');
     })
 
     /**
@@ -3928,9 +3928,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0273 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0273 begin');
       expect(DateUtil.getFormattedDuration(4110000)).assertEqual('1:08:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0273 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0273 end');
     })
 
 
@@ -3943,9 +3943,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0274 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0274 begin');
       expect(DateUtil.getFormattedDuration(4095001)).assertEqual('1:08:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0274 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0274 end');
     })
 
     /**
@@ -3957,9 +3957,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0275 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0275 begin');
       expect(DateUtil.getFormattedDuration(4154999)).assertEqual('1:09:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0275 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0275 end');
     })
 
     /**
@@ -3971,9 +3971,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0276 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0276 begin');
       expect(DateUtil.getFormattedDuration(4155000)).assertEqual('1:09:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0276 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0276 end');
     })
 
 
@@ -3986,9 +3986,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0277 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0277 begin');
       expect(DateUtil.getFormattedDuration(4140001)).assertEqual('1:09:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0277 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0277 end');
     })
 
     /**
@@ -4000,9 +4000,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0278 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0278 begin');
       expect(DateUtil.getFormattedDuration(4199999)).assertEqual('1:09:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0278 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0278 end');
     })
 
     /**
@@ -4014,9 +4014,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0279 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0279 begin');
       expect(DateUtil.getFormattedDuration(4200000)).assertEqual('1:10:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0279 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0279 end');
     })
 
 
@@ -4029,9 +4029,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0280 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0280 begin');
       expect(DateUtil.getFormattedDuration(4185001)).assertEqual('1:09:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0280 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0280 end');
     })
 
     /**
@@ -4043,9 +4043,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0281 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0281 begin');
       expect(DateUtil.getFormattedDuration(4244999)).assertEqual('1:10:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0281 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0281 end');
     })
 
     /**
@@ -4057,9 +4057,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0282 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0282 begin');
       expect(DateUtil.getFormattedDuration(4245000)).assertEqual('1:10:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0282 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0282 end');
     })
 
 
@@ -4072,9 +4072,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0283 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0283 begin');
       expect(DateUtil.getFormattedDuration(4230001)).assertEqual('1:10:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0283 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0283 end');
     })
 
     /**
@@ -4086,9 +4086,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0284 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0284 begin');
       expect(DateUtil.getFormattedDuration(4289999)).assertEqual('1:11:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0284 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0284 end');
     })
 
     /**
@@ -4100,9 +4100,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0285 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0285 begin');
       expect(DateUtil.getFormattedDuration(4290000)).assertEqual('1:11:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0285 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0285 end');
     })
 
 
@@ -4115,9 +4115,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0286 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0286 begin');
       expect(DateUtil.getFormattedDuration(4275001)).assertEqual('1:11:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0286 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0286 end');
     })
 
     /**
@@ -4129,9 +4129,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0287 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0287 begin');
       expect(DateUtil.getFormattedDuration(4334999)).assertEqual('1:12:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0287 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0287 end');
     })
 
     /**
@@ -4143,9 +4143,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0288 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0288 begin');
       expect(DateUtil.getFormattedDuration(4335000)).assertEqual('1:12:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0288 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0288 end');
     })
 
 
@@ -4158,9 +4158,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0289 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0289 begin');
       expect(DateUtil.getFormattedDuration(4320001)).assertEqual('1:12:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0289 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0289 end');
     })
 
     /**
@@ -4172,9 +4172,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0290 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0290 begin');
       expect(DateUtil.getFormattedDuration(4379999)).assertEqual('1:12:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0290 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0290 end');
     })
 
     /**
@@ -4186,9 +4186,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0291 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0291 begin');
       expect(DateUtil.getFormattedDuration(4380000)).assertEqual('1:13:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0291 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0291 end');
     })
 
 
@@ -4201,9 +4201,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0292 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0292 begin');
       expect(DateUtil.getFormattedDuration(4365001)).assertEqual('1:12:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0292 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0292 end');
     })
 
     /**
@@ -4215,9 +4215,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0293 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0293 begin');
       expect(DateUtil.getFormattedDuration(4424999)).assertEqual('1:13:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0293 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0293 end');
     })
 
     /**
@@ -4229,9 +4229,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0294 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0294 begin');
       expect(DateUtil.getFormattedDuration(4425000)).assertEqual('1:13:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0294 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0294 end');
     })
 
 
@@ -4244,9 +4244,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0295 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0295 begin');
       expect(DateUtil.getFormattedDuration(4410001)).assertEqual('1:13:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0295 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0295 end');
     })
 
     /**
@@ -4258,9 +4258,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0296 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0296 begin');
       expect(DateUtil.getFormattedDuration(4469999)).assertEqual('1:14:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0296 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0296 end');
     })
 
     /**
@@ -4272,9 +4272,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0297 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0297 begin');
       expect(DateUtil.getFormattedDuration(4470000)).assertEqual('1:14:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0297 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0297 end');
     })
 
 
@@ -4287,9 +4287,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0298 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0298 begin');
       expect(DateUtil.getFormattedDuration(4455001)).assertEqual('1:14:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0298 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0298 end');
     })
 
     /**
@@ -4301,9 +4301,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0299 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0299 begin');
       expect(DateUtil.getFormattedDuration(4514999)).assertEqual('1:15:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0299 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0299 end');
     })
 
     /**
@@ -4315,9 +4315,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0300 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0300 begin');
       expect(DateUtil.getFormattedDuration(4515000)).assertEqual('1:15:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0300 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0300 end');
     })
 
 
@@ -4330,9 +4330,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0301 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0301 begin');
       expect(DateUtil.getFormattedDuration(4500001)).assertEqual('1:15:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0301 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0301 end');
     })
 
     /**
@@ -4344,9 +4344,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0302 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0302 begin');
       expect(DateUtil.getFormattedDuration(4559999)).assertEqual('1:15:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0302 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0302 end');
     })
 
     /**
@@ -4358,9 +4358,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0303 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0303 begin');
       expect(DateUtil.getFormattedDuration(4560000)).assertEqual('1:16:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0303 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0303 end');
     })
 
 
@@ -4373,9 +4373,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0304 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0304 begin');
       expect(DateUtil.getFormattedDuration(4545001)).assertEqual('1:15:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0304 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0304 end');
     })
 
     /**
@@ -4387,9 +4387,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0305 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0305 begin');
       expect(DateUtil.getFormattedDuration(4604999)).assertEqual('1:16:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0305 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0305 end');
     })
 
     /**
@@ -4401,9 +4401,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0306 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0306 begin');
       expect(DateUtil.getFormattedDuration(4605000)).assertEqual('1:16:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0306 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0306 end');
     })
 
 
@@ -4416,9 +4416,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0307 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0307 begin');
       expect(DateUtil.getFormattedDuration(4590001)).assertEqual('1:16:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0307 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0307 end');
     })
 
     /**
@@ -4430,9 +4430,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0308 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0308 begin');
       expect(DateUtil.getFormattedDuration(4649999)).assertEqual('1:17:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0308 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0308 end');
     })
 
     /**
@@ -4444,9 +4444,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0309 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0309 begin');
       expect(DateUtil.getFormattedDuration(4650000)).assertEqual('1:17:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0309 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0309 end');
     })
 
 
@@ -4459,9 +4459,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0310 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0310 begin');
       expect(DateUtil.getFormattedDuration(4635001)).assertEqual('1:17:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0310 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0310 end');
     })
 
     /**
@@ -4473,9 +4473,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0311 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0311 begin');
       expect(DateUtil.getFormattedDuration(4694999)).assertEqual('1:18:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0311 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0311 end');
     })
 
     /**
@@ -4487,9 +4487,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0312 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0312 begin');
       expect(DateUtil.getFormattedDuration(4695000)).assertEqual('1:18:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0312 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0312 end');
     })
 
 
@@ -4502,9 +4502,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0313 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0313 begin');
       expect(DateUtil.getFormattedDuration(4680001)).assertEqual('1:18:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0313 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0313 end');
     })
 
     /**
@@ -4516,9 +4516,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0314 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0314 begin');
       expect(DateUtil.getFormattedDuration(4739999)).assertEqual('1:18:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0314 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0314 end');
     })
 
     /**
@@ -4530,9 +4530,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0315 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0315 begin');
       expect(DateUtil.getFormattedDuration(4740000)).assertEqual('1:19:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0315 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0315 end');
     })
 
 
@@ -4545,9 +4545,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0316 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0316 begin');
       expect(DateUtil.getFormattedDuration(4725001)).assertEqual('1:18:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0316 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0316 end');
     })
 
     /**
@@ -4559,9 +4559,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0317 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0317 begin');
       expect(DateUtil.getFormattedDuration(4784999)).assertEqual('1:19:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0317 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0317 end');
     })
 
     /**
@@ -4573,9 +4573,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0318 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0318 begin');
       expect(DateUtil.getFormattedDuration(4785000)).assertEqual('1:19:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0318 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0318 end');
     })
 
 
@@ -4588,9 +4588,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0319 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0319 begin');
       expect(DateUtil.getFormattedDuration(4770001)).assertEqual('1:19:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0319 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0319 end');
     })
 
     /**
@@ -4602,9 +4602,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0320 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0320 begin');
       expect(DateUtil.getFormattedDuration(4829999)).assertEqual('1:20:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0320 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0320 end');
     })
 
     /**
@@ -4616,9 +4616,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0321 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0321 begin');
       expect(DateUtil.getFormattedDuration(4830000)).assertEqual('1:20:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0321 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0321 end');
     })
 
 
@@ -4631,9 +4631,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0322 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0322 begin');
       expect(DateUtil.getFormattedDuration(4815001)).assertEqual('1:20:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0322 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0322 end');
     })
 
     /**
@@ -4645,9 +4645,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0323 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0323 begin');
       expect(DateUtil.getFormattedDuration(4874999)).assertEqual('1:21:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0323 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0323 end');
     })
 
     /**
@@ -4659,9 +4659,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0324 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0324 begin');
       expect(DateUtil.getFormattedDuration(4875000)).assertEqual('1:21:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0324 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0324 end');
     })
 
 
@@ -4674,9 +4674,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0325 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0325 begin');
       expect(DateUtil.getFormattedDuration(4860001)).assertEqual('1:21:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0325 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0325 end');
     })
 
     /**
@@ -4688,9 +4688,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0326 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0326 begin');
       expect(DateUtil.getFormattedDuration(4919999)).assertEqual('1:21:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0326 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0326 end');
     })
 
     /**
@@ -4702,9 +4702,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0327 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0327 begin');
       expect(DateUtil.getFormattedDuration(4920000)).assertEqual('1:22:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0327 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0327 end');
     })
 
 
@@ -4717,9 +4717,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0328 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0328 begin');
       expect(DateUtil.getFormattedDuration(4905001)).assertEqual('1:21:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0328 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0328 end');
     })
 
     /**
@@ -4731,9 +4731,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0329 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0329 begin');
       expect(DateUtil.getFormattedDuration(4964999)).assertEqual('1:22:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0329 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0329 end');
     })
 
     /**
@@ -4745,9 +4745,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0330 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0330 begin');
       expect(DateUtil.getFormattedDuration(4965000)).assertEqual('1:22:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0330 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0330 end');
     })
 
 
@@ -4760,9 +4760,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0331 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0331 begin');
       expect(DateUtil.getFormattedDuration(4950001)).assertEqual('1:22:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0331 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0331 end');
     })
 
     /**
@@ -4774,9 +4774,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 begin');
       expect(DateUtil.getFormattedDuration(5009999)).assertEqual('1:23:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 end');
     })
 
     /**
@@ -4788,9 +4788,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 begin');
       expect(DateUtil.getFormattedDuration(5010000)).assertEqual('1:23:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 end');
     })
 
 
@@ -4803,9 +4803,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 begin');
       expect(DateUtil.getFormattedDuration(4995001)).assertEqual('1:23:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 end');
     })
 
     /**
@@ -4817,9 +4817,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 begin');
       expect(DateUtil.getFormattedDuration(5054999)).assertEqual('1:24:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 end');
     })
 
     /**
@@ -4831,9 +4831,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 begin');
       expect(DateUtil.getFormattedDuration(5055000)).assertEqual('1:24:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 end');
     })
 
 
@@ -4846,9 +4846,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 begin');
       expect(DateUtil.getFormattedDuration(5040001)).assertEqual('1:24:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 end');
     })
 
     /**
@@ -4860,9 +4860,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 begin');
       expect(DateUtil.getFormattedDuration(5099999)).assertEqual('1:24:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 end');
     })
 
     /**
@@ -4874,9 +4874,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 begin');
       expect(DateUtil.getFormattedDuration(5100000)).assertEqual('1:25:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 end');
     })
 
 
@@ -4889,9 +4889,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 begin');
       expect(DateUtil.getFormattedDuration(5085001)).assertEqual('1:24:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 end');
     })
 
     /**
@@ -4903,9 +4903,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 begin');
       expect(DateUtil.getFormattedDuration(5144999)).assertEqual('1:25:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 end');
     })
 
     /**
@@ -4917,9 +4917,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 begin');
       expect(DateUtil.getFormattedDuration(5145000)).assertEqual('1:25:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 end');
     })
 
 
@@ -4932,9 +4932,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 begin');
       expect(DateUtil.getFormattedDuration(5130001)).assertEqual('1:25:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 end');
     })
 
     /**
@@ -4946,9 +4946,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 begin');
       expect(DateUtil.getFormattedDuration(5189999)).assertEqual('1:26:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 end');
     })
 
     /**
@@ -4960,9 +4960,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 begin');
       expect(DateUtil.getFormattedDuration(5190000)).assertEqual('1:26:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 end');
     })
 
 
@@ -4975,9 +4975,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 begin');
       expect(DateUtil.getFormattedDuration(5175001)).assertEqual('1:26:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 end');
     })
 
     /**
@@ -4989,9 +4989,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 begin');
       expect(DateUtil.getFormattedDuration(5234999)).assertEqual('1:27:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 end');
     })
 
     /**
@@ -5003,9 +5003,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 begin');
       expect(DateUtil.getFormattedDuration(5235000)).assertEqual('1:27:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 end');
     })
 
 
@@ -5018,9 +5018,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 begin');
       expect(DateUtil.getFormattedDuration(5220001)).assertEqual('1:27:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 end');
     })
 
     /**
@@ -5032,9 +5032,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 begin');
       expect(DateUtil.getFormattedDuration(5279999)).assertEqual('1:27:59');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 end');
     })
 
     /**
@@ -5046,9 +5046,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 begin');
       expect(DateUtil.getFormattedDuration(5280000)).assertEqual('1:28:00');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 end');
     })
 
 
@@ -5061,9 +5061,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 begin');
       expect(DateUtil.getFormattedDuration(5265001)).assertEqual('1:27:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 end');
     })
 
     /**
@@ -5075,9 +5075,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 begin');
       expect(DateUtil.getFormattedDuration(5324999)).assertEqual('1:28:44');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 end');
     })
 
     /**
@@ -5089,9 +5089,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 begin');
       expect(DateUtil.getFormattedDuration(5325000)).assertEqual('1:28:45');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 end');
     })
 
 
@@ -5104,9 +5104,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 begin');
       expect(DateUtil.getFormattedDuration(5310001)).assertEqual('1:28:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 end');
     })
 
     /**
@@ -5118,9 +5118,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 begin');
       expect(DateUtil.getFormattedDuration(5369999)).assertEqual('1:29:29');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 end');
     })
 
     /**
@@ -5132,9 +5132,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 begin');
       expect(DateUtil.getFormattedDuration(5370000)).assertEqual('1:29:30');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 end');
     })
 
 
@@ -5147,9 +5147,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 begin');
       expect(DateUtil.getFormattedDuration(5355001)).assertEqual('1:29:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 end');
     })
 
     /**
@@ -5161,9 +5161,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 begin');
       expect(DateUtil.getFormattedDuration(5414999)).assertEqual('1:30:14');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 end');
     })
 
     /**
@@ -5175,9 +5175,9 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateDurationMatrix0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 begin');
       expect(DateUtil.getFormattedDuration(5415000)).assertEqual('1:30:15');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 end');
     })
 
   })

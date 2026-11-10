@@ -12,18 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
-import { Driver, ON, Component, On } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry, Driver, ON, Component, On } from '@kit.TestKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { fileIo } from '@kit.CoreFileKit';
-import util from '@ohos.util';
+import { util } from '@kit.ArkTS';
 
 const TAG = '[Sample_PhotosTest]';
 const BUNDLE = 'photos_';
 const DOMAIN = 0xF811;
-let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 const JPEG_BASE64 = '/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHB' +
 'wgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAA' +
@@ -43,7 +42,7 @@ async function appText(name: string): Promise<string> {
 
 async function waitForComponent(driver: Driver, match: On, tries: number = 6, label: string = ''): Promise<Component> {
   let lastErr: Error = new Error('not found');
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -59,7 +58,7 @@ async function waitForComponent(driver: Driver, match: On, tries: number = 6, la
 }
 
 async function componentExists(driver: Driver, match: On, tries: number = 3): Promise<boolean> {
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -74,7 +73,7 @@ async function componentExists(driver: Driver, match: On, tries: number = 3): Pr
 
 async function clickWithRetry(driver: Driver, match: On, tries: number = 5): Promise<void> {
   let lastErr: Error = new Error('not found');
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -106,7 +105,7 @@ async function clickIfExist(driver: Driver, match: On): Promise<boolean> {
 }
 
 async function dismissPermissionDialogs(driver: Driver): Promise<void> {
-  for (let i = 0; i < 8; i++) {
+  for (let i: number = 0; i < 8; i++) {
     const clickedZh = await clickIfExist(driver, ON.text('允许'));
     const clickedEn = clickedZh ? true : await clickIfExist(driver, ON.text('Allow'));
     if (!clickedZh && !clickedEn) {
@@ -126,7 +125,7 @@ async function bringAppToFront(): Promise<void> {
 }
 
 async function goHome(driver: Driver): Promise<void> {
-  for (let i = 0; i < 6; i++) {
+  for (let i: number = 0; i < 6; i++) {
     if (await componentExists(driver, ON.id('28'), 1)) {
       return;
     }
@@ -158,7 +157,7 @@ async function openFirstGridItem(driver: Driver): Promise<void> {
 }
 
 async function ensureBrowserBar(driver: Driver, barText: string, altId: string = ''): Promise<void> {
-  for (let i = 0; i < 8; i++) {
+  for (let i: number = 0; i < 8; i++) {
     if (await componentExists(driver, ON.text(barText), 1)) {
       return;
     }
@@ -185,12 +184,12 @@ async function createTestImage(displayIndex: number): Promise<string> {
   const bytes: Uint8Array = decoder.decodeSync(JPEG_BASE64);
   fileIo.writeSync(file.fd, bytes.buffer);
   fileIo.closeSync(file.fd);
-  HiLog.info(DOMAIN, TAG, `seed image ${displayIndex} created: ${uri}`);
+  hilog.info(DOMAIN, TAG, `seed image ${displayIndex} created: ${uri}`);
   return uri;
 }
 
 async function seedTestImages(count: number): Promise<void> {
-  for (let i = 0; i < count; i++) {
+  for (let i: number = 0; i < count; i++) {
     await createTestImage(i);
   }
 }
@@ -206,14 +205,14 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosStartAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'StartAbility begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility begin');
       try {
         await abilityDelegator.startAbility({
           bundleName: 'com.samples.photos',
           abilityName: 'EntryAbility'
         });
       } catch (exception) {
-        HiLog.info(DOMAIN, TAG, `StartAbility exception = ${JSON.stringify(exception)}`);
+        hilog.info(DOMAIN, TAG, `StartAbility exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
       const driver = Driver.create();
@@ -221,7 +220,7 @@ export default function PhotosUiTest(): void {
       await dismissPermissionDialogs(driver);
       await goHome(driver);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'StartAbility end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility end');
     })
 
     /**
@@ -233,13 +232,13 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosSeedAndList0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'SeedAndList begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'SeedAndList begin');
       await seedTestImages(5);
       const driver = Driver.create();
       await goHome(driver);
       await enterAllPhotos(driver);
       let count = 0;
-      for (let i = 0; i < 30; i++) {
+      for (let i: number = 0; i < 30; i++) {
         const items = await driver.findComponents(ON.type('GridItem'));
         count = items.length;
         if (count >= 5) {
@@ -247,11 +246,11 @@ export default function PhotosUiTest(): void {
         }
         await driver.delayMs(1000);
       }
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'GridItem count:' + count);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'GridItem count:' + count);
       expect(count).assertLarger(4);
       await driver.pressBack();
       await driver.delayMs(1500);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'SeedAndList end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'SeedAndList end');
     })
 
     /**
@@ -263,7 +262,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosBrowserActions0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'BrowserActions begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'BrowserActions begin');
       const driver = Driver.create();
       await goHome(driver);
       await enterAllPhotos(driver);
@@ -276,7 +275,7 @@ export default function PhotosUiTest(): void {
       await driver.delayMs(1500);
       await driver.pressBack();
       await driver.delayMs(1500);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'BrowserActions end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'BrowserActions end');
     })
 
     /**
@@ -288,7 +287,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosRename0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Rename begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Rename begin');
       const driver = Driver.create();
       await goHome(driver);
       await enterAllPhotos(driver);
@@ -315,7 +314,7 @@ export default function PhotosUiTest(): void {
       const btnInfo: Component = await waitForComponent(driver, ON.id('5'), 6, '0004-info');
       await btnInfo.click();
       await driver.delayMs(2000);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'check text:' + newName);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'check text:' + newName);
       await driver.assertComponentExist(ON.text(newName));
       await driver.pressBack();
       await driver.delayMs(1000);
@@ -323,7 +322,7 @@ export default function PhotosUiTest(): void {
       await driver.delayMs(1500);
       await driver.pressBack();
       await driver.delayMs(1500);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Rename end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Rename end');
     })
 
     /**
@@ -335,7 +334,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosFavorite0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Favorite begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Favorite begin');
       const driver = Driver.create();
       await goHome(driver);
       await enterAllPhotos(driver);
@@ -358,7 +357,7 @@ export default function PhotosUiTest(): void {
       expect(items.length).assertLarger(0);
       await driver.pressBack();
       await driver.delayMs(1500);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Favorite end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Favorite end');
     })
 
     /**
@@ -370,7 +369,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUnfavorite0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite begin');
       await seedTestImages(1);
       const driver = Driver.create();
       await goHome(driver);
@@ -406,7 +405,7 @@ export default function PhotosUiTest(): void {
       await favorAlbumAfter.click();
       await driver.delayMs(2000);
       let afterCount = favCount;
-      for (let i = 0; i < 10; i++) {
+      for (let i: number = 0; i < 10; i++) {
         const now = await driver.findComponents(ON.type('GridItem'));
         afterCount = now.length;
         if (afterCount < favCount) {
@@ -415,7 +414,7 @@ export default function PhotosUiTest(): void {
         await driver.delayMs(1000);
       }
       expect(afterCount).assertLess(favCount);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Unfavorite end');
     })
 
     /**
@@ -427,7 +426,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosCreateAlbum0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum begin');
       const driver = Driver.create();
       await goHome(driver);
       await driver.assertComponentExist(ON.id('28'));
@@ -447,7 +446,7 @@ export default function PhotosUiTest(): void {
       if (!(await componentExists(driver, ON.text(selectText), 2))) {
         let joined = '';
         const texts: Array<Component> = await driver.findComponents(ON.type('Text'));
-        for (let i = 0; i < texts.length; i++) {
+        for (let i: number = 0; i < texts.length; i++) {
           joined += `[${await texts[i].getText()}]`;
         }
         throw new Error(`NO_SELECT_PAGE=${joined}`);
@@ -466,12 +465,12 @@ export default function PhotosUiTest(): void {
       const helper2 = photoAccessHelper.getPhotoAccessHelper(appContext2);
       let found = false;
       let names = '';
-      for (let attempt = 0; attempt < 3 && !found; attempt++) {
+      for (let attempt: number = 0; attempt < 3 && !found; attempt++) {
         await driver.delayMs(2000);
         const userAlbums = await helper2.getAlbums(photoAccessHelper.AlbumType.USER,
           photoAccessHelper.AlbumSubtype.USER_GENERIC);
         const albumObjects = await userAlbums.getAllObjects();
-        for (let i = 0; i < albumObjects.length; i++) {
+        for (let i: number = 0; i < albumObjects.length; i++) {
           names += `[${albumObjects[i].albumName}]`;
           if (albumObjects[i].albumName === albumName) {
             found = true;
@@ -482,7 +481,7 @@ export default function PhotosUiTest(): void {
         throw new Error(`ALBUM_NAMES=${names}`);
       }
       expect(found).assertTrue();
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'CreateAlbum end');
     })
 
     /**
@@ -494,13 +493,13 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDeleteAlbum0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum begin');
       const driver = Driver.create();
       await goHome(driver);
       const textNodes = await driver.findComponents(ON.type('Text'));
       let albumCard: Component | null = null;
       let albumCardText = '';
-      for (let i = 0; i < textNodes.length; i++) {
+      for (let i: number = 0; i < textNodes.length; i++) {
         const t: string = await textNodes[i].getText();
         if (t.startsWith('ualbum_')) {
           albumCard = textNodes[i];
@@ -528,13 +527,13 @@ export default function PhotosUiTest(): void {
         photoAccessHelper.AlbumSubtype.USER_GENERIC);
       const albumObjects = await userAlbums.getAllObjects();
       let stillThere = false;
-      for (let i = 0; i < albumObjects.length; i++) {
+      for (let i: number = 0; i < albumObjects.length; i++) {
         if (albumObjects[i].albumName === albumCardText) {
           stillThere = true;
         }
       }
       expect(stillThere).assertFalse();
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DeleteAlbum end');
     })
 
     /**
@@ -546,7 +545,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDeleteToTrash0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash begin');
       await seedTestImages(1);
       const driver = Driver.create();
       await goHome(driver);
@@ -573,7 +572,7 @@ export default function PhotosUiTest(): void {
       await driver.delayMs(2000);
       const items = await driver.findComponents(ON.type('GridItem'));
       expect(items.length).assertLarger(0);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DeleteToTrash end');
     })
 
     /**
@@ -585,7 +584,7 @@ export default function PhotosUiTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosRecover0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Recover begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Recover begin');
       const driver = Driver.create();
       await goHome(driver);
       const recycleText = await appText('album_recycle');
@@ -607,7 +606,7 @@ export default function PhotosUiTest(): void {
       await recycleAlbumAfter.click();
       await driver.delayMs(2000);
       let afterRecover = beforeRecover;
-      for (let i = 0; i < 25; i++) {
+      for (let i: number = 0; i < 25; i++) {
         const now = await driver.findComponents(ON.type('GridItem'));
         afterRecover = now.length;
         if (afterRecover < beforeRecover) {
@@ -616,7 +615,7 @@ export default function PhotosUiTest(): void {
         await driver.delayMs(1000);
       }
       expect(afterRecover).assertEqual(beforeRecover - 1);
-      HiLog.info(DOMAIN, TAG, BUNDLE + 'Recover end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'Recover end');
     })
   })
 }

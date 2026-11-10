@@ -47,7 +47,7 @@ function enabled(name: string, filter: string): boolean {
     return true;
   }
   const names: string[] = filter.split(',');
-  for (let i = 0; i < names.length; i++) {
+  for (let i: number = 0; i < names.length; i++) {
     if (names[i].trim() === name) {
       return true;
     }

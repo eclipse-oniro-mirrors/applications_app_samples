@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,12 +30,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0001 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1900, 0, 1, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1900') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0001 end');
     })
 
     /**
@@ -47,12 +47,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0002 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1901, 1, 2, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1901') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0002 end');
     })
 
     /**
@@ -64,12 +64,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0003 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1902, 2, 3, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1902') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0003 end');
     })
 
     /**
@@ -81,12 +81,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0004 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1903, 3, 4, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1903') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0004 end');
     })
 
     /**
@@ -98,12 +98,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0005 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1904, 4, 5, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1904') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0005 end');
     })
 
     /**
@@ -115,12 +115,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0006 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1905, 5, 6, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1905') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0006 end');
     })
 
     /**
@@ -132,12 +132,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0007 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1906, 6, 7, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1906') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0007 end');
     })
 
     /**
@@ -149,12 +149,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0008 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1907, 7, 8, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1907') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0008 end');
     })
 
     /**
@@ -166,12 +166,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0009 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1908, 8, 9, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1908') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0009 end');
     })
 
     /**
@@ -183,12 +183,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0010 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1909, 9, 10, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1909') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0010 end');
     })
 
     /**
@@ -200,12 +200,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0011 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1910, 10, 11, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1910') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0011 end');
     })
 
     /**
@@ -217,12 +217,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0012 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1911, 11, 12, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1911') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0012 end');
     })
 
     /**
@@ -234,12 +234,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0013 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1912, 0, 13, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1912') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0013 end');
     })
 
     /**
@@ -251,12 +251,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0014 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1913, 1, 14, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1913') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0014 end');
     })
 
     /**
@@ -268,12 +268,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0015 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1914, 2, 15, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1914') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0015 end');
     })
 
     /**
@@ -285,12 +285,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0016 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1915, 3, 16, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1915') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0016 end');
     })
 
     /**
@@ -302,12 +302,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0017 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1916, 4, 17, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1916') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0017 end');
     })
 
     /**
@@ -319,12 +319,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0018 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1917, 5, 18, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1917') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0018 end');
     })
 
     /**
@@ -336,12 +336,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0019 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1918, 6, 19, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1918') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0019 end');
     })
 
     /**
@@ -353,12 +353,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0020 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1919, 7, 20, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1919') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0020 end');
     })
 
     /**
@@ -370,12 +370,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0021 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1920, 8, 21, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1920') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0021 end');
     })
 
     /**
@@ -387,12 +387,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0022 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1921, 9, 22, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1921') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0022 end');
     })
 
     /**
@@ -404,12 +404,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0023 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1922, 10, 23, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1922') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0023 end');
     })
 
     /**
@@ -421,12 +421,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0024 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1923, 11, 24, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1923') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0024 end');
     })
 
     /**
@@ -438,12 +438,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0025 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1924, 0, 25, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1924') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0025 end');
     })
 
     /**
@@ -455,12 +455,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0026 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1925, 1, 26, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1925') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0026 end');
     })
 
     /**
@@ -472,12 +472,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0027 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1926, 2, 27, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1926') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0027 end');
     })
 
     /**
@@ -489,12 +489,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0028 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1927, 3, 1, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1927') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0028 end');
     })
 
     /**
@@ -506,12 +506,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0029 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1928, 4, 2, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1928') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0029 end');
     })
 
     /**
@@ -523,12 +523,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0030 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1929, 5, 3, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1929') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0030 end');
     })
 
     /**
@@ -540,12 +540,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0031 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1930, 6, 4, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1930') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0031 end');
     })
 
     /**
@@ -557,12 +557,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0032 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1931, 7, 5, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1931') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0032 end');
     })
 
     /**
@@ -574,12 +574,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0033 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1932, 8, 6, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1932') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0033 end');
     })
 
     /**
@@ -591,12 +591,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0034 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1933, 9, 7, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1933') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0034 end');
     })
 
     /**
@@ -608,12 +608,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0035 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1934, 10, 8, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1934') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0035 end');
     })
 
     /**
@@ -625,12 +625,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0036 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1935, 11, 9, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1935') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0036 end');
     })
 
     /**
@@ -642,12 +642,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0037 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1936, 0, 10, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1936') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0037 end');
     })
 
     /**
@@ -659,12 +659,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0038 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1937, 1, 11, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1937') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0038 end');
     })
 
     /**
@@ -676,12 +676,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0039 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1938, 2, 12, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1938') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0039 end');
     })
 
     /**
@@ -693,12 +693,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0040 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1939, 3, 13, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1939') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0040 end');
     })
 
     /**
@@ -710,12 +710,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0041 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1940, 4, 14, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1940') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0041 end');
     })
 
     /**
@@ -727,12 +727,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0042 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1941, 5, 15, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1941') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0042 end');
     })
 
     /**
@@ -744,12 +744,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0043 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1942, 6, 16, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1942') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0043 end');
     })
 
     /**
@@ -761,12 +761,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0044 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1943, 7, 17, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1943') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0044 end');
     })
 
     /**
@@ -778,12 +778,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0045 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1944, 8, 18, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1944') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0045 end');
     })
 
     /**
@@ -795,12 +795,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0046 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1945, 9, 19, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1945') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0046 end');
     })
 
     /**
@@ -812,12 +812,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0047 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1946, 10, 20, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1946') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0047 end');
     })
 
     /**
@@ -829,12 +829,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0048 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1947, 11, 21, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1947') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0048 end');
     })
 
     /**
@@ -846,12 +846,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0049 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1948, 0, 22, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1948') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0049 end');
     })
 
     /**
@@ -863,12 +863,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0050 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1949, 1, 23, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1949') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0050 end');
     })
 
     /**
@@ -880,12 +880,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0051 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1950, 2, 24, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1950') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0051 end');
     })
 
     /**
@@ -897,12 +897,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0052 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1951, 3, 25, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1951') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0052 end');
     })
 
     /**
@@ -914,12 +914,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0053 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1952, 4, 26, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1952') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0053 end');
     })
 
     /**
@@ -931,12 +931,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0054 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1953, 5, 27, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1953') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0054 end');
     })
 
     /**
@@ -948,12 +948,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0055 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1954, 6, 1, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1954') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0055 end');
     })
 
     /**
@@ -965,12 +965,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0056 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1955, 7, 2, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1955') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0056 end');
     })
 
     /**
@@ -982,12 +982,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0057 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1956, 8, 3, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1956') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0057 end');
     })
 
     /**
@@ -999,12 +999,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0058 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1957, 9, 4, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1957') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0058 end');
     })
 
     /**
@@ -1016,12 +1016,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0059 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1958, 10, 5, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1958') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0059 end');
     })
 
     /**
@@ -1033,12 +1033,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0060 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1959, 11, 6, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1959') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0060 end');
     })
 
     /**
@@ -1050,12 +1050,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0061 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1960, 0, 7, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1960') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0061 end');
     })
 
     /**
@@ -1067,12 +1067,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0062 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1961, 1, 8, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1961') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0062 end');
     })
 
     /**
@@ -1084,12 +1084,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0063 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1962, 2, 9, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1962') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0063 end');
     })
 
     /**
@@ -1101,12 +1101,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0064 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1963, 3, 10, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1963') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0064 end');
     })
 
     /**
@@ -1118,12 +1118,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0065 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1964, 4, 11, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1964') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0065 end');
     })
 
     /**
@@ -1135,12 +1135,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0066 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1965, 5, 12, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1965') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0066 end');
     })
 
     /**
@@ -1152,12 +1152,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0067 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1966, 6, 13, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1966') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0067 end');
     })
 
     /**
@@ -1169,12 +1169,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0068 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1967, 7, 14, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1967') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0068 end');
     })
 
     /**
@@ -1186,12 +1186,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0069 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1968, 8, 15, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1968') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0069 end');
     })
 
     /**
@@ -1203,12 +1203,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0070 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1969, 9, 16, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1969') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0070 end');
     })
 
     /**
@@ -1220,12 +1220,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0071 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1970, 10, 17, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1970') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0071 end');
     })
 
     /**
@@ -1237,12 +1237,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0072 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1971, 11, 18, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1971') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0072 end');
     })
 
     /**
@@ -1254,12 +1254,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0073 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1972, 0, 19, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1972') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0073 end');
     })
 
     /**
@@ -1271,12 +1271,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0074 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1973, 1, 20, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1973') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0074 end');
     })
 
     /**
@@ -1288,12 +1288,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0075 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1974, 2, 21, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1974') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0075 end');
     })
 
     /**
@@ -1305,12 +1305,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0076 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1975, 3, 22, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1975') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0076 end');
     })
 
     /**
@@ -1322,12 +1322,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0077 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1976, 4, 23, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1976') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0077 end');
     })
 
     /**
@@ -1339,12 +1339,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0078 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1977, 5, 24, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1977') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0078 end');
     })
 
     /**
@@ -1356,12 +1356,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0079 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1978, 6, 25, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1978') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0079 end');
     })
 
     /**
@@ -1373,12 +1373,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0080 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(1979, 7, 26, 6, 7, 8).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('1979') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0080 end');
     })
 
     /**
@@ -1390,12 +1390,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0081 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2000, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2000') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0081 end');
     })
 
     /**
@@ -1407,12 +1407,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0082 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2001, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2001') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0082 end');
     })
 
     /**
@@ -1424,12 +1424,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0083 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2002, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2002') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0083 end');
     })
 
     /**
@@ -1441,12 +1441,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0084 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2003, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2003') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0084 end');
     })
 
     /**
@@ -1458,12 +1458,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0085 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2004, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2004') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0085 end');
     })
 
     /**
@@ -1475,12 +1475,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0086 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2005, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2005') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0086 end');
     })
 
     /**
@@ -1492,12 +1492,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0087 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2006, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2006') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0087 end');
     })
 
     /**
@@ -1509,12 +1509,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0088 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2007, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2007') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0088 end');
     })
 
     /**
@@ -1526,12 +1526,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0089 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2008, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2008') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0089 end');
     })
 
     /**
@@ -1543,12 +1543,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0090 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2009, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2009') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0090 end');
     })
 
     /**
@@ -1560,12 +1560,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0091 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2010, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2010') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0091 end');
     })
 
     /**
@@ -1577,12 +1577,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0092 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2011, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2011') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0092 end');
     })
 
     /**
@@ -1594,12 +1594,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0093 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2012, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2012') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0093 end');
     })
 
     /**
@@ -1611,12 +1611,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0094 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2013, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2013') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0094 end');
     })
 
     /**
@@ -1628,12 +1628,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0095 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2014, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2014') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0095 end');
     })
 
     /**
@@ -1645,12 +1645,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0096 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2015, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2015') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0096 end');
     })
 
     /**
@@ -1662,12 +1662,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0097 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2016, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2016') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0097 end');
     })
 
     /**
@@ -1679,12 +1679,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0098 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2017, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2017') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0098 end');
     })
 
     /**
@@ -1696,12 +1696,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0099 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2018, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2018') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0099 end');
     })
 
     /**
@@ -1713,12 +1713,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0100 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2019, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2019') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0100 end');
     })
 
     /**
@@ -1730,12 +1730,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0101 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2020, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2020') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0101 end');
     })
 
     /**
@@ -1747,12 +1747,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0102 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2021, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2021') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0102 end');
     })
 
     /**
@@ -1764,12 +1764,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0103 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2022, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2022') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0103 end');
     })
 
     /**
@@ -1781,12 +1781,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0104 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2023, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2023') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0104 end');
     })
 
     /**
@@ -1798,12 +1798,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0105 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2024, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2024') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0105 end');
     })
 
     /**
@@ -1815,12 +1815,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0106 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2025, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2025') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0106 end');
     })
 
     /**
@@ -1832,12 +1832,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0107 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2026, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2026') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0107 end');
     })
 
     /**
@@ -1849,12 +1849,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0108 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2027, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2027') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0108 end');
     })
 
     /**
@@ -1866,12 +1866,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0109 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2028, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2028') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0109 end');
     })
 
     /**
@@ -1883,12 +1883,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0110 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2029, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2029') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0110 end');
     })
 
     /**
@@ -1900,12 +1900,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0111 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2030, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2030') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0111 end');
     })
 
     /**
@@ -1917,12 +1917,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0112 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2031, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2031') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0112 end');
     })
 
     /**
@@ -1934,12 +1934,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0113 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2032, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2032') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0113 end');
     })
 
     /**
@@ -1951,12 +1951,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0114 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2033, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2033') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0114 end');
     })
 
     /**
@@ -1968,12 +1968,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0115 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2034, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2034') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0115 end');
     })
 
     /**
@@ -1985,12 +1985,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0116 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2035, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2035') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0116 end');
     })
 
     /**
@@ -2002,12 +2002,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0117 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2036, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2036') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0117 end');
     })
 
     /**
@@ -2019,12 +2019,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0118 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2037, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2037') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0118 end');
     })
 
     /**
@@ -2036,12 +2036,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0119 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2038, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2038') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0119 end');
     })
 
     /**
@@ -2053,12 +2053,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0120 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2039, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2039') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0120 end');
     })
 
     /**
@@ -2070,12 +2070,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0121 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2040, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2040') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0121 end');
     })
 
     /**
@@ -2087,12 +2087,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0122 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2041, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2041') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0122 end');
     })
 
     /**
@@ -2104,12 +2104,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0123 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2042, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2042') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0123 end');
     })
 
     /**
@@ -2121,12 +2121,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0124 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2043, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2043') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0124 end');
     })
 
     /**
@@ -2138,12 +2138,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0125 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2044, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2044') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0125 end');
     })
 
     /**
@@ -2155,12 +2155,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0126 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2045, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2045') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0126 end');
     })
 
     /**
@@ -2172,12 +2172,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0127 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2046, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2046') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0127 end');
     })
 
     /**
@@ -2189,12 +2189,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0128 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2047, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2047') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0128 end');
     })
 
     /**
@@ -2206,12 +2206,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0129 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2048, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2048') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0129 end');
     })
 
     /**
@@ -2223,12 +2223,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0130 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2049, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2049') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0130 end');
     })
 
     /**
@@ -2240,12 +2240,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0131 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2050, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2050') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0131 end');
     })
 
     /**
@@ -2257,12 +2257,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0132 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2051, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2051') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0132 end');
     })
 
     /**
@@ -2274,12 +2274,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0133 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2052, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2052') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0133 end');
     })
 
     /**
@@ -2291,12 +2291,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0134 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2053, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2053') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0134 end');
     })
 
     /**
@@ -2308,12 +2308,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0135 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2054, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2054') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0135 end');
     })
 
     /**
@@ -2325,12 +2325,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0136 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2055, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2055') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0136 end');
     })
 
     /**
@@ -2342,12 +2342,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0137 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2056, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2056') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0137 end');
     })
 
     /**
@@ -2359,12 +2359,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0138 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2057, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2057') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0138 end');
     })
 
     /**
@@ -2376,12 +2376,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2058, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2058') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0139 end');
     })
 
     /**
@@ -2393,12 +2393,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2059, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2059') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0140 end');
     })
 
     /**
@@ -2410,12 +2410,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1960, 0, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1960') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0141 end');
     })
 
     /**
@@ -2427,12 +2427,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1961, 1, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1961') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0142 end');
     })
 
     /**
@@ -2444,12 +2444,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1962, 2, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1962') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0143 end');
     })
 
     /**
@@ -2461,12 +2461,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1963, 3, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1963') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0144 end');
     })
 
     /**
@@ -2478,12 +2478,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1964, 4, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1964') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0145 end');
     })
 
     /**
@@ -2495,12 +2495,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1965, 5, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1965') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0146 end');
     })
 
     /**
@@ -2512,12 +2512,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1966, 6, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1966') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0147 end');
     })
 
     /**
@@ -2529,12 +2529,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1967, 7, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1967') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0148 end');
     })
 
     /**
@@ -2546,12 +2546,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1968, 8, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1968') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0149 end');
     })
 
     /**
@@ -2563,12 +2563,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1969, 9, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1969') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0150 end');
     })
 
     /**
@@ -2580,12 +2580,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1970, 10, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1970') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0151 end');
     })
 
     /**
@@ -2597,12 +2597,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1971, 11, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1971') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0152 end');
     })
 
     /**
@@ -2614,12 +2614,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1972, 0, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1972') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0153 end');
     })
 
     /**
@@ -2631,12 +2631,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1973, 1, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1973') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0154 end');
     })
 
     /**
@@ -2648,12 +2648,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1974, 2, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1974') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0155 end');
     })
 
     /**
@@ -2665,12 +2665,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1975, 3, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1975') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0156 end');
     })
 
     /**
@@ -2682,12 +2682,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1976, 4, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1976') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0157 end');
     })
 
     /**
@@ -2699,12 +2699,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1977, 5, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1977') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0158 end');
     })
 
     /**
@@ -2716,12 +2716,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1978, 6, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1978') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0159 end');
     })
 
     /**
@@ -2733,12 +2733,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1979, 7, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1979') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0160 end');
     })
 
     /**
@@ -2750,12 +2750,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1980, 8, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1980') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0161 end');
     })
 
     /**
@@ -2767,12 +2767,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1981, 9, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1981') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0162 end');
     })
 
     /**
@@ -2784,12 +2784,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1982, 10, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1982') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0163 end');
     })
 
     /**
@@ -2801,12 +2801,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1983, 11, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1983') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0164 end');
     })
 
     /**
@@ -2818,12 +2818,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1984, 0, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1984') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0165 end');
     })
 
     /**
@@ -2835,12 +2835,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1985, 1, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1985') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0166 end');
     })
 
     /**
@@ -2852,12 +2852,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1986, 2, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1986') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0167 end');
     })
 
     /**
@@ -2869,12 +2869,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1987, 3, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1987') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0168 end');
     })
 
     /**
@@ -2886,12 +2886,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1988, 4, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1988') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0169 end');
     })
 
     /**
@@ -2903,12 +2903,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1989, 5, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1989') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0170 end');
     })
 
     /**
@@ -2920,12 +2920,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1990, 6, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1990') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0171 end');
     })
 
     /**
@@ -2937,12 +2937,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1991, 7, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1991') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0172 end');
     })
 
     /**
@@ -2954,12 +2954,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1992, 8, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1992') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0173 end');
     })
 
     /**
@@ -2971,12 +2971,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1993, 9, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1993') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0174 end');
     })
 
     /**
@@ -2988,12 +2988,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1994, 10, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1994') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0175 end');
     })
 
     /**
@@ -3005,12 +3005,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1995, 11, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1995') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0176 end');
     })
 
     /**
@@ -3022,12 +3022,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1996, 0, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1996') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0177 end');
     })
 
     /**
@@ -3039,12 +3039,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1997, 1, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1997') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0178 end');
     })
 
     /**
@@ -3056,12 +3056,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1998, 2, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1998') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0179 end');
     })
 
     /**
@@ -3073,12 +3073,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 begin');
       const result: string = DateUtil.getLocalizedYearAndMonth(new Date(1999, 3, 15, 12, 0, 0).getTime());
       expect(result.indexOf('1999') >= 0).assertTrue();
       expect(result.length > 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0180 end');
     })
 
     /**
@@ -3090,12 +3090,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 0, 1, 0, 0, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0181 end');
     })
 
     /**
@@ -3107,12 +3107,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 1, 2, 6, 15, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0182 end');
     })
 
     /**
@@ -3124,12 +3124,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 2, 3, 12, 30, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0183 end');
     })
 
     /**
@@ -3141,12 +3141,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 3, 4, 18, 45, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0184 end');
     })
 
     /**
@@ -3158,12 +3158,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 4, 5, 23, 0, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0185 end');
     })
 
     /**
@@ -3175,12 +3175,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 5, 6, 0, 15, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0186 end');
     })
 
     /**
@@ -3192,12 +3192,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 6, 7, 6, 30, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0187 end');
     })
 
     /**
@@ -3209,12 +3209,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 7, 8, 12, 45, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0188 end');
     })
 
     /**
@@ -3226,12 +3226,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 8, 9, 18, 0, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0189 end');
     })
 
     /**
@@ -3243,12 +3243,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 9, 10, 23, 15, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0190 end');
     })
 
     /**
@@ -3260,12 +3260,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 10, 11, 0, 30, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0191 end');
     })
 
     /**
@@ -3277,12 +3277,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 11, 12, 6, 45, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0192 end');
     })
 
     /**
@@ -3294,12 +3294,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 0, 13, 12, 0, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0193 end');
     })
 
     /**
@@ -3311,12 +3311,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 1, 14, 18, 15, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0194 end');
     })
 
     /**
@@ -3328,12 +3328,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 2, 15, 23, 30, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0195 end');
     })
 
     /**
@@ -3345,12 +3345,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 3, 16, 0, 45, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0196 end');
     })
 
     /**
@@ -3362,12 +3362,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 4, 17, 6, 0, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0197 end');
     })
 
     /**
@@ -3379,12 +3379,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 5, 18, 12, 15, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0198 end');
     })
 
     /**
@@ -3396,12 +3396,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 6, 19, 18, 30, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0199 end');
     })
 
     /**
@@ -3413,12 +3413,12 @@ export default function PhotosDateLocalizedBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 begin');
       const result: string = DateUtil.getLocalizedTime(new Date(2024, 7, 20, 23, 45, 0).getTime());
       expect(result.length >= 4).assertTrue();
       expect(result.indexOf(':') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedBoundary0200 end');
     })
   })
 }

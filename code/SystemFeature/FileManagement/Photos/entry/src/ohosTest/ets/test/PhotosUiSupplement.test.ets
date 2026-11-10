@@ -12,18 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, beforeAll, Level, Size, TestType } from '@ohos/hypium';
-import { Driver, ON, Component, On } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry, Driver, ON, Component, On } from '@kit.TestKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { fileIo } from '@kit.CoreFileKit';
-import util from '@ohos.util';
+import { util } from '@kit.ArkTS';
 
 const TAG = '[Sample_PhotosUiSupplementTest]';
 const DOMAIN = 0xF811;
 const BUNDLE = 'photos_';
-const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 const JPEG_BASE64 = '/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHB' +
 'wgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAA' +
@@ -39,7 +38,7 @@ async function appText(name: string): Promise<string> {
 
 async function waitForComponent(driver: Driver, match: On, tries: number = 6): Promise<Component> {
   let lastErr: Error = new Error('component not found');
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -55,7 +54,7 @@ async function waitForComponent(driver: Driver, match: On, tries: number = 6): P
 }
 
 async function componentExists(driver: Driver, match: On, tries: number = 3): Promise<boolean> {
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -70,7 +69,7 @@ async function componentExists(driver: Driver, match: On, tries: number = 3): Pr
 
 async function clickWithRetry(driver: Driver, match: On, tries: number = 5): Promise<void> {
   let lastErr: Error = new Error('component not found');
-  for (let i = 0; i < tries; i++) {
+  for (let i: number = 0; i < tries; i++) {
     try {
       const found: Component | null = await driver.findComponent(match);
       if (found !== null && found !== undefined) {
@@ -88,7 +87,7 @@ async function clickWithRetry(driver: Driver, match: On, tries: number = 5): Pro
 }
 
 async function dismissPermissionDialogs(driver: Driver): Promise<void> {
-  for (let i = 0; i < 8; i++) {
+  for (let i: number = 0; i < 8; i++) {
     const clickedZh: boolean = await clickIfExist(driver, ON.text('允许'));
     const clickedEn: boolean = clickedZh ? true : await clickIfExist(driver, ON.text('Allow'));
     if (!clickedZh && !clickedEn) {
@@ -122,7 +121,7 @@ async function bringAppToFront(): Promise<void> {
 }
 
 async function goHome(driver: Driver): Promise<void> {
-  for (let i = 0; i < 6; i++) {
+  for (let i: number = 0; i < 6; i++) {
     if (await componentExists(driver, ON.id('28'), 1)) {
       return;
     }
@@ -171,7 +170,7 @@ async function openFirstGridItem(driver: Driver): Promise<void> {
 }
 
 async function ensureBrowserBar(driver: Driver, barText: string, altId: string = ''): Promise<void> {
-  for (let i = 0; i < 8; i++) {
+  for (let i: number = 0; i < 8; i++) {
     if (await componentExists(driver, ON.text(barText), 1)) {
       return;
     }
@@ -261,14 +260,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0001 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0001 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_all');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_all')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0001 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0001 end');
     })
 
     /**
@@ -280,14 +279,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0002 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0002 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_camera');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_camera')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0002 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0002 end');
     })
 
     /**
@@ -299,14 +298,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0003 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0003 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_video');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_video')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0003 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0003 end');
     })
 
     /**
@@ -318,14 +317,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0004 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0004 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_favor');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_favor')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0004 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0004 end');
     })
 
     /**
@@ -337,14 +336,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0005 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0005 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_screen_shot');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_screen_shot')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0005 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0005 end');
     })
 
     /**
@@ -356,14 +355,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0006 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0006 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_moving_photo');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_moving_photo')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0006 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0006 end');
     })
 
     /**
@@ -375,14 +374,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0007 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0007 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'album_recycle');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_recycle')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0007 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0007 end');
     })
 
     /**
@@ -394,14 +393,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0008 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0008 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'tab_timeline');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_timeline')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0008 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0008 end');
     })
 
     /**
@@ -413,14 +412,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0009 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0009 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'tab_albums');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_albums')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0009 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0009 end');
     })
 
     /**
@@ -432,14 +431,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0010 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0010 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       const exists: boolean = await existsWithScroll(driver, 'tab_location_albums');
       expect(exists).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_location_albums')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0010 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0010 end');
     })
 
     /**
@@ -451,13 +450,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0011 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0011 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       expect(await componentExists(driver, ON.id('28'), 2)).assertTrue();
       const button: Component = await waitForComponent(driver, ON.id('28'));
       expect(await button.getId()).assertEqual('28');
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0011 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0011 end');
     })
 
     /**
@@ -469,14 +468,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0012 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0012 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await bringAppToFront();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_albums')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0012 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0012 end');
     })
 
     /**
@@ -488,7 +487,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0013 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0013 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_all')));
@@ -497,7 +496,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0013 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0013 end');
     })
 
     /**
@@ -509,7 +508,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0014 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0014 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_camera')));
@@ -518,7 +517,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0014 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0014 end');
     })
 
     /**
@@ -530,7 +529,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0015 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0015 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_video')));
@@ -539,7 +538,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0015 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0015 end');
     })
 
     /**
@@ -551,7 +550,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0016 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0016 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_favor')));
@@ -560,7 +559,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0016 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0016 end');
     })
 
     /**
@@ -572,7 +571,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0017 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0017 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_screen_shot')));
@@ -581,7 +580,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0017 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0017 end');
     })
 
     /**
@@ -593,7 +592,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0018 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0018 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_moving_photo')));
@@ -602,7 +601,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0018 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0018 end');
     })
 
     /**
@@ -614,7 +613,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0019 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0019 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('album_recycle')));
@@ -623,7 +622,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0019 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0019 end');
     })
 
     /**
@@ -635,14 +634,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0020 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0020 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await enterAllPhotos(driver);
       const items: Array<Component> = await driver.findComponents(ON.type('GridItem'));
       expect(items.length > 0).assertTrue();
       expect(await componentExists(driver, ON.type('GridItem'), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0020 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0020 end');
     })
 
     /**
@@ -654,13 +653,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0021 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0021 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       const deleteText: string = await appText('action_delete');
       expect(await componentExists(driver, ON.text(deleteText), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_info')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0021 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0021 end');
     })
 
     /**
@@ -672,13 +671,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0022 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0022 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
       const info: Component = await waitForComponent(driver, ON.id('5'));
       expect(await info.getId()).assertEqual('5');
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0022 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0022 end');
     })
 
     /**
@@ -690,13 +689,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0023 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0023 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       expect(await componentExists(driver, ON.id('7'), 3)).assertTrue();
       const deleteButton: Component = await waitForComponent(driver, ON.id('7'));
       expect(await deleteButton.getId()).assertEqual('7');
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0023 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0023 end');
     })
 
     /**
@@ -708,13 +707,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0024 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0024 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       const renameText: string = await appText('action_rename');
       expect(await componentExists(driver, ON.text(renameText), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0024 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0024 end');
     })
 
     /**
@@ -726,13 +725,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0025 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0025 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       const favoriteText: string = await appText('action_not_favorite');
       expect(await componentExists(driver, ON.text(favoriteText), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('14'), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0025 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0025 end');
     })
 
     /**
@@ -744,14 +743,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0026 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0026 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await driver.pressBack();
       await driver.delayMs(1500);
       expect(await componentExists(driver, ON.type('GridItem'), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('5'), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0026 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0026 end');
     })
 
     /**
@@ -763,7 +762,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0027 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0027 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await clickWithRetry(driver, ON.id('5'));
@@ -772,7 +771,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0027 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0027 end');
     })
 
     /**
@@ -784,7 +783,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0028 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0028 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await clickWithRetry(driver, ON.text(await appText('action_rename')));
@@ -793,7 +792,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0028 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0028 end');
     })
 
     /**
@@ -805,7 +804,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0029 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0029 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await clickWithRetry(driver, ON.text(await appText('action_delete')));
@@ -814,7 +813,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('deleteConfirm'), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0029 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0029 end');
     })
 
     /**
@@ -826,7 +825,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0030 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0030 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.id('28'));
@@ -835,7 +834,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0030 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0030 end');
     })
 
     /**
@@ -847,7 +846,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0031 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0031 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await enterAllPhotos(driver);
@@ -855,7 +854,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.delayMs(1500);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_all')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0031 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0031 end');
     })
 
     /**
@@ -867,14 +866,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0032 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0032 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('tab_albums')));
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_albums')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0032 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0032 end');
     })
 
     /**
@@ -886,7 +885,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0033 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0033 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('tab_timeline')));
@@ -895,7 +894,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0033 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0033 end');
     })
 
     /**
@@ -907,7 +906,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0034 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0034 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await clickWithRetry(driver, ON.text(await appText('tab_location_albums')));
@@ -916,7 +915,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0034 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0034 end');
     })
 
     /**
@@ -928,7 +927,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0035 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0035 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await enterAllPhotos(driver);
@@ -937,7 +936,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 4)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0035 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0035 end');
     })
 
     /**
@@ -949,14 +948,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0036 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0036 begin');
       const driver: Driver = Driver.create();
       await prepareHome(driver);
       await driver.swipe(100, 1000, 100, 200);
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.id('28'), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('tab_albums')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0036 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0036 end');
     })
 
     /**
@@ -968,13 +967,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0037 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0037 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_select_all')), 3)).assertTrue();
       expect(await componentExists(driver, ON.type('GridItem'), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0037 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0037 end');
     })
 
     /**
@@ -986,14 +985,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0038 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0038 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       await clickWithRetry(driver, ON.text(await appText('action_select_all')));
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.text(await appText('action_deselect_all')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0038 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0038 end');
     })
 
     /**
@@ -1005,7 +1004,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0039 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0039 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       await clickWithRetry(driver, ON.text(await appText('action_select_all')));
@@ -1014,7 +1013,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.text(await appText('action_select_all')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_deselect_all')), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0039 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0039 end');
     })
 
     /**
@@ -1026,7 +1025,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0040 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0040 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       const items: Array<Component> = await driver.findComponents(ON.type('GridItem'));
@@ -1037,7 +1036,7 @@ export default function PhotosUiSupplementTest(): void {
       }
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_share')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0040 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0040 end');
     })
 
     /**
@@ -1049,14 +1048,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0041 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0041 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.text(await appText('action_select_all')), 1)).assertFalse();
       expect(await componentExists(driver, ON.type('GridItem'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0041 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0041 end');
     })
 
     /**
@@ -1068,14 +1067,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0042 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0042 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       await clickWithRetry(driver, ON.text(await appText('action_select_all')));
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.text(await appText('action_share')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0042 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0042 end');
     })
 
     /**
@@ -1087,7 +1086,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0043 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0043 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('title')), 3)).assertTrue();
@@ -1095,7 +1094,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0043 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0043 end');
     })
 
     /**
@@ -1107,7 +1106,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0044 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0044 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('time')), 3)).assertTrue();
@@ -1115,7 +1114,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0044 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0044 end');
     })
 
     /**
@@ -1127,7 +1126,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0045 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0045 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('size')), 3)).assertTrue();
@@ -1135,7 +1134,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0045 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0045 end');
     })
 
     /**
@@ -1147,7 +1146,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0046 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0046 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('resolution')), 3)).assertTrue();
@@ -1155,7 +1154,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.pressBack();
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0046 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0046 end');
     })
 
     /**
@@ -1167,13 +1166,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0047 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0047 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('location')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('shooting_params')), 2)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('details')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0047 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0047 end');
     })
 
     /**
@@ -1185,12 +1184,12 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0048 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0048 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       expect(await componentExists(driver, ON.text(await appText('details')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('title')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0048 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0048 end');
     })
 
     /**
@@ -1202,12 +1201,12 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0049 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0049 begin');
       const driver: Driver = Driver.create();
       await openAlbumByName(driver, 'album_screen_shot');
       expect(await componentExists(driver, ON.text(await appText('no_distributed_photo_head_title_album')), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0049 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0049 end');
     })
 
     /**
@@ -1219,12 +1218,12 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0050 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0050 begin');
       const driver: Driver = Driver.create();
       await openAlbumByName(driver, 'album_moving_photo');
       expect(await componentExists(driver, ON.text(await appText('no_distributed_photo_head_title_album')), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0050 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0050 end');
     })
 
     /**
@@ -1236,7 +1235,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0051 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0051 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await clickWithRetry(driver, ON.text(await appText('action_delete')));
@@ -1244,7 +1243,7 @@ export default function PhotosUiSupplementTest(): void {
       expect(await componentExists(driver, ON.text(await appText('recycle_picture_tips')), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('deleteConfirm'), 2)).assertTrue();
       await driver.pressBack();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0051 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0051 end');
     })
 
     /**
@@ -1256,7 +1255,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0052 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0052 begin');
       const driver: Driver = Driver.create();
       await prepareBrowser(driver);
       await clickWithRetry(driver, ON.text(await appText('action_delete')));
@@ -1266,7 +1265,7 @@ export default function PhotosUiSupplementTest(): void {
       await driver.delayMs(1000);
       expect(await componentExists(driver, ON.id('deleteConfirm'), 1)).assertFalse();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0052 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0052 end');
     })
 
     /**
@@ -1278,13 +1277,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0053 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0053 begin');
       const driver: Driver = Driver.create();
       await deleteFirstImage(driver);
       await openRecycle(driver);
       expect(await componentExists(driver, ON.type('GridItem'), 5)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('album_recycle')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0053 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0053 end');
     })
 
     /**
@@ -1296,7 +1295,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0054 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0054 begin');
       const driver: Driver = Driver.create();
       await deleteFirstImage(driver);
       await openRecycle(driver);
@@ -1304,7 +1303,7 @@ export default function PhotosUiSupplementTest(): void {
       await ensureBrowserBar(driver, await appText('action_recover'));
       expect(await componentExists(driver, ON.text(await appText('action_recover')), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0054 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0054 end');
     })
 
     /**
@@ -1316,7 +1315,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0055 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0055 begin');
       const driver: Driver = Driver.create();
       await deleteFirstImage(driver);
       await openRecycle(driver);
@@ -1329,7 +1328,7 @@ export default function PhotosUiSupplementTest(): void {
       await openRecycle(driver);
       const after: number = (await driver.findComponents(ON.type('GridItem'))).length;
       expect(after < before).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0055 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0055 end');
     })
 
     /**
@@ -1341,13 +1340,13 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0056 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0056 begin');
       const driver: Driver = Driver.create();
       await deleteFirstImage(driver);
       await openRecycle(driver);
       expect(await componentExists(driver, ON.text(await appText('action_clear_recycle')), 4)).assertTrue();
       expect(await componentExists(driver, ON.type('GridItem'), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0056 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0056 end');
     })
 
     /**
@@ -1359,12 +1358,12 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0057 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0057 begin');
       const driver: Driver = Driver.create();
       await openRecycle(driver);
       expect(await componentExists(driver, ON.text(await appText('album_recycle')), 3)).assertTrue();
       expect(await componentExists(driver, ON.id('28'), 1)).assertFalse();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0057 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0057 end');
     })
 
     /**
@@ -1376,14 +1375,14 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0058 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0058 begin');
       const driver: Driver = Driver.create();
       await openDetails(driver);
       await driver.pressBack();
       await driver.delayMs(1200);
       expect(await componentExists(driver, ON.text(await appText('details')), 1)).assertFalse();
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0058 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0058 end');
     })
 
     /**
@@ -1395,7 +1394,7 @@ export default function PhotosUiSupplementTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosUiSupp0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0059 begin');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0059 begin');
       const driver: Driver = Driver.create();
       await enterGridSelection(driver);
       await driver.pressBack();
@@ -1404,7 +1403,7 @@ export default function PhotosUiSupplementTest(): void {
       await ensureBrowserBar(driver, await appText('action_info'), '5');
       expect(await componentExists(driver, ON.id('5'), 3)).assertTrue();
       expect(await componentExists(driver, ON.text(await appText('action_delete')), 2)).assertTrue();
-      HiLog.info(DOMAIN, TAG, 'testPhotosUiSupp0059 end');
+      hilog.info(DOMAIN, TAG, 'testPhotosUiSupp0059 end');
     })
 
   })

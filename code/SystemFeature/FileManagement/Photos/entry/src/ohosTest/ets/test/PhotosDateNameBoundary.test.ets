@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,12 +30,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0001 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_1.jpg');
       expect(result.startsWith('shot_boundary_1_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_1_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0001 end');
     })
 
     /**
@@ -47,12 +47,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0002 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_2.png');
       expect(result.startsWith('shot_boundary_2_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_2_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0002 end');
     })
 
     /**
@@ -64,12 +64,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0003 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_3.jpeg');
       expect(result.startsWith('shot_boundary_3_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_3_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0003 end');
     })
 
     /**
@@ -81,12 +81,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0004 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_4.webp');
       expect(result.startsWith('shot_boundary_4_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_4_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0004 end');
     })
 
     /**
@@ -98,12 +98,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0005 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_5.heic');
       expect(result.startsWith('shot_boundary_5_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_5_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0005 end');
     })
 
     /**
@@ -115,12 +115,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0006 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_6.jpg');
       expect(result.startsWith('shot_boundary_6_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_6_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0006 end');
     })
 
     /**
@@ -132,12 +132,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0007 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_7.png');
       expect(result.startsWith('shot_boundary_7_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_7_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0007 end');
     })
 
     /**
@@ -149,12 +149,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0008 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_8.jpeg');
       expect(result.startsWith('shot_boundary_8_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_8_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0008 end');
     })
 
     /**
@@ -166,12 +166,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0009 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_9.webp');
       expect(result.startsWith('shot_boundary_9_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_9_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0009 end');
     })
 
     /**
@@ -183,12 +183,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0010 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_10.heic');
       expect(result.startsWith('shot_boundary_10_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_10_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0010 end');
     })
 
     /**
@@ -200,12 +200,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0011 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_11.jpg');
       expect(result.startsWith('shot_boundary_11_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_11_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0011 end');
     })
 
     /**
@@ -217,12 +217,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0012 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_12.png');
       expect(result.startsWith('shot_boundary_12_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_12_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0012 end');
     })
 
     /**
@@ -234,12 +234,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0013 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_13.jpeg');
       expect(result.startsWith('shot_boundary_13_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_13_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0013 end');
     })
 
     /**
@@ -251,12 +251,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0014 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_14.webp');
       expect(result.startsWith('shot_boundary_14_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_14_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0014 end');
     })
 
     /**
@@ -268,12 +268,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0015 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_15.heic');
       expect(result.startsWith('shot_boundary_15_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_15_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0015 end');
     })
 
     /**
@@ -285,12 +285,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0016 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_16.jpg');
       expect(result.startsWith('shot_boundary_16_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_16_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0016 end');
     })
 
     /**
@@ -302,12 +302,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0017 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_17.png');
       expect(result.startsWith('shot_boundary_17_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_17_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0017 end');
     })
 
     /**
@@ -319,12 +319,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0018 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_18.jpeg');
       expect(result.startsWith('shot_boundary_18_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_18_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0018 end');
     })
 
     /**
@@ -336,12 +336,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0019 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_19.webp');
       expect(result.startsWith('shot_boundary_19_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_19_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0019 end');
     })
 
     /**
@@ -353,12 +353,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0020 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_20.heic');
       expect(result.startsWith('shot_boundary_20_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_20_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0020 end');
     })
 
     /**
@@ -370,12 +370,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0021 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_21.jpg');
       expect(result.startsWith('shot_boundary_21_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_21_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0021 end');
     })
 
     /**
@@ -387,12 +387,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0022 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_22.png');
       expect(result.startsWith('shot_boundary_22_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_22_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0022 end');
     })
 
     /**
@@ -404,12 +404,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0023 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_23.jpeg');
       expect(result.startsWith('shot_boundary_23_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_23_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0023 end');
     })
 
     /**
@@ -421,12 +421,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0024 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_24.webp');
       expect(result.startsWith('shot_boundary_24_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_24_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0024 end');
     })
 
     /**
@@ -438,12 +438,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0025 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_25.heic');
       expect(result.startsWith('shot_boundary_25_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_25_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0025 end');
     })
 
     /**
@@ -455,12 +455,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0026 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_26.jpg');
       expect(result.startsWith('shot_boundary_26_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_26_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0026 end');
     })
 
     /**
@@ -472,12 +472,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0027 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_27.png');
       expect(result.startsWith('shot_boundary_27_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_27_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0027 end');
     })
 
     /**
@@ -489,12 +489,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0028 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_28.jpeg');
       expect(result.startsWith('shot_boundary_28_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_28_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0028 end');
     })
 
     /**
@@ -506,12 +506,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0029 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_29.webp');
       expect(result.startsWith('shot_boundary_29_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_29_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0029 end');
     })
 
     /**
@@ -523,12 +523,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0030 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_30.heic');
       expect(result.startsWith('shot_boundary_30_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_30_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0030 end');
     })
 
     /**
@@ -540,12 +540,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0031 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_31.jpg');
       expect(result.startsWith('shot_boundary_31_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_31_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0031 end');
     })
 
     /**
@@ -557,12 +557,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0032 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_32.png');
       expect(result.startsWith('shot_boundary_32_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_32_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0032 end');
     })
 
     /**
@@ -574,12 +574,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0033 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_33.jpeg');
       expect(result.startsWith('shot_boundary_33_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_33_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0033 end');
     })
 
     /**
@@ -591,12 +591,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0034 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_34.webp');
       expect(result.startsWith('shot_boundary_34_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_34_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0034 end');
     })
 
     /**
@@ -608,12 +608,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0035 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_35.heic');
       expect(result.startsWith('shot_boundary_35_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_35_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0035 end');
     })
 
     /**
@@ -625,12 +625,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0036 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_36.jpg');
       expect(result.startsWith('shot_boundary_36_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_36_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0036 end');
     })
 
     /**
@@ -642,12 +642,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0037 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_37.png');
       expect(result.startsWith('shot_boundary_37_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_37_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0037 end');
     })
 
     /**
@@ -659,12 +659,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0038 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_38.jpeg');
       expect(result.startsWith('shot_boundary_38_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_38_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0038 end');
     })
 
     /**
@@ -676,12 +676,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0039 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_39.webp');
       expect(result.startsWith('shot_boundary_39_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_39_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0039 end');
     })
 
     /**
@@ -693,12 +693,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0040 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_40.heic');
       expect(result.startsWith('shot_boundary_40_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_40_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0040 end');
     })
 
     /**
@@ -710,12 +710,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0041 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_41.jpg');
       expect(result.startsWith('shot_boundary_41_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_41_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0041 end');
     })
 
     /**
@@ -727,12 +727,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0042 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_42.png');
       expect(result.startsWith('shot_boundary_42_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_42_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0042 end');
     })
 
     /**
@@ -744,12 +744,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0043 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_43.jpeg');
       expect(result.startsWith('shot_boundary_43_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_43_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0043 end');
     })
 
     /**
@@ -761,12 +761,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0044 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_44.webp');
       expect(result.startsWith('shot_boundary_44_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_44_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0044 end');
     })
 
     /**
@@ -778,12 +778,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0045 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_45.heic');
       expect(result.startsWith('shot_boundary_45_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_45_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0045 end');
     })
 
     /**
@@ -795,12 +795,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0046 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_46.jpg');
       expect(result.startsWith('shot_boundary_46_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_46_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0046 end');
     })
 
     /**
@@ -812,12 +812,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0047 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_47.png');
       expect(result.startsWith('shot_boundary_47_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_47_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0047 end');
     })
 
     /**
@@ -829,12 +829,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0048 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_48.jpeg');
       expect(result.startsWith('shot_boundary_48_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_48_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0048 end');
     })
 
     /**
@@ -846,12 +846,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0049 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_49.webp');
       expect(result.startsWith('shot_boundary_49_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_49_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0049 end');
     })
 
     /**
@@ -863,12 +863,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0050 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_50.heic');
       expect(result.startsWith('shot_boundary_50_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_50_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0050 end');
     })
 
     /**
@@ -880,12 +880,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0051 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_51.jpg');
       expect(result.startsWith('shot_boundary_51_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_51_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0051 end');
     })
 
     /**
@@ -897,12 +897,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0052 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_52.png');
       expect(result.startsWith('shot_boundary_52_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_52_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0052 end');
     })
 
     /**
@@ -914,12 +914,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0053 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_53.jpeg');
       expect(result.startsWith('shot_boundary_53_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_53_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0053 end');
     })
 
     /**
@@ -931,12 +931,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0054 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_54.webp');
       expect(result.startsWith('shot_boundary_54_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_54_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0054 end');
     })
 
     /**
@@ -948,12 +948,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0055 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_55.heic');
       expect(result.startsWith('shot_boundary_55_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_55_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0055 end');
     })
 
     /**
@@ -965,12 +965,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0056 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_56.jpg');
       expect(result.startsWith('shot_boundary_56_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_56_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0056 end');
     })
 
     /**
@@ -982,12 +982,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0057 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_57.png');
       expect(result.startsWith('shot_boundary_57_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_57_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0057 end');
     })
 
     /**
@@ -999,12 +999,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0058 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_58.jpeg');
       expect(result.startsWith('shot_boundary_58_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_58_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0058 end');
     })
 
     /**
@@ -1016,12 +1016,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0059 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_59.webp');
       expect(result.startsWith('shot_boundary_59_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_59_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0059 end');
     })
 
     /**
@@ -1033,12 +1033,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0060 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_60.heic');
       expect(result.startsWith('shot_boundary_60_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_60_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0060 end');
     })
 
     /**
@@ -1050,12 +1050,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0061 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_61.jpg');
       expect(result.startsWith('shot_boundary_61_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_61_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0061 end');
     })
 
     /**
@@ -1067,12 +1067,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0062 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_62.png');
       expect(result.startsWith('shot_boundary_62_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_62_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0062 end');
     })
 
     /**
@@ -1084,12 +1084,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0063 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_63.jpeg');
       expect(result.startsWith('shot_boundary_63_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_63_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0063 end');
     })
 
     /**
@@ -1101,12 +1101,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0064 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_64.webp');
       expect(result.startsWith('shot_boundary_64_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_64_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0064 end');
     })
 
     /**
@@ -1118,12 +1118,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0065 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_65.heic');
       expect(result.startsWith('shot_boundary_65_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_65_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0065 end');
     })
 
     /**
@@ -1135,12 +1135,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0066 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_66.jpg');
       expect(result.startsWith('shot_boundary_66_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_66_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0066 end');
     })
 
     /**
@@ -1152,12 +1152,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0067 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_67.png');
       expect(result.startsWith('shot_boundary_67_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_67_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0067 end');
     })
 
     /**
@@ -1169,12 +1169,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0068 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_68.jpeg');
       expect(result.startsWith('shot_boundary_68_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_68_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0068 end');
     })
 
     /**
@@ -1186,12 +1186,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0069 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_69.webp');
       expect(result.startsWith('shot_boundary_69_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_69_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0069 end');
     })
 
     /**
@@ -1203,12 +1203,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0070 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_70.heic');
       expect(result.startsWith('shot_boundary_70_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_70_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0070 end');
     })
 
     /**
@@ -1220,12 +1220,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0071 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_71.jpg');
       expect(result.startsWith('shot_boundary_71_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_71_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0071 end');
     })
 
     /**
@@ -1237,12 +1237,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0072 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_72.png');
       expect(result.startsWith('shot_boundary_72_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_72_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0072 end');
     })
 
     /**
@@ -1254,12 +1254,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0073 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_73.jpeg');
       expect(result.startsWith('shot_boundary_73_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_73_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0073 end');
     })
 
     /**
@@ -1271,12 +1271,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0074 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_74.webp');
       expect(result.startsWith('shot_boundary_74_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_74_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0074 end');
     })
 
     /**
@@ -1288,12 +1288,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0075 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_75.heic');
       expect(result.startsWith('shot_boundary_75_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_75_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0075 end');
     })
 
     /**
@@ -1305,12 +1305,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0076 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_76.jpg');
       expect(result.startsWith('shot_boundary_76_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_76_edit_'.length).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0076 end');
     })
 
     /**
@@ -1322,12 +1322,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0077 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_77.png');
       expect(result.startsWith('shot_boundary_77_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_77_edit_'.length).assertTrue();
       expect(result.indexOf('.png') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0077 end');
     })
 
     /**
@@ -1339,12 +1339,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0078 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_78.jpeg');
       expect(result.startsWith('shot_boundary_78_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_78_edit_'.length).assertTrue();
       expect(result.indexOf('.jpeg') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0078 end');
     })
 
     /**
@@ -1356,12 +1356,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0079 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_79.webp');
       expect(result.startsWith('shot_boundary_79_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_79_edit_'.length).assertTrue();
       expect(result.indexOf('.webp') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0079 end');
     })
 
     /**
@@ -1373,12 +1373,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0080 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_boundary_80.heic');
       expect(result.startsWith('shot_boundary_80_edit_')).assertTrue();
       expect(result.length > 'shot_boundary_80_edit_'.length).assertTrue();
       expect(result.indexOf('.heic') === -1).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0080 end');
     })
 
     /**
@@ -1390,12 +1390,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0081 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_1.jpg');
       expect(result).assertEqual('shot_edit_boundary_1');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0081 end');
     })
 
     /**
@@ -1407,12 +1407,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0082 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_2.jpg');
       expect(result).assertEqual('shot_edit_boundary_2');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0082 end');
     })
 
     /**
@@ -1424,12 +1424,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0083 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_3.jpg');
       expect(result).assertEqual('shot_edit_boundary_3');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0083 end');
     })
 
     /**
@@ -1441,12 +1441,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0084 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_4.jpg');
       expect(result).assertEqual('shot_edit_boundary_4');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0084 end');
     })
 
     /**
@@ -1458,12 +1458,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0085 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_5.jpg');
       expect(result).assertEqual('shot_edit_boundary_5');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0085 end');
     })
 
     /**
@@ -1475,12 +1475,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0086 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_6.jpg');
       expect(result).assertEqual('shot_edit_boundary_6');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0086 end');
     })
 
     /**
@@ -1492,12 +1492,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0087 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_7.jpg');
       expect(result).assertEqual('shot_edit_boundary_7');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0087 end');
     })
 
     /**
@@ -1509,12 +1509,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0088 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_8.jpg');
       expect(result).assertEqual('shot_edit_boundary_8');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0088 end');
     })
 
     /**
@@ -1526,12 +1526,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0089 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_9.jpg');
       expect(result).assertEqual('shot_edit_boundary_9');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(20);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0089 end');
     })
 
     /**
@@ -1543,12 +1543,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0090 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_10.jpg');
       expect(result).assertEqual('shot_edit_boundary_10');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0090 end');
     })
 
     /**
@@ -1560,12 +1560,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0091 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_11.jpg');
       expect(result).assertEqual('shot_edit_boundary_11');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0091 end');
     })
 
     /**
@@ -1577,12 +1577,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0092 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_12.jpg');
       expect(result).assertEqual('shot_edit_boundary_12');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0092 end');
     })
 
     /**
@@ -1594,12 +1594,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0093 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_13.jpg');
       expect(result).assertEqual('shot_edit_boundary_13');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0093 end');
     })
 
     /**
@@ -1611,12 +1611,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0094 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_14.jpg');
       expect(result).assertEqual('shot_edit_boundary_14');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0094 end');
     })
 
     /**
@@ -1628,12 +1628,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0095 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_15.jpg');
       expect(result).assertEqual('shot_edit_boundary_15');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0095 end');
     })
 
     /**
@@ -1645,12 +1645,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0096 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_16.jpg');
       expect(result).assertEqual('shot_edit_boundary_16');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0096 end');
     })
 
     /**
@@ -1662,12 +1662,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0097 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_17.jpg');
       expect(result).assertEqual('shot_edit_boundary_17');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0097 end');
     })
 
     /**
@@ -1679,12 +1679,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0098 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_18.jpg');
       expect(result).assertEqual('shot_edit_boundary_18');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0098 end');
     })
 
     /**
@@ -1696,12 +1696,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0099 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_19.jpg');
       expect(result).assertEqual('shot_edit_boundary_19');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0099 end');
     })
 
     /**
@@ -1713,12 +1713,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0100 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_20.jpg');
       expect(result).assertEqual('shot_edit_boundary_20');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0100 end');
     })
 
     /**
@@ -1730,12 +1730,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0101 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0101 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_21.jpg');
       expect(result).assertEqual('shot_edit_boundary_21');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0101 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0101 end');
     })
 
     /**
@@ -1747,12 +1747,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0102 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0102 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_22.jpg');
       expect(result).assertEqual('shot_edit_boundary_22');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0102 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0102 end');
     })
 
     /**
@@ -1764,12 +1764,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0103 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0103 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_23.jpg');
       expect(result).assertEqual('shot_edit_boundary_23');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0103 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0103 end');
     })
 
     /**
@@ -1781,12 +1781,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0104 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0104 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_24.jpg');
       expect(result).assertEqual('shot_edit_boundary_24');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0104 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0104 end');
     })
 
     /**
@@ -1798,12 +1798,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0105 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0105 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_25.jpg');
       expect(result).assertEqual('shot_edit_boundary_25');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0105 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0105 end');
     })
 
     /**
@@ -1815,12 +1815,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0106 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0106 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_26.jpg');
       expect(result).assertEqual('shot_edit_boundary_26');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0106 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0106 end');
     })
 
     /**
@@ -1832,12 +1832,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0107 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0107 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_27.jpg');
       expect(result).assertEqual('shot_edit_boundary_27');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0107 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0107 end');
     })
 
     /**
@@ -1849,12 +1849,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0108 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0108 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_28.jpg');
       expect(result).assertEqual('shot_edit_boundary_28');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0108 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0108 end');
     })
 
     /**
@@ -1866,12 +1866,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0109 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0109 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_29.jpg');
       expect(result).assertEqual('shot_edit_boundary_29');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0109 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0109 end');
     })
 
     /**
@@ -1883,12 +1883,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0110 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0110 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_30.jpg');
       expect(result).assertEqual('shot_edit_boundary_30');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0110 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0110 end');
     })
 
     /**
@@ -1900,12 +1900,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0111 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0111 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_31.jpg');
       expect(result).assertEqual('shot_edit_boundary_31');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0111 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0111 end');
     })
 
     /**
@@ -1917,12 +1917,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0112 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0112 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_32.jpg');
       expect(result).assertEqual('shot_edit_boundary_32');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0112 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0112 end');
     })
 
     /**
@@ -1934,12 +1934,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0113 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0113 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_33.jpg');
       expect(result).assertEqual('shot_edit_boundary_33');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0113 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0113 end');
     })
 
     /**
@@ -1951,12 +1951,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0114 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0114 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_34.jpg');
       expect(result).assertEqual('shot_edit_boundary_34');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0114 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0114 end');
     })
 
     /**
@@ -1968,12 +1968,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0115 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0115 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_35.jpg');
       expect(result).assertEqual('shot_edit_boundary_35');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0115 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0115 end');
     })
 
     /**
@@ -1985,12 +1985,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0116 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0116 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_36.jpg');
       expect(result).assertEqual('shot_edit_boundary_36');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0116 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0116 end');
     })
 
     /**
@@ -2002,12 +2002,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0117 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0117 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_37.jpg');
       expect(result).assertEqual('shot_edit_boundary_37');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0117 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0117 end');
     })
 
     /**
@@ -2019,12 +2019,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0118 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0118 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_38.jpg');
       expect(result).assertEqual('shot_edit_boundary_38');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0118 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0118 end');
     })
 
     /**
@@ -2036,12 +2036,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0119 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0119 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_39.jpg');
       expect(result).assertEqual('shot_edit_boundary_39');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0119 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0119 end');
     })
 
     /**
@@ -2053,12 +2053,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0120 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0120 begin');
       const result: string = DateUtil.nameByDate(true, 'shot_edit_boundary_40.jpg');
       expect(result).assertEqual('shot_edit_boundary_40');
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length).assertEqual(21);
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0120 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0120 end');
     })
 
     /**
@@ -2070,12 +2070,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0121 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0121 begin');
       const result: string = DateUtil.nameByDate(true, 'group.1.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0121 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0121 end');
     })
 
     /**
@@ -2087,12 +2087,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0122 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0122 begin');
       const result: string = DateUtil.nameByDate(true, 'group.2.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0122 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0122 end');
     })
 
     /**
@@ -2104,12 +2104,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0123', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0123 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0123 begin');
       const result: string = DateUtil.nameByDate(true, 'group.3.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0123 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0123 end');
     })
 
     /**
@@ -2121,12 +2121,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0124 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0124 begin');
       const result: string = DateUtil.nameByDate(true, 'group.4.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0124 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0124 end');
     })
 
     /**
@@ -2138,12 +2138,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0125', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0125 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0125 begin');
       const result: string = DateUtil.nameByDate(true, 'group.5.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0125 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0125 end');
     })
 
     /**
@@ -2155,12 +2155,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0126 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0126 begin');
       const result: string = DateUtil.nameByDate(true, 'group.6.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0126 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0126 end');
     })
 
     /**
@@ -2172,12 +2172,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0127', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0127 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0127 begin');
       const result: string = DateUtil.nameByDate(true, 'group.7.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0127 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0127 end');
     })
 
     /**
@@ -2189,12 +2189,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0128 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0128 begin');
       const result: string = DateUtil.nameByDate(true, 'group.8.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0128 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0128 end');
     })
 
     /**
@@ -2206,12 +2206,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0129 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0129 begin');
       const result: string = DateUtil.nameByDate(true, 'group.9.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0129 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0129 end');
     })
 
     /**
@@ -2223,12 +2223,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0130 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0130 begin');
       const result: string = DateUtil.nameByDate(true, 'group.10.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0130 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0130 end');
     })
 
     /**
@@ -2240,12 +2240,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0131 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0131 begin');
       const result: string = DateUtil.nameByDate(true, 'group.11.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0131 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0131 end');
     })
 
     /**
@@ -2257,12 +2257,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0132 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0132 begin');
       const result: string = DateUtil.nameByDate(true, 'group.12.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0132 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0132 end');
     })
 
     /**
@@ -2274,12 +2274,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0133 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0133 begin');
       const result: string = DateUtil.nameByDate(true, 'group.13.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0133 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0133 end');
     })
 
     /**
@@ -2291,12 +2291,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0134 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0134 begin');
       const result: string = DateUtil.nameByDate(true, 'group.14.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0134 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0134 end');
     })
 
     /**
@@ -2308,12 +2308,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0135 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0135 begin');
       const result: string = DateUtil.nameByDate(true, 'group.15.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0135 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0135 end');
     })
 
     /**
@@ -2325,12 +2325,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0136 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0136 begin');
       const result: string = DateUtil.nameByDate(true, 'group.16.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0136 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0136 end');
     })
 
     /**
@@ -2342,12 +2342,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0137 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0137 begin');
       const result: string = DateUtil.nameByDate(true, 'group.17.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0137 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0137 end');
     })
 
     /**
@@ -2359,12 +2359,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0138 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0138 begin');
       const result: string = DateUtil.nameByDate(true, 'group.18.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0138 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0138 end');
     })
 
     /**
@@ -2376,12 +2376,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0139 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0139 begin');
       const result: string = DateUtil.nameByDate(true, 'group.19.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0139 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0139 end');
     })
 
     /**
@@ -2393,12 +2393,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0140 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0140 begin');
       const result: string = DateUtil.nameByDate(true, 'group.20.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0140 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0140 end');
     })
 
     /**
@@ -2410,12 +2410,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0141 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0141 begin');
       const result: string = DateUtil.nameByDate(true, 'group.21.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0141 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0141 end');
     })
 
     /**
@@ -2427,12 +2427,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0142 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0142 begin');
       const result: string = DateUtil.nameByDate(true, 'group.22.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0142 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0142 end');
     })
 
     /**
@@ -2444,12 +2444,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0143 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0143 begin');
       const result: string = DateUtil.nameByDate(true, 'group.23.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0143 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0143 end');
     })
 
     /**
@@ -2461,12 +2461,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0144 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0144 begin');
       const result: string = DateUtil.nameByDate(true, 'group.24.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0144 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0144 end');
     })
 
     /**
@@ -2478,12 +2478,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0145 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0145 begin');
       const result: string = DateUtil.nameByDate(true, 'group.25.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0145 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0145 end');
     })
 
     /**
@@ -2495,12 +2495,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0146 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0146 begin');
       const result: string = DateUtil.nameByDate(true, 'group.26.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0146 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0146 end');
     })
 
     /**
@@ -2512,12 +2512,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0147 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0147 begin');
       const result: string = DateUtil.nameByDate(true, 'group.27.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0147 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0147 end');
     })
 
     /**
@@ -2529,12 +2529,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0148 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0148 begin');
       const result: string = DateUtil.nameByDate(true, 'group.28.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0148 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0148 end');
     })
 
     /**
@@ -2546,12 +2546,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0149 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0149 begin');
       const result: string = DateUtil.nameByDate(true, 'group.29.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0149 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0149 end');
     })
 
     /**
@@ -2563,12 +2563,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0150 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0150 begin');
       const result: string = DateUtil.nameByDate(true, 'group.30.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0150 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0150 end');
     })
 
     /**
@@ -2580,12 +2580,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0151 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0151 begin');
       const result: string = DateUtil.nameByDate(true, 'group.31.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0151 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0151 end');
     })
 
     /**
@@ -2597,12 +2597,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0152 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0152 begin');
       const result: string = DateUtil.nameByDate(true, 'group.32.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0152 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0152 end');
     })
 
     /**
@@ -2614,12 +2614,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0153 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0153 begin');
       const result: string = DateUtil.nameByDate(true, 'group.33.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0153 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0153 end');
     })
 
     /**
@@ -2631,12 +2631,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0154 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0154 begin');
       const result: string = DateUtil.nameByDate(true, 'group.34.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0154 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0154 end');
     })
 
     /**
@@ -2648,12 +2648,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0155 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0155 begin');
       const result: string = DateUtil.nameByDate(true, 'group.35.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0155 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0155 end');
     })
 
     /**
@@ -2665,12 +2665,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0156 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0156 begin');
       const result: string = DateUtil.nameByDate(true, 'group.36.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0156 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0156 end');
     })
 
     /**
@@ -2682,12 +2682,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0157 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0157 begin');
       const result: string = DateUtil.nameByDate(true, 'group.37.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0157 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0157 end');
     })
 
     /**
@@ -2699,12 +2699,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0158 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0158 begin');
       const result: string = DateUtil.nameByDate(true, 'group.38.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0158 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0158 end');
     })
 
     /**
@@ -2716,12 +2716,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0159 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0159 begin');
       const result: string = DateUtil.nameByDate(true, 'group.39.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0159 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0159 end');
     })
 
     /**
@@ -2733,12 +2733,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0160 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0160 begin');
       const result: string = DateUtil.nameByDate(true, 'group.40.shot.jpg');
       expect(result.startsWith('group_edit_')).assertTrue();
       expect(result.indexOf('.jpg') === -1).assertTrue();
       expect(result.length > 'group_edit_'.length).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0160 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0160 end');
     })
 
     /**
@@ -2750,12 +2750,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0161 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0161 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0161 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0161 end');
     })
 
     /**
@@ -2767,12 +2767,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0162 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0162 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0162 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0162 end');
     })
 
     /**
@@ -2784,12 +2784,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0163 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0163 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0163 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0163 end');
     })
 
     /**
@@ -2801,12 +2801,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0164 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0164 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0164 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0164 end');
     })
 
     /**
@@ -2818,12 +2818,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0165 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0165 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0165 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0165 end');
     })
 
     /**
@@ -2835,12 +2835,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0166 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0166 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0166 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0166 end');
     })
 
     /**
@@ -2852,12 +2852,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0167 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0167 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0167 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0167 end');
     })
 
     /**
@@ -2869,12 +2869,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0168 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0168 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0168 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0168 end');
     })
 
     /**
@@ -2886,12 +2886,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0169 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0169 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0169 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0169 end');
     })
 
     /**
@@ -2903,12 +2903,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0170 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0170 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0170 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0170 end');
     })
 
     /**
@@ -2920,12 +2920,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0171 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0171 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0171 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0171 end');
     })
 
     /**
@@ -2937,12 +2937,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0172 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0172 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0172 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0172 end');
     })
 
     /**
@@ -2954,12 +2954,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0173 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0173 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0173 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0173 end');
     })
 
     /**
@@ -2971,12 +2971,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0174 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0174 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0174 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0174 end');
     })
 
     /**
@@ -2988,12 +2988,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0175 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0175 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0175 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0175 end');
     })
 
     /**
@@ -3005,12 +3005,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0176 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0176 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0176 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0176 end');
     })
 
     /**
@@ -3022,12 +3022,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0177 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0177 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0177 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0177 end');
     })
 
     /**
@@ -3039,12 +3039,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0178 end');
     })
 
     /**
@@ -3056,12 +3056,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0179 end');
     })
 
     /**
@@ -3073,12 +3073,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 begin');
       expect(DateUtil.nameByDate(true, '') === null).assertTrue();
       expect(DateUtil.nameByDate(true) === null).assertTrue();
       const fallback: string = DateUtil.nameByDate(false, 'ignored');
       expect(fallback.startsWith('IMG_')).assertTrue();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0180 end');
     })
 
     /**
@@ -3090,12 +3090,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0181 end');
     })
 
     /**
@@ -3107,12 +3107,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0182 end');
     })
 
     /**
@@ -3124,12 +3124,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0183 end');
     })
 
     /**
@@ -3141,12 +3141,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0184 end');
     })
 
     /**
@@ -3158,12 +3158,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0185 end');
     })
 
     /**
@@ -3175,12 +3175,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0186 end');
     })
 
     /**
@@ -3192,12 +3192,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0187 end');
     })
 
     /**
@@ -3209,12 +3209,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0188 end');
     })
 
     /**
@@ -3226,12 +3226,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0189 end');
     })
 
     /**
@@ -3243,12 +3243,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0190 end');
     })
 
     /**
@@ -3260,12 +3260,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0191 end');
     })
 
     /**
@@ -3277,12 +3277,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0192 end');
     })
 
     /**
@@ -3294,12 +3294,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0193 end');
     })
 
     /**
@@ -3311,12 +3311,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0194 end');
     })
 
     /**
@@ -3328,12 +3328,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0195 end');
     })
 
     /**
@@ -3345,12 +3345,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0196 end');
     })
 
     /**
@@ -3362,12 +3362,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0197 end');
     })
 
     /**
@@ -3379,12 +3379,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0198 end');
     })
 
     /**
@@ -3396,12 +3396,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0199 end');
     })
 
     /**
@@ -3413,12 +3413,12 @@ export default function PhotosDateNameBoundaryTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateNameBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 begin');
       const result: string = DateUtil.nameByDate(false, 'ignored');
       expect(result.startsWith('IMG_')).assertTrue();
       expect(result.length).assertEqual(19);
       expect(result.charAt(3)).assertEqual('_');
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateNameBoundary0200 end');
     })
   })
 }

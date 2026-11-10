@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HiLog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { DateUtil } from '../../../main/ets/utils/DateUtil';
 
@@ -30,12 +30,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0001 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0001 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2100, 0, 1, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2100') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0001 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0001 end');
     })
 
     /**
@@ -47,12 +47,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0002 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0002 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2101, 1, 2, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2101') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0002 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0002 end');
     })
 
     /**
@@ -64,12 +64,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0003 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0003 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2102, 2, 3, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2102') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0003 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0003 end');
     })
 
     /**
@@ -81,12 +81,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0004 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0004 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2103, 3, 4, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2103') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0004 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0004 end');
     })
 
     /**
@@ -98,12 +98,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0005 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2104, 4, 5, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2104') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0005 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0005 end');
     })
 
     /**
@@ -115,12 +115,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0006 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0006 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2105, 5, 6, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2105') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0006 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0006 end');
     })
 
     /**
@@ -132,12 +132,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0007 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0007 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2106, 6, 7, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2106') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0007 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0007 end');
     })
 
     /**
@@ -149,12 +149,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0008 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0008 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2107, 7, 8, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2107') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0008 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0008 end');
     })
 
     /**
@@ -166,12 +166,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0009 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0009 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2108, 8, 9, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2108') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0009 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0009 end');
     })
 
     /**
@@ -183,12 +183,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0010 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0010 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2109, 9, 10, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2109') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0010 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0010 end');
     })
 
     /**
@@ -200,12 +200,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0011 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0011 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2110, 10, 11, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2110') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0011 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0011 end');
     })
 
     /**
@@ -217,12 +217,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0012 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0012 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2111, 11, 12, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2111') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0012 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0012 end');
     })
 
     /**
@@ -234,12 +234,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0013 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0013 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2112, 0, 13, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2112') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0013 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0013 end');
     })
 
     /**
@@ -251,12 +251,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0014 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2113, 1, 14, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2113') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0014 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0014 end');
     })
 
     /**
@@ -268,12 +268,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0015 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0015 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2114, 2, 15, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2114') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0015 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0015 end');
     })
 
     /**
@@ -285,12 +285,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0016 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0016 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2115, 3, 16, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2115') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0016 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0016 end');
     })
 
     /**
@@ -302,12 +302,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0017 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2116, 4, 17, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2116') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0017 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0017 end');
     })
 
     /**
@@ -319,12 +319,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0018 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2117, 5, 18, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2117') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0018 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0018 end');
     })
 
     /**
@@ -336,12 +336,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0019 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2118, 6, 19, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2118') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0019 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0019 end');
     })
 
     /**
@@ -353,12 +353,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0020 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2119, 7, 20, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2119') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0020 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0020 end');
     })
 
     /**
@@ -370,12 +370,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0021 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2120, 8, 21, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2120') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0021 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0021 end');
     })
 
     /**
@@ -387,12 +387,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0022 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2121, 9, 22, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2121') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0022 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0022 end');
     })
 
     /**
@@ -404,12 +404,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0023 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2122, 10, 23, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2122') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0023 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0023 end');
     })
 
     /**
@@ -421,12 +421,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0024 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2123, 11, 24, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2123') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0024 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0024 end');
     })
 
     /**
@@ -438,12 +438,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0025 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2124, 0, 25, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2124') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0025 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0025 end');
     })
 
     /**
@@ -455,12 +455,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0026 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2125, 1, 26, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2125') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0026 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0026 end');
     })
 
     /**
@@ -472,12 +472,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0027 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2126, 2, 27, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2126') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0027 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0027 end');
     })
 
     /**
@@ -489,12 +489,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0028 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2127, 3, 1, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2127') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0028 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0028 end');
     })
 
     /**
@@ -506,12 +506,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0029 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0029 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2128, 4, 2, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2128') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0029 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0029 end');
     })
 
     /**
@@ -523,12 +523,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0030 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0030 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2129, 5, 3, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2129') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0030 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0030 end');
     })
 
     /**
@@ -540,12 +540,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0031 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2130, 6, 4, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2130') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0031 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0031 end');
     })
 
     /**
@@ -557,12 +557,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0032 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2131, 7, 5, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2131') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0032 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0032 end');
     })
 
     /**
@@ -574,12 +574,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0033 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2132, 8, 6, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2132') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0033 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0033 end');
     })
 
     /**
@@ -591,12 +591,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0034 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2133, 9, 7, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2133') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0034 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0034 end');
     })
 
     /**
@@ -608,12 +608,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0035 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2134, 10, 8, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2134') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0035 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0035 end');
     })
 
     /**
@@ -625,12 +625,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0036 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2135, 11, 9, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2135') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0036 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0036 end');
     })
 
     /**
@@ -642,12 +642,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0037 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2136, 0, 10, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2136') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0037 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0037 end');
     })
 
     /**
@@ -659,12 +659,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0038 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2137, 1, 11, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2137') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0038 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0038 end');
     })
 
     /**
@@ -676,12 +676,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0039 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2138, 2, 12, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2138') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0039 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0039 end');
     })
 
     /**
@@ -693,12 +693,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0040 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2139, 3, 13, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2139') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0040 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0040 end');
     })
 
     /**
@@ -710,12 +710,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0041 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2140, 4, 14, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2140') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0041 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0041 end');
     })
 
     /**
@@ -727,12 +727,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0042 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2141, 5, 15, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2141') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0042 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0042 end');
     })
 
     /**
@@ -744,12 +744,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0043 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2142, 6, 16, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2142') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0043 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0043 end');
     })
 
     /**
@@ -761,12 +761,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0044 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2143, 7, 17, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2143') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0044 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0044 end');
     })
 
     /**
@@ -778,12 +778,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0045 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0045 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2144, 8, 18, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2144') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0045 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0045 end');
     })
 
     /**
@@ -795,12 +795,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0046 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0046 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2145, 9, 19, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2145') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0046 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0046 end');
     })
 
     /**
@@ -812,12 +812,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0047 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0047 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2146, 10, 20, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2146') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0047 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0047 end');
     })
 
     /**
@@ -829,12 +829,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0048 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0048 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2147, 11, 21, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2147') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0048 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0048 end');
     })
 
     /**
@@ -846,12 +846,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0049 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0049 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2148, 0, 22, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2148') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0049 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0049 end');
     })
 
     /**
@@ -863,12 +863,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0050 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0050 begin');
       const result: string = DateUtil.getLocalizedDate(new Date(2149, 1, 23, 9, 10, 11).getTime());
       expect(result.length > 0).assertTrue();
       expect(result.indexOf('2149') >= 0).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0050 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0050 end');
     })
 
     /**
@@ -880,12 +880,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0051 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0051 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2100, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2100') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0051 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0051 end');
     })
 
     /**
@@ -897,12 +897,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2101, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2101') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0052 end');
     })
 
     /**
@@ -914,12 +914,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2102, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2102') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0053 end');
     })
 
     /**
@@ -931,12 +931,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2103, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2103') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0054 end');
     })
 
     /**
@@ -948,12 +948,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2104, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2104') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0055 end');
     })
 
     /**
@@ -965,12 +965,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2105, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2105') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0056 end');
     })
 
     /**
@@ -982,12 +982,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2106, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2106') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0057 end');
     })
 
     /**
@@ -999,12 +999,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2107, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2107') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0058 end');
     })
 
     /**
@@ -1016,12 +1016,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2108, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2108') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0059 end');
     })
 
     /**
@@ -1033,12 +1033,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2109, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2109') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0060 end');
     })
 
     /**
@@ -1050,12 +1050,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2110, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2110') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0061 end');
     })
 
     /**
@@ -1067,12 +1067,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2111, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2111') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0062 end');
     })
 
     /**
@@ -1084,12 +1084,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2112, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2112') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0063 end');
     })
 
     /**
@@ -1101,12 +1101,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2113, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2113') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0064 end');
     })
 
     /**
@@ -1118,12 +1118,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2114, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2114') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0065 end');
     })
 
     /**
@@ -1135,12 +1135,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2115, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2115') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0066 end');
     })
 
     /**
@@ -1152,12 +1152,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2116, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2116') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0067 end');
     })
 
     /**
@@ -1169,12 +1169,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2117, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2117') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0068 end');
     })
 
     /**
@@ -1186,12 +1186,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2118, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2118') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0069 end');
     })
 
     /**
@@ -1203,12 +1203,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2119, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2119') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0070 end');
     })
 
     /**
@@ -1220,12 +1220,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2120, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2120') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0071 end');
     })
 
     /**
@@ -1237,12 +1237,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2121, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2121') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0072 end');
     })
 
     /**
@@ -1254,12 +1254,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2122, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2122') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0073 end');
     })
 
     /**
@@ -1271,12 +1271,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2123, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2123') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0074 end');
     })
 
     /**
@@ -1288,12 +1288,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2124, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2124') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0075 end');
     })
 
     /**
@@ -1305,12 +1305,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2125, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2125') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0076 end');
     })
 
     /**
@@ -1322,12 +1322,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2126, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2126') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0077 end');
     })
 
     /**
@@ -1339,12 +1339,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2127, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2127') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0078 end');
     })
 
     /**
@@ -1356,12 +1356,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2128, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2128') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0079 end');
     })
 
     /**
@@ -1373,12 +1373,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2129, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2129') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0080 end');
     })
 
     /**
@@ -1390,12 +1390,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2130, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2130') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0081 end');
     })
 
     /**
@@ -1407,12 +1407,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2131, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2131') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0082 end');
     })
 
     /**
@@ -1424,12 +1424,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2132, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2132') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0083 end');
     })
 
     /**
@@ -1441,12 +1441,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2133, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2133') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0084 end');
     })
 
     /**
@@ -1458,12 +1458,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2134, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2134') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0085 end');
     })
 
     /**
@@ -1475,12 +1475,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2135, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2135') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0086 end');
     })
 
     /**
@@ -1492,12 +1492,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2136, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2136') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0087 end');
     })
 
     /**
@@ -1509,12 +1509,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2137, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2137') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0088 end');
     })
 
     /**
@@ -1526,12 +1526,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2138, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2138') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0089 end');
     })
 
     /**
@@ -1543,12 +1543,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2139, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2139') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0090 end');
     })
 
     /**
@@ -1560,12 +1560,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2140, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2140') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0091 end');
     })
 
     /**
@@ -1577,12 +1577,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2141, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2141') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0092 end');
     })
 
     /**
@@ -1594,12 +1594,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2142, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2142') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0093 end');
     })
 
     /**
@@ -1611,12 +1611,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2143, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2143') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0094 end');
     })
 
     /**
@@ -1628,12 +1628,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2144, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2144') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0095 end');
     })
 
     /**
@@ -1645,12 +1645,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2145, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2145') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0096 end');
     })
 
     /**
@@ -1662,12 +1662,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2146, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2146') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0097 end');
     })
 
     /**
@@ -1679,12 +1679,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2147, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2147') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0098 end');
     })
 
     /**
@@ -1696,12 +1696,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2148, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2148') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0099 end');
     })
 
     /**
@@ -1713,12 +1713,12 @@ export default function PhotosDateLocalizedSecondTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPhotosDateLocalizedSecond0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 begin');
       const result: string = DateUtil.getLocalizedYearString(new Date(2149, 0, 1, 0, 0, 0).getTime());
       expect(result.indexOf('2149') >= 0).assertTrue();
       expect(result.length >= 4).assertTrue();
       expect(result === '').assertFalse();
-      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 end');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateLocalizedSecond0100 end');
     })
   })
 }
