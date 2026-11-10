@@ -716,7 +716,8 @@ class CameraService {
       Logger.error(TAG, `sessionFlowFn fail : ${err.code}`);
     }
   }
-// [End camera_quality_prioritization]
+  // [End camera_quality_prioritization]
+
   setVideoStabilizationFn(session: camera.VideoSession, videoStabilizationMode: camera.VideoStabilizationMode): void {
     try {
       // 查询是否支持指定的视频防抖模式。

@@ -1,13 +1,13 @@
-// [Start camera_yuvCapture]
+// [Start camera_yuvCaptureImport]
 import { camera } from '@kit.CameraKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { dataSharePredicates } from '@kit.ArkData';
 import { image } from '@kit.ImageKit';
 import { fileIo } from '@kit.CoreFileKit';
-// [End camera_yuvCapture]
 import { sensor } from '@kit.SensorServiceKit';
 import { Decimal } from '@kit.ArkTS';
+// [End camera_yuvCaptureImport]
 
 class YuvCapture {
   public output?: camera.PhotoOutput;
