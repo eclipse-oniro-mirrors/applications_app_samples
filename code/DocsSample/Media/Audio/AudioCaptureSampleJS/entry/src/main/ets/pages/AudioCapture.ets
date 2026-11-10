@@ -24,7 +24,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude start_AudioCapturer]
 // [StartExclude stop_AudioCapturer]
 // [StartExclude release_AudioCapturer]
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
 
 // [StartExclude listen_AudioCapturer]
@@ -65,7 +65,7 @@ let audioRendererOptions: audio.AudioRendererOptions = {
   rendererInfo: audioRendererInfo
 };
 
-let file: fs.File;
+let file: fileIo.File;
 let readDataCallback: Callback<ArrayBuffer>;
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
 
@@ -84,7 +84,7 @@ async function initArguments(context: common.UIAbilityContext): Promise<void> {
   let bufferSize: number = 0;
   let path = context.cacheDir;
   let filePath = path + '/S16LE_2_48000.pcm';
-  file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+  file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
   readDataCallback = (buffer: ArrayBuffer) => {
     // [StartExclude listen_AudioCapturer]
     if (capturerMuteHintEnabledByApp) {
@@ -98,7 +98,7 @@ async function initArguments(context: common.UIAbilityContext): Promise<void> {
       offset: bufferSize,
       length: buffer.byteLength
     }
-    fs.writeSync(file.fd, buffer, options);
+    fileIo.writeSync(file.fd, buffer, options);
     bufferSize += buffer.byteLength;
   };
   // [StartExclude listen_AudioCapturer]
@@ -109,7 +109,7 @@ async function initRender(context: common.UIAbilityContext) {
   let path = context.cacheDir;
   // 此处仅作示例，实际使用时需要将文件替换为应用要播放的PCM文件。
   let filePath = path + '/S16LE_2_48000.pcm';
-  file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
+  file = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
   writeDataCallback = (buffer: ArrayBuffer) => {
     let options: Options = {
       offset: bufferSize,
@@ -117,7 +117,7 @@ async function initRender(context: common.UIAbilityContext) {
     };
 
     try {
-      let bufferLength = fs.readSync(file.fd, buffer, options);
+      let bufferLength = fileIo.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
       // 如果当前回调传入的数据不足一帧，空白区域需要使用静音数据填充，否则会导致播放出现杂音。
       if (bufferLength < buffer.byteLength) {
@@ -201,7 +201,7 @@ async function releaseRender(updateCallback?: (msg: string, isError: boolean) =>
       if (err) {
         console.error('Renderer release failed.');
       } else {
-        fs.closeSync(file);
+        fileIo.closeSync(file);
         console.info('Renderer release success.');
       }
     });
@@ -416,7 +416,7 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
         // [EndExclude all_audioCapturer]
         console.error('Capturer release failed.');
       } else {
-        fs.closeSync(file);
+        fileIo.closeSync(file);
         capturerMuteHintEnabledByApp = false;
         console.info('Capturer release success.');
         // [StartExclude all_audioCapturer]
@@ -447,9 +447,6 @@ async function viewAudioCapturerState(updateCallback?: (msg: string, isError: bo
   }
 }
 
-// [EndExclude all_audioCapturer]
-
-// [StartExclude all_audioCapturer]
 async function listenAudioCapturerState(callbackUpdate?: (msg: string) => void): Promise<void> {
   if (audioCapturer !== undefined) {
     // [Start listen_AudioCapturerState]
