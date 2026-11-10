@@ -24,6 +24,7 @@
     "pages/BuilderMutableBindingNoSetter",
     "pages/BuilderChangeVariableRight",
     "pages/BuilderCallInWatch",
-	"pages/BuilderClassInterface"
+    "pages/BuilderClassInterface",
+    "pages/BuilderPlaceholderList"
   ]
 }
