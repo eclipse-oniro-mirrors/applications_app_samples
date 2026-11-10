@@ -21,15 +21,7 @@
 
 ## 效果预览
 
-> 截图待补充：请使用真机分别运行手机与平板版本，按下列文件名将截图放入 `screenshots/` 目录，并取消对应图片引用的注释。截图不要包含人物，账号等敏感信息。
-
-| 手机中控台 | 平板编排首页 |
-| --- | --- |
-| <!-- ![手机中控台](screenshots/phone_console.png) --> 待补充 | <!-- ![平板编排首页](screenshots/tablet_orchestration.png) --> 待补充 |
-
-| 手机场景编辑 | 平板配置包 |
-| --- | --- |
-| <!-- ![手机场景编辑](screenshots/phone_scene_editor.png) --> 待补充 | <!-- ![平板配置包](screenshots/tablet_transfer.png) --> 待补充 |
+<img src="screenshots/main_page.png" alt="主页面" width="320" height="569"/>
 
 ## 使用说明
 

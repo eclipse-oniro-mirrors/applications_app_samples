@@ -17,10 +17,12 @@
   <oatconfig>
     <filefilterlist>
       <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
-        <filteritem type="filepath" name="screenshots/phone_console.png" desc="Provided by MeetingScene screenshots"/>
-        <filteritem type="filepath" name="screenshots/tablet_orchestration.png" desc="Provided by MeetingScene screenshots"/>
-        <filteritem type="filepath" name="screenshots/phone_scene_editor.png" desc="Provided by MeetingScene screenshots"/>
-        <filteritem type="filepath" name="screenshots/tablet_transfer.png" desc="Provided by MeetingScene screenshots"/>
+        <filteritem type="filepath" name="AppScope/resources/base/media/background.png" desc="Provided by InfraredAndGesture"/>
+        <filteritem type="filepath" name="AppScope/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
+        <filteritem type="filepath" name="entry/src/main/resources/base/media/background.png" desc="Provided by InfraredAndGesture"/>
+        <filteritem type="filepath" name="entry/src/main/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
+        <filteritem type="filepath" name="entry/src/main/resources/base/media/startIcon.png" desc="Provided by InfraredAndGesture"/>
+        <filteritem type="filepath" name="screenshots/main_page.png" desc="Provided by InfraredAndGesture screenshots"/>
       </filefilter>
     </filefilterlist>
   </oatconfig>
