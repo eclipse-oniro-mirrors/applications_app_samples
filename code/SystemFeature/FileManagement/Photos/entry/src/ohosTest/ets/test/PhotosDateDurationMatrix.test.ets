@@ -4772,3 +4772,413 @@ export default function PhotosDateDurationMatrixTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 begin');
+      expect(DateUtil.getFormattedDuration(5009999)).assertEqual('1:23:29');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0332 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0333
+     * @tc.name      testPhotosDateDurationMatrix0333
+     * @tc.desc      Formats duration matrix sample 111. case 333
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 begin');
+      expect(DateUtil.getFormattedDuration(5010000)).assertEqual('1:23:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0333 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0334
+     * @tc.name      testPhotosDateDurationMatrix0334
+     * @tc.desc      Formats duration matrix sample 112. case 334
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 begin');
+      expect(DateUtil.getFormattedDuration(4995001)).assertEqual('1:23:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0334 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0335
+     * @tc.name      testPhotosDateDurationMatrix0335
+     * @tc.desc      Formats duration matrix sample 112. case 335
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 begin');
+      expect(DateUtil.getFormattedDuration(5054999)).assertEqual('1:24:14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0335 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0336
+     * @tc.name      testPhotosDateDurationMatrix0336
+     * @tc.desc      Formats duration matrix sample 112. case 336
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 begin');
+      expect(DateUtil.getFormattedDuration(5055000)).assertEqual('1:24:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0336 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0337
+     * @tc.name      testPhotosDateDurationMatrix0337
+     * @tc.desc      Formats duration matrix sample 113. case 337
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 begin');
+      expect(DateUtil.getFormattedDuration(5040001)).assertEqual('1:24:00');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0337 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0338
+     * @tc.name      testPhotosDateDurationMatrix0338
+     * @tc.desc      Formats duration matrix sample 113. case 338
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 begin');
+      expect(DateUtil.getFormattedDuration(5099999)).assertEqual('1:24:59');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0338 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0339
+     * @tc.name      testPhotosDateDurationMatrix0339
+     * @tc.desc      Formats duration matrix sample 113. case 339
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 begin');
+      expect(DateUtil.getFormattedDuration(5100000)).assertEqual('1:25:00');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0339 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0340
+     * @tc.name      testPhotosDateDurationMatrix0340
+     * @tc.desc      Formats duration matrix sample 114. case 340
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 begin');
+      expect(DateUtil.getFormattedDuration(5085001)).assertEqual('1:24:45');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0340 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0341
+     * @tc.name      testPhotosDateDurationMatrix0341
+     * @tc.desc      Formats duration matrix sample 114. case 341
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 begin');
+      expect(DateUtil.getFormattedDuration(5144999)).assertEqual('1:25:44');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0341 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0342
+     * @tc.name      testPhotosDateDurationMatrix0342
+     * @tc.desc      Formats duration matrix sample 114. case 342
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 begin');
+      expect(DateUtil.getFormattedDuration(5145000)).assertEqual('1:25:45');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0342 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0343
+     * @tc.name      testPhotosDateDurationMatrix0343
+     * @tc.desc      Formats duration matrix sample 115. case 343
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 begin');
+      expect(DateUtil.getFormattedDuration(5130001)).assertEqual('1:25:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0343 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0344
+     * @tc.name      testPhotosDateDurationMatrix0344
+     * @tc.desc      Formats duration matrix sample 115. case 344
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 begin');
+      expect(DateUtil.getFormattedDuration(5189999)).assertEqual('1:26:29');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0344 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0345
+     * @tc.name      testPhotosDateDurationMatrix0345
+     * @tc.desc      Formats duration matrix sample 115. case 345
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 begin');
+      expect(DateUtil.getFormattedDuration(5190000)).assertEqual('1:26:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0345 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0346
+     * @tc.name      testPhotosDateDurationMatrix0346
+     * @tc.desc      Formats duration matrix sample 116. case 346
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 begin');
+      expect(DateUtil.getFormattedDuration(5175001)).assertEqual('1:26:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0346 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0347
+     * @tc.name      testPhotosDateDurationMatrix0347
+     * @tc.desc      Formats duration matrix sample 116. case 347
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 begin');
+      expect(DateUtil.getFormattedDuration(5234999)).assertEqual('1:27:14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0347 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0348
+     * @tc.name      testPhotosDateDurationMatrix0348
+     * @tc.desc      Formats duration matrix sample 116. case 348
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 begin');
+      expect(DateUtil.getFormattedDuration(5235000)).assertEqual('1:27:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0348 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0349
+     * @tc.name      testPhotosDateDurationMatrix0349
+     * @tc.desc      Formats duration matrix sample 117. case 349
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 begin');
+      expect(DateUtil.getFormattedDuration(5220001)).assertEqual('1:27:00');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0349 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0350
+     * @tc.name      testPhotosDateDurationMatrix0350
+     * @tc.desc      Formats duration matrix sample 117. case 350
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 begin');
+      expect(DateUtil.getFormattedDuration(5279999)).assertEqual('1:27:59');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0350 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0351
+     * @tc.name      testPhotosDateDurationMatrix0351
+     * @tc.desc      Formats duration matrix sample 117. case 351
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 begin');
+      expect(DateUtil.getFormattedDuration(5280000)).assertEqual('1:28:00');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0351 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0352
+     * @tc.name      testPhotosDateDurationMatrix0352
+     * @tc.desc      Formats duration matrix sample 118. case 352
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 begin');
+      expect(DateUtil.getFormattedDuration(5265001)).assertEqual('1:27:45');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0352 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0353
+     * @tc.name      testPhotosDateDurationMatrix0353
+     * @tc.desc      Formats duration matrix sample 118. case 353
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 begin');
+      expect(DateUtil.getFormattedDuration(5324999)).assertEqual('1:28:44');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0353 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0354
+     * @tc.name      testPhotosDateDurationMatrix0354
+     * @tc.desc      Formats duration matrix sample 118. case 354
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 begin');
+      expect(DateUtil.getFormattedDuration(5325000)).assertEqual('1:28:45');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0354 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0355
+     * @tc.name      testPhotosDateDurationMatrix0355
+     * @tc.desc      Formats duration matrix sample 119. case 355
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 begin');
+      expect(DateUtil.getFormattedDuration(5310001)).assertEqual('1:28:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0355 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0356
+     * @tc.name      testPhotosDateDurationMatrix0356
+     * @tc.desc      Formats duration matrix sample 119. case 356
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 begin');
+      expect(DateUtil.getFormattedDuration(5369999)).assertEqual('1:29:29');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0356 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0357
+     * @tc.name      testPhotosDateDurationMatrix0357
+     * @tc.desc      Formats duration matrix sample 119. case 357
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 begin');
+      expect(DateUtil.getFormattedDuration(5370000)).assertEqual('1:29:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0357 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0358
+     * @tc.name      testPhotosDateDurationMatrix0358
+     * @tc.desc      Formats duration matrix sample 120. case 358
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 begin');
+      expect(DateUtil.getFormattedDuration(5355001)).assertEqual('1:29:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0358 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0359
+     * @tc.name      testPhotosDateDurationMatrix0359
+     * @tc.desc      Formats duration matrix sample 120. case 359
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 begin');
+      expect(DateUtil.getFormattedDuration(5414999)).assertEqual('1:30:14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0359 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_DURATION_0360
+     * @tc.name      testPhotosDateDurationMatrix0360
+     * @tc.desc      Formats duration matrix sample 120. case 360
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateDurationMatrix0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 begin');
+      expect(DateUtil.getFormattedDuration(5415000)).assertEqual('1:30:15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateDurationMatrix0360 end');
+    })
+
+  })
+}
