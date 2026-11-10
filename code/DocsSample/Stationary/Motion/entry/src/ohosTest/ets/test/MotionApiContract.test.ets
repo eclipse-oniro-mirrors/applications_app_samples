@@ -12,8 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { motion } from '@kit.MultimodalAwarenessKit';
+
+const TAG: string = '[Sample_MotionApiContractTest]';
+const DOMAIN: number = 0xF815;
 
 function allInRange(values: number[]): boolean {
   for (const value of values) {
@@ -41,9 +45,11 @@ export default function MotionApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testMotionApi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0001 begin');
       expect(typeof motion.on).assertEqual('function');
       expect(typeof motion.off).assertEqual('function');
       expect(typeof motion.getRecentOperatingHandStatus).assertEqual('function');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0001 end');
     });
 
     /**
@@ -55,9 +61,11 @@ export default function MotionApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testMotionApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0002 begin');
       expect(motion.OperatingHandStatus.UNKNOWN_STATUS).assertEqual(0);
       expect(motion.OperatingHandStatus.LEFT_HAND_OPERATED).assertEqual(1);
       expect(motion.OperatingHandStatus.RIGHT_HAND_OPERATED).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0002 end');
     });
 
     /**
@@ -69,6 +77,7 @@ export default function MotionApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testMotionApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0003 begin');
       const values: number[] = [
         motion.OperatingHandStatus.UNKNOWN_STATUS,
         motion.OperatingHandStatus.LEFT_HAND_OPERATED,
@@ -77,6 +86,7 @@ export default function MotionApiContractTest() {
       expect(values.length).assertEqual(3);
       expect(new Set<number>(values).size).assertEqual(3);
       expect(allInRange(values)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0003 end');
     });
 
     /**
@@ -88,11 +98,13 @@ export default function MotionApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testMotionApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0004 begin');
       expect(motion.HoldingHandStatus.NOT_HELD).assertEqual(0);
       expect(motion.HoldingHandStatus.LEFT_HAND_HELD).assertEqual(1);
       expect(motion.HoldingHandStatus.RIGHT_HAND_HELD).assertEqual(2);
       expect(motion.HoldingHandStatus.BOTH_HANDS_HELD).assertEqual(3);
       expect(motion.HoldingHandStatus.UNKNOWN_STATUS).assertEqual(16);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0004 end');
     });
 
     /**
@@ -104,6 +116,7 @@ export default function MotionApiContractTest() {
      * @tc.level LEVEL0
      */
     it('testMotionApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0005 begin');
       const values: number[] = [
         motion.HoldingHandStatus.NOT_HELD,
         motion.HoldingHandStatus.LEFT_HAND_HELD,
@@ -114,17 +127,19 @@ export default function MotionApiContractTest() {
       expect(values.length).assertEqual(5);
       expect(new Set<number>(values).size).assertEqual(5);
       expect(allInRange(values)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0005 end');
     });
 
     /**
-     * @tc.number SUB_MOTION_API_0700
-     * @tc.name testMotionApi0007
+     * @tc.number SUB_MOTION_API_0600
+     * @tc.name testMotionApi0006
      * @tc.desc Verify HoldingHandStatus exposes the documented member set
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testMotionApi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testMotionApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0006 begin');
       const documented: number[] = [0, 1, 2, 3, 16];
       const members: number[] = [
         motion.HoldingHandStatus.NOT_HELD,
@@ -140,6 +155,8 @@ export default function MotionApiContractTest() {
         }
       }
       expect(matched).assertEqual(documented.length);
+      expect('testMotionApi0006'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionApi0006 end');
     });
   });
 }

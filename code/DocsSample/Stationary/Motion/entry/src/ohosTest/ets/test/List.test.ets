@@ -21,6 +21,14 @@ import motionUiSequenceMatrixTest from './MotionUiSequenceMatrix.test';
 import motionUiRepeatTest from './MotionUiRepeat.test';
 import motionUiLabelTest from './MotionUiLabel.test';
 import motionLifecycleTest from './MotionLifecycle.test';
+import motionEnumCoreTest from './MotionEnumCore.test';
+import motionApiShapeCoreTest from './MotionApiShapeCore.test';
+import motionViewContractTest from './MotionViewContract.test';
+import motionUiSupplementTest from './MotionUiSupplement.test';
+import motionStateTransitionTest from './MotionStateTransition.test';
+import motionApiOutcomeMatrixTest from './MotionApiOutcomeMatrix.test';
+import motionApiBoundaryTest from './MotionApiBoundary.test';
+
 
 export default function testsuite() {
   motionApiContractTest();
@@ -31,4 +39,11 @@ export default function testsuite() {
   motionUiRepeatTest();
   motionUiLabelTest();
   motionLifecycleTest();
+  motionEnumCoreTest();
+  motionApiShapeCoreTest();
+  motionViewContractTest();
+  motionUiSupplementTest();
+  motionStateTransitionTest();
+  motionApiOutcomeMatrixTest();
+  motionApiBoundaryTest();
 }

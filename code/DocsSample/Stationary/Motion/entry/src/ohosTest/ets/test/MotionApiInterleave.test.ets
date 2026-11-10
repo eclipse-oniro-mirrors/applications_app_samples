@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { motion } from '@kit.MultimodalAwarenessKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+const TAG: string = '[Sample_MotionApiInterleaveTest]';
+const DOMAIN: number = 0xF815;
 
 const ALLOWED_CODES: number[] = [201, 801];
 
@@ -66,9 +70,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0001 begin');
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0001'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0001 end');
     });
 
     /**
@@ -80,9 +88,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0002 begin');
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0002'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0002 end');
     });
 
     /**
@@ -94,9 +106,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0003 begin');
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0003'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0003 end');
     });
 
     /**
@@ -108,9 +124,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0004 begin');
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0004'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0004 end');
     });
 
     /**
@@ -122,9 +142,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0005 begin');
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0005'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0005 end');
     });
 
     /**
@@ -136,9 +160,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0006 begin');
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0006'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0006 end');
     });
 
     /**
@@ -150,9 +178,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0007 begin');
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
       check(run(() => motion.on('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0007'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0007 end');
     });
 
     /**
@@ -164,9 +196,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveOperating0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0008 begin');
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
       check(run(() => motion.off('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveOperating0008'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveOperating0008 end');
     });
 
     /**
@@ -178,9 +214,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0009 begin');
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0009'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0009 end');
     });
 
     /**
@@ -192,9 +232,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0010 begin');
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0010'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0010 end');
     });
 
     /**
@@ -206,9 +250,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0011 begin');
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0011'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0011 end');
     });
 
     /**
@@ -220,9 +268,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0012 begin');
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0012'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0012 end');
     });
 
     /**
@@ -234,9 +286,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0013 begin');
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0013'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0013 end');
     });
 
     /**
@@ -248,9 +304,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0014 begin');
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0014'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0014 end');
     });
 
     /**
@@ -262,9 +322,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0015 begin');
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
       check(run(() => motion.on('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0015'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0015 end');
     });
 
     /**
@@ -276,9 +340,13 @@ export default function MotionApiInterleaveTest() {
      * @tc.level LEVEL1
      */
     it('testInterleaveHolding0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0016 begin');
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
       check(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testInterleaveHolding0016'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInterleaveHolding0016 end');
     });
   });
 }

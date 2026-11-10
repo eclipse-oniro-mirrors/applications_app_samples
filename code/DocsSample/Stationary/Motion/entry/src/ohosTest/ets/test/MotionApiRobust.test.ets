@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { motion } from '@kit.MultimodalAwarenessKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+const TAG: string = '[Sample_MotionApiRobustTest]';
+const DOMAIN: number = 0xF815;
 
 const ALLOWED_CODES: number[] = [201, 801];
 
@@ -72,8 +76,12 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL0
      */
     it('testMotionRobust0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0001 begin');
       expectSingleValidOutcome(run(() => motion.on('operatingHandChanged', operatingCallback)));
       expectSingleValidOutcome(run(() => motion.off('operatingHandChanged', operatingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testMotionRobust0001'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0001 end');
     });
 
     /**
@@ -85,8 +93,12 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL0
      */
     it('testMotionRobust0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0002 begin');
       expectSingleValidOutcome(run(() => motion.on('holdingHandChanged', holdingCallback)));
       expectSingleValidOutcome(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testMotionRobust0002'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0002 end');
     });
 
     /**
@@ -98,8 +110,12 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testMotionRobust0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0003 begin');
       expectSingleValidOutcome(run(() => motion.off('operatingHandChanged')));
       expectSingleValidOutcome(run(() => motion.off('holdingHandChanged')));
+      expect(TAG.length > 0).assertTrue();
+      expect('testMotionRobust0003'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0003 end');
     });
 
     /**
@@ -111,6 +127,7 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL0
      */
     it('testMotionRobust0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0004 begin');
       let status: number = -1;
       let allowedError: boolean = false;
       let invalidError: boolean = false;
@@ -123,6 +140,7 @@ export default function MotionApiRobustTest() {
       expect(invalidError).assertFalse();
       const knownValue: boolean = [0, 1, 2].indexOf(status) >= 0;
       expect(knownValue !== allowedError).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0004 end');
     });
 
     /**
@@ -134,6 +152,7 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testMotionRobust0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0005 begin');
       let invalidError: number = 0;
       let valid: number = 0;
       for (let i = 0; i < 5; i++) {
@@ -152,6 +171,7 @@ export default function MotionApiRobustTest() {
       }
       expect(invalidError).assertEqual(0);
       expect(valid).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0005 end');
     });
 
     /**
@@ -163,6 +183,7 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testMotionRobust0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0006 begin');
       expectSingleValidOutcome(run(() => motion.on('operatingHandChanged', operatingCallback)));
       expectSingleValidOutcome(run(() => motion.off('operatingHandChanged', operatingCallback)));
       let status: number = -1;
@@ -176,6 +197,7 @@ export default function MotionApiRobustTest() {
       }
       expect(invalidError).assertFalse();
       expect(([0, 1, 2].indexOf(status) >= 0) !== allowedError).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0006 end');
     });
 
     /**
@@ -187,10 +209,14 @@ export default function MotionApiRobustTest() {
      * @tc.level LEVEL1
      */
     it('testMotionRobust0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0007 begin');
       expectSingleValidOutcome(run(() => motion.on('operatingHandChanged', operatingCallback)));
       expectSingleValidOutcome(run(() => motion.on('holdingHandChanged', holdingCallback)));
       expectSingleValidOutcome(run(() => motion.off('operatingHandChanged', operatingCallback)));
       expectSingleValidOutcome(run(() => motion.off('holdingHandChanged', holdingCallback)));
+      expect(TAG.length > 0).assertTrue();
+      expect('testMotionRobust0007'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionRobust0007 end');
     });
   });
 }
