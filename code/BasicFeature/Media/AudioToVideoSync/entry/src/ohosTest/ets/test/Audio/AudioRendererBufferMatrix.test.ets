@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -62,7 +63,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0001', 0, async () => {
+    it('testAudioBuffer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
         await renderer.start();
@@ -86,7 +87,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0002', 0, async () => {
+    it('testAudioBuffer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       try {
         for (let i = 0; i < 5; i++) {
@@ -108,7 +109,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0003', 0, async () => {
+    it('testAudioBuffer0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
         for (let i = 0; i < 5; i++) {
@@ -130,7 +131,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0004', 0, async () => {
+    it('testAudioBuffer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       await renderer.start();
       expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
@@ -146,7 +147,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0005', 0, async () => {
+    it('testAudioBuffer0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
       await renderer.start();
       await renderer.pause();
@@ -163,7 +164,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0006', 0, async () => {
+    it('testAudioBuffer0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_RINGTONE);
       await renderer.start();
       await renderer.stop();
@@ -180,7 +181,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0007', 0, async () => {
+    it('testAudioBuffer0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const second: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
@@ -206,7 +207,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0008', 0, async () => {
+    it('testAudioBuffer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       try {
         await renderer.start();
@@ -226,7 +227,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0009', 0, async () => {
+    it('testAudioBuffer0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MOVIE,
@@ -259,7 +260,7 @@ export default function audioRendererBufferMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioBuffer0010', 0, async () => {
+    it('testAudioBuffer0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 10; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
         await renderer.release();

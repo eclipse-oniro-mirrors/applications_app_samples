@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -92,7 +93,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0001', 0, async () => {
+    it('testAudioRenderer0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
@@ -112,7 +113,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0002', 0, async () => {
+    it('testAudioRenderer0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
@@ -127,7 +128,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0003', 0, async () => {
+    it('testAudioRenderer0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -146,7 +147,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0004', 0, async () => {
+    it('testAudioRenderer0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -166,7 +167,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0005', 0, async () => {
+    it('testAudioRenderer0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -187,7 +188,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0006', 0, async () => {
+    it('testAudioRenderer0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -207,7 +208,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0007', 0, async () => {
+    it('testAudioRenderer0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         await renderer.start();
@@ -227,7 +228,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0008', 0, async () => {
+    it('testAudioRenderer0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.start();
       expect(renderer.state).assertEqual(audio.AudioState.STATE_RUNNING);
@@ -243,7 +244,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0009', 0, async () => {
+    it('testAudioRenderer0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -262,7 +263,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0010', 0, async () => {
+    it('testAudioRenderer0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -281,7 +282,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0011', 0, async () => {
+    it('testAudioRenderer0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       try {
@@ -300,7 +301,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0012', 0, async () => {
+    it('testAudioRenderer0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       await renderer.release();
       expect(renderer.state).assertEqual(audio.AudioState.STATE_RELEASED);
@@ -320,7 +321,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0013', 0, async () => {
+    it('testAudioRenderer0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createPreparedRenderer();
       try {
         for (let i = 0; i < 100; i++) {
@@ -339,7 +340,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0014', 0, async () => {
+    it('testAudioRenderer0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: audio.AudioRenderer = await createPreparedRenderer();
       const second: audio.AudioRenderer = await createPreparedRenderer();
       try {
@@ -363,7 +364,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0015', 0, async () => {
+    it('testAudioRenderer0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const survivor: audio.AudioRenderer = await createPreparedRenderer();
       const victim: audio.AudioRenderer = await createPreparedRenderer();
       try {
@@ -385,7 +386,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioRenderer0016', 0, async () => {
+    it('testAudioRenderer0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 6; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer();
         expect(renderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
@@ -402,7 +403,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0001', 0, async () => {
+    it('testAudioStream0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < RENDER_USAGES.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[i]);
         try {
@@ -421,7 +422,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0002', 0, () => {
+    it('testAudioStream0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(audio.StreamUsage.STREAM_USAGE_MEDIA).assertEqual(audio.StreamUsage.STREAM_USAGE_MUSIC);
       expect(audio.StreamUsage.STREAM_USAGE_MEDIA).assertEqual(1);
       expect(audio.StreamUsage.STREAM_USAGE_UNKNOWN).assertEqual(0);
@@ -436,7 +437,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0003', 0, async () => {
+    it('testAudioStream0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < CHANNELS.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000, CHANNELS[i]);
@@ -456,7 +457,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0004', 0, async () => {
+    it('testAudioStream0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < SAMPLE_RATES.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, SAMPLE_RATES[i]);
@@ -476,7 +477,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0005', 0, async () => {
+    it('testAudioStream0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let channelIndex = 0; channelIndex < CHANNELS.length; channelIndex++) {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
@@ -498,7 +499,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0006', 0, async () => {
+    it('testAudioStream0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let rateIndex = 0; rateIndex < SAMPLE_RATES.length; rateIndex++) {
           const renderer: audio.AudioRenderer = await createPreparedRenderer(RENDER_USAGES[usageIndex],
@@ -520,7 +521,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0007', 0, async () => {
+    it('testAudioStream0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const created: audio.AudioRenderer[] = [];
       for (let usageIndex = 0; usageIndex < RENDER_USAGES.length; usageIndex++) {
         for (let channelIndex = 0; channelIndex < CHANNELS.length; channelIndex++) {
@@ -548,7 +549,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0008', 0, async () => {
+    it('testAudioStream0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < FORMATS.length; i++) {
         const renderer: audio.AudioRenderer = await createPreparedRenderer(
           audio.StreamUsage.STREAM_USAGE_MEDIA, audio.AudioSamplingRate.SAMPLE_RATE_48000,
@@ -569,7 +570,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioStream0009', 0, () => {
+    it('testAudioStream0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(audio.AudioEncodingType.ENCODING_TYPE_RAW).assertEqual(0);
       expect(audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE).assertEqual(1);
       expect(audio.AudioChannel.CHANNEL_1).assertEqual(1);
@@ -586,7 +587,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolume0001', 0, () => {
+    it('testAudioVolume0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -606,7 +607,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolume0002', 0, () => {
+    it('testAudioVolume0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       for (let i = 0; i < RENDER_USAGES.length; i++) {
         const usage: audio.StreamUsage = RENDER_USAGES[i];
@@ -628,7 +629,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolume0003', 0, () => {
+    it('testAudioVolume0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -648,7 +649,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolume0004', 0, () => {
+    it('testAudioVolume0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const mediaMin: number = manager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const musicMin: number = manager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC);
@@ -666,7 +667,7 @@ export default function audioPipelineContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolume0005', 0, () => {
+    it('testAudioVolume0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);

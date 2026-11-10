@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -66,7 +67,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0001', 0, () => {
+    it('testAudioVolumeStream0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_MEDIA);
     })
 
@@ -78,7 +79,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0002', 0, () => {
+    it('testAudioVolumeStream0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_MUSIC);
     })
 
@@ -90,7 +91,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0003', 0, () => {
+    it('testAudioVolumeStream0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_MOVIE);
     })
 
@@ -102,7 +103,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0004', 0, () => {
+    it('testAudioVolumeStream0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_GAME);
     })
 
@@ -114,7 +115,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0005', 0, () => {
+    it('testAudioVolumeStream0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
     })
 
@@ -126,7 +127,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0006', 0, () => {
+    it('testAudioVolumeStream0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_RINGTONE);
     })
 
@@ -138,7 +139,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0007', 0, () => {
+    it('testAudioVolumeStream0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       assertRange(audio.StreamUsage.STREAM_USAGE_ALARM);
     })
 
@@ -150,7 +151,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0008', 0, () => {
+    it('testAudioVolumeStream0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < USAGES.length; i++) {
         assertRange(USAGES[i]);
       }
@@ -164,7 +165,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0009', 0, () => {
+    it('testAudioVolumeStream0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const volumeManager: audio.AudioVolumeManager = manager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = volumeManager.getMinVolumeByStream(usage);
@@ -184,7 +185,7 @@ export default function audioVolumeStreamMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioVolumeStream0010', 0, () => {
+    it('testAudioVolumeStream0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const volumeManager: audio.AudioVolumeManager = manager();
       expect(volumeManager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MUSIC))
         .assertEqual(volumeManager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA));

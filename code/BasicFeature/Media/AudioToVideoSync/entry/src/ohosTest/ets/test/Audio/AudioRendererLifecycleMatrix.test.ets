@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -81,7 +82,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0001', 0, async () => {
+    it('testAudioLifecycle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MEDIA);
     })
 
@@ -93,7 +94,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0002', 0, async () => {
+    it('testAudioLifecycle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MUSIC);
     })
 
@@ -105,7 +106,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0003', 0, async () => {
+    it('testAudioLifecycle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MOVIE);
     })
 
@@ -117,7 +118,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0004', 0, async () => {
+    it('testAudioLifecycle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_GAME);
     })
 
@@ -129,7 +130,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0005', 0, async () => {
+    it('testAudioLifecycle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_NOTIFICATION);
     })
 
@@ -141,7 +142,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0006', 0, async () => {
+    it('testAudioLifecycle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_RINGTONE);
     })
 
@@ -153,7 +154,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0007', 0, async () => {
+    it('testAudioLifecycle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await fullLifecycle(audio.StreamUsage.STREAM_USAGE_ALARM);
     })
 
@@ -165,7 +166,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0008', 0, () => {
+    it('testAudioLifecycle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -185,7 +186,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0009', 0, () => {
+    it('testAudioLifecycle0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MOVIE;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -205,7 +206,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0010', 0, () => {
+    it('testAudioLifecycle0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_GAME;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -225,7 +226,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0011', 0, () => {
+    it('testAudioLifecycle0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_NOTIFICATION;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -245,7 +246,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0012', 0, async () => {
+    it('testAudioLifecycle0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       await renderer.release();
       try {
@@ -264,7 +265,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0013', 0, async () => {
+    it('testAudioLifecycle0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const media: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
       const game: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);
       try {
@@ -290,7 +291,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0014', 0, async () => {
+    it('testAudioLifecycle0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 3; i++) {
         await fullLifecycle(audio.StreamUsage.STREAM_USAGE_MOVIE);
       }
@@ -304,7 +305,7 @@ export default function audioRendererLifecycleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioLifecycle0015', 0, async () => {
+    it('testAudioLifecycle0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MOVIE,

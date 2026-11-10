@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -72,7 +73,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0001', 0, () => {
+    it('testAudioFormat0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const distinct: Set<number> = new Set<number>();
       for (let i = 0; i < FORMAT_VALUES.length; i++) {
         expect(FORMAT_VALUES[i]).assertLarger(0);
@@ -93,7 +94,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0002', 0, () => {
+    it('testAudioFormat0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       expect(audio.AudioChannel.CHANNEL_1).assertEqual(1);
       expect(audio.AudioChannel.CHANNEL_2).assertEqual(2);
       expect(audio.AudioEncodingType.ENCODING_TYPE_RAW).assertEqual(0);
@@ -109,7 +110,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0003', 0, async () => {
+    it('testAudioFormat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const rates: audio.AudioSamplingRate[] = [
         audio.AudioSamplingRate.SAMPLE_RATE_44100,
         audio.AudioSamplingRate.SAMPLE_RATE_48000
@@ -139,7 +140,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0004', 0, async () => {
+    it('testAudioFormat0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.StreamUsage.STREAM_USAGE_MUSIC,
@@ -168,7 +169,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0005', 0, async () => {
+    it('testAudioFormat0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioChannel.CHANNEL_2);
       await renderer.release();
@@ -183,7 +184,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0006', 0, () => {
+    it('testAudioFormat0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const manager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_MEDIA;
       const min: number = manager.getMinVolumeByStream(usage);
@@ -206,7 +207,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0007', 0, async () => {
+    it('testAudioFormat0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const rates: audio.AudioSamplingRate[] = [
         audio.AudioSamplingRate.SAMPLE_RATE_44100,
         audio.AudioSamplingRate.SAMPLE_RATE_48000
@@ -227,7 +228,7 @@ export default function audioFormatContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioFormat0008', 0, async () => {
+    it('testAudioFormat0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
         audio.AudioSamplingRate.SAMPLE_RATE_44100, audio.AudioChannel.CHANNEL_2);
       const second: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA,
