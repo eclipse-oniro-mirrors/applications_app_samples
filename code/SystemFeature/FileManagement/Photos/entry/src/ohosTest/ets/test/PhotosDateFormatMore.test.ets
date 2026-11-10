@@ -1268,3 +1268,357 @@ export default function PhotosDateFormatMoreTest(): void {
       expect(DateUtil.format(new Date(2024, 1, 22, 15, 49, 57), 'MM/dd')).assertEqual('02/22');
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0078 end');
     })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0079
+     * @tc.name      testPhotosDateFormatMore0079
+     * @tc.desc      Formats additional pattern HH:mm sample 79.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0079 begin');
+      expect(DateUtil.format(new Date(2024, 6, 23, 6, 6, 54), 'HH:mm')).assertEqual('06:06');
+      expect(DateUtil.format(new Date(2024, 10, 11, 12, 42, 30), 'HH:mm')).assertEqual('12:42');
+      expect(DateUtil.format(new Date(2024, 2, 27, 16, 6, 18), 'HH:mm')).assertEqual('16:06');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0079 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0080
+     * @tc.name      testPhotosDateFormatMore0080
+     * @tc.desc      Formats additional pattern dd.MM HH:mm:ss sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0080 begin');
+      expect(DateUtil.format(new Date(2024, 7, 24, 7, 13, 7), 'dd.MM HH:mm:ss')).assertEqual('24.08 07:13:07');
+      expect(DateUtil.format(new Date(2024, 11, 14, 13, 51, 45), 'dd.MM HH:mm:ss')).assertEqual('14.12 13:51:45');
+      expect(DateUtil.format(new Date(2024, 3, 4, 17, 23, 39), 'dd.MM HH:mm:ss')).assertEqual('04.04 17:23:39');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0080 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0081
+     * @tc.name      testPhotosDateFormatMore0081
+     * @tc.desc      Formats additional pattern MM/dd HH:mm sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0081 begin');
+      expect(DateUtil.format(new Date(2024, 8, 25, 8, 20, 20), 'MM/dd HH:mm')).assertEqual('09/25 08:20');
+      expect(DateUtil.format(new Date(2024, 0, 17, 14, 0, 0), 'MM/dd HH:mm')).assertEqual('01/17 14:00');
+      expect(DateUtil.format(new Date(2024, 4, 9, 18, 40, 0), 'MM/dd HH:mm')).assertEqual('05/09 18:40');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0081 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0082
+     * @tc.name      testPhotosDateFormatMore0082
+     * @tc.desc      Formats additional pattern dd-MM HH:mm sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0082 begin');
+      expect(DateUtil.format(new Date(2024, 9, 26, 9, 27, 33), 'dd-MM HH:mm')).assertEqual('26-10 09:27');
+      expect(DateUtil.format(new Date(2024, 1, 20, 15, 9, 15), 'dd-MM HH:mm')).assertEqual('20-02 15:09');
+      expect(DateUtil.format(new Date(2024, 5, 14, 19, 57, 21), 'dd-MM HH:mm')).assertEqual('14-06 19:57');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0082 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0083
+     * @tc.name      testPhotosDateFormatMore0083
+     * @tc.desc      Formats additional pattern HH:mm:ss sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0083 begin');
+      expect(DateUtil.format(new Date(2024, 10, 27, 10, 34, 46), 'HH:mm:ss')).assertEqual('10:34:46');
+      expect(DateUtil.format(new Date(2024, 2, 23, 16, 18, 30), 'HH:mm:ss')).assertEqual('16:18:30');
+      expect(DateUtil.format(new Date(2024, 6, 19, 20, 14, 42), 'HH:mm:ss')).assertEqual('20:14:42');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0083 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0084
+     * @tc.name      testPhotosDateFormatMore0084
+     * @tc.desc      Formats additional pattern MM.dd sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0084 begin');
+      expect(DateUtil.format(new Date(2024, 11, 28, 11, 41, 59), 'MM.dd')).assertEqual('12.28');
+      expect(DateUtil.format(new Date(2024, 3, 26, 17, 27, 45), 'MM.dd')).assertEqual('04.26');
+      expect(DateUtil.format(new Date(2024, 7, 24, 21, 31, 3), 'MM.dd')).assertEqual('08.24');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0084 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0085
+     * @tc.name      testPhotosDateFormatMore0085
+     * @tc.desc      Formats additional pattern dd/MM sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0085 begin');
+      expect(DateUtil.format(new Date(2024, 0, 1, 12, 48, 12), 'dd/MM')).assertEqual('01/01');
+      expect(DateUtil.format(new Date(2024, 4, 1, 18, 36, 0), 'dd/MM')).assertEqual('01/05');
+      expect(DateUtil.format(new Date(2024, 8, 1, 22, 48, 24), 'dd/MM')).assertEqual('01/09');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0085 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0086
+     * @tc.name      testPhotosDateFormatMore0086
+     * @tc.desc      Formats additional pattern MM-dd-HH-mm-ss sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0086 begin');
+      expect(DateUtil.format(new Date(2024, 1, 2, 13, 55, 25), 'MM-dd-HH-mm-ss')).assertEqual('02-02-13-55-25');
+      expect(DateUtil.format(new Date(2024, 5, 4, 19, 45, 15), 'MM-dd-HH-mm-ss')).assertEqual('06-04-19-45-15');
+      expect(DateUtil.format(new Date(2024, 9, 6, 23, 5, 45), 'MM-dd-HH-mm-ss')).assertEqual('10-06-23-05-45');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0086 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0087
+     * @tc.name      testPhotosDateFormatMore0087
+     * @tc.desc      Formats additional pattern HH-mm-ss sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0087 begin');
+      expect(DateUtil.format(new Date(2024, 2, 3, 14, 2, 38), 'HH-mm-ss')).assertEqual('14-02-38');
+      expect(DateUtil.format(new Date(2024, 6, 7, 20, 54, 30), 'HH-mm-ss')).assertEqual('20-54-30');
+      expect(DateUtil.format(new Date(2024, 10, 11, 0, 22, 6), 'HH-mm-ss')).assertEqual('00-22-06');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0087 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0088
+     * @tc.name      testPhotosDateFormatMore0088
+     * @tc.desc      Formats additional pattern MM/dd sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0088 begin');
+      expect(DateUtil.format(new Date(2024, 3, 4, 15, 9, 51), 'MM/dd')).assertEqual('04/04');
+      expect(DateUtil.format(new Date(2024, 7, 10, 21, 3, 45), 'MM/dd')).assertEqual('08/10');
+      expect(DateUtil.format(new Date(2024, 11, 16, 1, 39, 27), 'MM/dd')).assertEqual('12/16');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0088 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0089
+     * @tc.name      testPhotosDateFormatMore0089
+     * @tc.desc      Formats additional pattern HH:mm sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0089 begin');
+      expect(DateUtil.format(new Date(2024, 4, 5, 16, 16, 4), 'HH:mm')).assertEqual('16:16');
+      expect(DateUtil.format(new Date(2024, 8, 13, 22, 12, 0), 'HH:mm')).assertEqual('22:12');
+      expect(DateUtil.format(new Date(2024, 0, 21, 2, 56, 48), 'HH:mm')).assertEqual('02:56');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0089 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0090
+     * @tc.name      testPhotosDateFormatMore0090
+     * @tc.desc      Formats additional pattern dd.MM HH:mm:ss sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0090 begin');
+      expect(DateUtil.format(new Date(2024, 5, 6, 17, 23, 17), 'dd.MM HH:mm:ss')).assertEqual('06.06 17:23:17');
+      expect(DateUtil.format(new Date(2024, 9, 16, 23, 21, 15), 'dd.MM HH:mm:ss')).assertEqual('16.10 23:21:15');
+      expect(DateUtil.format(new Date(2024, 1, 26, 3, 13, 9), 'dd.MM HH:mm:ss')).assertEqual('26.02 03:13:09');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0090 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0091
+     * @tc.name      testPhotosDateFormatMore0091
+     * @tc.desc      Formats additional pattern MM/dd HH:mm sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0091 begin');
+      expect(DateUtil.format(new Date(2024, 6, 7, 18, 30, 30), 'MM/dd HH:mm')).assertEqual('07/07 18:30');
+      expect(DateUtil.format(new Date(2024, 10, 19, 0, 30, 30), 'MM/dd HH:mm')).assertEqual('11/19 00:30');
+      expect(DateUtil.format(new Date(2024, 2, 3, 4, 30, 30), 'MM/dd HH:mm')).assertEqual('03/03 04:30');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0091 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0092
+     * @tc.name      testPhotosDateFormatMore0092
+     * @tc.desc      Formats additional pattern dd-MM HH:mm sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0092 begin');
+      expect(DateUtil.format(new Date(2024, 7, 8, 19, 37, 43), 'dd-MM HH:mm')).assertEqual('08-08 19:37');
+      expect(DateUtil.format(new Date(2024, 11, 22, 1, 39, 45), 'dd-MM HH:mm')).assertEqual('22-12 01:39');
+      expect(DateUtil.format(new Date(2024, 3, 8, 5, 47, 51), 'dd-MM HH:mm')).assertEqual('08-04 05:47');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0093
+     * @tc.name      testPhotosDateFormatMore0093
+     * @tc.desc      Formats additional pattern HH:mm:ss sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0093 begin');
+      expect(DateUtil.format(new Date(2024, 8, 9, 20, 44, 56), 'HH:mm:ss')).assertEqual('20:44:56');
+      expect(DateUtil.format(new Date(2024, 0, 25, 2, 48, 0), 'HH:mm:ss')).assertEqual('02:48:00');
+      expect(DateUtil.format(new Date(2024, 4, 13, 6, 4, 12), 'HH:mm:ss')).assertEqual('06:04:12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0094
+     * @tc.name      testPhotosDateFormatMore0094
+     * @tc.desc      Formats additional pattern MM.dd sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0094 begin');
+      expect(DateUtil.format(new Date(2024, 9, 10, 21, 51, 9), 'MM.dd')).assertEqual('10.10');
+      expect(DateUtil.format(new Date(2024, 1, 28, 3, 57, 15), 'MM.dd')).assertEqual('02.28');
+      expect(DateUtil.format(new Date(2024, 5, 18, 7, 21, 33), 'MM.dd')).assertEqual('06.18');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0095
+     * @tc.name      testPhotosDateFormatMore0095
+     * @tc.desc      Formats additional pattern dd/MM sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0095 begin');
+      expect(DateUtil.format(new Date(2024, 10, 11, 22, 58, 22), 'dd/MM')).assertEqual('11/11');
+      expect(DateUtil.format(new Date(2024, 2, 3, 4, 6, 30), 'dd/MM')).assertEqual('03/03');
+      expect(DateUtil.format(new Date(2024, 6, 23, 8, 38, 54), 'dd/MM')).assertEqual('23/07');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0096
+     * @tc.name      testPhotosDateFormatMore0096
+     * @tc.desc      Formats additional pattern MM-dd-HH-mm-ss sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0096 begin');
+      expect(DateUtil.format(new Date(2024, 11, 12, 23, 5, 35), 'MM-dd-HH-mm-ss')).assertEqual('12-12-23-05-35');
+      expect(DateUtil.format(new Date(2024, 3, 6, 5, 15, 45), 'MM-dd-HH-mm-ss')).assertEqual('04-06-05-15-45');
+      expect(DateUtil.format(new Date(2024, 7, 28, 9, 55, 15), 'MM-dd-HH-mm-ss')).assertEqual('08-28-09-55-15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0097
+     * @tc.name      testPhotosDateFormatMore0097
+     * @tc.desc      Formats additional pattern HH-mm-ss sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0097 begin');
+      expect(DateUtil.format(new Date(2024, 0, 13, 0, 12, 48), 'HH-mm-ss')).assertEqual('00-12-48');
+      expect(DateUtil.format(new Date(2024, 4, 9, 6, 24, 0), 'HH-mm-ss')).assertEqual('06-24-00');
+      expect(DateUtil.format(new Date(2024, 8, 5, 10, 12, 36), 'HH-mm-ss')).assertEqual('10-12-36');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0098
+     * @tc.name      testPhotosDateFormatMore0098
+     * @tc.desc      Formats additional pattern MM/dd sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0098 begin');
+      expect(DateUtil.format(new Date(2024, 1, 14, 1, 19, 1), 'MM/dd')).assertEqual('02/14');
+      expect(DateUtil.format(new Date(2024, 5, 12, 7, 33, 15), 'MM/dd')).assertEqual('06/12');
+      expect(DateUtil.format(new Date(2024, 9, 10, 11, 29, 57), 'MM/dd')).assertEqual('10/10');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0099
+     * @tc.name      testPhotosDateFormatMore0099
+     * @tc.desc      Formats additional pattern HH:mm sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0099 begin');
+      expect(DateUtil.format(new Date(2024, 2, 15, 2, 26, 14), 'HH:mm')).assertEqual('02:26');
+      expect(DateUtil.format(new Date(2024, 6, 15, 8, 42, 30), 'HH:mm')).assertEqual('08:42');
+      expect(DateUtil.format(new Date(2024, 10, 15, 12, 46, 18), 'HH:mm')).assertEqual('12:46');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_MORE_0100
+     * @tc.name      testPhotosDateFormatMore0100
+     * @tc.desc      Formats additional pattern dd.MM HH:mm:ss sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatMore0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0100 begin');
+      expect(DateUtil.format(new Date(2024, 3, 16, 3, 33, 27), 'dd.MM HH:mm:ss')).assertEqual('16.04 03:33:27');
+      expect(DateUtil.format(new Date(2024, 7, 18, 9, 51, 45), 'dd.MM HH:mm:ss')).assertEqual('18.08 09:51:45');
+      expect(DateUtil.format(new Date(2024, 11, 20, 13, 3, 39), 'dd.MM HH:mm:ss')).assertEqual('20.12 13:03:39');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatMore0100 end');
+    })
+  })
+}
