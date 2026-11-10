@@ -4,10 +4,10 @@
 
 本示例演示 OpenHarmony 字体管理与资源转换能力，代码拆分为可复用的 Library 特性模块和 entry 场景模块。
 
-- 使用 [@kit.LocalizationKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/Readme-CN.md) 中的 sendableResourceManager 完成 Resource 与 SendableResource 的双向转换。
-- 使用 [@kit.ArkUI](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/Readme-CN.md) 中的 UIContext.getFont().registerFont 注册沙箱字体，用于界面预览。
-- 使用 [@kit.ArkTS](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/Readme-CN.md) 中的 TaskPool 和 Worker 在子线程完成资源往返转换。
-- 使用 [@kit.CoreFileKit](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md) 中的 fileIo 将随包字体复制到应用沙箱。
+- 使用 [@kit.LocalizationKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/Readme-CN.md) 中的 sendableResourceManager 完成 Resource 与 SendableResource 的双向转换。
+- 使用 [@kit.ArkUI](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/Readme-CN.md) 中的 UIContext.getFont().registerFont 注册沙箱字体，用于界面预览。
+- 使用 [@kit.ArkTS](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkts/Readme-CN.md) 中的 TaskPool 和 Worker 在子线程完成资源往返转换。
+- 使用 [@kit.CoreFileKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md) 中的 fileIo 将随包字体复制到应用沙箱。
 
 主要功能如下：
 
@@ -20,10 +20,7 @@
 
 ## 效果预览
 
-<img src="screenshots/font_phone.png" alt="字体管理页面（手机）" width="320" height="569"/>
-<img src="screenshots/resource_phone.png" alt="资源管理页面（手机）" width="320" height="569"/>
-<img src="screenshots/font_tablet.png" alt="字体管理页面（平板）" width="640" height="360"/>
-<img src="screenshots/resource_tablet.png" alt="资源管理页面（平板）" width="640" height="360"/>
+<img src="screenshots/main_page.png" alt="主页" width="320" height="569"/>
 
 ### 使用说明
 
@@ -82,9 +79,9 @@ FontAndResource/
 
 - 运行环境自检：在 [CapabilityService.ets](Library/src/main/ets/fontresource/feature/CapabilityService.ets) 中使用 canIUse 判断 SystemCapability.Global.FontManager，通过 bundleManager 读取 UPDATE_FONT 的申请与授权状态，通过 deviceInfo.sdkApiVersion 判断 registerFont 是否可用。
 - 字体文件准备：在 [FontFileService.ets](Library/src/main/ets/fontresource/feature/FontFileService.ets) 中使用 resourceManager.getRawFileContentSync 读取 rawfile 字体，再通过 fileIo 写入应用沙箱的 files/fonts 目录。
-- 字体预览：在 [FontPreviewService.ets](Library/src/main/ets/fontresource/feature/FontPreviewService.ets) 中调用 UIContext.getFont().registerFont 注册沙箱字体，接口说明参考 [UIContext Font](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkts-apis-uicontext-font.md)。
-- 错误码说明：在 [ErrorCodeMap.ets](Library/src/main/ets/fontresource/common/ErrorCodeMap.ets) 中把 fontManager 的 14 个错误码映射为标题，原因与处理建议，错误码含义参考 [字体管理错误码](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/errorcode-font-manager.md)。
-- 资源转换：在 [ResourceConvertService.ets](Library/src/main/ets/fontresource/feature/ResourceConvertService.ets) 中调用 sendableResourceManager.resourceToSendableResource 与 sendableResourceManager.sendableResourceToResource 完成双向转换，接口说明参考 [@ohos.sendableResourceManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-sendable-resource-manager.md)。
+- 字体预览：在 [FontPreviewService.ets](Library/src/main/ets/fontresource/feature/FontPreviewService.ets) 中调用 UIContext.getFont().registerFont 注册沙箱字体，接口说明参考 [UIContext Font](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkts-apis-uicontext-font.md)。
+- 错误码说明：在 [ErrorCodeMap.ets](Library/src/main/ets/fontresource/common/ErrorCodeMap.ets) 中把 fontManager 的 14 个错误码映射为标题，原因与处理建议，错误码含义参考 [字体管理错误码](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/errorcode-font-manager.md)。
+- 资源转换：在 [ResourceConvertService.ets](Library/src/main/ets/fontresource/feature/ResourceConvertService.ets) 中调用 sendableResourceManager.resourceToSendableResource 与 sendableResourceManager.sendableResourceToResource 完成双向转换，接口说明参考 [@ohos.sendableResourceManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-sendable-resource-manager.md)。
 - 跨线程转换：TaskPool 路径在 [ResourceTask.ets](Library/src/main/ets/fontresource/feature/ResourceTask.ets) 中使用 @Concurrent 函数配合 taskpool.execute 执行；Worker 路径在 [ResourceWorkerClient.ets](Library/src/main/ets/fontresource/feature/ResourceWorkerClient.ets) 中创建 ThreadWorker，线程实现位于 [ResourceWorker.ets](Library/src/main/ets/fontresource/workers/ResourceWorker.ets)，两条路径都带 3 秒超时保护。
 - 场景页面：字体管理页面为 [FontPage.ets](entry/src/main/ets/fontresource/pages/FontPage.ets)，资源管理页面为 [ResourcePage.ets](entry/src/main/ets/fontresource/pages/ResourcePage.ets)，页面状态由 [FontViewModel.ets](entry/src/main/ets/fontresource/viewmodel/FontViewModel.ets) 和 [ResourceViewModel.ets](entry/src/main/ets/fontresource/viewmodel/ResourceViewModel.ets) 管理。
 - 一多布局：在 [MainPage.ets](entry/src/main/ets/fontresource/MainPage.ets) 中通过 GridRow 断点切换布局，小屏使用底部页签，中屏与大屏使用左侧导航。
@@ -102,7 +99,7 @@ FontAndResource/
 ]
 ```
 
-该权限级别为 system_basic，授权类型为 system_grant，ACL 使能。normal 等级应用声明 system_basic 权限时，系统会在安装阶段校验签名配置；若签名配置中没有对应 ACL，安装会报 9568289（权限请求失败导致安装失败）。配置方法参考 [申请受限权限](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)，即在高权限签名配置的 acls.allowed-acls 中加入该权限后重新签名。
+该权限级别为 system_basic，授权类型为 system_grant，ACL 使能。normal 等级应用声明 system_basic 权限时，系统会在安装阶段校验签名配置；若签名配置中没有对应 ACL，安装会报 9568289（权限请求失败导致安装失败）。配置方法参考 [申请受限权限](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)，即在高权限签名配置的 acls.allowed-acls 中加入该权限后重新签名。
 
 ## 依赖
 
@@ -112,8 +109,8 @@ FontAndResource/
 
 1. 本示例仅支持标准系统上运行，支持设备为 Phone 和 Tablet。
 2. 本示例仅支持 API 26 版本 SDK，SDK 版本号为 26.0.0.38。
-3. 本示例使用系统接口 fontManager，需要手动替换 Full SDK 才能编译通过，具体操作可参考 [Full SDK 编译指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)。
-4. 本示例已在 module.json5 中声明 ohos.permission.UPDATE_FONT，该权限级别为 system_basic。使用普通签名安装会报 9568289，需要先配置 ACL 与高权限签名，可参考 [特殊权限配置方法](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)；完成配置后安装仍会因 SELinux 策略返回 201 或 31100106。
+3. 本示例使用系统接口 fontManager，需要手动替换 Full SDK 才能编译通过，具体操作可参考 [Full SDK 编译指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-compile-guide.md)。
+4. 本示例已在 module.json5 中声明 ohos.permission.UPDATE_FONT，该权限级别为 system_basic。使用普通签名安装会报 9568289，需要先配置 ACL 与高权限签名，可参考 [特殊权限配置方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)；完成配置后安装仍会因 SELinux 策略返回 201 或 31100106。
 5. 本示例需要使用 DevEco Studio 6.0.0 Release 及以上版本编译运行。
 6. UI 自动化用例位于 entry/src/ohosTest，运行前请连接真机并完成签名配置。
 
@@ -125,6 +122,6 @@ FontAndResource/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/International/FontAndResource/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
