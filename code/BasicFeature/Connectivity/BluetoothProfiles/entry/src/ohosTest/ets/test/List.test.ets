@@ -26,6 +26,7 @@ import deviceEnumTest from './DeviceEnumMatrix.test';
 import deviceRealTest from './DeviceRealSessionMatrix.test';
 import featureCrossTest from './FeatureCrossMatrix.test';
 import formatCrossTest from './FormatCrossMatrix.test';
+import formatTruncateCrossTest from './FormatTruncateCrossMatrix.test';
 import logCrossTest from './LogCrossMatrix.test';
 import profileAddressTest from './ProfileAddressMatrix.test';
 import profileCatalogTest from './ProfileCatalogMatrix.test';
@@ -88,6 +89,7 @@ export default function testsuite() {
   stateCrossTest();
   addressCrossTest();
   formatCrossTest();
+  formatTruncateCrossTest();
   logCrossTest();
   catalogCrossTest();
   snapshotCrossTest();

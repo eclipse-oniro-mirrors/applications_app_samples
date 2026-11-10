@@ -1,6 +1,6 @@
 # BluetoothProfiles 测试说明
 
-本工程 `entry/src/ohosTest` 共 **1784 条**用例（42 个用例文件 / 53 个 `describe` 套件），编号前缀
+本工程 `entry/src/ohosTest` 共 **1784 条**用例（43 个用例文件 / 54 个 `describe` 套件），编号前缀
 `SUB_BLUETOOTH_`。用例按「既有场景 + 维度矩阵 + 交叉组合 + 设备真调用」分层，全部 `import`
 `main/ets` 下的正式导出，不在用例里重写业务规则。
 
@@ -113,13 +113,13 @@ bindResourceManager(abilityDelegatorRegistry.getAbilityDelegator().getAppContext
 | 会话状态机 | `Session*`（Create / Device / State / Subscribe / Release / Callback） | 100 |
 | 质量轴 | `QualityInvariantMatrix`、`QualityBoundaryMatrix`、`QualitySequenceMatrix`、`QualityFeatureMatrix` | 90 |
 | 设备侧 | `DeviceEnumMatrix`、`DeviceAccessMatrix`、`DeviceRealSessionMatrix` | 36 |
-| 交叉矩阵 | `CodeCross`、`StateCross`、`AddressCross`、`FormatCross`、`LogCross`、`CatalogCross`、`SnapshotCross`、`ViewCross`、`SessionCross`、`FeatureCross`、`ThrownTextCross` | 795 |
+| 交叉矩阵 | `CodeCross`、`StateCross`、`AddressCross`、`FormatCross`、`FormatTruncateCross`、`LogCross`、`CatalogCross`、`SnapshotCross`、`ViewCross`、`SessionCross`、`FeatureCross`、`ThrownTextCross` | 795 |
 | 调用链与立方 | `SessionChain`、`SnapshotCube`、`ContractGrid`、`AddressGrid` | 297 |
-| 合计 | 42 个用例文件 | 1784 |
+| 合计 | 43 个用例文件 | 1784 |
 
 ## 套件清单
 
-顺序即 `testsuite()` 里 42 条调用语句的顺序，与执行顺序一致：先既有场景与纯逻辑，再设备真调用，
+顺序即 `testsuite()` 里 43 条调用语句的顺序，与执行顺序一致：先既有场景与纯逻辑，再设备真调用，
 最后交叉矩阵与立方。
 
 | # | 文件 | 套件 | 用例 |
@@ -154,18 +154,19 @@ bindResourceManager(abilityDelegatorRegistry.getAbilityDelegator().getAppContext
 | 28 | `CodeCrossMatrix.test.ets` | `BluetoothProfileCodeCrossTest` | 52 |
 | 29 | `StateCrossMatrix.test.ets` | `BluetoothProfileStateCrossTest` | 27 |
 | 30 | `AddressCrossMatrix.test.ets` | `BluetoothProfileAddressCrossTest` | 96 |
-| 31 | `FormatCrossMatrix.test.ets` | `BluetoothProfileFormatCrossTest` | 232 |
-| 32 | `LogCrossMatrix.test.ets` | `BluetoothProfileLogCrossTest` | 84 |
-| 33 | `CatalogCrossMatrix.test.ets` | `BluetoothProfileCatalogCrossTest` | 65 |
-| 34 | `SnapshotCrossMatrix.test.ets` | `BluetoothProfileSnapshotCrossTest` | 52 |
-| 35 | `ViewCrossMatrix.test.ets` | `BluetoothProfileViewCrossTest` | 43 |
-| 36 | `SessionCrossMatrix.test.ets` | `BluetoothProfileSessionCrossTest` | 49 |
-| 37 | `FeatureCrossMatrix.test.ets` | `BluetoothProfileFeatureCrossTest` | 31 |
-| 38 | `ThrownTextCrossMatrix.test.ets` | `BluetoothProfileThrownTextCrossTest` | 64 |
-| 39 | `SessionChainMatrix.test.ets` | `BluetoothProfileSessionChainTest` | 57 |
-| 40 | `SnapshotCubeMatrix.test.ets` | `BluetoothProfileSnapshotCubeTest` | 114 |
-| 41 | `ContractGridMatrix.test.ets` | `BluetoothProfileContractGridTest` | 30 |
-| 42 | `AddressGridMatrix.test.ets` | `BluetoothProfileAddressGridTest` | 96 |
+| 31 | `FormatCrossMatrix.test.ets` | `BluetoothProfileFormatCrossTest` | 120 |
+| 32 | `FormatTruncateCrossMatrix.test.ets` | `BluetoothProfileFormatTruncateCrossTest` | 112 |
+| 33 | `LogCrossMatrix.test.ets` | `BluetoothProfileLogCrossTest` | 84 |
+| 34 | `CatalogCrossMatrix.test.ets` | `BluetoothProfileCatalogCrossTest` | 65 |
+| 35 | `SnapshotCrossMatrix.test.ets` | `BluetoothProfileSnapshotCrossTest` | 52 |
+| 36 | `ViewCrossMatrix.test.ets` | `BluetoothProfileViewCrossTest` | 43 |
+| 37 | `SessionCrossMatrix.test.ets` | `BluetoothProfileSessionCrossTest` | 49 |
+| 38 | `FeatureCrossMatrix.test.ets` | `BluetoothProfileFeatureCrossTest` | 31 |
+| 39 | `ThrownTextCrossMatrix.test.ets` | `BluetoothProfileThrownTextCrossTest` | 64 |
+| 40 | `SessionChainMatrix.test.ets` | `BluetoothProfileSessionChainTest` | 57 |
+| 41 | `SnapshotCubeMatrix.test.ets` | `BluetoothProfileSnapshotCubeTest` | 114 |
+| 42 | `ContractGridMatrix.test.ets` | `BluetoothProfileContractGridTest` | 30 |
+| 43 | `AddressGridMatrix.test.ets` | `BluetoothProfileAddressGridTest` | 96 |
 
 ## 让出主线程
 

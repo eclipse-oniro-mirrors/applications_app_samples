@@ -78,7 +78,7 @@ BluetoothProfiles
 ├── entry/src/ohosTest/ets
 │   ├── util/TestTick.ets                 用例之间让出主线程的节拍器
 │   ├── test/support/ProfileStub.ets      可注入的桩实例与计数工厂
-│   └── test                             42 个用例文件 + List.test.ets（1784 条用例）
+│   └── test                             43 个用例文件 + List.test.ets（1784 条用例）
 ├── screenshot                            效果预览截图（真机 720×1280）
 ├── ohosTest.md                           测试环境、步骤、套件清单与实测结果
 └── README.md
@@ -229,10 +229,10 @@ hdc shell aa start -a EntryAbility -b com.example.bluetoothprofiles
 
 | 项 | 数量 |
 | --- | --- |
-| 主代码 `.ets` | 24 个文件 / 3043 行 |
-| 测试 `.ets` | 45 个文件 / 26662 行（含 `TestTick.ets` 与 `ProfileStub.ets`） |
-| 工程合计 | 29705 行 |
-| 用例 | 1784 条 / 42 个用例文件 / 53 个 `describe` |
+| 主代码 `.ets` | 24 个文件 / 3016 行 |
+| 测试 `.ets` | 46 个文件 / 26660 行（含 `TestTick.ets` 与 `ProfileStub.ets`） |
+| 工程合计 | 29676 行 |
+| 用例 | 1784 条 / 43 个用例文件 / 54 个 `describe` |
 
 入口为 `List.test.ets`，只做「导入 + 直接调用」：DevEco 运行测试时会静态扫描该文件，若引入的不是 `*.test` 模块，扫描结果会清零并报「在包中未找到任何测试用例」。
 
@@ -244,7 +244,7 @@ hdc shell aa start -a EntryAbility -b com.example.bluetoothprofiles
 | 纯函数矩阵 | `ProfileState*`、`ProfileAddressMatrix`、`ProfileCatalogMatrix`、`ProfileLogStoreMatrix`、`ProfileFormatMatrix`、`ProfileSnapshotMatrix`、`ProfileViewStateMatrix`、`ProfileErrorUtilMatrix`、`ProfileConstantContract` | 405 | 9 个状态 × 文案/提示/分类/谓词、地址校验与脱敏、检索五字段匹配、日志过滤四维度、格式化边界、快照派生与视图、错误码提取、常量契约 |
 | 会话状态机 | `Session*`（Create / Device / State / Subscribe / Release / Callback） | 100 | 注入桩实例后逐条验证创建幂等、设备台数、连接态、订阅计数、释放顺序、回调转发 |
 | 质量轴 | `QualityInvariantMatrix`、`QualityBoundaryMatrix`、`QualitySequenceMatrix`、`QualityFeatureMatrix` | 90 | 不变量（快照不可变、计数守恒）、边界值、操作序列、AG 探测特性 |
-| 交叉矩阵 | `CodeCross`、`StateCross`、`AddressCross`、`FormatCross`、`LogCross`、`CatalogCross`、`SnapshotCross`、`ViewCross`、`SessionCross`、`FeatureCross`、`ThrownTextCross` | 795 | 两个维度相乘的组合，例如「错误码 × 状态文案」「字节上限 × 文本」「地址形态 × 校验/脱敏」 |
+| 交叉矩阵 | `CodeCross`、`StateCross`、`AddressCross`、`FormatCross`、`FormatTruncateCross`、`LogCross`、`CatalogCross`、`SnapshotCross`、`ViewCross`、`SessionCross`、`FeatureCross`、`ThrownTextCross` | 795 | 两个维度相乘的组合，例如「错误码 × 状态文案」「字节上限 × 文本」「地址形态 × 校验/脱敏」 |
 | 调用链与立方 | `SessionChain`、`SnapshotCube`、`ContractGrid`、`AddressGrid` | 297 | 六种会话操作的两两/多步链共 57 条、9 状态 × 10 设备数的快照立方、结果文案与常量契约锁、48 种地址形态的两个视角 |
 | 设备侧矩阵 | `DeviceEnumMatrix`、`DeviceAccessMatrix`、`DeviceRealSessionMatrix` | 36 | 与 `constant` / `access` / `baseProfile` 真实枚举对齐、权限查询、真实创建实例后查设备与释放 |
 
@@ -270,7 +270,7 @@ hypium 把整批用例串在同一个主线程任务里执行，`await` 一个�
 2. **已授予 `ACCESS_BLUETOOTH`**。未授权时 `getPairedDevices`、`createHfpAgProfile` 返回 201，用例会走错误码分支（仍然通过，但没有验证成功链路）。
 3. **测试包与主包签名一致**，否则安装报签名冲突。
 
-只跑某一组时，在运行配置里按 `describe` 名过滤。全部 53 个 `describe` 名字可以在各用例文件的 `describe('...')` 处查到。
+只跑某一组时，在运行配置里按 `describe` 名过滤。全部 54 个 `describe` 名字可以在各用例文件的 `describe('...')` 处查到。
 
 用例遵循 XTS 编码规范：文件名大驼峰无下划线、`@tc.number` 全局唯一（形如 `SUB_BLUETOOTH_XXX_0001`）、`@tc.name` 与 `it` 名称一致、`@tc.desc` 为英文、不使用恒真断言、单行不超过 120 字符。
 
