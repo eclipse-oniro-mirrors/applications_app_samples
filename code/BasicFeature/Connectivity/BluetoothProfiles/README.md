@@ -146,7 +146,7 @@ BluetoothProfiles
 - OpenHarmony 形态走旧版 SDK 管理模式：需要本机装好 **OpenHarmony SDK**（`SDK Manager → OpenHarmony SDK`，API 26.0.0 一整套），并让它能找到 SDK 根目录——IDE 里自动识别；命令行写在 `local.properties` 的 `sdk.dir`，或设环境变量 `OHOS_BASE_SDK_HOME`。指向 DevEco Studio 自带的商用发行版 SDK 会报 `The SDK management mode has changed`。
 - 可用 IDE：DevEco Studio 26.0.0.851（hvigor 6.26.8），主 target 与 ohosTest target 均已在该版本下构建通过。自 API 26 起 IDE 版本号与 API 版本号一致；低于 26.0.0 的 IDE（hvigor 仅支持 modelVersion 5.0.0–6.0.2）在 sync 阶段会报 `00303028`。
 - `compatibleSdkVersion` 会随 IDE sync 被对齐到 `targetSdkVersion`；这决定能安装的最低系统版本，要在更低版本设备上验证时手动调低再构建（命令行构建不会改写该字段）。
-- `module.json5` 与 `entry/src/ohosTest/module.json5` 的 `deviceTypes` 只声明 `default / tablet / 2in1`。OpenHarmony SDK 的 `ets/api/device-define` 没有 `phone`（那是商用发行版侧的类型），保留 `phone` 会让 `runtimeOS: OpenHarmony` 的构建在 `SyscapTransform` 报 `00303060`「系统能力交集为空」，hvigor 只在 debug 日志里提示 `The systemCapability set corresponding to the 'phone' is not found`。
+- `module.json5` 与 `entry/src/ohosTest/module.json5` 的 `deviceTypes` 只声明 `default / tablet`。OpenHarmony SDK 的 `ets/api/device-define` 没有 `phone`（那是商用发行版侧的类型），保留 `phone` 会让 `runtimeOS: OpenHarmony` 的构建在 `SyscapTransform` 报 `00303060`「系统能力交集为空」，hvigor 只在 debug 日志里提示 `The systemCapability set corresponding to the 'phone' is not found`。
 - 当前基线设备（OpenHarmony 7.1.0.22 / API 26）：`hfp.createHfpAgProfile()` 创建成功，接上 HF 端设备（耳机/车机）后 `getConnectedDevices()` 返回 1 台、`getConnectionState()` 返回已连接、`on('connectionStateChange')` 订阅成功。HFP 属于 BR/EDR 上的 Profile，需要经典蓝牙开启，仅 BLE 模式下不可用。
 
 **功能边界**

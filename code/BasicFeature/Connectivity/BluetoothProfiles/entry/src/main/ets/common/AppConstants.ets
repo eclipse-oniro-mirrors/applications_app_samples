@@ -52,6 +52,8 @@ export const PROFILE_COUNT: number = 1;
 export const LOG_STORE_CAPACITY: number = 200;
 export const PAGE_LOG_LIMIT: number = 20;
 export const HOME_LOG_LIMIT: number = 30;
+/** 日志面板单行最多保留的字符数，超出部分从中间省略 */
+export const LOG_DETAIL_MAX_CHARS: number = 160;
 
 /** hilog domain：0xF811 为 Sample 仓库统一段，便于 `hdc shell hilog -T BluetoothProfiles` 过滤 */
 export const HILOG_DOMAIN: number = 0xF811;

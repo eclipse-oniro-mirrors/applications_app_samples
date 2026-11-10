@@ -42,6 +42,7 @@ export class AppColors {
 }
 
 export class AppSpacing {
+  public static readonly XXS: number = 2;
   public static readonly XS: number = 4;
   public static readonly SM: number = 6;
   public static readonly MD: number = 8;

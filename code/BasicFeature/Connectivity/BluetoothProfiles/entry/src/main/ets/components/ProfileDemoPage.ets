@@ -16,7 +16,7 @@
 import { common } from '@kit.AbilityKit';
 import { PAGE_LOG_LIMIT } from '../common/AppConstants';
 import { text } from '../common/StringResource';
-import { AppColors, AppRadius, AppSpacing, AppText } from '../common/Theme';
+import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../common/Theme';
 import { maskDeviceId } from '../model/DeviceAddress';
 import { ProfileKind, ProfileMeta, metaOf } from '../model/ProfileCatalog';
 import { LogLevel } from '../model/LogStore';
@@ -254,7 +254,7 @@ export struct ProfileDemoPage {
       Row({ space: AppSpacing.MD }) {
         Button(text('common_back'))
           .fontSize(AppText.BODY)
-          .height(30)
+          .height(AppSize.BUTTON_SM)
           .backgroundColor(AppColors.PRIMARY_SOFT)
           .fontColor(AppColors.PRIMARY)
           .onClick(() => {

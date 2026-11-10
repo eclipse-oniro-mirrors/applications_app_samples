@@ -92,6 +92,26 @@ OHOS_REPORT_RESULT: stream=Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ig
 断言口径是「硬断言」：每条用例至少 3 处 `expect(`，不写恒真条件，`catch` 分支内必有断言，
 单行不超过 120 字符，文件名大驼峰无下划线。
 
+### 用例日志（`util/CaseLog.ets`）
+
+设备侧真实调用类用例（`DeviceRealSessionMatrix` 8 条、`DeviceAccessMatrix` 9 条、
+`BluetoothProfileDevice` 19 条，共 36 条）在每条用例开头、每个关键实参/实际返回值断言前、以及用例结尾
+各写一行 hilog，格式固定为 `[Case][BEGIN|PARAM|END] <用例名>`：
+
+```text
+[Case][BEGIN] deviceReal0006
+[Case][PARAM] deviceReal0006 status=1
+[Case][PARAM] deviceReal0006 code=0
+[Case][END] deviceReal0006
+```
+
+失败时 hilog 里必然缺少对应的 `END` 行，再对照 `PARAM` 打印的入参与实际值即可定位到具体哪一步，
+不必只靠 `expect` 的期望值/实际值回查。纯函数矩阵类用例保持硬断言风格，不刷参数日志。过滤：
+
+```text
+hdc shell hilog -x -T BluetoothProfiles | findstr "[Case]"
+```
+
 ### 资源绑定（文案资源化后新增）
 
 模型层只产出 `string.json` 的资源键，用例断言的却是真实文案，因此测试进程必须先拿到资源管理器：
@@ -189,11 +209,17 @@ hypium 把整批用例串在同一个主线程任务里执行，`await` 一个�
 | 第 3 轮（资源文案修正后重建） | `Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ignore: 0` |
 | 第 4 轮（`runtimeOS: OpenHarmony` + domain `0xF811` 重建） | `Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ignore: 0` |
 | 第 5 轮（同一产物连跑） | `Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ignore: 0` |
+| 第 6 轮（用例日志插桩后重建） | `Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ignore: 0` |
 
 第 1～3 轮覆盖用例基线与界面文案资源化；第 4～5 轮覆盖本轮配置整改：`runtimeOS` 由
 `商用发行版` 改为 `OpenHarmony`（两个 `module.json5` 的 `deviceTypes` 同步去掉 OpenHarmony SDK 里不存在的
 `phone`），hilog domain 由 `0x0B5F` 改为 `0xF811`，三处断言域名的常量契约用例同步修正，`Logger.count()`
 补上 `source` 过滤并新增一条反例断言。
+
+第 6 轮覆盖检视整改：36 条设备侧真实调用用例补 `BEGIN/PARAM/END` 日志（用例数与断言不变，仍为
+1784 条），README 的 `deviceTypes` 描述与两处 `oh-package.json5` 的 `description` 按实际配置修正，
+`ProfileSession` 的重复 import 合并，`Index.ets` / `LogPanel.ets` / `ProfileDemoPage.ets` 的散落字面量
+收敛到 `Theme.ets` 与 `AppConstants.ets` 常量。
 
 ## 已知测试限制
 

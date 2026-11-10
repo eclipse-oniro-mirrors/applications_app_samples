@@ -15,7 +15,7 @@
 
 {
   "modelVersion": "26.0.0",
-  "description": "Bluetooth HFP/PAN/MAP profiles sample",
+  "description": "Bluetooth HFP (AG role) profile sample",
   "dependencies": {
   },
   "devDependencies": {

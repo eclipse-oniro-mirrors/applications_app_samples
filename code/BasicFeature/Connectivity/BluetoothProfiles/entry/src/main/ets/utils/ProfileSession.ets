@@ -37,8 +37,7 @@ import { LogLevel } from '../model/LogStore';
 import { Logger } from './Logger';
 import { codeOfThrown, describeThrown, messageOfThrown } from './ErrorUtil';
 import { createFunctionNameOf } from './ProfileFactory';
-import { ProfileFactory, ProfileLike } from './ProfileLike';
-import { StateChangeParam } from './ProfileLike';
+import { ProfileFactory, ProfileLike, StateChangeParam } from './ProfileLike';
 
 export class ProfileSession {
   private readonly factory: ProfileFactory;

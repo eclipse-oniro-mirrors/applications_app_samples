@@ -146,7 +146,12 @@ struct Index {
           .fontColor(AppColors.PRIMARY)
           .backgroundColor(AppColors.PRIMARY_SOFT)
           .borderRadius(AppRadius.TAG)
-          .padding({ left: 6, right: 6, top: 2, bottom: 2 })
+          .padding({
+            left: AppSpacing.SM,
+            right: AppSpacing.SM,
+            top: AppSpacing.XXS,
+            bottom: AppSpacing.XXS
+          })
         Text(item.title)
           .fontSize(AppText.SECTION)
           .fontWeight(FontWeight.Medium)

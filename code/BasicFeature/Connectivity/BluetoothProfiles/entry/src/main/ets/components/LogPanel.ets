@@ -14,7 +14,7 @@
  */
 
 import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../common/Theme';
-import { PAGE_LOG_LIMIT } from '../common/AppConstants';
+import { PAGE_LOG_LIMIT, LOG_DETAIL_MAX_CHARS } from '../common/AppConstants';
 import { text } from '../common/StringResource';
 import { LogItem, LogLevel, queryLogs } from '../model/LogStore';
 import { Logger } from '../utils/Logger';
@@ -93,8 +93,13 @@ export struct LogPanel {
               .fontColor(this.tagColor(item))
               .backgroundColor(this.tagBackground(item))
               .borderRadius(AppRadius.TAG)
-              .padding({ left: 6, right: 6, top: 2, bottom: 2 })
-            Text(truncateMiddle(item.detail, 160))
+              .padding({
+                left: AppSpacing.SM,
+                right: AppSpacing.SM,
+                top: AppSpacing.XXS,
+                bottom: AppSpacing.XXS
+              })
+            Text(truncateMiddle(item.detail, LOG_DETAIL_MAX_CHARS))
               .fontSize(AppText.BODY)
               .fontColor(AppColors.TEXT_STRONG)
               .layoutWeight(1)

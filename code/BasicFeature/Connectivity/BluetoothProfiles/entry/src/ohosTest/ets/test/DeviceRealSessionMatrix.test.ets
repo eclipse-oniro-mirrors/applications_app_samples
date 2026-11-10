@@ -22,6 +22,7 @@
 
 import { beforeEachIt, describe, expect, it } from '@ohos/hypium';
 import { tick } from '../util/TestTick';
+import { CaseLog } from '../util/CaseLog';
 import { ProbeStatus, classifyErrorCode, probeStatusName } from '../../../main/ets/model/ProfileState';
 import { ProfileKind } from '../../../main/ets/model/ProfileCatalog';
 import { ProfileSnapshot } from '../../../main/ets/model/ProfileSnapshot';
@@ -43,10 +44,16 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify the production factory returns an object shaped like the session contract.
      */
     it('deviceReal0001', 0, () => {
+      CaseLog.begin('deviceReal0001');
       const profile: ProfileLike = profileFactoryOf()();
-      expect(isProfileLike(profile)).assertTrue();
+      const shapeOk: boolean = isProfileLike(profile);
+      const createName: string = createFunctionNameOf();
+      CaseLog.param('deviceReal0001', 'isProfileLike', shapeOk);
+      CaseLog.param('deviceReal0001', 'createFunctionName', createName);
+      expect(shapeOk).assertTrue();
       expect(profile === null).assertFalse();
-      expect(createFunctionNameOf()).assertEqual('hfp.createHfpAgProfile');
+      expect(createName).assertEqual('hfp.createHfpAgProfile');
+      CaseLog.end('deviceReal0001');
     });
 
     /**
@@ -55,11 +62,17 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify two factory calls both return usable profile instances.
      */
     it('deviceReal0002', 0, () => {
+      CaseLog.begin('deviceReal0002');
       const first: ProfileLike = profileFactoryOf()();
       const second: ProfileLike = profileFactoryOf()();
-      expect(isProfileLike(first)).assertTrue();
-      expect(isProfileLike(second)).assertTrue();
+      const firstOk: boolean = isProfileLike(first);
+      const secondOk: boolean = isProfileLike(second);
+      CaseLog.param('deviceReal0002', 'firstOk', firstOk);
+      CaseLog.param('deviceReal0002', 'secondOk', secondOk);
+      expect(firstOk).assertTrue();
+      expect(secondOk).assertTrue();
       expect(isProfileLike(null)).assertFalse();
+      CaseLog.end('deviceReal0002');
     });
 
     /**
@@ -68,9 +81,16 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify the create function name stays stable for the hilog line the page writes.
      */
     it('deviceReal0003', 0, () => {
-      expect(createFunctionNameOf()).assertEqual('hfp.createHfpAgProfile');
-      expect(createFunctionNameOf().indexOf('createHfpAgProfile')).assertEqual(4);
-      expect(createFunctionNameOf().length).assertEqual(22);
+      CaseLog.begin('deviceReal0003');
+      const createName: string = createFunctionNameOf();
+      const nameIndex: number = createName.indexOf('createHfpAgProfile');
+      CaseLog.param('deviceReal0003', 'createFunctionName', createName);
+      CaseLog.param('deviceReal0003', 'indexOfCreateHfpAgProfile', nameIndex);
+      CaseLog.param('deviceReal0003', 'nameLength', createName.length);
+      expect(createName).assertEqual('hfp.createHfpAgProfile');
+      expect(nameIndex).assertEqual(4);
+      expect(createName.length).assertEqual(22);
+      CaseLog.end('deviceReal0003');
     });
 
     /**
@@ -79,7 +99,11 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify the probe result explanation is empty unless the create call hit 801.
      */
     it('deviceReal0005', 0, () => {
+      CaseLog.begin('deviceReal0005');
       const result: HfpAgResult = probeHfpAg();
+      CaseLog.param('deviceReal0005', 'created', result.created);
+      CaseLog.param('deviceReal0005', 'code', result.code);
+      CaseLog.param('deviceReal0005', 'reason', result.reason());
       expect(result.reason().length >= 0).assertTrue();
       if (!result.created && result.code === 801) {
         expect(result.reason().indexOf('六种设备类型') >= 0).assertTrue();
@@ -87,6 +111,7 @@ export default function bluetoothProfileDeviceRealTest() {
         expect(result.reason()).assertEqual('');
       }
       expect(result.describe().indexOf('AG：')).assertEqual(0);
+      CaseLog.end('deviceReal0005');
     });
 
     /**
@@ -95,8 +120,13 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify a session driven by the production factory reaches a consistent state.
      */
     it('deviceReal0006', 0, () => {
+      CaseLog.begin('deviceReal0006');
       const session: ProfileSession = new ProfileSession(profileFactoryOf(), 'realSession');
       const snapshot: ProfileSnapshot = session.ensureProfile();
+      CaseLog.param('deviceReal0006', 'kind', snapshot.kind);
+      CaseLog.param('deviceReal0006', 'status', snapshot.status);
+      CaseLog.param('deviceReal0006', 'code', snapshot.code);
+      CaseLog.param('deviceReal0006', 'message', snapshot.message);
       expect(snapshot.kind).assertEqual(ProfileKind.HFP);
       expect(snapshot.message.indexOf('createHfpAgProfile') >= 0).assertTrue();
       if (snapshot.status === ProbeStatus.READY) {
@@ -109,6 +139,7 @@ export default function bluetoothProfileDeviceRealTest() {
         expect(snapshot.code > 0).assertTrue();
         expect(snapshot.status).assertEqual(classifyErrorCode(snapshot.code));
       }
+      CaseLog.end('deviceReal0006');
     });
 
     /**
@@ -117,11 +148,15 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify the production session tolerates subscribe and release in sequence.
      */
     it('deviceReal0008', 0, () => {
+      CaseLog.begin('deviceReal0008');
       const session: ProfileSession = new ProfileSession(profileFactoryOf(), 'realSubscribe');
       const created: ProfileSnapshot = session.ensureProfile();
+      CaseLog.param('deviceReal0008', 'status', created.status);
+      CaseLog.param('deviceReal0008', 'code', created.code);
       expect(created.kind).assertEqual(ProfileKind.HFP);
       if (created.status === ProbeStatus.READY) {
         const subscribed: ProfileSnapshot = session.subscribe();
+        CaseLog.param('deviceReal0008', 'subscribed', subscribed.subscribed);
         expect(subscribed.subscribed).assertTrue();
         expect(session.isSubscribed()).assertTrue();
         session.release();
@@ -130,6 +165,7 @@ export default function bluetoothProfileDeviceRealTest() {
         expect(session.isCreated()).assertFalse();
         expect(created.code > 0).assertTrue();
       }
+      CaseLog.end('deviceReal0008');
     });
 
     /**
@@ -138,13 +174,19 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify the released production session reports the released snapshot text.
      */
     it('deviceReal0009', 0, () => {
+      CaseLog.begin('deviceReal0009');
       const session: ProfileSession = new ProfileSession(profileFactoryOf(), 'realRelease');
       session.ensureProfile();
       session.release();
-      expect(session.getSnapshot().status).assertEqual(ProbeStatus.IDLE);
-      expect(session.getSnapshot().message).assertEqual('已释放 Profile 实例');
+      const released: ProfileSnapshot = session.getSnapshot();
+      CaseLog.param('deviceReal0009', 'status', released.status);
+      CaseLog.param('deviceReal0009', 'message', released.message);
+      CaseLog.param('deviceReal0009', 'deviceCount', released.devices.length);
+      expect(released.status).assertEqual(ProbeStatus.IDLE);
+      expect(released.message).assertEqual('已释放 Profile 实例');
       expect(session.isCreated()).assertFalse();
-      expect(session.getSnapshot().devices.length).assertEqual(0);
+      expect(released.devices.length).assertEqual(0);
+      CaseLog.end('deviceReal0009');
     });
 
     /**
@@ -153,6 +195,7 @@ export default function bluetoothProfileDeviceRealTest() {
      * @tc.desc Verify every state reported by the real session belongs to the local probe status set.
      */
     it('deviceReal0010', 0, () => {
+      CaseLog.begin('deviceReal0010');
       const session: ProfileSession = new ProfileSession(profileFactoryOf(), 'realStatusSet');
       const snapshot: ProfileSnapshot = session.ensureProfile();
       const known: boolean = snapshot.status === ProbeStatus.READY ||
@@ -163,10 +206,14 @@ export default function bluetoothProfileDeviceRealTest() {
         snapshot.status === ProbeStatus.PROFILE_UNSUPPORTED ||
         snapshot.status === ProbeStatus.FAILED ||
         snapshot.status === ProbeStatus.IDLE;
+      CaseLog.param('deviceReal0010', 'status', snapshot.status);
+      CaseLog.param('deviceReal0010', 'statusName', probeStatusName(snapshot.status));
+      CaseLog.param('deviceReal0010', 'code', snapshot.code);
       expect(known).assertTrue();
       expect(probeStatusName(snapshot.status).length > 0).assertTrue();
       expect(snapshot.code >= 0).assertTrue();
       session.release();
+      CaseLog.end('deviceReal0010');
     });
   });
 }
