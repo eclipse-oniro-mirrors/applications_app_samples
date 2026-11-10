@@ -25,7 +25,7 @@ export default class EntryAbility extends UIAbility {
     if (!AppStorage.has(StorageKeys.APP_LOGS)) {
       AppStorage.setOrCreate<LogItem[]>(StorageKeys.APP_LOGS, []);
     }
-    // 页面与纯逻辑层都通过 StringResource 取文案，资源管理器必须在首个界面加载前绑定
+    // 页面与纯逻辑层都通过 StringResource 取文案，资源管理器必须在第一个界面加载前绑定
     bindResourceManager(this.context.resourceManager);
     Logger.info('Ability', 'lifecycle',
       `onCreate launchReason=${launchParam.launchReason} ability=${want.abilityName}`);

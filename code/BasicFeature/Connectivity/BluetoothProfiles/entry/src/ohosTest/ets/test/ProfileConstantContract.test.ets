@@ -73,7 +73,7 @@ export default function bluetoothProfileConstantContractTest() {
     /**
      * @tc.number SUB_BLUETOOTH_CONSTANT_0003
      * @tc.name constantContract0003
-     * @tc.desc Verify the demo surface advertises exactly one profile in the subtitle and the counter.
+     * @tc.desc Verify the demo UI exposes exactly one profile in the subtitle and the counter.
      */
     it('constantContract0003', 0, () => {
       expect(PROFILE_COUNT).assertEqual(1);

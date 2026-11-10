@@ -39,20 +39,7 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/mfwangs/.ohos/config/openharmony/default_BluetoothProfiles_9z8mWAxZ6S14Gnxs4rQHyMCXWXKn0D1CL3fShbZnTAc=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BD1A445663A5D8204E7FEC284DB5AA6BF086A1017D07D19B657026FD855BFE7D11E9C689CD2DE3D",
-          "profile": "C:/Users/mfwangs/.ohos/config/openharmony/default_BluetoothProfiles_9z8mWAxZ6S14Gnxs4rQHyMCXWXKn0D1CL3fShbZnTAc=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/mfwangs/.ohos/config/openharmony/default_BluetoothProfiles_9z8mWAxZ6S14Gnxs4rQHyMCXWXKn0D1CL3fShbZnTAc=.p12",
-          "storePassword": "0000001BBD828173E19417E7EFA3DCEF7E7893C4DDE1DCA02A349F0A3B0F678BA2FBB6C4201D01D1A87EE3"
-        }
-      }
-    ]
+    "signingConfigs": []
   },
   "modules": [
     {

@@ -112,9 +112,10 @@ export class ProfileSession {
       return this.ensureProfile();
     }
     if (!isValidDeviceId(deviceId)) {
+      // 回填到界面的设备标识同样只给脱敏形式
       return this.update(ProbeStatus.FAILED, ERROR_CODE_INVALID_PARAM,
         text('session_invalid_device',
-          deviceId.length > 0 ? deviceId : text('session_empty_device')), LogLevel.WARN);
+          deviceId.length > 0 ? maskDeviceId(deviceId) : text('session_empty_device')), LogLevel.WARN);
     }
     try {
       const state: number = profile.getConnectionState(deviceId);

@@ -38,12 +38,12 @@ export const DEVICE_COUNT_UNKNOWN: number = -1;
 
 /** AG 角色探测结果：记录实例是否创建成功，以及创建成功后 getConnectedDevices() 的台数 */
 export class HfpAgResult {
-  createFunction: string;
-  created: boolean;
-  deviceCount: number;
-  status: ProbeStatus;
-  code: number;
-  message: string;
+  public createFunction: string;
+  public created: boolean;
+  public deviceCount: number;
+  public status: ProbeStatus;
+  public code: number;
+  public message: string;
 
   constructor(createFunction: string, created: boolean, deviceCount: number,
               status: ProbeStatus, code: number, message: string) {

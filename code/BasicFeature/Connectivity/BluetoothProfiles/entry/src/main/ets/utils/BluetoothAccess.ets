@@ -23,6 +23,7 @@
 
 import { access, connection } from '@kit.ConnectivityKit';
 import { text } from '../common/StringResource';
+import { maskDeviceId } from '../model/DeviceAddress';
 import { ProbeStatus, bluetoothStateName, classifyErrorCode } from '../model/ProfileState';
 import { Logger } from './Logger';
 import { codeOfThrown, messageOfThrown } from './ErrorUtil';
@@ -30,10 +31,10 @@ import { codeOfThrown, messageOfThrown } from './ErrorUtil';
 const SOURCE: string = 'BluetoothAccess';
 
 export class BluetoothStateResult {
-  state: number;
-  status: ProbeStatus;
-  code: number;
-  message: string;
+  public state: number;
+  public status: ProbeStatus;
+  public code: number;
+  public message: string;
 
   constructor(state: number, status: ProbeStatus, code: number, message: string) {
     this.state = state;
@@ -48,9 +49,9 @@ export class BluetoothStateResult {
 }
 
 export class PairedDeviceResult {
-  devices: string[];
-  code: number;
-  message: string;
+  public devices: string[];
+  public code: number;
+  public message: string;
 
   constructor(devices: string[], code: number, message: string) {
     this.devices = devices;
@@ -126,7 +127,8 @@ export function readRemoteDeviceName(deviceId: string): string {
   try {
     return connection.getRemoteDeviceName(deviceId);
   } catch (err) {
-    Logger.warn(SOURCE, 'getRemoteDeviceName', `failed, device=${deviceId}, detail=${messageOfThrown(err)}`);
+    // deviceId 是设备标识，日志里只写脱敏后的形式
+    Logger.warn(SOURCE, 'getRemoteDeviceName', `failed, device=${maskDeviceId(deviceId)}, detail=${messageOfThrown(err)}`);
     return '';
   }
 }

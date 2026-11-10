@@ -36,10 +36,10 @@ import {
 } from '../model/ProfileState';
 
 export class ErrorInfo {
-  code: number;
-  message: string;
-  hint: string;
-  status: ProbeStatus;
+  public code: number;
+  public message: string;
+  public hint: string;
+  public status: ProbeStatus;
 
   constructor(code: number, message: string, hint: string) {
     this.code = code;

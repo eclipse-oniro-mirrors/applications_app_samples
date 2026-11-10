@@ -191,7 +191,7 @@ hypium 把整批用例串在同一个主线程任务里执行，`await` 一个�
 | 第 5 轮（同一产物连跑） | `Tests run: 1784, Failure: 0, Error: 0, Pass: 1784, Ignore: 0` |
 
 第 1～3 轮覆盖用例基线与界面文案资源化；第 4～5 轮覆盖本轮配置整改：`runtimeOS` 由
-`HarmonyOS` 改为 `OpenHarmony`（两个 `module.json5` 的 `deviceTypes` 同步去掉 OpenHarmony SDK 里不存在的
+`商用发行版` 改为 `OpenHarmony`（两个 `module.json5` 的 `deviceTypes` 同步去掉 OpenHarmony SDK 里不存在的
 `phone`），hilog domain 由 `0x0B5F` 改为 `0xF811`，三处断言域名的常量契约用例同步修正，`Logger.count()`
 补上 `source` 过滤并新增一条反例断言。
 

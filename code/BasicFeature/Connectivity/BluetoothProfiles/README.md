@@ -10,7 +10,7 @@
 
 | 首页 | HFP 演示页 | 调用结果 |
 | --- | --- | --- |
-| ![首页](screenshot/01_home.jpeg) | ![HFP 演示页](screenshot/02_hfp.jpeg) | ![调用结果](screenshot/03_hfp_result.jpeg) |
+| ![首页](screenshot/readme_home.jpeg) | ![HFP 演示页](screenshot/readme_hfp.jpeg) | ![调用结果](screenshot/readme_hfp_result.jpeg) |
 | 系统蓝牙开关与 `ACCESS_BLUETOOTH` 授权状态、1 个 Profile 入口（搜索可过滤）、9 条首页事件日志 | 七项 Profile 状态、七个操作按钮、AG 角色提示与「已配对 / 已连接」语义说明 | 创建实例后 `getConnectedDevices()` 返回 0 台，状态落「无已连接设备」，提示说明需要 HF 端（耳机 / 车机）接入后才会有设备 |
 
 首页与演示页的日志面板展示的是同一条链路的页面内副本，hilog 侧另有完整调用记录，过滤方式见「日志方案」。
@@ -94,7 +94,7 @@ BluetoothProfiles
 | --- | --- | --- |
 | `ensureProfile()` | `hfp.createHfpAgProfile()` | 已创建时直接返回当前快照 |
 | `refreshDevices()` | `BaseProfile.getConnectedDevices()` | 0 台设备时状态为 `NO_DEVICE`，不算失败 |
-| `refreshState(deviceId)` | `BaseProfile.getConnectionState(deviceId)` | 先本地校验 `AA:BB:CC:DD:EE:FF` 形式，非法时直接返回 401 语义 |
+| `refreshState(deviceId)` | `BaseProfile.getConnectionState(deviceId)` | 先本地校验 `11:22:33:44:55:66` 形式，非法时直接返回 401 语义 |
 | `subscribe()` / `unsubscribe()` | `on('connectionStateChange')` / `off(...)` | 按钮按当前订阅状态在「订阅状态变化 / 取消订阅」之间切换 |
 | `release()` | `off(...)` + 丢弃实例引用 | 页面 `aboutToDisappear` 调用，防止回调打到已销毁页面 |
 
@@ -121,9 +121,9 @@ BluetoothProfiles
 用户可见文案全部落在 `entry/src/main/resources/base/element/string.json`（141 条），代码里不再出现中文字面量：
 
 - `common/StringResource.ets` 提供 `text(name, first?, second?, third?)`，最多三个 `%s`/`%d` 占位参数；未绑定资源管理器时原样返回资源名称，因此纯逻辑用例在未初始化 Ability 时也能跑。
-- 绑定时机：`EntryAbility.onCreate()` 里 `bindResourceManager(this.context.resourceManager)`（首个界面加载前）；ohosTest 进程在 `BluetoothProfiles.test.ets` 入口绑定一次，后续所有套件的 `text()` 才取得到本地化文本。
+- 绑定时机：`EntryAbility.onCreate()` 里 `bindResourceManager(this.context.resourceManager)`（第一个界面加载前）；ohosTest 进程在 `BluetoothProfiles.test.ets` 入口绑定一次，后续所有套件的 `text()` 才取得到本地化文本。
 - 模型层只产出资源键（如 `ProfileSnapshot.describe()` 返回 `text('snapshot_describe', ...)`），展示层直接渲染，页面不再拼接文案。
-- 需要按「当前资源」解析的常量写成函数（`defaultNavTitle()`、`appSubtitle()`），不要用模块级常量缓存——常量在资源管理器绑定之前就已求值，会永远返回资源名称。
+- 需要按「当前资源」解析的常量写成函数（`defaultNavTitle()`、`appSubtitle()`），不要用模块级常量缓存——常量在资源管理器绑定之前就已求值，会始终返回资源名称。
 - 带占位参数的键与调用点的参数个数、顺序一一对应，`string.json` 的取值与硬编码时期逐字一致，因此既有文案断言无需改动。
 
 ## 日志方案
@@ -151,7 +151,7 @@ BluetoothProfiles
 
 **功能边界**
 
-- 首次运行必须先授予 `ACCESS_BLUETOOTH`：未授权时 `createHfpAgProfile()` 仍会返回实例，但 `getConnectedDevices()` 会抛 401（页面显示「操作失败（401）」），容易误判成接口参数写错。
+- 第一次运行必须先授予 `ACCESS_BLUETOOTH`：未授权时 `createHfpAgProfile()` 仍会返回实例，但 `getConnectedDevices()` 会抛 401（页面显示「操作失败（401）」），容易误判成接口参数写错。
 - 只演示 HFP 的 AG 角色：HF 角色在本仓库基线镜像上拿不到可用链路，已连同入口整条删除，成因见「只保留 HFP 的 AG 角色」。
 - 成功链路依赖真实 HF 端设备（耳机/车机）；没有对端接入时只能演示 `NO_DEVICE` 分支。
 - 真实接口的返回随镜像变化，用例以 `ProbeStatus` 而不是错误码作为分支判据。
@@ -214,8 +214,10 @@ $env:PATH = "<DevEco Studio>/tools/node;" + $env:PATH
 
 ```powershell
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -a EntryAbility -b com.example.bluetoothprofiles
+hdc shell <ability-subcommand> start -a EntryAbility -b com.example.bluetoothprofiles
 ```
+
+`<ability-subcommand>` 是设备镜像自带的应用管理子命令，可在 `hdc shell` 里执行 `help` 查看当前系统实际支持的命令名。
 
 如果 `hdc list targets` 为空，确认设备已连接 USB、已开启开发者模式与 USB 调试；多设备时用 `hdc -t <connect-key> ...` 指定目标。
 

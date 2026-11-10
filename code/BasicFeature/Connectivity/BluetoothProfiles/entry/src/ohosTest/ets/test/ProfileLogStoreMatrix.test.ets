@@ -831,7 +831,7 @@ export default function bluetoothProfileLogStoreMatrixTest() {
     /**
      * @tc.number SUB_BLUETOOTH_LOGSTORE_0061
      * @tc.name logStore0061
-     * @tc.desc Verify appendLog places the newest row at the head of the list.
+     * @tc.desc Verify appendLog puts the newest row at the head of the list.
      */
     it('logStore0061', 0, () => {
       const logs: LogItem[] = buildLogs();

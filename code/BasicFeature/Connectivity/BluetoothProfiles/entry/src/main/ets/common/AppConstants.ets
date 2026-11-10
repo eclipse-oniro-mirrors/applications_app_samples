@@ -21,9 +21,9 @@
 import { text } from './StringResource';
 
 export class StorageKeys {
-  static readonly APP_LOGS: string = 'appLogs';
-  static readonly LAYOUT_PROFILE: string = 'layoutProfile';
-  static readonly BLUETOOTH_STATE: string = 'bluetoothState';
+  public static readonly APP_LOGS: string = 'appLogs';
+  public static readonly LAYOUT_PROFILE: string = 'layoutProfile';
+  public static readonly BLUETOOTH_STATE: string = 'bluetoothState';
 }
 
 export enum RouteKey {

@@ -44,15 +44,15 @@ export interface ProfileSnapshotOptions {
 }
 
 export class ProfileSnapshot {
-  readonly kind: ProfileKind;
-  readonly status: ProbeStatus;
-  readonly code: number;
-  readonly message: string;
-  readonly devices: string[];
-  readonly currentDeviceId: string;
-  readonly currentState: number;
-  readonly subscribed: boolean;
-  readonly updatedAt: string;
+  public readonly kind: ProfileKind;
+  public readonly status: ProbeStatus;
+  public readonly code: number;
+  public readonly message: string;
+  public readonly devices: string[];
+  public readonly currentDeviceId: string;
+  public readonly currentState: number;
+  public readonly subscribed: boolean;
+  public readonly updatedAt: string;
 
   constructor(kind: ProfileKind, options: ProfileSnapshotOptions) {
     this.kind = kind;
@@ -111,21 +111,21 @@ export class ProfileSnapshot {
 }
 
 export class ProfileViewState {
-  status: ProbeStatus = ProbeStatus.IDLE;
-  code: number = 0;
+  public status: ProbeStatus = ProbeStatus.IDLE;
+  public code: number = 0;
   message: string = text('snapshot_no_instance');
-  devices: string[] = [];
-  selectedDevice: string = '';
-  currentState: number = CONNECTION_STATE_DISCONNECTED;
-  subscribed: boolean = false;
-  updatedAt: string = '--:--:--';
+  public devices: string[] = [];
+  public selectedDevice: string = '';
+  public currentState: number = CONNECTION_STATE_DISCONNECTED;
+  public subscribed: boolean = false;
+  public updatedAt: string = '--:--:--';
   statusText: string = probeStatusName(ProbeStatus.IDLE);
   hintText: string = probeStatusHint(ProbeStatus.IDLE);
   deviceSummary: string = summarizeDeviceList([]);
   connectionText: string = text('snapshot_no_query');
-  maskedDevices: string[] = [];
+  public maskedDevices: string[] = [];
 
-  /** 刷新后仍保留用户选择：优先当前快照指向的设备，其次上一次选择，最后取首个设备 */
+  /** 刷新后仍保留用户选择：优先当前快照指向的设备，其次上一次选择，最后取第一个设备 */
   static fromSnapshot(snapshot: ProfileSnapshot, previous: ProfileViewState | null): ProfileViewState {
     const view = new ProfileViewState();
     view.status = snapshot.status;

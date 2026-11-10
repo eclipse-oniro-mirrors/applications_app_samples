@@ -31,13 +31,13 @@ export enum ProfileKind {
 }
 
 export class ProfileMeta {
-  kind: ProfileKind;
-  code: string;
-  apiName: string;
-  interfaceName: string;
-  createFunction: string;
-  profileId: number;
-  docPage: string;
+  public kind: ProfileKind;
+  public code: string;
+  public apiName: string;
+  public interfaceName: string;
+  public createFunction: string;
+  public profileId: number;
+  public docPage: string;
   private titleName: string;
   private roleName: string;
   private summaryName: string;

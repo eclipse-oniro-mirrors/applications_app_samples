@@ -25,7 +25,7 @@ import { ProfileFactory, ProfileLike, StateChangeParam } from '../../../../main/
 
 /** 模拟系统抛出的 BusinessError：保留数值 code 与英文 message，与真实异常同形状 */
 export class StubError extends Error {
-  code: number;
+  public code: number;
 
   constructor(code: number, message: string) {
     super(message);
@@ -36,17 +36,17 @@ export class StubError extends Error {
 
 /** 可控的 Profile 桩：记录调用次数，按字段决定返回值或抛出的错误码 */
 export class ProfileStub implements ProfileLike {
-  devices: string[] = [];
-  state: number = 0;
-  devicesError: number = 0;
-  stateError: number = 0;
-  onError: number = 0;
-  offError: number = 0;
-  onCalls: number = 0;
-  offCalls: number = 0;
-  deviceCalls: number = 0;
-  stateCalls: number = 0;
-  lastDeviceId: string = '';
+  public devices: string[] = [];
+  public state: number = 0;
+  public devicesError: number = 0;
+  public stateError: number = 0;
+  public onError: number = 0;
+  public offError: number = 0;
+  public onCalls: number = 0;
+  public offCalls: number = 0;
+  public deviceCalls: number = 0;
+  public stateCalls: number = 0;
+  public lastDeviceId: string = '';
   private listener: ((param: StateChangeParam) => void) | null = null;
 
   constructor(devices: string[] = [], state: number = 0) {

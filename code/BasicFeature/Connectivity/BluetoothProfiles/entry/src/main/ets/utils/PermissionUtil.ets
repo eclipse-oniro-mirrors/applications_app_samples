@@ -33,10 +33,10 @@ const SOURCE: string = 'PermissionUtil';
 const PERMISSION_LIST: Permissions[] = [BLUETOOTH_PERMISSION as Permissions];
 
 export class PermissionOutcome {
-  granted: boolean;
-  status: ProbeStatus;
-  code: number;
-  message: string;
+  public granted: boolean;
+  public status: ProbeStatus;
+  public code: number;
+  public message: string;
 
   constructor(granted: boolean, status: ProbeStatus, code: number, message: string) {
     this.granted = granted;
