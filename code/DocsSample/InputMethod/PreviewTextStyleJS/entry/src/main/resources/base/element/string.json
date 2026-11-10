@@ -1,6 +1,9 @@
 {
   "string": [
-    {"name": "preview_text", "value": "预上屏文本"},
+    {
+      "name": "preview_text",
+      "value": "预上屏文本"
+    },
     {
       "name": "preview_sample_name",
       "value": "预上屏样式",
@@ -23,12 +26,7 @@
     },
     {
       "name": "page_hint",
-      "value": "在输入法设置中选择“预上屏样式”，返回后绑定编辑器。",
-      "description": "示例应用文案"
-    },
-    {
-      "name": "settings",
-      "value": "输入法设置",
+      "value": "先按README启用并切换至本示例输入法，再绑定编辑框。",
       "description": "示例应用文案"
     },
     {
@@ -154,31 +152,6 @@
     {
       "name": "preview_finished",
       "value": "预上屏已结束",
-      "description": "示例界面文案"
-    },
-    {
-      "name": "settings_open_failed",
-      "value": "输入法设置打开失败（错误码 %d），请检查系统输入法管理功能。",
-      "description": "示例界面文案"
-    },
-    {
-      "name": "confirm",
-      "value": "确定",
-      "description": "示例界面文案"
-    },
-    {
-      "name": "ime_enabled_hint",
-      "value": "示例输入法已启用，可以返回并绑定编辑器。",
-      "description": "示例界面文案"
-    },
-    {
-      "name": "settings_unavailable_hint",
-      "value": "当前系统未提供输入法设置入口。请在具备输入法管理功能的系统中启用“预上屏样式”。",
-      "description": "示例界面文案"
-    },
-    {
-      "name": "select_ime_hint",
-      "value": "请选择“预上屏样式”，然后返回本应用",
       "description": "示例界面文案"
     },
     {
