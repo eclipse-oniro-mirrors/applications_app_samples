@@ -16,6 +16,7 @@
 // [Start alert_dialog_after_migrate]
 import { DialogBaseAlignment, DialogDismissal, DialogPresenter, DialogResult } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import resource from '../../common/resource';
 
 @Entry
 @Component
@@ -27,19 +28,19 @@ export struct AlertDialogAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('AlertDialog' + $r('app.string.migrate_sample_zh'))
+          Text('AlertDialog' + resource.resourceToString($r('app.string.migrate_sample_zh')))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button($r('app.string.old_interface_zh') + '：showAlertDialog')
+          Button(resource.resourceToString($r('app.string.old_interface_zh')) + '：showAlertDialog')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceAlertDialogOnClick');
             })
 
-          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
+          Button(resource.resourceToString($r('app.string.new_interface_zh')) + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
