@@ -34,6 +34,7 @@ export default class PreviewInputMethod extends InputMethodExtensionAbility {
     previewSender.setClient(undefined);
   };
 
+  // [Start preview_style_sta_input_start]
   onCreate(_want: Want): void {
     previewSender.setPreviewText(this.context.resourceManager.getStringSync($r('app.string.preview_text').id));
     const ability = this.ability;
@@ -48,6 +49,8 @@ export default class PreviewInputMethod extends InputMethodExtensionAbility {
     ability.onInputStop(this.inputStopCallback);
     this.createKeyboard();
   }
+
+  // [End preview_style_sta_input_start]
 
   private async createKeyboard(): Promise<void> {
     const ability = this.ability;

@@ -46,7 +46,7 @@ export default function abilityTest(): void {
     const panel = `${BUNDLE}_ShowPreviewControls_002`;
     const preview = `${BUNDLE}_SendAndFinishPreview_003`;
 
-    // Verify that the static editor opens.
+    // 验证静态编辑框正常打开。
     it(open, 0, async () => runCase(open, async () => {
       const driver = await openSample();
       const editor = await driver.waitForComponent(ON.id(EDITOR), WAIT_MS);
@@ -54,7 +54,7 @@ export default function abilityTest(): void {
       expect(editor !== null).assertTrue();
     }));
 
-    // Verify that binding opens the sample input method and exposes both controls.
+    // 验证绑定后显示示例输入法及发送、结束按钮。
     it(panel, 0, async () => runCase(panel, async () => {
       const driver = await openSample();
       const editor = await driver.waitForComponent(ON.id(EDITOR), WAIT_MS);
@@ -66,7 +66,7 @@ export default function abilityTest(): void {
       expect(finish !== null).assertTrue();
     }));
 
-    // Verify receipt of the preview text and retention of the committed text.
+    // 验证收到预上屏文本，结束预上屏后保留文本。
     it(preview, 0, async () => runCase(preview, async () => {
       const driver = await openSample();
       const editor = await driver.waitForComponent(ON.id(EDITOR), WAIT_MS);

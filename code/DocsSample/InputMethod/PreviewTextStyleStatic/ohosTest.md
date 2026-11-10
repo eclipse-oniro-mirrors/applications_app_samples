@@ -1,6 +1,14 @@
 # 自动化测试
 
-安装 `default` 产品的主应用，在设备设置中启用并选中本示例输入法。在DevEco Studio选择 `uiTest` 产品后运行 `entry` 的 `ohosTest`。
+安装 `default` 产品的主应用，设备开启开发者模式并连接HDC后，执行以下命令启用并切换到本示例输入法：
+
+```shell
+hdc shell ime -e com.samples.previewstylestatic -f
+hdc shell ime -s com.samples.previewstylestatic
+hdc shell ime -g
+```
+
+`-f`用于完整体验模式，运行设备需支持该模式。确认当前输入法为`com.samples.previewstylestatic`后，在DevEco Studio选择 `uiTest` 产品并运行 `entry` 的 `ohosTest`。
 
 用例名称以 `com.samples.previewstylestatic_` 开头。
 
