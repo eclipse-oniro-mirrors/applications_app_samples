@@ -1,0 +1,11 @@
+{
+  "modelVersion": "26.0.0",
+  "name": "BluetoothBaseProfile",
+  "version": "1.0.0",
+  "description": "Bluetooth BaseProfile sample demonstrating A2DP, HFP, HID, PAN, PBAP, MAP, AVRCP, and HDP profiles",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}
