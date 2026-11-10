@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
 import { fileIo } from '@kit.CoreFileKit';
@@ -53,7 +54,7 @@ export default function pipelineStressTest() {
      * @tc.name      testPipelineStress0001
      * @tc.desc      Verify three rounds of write, append, truncate and read keep exact sizes
      */
-    it('testPipelineStress0001', 0, () => {
+    it('testPipelineStress0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_stress_file_${round}`, '.txt'));
         try {
@@ -77,7 +78,7 @@ export default function pipelineStressTest() {
      * @tc.name      testPipelineStress0002
      * @tc.desc      Verify five audio lifecycle rounds all end in the released state
      */
-    it('testPipelineStress0002', 0, async () => {
+    it('testPipelineStress0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let round = 0; round < 5; round++) {
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor());
         try {
@@ -98,7 +99,7 @@ export default function pipelineStressTest() {
      * @tc.name      testPipelineStress0003
      * @tc.desc      Verify a combined audio and file round trip repeats with identical outcomes
      */
-    it('testPipelineStress0003', 0, async () => {
+    it('testPipelineStress0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_stress_combo_${round}`, '.txt'));
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(optionsFor());
@@ -122,7 +123,7 @@ export default function pipelineStressTest() {
      * @tc.name      testPipelineStress0004
      * @tc.desc      Verify ten alternating write and read rounds report the requested size each time
      */
-    it('testPipelineStress0004', 0, () => {
+    it('testPipelineStress0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = pathInFiles(uniqueName('avs_stress_alt', '.txt'));
       try {
         for (let round = 0; round < 10; round++) {
@@ -141,7 +142,7 @@ export default function pipelineStressTest() {
      * @tc.name      testPipelineStress0005
      * @tc.desc      Verify five copy, rename and delete cycles preserve the payload until deletion
      */
-    it('testPipelineStress0005', 0, () => {
+    it('testPipelineStress0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let round = 0; round < 5; round++) {
         const source: string = pathInFiles(uniqueName(`avs_stress_src_${round}`, '.txt'));
         const copy: string = pathInFiles(uniqueName(`avs_stress_copy_${round}`, '.txt'));

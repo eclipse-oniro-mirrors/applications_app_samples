@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -69,7 +70,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0001', 0, () => {
+    it('testFileSystem0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('create');
       try {
         fileIo.mkdirSync(dir);
@@ -90,7 +91,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0002', 0, () => {
+    it('testFileSystem0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('remove');
       fileIo.mkdirSync(dir);
       expect(pathExists(dir)).assertTrue();
@@ -106,7 +107,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0003', 0, () => {
+    it('testFileSystem0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = uniqueDir('nested');
       const child: string = `${root}/a`;
       const grandChild: string = `${child}/b`;
@@ -131,7 +132,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0004', 0, () => {
+    it('testFileSystem0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('empty_list');
       try {
         fileIo.mkdirSync(dir);
@@ -151,7 +152,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0005', 0, () => {
+    it('testFileSystem0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('list');
       try {
         fileIo.mkdirSync(dir);
@@ -179,7 +180,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0006', 0, () => {
+    it('testFileSystem0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('list_remove');
       try {
         fileIo.mkdirSync(dir);
@@ -205,7 +206,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0007', 0, () => {
+    it('testFileSystem0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = pathInFiles(uniqueName('avs_missing', '.txt'));
       try {
         fileIo.unlinkSync(path);
@@ -223,7 +224,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0008', 0, () => {
+    it('testFileSystem0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('duplicate');
       try {
         fileIo.mkdirSync(dir);
@@ -248,7 +249,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0009', 0, () => {
+    it('testFileSystem0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('nonempty');
       const child: string = `${dir}/child.txt`;
       try {
@@ -272,7 +273,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0010', 0, () => {
+    it('testFileSystem0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = uniqueDir('rename_src');
       const target: string = uniqueDir('rename_dst');
       try {
@@ -297,7 +298,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0011', 0, () => {
+    it('testFileSystem0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('type_dir');
       const file: string = uniqueDir('type_file');
       try {
@@ -321,7 +322,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0012', 0, () => {
+    it('testFileSystem0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < DIRECTORY_CASES.length; i++) {
         const dir: string = `${appContext().filesDir}/${DIRECTORY_CASES[i].name}_${Date.now()}_${i}`;
         try {
@@ -344,7 +345,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0013', 0, () => {
+    it('testFileSystem0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('copy_into');
       const source: string = pathInFiles(uniqueName('avs_source', '.txt'));
       const target: string = `${dir}/copied.txt`;
@@ -372,7 +373,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0014', 0, () => {
+    it('testFileSystem0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs_visible', '.txt');
       const path: string = pathInFiles(name);
       try {
@@ -392,7 +393,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0015', 0, () => {
+    it('testFileSystem0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs_dir_visible', '');
       const dir: string = `${appContext().filesDir}/${name}`;
       try {
@@ -413,7 +414,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0016', 0, () => {
+    it('testFileSystem0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = uniqueDir('nested_write');
       const child: string = `${root}/inner`;
       const file: string = `${child}/data.txt`;
@@ -438,7 +439,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0017', 0, () => {
+    it('testFileSystem0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const present: string = pathInFiles(uniqueName('avs_present', '.txt'));
       const absent: string = pathInFiles(uniqueName('avs_absent', '.txt'));
       try {
@@ -466,7 +467,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0018', 0, () => {
+    it('testFileSystem0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = pathInFiles(uniqueName('avs_move_src', '.txt'));
       const target: string = pathInFiles(uniqueName('avs_move_dst', '.txt'));
       try {
@@ -491,7 +492,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0019', 0, () => {
+    it('testFileSystem0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('batch');
       const count: number = 12;
       try {
@@ -521,7 +522,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0020', 0, () => {
+    it('testFileSystem0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('stat_update');
       const file: string = `${dir}/size.txt`;
       try {
@@ -545,7 +546,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0021', 0, () => {
+    it('testFileSystem0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = pathInFiles(uniqueName('avs_copy_src', '.txt'));
       const target: string = pathInFiles(uniqueName('avs_copy_dst', '.txt'));
       try {
@@ -570,7 +571,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0022', 0, () => {
+    it('testFileSystem0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('isolation');
       try {
         fileIo.mkdirSync(dir);
@@ -592,7 +593,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0023', 0, () => {
+    it('testFileSystem0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = uniqueDir('recreate');
       try {
         fileIo.mkdirSync(dir);
@@ -618,7 +619,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0024', 0, () => {
+    it('testFileSystem0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const file: string = pathInFiles(uniqueName('avs_list_file', '.txt'));
       try {
         writeTextFile(file, 'not-a-dir');
@@ -643,7 +644,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0025', 0, () => {
+    it('testFileSystem0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = uniqueDir('nonrecursive');
       const child: string = `${root}/child`;
       try {
@@ -667,7 +668,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0026', 0, () => {
+    it('testFileSystem0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = uniqueDir('utf8_nested');
       const child: string = `${root}/deep/dir`;
       const file: string = `${child}/content.txt`;
@@ -694,7 +695,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0027', 0, () => {
+    it('testFileSystem0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = pathInFiles(uniqueName('avs_no_stat', '.txt'));
       let failed: boolean = false;
       try {
@@ -714,7 +715,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0028', 0, () => {
+    it('testFileSystem0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = uniqueDir('mixed_entries');
       const file: string = `${root}/entry.txt`;
       const child: string = `${root}/entry_dir`;
@@ -743,7 +744,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0029', 0, () => {
+    it('testFileSystem0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const file: string = pathInFiles(uniqueName('avs_self_rename', '.txt'));
       try {
         writeTextFile(file, 'self');
@@ -764,7 +765,7 @@ export default function fileSystemOpsMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSystem0030', 0, () => {
+    it('testFileSystem0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const filesDir: string = appContext().filesDir;
       expect(filesDir.length).assertLarger(0);
       expect(pathExists(filesDir)).assertTrue();

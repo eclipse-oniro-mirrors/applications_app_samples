@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -56,7 +57,7 @@ export default function fileThroughputMatrixTest() {
      * @tc.name      testFileThroughput0001
      * @tc.desc      Verify twenty write and read cycles of a 64 byte file stay within budget
      */
-    it('testFileThroughput0001', 0, () => {
+    it('testFileThroughput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const cost: number = roundTrip(64, '64');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
@@ -67,7 +68,7 @@ export default function fileThroughputMatrixTest() {
      * @tc.name      testFileThroughput0002
      * @tc.desc      Verify twenty write and read cycles of a 1 KB file stay within budget
      */
-    it('testFileThroughput0002', 0, () => {
+    it('testFileThroughput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const cost: number = roundTrip(1024, '1024');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
@@ -78,7 +79,7 @@ export default function fileThroughputMatrixTest() {
      * @tc.name      testFileThroughput0003
      * @tc.desc      Verify twenty write and read cycles of an 8 KB file stay within budget
      */
-    it('testFileThroughput0003', 0, () => {
+    it('testFileThroughput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const cost: number = roundTrip(8192, '8192');
       expect(cost).assertLargerOrEqual(0);
       expect(cost).assertLess(BUDGET_MS);
@@ -89,7 +90,7 @@ export default function fileThroughputMatrixTest() {
      * @tc.name      testFileThroughput0004
      * @tc.desc      Verify the larger payload does not report a smaller size after the last write
      */
-    it('testFileThroughput0004', 0, () => {
+    it('testFileThroughput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('final');
       try {
         writeTextFile(path, repeatPayload(64, 'a'));

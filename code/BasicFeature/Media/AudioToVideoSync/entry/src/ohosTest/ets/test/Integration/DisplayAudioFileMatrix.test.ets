@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -70,7 +71,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0001', 0, async () => {
+    it('testDisplayAudioFile0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const width: number = 720;
       const path: string = pathInFiles(uniqueName('avs_daf_720', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -93,7 +94,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0002', 0, async () => {
+    it('testDisplayAudioFile0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const width: number = 360;
       const path: string = pathInFiles(uniqueName('avs_daf_360', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
@@ -117,7 +118,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0003', 0, async () => {
+    it('testDisplayAudioFile0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const width: number = 1080;
       const path: string = pathInFiles(uniqueName('avs_daf_1080', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_GAME);
@@ -143,7 +144,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0004', 0, async () => {
+    it('testDisplayAudioFile0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const widths: number[] = [360, 720, 1080];
       const usages: audio.StreamUsage[] = [
         audio.StreamUsage.STREAM_USAGE_MEDIA,
@@ -175,7 +176,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0005', 0, async () => {
+    it('testDisplayAudioFile0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       const path: string = pathInFiles(uniqueName('avs_daf_real', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -198,7 +199,7 @@ export default function displayAudioFileMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testDisplayAudioFile0006', 0, async () => {
+    it('testDisplayAudioFile0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const path: string = pathInFiles(uniqueName('avs_daf_terminal', '.txt'));
       const renderer: audio.AudioRenderer = await rendererFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       try {

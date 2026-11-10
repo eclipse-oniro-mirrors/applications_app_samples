@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -46,7 +47,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0001
      * @tc.desc      Verify overwriting a long file with a short payload shrinks it
      */
-    it('testFileWrite0001', 0, () => {
+    it('testFileWrite0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('short');
       try {
         writeTextFile(path, 'long-long-long');
@@ -64,7 +65,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0002
      * @tc.desc      Verify overwriting a short file with a longer payload grows it
      */
-    it('testFileWrite0002', 0, () => {
+    it('testFileWrite0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('long');
       try {
         writeTextFile(path, 'short');
@@ -81,7 +82,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0003
      * @tc.desc      Verify overwriting with the same length keeps the size and replaces content
      */
-    it('testFileWrite0003', 0, () => {
+    it('testFileWrite0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('same');
       try {
         writeTextFile(path, 'AAAAA');
@@ -98,7 +99,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0004
      * @tc.desc      Verify overwriting with an empty payload leaves a zero-byte file
      */
-    it('testFileWrite0004', 0, () => {
+    it('testFileWrite0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('empty');
       try {
         writeTextFile(path, 'content');
@@ -115,7 +116,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0005
      * @tc.desc      Verify overwriting with a UTF-8 payload reports the encoded byte length
      */
-    it('testFileWrite0005', 0, () => {
+    it('testFileWrite0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('utf8');
       try {
         writeTextFile(path, 'ascii');
@@ -134,7 +135,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0006
      * @tc.desc      Verify overwriting does not change a file into a different node type
      */
-    it('testFileWrite0006', 0, () => {
+    it('testFileWrite0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('type');
       try {
         writeTextFile(path, 'a');
@@ -151,7 +152,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0007
      * @tc.desc      Verify appending one character to an empty file yields size one
      */
-    it('testFileWrite0007', 0, () => {
+    it('testFileWrite0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_one');
       try {
         writeTextFile(path, '');
@@ -168,7 +169,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0008
      * @tc.desc      Verify two appends stack in order and sum their sizes
      */
-    it('testFileWrite0008', 0, () => {
+    it('testFileWrite0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_two');
       try {
         writeTextFile(path, 'A');
@@ -186,7 +187,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0009
      * @tc.desc      Verify multiple appended chunks produce the sum of their lengths
      */
-    it('testFileWrite0009', 0, () => {
+    it('testFileWrite0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_many');
       try {
         writeTextFile(path, '');
@@ -207,7 +208,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0010
      * @tc.desc      Verify appending a UTF-8 payload reports the encoded byte count
      */
-    it('testFileWrite0010', 0, () => {
+    it('testFileWrite0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_utf8');
       try {
         writeTextFile(path, 'head-');
@@ -224,7 +225,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0011
      * @tc.desc      Verify appending after truncation starts from the truncated length
      */
-    it('testFileWrite0011', 0, () => {
+    it('testFileWrite0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_after_truncate');
       try {
         writeTextFile(path, repeatPayload(256, 'z'));
@@ -242,7 +243,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0012
      * @tc.desc      Verify overwrite then append keeps the overwrite prefix and the appended suffix
      */
-    it('testFileWrite0012', 0, () => {
+    it('testFileWrite0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('overwrite_append');
       try {
         writeTextFile(path, 'old');
@@ -260,7 +261,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0013
      * @tc.desc      Verify repeated identical overwrites are idempotent in size and content
      */
-    it('testFileWrite0013', 0, () => {
+    it('testFileWrite0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('idempotent');
       try {
         const payload: string = repeatPayload(128, 'idem');
@@ -279,7 +280,7 @@ export default function fileWritePatternMatrixTest() {
      * @tc.name      testFileWrite0014
      * @tc.desc      Verify a truncate to zero followed by append yields only the appended content
      */
-    it('testFileWrite0014', 0, () => {
+    it('testFileWrite0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('truncate_append');
       try {
         writeTextFile(path, 'discarded');

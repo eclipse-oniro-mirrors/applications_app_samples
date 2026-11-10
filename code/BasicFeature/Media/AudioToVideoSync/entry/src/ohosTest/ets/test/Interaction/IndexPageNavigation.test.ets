@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { Driver, Component, ON } from '@kit.TestKit';
@@ -59,7 +60,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0001', 0, async () => {
+    it('testIndexNavigation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       expect(await titleText(target)).assertEqual(APP_TITLE);
     })
 
@@ -71,7 +72,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0002', 0, async () => {
+    it('testIndexNavigation0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 3; i++) {
         const current: Driver = await openApp();
         expect(await titleText(current)).assertEqual(APP_TITLE);
@@ -86,7 +87,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0003', 0, async () => {
+    it('testIndexNavigation0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       try {
         await target.pressBack();
       } catch (error) {
@@ -105,7 +106,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0004', 0, async () => {
+    it('testIndexNavigation0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const reopened: Driver = await openApp();
       const play: Component | null = await findTextOrNull(reopened, PLAY_TEXT);
       expect(play !== null).assertTrue();
@@ -125,7 +126,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0005', 0, async () => {
+    it('testIndexNavigation0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 5; i++) {
         const current: Driver = await openApp();
         const title: Component | null = await findTextOrNull(current, APP_TITLE);
@@ -143,7 +144,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0006', 0, async () => {
+    it('testIndexNavigation0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const current: Driver = await openApp();
       const play: Component | null = await findTextOrNull(current, PLAY_TEXT);
       expect(play !== null).assertTrue();
@@ -167,7 +168,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0007', 0, async () => {
+    it('testIndexNavigation0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: Driver = await openApp();
       const second: Driver = await openApp();
       expect(first === second).assertTrue();
@@ -182,7 +183,7 @@ export default function indexPageNavigationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexNavigation0008', 0, async () => {
+    it('testIndexNavigation0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const current: Driver = await openApp();
       const titles: Component[] = await current.findComponents(ON.text(APP_TITLE));
       expect(titles.length).assertEqual(1);

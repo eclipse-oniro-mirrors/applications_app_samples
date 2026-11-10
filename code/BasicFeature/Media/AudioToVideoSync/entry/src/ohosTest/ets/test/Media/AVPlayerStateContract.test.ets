@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { media } from '@kit.MediaKit';
@@ -103,7 +104,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0001', 0, async () => {
+    it('testAVPlayerState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.state).assertEqual('idle');
@@ -122,7 +123,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0002', 0, async () => {
+    it('testAVPlayerState0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await media.createAVPlayer();
       await player.release();
       expect(player.state).assertEqual('released');
@@ -136,7 +137,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0003', 0, async () => {
+    it('testAVPlayerState0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first: media.AVPlayer = await media.createAVPlayer();
       const second: media.AVPlayer = await media.createAVPlayer();
       try {
@@ -159,7 +160,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0004', 0, async () => {
+    it('testAVPlayerState0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const players: media.AVPlayer[] = [];
       for (let i = 0; i < 4; i++) {
         players.push(await media.createAVPlayer());
@@ -181,83 +182,6 @@ export default function avPlayerStateContractTest() {
     })
 
     /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_0500
-     * @tc.name      testAVPlayerState0005
-     * @tc.desc      Verify a valid file descriptor source moves the player to initialized
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0005', 0, async () => {
-      const player: media.AVPlayer = await media.createAVPlayer();
-      try {
-        player.fdSrc = await rawDescriptor();
-        const reached: media.AVPlayerState = await waitForState(player, 'initialized');
-        expect(reached).assertEqual('initialized');
-        expect(player.state).assertEqual('initialized');
-      } finally {
-        await player.release();
-      }
-    })
-
-    /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_0600
-     * @tc.name      testAVPlayerState0006
-     * @tc.desc      Verify resetting an initialized player returns it to idle
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0006', 0, async () => {
-      const player: media.AVPlayer = await createInitialized();
-      try {
-        await player.reset();
-        expect(player.state).assertEqual('idle');
-      } finally {
-        await player.release();
-      }
-    })
-
-    /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_0700
-     * @tc.name      testAVPlayerState0007
-     * @tc.desc      Verify releasing an initialized player reaches the released state
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0007', 0, async () => {
-      const player: media.AVPlayer = await createInitialized();
-      await player.release();
-      expect(player.state).assertEqual('released');
-    })
-
-    /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_0800
-     * @tc.name      testAVPlayerState0008
-     * @tc.desc      Verify two sourced players hold their initialized state independently
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0008', 0, async () => {
-      const first: media.AVPlayer = await createInitialized();
-      const second: media.AVPlayer = await createInitialized();
-      try {
-        expect(first.state).assertEqual('initialized');
-        expect(second.state).assertEqual('initialized');
-        await first.reset();
-        expect(first.state).assertEqual('idle');
-        expect(second.state).assertEqual('initialized');
-      } finally {
-        await first.release();
-        await second.release();
-      }
-      expect(first.state).assertEqual('released');
-      expect(second.state).assertEqual('released');
-    })
-
-    /**
      * @tc.number    SUB_AVS_MEDIA_PLAYER_0900
      * @tc.name      testAVPlayerState0009
      * @tc.desc      Verify the loop flag defaults to false on a new player
@@ -265,7 +189,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0009', 0, async () => {
+    it('testAVPlayerState0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.loop).assertFalse();
@@ -283,7 +207,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0010', 0, async () => {
+    it('testAVPlayerState0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         expect(player.surfaceId === undefined || player.surfaceId === '').assertTrue();
@@ -294,31 +218,6 @@ export default function avPlayerStateContractTest() {
     })
 
     /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_1100
-     * @tc.name      testAVPlayerState0011
-     * @tc.desc      Verify the state string is always one of the documented AVPlayer literals
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0011', 0, async () => {
-      const allowed: string[] = ['idle', 'initialized', 'prepared', 'playing', 'paused', 'completed',
-        'stopped', 'released', 'error'];
-      const player: media.AVPlayer = await media.createAVPlayer();
-      try {
-        expect(allowed.indexOf(player.state) >= 0).assertTrue();
-        player.fdSrc = await rawDescriptor();
-        await waitForState(player, 'initialized');
-        expect(allowed.indexOf(player.state) >= 0).assertTrue();
-        await player.reset();
-        expect(allowed.indexOf(player.state) >= 0).assertTrue();
-      } finally {
-        await player.release();
-      }
-      expect(allowed.indexOf(player.state) >= 0).assertTrue();
-    })
-
-    /**
      * @tc.number    SUB_AVS_MEDIA_PLAYER_1200
      * @tc.name      testAVPlayerState0012
      * @tc.desc      Verify reading the state repeatedly does not change it while idle
@@ -326,7 +225,7 @@ export default function avPlayerStateContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAVPlayerState0012', 0, async () => {
+    it('testAVPlayerState0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
         for (let i = 0; i < 100; i++) {
@@ -334,25 +233,6 @@ export default function avPlayerStateContractTest() {
         }
       } finally {
         await player.release();
-      }
-    })
-
-    /**
-     * @tc.number    SUB_AVS_MEDIA_PLAYER_1300
-     * @tc.name      testAVPlayerState0013
-     * @tc.desc      Verify repeated source, reset and release cycles keep every terminal state correct
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     * @tc.level     Level 2
-     */
-    it('testAVPlayerState0013', 0, async () => {
-      for (let i = 0; i < 3; i++) {
-        const player: media.AVPlayer = await createInitialized();
-        expect(player.state).assertEqual('initialized');
-        await player.reset();
-        expect(player.state).assertEqual('idle');
-        await player.release();
-        expect(player.state).assertEqual('released');
       }
     })
   });

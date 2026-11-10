@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -71,7 +72,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0001', 0, () => {
+    it('testFileUnicode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('cjk');
       try {
         expect(writeTextFile(path, '你好世界')).assertEqual(12);
@@ -90,7 +91,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0002', 0, () => {
+    it('testFileUnicode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('japanese');
       try {
         expect(writeTextFile(path, 'こんにちは')).assertEqual(15);
@@ -108,7 +109,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0003', 0, () => {
+    it('testFileUnicode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('korean');
       try {
         expect(writeTextFile(path, '안녕하세요')).assertEqual(15);
@@ -126,7 +127,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0004', 0, () => {
+    it('testFileUnicode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('arabic');
       try {
         expect(writeTextFile(path, 'مرحبا')).assertEqual(10);
@@ -144,7 +145,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0005', 0, () => {
+    it('testFileUnicode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('hebrew');
       try {
         expect(writeTextFile(path, 'שלום')).assertEqual(8);
@@ -162,7 +163,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0006', 0, () => {
+    it('testFileUnicode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('cyrillic');
       try {
         expect(writeTextFile(path, 'привет')).assertEqual(12);
@@ -180,7 +181,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0007', 0, () => {
+    it('testFileUnicode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('greek');
       try {
         expect(writeTextFile(path, 'γειά')).assertEqual(8);
@@ -198,7 +199,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0008', 0, () => {
+    it('testFileUnicode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('thai');
       try {
         expect(writeTextFile(path, 'สวัสดี')).assertEqual(18);
@@ -216,7 +217,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0009', 0, () => {
+    it('testFileUnicode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('emoji');
       try {
         expect(writeTextFile(path, '😀😃')).assertEqual(8);
@@ -235,7 +236,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0010', 0, () => {
+    it('testFileUnicode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('mixed');
       try {
         const payload: string = 'a中😀é';
@@ -256,7 +257,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0011', 0, () => {
+    it('testFileUnicode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < SCRIPT_CASES.length; i++) {
         const sample: ScriptCase = SCRIPT_CASES[i];
         const path: string = targetFor(`matrix_${sample.label}`);
@@ -280,7 +281,7 @@ export default function fileUnicodeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileUnicode0012', 0, () => {
+    it('testFileUnicode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('repeated');
       try {
         const payload: string = repeatPayload(60, '音画');

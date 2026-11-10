@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -74,7 +75,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioThroughput0001', 0, async () => {
+    it('testAudioThroughput0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < CREATE_START_STOP_RELEASE_ROUNDS; i++) {
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -98,7 +99,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioThroughput0002', 0, async () => {
+    it('testAudioThroughput0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_MOVIE);
       const start: number = Date.now();
       try {
@@ -124,7 +125,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioThroughput0003', 0, async () => {
+    it('testAudioThroughput0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < USAGES.length; i++) {
         const renderer: audio.AudioRenderer = await createFor(USAGES[i]);
@@ -151,7 +152,7 @@ export default function audioLifecycleThroughputTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioThroughput0004', 0, async () => {
+    it('testAudioThroughput0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 5; i++) {
         const start: number = Date.now();
         const renderer: audio.AudioRenderer = await createFor(audio.StreamUsage.STREAM_USAGE_GAME);

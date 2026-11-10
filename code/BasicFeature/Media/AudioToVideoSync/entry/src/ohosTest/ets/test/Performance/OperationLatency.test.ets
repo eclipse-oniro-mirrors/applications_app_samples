@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
@@ -67,7 +68,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0001', 0, () => {
+    it('testOperationLatency0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const start: number = Date.now();
       let sample: display.Display = display.getDefaultDisplaySync();
       for (let i = 0; i < DISPLAY_QUERIES; i++) {
@@ -87,7 +88,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0002', 0, () => {
+    it('testOperationLatency0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = pathInFiles(uniqueName('avs_perf_file', '.txt'));
       const payload: string = repeatPayload(64, 'perf');
       try {
@@ -113,7 +114,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0003', 0, async () => {
+    it('testOperationLatency0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const streamInfo: audio.AudioStreamInfo = {
         samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,
         channels: audio.AudioChannel.CHANNEL_2,
@@ -146,7 +147,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0004', 0, async () => {
+    it('testOperationLatency0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const start: number = Date.now();
       for (let i = 0; i < MEDIA_ROUNDS; i++) {
         const player: media.AVPlayer = await media.createAVPlayer();
@@ -166,7 +167,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0005', 0, () => {
+    it('testOperationLatency0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       let accumulator: number = 0;
       const start: number = Date.now();
@@ -187,7 +188,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0006', 0, () => {
+    it('testOperationLatency0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const start: number = Date.now();
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < 500; i++) {
@@ -207,7 +208,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0007', 0, () => {
+    it('testOperationLatency0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = pathInFiles(uniqueName('avs_perf_single', '.txt'));
       const start: number = Date.now();
       try {
@@ -229,7 +230,7 @@ export default function operationLatencyTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testOperationLatency0008', 0, () => {
+    it('testOperationLatency0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const before: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       let accumulator: number = 0;
       for (let i = 0; i < 100000; i++) {

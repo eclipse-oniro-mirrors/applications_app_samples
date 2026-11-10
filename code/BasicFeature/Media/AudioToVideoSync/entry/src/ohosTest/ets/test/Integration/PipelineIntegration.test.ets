@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { audio } from '@kit.AudioKit';
@@ -72,7 +73,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0001', 0, () => {
+    it('testPipelineIntegration0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = pathInFiles(uniqueName('avs_pipe_src', '.txt'));
       const copy: string = pathInFiles(uniqueName('avs_pipe_copy', '.txt'));
       const renamed: string = pathInFiles(uniqueName('avs_pipe_renamed', '.txt'));
@@ -103,7 +104,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0002', 0, async () => {
+    it('testPipelineIntegration0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const path: string = pathInFiles(uniqueName('avs_pipe_audio', '.txt'));
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
       try {
@@ -131,7 +132,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0003', 0, () => {
+    it('testPipelineIntegration0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       const height: number = viewportHeight(screen.width);
       const path: string = pathInFiles(uniqueName('avs_pipe_layout', '.txt'));
@@ -154,7 +155,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0004', 0, async () => {
+    it('testPipelineIntegration0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const path: string = pathInFiles(uniqueName('avs_pipe_clock', '.txt'));
       const before: number = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -180,7 +181,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0005', 0, async () => {
+    it('testPipelineIntegration0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const firstPath: string = pathInFiles(uniqueName('avs_pipe_first', '.txt'));
       const secondPath: string = pathInFiles(uniqueName('avs_pipe_second', '.txt'));
       const firstRenderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -212,7 +213,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0006', 0, async () => {
+    it('testPipelineIntegration0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let round = 0; round < 3; round++) {
         const path: string = pathInFiles(uniqueName(`avs_pipe_round_${round}`, '.txt'));
         const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
@@ -239,7 +240,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0007', 0, async () => {
+    it('testPipelineIntegration0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const path: string = pathInFiles(uniqueName('avs_pipe_truncate', '.txt'));
       const renderer: audio.AudioRenderer = await audio.createAudioRenderer(rendererOptions());
       try {
@@ -263,7 +264,7 @@ export default function pipelineIntegrationTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testPipelineIntegration0008', 0, () => {
+    it('testPipelineIntegration0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const widths: number[] = [360, 720, 1080];
       for (let i = 0; i < widths.length; i++) {
         const height: number = viewportHeight(widths[i]);

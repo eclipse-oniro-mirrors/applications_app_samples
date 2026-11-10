@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { Driver, Component } from '@kit.TestKit';
@@ -61,7 +62,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0001', 0, async () => {
+    it('testIndexPage0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const title: Component = await componentForText(target, APP_TITLE);
       const text: string = await title.getText();
       expect(text).assertEqual(APP_TITLE);
@@ -79,7 +80,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0002', 0, async () => {
+    it('testIndexPage0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const play: Component = await componentForText(target, PLAY_TEXT);
       expect(await play.getText()).assertEqual(PLAY_TEXT);
       expect(await play.isEnabled()).assertTrue();
@@ -94,7 +95,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0003', 0, async () => {
+    it('testIndexPage0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
         const button: Component = await componentForText(target, SPEED_TEXTS[i]);
         expect(await button.getText()).assertEqual(SPEED_TEXTS[i]);
@@ -109,7 +110,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0004', 0, async () => {
+    it('testIndexPage0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
         const button: Component = await componentForText(target, SPEED_TEXTS[i]);
         expect(await button.isEnabled()).assertFalse();
@@ -124,7 +125,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0005', 0, async () => {
+    it('testIndexPage0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const play = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const first = await (await componentForText(target, SPEED_TEXTS[0])).getBounds();
       const second = await (await componentForText(target, SPEED_TEXTS[1])).getBounds();
@@ -143,7 +144,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0006', 0, async () => {
+    it('testIndexPage0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       const texts: string[] = [PLAY_TEXT, SPEED_TEXTS[0], SPEED_TEXTS[1], SPEED_TEXTS[2]];
       for (let i = 0; i < texts.length; i++) {
@@ -163,7 +164,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0007', 0, async () => {
+    it('testIndexPage0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const first = await (await componentForText(target, SPEED_TEXTS[0])).getBounds();
       const firstWidth: number = first.right - first.left;
       const firstHeight: number = first.bottom - first.top;
@@ -184,7 +185,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0008', 0, async () => {
+    it('testIndexPage0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const screen: display.Display = display.getDefaultDisplaySync();
       const bounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const centre: number = (bounds.left + bounds.right) / 2;
@@ -200,7 +201,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0009', 0, async () => {
+    it('testIndexPage0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const texts: string[] = [PLAY_TEXT, SPEED_TEXTS[0], SPEED_TEXTS[1], SPEED_TEXTS[2]];
       const seen: Set<string> = new Set<string>();
       for (let i = 0; i < texts.length; i++) {
@@ -219,7 +220,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0010', 0, async () => {
+    it('testIndexPage0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       for (let i = 0; i < 3; i++) {
         const play: Component = await componentForText(target, PLAY_TEXT);
         expect(await play.getText()).assertEqual(PLAY_TEXT);
@@ -235,7 +236,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0011', 0, async () => {
+    it('testIndexPage0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const titleBounds = await (await componentForText(target, APP_TITLE)).getBounds();
       const playBounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       expect(playBounds.top).assertLargerOrEqual(titleBounds.bottom);
@@ -251,7 +252,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0012', 0, async () => {
+    it('testIndexPage0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const relaunched: Driver = await openApp();
       expect(await (await componentForText(relaunched, APP_TITLE)).getText()).assertEqual(APP_TITLE);
       expect(await (await componentForText(relaunched, PLAY_TEXT)).isEnabled()).assertTrue();
@@ -269,7 +270,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0013', 0, async () => {
+    it('testIndexPage0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const reopened: Driver = await openApp();
       expect(reopened === target).assertTrue();
       expect(await (await componentForText(target, APP_TITLE)).getText()).assertEqual(APP_TITLE);
@@ -283,7 +284,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0014', 0, async () => {
+    it('testIndexPage0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const playBounds = await (await componentForText(target, PLAY_TEXT)).getBounds();
       const playHeight: number = playBounds.bottom - playBounds.top;
       for (let i = 0; i < SPEED_TEXTS.length; i++) {
@@ -303,7 +304,7 @@ export default function indexPageContractTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testIndexPage0015', 0, async () => {
+    it('testIndexPage0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const play: Component = await componentForText(target, PLAY_TEXT);
       const text: string = await play.getText();
       expect(text.length).assertLarger(0);
