@@ -1,0 +1,11 @@
+{
+  "modelVersion": "26.0.0",
+  "name": "SystemConfig",
+  "version": "1.0.0",
+  "description": "System configuration sample demonstrating customConfig, intelligentScene, and settingsLite APIs",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}
