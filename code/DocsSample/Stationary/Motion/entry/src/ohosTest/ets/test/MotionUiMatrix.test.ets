@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+
+const TAG: string = '[Sample_MotionUiMatrixTest]';
+const DOMAIN: number = 0xF815;
 
 const SHOW_ID: string = 'show';
 const BUTTON_IDS: string[] = ['button1', 'button2', 'button3', 'button4', 'button5'];
@@ -84,6 +88,7 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0001 begin');
       const driver: Driver = getDriver();
       expect(await driver.waitForComponent(ON.id(SHOW_ID), 4000) !== null).assertTrue();
       let found: number = 0;
@@ -93,6 +98,7 @@ export default function MotionUiMatrixTest() {
         }
       }
       expect(found).assertEqual(BUTTON_IDS.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0001 end');
     });
 
     /**
@@ -104,9 +110,11 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0002 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button1')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0002 end');
     });
 
     /**
@@ -118,9 +126,11 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0003 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button2')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[1]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0003 end');
     });
 
     /**
@@ -132,9 +142,11 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0004 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button3')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[2]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0004 end');
     });
 
     /**
@@ -146,9 +158,11 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0005 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button4')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[3]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0005 end');
     });
 
     /**
@@ -160,9 +174,11 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL0
      */
     it('testMotionUi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0006 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button5')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[4]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0006 end');
     });
 
     /**
@@ -174,6 +190,7 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testMotionUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0007 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button1')).assertTrue();
       const first: string = await readShowText(driver);
@@ -181,6 +198,7 @@ export default function MotionUiMatrixTest() {
       const second: string = await readShowText(driver);
       expect(first).assertEqual(EXPECTED_TEXT[0]);
       expect(second).assertEqual(first);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0007 end');
     });
 
     /**
@@ -192,11 +210,13 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testMotionUi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0008 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button1')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
       expect(await clickButton(driver, 'button2')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[1]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0008 end');
     });
 
     /**
@@ -208,12 +228,14 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testMotionUi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0009 begin');
       const driver: Driver = getDriver();
       for (let i = 0; i < BUTTON_IDS.length; i++) {
         expect(await clickButton(driver, BUTTON_IDS[i])).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[i]);
       }
       expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[BUTTON_IDS.length - 1]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0009 end');
     });
 
     /**
@@ -225,6 +247,7 @@ export default function MotionUiMatrixTest() {
      * @tc.level LEVEL1
      */
     it('testMotionUi0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0010 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button1')).assertTrue();
       expect(await clickButton(driver, 'button5')).assertTrue();
@@ -235,6 +258,7 @@ export default function MotionUiMatrixTest() {
         }
       }
       expect(found).assertEqual(BUTTON_IDS.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionUi0010 end');
     });
   });
 }

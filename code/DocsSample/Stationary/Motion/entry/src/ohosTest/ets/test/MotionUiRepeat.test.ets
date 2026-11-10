@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+
+const TAG: string = '[Sample_MotionUiRepeatTest]';
+const DOMAIN: number = 0xF815;
 
 const SHOW_ID: string = 'show';
 const BUTTON_IDS: string[] = ['button1', 'button2', 'button3', 'button4', 'button5'];
@@ -70,183 +74,205 @@ export default function MotionUiRepeatTest() {
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0100
-     * @tc.name testRepeatSingle1
+     * @tc.name testRepeatSingle0001
      * @tc.desc Verify clicking button1 three times keeps the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatSingle1', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatSingle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0001 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await clickButton(driver, 'button1')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0001 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0200
-     * @tc.name testRepeatSingle2
+     * @tc.name testRepeatSingle0002
      * @tc.desc Verify clicking button2 three times keeps the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatSingle2', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatSingle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0002 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await clickButton(driver, 'button2')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[1]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0002 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0300
-     * @tc.name testRepeatSingle3
+     * @tc.name testRepeatSingle0003
      * @tc.desc Verify clicking button3 three times keeps the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatSingle3', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatSingle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0003 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await clickButton(driver, 'button3')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[2]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0003 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0400
-     * @tc.name testRepeatSingle4
+     * @tc.name testRepeatSingle0004
      * @tc.desc Verify clicking button4 three times keeps the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatSingle4', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatSingle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0004 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await clickButton(driver, 'button4')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[3]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0004 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0500
-     * @tc.name testRepeatSingle5
+     * @tc.name testRepeatSingle0005
      * @tc.desc Verify clicking button5 three times keeps the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatSingle5', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatSingle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0005 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await clickButton(driver, 'button5')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[4]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatSingle0005 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0600
-     * @tc.name testRepeatEightClicks
+     * @tc.name testRepeatEightClicks0006
      * @tc.desc Verify eight clicks on subscribe-operating keep the same status text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatEightClicks', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatEightClicks0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatEightClicks0006 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 8; round++) {
         expect(await clickButton(driver, 'button1')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatEightClicks0006 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0700
-     * @tc.name testRepeatAlternate12
+     * @tc.name testRepeatAlternate0007
      * @tc.desc Verify alternating button1/button2 five rounds always ends on the second action
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatAlternate12', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatAlternate0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0007 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 5; round++) {
         expect(await clickButton(driver, 'button1')).assertTrue();
         expect(await clickButton(driver, 'button2')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[1]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0007 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0800
-     * @tc.name testRepeatAlternate21
+     * @tc.name testRepeatAlternate0008
      * @tc.desc Verify alternating button2/button1 five rounds always ends on the second action
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatAlternate21', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatAlternate0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0008 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 5; round++) {
         expect(await clickButton(driver, 'button2')).assertTrue();
         expect(await clickButton(driver, 'button1')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0008 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_0900
-     * @tc.name testRepeatAlternate34
+     * @tc.name testRepeatAlternate0009
      * @tc.desc Verify alternating button3/button4 five rounds always ends on the second action
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatAlternate34', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatAlternate0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0009 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 5; round++) {
         expect(await clickButton(driver, 'button3')).assertTrue();
         expect(await clickButton(driver, 'button4')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[3]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0009 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_1000
-     * @tc.name testRepeatAlternate45
+     * @tc.name testRepeatAlternate0010
      * @tc.desc Verify alternating button4/button5 five rounds always ends on the second action
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatAlternate45', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatAlternate0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0010 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 5; round++) {
         expect(await clickButton(driver, 'button4')).assertTrue();
         expect(await clickButton(driver, 'button5')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[4]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0010 end');
     });
 
     /**
      * @tc.number SUB_MOTION_REPEAT_1100
-     * @tc.name testRepeatAlternate51
+     * @tc.name testRepeatAlternate0011
      * @tc.desc Verify alternating button5/button1 five rounds always ends on the second action
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('testRepeatAlternate51', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('testRepeatAlternate0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0011 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 5; round++) {
         expect(await clickButton(driver, 'button5')).assertTrue();
         expect(await clickButton(driver, 'button1')).assertTrue();
         expect(await readShowText(driver)).assertEqual(EXPECTED_TEXT[0]);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatAlternate0011 end');
     });
   });
 }
