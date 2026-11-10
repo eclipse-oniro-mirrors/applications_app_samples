@@ -1,0 +1,568 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "蓝牙 HFP（AG 角色）Profile 示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "蓝牙 HFP（AG 角色）Profile 示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "蓝牙 Profile"
+    },
+    {
+      "name": "reason_bluetooth",
+      "value": "用于查询 HFP（AG 角色）Profile 的连接状态与已连接设备"
+    },
+    {
+      "name": "app_title",
+      "value": "蓝牙 Profile 示例"
+    },
+    {
+      "name": "app_subtitle",
+      "value": "HFP（AG 角色）经典蓝牙 Profile 的最小示例"
+    },
+    {
+      "name": "probe_name_idle",
+      "value": "未探测"
+    },
+    {
+      "name": "probe_name_ready",
+      "value": "可用"
+    },
+    {
+      "name": "probe_name_no_device",
+      "value": "无已连接设备"
+    },
+    {
+      "name": "probe_name_permission_denied",
+      "value": "缺少权限"
+    },
+    {
+      "name": "probe_name_capability_unsupported",
+      "value": "设备不支持"
+    },
+    {
+      "name": "probe_name_bluetooth_disabled",
+      "value": "蓝牙未开启"
+    },
+    {
+      "name": "probe_name_service_stopped",
+      "value": "蓝牙服务已停止"
+    },
+    {
+      "name": "probe_name_profile_unsupported",
+      "value": "Profile 不支持"
+    },
+    {
+      "name": "probe_name_failed",
+      "value": "操作失败"
+    },
+    {
+      "name": "probe_hint_ready",
+      "value": "Profile 实例已创建，可继续查询连接状态"
+    },
+    {
+      "name": "probe_hint_no_device",
+      "value": "实例正常，但当前没有对端设备连接到该 Profile"
+    },
+    {
+      "name": "probe_hint_permission_denied",
+      "value": "请先授予 ohos.permission.ACCESS_BLUETOOTH（演示页可一键申请）"
+    },
+    {
+      "name": "probe_hint_capability_unsupported",
+      "value": "当前设备未支持该 Profile 能力，可换用支持该能力的设备（模拟器或精简镜像常见）"
+    },
+    {
+      "name": "probe_hint_bluetooth_disabled",
+      "value": "请先打开系统蓝牙开关，再重新探测"
+    },
+    {
+      "name": "probe_hint_service_stopped",
+      "value": "蓝牙服务异常退出，可关闭再打开蓝牙后重试"
+    },
+    {
+      "name": "probe_hint_profile_unsupported",
+      "value": "系统镜像未编译该 Profile，属于设备能力缺失"
+    },
+    {
+      "name": "probe_hint_default",
+      "value": "查看日志面板中的错误码与详细信息"
+    },
+    {
+      "name": "conn_disconnected",
+      "value": "已断开"
+    },
+    {
+      "name": "conn_connecting",
+      "value": "正在连接"
+    },
+    {
+      "name": "conn_connected",
+      "value": "已连接"
+    },
+    {
+      "name": "conn_disconnecting",
+      "value": "正在断开"
+    },
+    {
+      "name": "state_unknown",
+      "value": "未知状态"
+    },
+    {
+      "name": "bt_off",
+      "value": "蓝牙已关闭"
+    },
+    {
+      "name": "bt_turning_on",
+      "value": "蓝牙正在开启"
+    },
+    {
+      "name": "bt_on",
+      "value": "蓝牙已开启"
+    },
+    {
+      "name": "bt_turning_off",
+      "value": "蓝牙正在关闭"
+    },
+    {
+      "name": "bt_ble_turning_on",
+      "value": "BLE 正在开启"
+    },
+    {
+      "name": "bt_ble_on",
+      "value": "仅 BLE 模式"
+    },
+    {
+      "name": "bt_ble_turning_off",
+      "value": "BLE 正在关闭"
+    },
+    {
+      "name": "cause_user",
+      "value": "用户主动断开"
+    },
+    {
+      "name": "cause_keyboard",
+      "value": "需要从键盘侧发起"
+    },
+    {
+      "name": "cause_mouse",
+      "value": "需要从鼠标侧发起"
+    },
+    {
+      "name": "cause_car",
+      "value": "需要从车机侧发起"
+    },
+    {
+      "name": "cause_too_many",
+      "value": "已连接设备数量超限"
+    },
+    {
+      "name": "cause_internal",
+      "value": "内部错误导致连接失败"
+    },
+    {
+      "name": "cause_unknown",
+      "value": "未知原因"
+    },
+    {
+      "name": "action_subscribe",
+      "value": "订阅状态变化"
+    },
+    {
+      "name": "action_unsubscribe",
+      "value": "取消订阅"
+    },
+    {
+      "name": "device_list_empty",
+      "value": "暂无已连接设备"
+    },
+    {
+      "name": "device_list_one",
+      "value": "1 台已连接设备"
+    },
+    {
+      "name": "device_list_many",
+      "value": "%d 台已连接设备"
+    },
+    {
+      "name": "snapshot_no_instance",
+      "value": "尚未创建 Profile 实例"
+    },
+    {
+      "name": "snapshot_no_query",
+      "value": "尚未查询连接状态"
+    },
+    {
+      "name": "catalog_hfp_title",
+      "value": "HFP 通话音频网关"
+    },
+    {
+      "name": "catalog_hfp_desc",
+      "value": "以 AG 角色对外提供免提通话能力，耳机、车机作为 HF 端接入后可查询连接状态。"
+    },
+    {
+      "name": "catalog_hfp_note",
+      "value": "模块只提供 createHfpAgProfile 一个入口，链路能力全部来自 BaseProfile。"
+    },
+    {
+      "name": "catalog_role_ag",
+      "value": "Audio Gateway（AG）"
+    },
+    {
+      "name": "catalog_role_ag_short",
+      "value": "AG（音频网关）"
+    },
+    {
+      "name": "err_unknown",
+      "value": "未知错误"
+    },
+    {
+      "name": "err_permission",
+      "value": "缺少 ohos.permission.ACCESS_BLUETOOTH 授权，请先申请权限再重试"
+    },
+    {
+      "name": "err_invalid_param",
+      "value": "入参无效，请检查 deviceId 是否为 AA:BB:CC:DD:EE:FF 形式"
+    },
+    {
+      "name": "err_capability",
+      "value": "当前设备未支持该 Profile 能力（常见于模拟器或精简镜像），需换用支持该能力的设备"
+    },
+    {
+      "name": "err_service_stopped",
+      "value": "蓝牙服务已停止，可关闭蓝牙再重新打开后重试"
+    },
+    {
+      "name": "err_bt_disabled",
+      "value": "蓝牙未开启，请先打开系统蓝牙开关"
+    },
+    {
+      "name": "err_profile_unsupported",
+      "value": "系统未编译该 Profile，属于设备能力缺失，请更换设备镜像"
+    },
+    {
+      "name": "err_operation_failed",
+      "value": "蓝牙服务内部操作失败，可稍后重试或查看 hilog"
+    },
+    {
+      "name": "err_ok",
+      "value": "操作已正常完成"
+    },
+    {
+      "name": "perm_granted",
+      "value": "权限已授予"
+    },
+    {
+      "name": "perm_access_granted",
+      "value": "ACCESS_BLUETOOTH 已授权"
+    },
+    {
+      "name": "perm_access_denied",
+      "value": "ACCESS_BLUETOOTH 尚未授权"
+    },
+    {
+      "name": "perm_user_granted",
+      "value": "用户已授予 ACCESS_BLUETOOTH"
+    },
+    {
+      "name": "perm_user_denied",
+      "value": "用户拒绝授予 ACCESS_BLUETOOTH"
+    },
+    {
+      "name": "feature_ag_hint",
+      "value": "AG 入口在六种设备类型上都有实现，这里的 801 一般是蓝牙服务尚未就绪，请确认蓝牙已打开后重试"
+    },
+    {
+      "name": "err_action_failed",
+      "value": "%s失败：%s"
+    },
+    {
+      "name": "err_action_failed_code",
+      "value": "%s失败（%d）：%s"
+    },
+    {
+      "name": "err_combined",
+      "value": "%s；%s"
+    },
+    {
+      "name": "snapshot_describe",
+      "value": "%s（%d）%s"
+    },
+    {
+      "name": "perm_denied_code",
+      "value": "权限未授予（%d）：%s"
+    },
+    {
+      "name": "feature_ag_create_failed",
+      "value": "AG：%s() 失败（%d）"
+    },
+    {
+      "name": "feature_ag_query_failed",
+      "value": "AG：实例已创建，getConnectedDevices() 失败（%d）"
+    },
+    {
+      "name": "feature_ag_connected",
+      "value": "AG：实例已创建，已连接 %d 台"
+    },
+    {
+      "name": "feature_ag_count_ok",
+      "value": "%s() 调用成功，getConnectedDevices() 返回 %d 台设备"
+    },
+    {
+      "name": "feature_ag_query_action",
+      "value": "%s() 后调用 getConnectedDevices"
+    },
+    {
+      "name": "state_unread",
+      "value": "未读取"
+    },
+    {
+      "name": "state_unqueried",
+      "value": "未查询"
+    },
+    {
+      "name": "common_back",
+      "value": "返回"
+    },
+    {
+      "name": "common_subscribed",
+      "value": "已订阅"
+    },
+    {
+      "name": "common_unsubscribed",
+      "value": "未订阅"
+    },
+    {
+      "name": "common_unknown_device",
+      "value": "未知设备"
+    },
+    {
+      "name": "common_list_separator",
+      "value": "、"
+    },
+    {
+      "name": "common_device_with_address",
+      "value": "%s（%s）"
+    },
+    {
+      "name": "common_status_with_code",
+      "value": "%s（%d）"
+    },
+    {
+      "name": "home_section_bluetooth",
+      "value": "系统蓝牙"
+    },
+    {
+      "name": "home_hint",
+      "value": "HFP 是经典蓝牙 Profile，需先打开系统蓝牙并授予 ACCESS_BLUETOOTH"
+    },
+    {
+      "name": "home_action_refresh",
+      "value": "重新读取蓝牙开关"
+    },
+    {
+      "name": "home_search_placeholder",
+      "value": "搜索 Profile，例如 HFP、通话"
+    },
+    {
+      "name": "home_count",
+      "value": "%d 项"
+    },
+    {
+      "name": "home_enter",
+      "value": "进入"
+    },
+    {
+      "name": "home_empty",
+      "value": "没有匹配的 Profile，试试清空搜索词"
+    },
+    {
+      "name": "home_log_title",
+      "value": "首页事件"
+    },
+    {
+      "name": "log_panel_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "log_count",
+      "value": "%d 条"
+    },
+    {
+      "name": "log_clear",
+      "value": "清空"
+    },
+    {
+      "name": "log_empty",
+      "value": "暂无事件，操作蓝牙接口后将在这里看到调用记录"
+    },
+    {
+      "name": "access_state",
+      "value": "%s（原始值 %d）"
+    },
+    {
+      "name": "access_get_state_ok",
+      "value": "access.getState() 返回 %s"
+    },
+    {
+      "name": "access_enable_ok",
+      "value": "access.enableBluetooth() 调用成功，当前 %s"
+    },
+    {
+      "name": "access_disable_ok",
+      "value": "access.disableBluetooth() 调用成功，当前 %s"
+    },
+    {
+      "name": "access_paired_count",
+      "value": "connection.getPairedDevices() 返回 %d 个已配对设备"
+    },
+    {
+      "name": "session_profile_created",
+      "value": "%s() 调用成功，已获得 Profile 实例"
+    },
+    {
+      "name": "session_devices_count",
+      "value": "getConnectedDevices() 返回 %d 个已连接设备"
+    },
+    {
+      "name": "session_invalid_device",
+      "value": "deviceId 不合法：%s"
+    },
+    {
+      "name": "session_empty_device",
+      "value": "空字符串"
+    },
+    {
+      "name": "session_subscribe_action",
+      "value": "订阅 connectionStateChange"
+    },
+    {
+      "name": "session_unsubscribe_action",
+      "value": "取消订阅 connectionStateChange"
+    },
+    {
+      "name": "session_released",
+      "value": "已释放 Profile 实例"
+    },
+    {
+      "name": "demo_status_title",
+      "value": "Profile 状态"
+    },
+    {
+      "name": "demo_label_status",
+      "value": "探测结果"
+    },
+    {
+      "name": "demo_label_message",
+      "value": "说明"
+    },
+    {
+      "name": "demo_label_hint",
+      "value": "提示"
+    },
+    {
+      "name": "demo_label_devices",
+      "value": "已连接设备"
+    },
+    {
+      "name": "demo_label_connection",
+      "value": "连接状态"
+    },
+    {
+      "name": "demo_label_subscription",
+      "value": "订阅状态"
+    },
+    {
+      "name": "demo_label_role",
+      "value": "角色"
+    },
+    {
+      "name": "demo_action_title",
+      "value": "接口调用顺序"
+    },
+    {
+      "name": "demo_action_subtitle",
+      "value": "文档顺序"
+    },
+    {
+      "name": "demo_action_create",
+      "value": "创建实例"
+    },
+    {
+      "name": "demo_action_query_devices",
+      "value": "查询设备"
+    },
+    {
+      "name": "demo_action_release",
+      "value": "释放实例"
+    },
+    {
+      "name": "demo_action_read_state",
+      "value": "读取蓝牙开关"
+    },
+    {
+      "name": "demo_action_paired",
+      "value": "已配对设备"
+    },
+    {
+      "name": "demo_action_ag_probe",
+      "value": "AG 角色探测"
+    },
+    {
+      "name": "demo_action_query_connection",
+      "value": "查询连接状态"
+    },
+    {
+      "name": "demo_action_request_permission",
+      "value": "申请权限"
+    },
+    {
+      "name": "demo_paired_note",
+      "value": "已配对 = 系统里保存了链路密钥，可免密重连；已连接 = 当前真的建立了 Profile 链路"
+    },
+    {
+      "name": "demo_device_title",
+      "value": "设备与连接状态"
+    },
+    {
+      "name": "demo_device_count",
+      "value": "%d 台"
+    },
+    {
+      "name": "demo_device_empty",
+      "value": "暂无已连接设备，先创建实例并查询设备列表"
+    },
+    {
+      "name": "demo_select_device",
+      "value": "请选择设备"
+    },
+    {
+      "name": "demo_connection_hint_devices",
+      "value": "当前有 %d 台设备已连接，可选设备后调用 getConnectionState(deviceId)"
+    },
+    {
+      "name": "demo_connection_hint_empty",
+      "value": "设备列表为空，无可查询的 deviceId，可以看点「已配对设备」确认系统侧配对情况"
+    },
+    {
+      "name": "demo_permission_no_context",
+      "value": "当前上下文不可用，无法申请权限"
+    },
+    {
+      "name": "demo_feature_hint",
+      "value": "createHfpAgProfile() 在 phone / tablet / 2in1 / tv / car / wearable 六种设备类型上都有实现，失败时优先确认蓝牙开关与 ACCESS_BLUETOOTH 权限"
+    },
+    {
+      "name": "demo_log_title",
+      "value": "%s事件"
+    },
+    {
+      "name": "demo_paired_list",
+      "value": "%s：%s"
+    }
+  ]
+}
