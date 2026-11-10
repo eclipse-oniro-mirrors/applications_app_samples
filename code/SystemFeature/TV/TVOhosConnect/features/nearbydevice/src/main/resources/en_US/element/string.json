@@ -499,8 +499,8 @@
       "value": "Tunnel controller"
     },
     {
-      "name": "factory_huawei_device",
-      "value": "Huawei Device Co., Ltd."
+      "name": "factory_device_manufacturer",
+      "value": "Device Manufacturer Co., Ltd."
     },
     {
       "name": "scanning_devices",

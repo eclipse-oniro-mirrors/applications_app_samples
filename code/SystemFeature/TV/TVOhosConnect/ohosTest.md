@@ -233,7 +233,7 @@ hvigorw test -p module=tv -p product=default
 hdc shell "<测试命令> -b <应用Bundle名> -m tv_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class HomePageUiTest -s timeout 60000"
 ```
 
-> 注意：`HomePageUiTest` 会拉起应用并驱动 UiTest，必须与逻辑类套件分开执行（单独一次 `aa test`），否则应用侧 UI/BLE 主线程任务会干扰后续逻辑用例，出现 `THREAD_BLOCK_6S` 卡死。
+> 注意：`HomePageUiTest` 会拉起应用并驱动 UiTest，必须与逻辑类套件分开执行（单独一次测试命令），否则应用侧 UI/BLE 主线程任务会干扰后续逻辑用例，出现 `THREAD_BLOCK_6S` 卡死。
 >
 > 真机/模拟器执行 UI 套件前请保持屏幕常亮，并开启 UiTest 测试模式：
 >
