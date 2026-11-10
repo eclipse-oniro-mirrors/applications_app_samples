@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -60,7 +61,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0001', 0, () => {
+    it('testFileOffset0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('start');
       writeTextFile(path, '0123456789');
       try {
@@ -80,7 +81,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0002', 0, () => {
+    it('testFileOffset0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('end');
       writeTextFile(path, '0123456789');
       try {
@@ -100,7 +101,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0003', 0, () => {
+    it('testFileOffset0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('advance');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -124,7 +125,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0004', 0, () => {
+    it('testFileOffset0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('middle');
       writeTextFile(path, '0123456789');
       try {
@@ -147,7 +148,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0005', 0, () => {
+    it('testFileOffset0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('prefix');
       writeTextFile(path, 'abcdefghij');
       try {
@@ -169,7 +170,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0006', 0, () => {
+    it('testFileOffset0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append');
       writeTextFile(path, 'head');
       try {
@@ -192,7 +193,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0007', 0, () => {
+    it('testFileOffset0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('slice');
       writeTextFile(path, '0123456789');
       try {
@@ -213,7 +214,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0008', 0, () => {
+    it('testFileOffset0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('from_end');
       writeTextFile(path, 'abcdefghij');
       try {
@@ -237,7 +238,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0009', 0, () => {
+    it('testFileOffset0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('reopen');
       writeTextFile(path, 'abcdef');
       try {
@@ -261,7 +262,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0010', 0, () => {
+    it('testFileOffset0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('repeat');
       writeTextFile(path, '0123456789');
       try {
@@ -283,7 +284,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0011', 0, () => {
+    it('testFileOffset0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('sequence');
       writeTextFile(path, 'AAAAAAAAAA');
       try {
@@ -309,7 +310,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0012', 0, () => {
+    it('testFileOffset0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('empty_grow');
       try {
         writeTextFile(path, '');
@@ -333,7 +334,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0013', 0, () => {
+    it('testFileOffset0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('eof');
       writeTextFile(path, 'abcdef');
       try {
@@ -357,7 +358,7 @@ export default function fileOffsetMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileOffset0014', 0, () => {
+    it('testFileOffset0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('matrix');
       writeTextFile(path, '0123456789abcdef');
       try {

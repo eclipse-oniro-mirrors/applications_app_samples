@@ -1,3 +1,4 @@
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, it, expect } from '@ohos/hypium'
 
 export default function PerformanceTest() {
@@ -6,7 +7,7 @@ export default function PerformanceTest() {
       console.info('Performance test setup')
     })
 
-    it('audioProcessingTime', 0, () => {
+    it('audioProcessingTime', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio processing time performance')
       const maxProcessingTime = 100 // milliseconds
       const audioProcessingTime = 45 // milliseconds
@@ -15,7 +16,7 @@ export default function PerformanceTest() {
       expect(audioProcessingTime >= 0).assertEqual(true)
     })
 
-    it('videoDecodingTime', 0, () => {
+    it('videoDecodingTime', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing video decoding time performance')
       const targetFrameTime = 33 // milliseconds for 30fps
       const videoDecodingTime = 25 // milliseconds
@@ -25,7 +26,7 @@ export default function PerformanceTest() {
       expect(targetFrameTime > videoDecodingTime).assertEqual(true)
     })
 
-    it('memoryUsageTest', 0, () => {
+    it('memoryUsageTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing memory usage efficiency')
       const maxMemoryUsage = 512 * 1024 * 1024 // 512MB
       const currentMemoryUsage = 256 * 1024 * 1024 // 256MB
@@ -35,7 +36,7 @@ export default function PerformanceTest() {
       expect(currentMemoryUsage * 2 === maxMemoryUsage).assertEqual(true)
     })
 
-    it('cpuUsageTest', 0, () => {
+    it('cpuUsageTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing CPU usage efficiency')
       const maxCpuUsage = 80 // percentage
       const currentCpuUsage = 45 // percentage
@@ -45,7 +46,7 @@ export default function PerformanceTest() {
       expect(currentCpuUsage < 50).assertEqual(true)
     })
 
-    it('throughputTest', 0, () => {
+    it('throughputTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing data throughput')
       const minThroughput = 1048576 // 1 MB/s
       const currentThroughput = 5242880 // 5 MB/s
@@ -55,7 +56,7 @@ export default function PerformanceTest() {
       expect(currentThroughput / minThroughput === 5).assertEqual(true)
     })
 
-    it('responseTimeTest', 0, () => {
+    it('responseTimeTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing system response time')
       const maxResponseTime = 200 // milliseconds
       const currentResponseTime = 120 // milliseconds
@@ -65,7 +66,7 @@ export default function PerformanceTest() {
       expect(maxResponseTime - currentResponseTime === 80).assertEqual(true)
     })
 
-    it('concurrentStreamsTest', 0, () => {
+    it('concurrentStreamsTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing concurrent stream processing')
       const concurrentStreams = 4
       const maxStreams = 8
@@ -76,7 +77,7 @@ export default function PerformanceTest() {
       expect(maxStreams / concurrentStreams === 2).assertEqual(true)
     })
 
-    it('cacheHitRateTest', 0, () => {
+    it('cacheHitRateTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing cache performance')
       const totalRequests = 1000
       const cacheHits = 850

@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -42,7 +43,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0001
      * @tc.desc      Verify stat reports a regular file for a newly written one-byte file
      */
-    it('testFileStat0001', 0, () => {
+    it('testFileStat0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('one');
       try {
         writeTextFile(path, 'a');
@@ -60,7 +61,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0002
      * @tc.desc      Verify the stat size matches the payload for 64 and 1024 byte files
      */
-    it('testFileStat0002', 0, () => {
+    it('testFileStat0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('sizes');
       try {
         writeTextFile(path, repeatPayload(64, 's'));
@@ -77,7 +78,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0003
      * @tc.desc      Verify truncation is reflected in the next stat call
      */
-    it('testFileStat0003', 0, () => {
+    it('testFileStat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('truncate');
       try {
         writeTextFile(path, repeatPayload(512, 't'));
@@ -95,7 +96,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0004
      * @tc.desc      Verify appending updates the stat size to the sum of both chunks
      */
-    it('testFileStat0004', 0, () => {
+    it('testFileStat0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append');
       try {
         writeTextFile(path, 'head');
@@ -114,7 +115,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0005
      * @tc.desc      Verify stat distinguishes a directory node from a regular file
      */
-    it('testFileStat0005', 0, () => {
+    it('testFileStat0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = `${appContext().filesDir}/${uniqueName('avs_stat_dir', '')}`;
       const file: string = targetFor('mixed');
       try {
@@ -135,7 +136,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0006
      * @tc.desc      Verify stat on a missing path fails with the no-such-file code
      */
-    it('testFileStat0006', 0, () => {
+    it('testFileStat0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const missing: string = targetFor('missing');
       let code: number = -1;
       try {
@@ -151,7 +152,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0007
      * @tc.desc      Verify an empty file reports size zero and remains a regular file
      */
-    it('testFileStat0007', 0, () => {
+    it('testFileStat0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('empty');
       try {
         writeTextFile(path, '');
@@ -168,7 +169,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0008
      * @tc.desc      Verify repeated stat calls return the same size without mutation
      */
-    it('testFileStat0008', 0, () => {
+    it('testFileStat0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('stable');
       try {
         writeTextFile(path, repeatPayload(300, 'stable'));
@@ -186,7 +187,7 @@ export default function fileStatMatrixTest() {
      * @tc.name      testFileStat0009
      * @tc.desc      Verify stat size tracks a sequence of growing writes
      */
-    it('testFileStat0009', 0, () => {
+    it('testFileStat0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('growing');
       try {
         const sizes: number[] = [1, 8, 64, 256, 1024];

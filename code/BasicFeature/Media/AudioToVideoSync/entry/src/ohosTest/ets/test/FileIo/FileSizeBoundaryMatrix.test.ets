@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -59,7 +60,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0001', 0, () => {
+    it('testFileSize0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('0');
       try {
         expect(writeTextFile(path, '')).assertEqual(0);
@@ -80,7 +81,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0002', 0, () => {
+    it('testFileSize0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('1');
       try {
         expect(writeTextFile(path, 'a')).assertEqual(1);
@@ -99,7 +100,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0003', 0, () => {
+    it('testFileSize0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('2');
       try {
         expect(writeTextFile(path, 'ab')).assertEqual(2);
@@ -118,7 +119,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0004', 0, () => {
+    it('testFileSize0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('3_4');
       try {
         expect(writeTextFile(path, 'abc')).assertEqual(3);
@@ -139,7 +140,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0005', 0, () => {
+    it('testFileSize0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('7_8');
       try {
         expect(writeTextFile(path, fillPayload(7))).assertEqual(7);
@@ -160,7 +161,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0006', 0, () => {
+    it('testFileSize0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('15_16');
       try {
         expect(writeTextFile(path, fillPayload(15))).assertEqual(15);
@@ -181,7 +182,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0007', 0, () => {
+    it('testFileSize0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('31_32');
       try {
         expect(writeTextFile(path, fillPayload(31))).assertEqual(31);
@@ -201,7 +202,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0008', 0, () => {
+    it('testFileSize0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('63_64');
       try {
         expect(writeTextFile(path, fillPayload(63))).assertEqual(63);
@@ -221,7 +222,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0009', 0, () => {
+    it('testFileSize0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('127_128');
       try {
         expect(writeTextFile(path, fillPayload(127))).assertEqual(127);
@@ -241,7 +242,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0010', 0, () => {
+    it('testFileSize0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('255_256');
       try {
         expect(writeTextFile(path, fillPayload(255))).assertEqual(255);
@@ -261,7 +262,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0011', 0, () => {
+    it('testFileSize0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('511_512');
       try {
         expect(writeTextFile(path, fillPayload(511))).assertEqual(511);
@@ -281,7 +282,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0012', 0, () => {
+    it('testFileSize0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('1023_1024');
       try {
         expect(writeTextFile(path, fillPayload(1023))).assertEqual(1023);
@@ -301,7 +302,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0013', 0, () => {
+    it('testFileSize0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('2047_2048');
       try {
         expect(writeTextFile(path, fillPayload(2047))).assertEqual(2047);
@@ -321,7 +322,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0014', 0, () => {
+    it('testFileSize0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('4095_4096');
       try {
         expect(writeTextFile(path, fillPayload(4095))).assertEqual(4095);
@@ -341,7 +342,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0015', 0, () => {
+    it('testFileSize0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('8191_8192');
       try {
         expect(writeTextFile(path, fillPayload(8191))).assertEqual(8191);
@@ -361,7 +362,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0016', 0, () => {
+    it('testFileSize0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < BOUNDARY_SIZES.length; i++) {
         const size: number = BOUNDARY_SIZES[i];
         const path: string = targetFor(`matrix_${size}`);
@@ -388,7 +389,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0017', 0, () => {
+    it('testFileSize0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('truncate_matrix');
       try {
         writeTextFile(path, fillPayload(8192));
@@ -414,7 +415,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0018', 0, () => {
+    it('testFileSize0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_sum');
       try {
         const first: string = fillPayload(256);
@@ -439,7 +440,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0019', 0, () => {
+    it('testFileSize0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('partial_large');
       try {
         writeTextFile(path, fillPayload(4096));
@@ -461,7 +462,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0020', 0, () => {
+    it('testFileSize0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('shrink');
       try {
         writeTextFile(path, fillPayload(4096));
@@ -482,7 +483,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0021', 0, () => {
+    it('testFileSize0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('grow');
       try {
         writeTextFile(path, fillPayload(64));
@@ -503,7 +504,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0022', 0, () => {
+    it('testFileSize0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('sentinels');
       try {
         const payload: string = repeatPayload(1000, 'XYZ');
@@ -525,7 +526,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0023', 0, () => {
+    it('testFileSize0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('cjk_boundary');
       try {
         const payload: string = repeatPayload(100, '音画');
@@ -546,7 +547,7 @@ export default function fileSizeBoundaryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileSize0024', 0, () => {
+    it('testFileSize0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('stable_stat');
       try {
         writeTextFile(path, fillPayload(1024));
