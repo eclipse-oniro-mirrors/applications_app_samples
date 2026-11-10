@@ -94,7 +94,8 @@ export struct CoapDevicesListView {
         .width(CommonConstants.FULL_WIDTH_PERCENT);
     } else {
       Row() {
-        Text(this.scanModel.currentScanState == ScanState.SCANNING ? '正在扫描设备...' : '可连接设备')
+        Text(this.scanModel.currentScanState == ScanState.SCANNING ?
+        $r('app.string.scanning_devices') : $r('app.string.connectable_devices'))
           .fontSize($r('app.string.fp_15'))
           .fontColor($r('app.color.white'))
           .padding($r('app.string.vp_5'));

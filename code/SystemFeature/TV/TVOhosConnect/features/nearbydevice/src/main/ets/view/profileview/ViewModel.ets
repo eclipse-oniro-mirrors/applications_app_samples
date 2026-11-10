@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 import { ControlOption, DeviceManagerFactory, QueryOption } from '@ohos/device_manager';
 import { util } from '@kit.ArkTS';
 import { ConnectType } from '@ohos/common/src/main/ets/inf/TypeEnum';
@@ -262,16 +262,20 @@ export class ProfileManager {
 
   public getProfileModelList(): ProfileModelArray {
     Logger.info(TAG, `getProfileModelList` + ' ' + `this.profileModelList: ${JSON.stringify(this.profileModelList)}`);
-    let result = this.profileModelList.filter(item => item.serviceName !== '位置信息')
+    const positionInfoName: string = StringRes.get($r('app.string.position_information_text'));
+    const switchName: string = StringRes.get($r('app.string.button_text_switch'));
+    const screenOffName: string = StringRes.get($r('app.string.button_text_ScreenOff'));
+    const screenOnName: string = StringRes.get($r('app.string.button_text_ScreenOn'));
+    let result = this.profileModelList.filter(item => item.serviceName !== positionInfoName)
     // 2. 映射生成全新对象，彻底脱离原数组引用
       .map(item => {
         // 深拷贝对象，防止修改原数据
         const newItem = item;
         // 只修改拷贝后的新对象
-        if (newItem.serviceName === '开关') {
-          newItem.characteristics[0].attrName = '熄屏';
-          newItem!.characteristics![0]!.enumList![0]!.descCh = '熄屏';
-          newItem!.characteristics![0]!.enumList![1]!.descCh = '亮屏';
+        if (newItem.serviceName === switchName) {
+          newItem.characteristics[0].attrName = screenOffName;
+          newItem!.characteristics![0]!.enumList![0]!.descCh = screenOffName;
+          newItem!.characteristics![0]!.enumList![1]!.descCh = screenOnName;
         }
         return newItem;
       });

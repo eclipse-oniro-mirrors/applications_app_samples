@@ -101,6 +101,8 @@ export { DeviceUtils } from './src/main/ets/utils/DeviceUtils';
 
 export { ClickCheck } from './src/main/ets/utils/ClickCheck';
 
+export { StringRes } from './src/main/ets/utils/StringRes';
+
 export { HttpRequest } from './src/main/ets/http/HttpRequest';
 
 export { NavBar } from './src/main/ets/view/NavBar';

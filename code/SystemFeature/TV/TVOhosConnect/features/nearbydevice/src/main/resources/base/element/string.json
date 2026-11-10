@@ -506,11 +506,11 @@
     },
     {
       "name": "dis_connect",
-      "value": "网络不可用"
+      "value": "Network unavailable"
     },
     {
       "name": "exceeding_data_range",
-      "value": "超过数据范围"
+      "value": "Value out of range"
     },
     {
       "name": "no_device",
@@ -943,6 +943,158 @@
     {
       "name": "ov_account_tenant_id",
       "value": "T0010"
+    },
+    {
+      "name": "device_name_tunnel_controller",
+      "value": "Tunnel controller"
+    },
+    {
+      "name": "factory_huawei_device",
+      "value": "Huawei Device Co., Ltd."
+    },
+    {
+      "name": "scanning_devices",
+      "value": "Scanning devices..."
+    },
+    {
+      "name": "connectable_devices",
+      "value": "Connectable devices"
+    },
+    {
+      "name": "placeholder_user_name",
+      "value": "Zhang San"
+    },
+    {
+      "name": "location_failed_tip",
+      "value": "Location failed. Please enable location services."
+    },
+    {
+      "name": "location_permission_denied_tip",
+      "value": "Location permission is not granted. Unable to get location."
+    },
+    {
+      "name": "scan_failed_network_tip",
+      "value": "Scan failed. Check the network connection. Only wireless networks are supported."
+    },
+    {
+      "name": "bluetooth_off_tip",
+      "value": "Please turn on Bluetooth."
+    },
+    {
+      "name": "coap_config_network_tip",
+      "value": "CoAP network configuration requires Wi-Fi and Bluetooth."
+    },
+    {
+      "name": "coap_config",
+      "value": "CoAP config"
+    },
+    {
+      "name": "smart_tunnel_title",
+      "value": "Smart tunnel"
+    },
+    {
+      "name": "button_text_confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "button_text_modify",
+      "value": "Modify"
+    },
+    {
+      "name": "ble_result_success",
+      "value": "Success"
+    },
+    {
+      "name": "ble_result_general_error",
+      "value": "General error"
+    },
+    {
+      "name": "ble_result_cmd_not_supported",
+      "value": "Command not supported"
+    },
+    {
+      "name": "ble_result_param_invalid",
+      "value": "Invalid parameter"
+    },
+    {
+      "name": "ble_result_param_null",
+      "value": "Parameter is empty"
+    },
+    {
+      "name": "ble_result_memory_insufficient",
+      "value": "Insufficient memory"
+    },
+    {
+      "name": "ble_result_query_id_error",
+      "value": "Failed to query ID"
+    },
+    {
+      "name": "ble_result_query_base_info_error",
+      "value": "Failed to query basic information"
+    },
+    {
+      "name": "ble_result_query_ble_info_error",
+      "value": "Failed to query Bluetooth information"
+    },
+    {
+      "name": "ble_result_query_config_info_error",
+      "value": "Failed to query configuration information"
+    },
+    {
+      "name": "ble_result_set_config_info_error",
+      "value": "Failed to set configuration information"
+    },
+    {
+      "name": "ble_result_query_device_info_error",
+      "value": "Failed to query device information"
+    },
+    {
+      "name": "ble_result_set_device_info_error",
+      "value": "Failed to set device information"
+    },
+    {
+      "name": "ble_result_query_run_info_error",
+      "value": "Failed to query running information"
+    },
+    {
+      "name": "ble_result_add_device_error",
+      "value": "Failed to add device"
+    },
+    {
+      "name": "ble_result_update_device_error",
+      "value": "Failed to update device"
+    },
+    {
+      "name": "ble_result_delete_device_error",
+      "value": "Failed to delete device"
+    },
+    {
+      "name": "ble_result_query_scene_error",
+      "value": "Failed to query linked scenes"
+    },
+    {
+      "name": "ble_result_add_scene_error",
+      "value": "Failed to add linked scene"
+    },
+    {
+      "name": "ble_result_update_scene_error",
+      "value": "Failed to update linked scene"
+    },
+    {
+      "name": "ble_result_delete_scene_error",
+      "value": "Failed to delete linked scene"
+    },
+    {
+      "name": "ble_result_execute_scene_error",
+      "value": "Failed to execute linked scene"
+    },
+    {
+      "name": "ble_result_unknown_error",
+      "value": "Unknown error"
+    },
+    {
+      "name": "current_value_prefix",
+      "value": "Current value: "
     }
   ]
 }

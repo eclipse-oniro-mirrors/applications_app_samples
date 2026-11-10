@@ -24,8 +24,8 @@ import { HMRouter } from '@hadss/hmrouter';
 @Component
 export struct DeviceInfoPage {
   //临时数据，获取到实际数据后需删除
-  @State deviceName: ResourceStr = '隧道控制器';
-  @State factory: ResourceStr = '华为终端有限公司';
+  @State deviceName: ResourceStr = $r('app.string.device_name_tunnel_controller');
+  @State factory: ResourceStr = $r('app.string.factory_huawei_device');
   @State macAddr: ResourceStr = 'AA:BB:CC:DD:EE:FF';
   @State serialNum: ResourceStr = '12345454545445';
   @State version: ResourceStr = '10.0.0.1';

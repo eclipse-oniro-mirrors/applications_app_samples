@@ -122,53 +122,53 @@ export abstract class ModelRes<T> extends BaseModel<T> {
 
   public abstract isSelf(): boolean;
 
-  public getResultMessage(): string {
+  public getResultMessage(): ResourceStr {
     switch (this.result) {
       case ResultCode.SUC:
-        return '成功';
+        return $r('app.string.ble_result_success');
       case ResultCode.ERROR_GENERAL:
-        return '通用错误';
+        return $r('app.string.ble_result_general_error');
       case ResultCode.ERROR_CMD_NOT_SUPPORT:
-        return '命令不支持';
+        return $r('app.string.ble_result_cmd_not_supported');
       case ResultCode.ERROR_PARAM_INVALID:
-        return '参数无效';
+        return $r('app.string.ble_result_param_invalid');
       case ResultCode.ERROR_PARAM_NULL:
-        return '参数为空';
+        return $r('app.string.ble_result_param_null');
       case ResultCode.ERROR_MEMORY:
-        return '内存不足';
+        return $r('app.string.ble_result_memory_insufficient');
       case ResultCode.ERROR_QUERY_ID:
-        return '查询ID错误';
+        return $r('app.string.ble_result_query_id_error');
       case ResultCode.ERROR_QUERY_BASE:
-        return '查询基本信息出错';
+        return $r('app.string.ble_result_query_base_info_error');
       case ResultCode.ERROR_QUERY_BLE:
-        return '查询蓝牙信息出错';
+        return $r('app.string.ble_result_query_ble_info_error');
       case ResultCode.ERROR_QUERY_CFG:
-        return '查询配置信息出错';
+        return $r('app.string.ble_result_query_config_info_error');
       case ResultCode.ERROR_SET_CFG:
-        return '设置配置信息出错';
+        return $r('app.string.ble_result_set_config_info_error');
       case ResultCode.ERROR_QUERY_DEV:
-        return '查询设备信息出错';
+        return $r('app.string.ble_result_query_device_info_error');
       case ResultCode.ERROR_SET_DEV:
-        return '设置设备信息出错';
+        return $r('app.string.ble_result_set_device_info_error');
       case ResultCode.ERROR_QUERY_RUN:
-        return '查询运行信息出错';
+        return $r('app.string.ble_result_query_run_info_error');
       case ResultCode.ERROR_DEVICE_ADD:
-        return '添加设备出错';
+        return $r('app.string.ble_result_add_device_error');
       case ResultCode.ERROR_DEVICE_UPDATE:
-        return '更新设备出错';
+        return $r('app.string.ble_result_update_device_error');
       case ResultCode.ERROR_DEVICE_DELETE:
-        return '删除设备出错';
+        return $r('app.string.ble_result_delete_device_error');
       case ResultCode.ERROR_QUERY_SCENE:
-        return '查询联动场景失败';
+        return $r('app.string.ble_result_query_scene_error');
       case ResultCode.ERROR_ADD_SCENE:
-        return '添加联动场景失败';
+        return $r('app.string.ble_result_add_scene_error');
       case ResultCode.ERROR_UPDATE_SCENE:
-        return '更新联动场景失败';
+        return $r('app.string.ble_result_update_scene_error');
       case ResultCode.ERROR_DELETE_SCENE:
-        return '删除联动场景失败';
+        return $r('app.string.ble_result_delete_scene_error');
       case ResultCode.ERROR_EXECUTE_SCENE:
-        return '联动场景执行出错';
+        return $r('app.string.ble_result_execute_scene_error');
     }
-    return '未知错误';
+    return $r('app.string.ble_result_unknown_error');
   }
 }

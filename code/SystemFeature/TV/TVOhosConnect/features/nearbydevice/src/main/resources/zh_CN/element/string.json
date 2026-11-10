@@ -515,6 +515,158 @@
     {
       "name": "to",
       "value": "去"
+    },
+    {
+      "name": "device_name_tunnel_controller",
+      "value": "隧道控制器"
+    },
+    {
+      "name": "factory_huawei_device",
+      "value": "华为终端有限公司"
+    },
+    {
+      "name": "scanning_devices",
+      "value": "正在扫描设备..."
+    },
+    {
+      "name": "connectable_devices",
+      "value": "可连接设备"
+    },
+    {
+      "name": "placeholder_user_name",
+      "value": "张三"
+    },
+    {
+      "name": "location_failed_tip",
+      "value": "定位失败，可能未打开定位"
+    },
+    {
+      "name": "location_permission_denied_tip",
+      "value": "未授权定位权限，无法定位"
+    },
+    {
+      "name": "scan_failed_network_tip",
+      "value": "扫描失败，请检查网络连接/只能连接无线网络"
+    },
+    {
+      "name": "bluetooth_off_tip",
+      "value": "请开启蓝牙开关"
+    },
+    {
+      "name": "coap_config_network_tip",
+      "value": "coap配网需连接无线网和开启蓝牙"
+    },
+    {
+      "name": "coap_config",
+      "value": "coap配网"
+    },
+    {
+      "name": "smart_tunnel_title",
+      "value": "智慧隧道"
+    },
+    {
+      "name": "button_text_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "button_text_modify",
+      "value": "修改"
+    },
+    {
+      "name": "ble_result_success",
+      "value": "成功"
+    },
+    {
+      "name": "ble_result_general_error",
+      "value": "通用错误"
+    },
+    {
+      "name": "ble_result_cmd_not_supported",
+      "value": "命令不支持"
+    },
+    {
+      "name": "ble_result_param_invalid",
+      "value": "参数无效"
+    },
+    {
+      "name": "ble_result_param_null",
+      "value": "参数为空"
+    },
+    {
+      "name": "ble_result_memory_insufficient",
+      "value": "内存不足"
+    },
+    {
+      "name": "ble_result_query_id_error",
+      "value": "查询ID错误"
+    },
+    {
+      "name": "ble_result_query_base_info_error",
+      "value": "查询基本信息出错"
+    },
+    {
+      "name": "ble_result_query_ble_info_error",
+      "value": "查询蓝牙信息出错"
+    },
+    {
+      "name": "ble_result_query_config_info_error",
+      "value": "查询配置信息出错"
+    },
+    {
+      "name": "ble_result_set_config_info_error",
+      "value": "设置配置信息出错"
+    },
+    {
+      "name": "ble_result_query_device_info_error",
+      "value": "查询设备信息出错"
+    },
+    {
+      "name": "ble_result_set_device_info_error",
+      "value": "设置设备信息出错"
+    },
+    {
+      "name": "ble_result_query_run_info_error",
+      "value": "查询运行信息出错"
+    },
+    {
+      "name": "ble_result_add_device_error",
+      "value": "添加设备出错"
+    },
+    {
+      "name": "ble_result_update_device_error",
+      "value": "更新设备出错"
+    },
+    {
+      "name": "ble_result_delete_device_error",
+      "value": "删除设备出错"
+    },
+    {
+      "name": "ble_result_query_scene_error",
+      "value": "查询联动场景失败"
+    },
+    {
+      "name": "ble_result_add_scene_error",
+      "value": "添加联动场景失败"
+    },
+    {
+      "name": "ble_result_update_scene_error",
+      "value": "更新联动场景失败"
+    },
+    {
+      "name": "ble_result_delete_scene_error",
+      "value": "删除联动场景失败"
+    },
+    {
+      "name": "ble_result_execute_scene_error",
+      "value": "联动场景执行出错"
+    },
+    {
+      "name": "ble_result_unknown_error",
+      "value": "未知错误"
+    },
+    {
+      "name": "current_value_prefix",
+      "value": "当前值:"
     }
   ]
 }

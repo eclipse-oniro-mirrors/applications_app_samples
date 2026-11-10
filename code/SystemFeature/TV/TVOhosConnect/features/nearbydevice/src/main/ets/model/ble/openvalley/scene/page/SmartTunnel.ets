@@ -38,7 +38,7 @@ export struct SmartTunnel {
       Column() {
         HeadTitleComponent(
           {
-            title: '智慧隧道',
+            title: $r('app.string.smart_tunnel_title'),
             clickCallback: () => {
               router.back();
             }

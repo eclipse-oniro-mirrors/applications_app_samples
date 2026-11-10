@@ -15,7 +15,7 @@
 
 import { Prompt, router } from '@kit.ArkUI';
 import { HttpApi, Project } from '@ohos/connect_cloud';
-import { checkPermission, isAllGrant, requestPermission } from '@ohos/common';
+import { checkPermission, isAllGrant, requestPermission, StringRes } from '@ohos/common';
 import { Permissions } from '@kit.AbilityKit';
 import { geoLocationManager } from '@kit.LocationKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -27,7 +27,7 @@ import { HMRouter, HMRouterMgr } from '@hadss/hmrouter';
 export struct CreateProjectPage {
   @State isTouch: boolean = false;
   @State userImage: Resource = $r('app.media.people'); // 暂时无法获取用户头像，占位
-  @State userName: string = '张三'; // 暂时无法获取用户名，占位
+  @State userName: ResourceStr = $r('app.string.placeholder_user_name'); // 暂时无法获取用户名，占位
   @State locationAddress: string = ''; // 定位地理位置
   @StorageLink('currentBreakpoint') currentBreakpoint: string = '';
   private longitude: number = 0;
@@ -40,11 +40,11 @@ export struct CreateProjectPage {
       if (result) {
         this.getLocation().then((result) => {
           if (!result) {
-            Prompt.showToast({ message: '定位失败，可能未打开定位' });
+            Prompt.showToast({ message: StringRes.get($r('app.string.location_failed_tip')) });
           }
         });
       } else {
-        Prompt.showToast({ message: '未授权定位权限，无法定位' });
+        Prompt.showToast({ message: StringRes.get($r('app.string.location_permission_denied_tip')) });
       }
     });
 

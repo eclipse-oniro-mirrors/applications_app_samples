@@ -16,7 +16,7 @@
 import { CharacteristicType } from './ViewModel';
 import { EmptyComponents } from './ComponentsView';
 import { HttpApi } from '@ohos/connect_cloud';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 import { PowerComponents } from './ComponentsView';
 import { ProfileModel } from './ViewModel';
 import { ProfileServices } from './ViewModel';
@@ -35,6 +35,8 @@ export struct ProfileComponents {
   @Prop gatewayId: string;
   @Prop deviceId: string;
   @Prop projectId: string;
+  private positionInfoName: string = StringRes.get($r('app.string.position_information_text'));
+  private switchName: string = StringRes.get($r('app.string.button_text_switch'));
 
   aboutToAppear(): void {
     this.profileManager.initProfileModel(this.projectId, this.deviceId, this.productId, this.gatewayId);
@@ -139,8 +141,8 @@ export struct ProfileComponents {
           } else {
             ListItem() {
               Column() {
-                if (item.serviceName != '位置信息') {
-                  Text(item.serviceName == '开关' ? '熄屏' : item.serviceName)
+                if (item.serviceName != this.positionInfoName) {
+                  Text(item.serviceName == this.switchName ? $r('app.string.button_text_ScreenOff') : item.serviceName)
                     .fontSize($r('app.string.font_18'))
                     .fontColor($r('sys.color.ohos_id_color_foreground_contrary'))
                     .fontWeight(FontWeight.Medium)

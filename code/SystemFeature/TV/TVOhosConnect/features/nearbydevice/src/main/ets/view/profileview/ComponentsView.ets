@@ -16,7 +16,7 @@
 import { CharacteristicPermissions } from './ViewModel';
 import { ClickCheck } from '@ohos/common';
 import { EnumEntry } from './ViewModel';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 import { cloudDeviceRadio } from '../DeviceItemComponent';
 import { isSupportPermissions } from './ViewModel';
 import { promptAction } from '@kit.ArkUI';
@@ -58,7 +58,7 @@ export struct PowerComponents {
   build() {
     Row() {
       Row() {
-        Text('开关')
+        Text($r('app.string.button_text_switch'))
           .titleStyle();
         Button() {
           Image(this.profileManager.isPowerOn() ? $r('app.media.button_open') : $r('app.media.button_off'))
@@ -247,7 +247,7 @@ export struct StepSlideComponents {
           Progress({ value: this.sliderValue, total: Number(this.unitType?.max) || 100, type: ProgressType.Linear })
             .width('80%');
         }
-        Text(`当前值:${this.sliderValue}`)
+        Text(StringRes.get($r('app.string.current_value_prefix')) + this.sliderValue)
           .fontSize($r('app.string.font_14'))
           .fontColor($r('sys.color.ohos_id_color_text_secondary'))
           .margin({ left: $r('app.string.12_vp') });
@@ -361,7 +361,7 @@ export struct StringComponents {
           .titleStyle();
         if (this.showCommitBtn) {
           Button() {
-            Text(this.textFocusable ? '确定' : '修改')
+            Text(this.textFocusable ? $r('app.string.button_text_confirm') : $r('app.string.button_text_modify'))
               .fontSize($r('app.string.font_14'))
               .fontColor($r('sys.color.ohos_id_color_text_secondary'));
           }

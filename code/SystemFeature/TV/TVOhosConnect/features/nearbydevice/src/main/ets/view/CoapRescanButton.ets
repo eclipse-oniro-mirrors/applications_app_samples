@@ -52,7 +52,7 @@ export struct CoapRescanButton {
         Logger.info(TAG, 'getCurActiveIFaceConfig coapButton' + this.networkStateType);
         if (this.networkStateType == 0) {
           promptAction.showToast({
-            message: '扫描失败，请检查网络连接/只能连接无线网络',
+            message: $r('app.string.scan_failed_network_tip'),
             duration: 1000,
           });
         } else if (this.networkStateType == 1) {

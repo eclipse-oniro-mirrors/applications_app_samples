@@ -91,7 +91,7 @@ export struct DevicesMainPage {
 
   promptActionShowToast() {
     promptAction.showToast({
-      message: 'coap配网需连接无线网和开启蓝牙',
+      message: $r('app.string.coap_config_network_tip'),
       duration: 1000,
     });
   }
@@ -132,7 +132,7 @@ export struct DevicesMainPage {
               Stack() {
                 TipButton({
                   btnStyle: {
-                    btnRes: 'coap配网',
+                    btnRes: $r('app.string.coap_config'),
                     clickEvent: () => {
                       Logger.info(TAG, 'getCurActiveIFaceConfig coapButton' + this.networkStateType);
                       if (this.networkStateType == 0) {

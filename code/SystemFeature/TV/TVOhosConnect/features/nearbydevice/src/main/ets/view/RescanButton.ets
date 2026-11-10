@@ -29,7 +29,7 @@ export struct RescanButton {
 
   promptActionShowToast() {
     promptAction.showToast({
-      message: '请开启蓝牙开关',
+      message: $r('app.string.bluetooth_off_tip'),
       duration: 1000,
     });
   }

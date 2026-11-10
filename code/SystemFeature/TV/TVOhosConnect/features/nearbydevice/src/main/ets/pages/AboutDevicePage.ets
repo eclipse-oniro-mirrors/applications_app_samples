@@ -23,7 +23,7 @@ import { HMRouter, HMRouterMgr } from '@hadss/hmrouter';
 export struct AboutDevicePage {
   @State deviceInfo?: CloudDeviceModel = undefined;
   //临时数据，获取到实际数据后需删除
-  private deviceName: ResourceStr = '隧道控制器';
+  private deviceName: ResourceStr = $r('app.string.device_name_tunnel_controller');
 
   aboutToAppear(): void {
     this.deviceInfo = HMRouterMgr.getCurrentParam() as CloudDeviceModel;
