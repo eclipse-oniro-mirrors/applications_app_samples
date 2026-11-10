@@ -2996,3 +2996,1830 @@ export default function PhotosUserFileDataItemHashBoundaryTest(): void {
       expect(item.isLoad()).assertTrue();
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0127 end');
     })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0128
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0128
+     * @tc.desc      Walks boundary hash transition sample 28.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0128', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_27', 1227);
+      expect(item.getHashCode()).assertEqual('1227');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/27';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/271 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/270 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0128 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0129
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0129
+     * @tc.desc      Walks boundary hash transition sample 29.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0129', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_28', 1228);
+      expect(item.getHashCode()).assertEqual('1228');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/28';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/280 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/281 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0129 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0130
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0130
+     * @tc.desc      Walks boundary hash transition sample 30.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0130', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_29', 1229);
+      expect(item.getHashCode()).assertEqual('1229');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/29';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/291 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/290 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0130 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0131
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0131
+     * @tc.desc      Walks boundary hash transition sample 31.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0131', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_30', 1230);
+      expect(item.getHashCode()).assertEqual('1230');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/30';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/300 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/301 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0131 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0132
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0132
+     * @tc.desc      Walks boundary hash transition sample 32.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0132', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_31', 1231);
+      expect(item.getHashCode()).assertEqual('1231');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/31';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/311 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/310 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0132 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0133
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0133
+     * @tc.desc      Walks boundary hash transition sample 33.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0133', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_32', 1232);
+      expect(item.getHashCode()).assertEqual('1232');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/32';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/320 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/321 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0133 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0134
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0134
+     * @tc.desc      Walks boundary hash transition sample 34.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0134', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_33', 1233);
+      expect(item.getHashCode()).assertEqual('1233');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/33';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/331 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/330 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0134 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0135
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0135
+     * @tc.desc      Walks boundary hash transition sample 35.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0135', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_34', 1234);
+      expect(item.getHashCode()).assertEqual('1234');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/34';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/340 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/341 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0135 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0136
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0136
+     * @tc.desc      Walks boundary hash transition sample 36.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0136', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_35', 1235);
+      expect(item.getHashCode()).assertEqual('1235');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/35';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/351 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/350 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0136 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0137
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0137
+     * @tc.desc      Walks boundary hash transition sample 37.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0137', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_36', 1236);
+      expect(item.getHashCode()).assertEqual('1236');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/36';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/360 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/361 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0137 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0138
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0138
+     * @tc.desc      Walks boundary hash transition sample 38.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0138', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_37', 1237);
+      expect(item.getHashCode()).assertEqual('1237');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/37';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/371 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/370 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0138 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0139
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0139
+     * @tc.desc      Walks boundary hash transition sample 39.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0139', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_38', 1238);
+      expect(item.getHashCode()).assertEqual('1238');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/38';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/380 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/381 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0139 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0140
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0140
+     * @tc.desc      Walks boundary hash transition sample 40.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0140', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_39', 1239);
+      expect(item.getHashCode()).assertEqual('1239');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/39';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/391 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/390 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0140 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0141
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0141
+     * @tc.desc      Walks boundary hash transition sample 41.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0141', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_40', 1240);
+      expect(item.getHashCode()).assertEqual('1240');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/40';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/400 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/401 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0141 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0142
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0142
+     * @tc.desc      Walks boundary hash transition sample 42.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0142', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_41', 1241);
+      expect(item.getHashCode()).assertEqual('1241');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/41';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/411 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/410 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0142 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0143
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0143
+     * @tc.desc      Walks boundary hash transition sample 43.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0143', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_42', 1242);
+      expect(item.getHashCode()).assertEqual('1242');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/42';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/420 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/421 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0143 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0144
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0144
+     * @tc.desc      Walks boundary hash transition sample 44.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0144', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_43', 1243);
+      expect(item.getHashCode()).assertEqual('1243');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/43';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/431 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/430 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0144 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0145
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0145
+     * @tc.desc      Walks boundary hash transition sample 45.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0145', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_44', 1244);
+      expect(item.getHashCode()).assertEqual('1244');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/44';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/440 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/441 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0145 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0146
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0146
+     * @tc.desc      Walks boundary hash transition sample 46.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0146', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_45', 1245);
+      expect(item.getHashCode()).assertEqual('1245');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/45';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/451 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/450 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0146 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0147
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0147
+     * @tc.desc      Walks boundary hash transition sample 47.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0147', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_46', 1246);
+      expect(item.getHashCode()).assertEqual('1246');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/46';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/460 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/461 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0147 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0148
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0148
+     * @tc.desc      Walks boundary hash transition sample 48.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0148', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_47', 1247);
+      expect(item.getHashCode()).assertEqual('1247');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/47';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/471 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/470 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0148 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0149
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0149
+     * @tc.desc      Walks boundary hash transition sample 49.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0149', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_48', 1248);
+      expect(item.getHashCode()).assertEqual('1248');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/48';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/480 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/481 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0149 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0150
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0150
+     * @tc.desc      Walks boundary hash transition sample 50.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0150', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_49', 1249);
+      expect(item.getHashCode()).assertEqual('1249');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/49';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/491 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/490 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0150 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0151
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0151
+     * @tc.desc      Walks boundary hash transition sample 51.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0151', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_50', 1250);
+      expect(item.getHashCode()).assertEqual('1250');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/50';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/500 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/501 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0151 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0152
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0152
+     * @tc.desc      Walks boundary hash transition sample 52.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0152', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_51', 1251);
+      expect(item.getHashCode()).assertEqual('1251');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/51';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/511 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/510 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0152 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0153
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0153
+     * @tc.desc      Walks boundary hash transition sample 53.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0153', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_52', 1252);
+      expect(item.getHashCode()).assertEqual('1252');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/52';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/520 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/521 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0153 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0154
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0154
+     * @tc.desc      Walks boundary hash transition sample 54.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0154', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_53', 1253);
+      expect(item.getHashCode()).assertEqual('1253');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/53';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/531 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/530 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0154 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0155
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0155
+     * @tc.desc      Walks boundary hash transition sample 55.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0155', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_54', 1254);
+      expect(item.getHashCode()).assertEqual('1254');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/54';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/540 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/541 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0155 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0156
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0156
+     * @tc.desc      Walks boundary hash transition sample 56.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0156', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_55', 1255);
+      expect(item.getHashCode()).assertEqual('1255');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/55';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/551 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/550 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0156 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0157
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0157
+     * @tc.desc      Walks boundary hash transition sample 57.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0157', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_56', 1256);
+      expect(item.getHashCode()).assertEqual('1256');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/56';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/560 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/561 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0157 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0158
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0158
+     * @tc.desc      Walks boundary hash transition sample 58.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0158', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_57', 1257);
+      expect(item.getHashCode()).assertEqual('1257');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/57';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/571 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/570 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0158 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0159
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0159
+     * @tc.desc      Walks boundary hash transition sample 59.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0159', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_58', 1258);
+      expect(item.getHashCode()).assertEqual('1258');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/58';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/580 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/581 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0159 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0160
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0160
+     * @tc.desc      Walks boundary hash transition sample 60.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0160', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_59', 1259);
+      expect(item.getHashCode()).assertEqual('1259');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/59';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/591 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/590 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0160 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0161
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0161
+     * @tc.desc      Walks boundary hash transition sample 61.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0161', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_60', 1260);
+      expect(item.getHashCode()).assertEqual('1260');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/60';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/600 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/601 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0161 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0162
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0162
+     * @tc.desc      Walks boundary hash transition sample 62.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0162', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_61', 1261);
+      expect(item.getHashCode()).assertEqual('1261');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/61';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/611 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/610 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0162 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0163
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0163
+     * @tc.desc      Walks boundary hash transition sample 63.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_62', 1262);
+      expect(item.getHashCode()).assertEqual('1262');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/62';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/620 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/621 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0163 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0164
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0164
+     * @tc.desc      Walks boundary hash transition sample 64.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_63', 1263);
+      expect(item.getHashCode()).assertEqual('1263');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/63';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/631 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/630 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0164 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0165
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0165
+     * @tc.desc      Walks boundary hash transition sample 65.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_64', 1264);
+      expect(item.getHashCode()).assertEqual('1264');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/64';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/640 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/641 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0165 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0166
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0166
+     * @tc.desc      Walks boundary hash transition sample 66.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_65', 1265);
+      expect(item.getHashCode()).assertEqual('1265');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/65';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/651 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/650 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0166 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0167
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0167
+     * @tc.desc      Walks boundary hash transition sample 67.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_66', 1266);
+      expect(item.getHashCode()).assertEqual('1266');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/66';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/660 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/661 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0167 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0168
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0168
+     * @tc.desc      Walks boundary hash transition sample 68.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_67', 1267);
+      expect(item.getHashCode()).assertEqual('1267');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/67';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/671 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/670 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0168 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0169
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0169
+     * @tc.desc      Walks boundary hash transition sample 69.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_68', 1268);
+      expect(item.getHashCode()).assertEqual('1268');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/68';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/680 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/681 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0169 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0170
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0170
+     * @tc.desc      Walks boundary hash transition sample 70.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_69', 1269);
+      expect(item.getHashCode()).assertEqual('1269');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/69';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/691 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/690 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0170 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0171
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0171
+     * @tc.desc      Walks boundary hash transition sample 71.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_70', 1270);
+      expect(item.getHashCode()).assertEqual('1270');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/70';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/700 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/701 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0171 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0172
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0172
+     * @tc.desc      Walks boundary hash transition sample 72.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_71', 1271);
+      expect(item.getHashCode()).assertEqual('1271');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/71';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/711 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/710 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0172 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0173
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0173
+     * @tc.desc      Walks boundary hash transition sample 73.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_72', 1272);
+      expect(item.getHashCode()).assertEqual('1272');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/72';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/720 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/721 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0173 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0174
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0174
+     * @tc.desc      Walks boundary hash transition sample 74.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_73', 1273);
+      expect(item.getHashCode()).assertEqual('1273');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/73';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/731 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/730 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0174 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0175
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0175
+     * @tc.desc      Walks boundary hash transition sample 75.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_74', 1274);
+      expect(item.getHashCode()).assertEqual('1274');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/74';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/740 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/741 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0175 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0176
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0176
+     * @tc.desc      Walks boundary hash transition sample 76.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_75', 1275);
+      expect(item.getHashCode()).assertEqual('1275');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/75';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/751 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/750 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0176 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0177
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0177
+     * @tc.desc      Walks boundary hash transition sample 77.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_76', 1276);
+      expect(item.getHashCode()).assertEqual('1276');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/76';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/760 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/761 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0177 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0178
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0178
+     * @tc.desc      Walks boundary hash transition sample 78.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_77', 1277);
+      expect(item.getHashCode()).assertEqual('1277');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/77';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/771 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/770 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0178 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0179
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0179
+     * @tc.desc      Walks boundary hash transition sample 79.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_78', 1278);
+      expect(item.getHashCode()).assertEqual('1278');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/78';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/780 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/781 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0179 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0180
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0180
+     * @tc.desc      Walks boundary hash transition sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_79', 1279);
+      expect(item.getHashCode()).assertEqual('1279');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/79';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/791 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/790 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0180 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0181
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0181
+     * @tc.desc      Walks boundary hash transition sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0181', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_80', 1280);
+      expect(item.getHashCode()).assertEqual('1280');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/80';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/800 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/801 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0181 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0182
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0182
+     * @tc.desc      Walks boundary hash transition sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0182', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_81', 1281);
+      expect(item.getHashCode()).assertEqual('1281');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/81';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/811 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/810 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0182 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0183
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0183
+     * @tc.desc      Walks boundary hash transition sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0183', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_82', 1282);
+      expect(item.getHashCode()).assertEqual('1282');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/82';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/820 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/821 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0183 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0184
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0184
+     * @tc.desc      Walks boundary hash transition sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0184', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_83', 1283);
+      expect(item.getHashCode()).assertEqual('1283');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/83';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/831 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/830 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0184 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0185
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0185
+     * @tc.desc      Walks boundary hash transition sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0185', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_84', 1284);
+      expect(item.getHashCode()).assertEqual('1284');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/84';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/840 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/841 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0185 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0186
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0186
+     * @tc.desc      Walks boundary hash transition sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0186', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_85', 1285);
+      expect(item.getHashCode()).assertEqual('1285');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/85';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/851 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/850 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0186 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0187
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0187
+     * @tc.desc      Walks boundary hash transition sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0187', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_86', 1286);
+      expect(item.getHashCode()).assertEqual('1286');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/86';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/860 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/861 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0187 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0188
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0188
+     * @tc.desc      Walks boundary hash transition sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0188', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_87', 1287);
+      expect(item.getHashCode()).assertEqual('1287');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/87';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/871 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/870 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0188 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0189
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0189
+     * @tc.desc      Walks boundary hash transition sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0189', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_88', 1288);
+      expect(item.getHashCode()).assertEqual('1288');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/88';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/880 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/881 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0189 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0190
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0190
+     * @tc.desc      Walks boundary hash transition sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0190', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_89', 1289);
+      expect(item.getHashCode()).assertEqual('1289');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/89';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/891 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/890 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0190 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0191
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0191
+     * @tc.desc      Walks boundary hash transition sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_90', 1290);
+      expect(item.getHashCode()).assertEqual('1290');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/90';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/900 180 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/901 180 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0191 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0192
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0192
+     * @tc.desc      Walks boundary hash transition sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_91', 1291);
+      expect(item.getHashCode()).assertEqual('1291');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/91';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/911 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/910 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0192 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0193
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0193
+     * @tc.desc      Walks boundary hash transition sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_92', 1292);
+      expect(item.getHashCode()).assertEqual('1292');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/92';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/920 0 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/921 0 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0193 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0194
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0194
+     * @tc.desc      Walks boundary hash transition sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_93', 1293);
+      expect(item.getHashCode()).assertEqual('1293');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/93';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/931 90 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/930 90 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0194 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0195
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0195
+     * @tc.desc      Walks boundary hash transition sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_94', 1294);
+      expect(item.getHashCode()).assertEqual('1294');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/94';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/940 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/941 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0195 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0196
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0196
+     * @tc.desc      Walks boundary hash transition sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_95', 1295);
+      expect(item.getHashCode()).assertEqual('1295');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/95';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/951 270 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/950 270 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0196 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0197
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0197
+     * @tc.desc      Walks boundary hash transition sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_96', 1296);
+      expect(item.getHashCode()).assertEqual('1296');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/96';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/960 0 true');
+      item.favouriteStatus = 1;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/961 0 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0197 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0198
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0198
+     * @tc.desc      Walks boundary hash transition sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_97', 1297);
+      expect(item.getHashCode()).assertEqual('1297');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/97';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/971 90 false');
+      item.favouriteStatus = 0;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/970 90 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0198 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0199
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0199
+     * @tc.desc      Walks boundary hash transition sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_98', 1298);
+      expect(item.getHashCode()).assertEqual('1298');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/98';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/980 180 false');
+      item.favouriteStatus = 1;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/981 180 true');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0199 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_BOUNDARY_0200
+     * @tc.name      testPhotosUserFileDataItemHashBoundary0200
+     * @tc.desc      Walks boundary hash transition sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashBoundary0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'transition_device_99', 1299);
+      expect(item.getHashCode()).assertEqual('1299');
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/transition/99';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/transition/991 270 true');
+      item.favouriteStatus = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/transition/990 270 false');
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashBoundary0200 end');
+    })
+  })
+}
