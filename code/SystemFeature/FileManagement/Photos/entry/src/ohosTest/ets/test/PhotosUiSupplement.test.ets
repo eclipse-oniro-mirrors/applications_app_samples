@@ -426,7 +426,7 @@ export default function PhotosUiSupplementTest(): void {
     /**
      * @tc.number    SUB_SYS_PHOTOS_UI_SUPP_0010
      * @tc.name      testPhotosUiSupp0010
-     * @tc.desc      Checks places tab is visible on the Photos home screen.
+     * @tc.desc      Checks the location album tab is visible on the Photos home screen.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
@@ -901,7 +901,7 @@ export default function PhotosUiSupplementTest(): void {
     /**
      * @tc.number    SUB_SYS_PHOTOS_UI_SUPP_0034
      * @tc.name      testPhotosUiSupp0034
-     * @tc.desc      Checks the places tab can be selected and left.
+     * @tc.desc      Checks the location album tab can be selected and left.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
