@@ -3462,3 +3462,863 @@ export default function PhotosDateFormatExtTest(): void {
 
 
     /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0241
+     * @tc.name      testPhotosDateFormatExt0241
+     * @tc.desc      Formats extended date sample 81 with pattern MM.dd. case 241
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0241 begin');
+      expect(DateUtil.format(new Date(2024, 8, 25, 8, 20, 20), 'MM.dd')).assertEqual('09.25');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0241 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0242
+     * @tc.name      testPhotosDateFormatExt0242
+     * @tc.desc      Formats extended date sample 81 with pattern MM.dd. case 242
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0242 begin');
+      expect(DateUtil.format(new Date(2024, 1, 17, 15, 40, 40), 'MM.dd')).assertEqual('02.17');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0242 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0243
+     * @tc.name      testPhotosDateFormatExt0243
+     * @tc.desc      Formats extended date sample 81 with pattern MM.dd. case 243
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0243 begin');
+      expect(DateUtil.format(new Date(2024, 5, 1, 21, 20, 40), 'MM.dd')).assertEqual('06.01');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0243 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0244
+     * @tc.name      testPhotosDateFormatExt0244
+     * @tc.desc      Formats extended date sample 82 with pattern HH-mm. case 244
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0244 begin');
+      expect(DateUtil.format(new Date(2024, 9, 26, 9, 27, 33), 'HH-mm')).assertEqual('09-27');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0244 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0245
+     * @tc.name      testPhotosDateFormatExt0245
+     * @tc.desc      Formats extended date sample 82 with pattern HH-mm. case 245
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0245 begin');
+      expect(DateUtil.format(new Date(2024, 2, 20, 16, 51, 57), 'HH-mm')).assertEqual('16-51');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0245 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0246
+     * @tc.name      testPhotosDateFormatExt0246
+     * @tc.desc      Formats extended date sample 82 with pattern HH-mm. case 246
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0246 begin');
+      expect(DateUtil.format(new Date(2024, 6, 8, 22, 39, 3), 'HH-mm')).assertEqual('22-39');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0246 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0247
+     * @tc.name      testPhotosDateFormatExt0247
+     * @tc.desc      Formats extended date sample 83 with pattern MM/dd HH:mm. case 247
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0247 begin');
+      expect(DateUtil.format(new Date(2024, 10, 27, 10, 34, 46), 'MM/dd HH:mm')).assertEqual('11/27 10:34');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0247 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0248
+     * @tc.name      testPhotosDateFormatExt0248
+     * @tc.desc      Formats extended date sample 83 with pattern MM/dd HH:mm. case 248
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0248 begin');
+      expect(DateUtil.format(new Date(2024, 3, 23, 17, 2, 14), 'MM/dd HH:mm')).assertEqual('04/23 17:02');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0248 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0249
+     * @tc.name      testPhotosDateFormatExt0249
+     * @tc.desc      Formats extended date sample 83 with pattern MM/dd HH:mm. case 249
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0249 begin');
+      expect(DateUtil.format(new Date(2024, 7, 15, 23, 58, 26), 'MM/dd HH:mm')).assertEqual('08/15 23:58');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0249 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0250
+     * @tc.name      testPhotosDateFormatExt0250
+     * @tc.desc      Formats extended date sample 84 with pattern dd/MM HH:mm:ss. case 250
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0250 begin');
+      expect(DateUtil.format(new Date(2024, 11, 28, 11, 41, 59), 'dd/MM HH:mm:ss')).assertEqual('28/12 11:41:59');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0250 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0251
+     * @tc.name      testPhotosDateFormatExt0251
+     * @tc.desc      Formats extended date sample 84 with pattern dd/MM HH:mm:ss. case 251
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0251 begin');
+      expect(DateUtil.format(new Date(2024, 4, 26, 18, 13, 31), 'dd/MM HH:mm:ss')).assertEqual('26/05 18:13:31');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0251 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0252
+     * @tc.name      testPhotosDateFormatExt0252
+     * @tc.desc      Formats extended date sample 84 with pattern dd/MM HH:mm:ss. case 252
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0252 begin');
+      expect(DateUtil.format(new Date(2024, 8, 22, 0, 17, 49), 'dd/MM HH:mm:ss')).assertEqual('22/09 00:17:49');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0252 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0253
+     * @tc.name      testPhotosDateFormatExt0253
+     * @tc.desc      Formats extended date sample 85 with pattern MM-dd-HH-mm-ss. case 253
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0253 begin');
+      expect(DateUtil.format(new Date(2024, 0, 1, 12, 48, 12), 'MM-dd-HH-mm-ss')).assertEqual('01-01-12-48-12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0253 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0254
+     * @tc.name      testPhotosDateFormatExt0254
+     * @tc.desc      Formats extended date sample 85 with pattern MM-dd-HH-mm-ss. case 254
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0254 begin');
+      expect(DateUtil.format(new Date(2024, 5, 1, 19, 24, 48), 'MM-dd-HH-mm-ss')).assertEqual('06-01-19-24-48');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0254 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0255
+     * @tc.name      testPhotosDateFormatExt0255
+     * @tc.desc      Formats extended date sample 85 with pattern MM-dd-HH-mm-ss. case 255
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0255 begin');
+      expect(DateUtil.format(new Date(2024, 9, 1, 1, 36, 12), 'MM-dd-HH-mm-ss')).assertEqual('10-01-01-36-12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0255 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0256
+     * @tc.name      testPhotosDateFormatExt0256
+     * @tc.desc      Formats extended date sample 86 with pattern MM.dd. case 256
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0256 begin');
+      expect(DateUtil.format(new Date(2024, 1, 2, 13, 55, 25), 'MM.dd')).assertEqual('02.02');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0256 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0257
+     * @tc.name      testPhotosDateFormatExt0257
+     * @tc.desc      Formats extended date sample 86 with pattern MM.dd. case 257
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0257 begin');
+      expect(DateUtil.format(new Date(2024, 6, 4, 20, 35, 5), 'MM.dd')).assertEqual('07.04');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0257 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0258
+     * @tc.name      testPhotosDateFormatExt0258
+     * @tc.desc      Formats extended date sample 86 with pattern MM.dd. case 258
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0258 begin');
+      expect(DateUtil.format(new Date(2024, 10, 8, 2, 55, 35), 'MM.dd')).assertEqual('11.08');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0258 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0259
+     * @tc.name      testPhotosDateFormatExt0259
+     * @tc.desc      Formats extended date sample 87 with pattern HH-mm. case 259
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0259', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0259 begin');
+      expect(DateUtil.format(new Date(2024, 2, 3, 14, 2, 38), 'HH-mm')).assertEqual('14-02');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0259 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0260
+     * @tc.name      testPhotosDateFormatExt0260
+     * @tc.desc      Formats extended date sample 87 with pattern HH-mm. case 260
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0260', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0260 begin');
+      expect(DateUtil.format(new Date(2024, 7, 7, 21, 46, 22), 'HH-mm')).assertEqual('21-46');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0260 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0261
+     * @tc.name      testPhotosDateFormatExt0261
+     * @tc.desc      Formats extended date sample 87 with pattern HH-mm. case 261
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0261', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0261 begin');
+      expect(DateUtil.format(new Date(2024, 11, 15, 3, 14, 58), 'HH-mm')).assertEqual('03-14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0261 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0262
+     * @tc.name      testPhotosDateFormatExt0262
+     * @tc.desc      Formats extended date sample 88 with pattern MM/dd HH:mm. case 262
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0262', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0262 begin');
+      expect(DateUtil.format(new Date(2024, 3, 4, 15, 9, 51), 'MM/dd HH:mm')).assertEqual('04/04 15:09');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0262 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0263
+     * @tc.name      testPhotosDateFormatExt0263
+     * @tc.desc      Formats extended date sample 88 with pattern MM/dd HH:mm. case 263
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0263 begin');
+      expect(DateUtil.format(new Date(2024, 8, 10, 22, 57, 39), 'MM/dd HH:mm')).assertEqual('09/10 22:57');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0263 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0264
+     * @tc.name      testPhotosDateFormatExt0264
+     * @tc.desc      Formats extended date sample 88 with pattern MM/dd HH:mm. case 264
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0264 begin');
+      expect(DateUtil.format(new Date(2024, 0, 22, 4, 33, 21), 'MM/dd HH:mm')).assertEqual('01/22 04:33');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0264 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0265
+     * @tc.name      testPhotosDateFormatExt0265
+     * @tc.desc      Formats extended date sample 89 with pattern dd/MM HH:mm:ss. case 265
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0265 begin');
+      expect(DateUtil.format(new Date(2024, 4, 5, 16, 16, 4), 'dd/MM HH:mm:ss')).assertEqual('05/05 16:16:04');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0265 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0266
+     * @tc.name      testPhotosDateFormatExt0266
+     * @tc.desc      Formats extended date sample 89 with pattern dd/MM HH:mm:ss. case 266
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0266 begin');
+      expect(DateUtil.format(new Date(2024, 9, 13, 23, 8, 56), 'dd/MM HH:mm:ss')).assertEqual('13/10 23:08:56');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0266 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0267
+     * @tc.name      testPhotosDateFormatExt0267
+     * @tc.desc      Formats extended date sample 89 with pattern dd/MM HH:mm:ss. case 267
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0267 begin');
+      expect(DateUtil.format(new Date(2024, 1, 1, 5, 52, 44), 'dd/MM HH:mm:ss')).assertEqual('01/02 05:52:44');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0267 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0268
+     * @tc.name      testPhotosDateFormatExt0268
+     * @tc.desc      Formats extended date sample 90 with pattern MM-dd-HH-mm-ss. case 268
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0268 begin');
+      expect(DateUtil.format(new Date(2024, 5, 6, 17, 23, 17), 'MM-dd-HH-mm-ss')).assertEqual('06-06-17-23-17');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0268 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0269
+     * @tc.name      testPhotosDateFormatExt0269
+     * @tc.desc      Formats extended date sample 90 with pattern MM-dd-HH-mm-ss. case 269
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0269 begin');
+      expect(DateUtil.format(new Date(2024, 10, 16, 0, 19, 13), 'MM-dd-HH-mm-ss')).assertEqual('11-16-00-19-13');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0269 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0270
+     * @tc.name      testPhotosDateFormatExt0270
+     * @tc.desc      Formats extended date sample 90 with pattern MM-dd-HH-mm-ss. case 270
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0270 begin');
+      expect(DateUtil.format(new Date(2024, 2, 8, 6, 11, 7), 'MM-dd-HH-mm-ss')).assertEqual('03-08-06-11-07');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0270 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0271
+     * @tc.name      testPhotosDateFormatExt0271
+     * @tc.desc      Formats extended date sample 91 with pattern MM.dd. case 271
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0271 begin');
+      expect(DateUtil.format(new Date(2024, 6, 7, 18, 30, 30), 'MM.dd')).assertEqual('07.07');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0271 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0272
+     * @tc.name      testPhotosDateFormatExt0272
+     * @tc.desc      Formats extended date sample 91 with pattern MM.dd. case 272
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0272 begin');
+      expect(DateUtil.format(new Date(2024, 11, 19, 1, 30, 30), 'MM.dd')).assertEqual('12.19');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0272 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0273
+     * @tc.name      testPhotosDateFormatExt0273
+     * @tc.desc      Formats extended date sample 91 with pattern MM.dd. case 273
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0273 begin');
+      expect(DateUtil.format(new Date(2024, 3, 15, 7, 30, 30), 'MM.dd')).assertEqual('04.15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0273 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0274
+     * @tc.name      testPhotosDateFormatExt0274
+     * @tc.desc      Formats extended date sample 92 with pattern HH-mm. case 274
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0274 begin');
+      expect(DateUtil.format(new Date(2024, 7, 8, 19, 37, 43), 'HH-mm')).assertEqual('19-37');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0274 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0275
+     * @tc.name      testPhotosDateFormatExt0275
+     * @tc.desc      Formats extended date sample 92 with pattern HH-mm. case 275
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0275 begin');
+      expect(DateUtil.format(new Date(2024, 0, 22, 2, 41, 47), 'HH-mm')).assertEqual('02-41');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0275 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0276
+     * @tc.name      testPhotosDateFormatExt0276
+     * @tc.desc      Formats extended date sample 92 with pattern HH-mm. case 276
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0276 begin');
+      expect(DateUtil.format(new Date(2024, 4, 22, 8, 49, 53), 'HH-mm')).assertEqual('08-49');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0276 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0277
+     * @tc.name      testPhotosDateFormatExt0277
+     * @tc.desc      Formats extended date sample 93 with pattern MM/dd HH:mm. case 277
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0277 begin');
+      expect(DateUtil.format(new Date(2024, 8, 9, 20, 44, 56), 'MM/dd HH:mm')).assertEqual('09/09 20:44');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0277 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0278
+     * @tc.name      testPhotosDateFormatExt0278
+     * @tc.desc      Formats extended date sample 93 with pattern MM/dd HH:mm. case 278
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0278 begin');
+      expect(DateUtil.format(new Date(2024, 1, 25, 3, 52, 4), 'MM/dd HH:mm')).assertEqual('02/25 03:52');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0278 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0279
+     * @tc.name      testPhotosDateFormatExt0279
+     * @tc.desc      Formats extended date sample 93 with pattern MM/dd HH:mm. case 279
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0279 begin');
+      expect(DateUtil.format(new Date(2024, 5, 1, 9, 8, 16), 'MM/dd HH:mm')).assertEqual('06/01 09:08');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0279 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0280
+     * @tc.name      testPhotosDateFormatExt0280
+     * @tc.desc      Formats extended date sample 94 with pattern dd/MM HH:mm:ss. case 280
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0280 begin');
+      expect(DateUtil.format(new Date(2024, 9, 10, 21, 51, 9), 'dd/MM HH:mm:ss')).assertEqual('10/10 21:51:09');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0280 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0281
+     * @tc.name      testPhotosDateFormatExt0281
+     * @tc.desc      Formats extended date sample 94 with pattern dd/MM HH:mm:ss. case 281
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0281 begin');
+      expect(DateUtil.format(new Date(2024, 2, 28, 4, 3, 21), 'dd/MM HH:mm:ss')).assertEqual('28/03 04:03:21');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0281 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0282
+     * @tc.name      testPhotosDateFormatExt0282
+     * @tc.desc      Formats extended date sample 94 with pattern dd/MM HH:mm:ss. case 282
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0282 begin');
+      expect(DateUtil.format(new Date(2024, 6, 8, 10, 27, 39), 'dd/MM HH:mm:ss')).assertEqual('08/07 10:27:39');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0282 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0283
+     * @tc.name      testPhotosDateFormatExt0283
+     * @tc.desc      Formats extended date sample 95 with pattern MM-dd-HH-mm-ss. case 283
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0283 begin');
+      expect(DateUtil.format(new Date(2024, 10, 11, 22, 58, 22), 'MM-dd-HH-mm-ss')).assertEqual('11-11-22-58-22');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0283 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0284
+     * @tc.name      testPhotosDateFormatExt0284
+     * @tc.desc      Formats extended date sample 95 with pattern MM-dd-HH-mm-ss. case 284
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0284 begin');
+      expect(DateUtil.format(new Date(2024, 3, 3, 5, 14, 38), 'MM-dd-HH-mm-ss')).assertEqual('04-03-05-14-38');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0284 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0285
+     * @tc.name      testPhotosDateFormatExt0285
+     * @tc.desc      Formats extended date sample 95 with pattern MM-dd-HH-mm-ss. case 285
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0285 begin');
+      expect(DateUtil.format(new Date(2024, 7, 15, 11, 46, 2), 'MM-dd-HH-mm-ss')).assertEqual('08-15-11-46-02');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0285 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0286
+     * @tc.name      testPhotosDateFormatExt0286
+     * @tc.desc      Formats extended date sample 96 with pattern MM.dd. case 286
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0286 begin');
+      expect(DateUtil.format(new Date(2024, 11, 12, 23, 5, 35), 'MM.dd')).assertEqual('12.12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0286 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0287
+     * @tc.name      testPhotosDateFormatExt0287
+     * @tc.desc      Formats extended date sample 96 with pattern MM.dd. case 287
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0287 begin');
+      expect(DateUtil.format(new Date(2024, 4, 6, 6, 25, 55), 'MM.dd')).assertEqual('05.06');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0287 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0288
+     * @tc.name      testPhotosDateFormatExt0288
+     * @tc.desc      Formats extended date sample 96 with pattern MM.dd. case 288
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0288 begin');
+      expect(DateUtil.format(new Date(2024, 8, 22, 12, 5, 25), 'MM.dd')).assertEqual('09.22');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0288 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0289
+     * @tc.name      testPhotosDateFormatExt0289
+     * @tc.desc      Formats extended date sample 97 with pattern HH-mm. case 289
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0289 begin');
+      expect(DateUtil.format(new Date(2024, 0, 13, 0, 12, 48), 'HH-mm')).assertEqual('00-12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0289 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0290
+     * @tc.name      testPhotosDateFormatExt0290
+     * @tc.desc      Formats extended date sample 97 with pattern HH-mm. case 290
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0290 begin');
+      expect(DateUtil.format(new Date(2024, 5, 9, 7, 36, 12), 'HH-mm')).assertEqual('07-36');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0290 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0291
+     * @tc.name      testPhotosDateFormatExt0291
+     * @tc.desc      Formats extended date sample 97 with pattern HH-mm. case 291
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0291 begin');
+      expect(DateUtil.format(new Date(2024, 9, 1, 13, 24, 48), 'HH-mm')).assertEqual('13-24');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0291 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0292
+     * @tc.name      testPhotosDateFormatExt0292
+     * @tc.desc      Formats extended date sample 98 with pattern MM/dd HH:mm. case 292
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0292 begin');
+      expect(DateUtil.format(new Date(2024, 1, 14, 1, 19, 1), 'MM/dd HH:mm')).assertEqual('02/14 01:19');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0292 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0293
+     * @tc.name      testPhotosDateFormatExt0293
+     * @tc.desc      Formats extended date sample 98 with pattern MM/dd HH:mm. case 293
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0293 begin');
+      expect(DateUtil.format(new Date(2024, 6, 12, 8, 47, 29), 'MM/dd HH:mm')).assertEqual('07/12 08:47');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0293 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0294
+     * @tc.name      testPhotosDateFormatExt0294
+     * @tc.desc      Formats extended date sample 98 with pattern MM/dd HH:mm. case 294
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0294 begin');
+      expect(DateUtil.format(new Date(2024, 10, 8, 14, 43, 11), 'MM/dd HH:mm')).assertEqual('11/08 14:43');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0294 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0295
+     * @tc.name      testPhotosDateFormatExt0295
+     * @tc.desc      Formats extended date sample 99 with pattern dd/MM HH:mm:ss. case 295
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0295 begin');
+      expect(DateUtil.format(new Date(2024, 2, 15, 2, 26, 14), 'dd/MM HH:mm:ss')).assertEqual('15/03 02:26:14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0295 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0296
+     * @tc.name      testPhotosDateFormatExt0296
+     * @tc.desc      Formats extended date sample 99 with pattern dd/MM HH:mm:ss. case 296
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0296 begin');
+      expect(DateUtil.format(new Date(2024, 7, 15, 9, 58, 46), 'dd/MM HH:mm:ss')).assertEqual('15/08 09:58:46');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0296 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0297
+     * @tc.name      testPhotosDateFormatExt0297
+     * @tc.desc      Formats extended date sample 99 with pattern dd/MM HH:mm:ss. case 297
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0297 begin');
+      expect(DateUtil.format(new Date(2024, 11, 15, 15, 2, 34), 'dd/MM HH:mm:ss')).assertEqual('15/12 15:02:34');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0297 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0298
+     * @tc.name      testPhotosDateFormatExt0298
+     * @tc.desc      Formats extended date sample 100 with pattern MM-dd-HH-mm-ss. case 298
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0298 begin');
+      expect(DateUtil.format(new Date(2024, 3, 16, 3, 33, 27), 'MM-dd-HH-mm-ss')).assertEqual('04-16-03-33-27');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0298 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0299
+     * @tc.name      testPhotosDateFormatExt0299
+     * @tc.desc      Formats extended date sample 100 with pattern MM-dd-HH-mm-ss. case 299
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0299 begin');
+      expect(DateUtil.format(new Date(2024, 8, 18, 10, 9, 3), 'MM-dd-HH-mm-ss')).assertEqual('09-18-10-09-03');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0299 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_FORMAT_EXT_0300
+     * @tc.name      testPhotosDateFormatExt0300
+     * @tc.desc      Formats extended date sample 100 with pattern MM-dd-HH-mm-ss. case 300
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosDateFormatExt0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0300 begin');
+      expect(DateUtil.format(new Date(2024, 0, 22, 16, 21, 57), 'MM-dd-HH-mm-ss')).assertEqual('01-22-16-21-57');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosDateFormatExt0300 end');
+    })
+
+  })
+}
