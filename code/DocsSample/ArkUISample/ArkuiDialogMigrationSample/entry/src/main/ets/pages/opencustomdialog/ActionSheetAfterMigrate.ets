@@ -27,19 +27,19 @@ export struct ActionSheetAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('ActionSheet 迁移示例')
+          Text('ActionSheet' + $r('app.string.migrate_sample_zh'))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：showActionSheet')
+          Button($r('app.string.old_interface_zh') + '：showActionSheet')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceActionSheetOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（列表选择弹窗）')
+          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {

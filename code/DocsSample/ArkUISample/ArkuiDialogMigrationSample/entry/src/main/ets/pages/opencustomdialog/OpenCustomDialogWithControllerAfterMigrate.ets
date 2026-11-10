@@ -28,19 +28,19 @@ export struct OpenCustomDialogWithControllerAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('openCustomDialogWithController 迁移示例')
+          Text('openCustomDialogWithController' + $r('app.string.migrate_sample_zh'))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：promptAction.openCustomDialogWithController')
+          Button($r('app.string.old_interface_zh') + '：promptAction.openCustomDialogWithController')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceOpenCustomDialogWithControllerOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（自定义弹窗）')
+          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {

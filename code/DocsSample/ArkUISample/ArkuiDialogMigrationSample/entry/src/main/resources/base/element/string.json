@@ -967,27 +967,39 @@
     },
     {
       "name": "OldInterfacePromptActionShowActionMenuOnClick",
-      "value": "老接口示例请参考promptAction文档"
+      "value": "旧接口示例请参考promptAction文档"
     },
     {
       "name": "OldInterfaceActionSheetOnClick",
-      "value": "老接口示例请参考ActionSheet文档"
+      "value": "旧接口示例请参考ActionSheet文档"
     },
     {
       "name": "OldInterfaceAlertDialogOnClick",
-      "value": "老接口示例请参考AlertDialog文档"
+      "value": "旧接口示例请参考AlertDialog文档"
     },
     {
       "name": "OldInterfaceOpenCustomDialogWithControllerOnClick",
-      "value": "老接口示例请参考promptAction文档"
+      "value": "旧接口示例请参考promptAction文档"
     },
     {
       "name": "OldInterfacePresentCustomDialogOnClick",
-      "value": "老接口示例请参考promptAction文档"
+      "value": "旧接口示例请参考promptAction文档"
     },
     {
       "name": "OldInterfaceShowDialogOnClick",
-      "value": "老接口示例请参考promptAction文档"
+      "value": "旧接口示例请参考promptAction文档"
+    },
+    {
+      "name": "migrate_sample_zh",
+      "value": "迁移示例"
+    },
+    {
+      "name": "old_interface_zh",
+      "value": "旧接口"
+    },
+    {
+      "name": "new_interface_zh",
+      "value": "新接口"
     }
   ]
 }

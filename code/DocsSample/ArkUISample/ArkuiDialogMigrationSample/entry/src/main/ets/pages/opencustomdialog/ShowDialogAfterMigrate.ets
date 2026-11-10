@@ -27,19 +27,19 @@ export struct ShowDialogAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('showDialog 迁移示例')
+          Text('showDialog' + $r('app.string.migrate_sample_zh'))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：promptAction.showDialog')
+          Button($r('app.string.old_interface_zh') + '：promptAction.showDialog')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceShowDialogOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（对话框）')
+          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {

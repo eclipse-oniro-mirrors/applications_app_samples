@@ -27,19 +27,19 @@ export struct AlertDialogAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('AlertDialog 迁移示例')
+          Text('AlertDialog' + $r('app.string.migrate_sample_zh'))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：showAlertDialog')
+          Button($r('app.string.old_interface_zh') + '：showAlertDialog')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfaceAlertDialogOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（固定样式弹窗）')
+          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {

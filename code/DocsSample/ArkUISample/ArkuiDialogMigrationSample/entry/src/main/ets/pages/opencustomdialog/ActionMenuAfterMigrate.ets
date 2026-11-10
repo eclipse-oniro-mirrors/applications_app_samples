@@ -27,19 +27,19 @@ export struct ActionMenuAfterMigrate {
     NavDestination() {
       Row() {
         Column() {
-          Text('showActionMenu 迁移示例')
+          Text('showActionMenu' + $r('app.string.migrate_sample_zh'))
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .margin({ bottom: 20 })
 
-          Button('老接口：promptAction.showActionMenu')
+          Button($r('app.string.old_interface_zh') + '：promptAction.showActionMenu')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
               this.result = $r('app.string.OldInterfacePromptActionShowActionMenuOnClick');
             })
 
-          Button('新接口：DialogPresenter.present（操作菜单）')
+          Button($r('app.string.new_interface_zh') + '：DialogPresenter.present')
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
