@@ -143,7 +143,7 @@ export struct ProfileDemoPage {
     }
     const snapshot = session.refreshState(this.selectedDevice);
     this.applyView(snapshot);
-    Logger.info(this.logSource, 'refreshState', `device=${maskDeviceId(this.selectedDevice)}, code=${snapshot.code}`);
+    Logger.info(this.logSource, 'refreshState', `code=${snapshot.code}`);
   }
 
   private toggleSubscription(): void {
@@ -413,7 +413,7 @@ export struct ProfileDemoPage {
             .width('100%')
             .onSelect((index: number, value: string) => {
               this.selectedDevice = value;
-              Logger.info(this.logSource, 'device', `selected=${maskDeviceId(value)}`);
+              Logger.info(this.logSource, 'device', 'selection changed');
             })
         }
 

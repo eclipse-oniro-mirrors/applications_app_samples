@@ -6,11 +6,11 @@
 
 ## 效果预览
 
-截图为 dayu200 真机（720×1280）实拍：
+截图为 dayu200 真机（720×1280）实拍。仓库不允许入库二进制文件，因此截图以 SVG 封装（原图内联为 data URI）后随工程提交：
 
 | 首页 | HFP 演示页 | 调用结果 |
 | --- | --- | --- |
-| ![首页](screenshot/readme_home.jpeg) | ![HFP 演示页](screenshot/readme_hfp.jpeg) | ![调用结果](screenshot/readme_hfp_result.jpeg) |
+| ![首页](screenshot/readme_home.svg) | ![HFP 演示页](screenshot/readme_hfp.svg) | ![调用结果](screenshot/readme_hfp_result.svg) |
 | 系统蓝牙开关与 `ACCESS_BLUETOOTH` 授权状态、1 个 Profile 入口（搜索可过滤）、9 条首页事件日志 | 七项 Profile 状态、七个操作按钮、AG 角色提示与「已配对 / 已连接」语义说明 | 创建实例后 `getConnectedDevices()` 返回 0 台，状态落「无已连接设备」，提示说明需要 HF 端（耳机 / 车机）接入后才会有设备 |
 
 首页与演示页的日志面板展示的是同一条链路的页面内副本，hilog 侧另有完整调用记录，过滤方式见「日志方案」。

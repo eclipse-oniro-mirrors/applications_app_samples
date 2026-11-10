@@ -430,11 +430,11 @@
     },
     {
       "name": "session_invalid_device",
-      "value": "deviceId 不合法：%s"
+      "value": "deviceId 不合法：需为六段十六进制地址"
     },
     {
       "name": "session_empty_device",
-      "value": "空字符串"
+      "value": "deviceId 不合法：传入空字符串"
     },
     {
       "name": "session_subscribe_action",

@@ -23,7 +23,6 @@
 
 import { access, connection } from '@kit.ConnectivityKit';
 import { text } from '../common/StringResource';
-import { maskDeviceId } from '../model/DeviceAddress';
 import { ProbeStatus, bluetoothStateName, classifyErrorCode } from '../model/ProfileState';
 import { Logger } from './Logger';
 import { codeOfThrown, messageOfThrown } from './ErrorUtil';
@@ -127,8 +126,8 @@ export function readRemoteDeviceName(deviceId: string): string {
   try {
     return connection.getRemoteDeviceName(deviceId);
   } catch (err) {
-    // deviceId 是设备标识，日志里只写脱敏后的形式
-    Logger.warn(SOURCE, 'getRemoteDeviceName', `failed, device=${maskDeviceId(deviceId)}, detail=${messageOfThrown(err)}`);
+    // 设备标识属于敏感信息，日志里只记失败原因，不写任何形式的地址
+    Logger.warn(SOURCE, 'getRemoteDeviceName', `failed, detail=${messageOfThrown(err)}`);
     return '';
   }
 }

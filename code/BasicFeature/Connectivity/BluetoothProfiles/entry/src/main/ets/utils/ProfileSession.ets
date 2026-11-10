@@ -32,7 +32,7 @@ import {
   ProbeStatus,
   classifyErrorCode
 } from '../model/ProfileState';
-import { isValidDeviceId, maskDeviceId } from '../model/DeviceAddress';
+import { isValidDeviceId } from '../model/DeviceAddress';
 import { LogLevel } from '../model/LogStore';
 import { Logger } from './Logger';
 import { codeOfThrown, describeThrown, messageOfThrown } from './ErrorUtil';
@@ -112,15 +112,14 @@ export class ProfileSession {
       return this.ensureProfile();
     }
     if (!isValidDeviceId(deviceId)) {
-      // 回填到界面的设备标识同样只给脱敏形式
-      return this.update(ProbeStatus.FAILED, ERROR_CODE_INVALID_PARAM,
-        text('session_invalid_device',
-          deviceId.length > 0 ? maskDeviceId(deviceId) : text('session_empty_device')), LogLevel.WARN);
+      // 回填到界面的提示固定为文案资源，不带任何设备标识
+      const messageKey: string = deviceId.length > 0 ? 'session_invalid_device' : 'session_empty_device';
+      return this.update(ProbeStatus.FAILED, ERROR_CODE_INVALID_PARAM, text(messageKey), LogLevel.WARN);
     }
     try {
       const state: number = profile.getConnectionState(deviceId);
       this.snapshot = this.snapshot.withConnection(deviceId, state);
-      Logger.info(this.source, 'getConnectionState', `device=${maskDeviceId(deviceId)}, state=${state}`);
+      Logger.info(this.source, 'getConnectionState', `state=${state}`);
       this.notify();
       return this.snapshot;
     } catch (err) {
@@ -201,7 +200,7 @@ export class ProfileSession {
     const state: number = param.state;
     this.snapshot = this.snapshot.withConnection(param.deviceId, state);
     Logger.info(this.source, 'connectionStateChange',
-      `device=${maskDeviceId(param.deviceId)}, state=${state}, cause=${param.cause}`);
+      `state=${state}, cause=${param.cause}`);
     this.notify();
     return this.snapshot;
   }

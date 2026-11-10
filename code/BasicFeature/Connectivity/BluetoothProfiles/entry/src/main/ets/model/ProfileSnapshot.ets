@@ -113,16 +113,16 @@ export class ProfileSnapshot {
 export class ProfileViewState {
   public status: ProbeStatus = ProbeStatus.IDLE;
   public code: number = 0;
-  message: string = text('snapshot_no_instance');
+  public message: string = text('snapshot_no_instance');
   public devices: string[] = [];
   public selectedDevice: string = '';
   public currentState: number = CONNECTION_STATE_DISCONNECTED;
   public subscribed: boolean = false;
   public updatedAt: string = '--:--:--';
-  statusText: string = probeStatusName(ProbeStatus.IDLE);
-  hintText: string = probeStatusHint(ProbeStatus.IDLE);
-  deviceSummary: string = summarizeDeviceList([]);
-  connectionText: string = text('snapshot_no_query');
+  public statusText: string = probeStatusName(ProbeStatus.IDLE);
+  public hintText: string = probeStatusHint(ProbeStatus.IDLE);
+  public deviceSummary: string = summarizeDeviceList([]);
+  public connectionText: string = text('snapshot_no_query');
   public maskedDevices: string[] = [];
 
   /** 刷新后仍保留用户选择：优先当前快照指向的设备，其次上一次选择，最后取第一个设备 */
