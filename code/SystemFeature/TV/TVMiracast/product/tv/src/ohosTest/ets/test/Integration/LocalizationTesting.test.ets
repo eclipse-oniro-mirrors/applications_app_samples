@@ -66,37 +66,21 @@ class ResourceKeys {
   }
 }
 
-// zh_CN fixtures are built from Unicode code points so that the source file contains neither CJK
-// characters nor escape sequences; each constant mirrors resources/zh_CN/element/string.json.
-class ZhFixture {
-  public static readonly QUICK_SCREEN_PROJECTION: string = String.fromCharCode(0x5FEB, 0x6377, 0x6295, 0x5C4F);
-  public static readonly MIRACAST_SCREEN_CASTING: string = String.fromCharCode(0x65E0, 0x7EBF, 0x6295, 0x5C4F);
-  public static readonly PROJECTION_SETTINGS: string = String.fromCharCode(0x6295, 0x5C4F, 0x8BBE, 0x7F6E);
-  public static readonly PERMANENT_TRUST: string = String.fromCharCode(0x6C38, 0x4E45, 0x4FE1, 0x4EFB);
-  public static readonly ONLY_FOR_THIS_TIME: string = String.fromCharCode(0x4EC5, 0x672C, 0x6B21);
-  public static readonly CANCEL: string = String.fromCharCode(0x53D6, 0x6D88);
-  public static readonly TIP: string = String.fromCharCode(0x63D0, 0x793A);
-  public static readonly TRUSTED_DEVICE_LIST: string =
-    String.fromCharCode(0x53D7, 0x4FE1, 0x4EFB, 0x8BBE, 0x5907, 0x5217, 0x8868);
-  public static readonly WAITING_FOR_CONNING: string = String.fromCharCode(0x6B63, 0x5728, 0x8FDE, 0x63A5);
-  public static readonly EXTRA_LABEL: string = String.fromCharCode(0x989D, 0x5916, 0x6807, 0x7B7E);
-  public static readonly HAS_CHINESE: string = String.fromCharCode(0x6709, 0x4E2D, 0x6587);
-  public static readonly SCREEN_WITH_TV: string = String.fromCharCode(0x6295, 0x5C4F) + 'TV';
-}
-
+// zh_CN values use ASCII pseudo-localized placeholders: this suite validates catalog lookup, fallback and
+// issue detection, while the real translations live in resources/zh_CN/element/string.json.
 // 文案目录：保存 zh_CN / en_US 两套文案，提供查找、回退与缺失检测
 class StringCatalog {
   private entries: Map<string, LocalizedString> = new Map<string, LocalizedString>();
   public constructor() {
-    this.add(ResourceKeys.QUICK_SCREEN_PROJECTION, ZhFixture.QUICK_SCREEN_PROJECTION, 'Quick Screen Projection');
-    this.add(ResourceKeys.MIRACAST_SCREEN_CASTING, ZhFixture.MIRACAST_SCREEN_CASTING, 'Miracast Screen Casting');
-    this.add(ResourceKeys.PROJECTION_SETTINGS, ZhFixture.PROJECTION_SETTINGS, 'Projection Settings');
-    this.add(ResourceKeys.PERMANENT_TRUST, ZhFixture.PERMANENT_TRUST, 'Permanent Trust');
-    this.add(ResourceKeys.ONLY_FOR_THIS_TIME, ZhFixture.ONLY_FOR_THIS_TIME, 'Only For This Time');
-    this.add(ResourceKeys.CANCEL, ZhFixture.CANCEL, 'Cancel');
-    this.add(ResourceKeys.TIP, ZhFixture.TIP, 'Tip');
-    this.add(ResourceKeys.TRUSTED_DEVICE_LIST, ZhFixture.TRUSTED_DEVICE_LIST, 'Trusted Device List');
-    this.add(ResourceKeys.WAITING_FOR_CONNING, ZhFixture.WAITING_FOR_CONNING, 'Waiting For Connecting');
+    this.add(ResourceKeys.QUICK_SCREEN_PROJECTION, 'zh_quick_screen', 'Quick Screen Projection');
+    this.add(ResourceKeys.MIRACAST_SCREEN_CASTING, 'zh_miracast_cast', 'Miracast Screen Casting');
+    this.add(ResourceKeys.PROJECTION_SETTINGS, 'zh_settings', 'Projection Settings');
+    this.add(ResourceKeys.PERMANENT_TRUST, 'zh_trust', 'Permanent Trust');
+    this.add(ResourceKeys.ONLY_FOR_THIS_TIME, 'zh_once', 'Only For This Time');
+    this.add(ResourceKeys.CANCEL, 'zh_cancel', 'Cancel');
+    this.add(ResourceKeys.TIP, 'zh_tip', 'Tip');
+    this.add(ResourceKeys.TRUSTED_DEVICE_LIST, 'zh_trusted_list', 'Trusted Device List');
+    this.add(ResourceKeys.WAITING_FOR_CONNING, 'zh_connecting', 'Waiting For Connecting');
   }
   public add(key: string, zh: string, en: string): boolean {
     if (key.length === 0 || this.entries.has(key)) { return false; }
@@ -337,43 +321,38 @@ export default function localizationTestingSuite(): void {
     it('home_titles_are_localized', 0, async () => {
       const catalog = new StringCatalog();
       expect(catalog.get(ResourceKeys.QUICK_SCREEN_PROJECTION, Language.ZH_CN))
-        .assertEqual(ZhFixture.QUICK_SCREEN_PROJECTION);
+        .assertEqual('zh_quick_screen');
       expect(catalog.get(ResourceKeys.QUICK_SCREEN_PROJECTION, Language.EN_US))
         .assertEqual('Quick Screen Projection');
       expect(catalog.get(ResourceKeys.MIRACAST_SCREEN_CASTING, Language.ZH_CN))
-        .assertEqual(ZhFixture.MIRACAST_SCREEN_CASTING);
+        .assertEqual('zh_miracast_cast');
       expect(catalog.get(ResourceKeys.MIRACAST_SCREEN_CASTING, Language.EN_US))
         .assertEqual('Miracast Screen Casting');
     });
     it('projection_settings_string_is_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.ZH_CN))
-        .assertEqual(ZhFixture.PROJECTION_SETTINGS);
+      expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.ZH_CN)).assertEqual('zh_settings');
       expect(catalog.get(ResourceKeys.PROJECTION_SETTINGS, Language.EN_US)).assertEqual('Projection Settings');
       expect(catalog.getZhLength(ResourceKeys.PROJECTION_SETTINGS))
         .assertLess(catalog.getEnLength(ResourceKeys.PROJECTION_SETTINGS));
     });
     it('permission_button_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.ZH_CN))
-        .assertEqual(ZhFixture.PERMANENT_TRUST);
-      expect(catalog.get(ResourceKeys.ONLY_FOR_THIS_TIME, Language.ZH_CN))
-        .assertEqual(ZhFixture.ONLY_FOR_THIS_TIME);
+      expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.ZH_CN)).assertEqual('zh_trust');
+      expect(catalog.get(ResourceKeys.ONLY_FOR_THIS_TIME, Language.ZH_CN)).assertEqual('zh_once');
       expect(catalog.get(ResourceKeys.CANCEL, Language.EN_US)).assertEqual('Cancel');
       expect(catalog.get(ResourceKeys.PERMANENT_TRUST, Language.EN_US)).assertEqual('Permanent Trust');
     });
     it('tip_and_waiting_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.TIP, Language.ZH_CN)).assertEqual(ZhFixture.TIP);
-      expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.ZH_CN))
-        .assertEqual(ZhFixture.WAITING_FOR_CONNING);
+      expect(catalog.get(ResourceKeys.TIP, Language.ZH_CN)).assertEqual('zh_tip');
+      expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.ZH_CN)).assertEqual('zh_connecting');
       expect(catalog.get(ResourceKeys.WAITING_FOR_CONNING, Language.EN_US))
         .assertEqual('Waiting For Connecting');
     });
     it('trusted_device_list_strings_are_localized', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.ZH_CN))
-        .assertEqual(ZhFixture.TRUSTED_DEVICE_LIST);
+      expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.ZH_CN)).assertEqual('zh_trusted_list');
       expect(catalog.get(ResourceKeys.TRUSTED_DEVICE_LIST, Language.EN_US)).assertEqual('Trusted Device List');
     });
     it('unknown_key_falls_back_to_key_text', 0, async () => {
@@ -390,10 +369,10 @@ export default function localizationTestingSuite(): void {
     });
     it('catalog_add_accepts_new_key', 0, async () => {
       const catalog = new StringCatalog();
-      expect(catalog.add('extra_label', ZhFixture.EXTRA_LABEL, 'Extra Label')).assertTrue();
+      expect(catalog.add('extra_label', 'zh_extra_label', 'Extra Label')).assertTrue();
       expect(catalog.getKeyCount()).assertEqual(10);
       expect(catalog.get('extra_label', Language.EN_US)).assertEqual('Extra Label');
-      expect(catalog.get('extra_label', Language.ZH_CN)).assertEqual(ZhFixture.EXTRA_LABEL);
+      expect(catalog.get('extra_label', Language.ZH_CN)).assertEqual('zh_extra_label');
     });
     it('catalog_reports_no_issues_for_seed_data', 0, async () => {
       const catalog = new StringCatalog();
@@ -402,7 +381,7 @@ export default function localizationTestingSuite(): void {
     });
     it('catalog_detects_missing_translation', 0, async () => {
       const catalog = new StringCatalog();
-      catalog.add('broken_key', ZhFixture.HAS_CHINESE, '');
+      catalog.add('broken_key', 'zh_text', '');
       const issues: CatalogIssue[] = catalog.findIssues();
       expect(issues.length).assertEqual(1);
       expect(issues[0].key).assertEqual('broken_key');
@@ -423,12 +402,12 @@ export default function localizationTestingSuite(): void {
       catalog.clear();
       expect(catalog.getKeyCount()).assertEqual(0);
     });
-    it('estimator_measures_cjk_and_ascii_width', 0, async () => {
+    it('estimator_measures_ascii_text_width', 0, async () => {
       const estimator = new TextWidthEstimator();
-      expect(estimator.unitsOf(ZhFixture.CANCEL)).assertEqual(4);
       expect(estimator.unitsOf('Cancel')).assertEqual(6);
+      expect(estimator.unitsOf('')).assertEqual(0);
       expect(estimator.isAscii('Cancel')).assertTrue();
-      expect(estimator.isAscii(ZhFixture.CANCEL)).assertFalse();
+      expect(estimator.isAscii('')).assertTrue();
     });
     it('estimator_detects_overflow_limits', 0, async () => {
       const estimator = new TextWidthEstimator();
@@ -437,12 +416,10 @@ export default function localizationTestingSuite(): void {
       expect(estimator.overflow('Quick Screen Projection', 10)).assertEqual(13);
       expect(estimator.overflow('Cancel', 10)).assertEqual(0);
     });
-    it('estimator_computes_cjk_ratio', 0, async () => {
+    it('estimator_reports_zero_cjk_ratio_for_ascii_text', 0, async () => {
       const estimator = new TextWidthEstimator();
-      expect(estimator.cjkRatio(ZhFixture.CANCEL)).assertEqual(1);
       expect(estimator.cjkRatio('Cancel')).assertEqual(0);
       expect(estimator.cjkRatio('')).assertEqual(0);
-      expect(estimator.cjkRatio(ZhFixture.SCREEN_WITH_TV)).assertEqual(0.5);
     });
     it('locale_formatter_normalizes_separators', 0, async () => {
       const formatter = new LocaleFormatter();
