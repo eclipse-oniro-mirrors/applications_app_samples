@@ -16,11 +16,13 @@
 // [Start module_hnpPackages]
 // [Start module_definePermissions]
 // [Start module_executableBinaryPaths]
+// [Start module_launchServices]
 {
   "module": {
     // [StartExclude module_hnpPackages]
     // [StartExclude module_definePermissions]
     // [StartExclude module_executableBinaryPaths]
+    // [StartExclude module_launchServices]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -48,6 +50,18 @@
       }
     ],
     // [StartExclude module_executableBinaryPaths]
+    // [EndExclude module_launchServices]
+    "launchServices": [
+      {
+        "name": "mydaemon",
+        "binaryPath": "mydaemon/testdaemon",
+        "runAtLoad": true,
+        "keepAlive": true,
+        "provideIpcService": false,
+        "type": "daemon"
+      }
+    ],
+    // [StartExclude module_launchServices]
     // [EndExclude module_definePermissions]
     "definePermissions": [
       {
@@ -99,8 +113,10 @@
     // [EndExclude module_executableBinaryPaths]
     // [EndExclude module_definePermissions]
     // [EndExclude module_hnpPackages]
+    // [EndExclude module_launchServices]
   },
 }
 // [End module_executableBinaryPaths]
 // [End module_definePermissions]
 // [End module_hnpPackages]
+// [End module_launchServices]
