@@ -37,6 +37,17 @@ export class CameraDataModel {
   public format: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
   public isSync: number = 0;
   public outputFormat: number = Const.FORMAT_MP4;
+  public enableDualOutput: boolean = false;
+  public enableVideoDump: boolean = false;
+  public secondaryOutputfd: number = -1;
+  public preprocMode: number = Const.VIDEO_PREPROC_NONE;
+  public dropToFrameRate: number = 0;
+  public downsamplingWidth: number = 1280;
+  public downsamplingHeight: number = 720;
+  public cropLeft: number = 0;
+  public cropTop: number = 0;
+  public cropRight: number = Const.DEFAULT_WIDTH - 1;
+  public cropBottom: number = Const.DEFAULT_HEIGHT - 1;
 
   setCodecFormat(isHDR: number, codecMime: string): void {
     this.isHDRVivid = isHDR;

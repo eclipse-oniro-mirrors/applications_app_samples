@@ -15,6 +15,7 @@
 
 // [Start pkcs8_convert_ecc_pri_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 async function main() {
   // 创建一个AsyKeyGenerator实例

@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "VulkanVideoSink.h"
@@ -221,8 +231,8 @@ bool VulkanVideoSink::CreateExternalDescriptorResources()
     imageBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     imageBinding.descriptorCount = 1;
     imageBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-    // YCbCr 转换要求采样器作为不可变采样器写入布局。一个播放会话内所有解码
-    // 输出 Buffer 使用同一格式，后续帧只替换外部图像和图像视图。
+    // YCbCr转换要求采样器作为不可变采样器写入布局。一个播放会话内所有解码
+    // 输出Buffer使用同一格式，后续帧只替换外部图像和图像视图。
     imageBinding.pImmutableSamplers = &externalSampler_;
     const std::array<VkDescriptorSetLayoutBinding, EXTERNAL_DESCRIPTOR_COUNT> bindings = {
         uniformBinding, imageBinding
@@ -390,7 +400,7 @@ void VulkanVideoSink::ConfigureExternalDynamicState(VkPipelineViewportStateCreat
     viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     viewportState.viewportCount = 1;
     viewportState.scissorCount = 1;
-    // XComponent 尺寸可变，每帧更新 viewport；清屏仍覆盖整个窗口。
+    // XComponent尺寸可变，每帧更新viewport；清屏仍覆盖整个窗口。
     dynamicStates = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
     dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
     dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
@@ -414,7 +424,7 @@ bool VulkanVideoSink::CreateNativeImage(int32_t width, int32_t height)
         DestroyNativeImage();
         return false;
     }
-    // NativeImage 作为 Vulkan 采样端，只声明纹理读取用途；生产用途由解码器 Surface 管理。
+    // NativeImage作为Vulkan采样端，只声明纹理读取用途；生产用途由解码器Surface管理。
     const uint64_t usage = NATIVEBUFFER_USAGE_HW_TEXTURE;
     if (OH_ConsumerSurface_SetDefaultUsage(nativeImage_, usage) != 0) {
         AVCODEC_SAMPLE_LOGW("Configure Vulkan NativeImage usage failed");
@@ -491,8 +501,8 @@ bool VulkanVideoSink::AcquireNativeImageBuffer()
     }
     OHNativeWindowBuffer *buffer = nullptr;
     int fenceFd = -1;
-    // Vulkan 消费速度低于解码速度时只取最新帧，主动丢弃过期帧，避免 NativeImage 队列积压。
-    // 用 exchange 清除已观察到的通知；如果回调在 AcquireLatest 调用期间到达，
+    // Vulkan消费速度低于解码速度时只取最新帧，主动丢弃过期帧，避免NativeImage队列积压。
+    // 用exchange清除已观察到的通知；如果回调在AcquireLatest调用期间到达，
     // 新通知会保留下来，下一次送显仍会继续消费，不会因为竞态漏掉唤醒。
     (void)availableFrameCount_.exchange(0);
     const int32_t ret = OH_NativeImage_AcquireLatestNativeWindowBuffer(nativeImage_, &buffer, &fenceFd);
@@ -503,8 +513,8 @@ bool VulkanVideoSink::AcquireNativeImageBuffer()
         RecordNativeImageAcquireDuration(startedAt);
         return false;
     }
-    // 解码器可能在 GPU 生产完成前就触发帧回调。导入外部内存前必须等待 acquire fence，
-    // 否则 Vulkan 采样到的是未完成的 YUV buffer，表现为绿边、花屏或偶发卡住。
+    // 解码器可能在GPU生产完成前就触发帧回调。导入外部内存前必须等待acquire fence，
+    // 否则Vulkan采样到的是未完成的YUV buffer，表现为绿边、花屏或偶发卡住。
     if (!WaitForAcquireFence(buffer, fenceFd)) {
         RecordNativeImageAcquireDuration(startedAt);
         return false;
@@ -530,8 +540,8 @@ bool VulkanVideoSink::WaitForAcquireFence(OHNativeWindowBuffer *buffer, int &fen
     if (fenceFd < 0) {
         return true;
     }
-    // 不在解码输出线程上无限等待生产者 fence。超时帧交回队列时携带原 fence，
-    // 由 NativeImage 在生产完成后再复用槽位，避免 fence 异常时把播放器卡死。
+    // 不在解码输出线程上无限等待生产者fence。超时帧交回队列时携带原fence，
+    // 由NativeImage在生产完成后再复用槽位，避免fence异常时把播放器卡死。
     const auto startedAt = std::chrono::steady_clock::now();
     const bool fenceSignaled = OH_NativeFence_Wait(fenceFd, NATIVE_BUFFER_FENCE_WAIT_MS);
     const auto durationNs = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -567,14 +577,14 @@ void VulkanVideoSink::ReleaseCurrentNativeBuffer()
         DestroyExternalImage();
     }
     if (currentNativeBuffer_ != nullptr) {
-        // FromNativeWindowBuffer 返回的是当前 NativeWindowBuffer 的转换句柄，不是通过
-        // OH_NativeBuffer_Alloc/Reference 获得的独立引用。它只在下方的窗口 Buffer 引用
-        // 有效期间使用，不能在这里额外调用 Unreference，避免减少系统持有的引用计数。
+        // FromNativeWindowBuffer返回的是当前NativeWindowBuffer的转换句柄，不是通过
+        // OH_NativeBuffer_Alloc/Reference获得的独立引用。它只在下方的窗口Buffer引用
+        // 有效期间使用，不能在这里额外调用Unreference，避免减少系统持有的引用计数。
         currentNativeBuffer_ = nullptr;
     }
     if (currentNativeWindowBuffer_ != nullptr) {
-        // 先归还应用持有的 NativeWindowBuffer 引用，再把消费槽位交回 NativeImage。
-        // 这样与 AcquireNativeWindowBuffer 的引用约定一致，避免槽位在回收时仍被应用引用。
+        // 先归还应用持有的NativeWindowBuffer引用，再把消费槽位交回NativeImage。
+        // 这样与AcquireNativeWindowBuffer的引用约定一致，避免槽位在回收时仍被应用引用。
         (void)OH_NativeWindow_NativeObjectUnreference(currentNativeWindowBuffer_);
         if (nativeImage_ != nullptr) {
             (void)OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, currentNativeWindowBuffer_, -1);
@@ -724,13 +734,13 @@ void VulkanVideoSink::EvictExternalBufferCacheEntry(size_t cacheIndex,
 {
     ExternalBufferCacheEntry &evicted = externalBufferCache_[cacheIndex];
     if (evicted.valid) {
-        // 当前帧 fence 已完成。先解除描述符对旧 view 的引用，再释放被淘汰的导入资源。
+        // 当前帧fence已完成。先解除描述符对旧view的引用，再释放被淘汰的导入资源。
         externalImage_ = replacement.image;
         externalImageMemory_ = replacement.memory;
         externalImageView_ = replacement.view;
         externalImageLayout_ = replacement.layout;
         activeExternalBufferCacheIndex_ = static_cast<int32_t>(cacheIndex);
-        // 若本次尚未创建 pipeline/descriptor，延后更新；ImportNativeBuffer 会在资源就绪后补齐。
+        // 若本次尚未创建pipeline/descriptor，延后更新；ImportNativeBuffer会在资源就绪后补齐。
         if (externalDescriptorSet_ != VK_NULL_HANDLE) {
             UpdateExternalDescriptorSet();
             externalDescriptorImageView_ = externalImageView_;
@@ -812,7 +822,7 @@ bool VulkanVideoSink::CreateImportedExternalImage(const VkNativeBufferProperties
 {
     externalFormat_ = {};
     externalFormat_.sType = VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS;
-    // VK_FORMAT_UNDEFINED 才使用 OHOS externalFormat；普通 Vulkan 格式必须传 0。
+    // VK_FORMAT_UNDEFINED才使用OHOS externalFormat；普通Vulkan格式必须传0。
     externalFormat_.externalFormat = externalFormatProperties_.format == VK_FORMAT_UNDEFINED ?
         externalFormatProperties_.externalFormat : 0;
     VkExternalMemoryImageCreateInfo externalMemory{};
@@ -994,7 +1004,7 @@ void VulkanVideoSink::DestroyExternalImage()
         externalImageMemory_ = VK_NULL_HANDLE;
     }
     externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
-    // Sampler 和 YCbCr 转换由播放会话复用，直到描述符布局销毁时再释放。
+    // Sampler和YCbCr转换由播放会话复用，直到描述符布局销毁时再释放。
 }
 
 void VulkanVideoSink::DestroyExternalRenderResources()
@@ -1127,8 +1137,8 @@ bool VulkanVideoSink::SubmitExternalFrame(uint32_t imageIndex)
     present.pSwapchains = &swapchain_;
     present.pImageIndices = &imageIndex;
     const VkResult result = vkQueuePresentKHR(queue_, &present);
-    // SUBOPTIMAL 仍表示当前图像已经成功送显，不需要每帧重建 swapchain；只有
-    // OUT_OF_DATE 才必须等待下一帧执行重建，否则高帧率视频会反复销毁并创建渲染资源。
+    // SUBOPTIMAL仍表示当前图像已经成功送显，不需要每帧重建swapchain；只有
+    // OUT_OF_DATE才必须等待下一帧执行重建，否则高帧率视频会反复销毁并创建渲染资源。
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         swapchainRecreatePending_ = true;
     }
@@ -1174,7 +1184,7 @@ bool VulkanVideoSink::WaitForPreviousExternalFrame()
     }
     const VkResult result = vkWaitForFences(device_, 1, &frameFence_, VK_TRUE, FRAME_READY_WAIT_NS);
     if (result == VK_TIMEOUT) {
-        // GPU 仍在读取该 Buffer，暂不归还；下一次送显继续等待，避免阻塞回调线程。
+        // GPU仍在读取该Buffer，暂不归还；下一次送显继续等待，避免阻塞回调线程。
         RecordVulkanStage(VulkanDiagnosticStage::GPU_WAIT,
             static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
                 std::chrono::steady_clock::now() - startedAt).count()));
@@ -1287,7 +1297,7 @@ bool VulkanVideoSink::AcquireAndPrepareNativeFrame(PresentRegion &region)
 
 void VulkanVideoSink::SyncNativeFrameMetadata()
 {
-    // 以 NativeImage 实际取得的解码 Buffer 为准，不把容器标记当作 HDR 实测结果。
+    // 以NativeImage实际取得的解码Buffer为准，不把容器标记当作HDR实测结果。
     const bool synced = !preferHdrSwapchain_ ||
         HdrMetadataHelper::SetNativeWindowMetadataFromBuffer(window_, currentNativeBuffer_);
     if (HdrMetadataHelper::IsHdrVividNativeBuffer(currentNativeBuffer_)) {
@@ -1341,7 +1351,7 @@ bool VulkanVideoSink::RecordAndSubmitNativeFrame(uint32_t imageIndex, const Pres
         static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
             std::chrono::steady_clock::now() - submitStartedAt).count()));
     swapchainRecreatePending_ = true;
-    // 若提交已经进入 GPU 队列，必须等 fence 完成后再归还 NativeImage Buffer。
+    // 若提交已经进入GPU队列，必须等fence完成后再归还NativeImage Buffer。
     if (!frameInFlight_) {
         ReleaseCurrentNativeBuffer();
     }

@@ -50,6 +50,7 @@ constexpr uint32_t TEXT_DECORATION_COLOR = 0xFF00FFFF;
 #define VALUE_3 3
 #define VALUE_4 4
 #define VALUE_5 5
+#define VALUE_7 7
 #define VALUE_8 8
 #define VALUE_10 10
 #define VALUE_11 11
@@ -523,9 +524,11 @@ void setText1(ArkUI_NodeHandle &text)
                 {.f32 = 5.0f},       // 左上角半径
                 {.f32 = 5.0f},       // 右上角半径
                 {.f32 = 5.0f},       // 左下角半径
-                {.f32 = 5.0f}        // 右下角半径
+                {.f32 = 5.0f},       // 右下角半径
+                {.f32 = 2.0f},       // 边框宽度
+                {.u32 = COLOR_RED}   // 边框颜色
             };
-            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_5};
+            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_7};
             Manager::nodeAPI_->setAttribute(span, NODE_SPAN_TEXT_BACKGROUND_STYLE, &spanBackgroundItem);
 
             // 文本基线的偏移量属性
@@ -2778,6 +2781,103 @@ void setTextLineSpacingWithOptions(ArkUI_NodeHandle &textContainer)
     createTextNormalLineSpacing(textContainer);
 }
 
+static void createStrokeTextWithRoundJoin(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto strokeText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(strokeText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(strokeText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (strokeText != nullptr) {
+        const char *textContent = "设置描边宽度和颜色的文本";
+        ArkUI_AttributeItem contentItem = {.string = textContent};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_CONTENT, &contentItem);
+
+        // [Start text_stroke]
+        // 设置文本描边宽度：大于0时显示空心字
+        ArkUI_NumberValue strokeWidthVal = {.f32 = 2.0f};
+        ArkUI_AttributeItem strokeWidthItem = {&strokeWidthVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_WIDTH, &strokeWidthItem);
+
+        // 设置文本描边颜色：0xARGB格式，红色
+        ArkUI_NumberValue strokeColorVal = {.u32 = 0xFFFF0000};
+        ArkUI_AttributeItem strokeColorItem = {&strokeColorVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_COLOR, &strokeColorItem);
+
+        // 设置文本描边拐角样式：圆角样式
+        ArkUI_NumberValue strokeJoinStyleVal = {.i32 = OH_ARKUI_STROKE_JOIN_STYLE_ROUND_JOIN};
+        ArkUI_AttributeItem strokeJoinStyleItem = {&strokeJoinStyleVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_JOIN_STYLE, &strokeJoinStyleItem);
+        // [End text_stroke]
+
+        // 获取文本描边属性值
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_WIDTH: %{public}f",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_WIDTH)->value[VALUE_0].f32);
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_COLOR: 0x%{public}X",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_COLOR)->value[VALUE_0].u32);
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_JOIN_STYLE: %{public}d",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_JOIN_STYLE)->value[VALUE_0].i32);
+
+        Manager::nodeAPI_->addChild(textContainer, strokeText);
+    }
+}
+
+static void createStrokeTextWithMiterJoin(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto miterJoinText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(miterJoinText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(miterJoinText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (miterJoinText != nullptr) {
+        const char *miterContent = "描边拐角样式为尖角";
+        ArkUI_AttributeItem miterContentItem = {.string = miterContent};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_CONTENT, &miterContentItem);
+
+        ArkUI_NumberValue strokeWidthVal = {.f32 = 2.0f};
+        ArkUI_AttributeItem strokeWidthItem = {&strokeWidthVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_WIDTH, &strokeWidthItem);
+
+        ArkUI_NumberValue strokeColorVal = {.u32 = 0xFF0000FF};
+        ArkUI_AttributeItem strokeColorItem = {&strokeColorVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_COLOR, &strokeColorItem);
+
+        // 设置文本描边拐角样式：尖角样式（默认值）
+        ArkUI_NumberValue strokeJoinStyleVal = {.i32 = OH_ARKUI_STROKE_JOIN_STYLE_MITER_JOIN};
+        ArkUI_AttributeItem strokeJoinStyleItem = {&strokeJoinStyleVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_JOIN_STYLE, &strokeJoinStyleItem);
+
+        Manager::nodeAPI_->addChild(textContainer, miterJoinText);
+    }
+}
+
+void setTextStroke(ArkUI_NodeHandle &textContainer)
+{
+    auto strokeLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *labelText = "文本描边示例（空心字效果）：";
+    ArkUI_AttributeItem labelItem = {.string = labelText};
+    Manager::nodeAPI_->setAttribute(strokeLabel, NODE_TEXT_CONTENT, &labelItem);
+    Manager::nodeAPI_->addChild(textContainer, strokeLabel);
+
+    createStrokeTextWithRoundJoin(textContainer);
+
+    auto miterJoinLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *miterJoinLabelText = "描边拐角样式对比（尖角）：";
+    ArkUI_AttributeItem miterJoinLabelItem = {.string = miterJoinLabelText};
+    Manager::nodeAPI_->setAttribute(miterJoinLabel, NODE_TEXT_CONTENT, &miterJoinLabelItem);
+    Manager::nodeAPI_->addChild(textContainer, miterJoinLabel);
+
+    createStrokeTextWithMiterJoin(textContainer);
+}
+
 void setTextArea3(ArkUI_NodeHandle &textArea3)
 {
     // 多行文本输入框的默认提示文本内容属性
@@ -3419,6 +3519,7 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     setCustomSpanText(textContainer);
     setTextTailIndents(textContainer);
     setTextLineSpacingWithOptions(textContainer);
+    setTextStroke(textContainer);
 }
 
 /**

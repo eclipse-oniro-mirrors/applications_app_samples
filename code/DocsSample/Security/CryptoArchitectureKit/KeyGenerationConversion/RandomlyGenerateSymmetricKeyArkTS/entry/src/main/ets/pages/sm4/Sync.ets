@@ -15,15 +15,21 @@
 
 // [Start generate_sm4_key_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function testSyncGenerateSm4Key() {
-  // 创建SymKeyGenerator实例
-  let symKeyGenerator = cryptoFramework.createSymKeyGenerator('SM4_128');
-  // 使用密钥生成器随机生成对称密钥
-  let symKey = symKeyGenerator.generateSymKeySync();
-  // 获取对称密钥的二进制数据，输出128位字节流。长度为16字节
-  let encodedKey = symKey.getEncoded();
-  console.info('key hex: ' + encodedKey.data);
+  try {
+    // 创建SymKeyGenerator实例
+    let symKeyGenerator = cryptoFramework.createSymKeyGenerator('SM4_128');
+    // 使用密钥生成器随机生成对称密钥
+    let symKey = symKeyGenerator.generateSymKeySync();
+    // 获取对称密钥的二进制数据，输出128位字节流。长度为16字节
+    let encodedKey = symKey.getEncoded();
+    console.info('key hex: ' + encodedKey.data);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`testSyncGenerateSm4Key failed: errCode: ${e.code}, errMsg: ${e.message}`);
+  }
 }
 // [End generate_sm4_key_sync]
 

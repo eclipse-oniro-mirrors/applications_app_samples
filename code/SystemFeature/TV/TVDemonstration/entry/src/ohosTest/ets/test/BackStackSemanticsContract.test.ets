@@ -1,0 +1,308 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@ohos/hypium';
+import { Component, Driver, ON } from '@ohos.UiTest';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
+import { router } from '@kit.ArkUI';
+import { UIAbility } from '@kit.AbilityKit';
+import { globalIdle } from '../../../main/ets/utils/GlobalScreenSaver';
+import { startAppWithRetry } from './TestScenarioUtils';
+
+const BACK_STACK_WANT: Want = {
+  bundleName: 'com.sample.demonstration',
+  abilityName: 'EntryAbility'
+};
+const PRODUCTION_IDLE_TIME: number = 5 * 60 * 1000;
+const ROUTE_SETTLE_TIME: number = 260;
+const BACK_SETTLE_TIME: number = 180;
+
+interface StackRouteParams {
+  index: number;
+}
+
+export default function backStackSemanticsContractTest(): void {
+  describe('BackStackSemanticsContractTest', () => {
+    let driver: Driver;
+    let ability: UIAbility;
+
+    const isRootVisible = async (): Promise<boolean> => {
+      const rootTabs: Component[] = await driver.findComponents(ON.id('tab0'));
+      return rootTabs !== null && rootTabs.length > 0;
+    };
+
+    const restoreRoot = async (): Promise<void> => {
+      let state: router.RouterState = router.getState();
+      let routeGuard: number = 0;
+      while (state.index > 1 && routeGuard < 8) {
+        router.back();
+        await driver.delayMs(BACK_SETTLE_TIME);
+        state = router.getState();
+        routeGuard++;
+      }
+      globalIdle.stopDetect();
+      globalIdle.resetScreensaver();
+      // A page that bypassed the router stack (for example a video window) can
+      // leave the UI off the root page even when the router index reads 1.
+      // Fall back to real back presses until the root TabBar is reachable.
+      let pressGuard: number = 0;
+      while (!(await isRootVisible()) && pressGuard < 5) {
+        await driver.pressBack();
+        await driver.delayMs(BACK_SETTLE_TIME);
+        pressGuard++;
+      }
+      await driver.assertComponentExist(ON.id('tab0'));
+    };
+
+    const openFeature = async (index: number): Promise<void> => {
+      const params: StackRouteParams = { index: index };
+      await router.pushUrl({ url: 'Component/FeatureComponent', params: params }, router.RouterMode.Single);
+      await driver.delayMs(ROUTE_SETTLE_TIME);
+    };
+
+    const openMedia = async (): Promise<void> => {
+      await router.pushUrl({ url: 'Component/SmartLifeComponent' });
+      await driver.delayMs(ROUTE_SETTLE_TIME);
+    };
+
+    const openVideo = async (): Promise<void> => {
+      await router.pushUrl({ url: 'Video/VideoPage' });
+      await driver.delayMs(ROUTE_SETTLE_TIME);
+    };
+
+    const stackLength = (): number => {
+      return Number(router.getLength());
+    };
+
+    beforeAll(async (): Promise<void> => {
+      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+      await startAppWithRetry(BACK_STACK_WANT, 'com.sample.demonstration');
+      driver = Driver.create();
+      await driver.delayMs(500);
+      ability = await delegator.getCurrentTopAbility();
+      globalIdle.init(ability.context, PRODUCTION_IDLE_TIME);
+      globalIdle.stopDetect();
+      await restoreRoot();
+    });
+
+    beforeEach(async (): Promise<void> => {
+      globalIdle.init(ability.context, PRODUCTION_IDLE_TIME);
+      globalIdle.stopDetect();
+      await restoreRoot();
+    });
+
+    afterEach(async (): Promise<void> => {
+      globalIdle.stopDetect();
+      globalIdle.resetScreensaver();
+      await restoreRoot();
+    });
+
+    afterAll(async (): Promise<void> => {
+      globalIdle.stopDetect();
+      globalIdle.resetScreensaver();
+      globalIdle.init(ability.context, PRODUCTION_IDLE_TIME);
+      await driver.pressHome();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0100
+     * @tc.name backStackRootIdentity001
+     * @tc.desc Verify the root stack entry exposes the exact Index identity
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackRootIdentity001', 0, async (): Promise<void> => {
+      const state: router.RouterState = router.getState();
+      expect(state.index).assertEqual(1);
+      expect(state.path).assertEqual('pages/');
+      expect(state.name).assertEqual('Index');
+      expect(stackLength()).assertEqual(1);
+      const byIndex: router.RouterState | undefined = router.getStateByIndex(1);
+      expect(byIndex === undefined).assertFalse();
+      expect(byIndex!.path).assertEqual('pages/');
+      expect(router.getStateByUrl('pages/Index').length).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0200
+     * @tc.name backStackPushFeatureDepth002
+     * @tc.desc Verify a Feature push adds exactly one stack entry with the correct identity
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackPushFeatureDepth002', 0, async (): Promise<void> => {
+      await openFeature(0);
+      const state: router.RouterState = router.getState();
+      expect(state.index).assertEqual(2);
+      expect(state.path).assertEqual('Component/');
+      expect(stackLength()).assertEqual(2);
+      expect(router.getStateByUrl('Component/FeatureComponent').length).assertEqual(1);
+      const detailState: router.RouterState | undefined = router.getStateByIndex(2);
+      expect(detailState === undefined).assertFalse();
+      expect(detailState!.path).assertEqual('Component/');
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0300
+     * @tc.name backStackStandardModeDuplicates003
+     * @tc.desc Verify default router mode stacks duplicate VideoPage entries
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackStandardModeDuplicates003', 0, async (): Promise<void> => {
+      await openVideo();
+      await openVideo();
+      expect(stackLength()).assertEqual(3);
+      expect(router.getStateByUrl('Video/VideoPage').length).assertEqual(2);
+      await driver.pressBack();
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().path).assertEqual('Video/');
+      await driver.pressBack();
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().path).assertEqual('pages/');
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0400
+     * @tc.name backStackSingleModeNoDuplicate004
+     * @tc.desc Verify RouterMode.Single collapses repeated Feature pushes to one entry
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackSingleModeNoDuplicate004', 0, async (): Promise<void> => {
+      await openFeature(0);
+      await openFeature(2);
+      expect(stackLength()).assertEqual(2);
+      expect(router.getStateByUrl('Component/FeatureComponent').length).assertEqual(1);
+      expect(router.getState().index).assertEqual(2);
+      await driver.pressBack();
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().path).assertEqual('pages/');
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0500
+     * @tc.name backStackBackToRootByIndex005
+     * @tc.desc Verify router.back(index) returns to the root from a multi-hop stack
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackBackToRootByIndex005', 0, async (): Promise<void> => {
+      await openFeature(0);
+      await openMedia();
+      expect(stackLength()).assertEqual(3);
+      router.back(1);
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().index).assertEqual(1);
+      expect(stackLength()).assertEqual(1);
+      expect(router.getStateByUrl('Component/SmartLifeComponent').length).assertEqual(0);
+      expect(router.getStateByUrl('Component/FeatureComponent').length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0600
+     * @tc.name backStackBackToMiddleByIndex006
+     * @tc.desc Verify router.back(index) lands on a middle entry and drops the pages above it
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackBackToMiddleByIndex006', 0, async (): Promise<void> => {
+      await openFeature(0);
+      await openMedia();
+      await openVideo();
+      expect(stackLength()).assertEqual(4);
+      router.back(2);
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().index).assertEqual(2);
+      expect(router.getState().path).assertEqual('Component/');
+      expect(stackLength()).assertEqual(2);
+      expect(router.getStateByUrl('Component/SmartLifeComponent').length).assertEqual(0);
+      expect(router.getStateByUrl('Video/VideoPage').length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0700
+     * @tc.name backStackParamsReadback007
+     * @tc.desc Verify stack entries preserve their route parameters for later readback
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackParamsReadback007', 0, async (): Promise<void> => {
+      await openFeature(4);
+      const detailState: router.RouterState | undefined = router.getStateByIndex(2);
+      expect(detailState === undefined).assertFalse();
+      const params: StackRouteParams = detailState!.params as StackRouteParams;
+      expect(params.index).assertEqual(4);
+      await openMedia();
+      const mediaState: router.RouterState | undefined = router.getStateByIndex(3);
+      expect(mediaState === undefined).assertFalse();
+      expect(mediaState!.path).assertEqual('Component/');
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0800
+     * @tc.name backStackReplaceTop008
+     * @tc.desc Verify replaceUrl swaps the top entry without growing the stack
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackReplaceTop008', 0, async (): Promise<void> => {
+      await openFeature(0);
+      const params: StackRouteParams = { index: 6 };
+      await router.replaceUrl({ url: 'Component/FeatureComponent', params: params });
+      await driver.delayMs(ROUTE_SETTLE_TIME);
+      expect(stackLength()).assertEqual(2);
+      expect(router.getState().index).assertEqual(2);
+      expect((await driver.findComponents(ON.text('Distributed'))).length).assertEqual(1);
+      expect(router.getStateByUrl('Component/FeatureComponent').length).assertEqual(1);
+      await driver.pressBack();
+      await driver.delayMs(BACK_SETTLE_TIME);
+      expect(router.getState().path).assertEqual('pages/');
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_BACK_STACK_0900
+     * @tc.name backStackStateByUrlMultiRoute009
+     * @tc.desc Verify getStateByUrl reports exactly one entry per unique route on a four-hop stack
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('backStackStateByUrlMultiRoute009', 0, async (): Promise<void> => {
+      await openFeature(0);
+      await openMedia();
+      await openVideo();
+      expect(stackLength()).assertEqual(4);
+      expect(router.getStateByUrl('pages/Index').length).assertEqual(1);
+      expect(router.getStateByUrl('Component/FeatureComponent').length).assertEqual(1);
+      expect(router.getStateByUrl('Component/SmartLifeComponent').length).assertEqual(1);
+      expect(router.getStateByUrl('Video/VideoPage').length).assertEqual(1);
+    });
+
+
+
+
+
+  });
+}

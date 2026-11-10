@@ -19,9 +19,11 @@ import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@
 import { text } from '@kit.ArkGraphics2D'
 // [End arkts_custom_font_include]
 
+// [Start arkts_custom_font_font_collection]
 // 获取全局字体集实例
 let fontCollection = text.FontCollection.getGlobalInstance()
 const familyName = "myFamilyName"
+// [End arkts_custom_font_font_collection]
 
 // 创建一个自定义的渲染节点类，用于绘制文本
 class MyRenderNode extends RenderNode {

@@ -101,6 +101,10 @@
       "value": "@Extend使用场景2"
     },
     {
+      "name": "extend_version_condition",
+      "value": "@Extend使用版本隔离"
+    },
+    {
       "name": "local",
       "value": "@Local装饰器：组件内部状态"
     },

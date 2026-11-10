@@ -52,6 +52,7 @@ entry/src/main/ets/
 |   |       |---ExtendUIStateVariable.ets
 |   |       |---ExtendUsageScenario.ets
 |   |       |---ExtendUsageScenariotwo.ets
+|   |       |---ExtendVersionCondition.ets
 |   |       |---GlobalFunctionExtension.ets
 |   |       |---index.ets 
 |   |---syncStateManager              		   //$$语法：系统组件双向同步

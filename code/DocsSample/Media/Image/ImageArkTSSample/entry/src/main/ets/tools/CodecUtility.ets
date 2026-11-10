@@ -112,7 +112,7 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
   // [End packOpts_isHdr]
   try{
     let data = await imagePackerApi.packToData(pixelMap, packOpts);
-    // data 为编码获取到的文件流，写入文件保存即可得到一张图片。
+    // data为编码获取到的文件流，写入文件保存即可得到一张图片。
     // [StartExclude copyData_toShow]
     copyData = new ArrayBuffer(0);
     copyData = data;
@@ -290,7 +290,7 @@ export class ImageInterfaceCalled {
     };
 
     try {
-      // 生成 pixelMap 并返回
+      // 生成pixelMap并返回。
       const pixelMap = await imageSource.createPixelMap(decodingOptions);
       if (pixelMap) {
         console.info('Create PixelMap successfully.');
@@ -299,7 +299,7 @@ export class ImageInterfaceCalled {
         console.info(`Create PixelMap successfully with imageInfo.isHdr: ${imageInfo.isHdr}.`);
         return pixelMap;
       } else {
-        console.info('Create PixelMap failed.');
+        console.error('Create PixelMap failed.');
         return undefined;
       }
     } catch (error) {
@@ -310,7 +310,7 @@ export class ImageInterfaceCalled {
   // [End create_pixelMap]
 
   // [Start create_picture]
-  async createPicture(imageSource : image.ImageSource | undefined, isReturnAux: Boolean)
+  async createPicture(imageSource : image.ImageSource | undefined, isReturnAux: boolean)
     : Promise<image.PixelMap | undefined | image.Picture> {
     // 配置解码选项参数。
     let options: image.DecodingOptionsForPicture = {
@@ -321,9 +321,9 @@ export class ImageInterfaceCalled {
     try {
       let picture = await imageSource?.createPicture(options);
       if (picture) {
-        // 返回解码后获取到的辅助图
+        // 返回解码后获取到的辅助图。
         if (isReturnAux) {
-          // type为解码参数中包含的辅助图类型
+          // type为解码参数中包含的辅助图类型。
           let type: image.AuxiliaryPictureType = image.AuxiliaryPictureType.GAINMAP;
           let auxPicture: image.AuxiliaryPicture | null = picture.getAuxiliaryPicture(type);
           // 获取辅助图信息。
@@ -351,7 +351,7 @@ export class ImageInterfaceCalled {
           }
           return returnPixelMap;
         } else {
-          return picture; // 返回解码后获取到的picture
+          return picture; // 返回解码后获取到的picture。
         }
       }
       return returnPixelMap;
@@ -486,7 +486,7 @@ export class ImageInterfaceCalled {
       packing(picture, packOpts);
     }
     let packedSource: image.ImageSource | undefined = undefined;
-    // 将编码获取到的文件流data进行解码，用于显示编码后解码的pixelMap
+    // 将编码获取到的文件流data进行解码，用于显示编码后解码的pixelMap。
     if (copyData && imageInfo) {
       let ops: image.SourceOptions = {
         sourceDensity: 95,
@@ -516,7 +516,7 @@ export class ImageInterfaceCalled {
       filePath = context.cacheDir + '/picture.jpg';
     }
     let packedImageSource: image.ImageSource | undefined = undefined;
-    // 将编码获取到的文件file进行解码，用于显示编码后解码的pixelMap
+    // 将编码获取到的文件file进行解码，用于显示编码后解码的pixelMap。
     if (filePath) {
       packedImageSource = image.createImageSource(filePath);
       return await packedImageSource.createPixelMap();

@@ -465,19 +465,28 @@ void VulkanVideoSink::OnNativeImageFrameAvailable(void *context)
 
 bool VulkanVideoSink::WaitForNativeImageFrame()
 {
+    const auto startedAt = std::chrono::steady_clock::now();
+    bool available = false;
     if (availableFrameCount_.load() > 0) {
-        return true;
+        available = true;
+    } else {
+        std::unique_lock<std::mutex> lock(nativeImageMutex_);
+        nativeImageCondition_.wait_for(lock, std::chrono::nanoseconds(NATIVE_IMAGE_WAIT_NS), [this]() {
+            return availableFrameCount_.load() > 0 || nativeImage_ == nullptr;
+        });
+        available = availableFrameCount_.load() > 0;
     }
-    std::unique_lock<std::mutex> lock(nativeImageMutex_);
-    nativeImageCondition_.wait_for(lock, std::chrono::nanoseconds(NATIVE_IMAGE_WAIT_NS), [this]() {
-        return availableFrameCount_.load() > 0 || nativeImage_ == nullptr;
-    });
-    return availableFrameCount_.load() > 0;
+    RecordVulkanStage(VulkanDiagnosticStage::NATIVE_IMAGE_WAIT,
+        static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::steady_clock::now() - startedAt).count()));
+    return available;
 }
 
 bool VulkanVideoSink::AcquireNativeImageBuffer()
 {
+    const auto startedAt = std::chrono::steady_clock::now();
     if (nativeImage_ == nullptr) {
+        RecordNativeImageAcquireDuration(startedAt);
         return false;
     }
     OHNativeWindowBuffer *buffer = nullptr;
@@ -491,38 +500,72 @@ bool VulkanVideoSink::AcquireNativeImageBuffer()
         if (fenceFd >= 0) {
             OH_NativeFence_Close(fenceFd);
         }
+        RecordNativeImageAcquireDuration(startedAt);
         return false;
     }
     // 解码器可能在 GPU 生产完成前就触发帧回调。导入外部内存前必须等待 acquire fence，
     // 否则 Vulkan 采样到的是未完成的 YUV buffer，表现为绿边、花屏或偶发卡住。
-    if (fenceFd >= 0) {
-        // 不在解码输出线程上无限等待生产者 fence。超时帧交回队列时携带原 fence，
-        // 由 NativeImage 在生产完成后再复用槽位，避免 fence 异常时把播放器卡死。
-        const bool fenceSignaled = OH_NativeFence_Wait(fenceFd, NATIVE_BUFFER_FENCE_WAIT_MS);
-        if (!fenceSignaled) {
-            (void)OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, buffer, fenceFd);
-            fenceFd = -1;
-            return false;
-        }
-        OH_NativeFence_Close(fenceFd);
-        fenceFd = -1;
+    if (!WaitForAcquireFence(buffer, fenceFd)) {
+        RecordNativeImageAcquireDuration(startedAt);
+        return false;
     }
     if (OH_NativeWindow_NativeObjectReference(buffer) != 0) {
         (void)OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, buffer, -1);
+        RecordNativeImageAcquireDuration(startedAt);
         return false;
     }
     currentNativeWindowBuffer_ = buffer;
     if (OH_NativeBuffer_FromNativeWindowBuffer(buffer, &currentNativeBuffer_) != 0 ||
         currentNativeBuffer_ == nullptr) {
         ReleaseCurrentNativeBuffer();
+        RecordNativeImageAcquireDuration(startedAt);
         return false;
     }
+    RecordNativeImageAcquireDuration(startedAt);
     return true;
+}
+
+bool VulkanVideoSink::WaitForAcquireFence(OHNativeWindowBuffer *buffer, int &fenceFd)
+{
+    if (fenceFd < 0) {
+        return true;
+    }
+    // 不在解码输出线程上无限等待生产者 fence。超时帧交回队列时携带原 fence，
+    // 由 NativeImage 在生产完成后再复用槽位，避免 fence 异常时把播放器卡死。
+    const auto startedAt = std::chrono::steady_clock::now();
+    const bool fenceSignaled = OH_NativeFence_Wait(fenceFd, NATIVE_BUFFER_FENCE_WAIT_MS);
+    const auto durationNs = static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now() - startedAt).count());
+    RecordVulkanStage(VulkanDiagnosticStage::ACQUIRE_FENCE_WAIT, durationNs);
+    if (!fenceSignaled) {
+        (void)OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, buffer, fenceFd);
+        fenceFd = -1;
+        return false;
+    }
+    OH_NativeFence_Close(fenceFd);
+    fenceFd = -1;
+    return true;
+}
+
+void VulkanVideoSink::RecordNativeImageAcquireDuration(std::chrono::steady_clock::time_point startedAt)
+{
+    const auto durationNs = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now() - startedAt).count();
+    RecordVulkanStage(VulkanDiagnosticStage::NATIVE_IMAGE_ACQUIRE, static_cast<uint64_t>(durationNs));
 }
 
 void VulkanVideoSink::ReleaseCurrentNativeBuffer()
 {
-    DestroyExternalImage();
+    if (activeExternalBufferCacheIndex_ >= 0) {
+        SaveActiveExternalImageState();
+        externalImageView_ = VK_NULL_HANDLE;
+        externalImage_ = VK_NULL_HANDLE;
+        externalImageMemory_ = VK_NULL_HANDLE;
+        externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
+        activeExternalBufferCacheIndex_ = -1;
+    } else {
+        DestroyExternalImage();
+    }
     if (currentNativeBuffer_ != nullptr) {
         // FromNativeWindowBuffer 返回的是当前 NativeWindowBuffer 的转换句柄，不是通过
         // OH_NativeBuffer_Alloc/Reference 获得的独立引用。它只在下方的窗口 Buffer 引用
@@ -542,17 +585,56 @@ void VulkanVideoSink::ReleaseCurrentNativeBuffer()
 
 bool VulkanVideoSink::ImportNativeBuffer()
 {
+    const auto startedAt = std::chrono::steady_clock::now();
     if (device_ == VK_NULL_HANDLE || currentNativeBuffer_ == nullptr) {
-        return false;
-    }
-    VkNativeBufferPropertiesOHOS properties{};
-    if (!QueryExternalBufferProperties(properties)) {
-        return false;
+        return FailExternalBufferImport(startedAt);
     }
     OH_NativeBuffer_Config config{};
     OH_NativeBuffer_GetConfig(currentNativeBuffer_, &config);
     if (config.width <= 0 || config.height <= 0) {
-        DestroyExternalImage();
+        return FailExternalBufferImport(startedAt);
+    }
+    const uint32_t sequenceNumber = OH_NativeBuffer_GetSeqNum(currentNativeBuffer_);
+    const int32_t cacheIndex = FindExternalBufferCacheEntry(sequenceNumber, config);
+    if (cacheIndex >= 0) {
+        ActivateExternalBufferCacheEntry(cacheIndex);
+    } else if (!CreateAndCacheExternalBuffer(sequenceNumber, config)) {
+        return FailExternalBufferImport(startedAt);
+    }
+    if (!EnsureExternalSampler() || !EnsureExternalPipelineResources()) {
+        return FailExternalBufferImport(startedAt);
+    }
+    if (externalDescriptorImageView_ != externalImageView_) {
+        UpdateExternalDescriptorSet();
+        externalDescriptorImageView_ = externalImageView_;
+    }
+    externalResourcesReady_ = true;
+    RecordVulkanStage(VulkanDiagnosticStage::IMPORT,
+        static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::steady_clock::now() - startedAt).count()));
+    return true;
+}
+
+void VulkanVideoSink::ActivateExternalBufferCacheEntry(int32_t cacheIndex)
+{
+    ExternalBufferCacheEntry &entry = externalBufferCache_[static_cast<size_t>(cacheIndex)];
+    activeExternalBufferCacheIndex_ = cacheIndex;
+    entry.lastUse = ++externalBufferCacheUse_;
+    externalImage_ = entry.image;
+    externalImageMemory_ = entry.memory;
+    externalImageView_ = entry.view;
+    externalImageLayout_ = entry.layout;
+    externalFormatProperties_ = entry.formatProperties;
+    externalFormatProperties_.pNext = nullptr;
+    externalFormat_ = entry.externalFormat;
+    externalFormat_.pNext = nullptr;
+    vulkanDiagnosticCacheHits_.fetch_add(1);
+}
+
+bool VulkanVideoSink::CreateAndCacheExternalBuffer(uint32_t sequenceNumber, const OH_NativeBuffer_Config &config)
+{
+    VkNativeBufferPropertiesOHOS properties{};
+    if (!QueryExternalBufferProperties(properties)) {
         return false;
     }
     if (!CreateImportedExternalImage(properties, config) || !EnsureExternalSampler() ||
@@ -560,9 +642,154 @@ bool VulkanVideoSink::ImportNativeBuffer()
         DestroyExternalImage();
         return false;
     }
-    UpdateExternalDescriptorSet();
-    externalResourcesReady_ = true;
+    externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
+    vulkanDiagnosticCacheMisses_.fetch_add(1);
+    if (!CacheActiveExternalBuffer(sequenceNumber, config, properties)) {
+        DestroyExternalImage();
+        return false;
+    }
     return true;
+}
+
+bool VulkanVideoSink::FailExternalBufferImport(std::chrono::steady_clock::time_point startedAt)
+{
+    const auto durationNs = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now() - startedAt).count();
+    RecordVulkanStage(VulkanDiagnosticStage::IMPORT, static_cast<uint64_t>(durationNs));
+    return false;
+}
+
+int32_t VulkanVideoSink::FindExternalBufferCacheEntry(uint32_t sequenceNumber,
+    const OH_NativeBuffer_Config &config) const
+{
+    for (size_t index = 0; index < externalBufferCache_.size(); ++index) {
+        const ExternalBufferCacheEntry &entry = externalBufferCache_[index];
+        if (entry.valid && entry.sequenceNumber == sequenceNumber &&
+            entry.config.width == config.width && entry.config.height == config.height &&
+            entry.config.format == config.format && entry.config.usage == config.usage &&
+            entry.config.stride == config.stride) {
+            return static_cast<int32_t>(index);
+        }
+    }
+    return -1;
+}
+
+bool VulkanVideoSink::CacheActiveExternalBuffer(uint32_t sequenceNumber, const OH_NativeBuffer_Config &config,
+    const VkNativeBufferPropertiesOHOS &properties)
+{
+    if (OH_NativeBuffer_Reference(currentNativeBuffer_) != 0) {
+        return false;
+    }
+    const size_t cacheIndex = SelectExternalBufferCacheSlot();
+    ExternalBufferCacheEntry replacement{};
+    replacement.valid = true;
+    replacement.sequenceNumber = sequenceNumber;
+    replacement.lastUse = ++externalBufferCacheUse_;
+    replacement.nativeBuffer = currentNativeBuffer_;
+    replacement.config = config;
+    replacement.properties = properties;
+    replacement.properties.pNext = nullptr;
+    replacement.formatProperties = externalFormatProperties_;
+    replacement.formatProperties.pNext = nullptr;
+    replacement.externalFormat = externalFormat_;
+    replacement.externalFormat.pNext = nullptr;
+    replacement.image = externalImage_;
+    replacement.memory = externalImageMemory_;
+    replacement.view = externalImageView_;
+    replacement.layout = externalImageLayout_;
+    replacement.usesYcbcrConversion = externalFormatProperties_.format == VK_FORMAT_UNDEFINED;
+    EvictExternalBufferCacheEntry(cacheIndex, replacement);
+    return true;
+}
+
+size_t VulkanVideoSink::SelectExternalBufferCacheSlot() const
+{
+    size_t cacheIndex = externalBufferCache_.size();
+    for (size_t index = 0; index < externalBufferCache_.size(); ++index) {
+        if (!externalBufferCache_[index].valid) {
+            return index;
+        }
+    }
+    for (size_t index = 0; index < externalBufferCache_.size(); ++index) {
+        if (cacheIndex == externalBufferCache_.size() ||
+            externalBufferCache_[index].lastUse < externalBufferCache_[cacheIndex].lastUse) {
+            cacheIndex = index;
+        }
+    }
+    return cacheIndex;
+}
+
+void VulkanVideoSink::EvictExternalBufferCacheEntry(size_t cacheIndex,
+    const ExternalBufferCacheEntry &replacement)
+{
+    ExternalBufferCacheEntry &evicted = externalBufferCache_[cacheIndex];
+    if (evicted.valid) {
+        // 当前帧 fence 已完成。先解除描述符对旧 view 的引用，再释放被淘汰的导入资源。
+        externalImage_ = replacement.image;
+        externalImageMemory_ = replacement.memory;
+        externalImageView_ = replacement.view;
+        externalImageLayout_ = replacement.layout;
+        activeExternalBufferCacheIndex_ = static_cast<int32_t>(cacheIndex);
+        // 若本次尚未创建 pipeline/descriptor，延后更新；ImportNativeBuffer 会在资源就绪后补齐。
+        if (externalDescriptorSet_ != VK_NULL_HANDLE) {
+            UpdateExternalDescriptorSet();
+            externalDescriptorImageView_ = externalImageView_;
+        }
+        if (evicted.view != VK_NULL_HANDLE) {
+            vkDestroyImageView(device_, evicted.view, nullptr);
+        }
+        if (evicted.image != VK_NULL_HANDLE) {
+            vkDestroyImage(device_, evicted.image, nullptr);
+        }
+        if (evicted.memory != VK_NULL_HANDLE) {
+            vkFreeMemory(device_, evicted.memory, nullptr);
+        }
+        if (evicted.nativeBuffer != nullptr) {
+            (void)OH_NativeBuffer_Unreference(evicted.nativeBuffer);
+        }
+    }
+    evicted = replacement;
+    activeExternalBufferCacheIndex_ = static_cast<int32_t>(cacheIndex);
+}
+
+void VulkanVideoSink::SaveActiveExternalImageState()
+{
+    if (activeExternalBufferCacheIndex_ < 0 ||
+        static_cast<size_t>(activeExternalBufferCacheIndex_) >= externalBufferCache_.size()) {
+        return;
+    }
+    ExternalBufferCacheEntry &entry = externalBufferCache_[static_cast<size_t>(activeExternalBufferCacheIndex_)];
+    entry.image = externalImage_;
+    entry.memory = externalImageMemory_;
+    entry.view = externalImageView_;
+    entry.layout = externalImageLayout_;
+}
+
+void VulkanVideoSink::DestroyExternalBufferCache()
+{
+    if (device_ != VK_NULL_HANDLE) {
+        for (ExternalBufferCacheEntry &entry : externalBufferCache_) {
+            if (entry.view != VK_NULL_HANDLE) {
+                vkDestroyImageView(device_, entry.view, nullptr);
+            }
+            if (entry.image != VK_NULL_HANDLE) {
+                vkDestroyImage(device_, entry.image, nullptr);
+            }
+            if (entry.memory != VK_NULL_HANDLE) {
+                vkFreeMemory(device_, entry.memory, nullptr);
+            }
+            if (entry.nativeBuffer != nullptr) {
+                (void)OH_NativeBuffer_Unreference(entry.nativeBuffer);
+            }
+            entry = {};
+        }
+    }
+    activeExternalBufferCacheIndex_ = -1;
+    externalImage_ = VK_NULL_HANDLE;
+    externalImageMemory_ = VK_NULL_HANDLE;
+    externalImageView_ = VK_NULL_HANDLE;
+    externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
+    externalDescriptorImageView_ = VK_NULL_HANDLE;
 }
 
 bool VulkanVideoSink::QueryExternalBufferProperties(VkNativeBufferPropertiesOHOS &properties)
@@ -766,6 +993,7 @@ void VulkanVideoSink::DestroyExternalImage()
         vkFreeMemory(device_, externalImageMemory_, nullptr);
         externalImageMemory_ = VK_NULL_HANDLE;
     }
+    externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
     // Sampler 和 YCbCr 转换由播放会话复用，直到描述符布局销毁时再释放。
 }
 
@@ -776,6 +1004,7 @@ void VulkanVideoSink::DestroyExternalRenderResources()
     }
     (void)vkDeviceWaitIdle(device_);
     ReleaseCurrentNativeBuffer();
+    DestroyExternalBufferCache();
     DestroyExternalPipelineResources();
     DestroyExternalGeometryResources();
     DestroyExternalFramebuffers();
@@ -939,20 +1168,30 @@ bool VulkanVideoSink::RenderNativeImageFrame()
 
 bool VulkanVideoSink::WaitForPreviousExternalFrame()
 {
+    const auto startedAt = std::chrono::steady_clock::now();
     if (!frameInFlight_ || frameFence_ == VK_NULL_HANDLE) {
         return true;
     }
     const VkResult result = vkWaitForFences(device_, 1, &frameFence_, VK_TRUE, FRAME_READY_WAIT_NS);
     if (result == VK_TIMEOUT) {
         // GPU 仍在读取该 Buffer，暂不归还；下一次送显继续等待，避免阻塞回调线程。
+        RecordVulkanStage(VulkanDiagnosticStage::GPU_WAIT,
+            static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - startedAt).count()));
         return false;
     }
     if (result != VK_SUCCESS) {
         AVCODEC_SAMPLE_LOGW("Wait previous Vulkan Surface frame failed, ret: %{public}d",
             static_cast<int32_t>(result));
+        RecordVulkanStage(VulkanDiagnosticStage::GPU_WAIT,
+            static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - startedAt).count()));
         return false;
     }
     frameInFlight_ = false;
+    RecordVulkanStage(VulkanDiagnosticStage::GPU_WAIT,
+        static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::steady_clock::now() - startedAt).count()));
     return true;
 }
 
@@ -1080,15 +1319,27 @@ bool VulkanVideoSink::IsRecoverableAcquireResult(VkResult acquire) const
 
 bool VulkanVideoSink::RecordAndSubmitNativeFrame(uint32_t imageIndex, const PresentRegion &region)
 {
+    const auto commandStartedAt = std::chrono::steady_clock::now();
     if (!BeginNativeFrameCommands()) {
         swapchainRecreatePending_ = true;
         ReleaseCurrentNativeBuffer();
         return false;
     }
     RecordNativeImageDraw(imageIndex, region);
+    RecordVulkanStage(VulkanDiagnosticStage::COMMAND_RECORD,
+        static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::steady_clock::now() - commandStartedAt).count()));
+    const auto submitStartedAt = std::chrono::steady_clock::now();
     if (vkEndCommandBuffer(commandBuffer_) == VK_SUCCESS && SubmitExternalFrame(imageIndex)) {
+        externalImageLayout_ = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        RecordVulkanStage(VulkanDiagnosticStage::SUBMIT,
+            static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - submitStartedAt).count()));
         return true;
     }
+    RecordVulkanStage(VulkanDiagnosticStage::SUBMIT,
+        static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::steady_clock::now() - submitStartedAt).count()));
     swapchainRecreatePending_ = true;
     // 若提交已经进入 GPU 队列，必须等 fence 完成后再归还 NativeImage Buffer。
     if (!frameInFlight_) {
@@ -1109,7 +1360,7 @@ bool VulkanVideoSink::BeginNativeFrameCommands()
 
 void VulkanVideoSink::RecordNativeImageDraw(uint32_t imageIndex, const PresentRegion &region)
 {
-    TransitionImage(commandBuffer_, { externalImage_, VK_IMAGE_LAYOUT_UNDEFINED,
+    TransitionImage(commandBuffer_, { externalImage_, externalImageLayout_,
         VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 0, VK_ACCESS_SHADER_READ_BIT,
         VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT });
     VkClearValue clearValue{};

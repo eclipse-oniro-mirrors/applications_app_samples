@@ -15,8 +15,10 @@
 // [Start secure_hard_ware_random_number_generation_await]
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 async function doRand() {
+  try {
     let rand = cryptoFramework.createRandom();
     rand.enableHardwareEntropy();
     let seed = new Uint8Array([1, 2, 3]);
@@ -24,7 +26,11 @@ async function doRand() {
     let len = 12;
     let randOutput = await rand.generateRandom(len);
     console.info('rand output: ' + randOutput.data);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
+}
 // [End secure_hard_ware_random_number_generation_await]
 
 @Entry

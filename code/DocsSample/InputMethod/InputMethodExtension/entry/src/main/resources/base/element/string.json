@@ -1,0 +1,784 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "IME Kit 输入法扩展示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "IME Kit 输入法扩展示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "输入法扩展"
+    },
+    {
+      "name": "extension_desc",
+      "value": "输入法扩展面板服务"
+    },
+    {
+      "name": "extension_label",
+      "value": "输入法扩展"
+    },
+    {
+      "name": "component_log_clear",
+      "value": "清空"
+    },
+    {
+      "name": "component_log_empty",
+      "value": "暂无事件，调用本示例的按钮后将在这里看到记录"
+    },
+    {
+      "name": "component_log_count",
+      "value": "%d 条"
+    },
+    {
+      "name": "component_candidate_placeholder",
+      "value": "输入后这里出现候选"
+    },
+    {
+      "name": "component_keyboard_empty",
+      "value": "（尚未输入）"
+    },
+    {
+      "name": "index_nav_title",
+      "value": "输入法扩展"
+    },
+    {
+      "name": "index_subtitle",
+      "value": "IME Kit：扩展信息、输入法列表与面板"
+    },
+    {
+      "name": "index_syscap_untested",
+      "value": "未检测"
+    },
+    {
+      "name": "index_syscap_declared",
+      "value": "已声明"
+    },
+    {
+      "name": "index_syscap_undeclared",
+      "value": "未声明"
+    },
+    {
+      "name": "index_syscap_title",
+      "value": "系统能力"
+    },
+    {
+      "name": "index_syscap_note",
+      "value": "本模块不需要申请权限；module.json5 已注册 type 为 inputMethod 的扩展，但「被系统拉起为输入法」还要求用户在设置里启用它。"
+    },
+    {
+      "name": "index_recheck",
+      "value": "重新检测系统能力"
+    },
+    {
+      "name": "index_search_hint",
+      "value": "搜索能力，例如 扩展、列表、面板"
+    },
+    {
+      "name": "index_enter",
+      "value": "进入"
+    },
+    {
+      "name": "index_uncovered_title",
+      "value": "本示例未覆盖的部分"
+    },
+    {
+      "name": "index_uncovered_note",
+      "value": "两项都需要「本应用已被启用为输入法并连上真实编辑框」，不是接口能否使用的问题，所以这里只写未覆盖和原因。"
+    },
+    {
+      "name": "index_empty_search",
+      "value": "没有匹配的能力，试试清空搜索词"
+    },
+    {
+      "name": "index_log_title",
+      "value": "首页事件"
+    },
+    {
+      "name": "nav_extra_title",
+      "value": "扩展信息"
+    },
+    {
+      "name": "nav_list_title",
+      "value": "输入法列表"
+    },
+    {
+      "name": "nav_panel_title",
+      "value": "面板与模式"
+    },
+    {
+      "name": "common_count_items",
+      "value": "%d 项"
+    },
+    {
+      "name": "common_section_result",
+      "value": "调用结果"
+    },
+    {
+      "name": "common_result_subtitle",
+      "value": "最新在上"
+    },
+    {
+      "name": "page_log_title",
+      "value": "本页事件"
+    },
+    {
+      "name": "extra_intro_note",
+      "value": "编辑框设置 customSettings 后，系统在拉起输入法时把它交给输入法应用的 EditorAttribute.extraConfig。本应用是 UIAbility，拿不到「被拉起」那一刻，所以用打桩对象复现同样的数据形状。"
+    },
+    {
+      "name": "extra_section_entries",
+      "value": "当前键值"
+    },
+    {
+      "name": "extra_bytes_limit",
+      "value": "额度上限"
+    },
+    {
+      "name": "extra_bytes_value",
+      "value": "%d 字节（32KB）"
+    },
+    {
+      "name": "extra_type_note",
+      "value": "值类型只能是 number / string / boolean，总长按 UTF-8 计算；超过 %d 字节属于入参问题。"
+    },
+    {
+      "name": "extra_btn_default",
+      "value": "构造默认配置"
+    },
+    {
+      "name": "extra_btn_read_stub",
+      "value": "读取打桩编辑框"
+    },
+    {
+      "name": "extra_btn_read_absent",
+      "value": "读取空扩展信息"
+    },
+    {
+      "name": "extra_btn_near_limit",
+      "value": "压线 32KB"
+    },
+    {
+      "name": "extra_btn_oversized",
+      "value": "越界 1 字节"
+    },
+    {
+      "name": "extra_btn_round_trip",
+      "value": "JSON 往返"
+    },
+    {
+      "name": "extra_section_call",
+      "value": "调用"
+    },
+    {
+      "name": "extra_call_subtitle",
+      "value": "全部为本地计算，不访问系统服务"
+    },
+    {
+      "name": "extra_result_empty",
+      "value": "点上面的按钮开始调用"
+    },
+    {
+      "name": "list_intro_note",
+      "value": "InputMethodListDialog 是系统提供的声明式组件：调用方只提供图标与回调，列表内容由系统按已安装输入法填充。本页用它切换中文/英文两个模式项。"
+    },
+    {
+      "name": "list_section_patterns",
+      "value": "模式项"
+    },
+    {
+      "name": "list_default_selected",
+      "value": "默认选中"
+    },
+    {
+      "name": "list_default_selected_value",
+      "value": "第 1 项（中文输入）"
+    },
+    {
+      "name": "list_recent",
+      "value": "最近选择"
+    },
+    {
+      "name": "list_not_selected",
+      "value": "尚未选择"
+    },
+    {
+      "name": "list_section_actions",
+      "value": "操作"
+    },
+    {
+      "name": "list_actions_subtitle",
+      "value": "对话框由系统渲染"
+    },
+    {
+      "name": "list_btn_open",
+      "value": "打开输入法列表"
+    },
+    {
+      "name": "list_btn_reset",
+      "value": "重置选择"
+    },
+    {
+      "name": "list_observed_note",
+      "value": "本机实测：对话框弹出的是系统输入法列表（kikaInput 与本应用的「输入法扩展」），两个模式项没有出现，action 回调也未触发。入口文档的限制是「本组件仅系统应用和输入法应用可调用，patternOptions 参数仅系统预置输入法支持」（d.ts 里同义写作 caller must be the current inputmethod），本应用两条都不满足，所以只见列表、不见模式项。"
+    },
+    {
+      "name": "list_result_empty",
+      "value": "点「打开输入法列表」开始"
+    },
+    {
+      "name": "list_row_action_title",
+      "value": "action 回调"
+    },
+    {
+      "name": "list_row_opened_detail",
+      "value": "对话框已打开，点选列表项观察 action 回调"
+    },
+    {
+      "name": "list_row_failed_detail",
+      "value": "打开失败：%s"
+    },
+    {
+      "name": "panel_btn_softkb_fixed",
+      "value": "软键盘·固定"
+    },
+    {
+      "name": "panel_btn_statusbar_fixed",
+      "value": "状态栏·固定"
+    },
+    {
+      "name": "panel_btn_softkb_floating",
+      "value": "软键盘·悬浮"
+    },
+    {
+      "name": "panel_btn_softkb_candidate",
+      "value": "软键盘·候选"
+    },
+    {
+      "name": "panel_ext_unchecked",
+      "value": "尚未检查"
+    },
+    {
+      "name": "panel_ext_registered",
+      "value": "%d 个模块，已注册：%s"
+    },
+    {
+      "name": "panel_ext_missing",
+      "value": "%d 个模块，未找到 inputMethod 扩展"
+    },
+    {
+      "name": "panel_ext_read_failed",
+      "value": "读取失败：%s"
+    },
+    {
+      "name": "panel_api15",
+      "value": "（API 15 起）"
+    },
+    {
+      "name": "panel_flag_note",
+      "value": "注意：kit 导出的枚举成员叫 FLAG_FIXED/FLAG_FLOATING，而 inputMethodEngine 命名空间内叫 FLG_FIXED/FLG_FLOATING，两者不可混用；创建面板时用后者。"
+    },
+    {
+      "name": "panel_create_note",
+      "value": "createPanel 的声明写明：只能在 InputMethodExtensionAbility 内调用，否则抛 12800004。本页在 UIAbility 里直接调用，把系统真实返回原样贴出来：抛错就贴错误码，返回面板就立即销毁。"
+    },
+    {
+      "name": "panel_section_flags",
+      "value": "面板枚举"
+    },
+    {
+      "name": "panel_flags_subtitle",
+      "value": "inputMethodEngine 中的定义"
+    },
+    {
+      "name": "panel_section_ext",
+      "value": "本应用扩展注册"
+    },
+    {
+      "name": "panel_ext_subtitle",
+      "value": "安装为输入法的前提"
+    },
+    {
+      "name": "panel_ext_type",
+      "value": "inputMethod 扩展"
+    },
+    {
+      "name": "panel_registered",
+      "value": "已注册"
+    },
+    {
+      "name": "panel_unregistered",
+      "value": "未注册"
+    },
+    {
+      "name": "panel_detail",
+      "value": "详情"
+    },
+    {
+      "name": "panel_ext_note",
+      "value": "注册只说明清单里有它；要真正成为输入法，还需要在设置里启用，并聚焦编辑框才会被拉起。"
+    },
+    {
+      "name": "panel_btn_recheck_ext",
+      "value": "重新检查扩展注册"
+    },
+    {
+      "name": "panel_section_live",
+      "value": "调用实测"
+    },
+    {
+      "name": "panel_live_subtitle",
+      "value": "在 UIAbility 里调 createPanel"
+    },
+    {
+      "name": "panel_btn_create",
+      "value": "调用 createPanel"
+    },
+    {
+      "name": "panel_btn_all",
+      "value": "四种组合都试"
+    },
+    {
+      "name": "panel_create_observed",
+      "value": "文档写的是抛 12800004（not an input method application），但本机实测（OpenHarmony 7.1）返回了面板而非报错，说明该版本未校验调用身份。出现「意外创建成功」时已立即销毁；换到校验身份的版本，这里会显示 12800004 与处理建议。"
+    },
+    {
+      "name": "panel_section_keyboard",
+      "value": "键盘预览"
+    },
+    {
+      "name": "panel_buffer_count",
+      "value": "本地缓冲 %d/%d"
+    },
+    {
+      "name": "panel_current_mode",
+      "value": "当前模式"
+    },
+    {
+      "name": "panel_caption_preview",
+      "value": "壳外预览"
+    },
+    {
+      "name": "panel_btn_clear_buffer",
+      "value": "清空缓冲"
+    },
+    {
+      "name": "panel_preview_note",
+      "value": "预览没有编辑框连接，按键只改本地缓冲；系统面板里的同一个组件会通过 InputClient 写入真实编辑框。"
+    },
+    {
+      "name": "panel_result_empty",
+      "value": "点「调用 createPanel」开始"
+    },
+    {
+      "name": "kb_hint_no_client",
+      "value": "无编辑框连接：按键只改本地缓冲"
+    },
+    {
+      "name": "kb_hint_inserted",
+      "value": "已上屏：%s"
+    },
+    {
+      "name": "kb_hint_insert_rejected",
+      "value": "编辑框拒绝了这次插入"
+    },
+    {
+      "name": "kb_hint_deleted",
+      "value": "已删除 1 个字符"
+    },
+    {
+      "name": "kb_hint_delete_rejected",
+      "value": "编辑框拒绝了这次删除"
+    },
+    {
+      "name": "kb_panel_title",
+      "value": "输入法面板 · %s"
+    },
+    {
+      "name": "kb_caption_candidates",
+      "value": "候选"
+    },
+    {
+      "name": "outcome_status_ok",
+      "value": "成功"
+    },
+    {
+      "name": "outcome_status_invalid",
+      "value": "入参无效"
+    },
+    {
+      "name": "outcome_status_unsupported",
+      "value": "能力不支持"
+    },
+    {
+      "name": "outcome_status_input_method",
+      "value": "输入法身份不符"
+    },
+    {
+      "name": "outcome_status_empty",
+      "value": "无返回结果"
+    },
+    {
+      "name": "outcome_status_internal",
+      "value": "内部错误"
+    },
+    {
+      "name": "outcome_summary_empty",
+      "value": "接口返回 undefined 且未抛异常"
+    },
+    {
+      "name": "outcome_summary_invalid",
+      "value": "本地校验未通过"
+    },
+    {
+      "name": "outcome_line_summary",
+      "value": "%s：%s"
+    },
+    {
+      "name": "outcome_line_code",
+      "value": "%s（%d）"
+    },
+    {
+      "name": "err_hint_invalid",
+      "value": "入参不合法：确认键名非空、值仅为 number/string/boolean，扩展信息总长不超过 32KB"
+    },
+    {
+      "name": "err_hint_unsupported",
+      "value": "设备或系统不支持该能力：先在设置中启用输入法框架，再换设备复验，勿据此断定接口不可用"
+    },
+    {
+      "name": "err_hint_input_method",
+      "value": "调用身份不符：createPanel 等接口只能在 InputMethodExtensionAbility 进程内调用，UIAbility 侧调用会抛 12800004"
+    },
+    {
+      "name": "err_hint_empty",
+      "value": "接口返回 undefined 却没有错误码，失败没有上报出来；先按 hilog 里的 tag 定位底层实现"
+    },
+    {
+      "name": "err_hint_internal",
+      "value": "内部错误：先检查输入法服务是否已启动，并用 hilog 过滤本示例 tag 查看调用顺序"
+    },
+    {
+      "name": "err_hint_ok",
+      "value": "调用正常完成"
+    },
+    {
+      "name": "err_unknown",
+      "value": "未知错误"
+    },
+    {
+      "name": "err_format_code",
+      "value": "%s失败（%d）：%s"
+    },
+    {
+      "name": "err_format",
+      "value": "%s失败：%s"
+    },
+    {
+      "name": "err_line",
+      "value": "%s；%s"
+    },
+    {
+      "name": "err_timeout",
+      "value": "等待超过 %d ms 仍未回调"
+    },
+    {
+      "name": "config_demo_habit",
+      "value": "双拼 · 中文优先"
+    },
+    {
+      "name": "config_entry_display",
+      "value": "%s = %s（%s）"
+    },
+    {
+      "name": "config_join",
+      "value": "；"
+    },
+    {
+      "name": "config_entries_more",
+      "value": "%s；…共 %d 项"
+    },
+    {
+      "name": "session_detail_json",
+      "value": "%s；JSON 共 %d 字节"
+    },
+    {
+      "name": "session_summary_keys",
+      "value": "%d 个键，%d 字节"
+    },
+    {
+      "name": "session_summary_read",
+      "value": "%d 项"
+    },
+    {
+      "name": "session_summary_mismatch",
+      "value": "读取结果与写入不一致"
+    },
+    {
+      "name": "session_summary_read_counts",
+      "value": "读取到 %d 项，构造时写入 %d 项"
+    },
+    {
+      "name": "session_detail_absent",
+      "value": "StubEditorAttribute 未携带 extraConfig，读取结果应为空"
+    },
+    {
+      "name": "session_summary_unexpected_items",
+      "value": "意外读到 %d 项"
+    },
+    {
+      "name": "session_summary_absent",
+      "value": "0 项（未提供扩展信息）"
+    },
+    {
+      "name": "session_detail_budget",
+      "value": "目标 %d 字节，实测 %d 字节；d.ts 约定总长不超过 32KB"
+    },
+    {
+      "name": "session_summary_over_budget",
+      "value": "压线构造反而超出 %d 字节"
+    },
+    {
+      "name": "session_summary_within_budget",
+      "value": "%d 字节，未越界"
+    },
+    {
+      "name": "session_detail_oversized",
+      "value": "构造到 %d 字节，上限 %d 字节；文档约定超出部分不传递，这里在写入前按入参问题拦下"
+    },
+    {
+      "name": "session_summary_undersized",
+      "value": "未达到越界目标（%d 字节）"
+    },
+    {
+      "name": "session_summary_oversized",
+      "value": "超出 %d 字节"
+    },
+    {
+      "name": "session_summary_restore_failed",
+      "value": "还原失败"
+    },
+    {
+      "name": "session_detail_original",
+      "value": "原文 %s"
+    },
+    {
+      "name": "session_summary_roundtrip_mismatch",
+      "value": "往返后内容不一致"
+    },
+    {
+      "name": "session_detail_roundtrip",
+      "value": "往返前 %d 字节，往返后 %d 字节"
+    },
+    {
+      "name": "session_summary_roundtrip_ok",
+      "value": "%d 字节，内容一致"
+    },
+    {
+      "name": "feature_extra_title",
+      "value": "扩展信息"
+    },
+    {
+      "name": "feature_extra_subtitle",
+      "value": "ArkUI 编辑框拉起输入法时携带的 customSettings：构造、32KB 额度、打桩读取"
+    },
+    {
+      "name": "feature_list_title",
+      "value": "输入法列表"
+    },
+    {
+      "name": "feature_list_subtitle",
+      "value": "系统输入法切换列表控件：显示默认输入法子类型与三方输入法，可带模式选项"
+    },
+    {
+      "name": "feature_panel_title",
+      "value": "面板与模式"
+    },
+    {
+      "name": "feature_panel_subtitle",
+      "value": "面板类型/状态枚举、软键盘面板预览，以及跨进程 createPanel 的真实返回"
+    },
+    {
+      "name": "feature_api_join",
+      "value": "、"
+    },
+    {
+      "name": "uncovered_ime_name",
+      "value": "InputMethodExtensionAbility 真实输入"
+    },
+    {
+      "name": "uncovered_ime_reason",
+      "value": "安装为输入法并在设置中启用、聚焦编辑框后才会被拉起，示例不自动改系统输入法设置"
+    },
+    {
+      "name": "uncovered_engine_name",
+      "value": "inputMethodEngine 输入回调（insertText 等）"
+    },
+    {
+      "name": "uncovered_engine_reason",
+      "value": "需要输入法身份与真实编辑框连接，自动化环境拿不到该连接，页面只做面板预览"
+    },
+    {
+      "name": "uncovered_item",
+      "value": "%s（%s）"
+    },
+    {
+      "name": "uncovered_join",
+      "value": "；"
+    },
+    {
+      "name": "kb_key_space",
+      "value": "空格"
+    },
+    {
+      "name": "kb_mode_number",
+      "value": "数字与符号"
+    },
+    {
+      "name": "kb_mode_letter",
+      "value": "字母"
+    },
+    {
+      "name": "kb_candidate_suffix_hao",
+      "value": "好"
+    },
+    {
+      "name": "kb_candidate_suffix_de",
+      "value": "的"
+    },
+    {
+      "name": "panel_status_none",
+      "value": "尚未创建面板"
+    },
+    {
+      "name": "panel_status_mounted",
+      "value": "面板已挂载 %s（%d × %d px）"
+    },
+    {
+      "name": "panel_status_destroyed",
+      "value": "面板已销毁"
+    },
+    {
+      "name": "panel_status_destroy_failed",
+      "value": "面板销毁失败"
+    },
+    {
+      "name": "panel_summary_reuse",
+      "value": "复用已有面板"
+    },
+    {
+      "name": "panel_summary_created",
+      "value": "面板已创建（%d × %d px）"
+    },
+    {
+      "name": "panel_detail_created",
+      "value": "createPanel → resize → setUiContent('%s') 全部成功"
+    },
+    {
+      "name": "panel_detail_timeout",
+      "value": "等待上限内没有回调，面板不可用；这不代表底层调用已经结束"
+    },
+    {
+      "name": "panel_detail_register_hint",
+      "value": "确认本调用发生在 InputMethodExtensionAbility 进程内，且扩展已在 module.json5 注册"
+    },
+    {
+      "name": "bridge_status_disconnected",
+      "value": "未连接编辑框（壳外预览）"
+    },
+    {
+      "name": "bridge_status_connected",
+      "value": "已连接编辑框，输入将写入真实编辑框"
+    },
+    {
+      "name": "bridge_status_detached",
+      "value": "编辑框已解绑，回到壳外预览"
+    },
+    {
+      "name": "probe_label_soft_fixed",
+      "value": "软键盘·固定"
+    },
+    {
+      "name": "probe_summary_unexpected",
+      "value": "意外创建成功（%s）"
+    },
+    {
+      "name": "probe_detail_unexpected",
+      "value": "当前进程被当作输入法应用；已立即销毁面板（%s）"
+    },
+    {
+      "name": "probe_destroyed_ok",
+      "value": "销毁成功"
+    },
+    {
+      "name": "probe_destroyed_failed",
+      "value": "销毁失败"
+    },
+    {
+      "name": "probe_detail_timeout",
+      "value": "等待上限内没有回调，页面不再等待；这不代表底层调用已经结束"
+    },
+    {
+      "name": "probe_summary_labelled",
+      "value": "（%s）%s"
+    },
+    {
+      "name": "probe_hint_expected",
+      "value": "符合预期：UIAbility 不是输入法应用，面板只能在 InputMethodExtensionAbility 内创建"
+    },
+    {
+      "name": "probe_hint_unsupported",
+      "value": "设备未声明输入法框架能力，换设备复验"
+    },
+    {
+      "name": "probe_hint_unknown",
+      "value": "未登记的错误码，先看 hilog 里 createPanel 前后的调用顺序"
+    },
+    {
+      "name": "list_pattern_zh_label",
+      "value": "中文输入"
+    },
+    {
+      "name": "list_pattern_zh_hint",
+      "value": "拼音候选，适用于文本编辑框"
+    },
+    {
+      "name": "list_pattern_en_label",
+      "value": "英文输入"
+    },
+    {
+      "name": "list_pattern_en_hint",
+      "value": "直接上屏，适用于密码外的普通输入"
+    },
+    {
+      "name": "list_pattern_display",
+      "value": "%d. %s（%s）"
+    },
+    {
+      "name": "list_summary_empty",
+      "value": "没有模式项"
+    },
+    {
+      "name": "list_summary",
+      "value": "%d 个模式项：%s；默认选中第 %d 项"
+    },
+    {
+      "name": "list_action_empty",
+      "value": "回调下标 %d：列表为空，无可选项"
+    },
+    {
+      "name": "list_action_out_of_range",
+      "value": "回调下标 %d：超出范围（共 %d 项）"
+    },
+    {
+      "name": "list_action_hit",
+      "value": "回调下标 %d：%s"
+    },
+    {
+      "name": "list_join",
+      "value": "、"
+    }
+  ]
+}

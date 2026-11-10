@@ -35,8 +35,24 @@ export class MediaControlCenterHandle {
     return MediaControlCenterHandle.mediaControlCenterHandle;
   }
 
+  /**
+   * Check whether the native player module (libentry.so) is loaded.
+   * In some environments (e.g. ohosTest process) the native module may fail to load;
+   * all native calls must be guarded to avoid a process crash.
+   */
+  private isPlayerReady(): boolean {
+    if (!audioPlayer) {
+      Logger.error(TAG, 'audioPlayer is undefined, native module libentry.so not loaded');
+      return false;
+    }
+    return true;
+  }
+
   // Initialize the playback instance class and place it in this method.
   async init() {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.initPlayer();
   }
 
@@ -55,9 +71,11 @@ export class MediaControlCenterHandle {
       let progress = audioPlayer.getProgress();
       Logger.info(TAG, `current progress is ${progress}`)
       MediaControlCenterCallbackAction.getInstance().doUpdateProgressAction(progress);
-      let duration = Math.floor(AppStorage.get('totalMsTime')!);
+      let duration = Math.floor(AppStorage.get<number>('totalMsTime') ?? 0);
       Logger.info(TAG, `duration is ${duration}`)
-      if (this.isPlaying && progress >= duration) {
+      // Duration is unknown until the audio format is parsed. Treating it as 0 would end the song on the
+      // first tick and trigger a stop/release/create cycle right after playback starts.
+      if (duration > 0 && this.isPlaying && progress >= duration) {
         MediaControlCenterCallbackAction.getInstance().doPlayNextAction();
         clearInterval(this.interval)
       }
@@ -66,6 +84,9 @@ export class MediaControlCenterHandle {
   // [End onProgress]
 
   registerCallback() {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.onPlayStatus((state) => {
       Logger.info(TAG, `onPlayStateChange is ${state}`)
       if (state === 4) {
@@ -86,6 +107,9 @@ export class MediaControlCenterHandle {
 
   // Load the song information. The song information can be obtained from this interface, including fd length offset
   loadSongAssent(songRawFileDescriptor: resourceManager.RawFileDescriptor, fileName: string) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.loadSongInfo(fileName, songRawFileDescriptor.fd, songRawFileDescriptor.length,
     songRawFileDescriptor.offset);
 
@@ -96,12 +120,18 @@ export class MediaControlCenterHandle {
 
   // Execute play
   play() {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     this.isPlaying = true;
     audioPlayer.playSong();
   }
 
   // Set speed
   setSpeed(speed: number) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.setPlayingSpeed(speed);
   }
 
@@ -118,6 +148,9 @@ export class MediaControlCenterHandle {
 
   // Set Volume
   setVolume(volume: number) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.setPlayingVolume(volume);
     if (!AppStorage.get('isSilentMode') || volume !== 0) {
       PreferencesUtil.getInstance().preferencesPut(VOLUME_ID, volume);
@@ -127,17 +160,27 @@ export class MediaControlCenterHandle {
 
   // Set whether to mute
   setSilentMode(isSilentMode: boolean) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.setSilentMode(isSilentMode);
     PreferencesUtil.getInstance().preferencesPut(SILENT_ID, isSilentMode);
   }
 
   setEffectMode(isEffectMode: boolean) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.setEffectMode(isEffectMode);
     PreferencesUtil.getInstance().preferencesPut(EFFECT_ID, isEffectMode);
   }
 
   // Execute pause
   pause() {
+    if (!this.isPlayerReady()) {
+      this.isPlaying = false;
+      return;
+    }
     audioPlayer.pauseSong();
     this.isPlaying = false;
   }
@@ -150,22 +193,34 @@ export class MediaControlCenterHandle {
 
   // Execute seek
   seek(ms: number) {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.seekPlaySong(ms)
   }
 
   // Execute stop
   async stop() {
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.stopSong();
   }
 
   // Execute release
   release() {
     clearInterval(this.interval);
+    if (!this.isPlayerReady()) {
+      return;
+    }
     audioPlayer.releasePlayer();
   }
 
   // Get song duration
   getSongDuration(): number {
+    if (!this.isPlayerReady()) {
+      return 0;
+    }
     return audioPlayer.getSongDuration();
   }
 }

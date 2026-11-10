@@ -265,7 +265,7 @@ struct Index {
                 (): void => {
                   let fileName: string = getContext(this).cacheDir + '/pixel_map.jpg';
                   let fd: number = fs.openSync(fileName, fs.OpenMode.READ_WRITE).fd;
-                  readAndEditEXIF(fd);
+                  readAndEditEXIF(fd).finally(() => fs.closeSync(fd));
                 })
             }.justifyContent(FlexAlign.SpaceAround)
             .width('100%')
@@ -349,8 +349,7 @@ struct Index {
   private translateImage() {
     if (this.pixelMap != undefined) {
       // [Start pixelmap_translate_image]
-      // 向下平移100。
-      // 向右平移100。
+      // 向右平移100像素并向下平移100像素。
       this.pixelMap.translate(100, 100).then(() => {
         // [StartExclude pixelmap_translate_image]
         // 平移后图片变为800×800，重新裁剪为700×700。
@@ -485,7 +484,7 @@ struct Index {
     if (this.pixelMap !== undefined) {
       // [Start pixelmap_bitmap_operation]
       // 场景二：读取并修改指定区域内的图像数据。
-      // 读取PixelMap指定区域内的像素数据，并按照RGBA_8888像素格式写入PositionArea.pixels缓冲区，该区域由PositionArea.region指定。
+      // 读取PixelMap指定区域内的像素数据，并按照BGRA_8888像素格式写入PositionArea.pixels缓冲区，该区域由PositionArea.region指定。
       const regionWidth: number = 200;
       const regionHeight: number = 100;
       const area: image.PositionArea = {

@@ -1,0 +1,264 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DialogV2 与 InterstitialDialogAction 弹窗组件演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "标准弹窗与插屏弹窗演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "弹窗组件演示"
+    },
+    {
+      "name": "page_title",
+      "value": "弹窗组件：DialogV2 与插屏弹窗"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "DialogV2 标准弹窗家族 · InterstitialDialogAction 插屏 · ActionSheet/选择器/Toast/showDialog 系统弹窗"
+    },
+    {
+      "name": "btn_scene_1",
+      "value": "场景1：ConfirmDialogV2 确认对话框（复选框/主次按钮）"
+    },
+    {
+      "name": "btn_scene_2",
+      "value": "场景2：AlertDialogV2 警告详情弹窗（双标题）"
+    },
+    {
+      "name": "btn_scene_3",
+      "value": "场景3：SelectDialogV2 单选列表弹窗（预选中/确认）"
+    },
+    {
+      "name": "btn_scene_4",
+      "value": "场景4：TipsDialogV2 图示提示弹窗（图标/勾选）"
+    },
+    {
+      "name": "btn_scene_5",
+      "value": "场景5：LoadingDialogV2 加载弹窗（2s 自动关闭）"
+    },
+    {
+      "name": "btn_scene_6",
+      "value": "场景6：CustomContentDialogV2 自定义内容弹窗（按钮数组）"
+    },
+    {
+      "name": "btn_scene_7",
+      "value": "场景7：PopoverDialogV2 气泡弹窗（锚点显隐）"
+    },
+    {
+      "name": "btn_scene_8",
+      "value": "场景8：InterstitialDialogAction 插屏弹窗（原子化服务弹框）"
+    },
+    {
+      "name": "btn_scene_9",
+      "value": "场景9：ActionSheet 操作列表弹窗（多项操作/取消）"
+    },
+    {
+      "name": "btn_scene_10",
+      "value": "场景10：DatePickerDialog 日期选择弹窗"
+    },
+    {
+      "name": "btn_scene_11",
+      "value": "场景11：TimePickerDialog 时间选择弹窗"
+    },
+    {
+      "name": "btn_scene_12",
+      "value": "场景12：TextPickerDialog 文本选择弹窗"
+    },
+    {
+      "name": "btn_scene_13",
+      "value": "场景13：Toast 轻提示（openToast/closeToast）"
+    },
+    {
+      "name": "btn_scene_14",
+      "value": "场景14：showDialog 系统按钮弹窗"
+    },
+    {
+      "name": "common_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "common_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "d1_title",
+      "value": "删除这条记录？"
+    },
+    {
+      "name": "d1_content",
+      "value": "删除后不可恢复，请谨慎操作。"
+    },
+    {
+      "name": "d1_check",
+      "value": "不再提示"
+    },
+    {
+      "name": "d1_primary",
+      "value": "删除"
+    },
+    {
+      "name": "d2_primary_title",
+      "value": "存储空间不足"
+    },
+    {
+      "name": "d2_secondary_title",
+      "value": "建议立即清理"
+    },
+    {
+      "name": "d2_content",
+      "value": "缓存已占用 3.2GB，继续下载可能失败。"
+    },
+    {
+      "name": "d2_primary",
+      "value": "去清理"
+    },
+    {
+      "name": "d2_secondary",
+      "value": "稍后"
+    },
+    {
+      "name": "d3_title",
+      "value": "选择网络"
+    },
+    {
+      "name": "d3_content",
+      "value": "连接到以下设备热点"
+    },
+    {
+      "name": "d4_title",
+      "value": "开启智能同步"
+    },
+    {
+      "name": "d4_content",
+      "value": "开启后在 WLAN 环境自动备份相册与联系人。"
+    },
+    {
+      "name": "d4_check",
+      "value": "记住本次选择"
+    },
+    {
+      "name": "d4_primary",
+      "value": "立即开启"
+    },
+    {
+      "name": "d4_secondary",
+      "value": "暂不"
+    },
+    {
+      "name": "d5_content",
+      "value": "正在同步数据…"
+    },
+    {
+      "name": "d6_primary_title",
+      "value": "偏好设置"
+    },
+    {
+      "name": "d6_secondary_title",
+      "value": "自定义内容区"
+    },
+    {
+      "name": "d6_reset",
+      "value": "重置"
+    },
+    {
+      "name": "d6_save",
+      "value": "保存"
+    },
+    {
+      "name": "d6_inner_count",
+      "value": "按钮数组元素数：%d"
+    },
+    {
+      "name": "d6_inner_desc",
+      "value": "场景 id：%d，内容由 contentBuilder 渲染"
+    },
+    {
+      "name": "interstitial_title",
+      "value": "版本更新提示"
+    },
+    {
+      "name": "interstitial_subtitle",
+      "value": "发现新版本 2.0.0，是否立即升级？"
+    },
+    {
+      "name": "d9_title",
+      "value": "文件操作"
+    },
+    {
+      "name": "d9_subtitle",
+      "value": "example.png · 2.4MB"
+    },
+    {
+      "name": "d9_message",
+      "value": "选择要执行的操作"
+    },
+    {
+      "name": "d9_rename",
+      "value": "重命名"
+    },
+    {
+      "name": "d9_share",
+      "value": "分享"
+    },
+    {
+      "name": "d9_delete",
+      "value": "删除"
+    },
+    {
+      "name": "d13_message",
+      "value": "已保存到相册"
+    },
+    {
+      "name": "d14_title",
+      "value": "保存更改？"
+    },
+    {
+      "name": "d14_message",
+      "value": "你有未保存的更改，是否保存后退出？"
+    },
+    {
+      "name": "d14_no_save",
+      "value": "不保存"
+    },
+    {
+      "name": "d14_save",
+      "value": "保存"
+    },
+    {
+      "name": "pop_title",
+      "value": "PopoverDialogV2 气泡"
+    },
+    {
+      "name": "pop_desc",
+      "value": "visible/$visible 控制显隐，targetBuilder 为锚点"
+    },
+    {
+      "name": "pop_anchor_open",
+      "value": "收起气泡"
+    },
+    {
+      "name": "pop_anchor_closed",
+      "value": "气泡锚点"
+    },
+    {
+      "name": "log_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "断点：%s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "设备：%s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API：%d"
+    }
+  ]
+}

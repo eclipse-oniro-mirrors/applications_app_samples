@@ -9,10 +9,11 @@
 #ifndef VK_USE_PLATFORM_OHOS
 #define VK_USE_PLATFORM_OHOS 1
 #endif
+#include <chrono>
 #include <cstdint>
 #include <vulkan/vulkan.h>
-#include <native_image/native_image.h>
 #include <native_buffer/native_buffer.h>
+#include <native_image/native_image.h>
 #include <array>
 #include <atomic>
 #include <condition_variable>
@@ -41,9 +42,21 @@ public:
     {
         return hdrVividConfirmed_;
     }
+    VideoSinkDiagnostics GetDiagnostics() const override;
     void Reset() override;
 
 private:
+    struct ExternalBufferCacheEntry;
+    static constexpr size_t externalBufferCacheCapacity = 4;
+    enum class VulkanDiagnosticStage {
+        NATIVE_IMAGE_WAIT,
+        NATIVE_IMAGE_ACQUIRE,
+        ACQUIRE_FENCE_WAIT,
+        IMPORT,
+        GPU_WAIT,
+        COMMAND_RECORD,
+        SUBMIT
+    };
     static constexpr uint32_t externalShaderStageCount = 2;
     static constexpr uint32_t externalAttributeCount = 2;
     static constexpr uint32_t externalDynamicStateCount = 2;
@@ -125,7 +138,20 @@ private:
     void RecordNativeImageDraw(uint32_t imageIndex, const PresentRegion &region);
     bool UpdateExternalTransform();
     bool AcquireNativeImageBuffer();
+    bool WaitForAcquireFence(OHNativeWindowBuffer *buffer, int &fenceFd);
+    void RecordNativeImageAcquireDuration(std::chrono::steady_clock::time_point startedAt);
     bool ImportNativeBuffer();
+    bool CreateAndCacheExternalBuffer(uint32_t sequenceNumber, const OH_NativeBuffer_Config &config);
+    void ActivateExternalBufferCacheEntry(int32_t cacheIndex);
+    bool FailExternalBufferImport(std::chrono::steady_clock::time_point startedAt);
+    void DestroyExternalBufferCache();
+    int32_t FindExternalBufferCacheEntry(uint32_t sequenceNumber, const OH_NativeBuffer_Config &config) const;
+    bool CacheActiveExternalBuffer(uint32_t sequenceNumber, const OH_NativeBuffer_Config &config,
+        const VkNativeBufferPropertiesOHOS &properties);
+    size_t SelectExternalBufferCacheSlot() const;
+    void EvictExternalBufferCacheEntry(size_t cacheIndex, const ExternalBufferCacheEntry &replacement);
+    void SaveActiveExternalImageState();
+    void RecordVulkanStage(VulkanDiagnosticStage stage, uint64_t durationNs);
     bool QueryExternalBufferProperties(VkNativeBufferPropertiesOHOS &properties);
     bool CreateImportedExternalImage(const VkNativeBufferPropertiesOHOS &properties,
         const OH_NativeBuffer_Config &config);
@@ -218,6 +244,7 @@ private:
     VkImageView externalImageView_ = VK_NULL_HANDLE;
     VkImage externalImage_ = VK_NULL_HANDLE;
     VkDeviceMemory externalImageMemory_ = VK_NULL_HANDLE;
+    VkImageLayout externalImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
     VkBuffer externalVertexBuffer_ = VK_NULL_HANDLE;
     VkDeviceMemory externalVertexMemory_ = VK_NULL_HANDLE;
     VkBuffer externalUniformBuffer_ = VK_NULL_HANDLE;
@@ -227,6 +254,37 @@ private:
     VkExternalFormatOHOS externalFormat_ {};
     VkNativeBufferFormatPropertiesOHOS externalFormatProperties_ {};
     std::array<float, VideoPresentationGeometry::MATRIX_ELEMENT_COUNT> externalTransform_ {};
+    struct ExternalBufferCacheEntry {
+        bool valid = false;
+        uint32_t sequenceNumber = 0;
+        uint64_t lastUse = 0;
+        OH_NativeBuffer *nativeBuffer = nullptr;
+        OH_NativeBuffer_Config config {};
+        VkNativeBufferPropertiesOHOS properties {};
+        VkNativeBufferFormatPropertiesOHOS formatProperties {};
+        VkExternalFormatOHOS externalFormat {};
+        VkImage image = VK_NULL_HANDLE;
+        VkDeviceMemory memory = VK_NULL_HANDLE;
+        VkImageView view = VK_NULL_HANDLE;
+        VkImageLayout layout = VK_IMAGE_LAYOUT_UNDEFINED;
+        bool usesYcbcrConversion = false;
+    };
+    std::array<ExternalBufferCacheEntry, externalBufferCacheCapacity> externalBufferCache_ {};
+    int32_t activeExternalBufferCacheIndex_ = -1;
+    uint64_t externalBufferCacheUse_ = 0;
+    std::atomic<uint64_t> vulkanDiagnosticFrames_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticFailures_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticCacheHits_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticCacheMisses_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticFrameNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticNativeImageWaitNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticNativeImageAcquireNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticFenceWaitNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticImportNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticGpuWaitNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticCommandRecordNs_ { 0 };
+    std::atomic<uint64_t> vulkanDiagnosticSubmitNs_ { 0 };
+    VkImageView externalDescriptorImageView_ = VK_NULL_HANDLE;
     VkBuffer stagingBuffer_ = VK_NULL_HANDLE;
     VkDeviceMemory stagingMemory_ = VK_NULL_HANDLE;
     size_t stagingCapacity_ = 0;

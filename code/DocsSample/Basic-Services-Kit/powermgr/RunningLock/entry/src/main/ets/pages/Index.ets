@@ -17,9 +17,7 @@ import { UserIdleTask } from './UserIdleTask';
 import { common } from '@kit.AbilityKit';
 // [Start import_module]
 // 导入runningLock、commonEventManager、BusinessError模块
-import { runningLock } from '@kit.BasicServicesKit';
-import { commonEventManager } from '@kit.BasicServicesKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { runningLock, commonEventManager, BusinessError} from '@kit.BasicServicesKit';
 // [End import_module]
 
 @Entry

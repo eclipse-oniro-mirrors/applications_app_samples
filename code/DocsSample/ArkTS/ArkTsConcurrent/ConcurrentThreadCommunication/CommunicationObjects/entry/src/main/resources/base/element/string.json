@@ -35,6 +35,14 @@
     {
       "name": "Container_Object",
       "value": "高性能容器类对象"
+    },
+    {
+      "name": "Worker_Send_ArrayBuffer",
+      "value": "Worker场景传递ArrayBuffer"
+    },
+    {
+      "name": "Worker_Send_ArrayBuffer_With_Copy",
+      "value": "Worker场景拷贝传递ArrayBuffer"
     }
   ]
 }

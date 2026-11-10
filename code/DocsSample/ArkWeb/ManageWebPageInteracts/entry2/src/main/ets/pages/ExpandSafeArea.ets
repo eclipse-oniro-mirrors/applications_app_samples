@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// xxx.ets
 // [Start soft_keyboard_expand_safe_area]
+// xxx.ets
 import { webview } from '@kit.ArkWeb';
 
 @Entry

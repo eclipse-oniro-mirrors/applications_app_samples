@@ -26,7 +26,7 @@ import { UIComponentsBuilder } from '../tools/components';
 import { Router } from '@ohos.arkui.UIContext';
 
 const router = new Router();
-// 创建 UIComponentsBuilder 实例
+// 创建 UIComponentsBuilder 实例。
 const uiComponents = new UIComponentsBuilder();
 let fileName: string = 'allAux.jpg';
 

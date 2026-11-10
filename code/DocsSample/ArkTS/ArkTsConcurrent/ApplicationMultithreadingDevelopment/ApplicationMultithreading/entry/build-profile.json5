@@ -20,7 +20,8 @@
       "workers": [
         "./src/main/ets/workers/MyWorker1.ets",
         "./src/main/ets/workers/MyWorker2.ets",
-        "./src/main/ets/workers/Worker.ets"
+        "./src/main/ets/workers/Worker.ets",
+        "./src/main/ets/workers/Dispatcher.ets"
       ]
     }
   },

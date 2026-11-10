@@ -13,13 +13,12 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import UIAbility from '@ohos.app.ability.UIAbility'
-import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit'
 import { Hypium } from '@ohos/hypium'
 import testsuite from '../test/List.test'
-import Window from '@ohos.window'
-import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
@@ -39,7 +38,7 @@ export default class TestAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage) {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {

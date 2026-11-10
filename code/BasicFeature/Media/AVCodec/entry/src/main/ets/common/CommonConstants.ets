@@ -87,6 +87,12 @@ export class CommonConstants {
   public static readonly AUDIO_BITRATE: string[] = ['32kbps', '64kbps', '128kbps'];
   public static readonly AUDIO_CAPTURE_LATENCY_MODE: string[] = ['NormalLatency', 'LowLatency'];
   public static readonly VIDEO_STABILIZATION_MODE: string[] = ['Disabled', 'Auto'];
+  public static readonly VIDEO_PREPROC_MODE: string[] = ['None', 'Downsample to 720P', 'Center crop (75%)'];
+  public static readonly VIDEO_DROP_FRAME_RATE: string[] = ['No frame drop', '30 fps'];
+  public static readonly DUAL_OUTPUT_MODE: string[] = ['Single output', 'Primary + secondary'];
+  public static readonly VIDEO_PREPROC_NONE: number = 0;
+  public static readonly VIDEO_PREPROC_DOWNSAMPLING: number = 1;
+  public static readonly VIDEO_PREPROC_CROP: number = 2;
   /**
    * 视频解码器类型：自动、硬件或软件。
    */
@@ -151,8 +157,10 @@ export class CommonConstants {
     CommonConstants.VIDEO_FRAMERATE, CommonConstants.VIDEO_DECODER_SYNC_MODE, CommonConstants.VIDEO_BITRATE,
     CommonConstants.VIDEO_BITRATE_MODE, CommonConstants.VIDEO_I_FRAME_INTERVAL,
     CommonConstants.AUDIO_SAMPLE_RATE, CommonConstants.AUDIO_CHANNEL_COUNT, CommonConstants.AUDIO_BITRATE,
-    CommonConstants.AUDIO_CAPTURE_LATENCY_MODE, CommonConstants.VIDEO_STABILIZATION_MODE
+    CommonConstants.AUDIO_CAPTURE_LATENCY_MODE, CommonConstants.VIDEO_STABILIZATION_MODE,
+    CommonConstants.VIDEO_PREPROC_MODE, CommonConstants.VIDEO_DROP_FRAME_RATE, CommonConstants.DUAL_OUTPUT_MODE
   ];
+  public static readonly RECORDER_REQUIRED_SETTING_COUNT: number = 13;
   /**
    * 播放速度。
    */

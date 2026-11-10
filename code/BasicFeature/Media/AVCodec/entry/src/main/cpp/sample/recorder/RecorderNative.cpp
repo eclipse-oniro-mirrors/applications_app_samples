@@ -23,7 +23,7 @@
 
 namespace {
 constexpr int32_t RGBA = 3;
-constexpr size_t RECORDER_ARG_COUNT = 16;
+constexpr size_t RECORDER_ARG_COUNT = 31;
 constexpr size_t OUTPUT_FD_ARG = 0;
 constexpr size_t VIDEO_MIME_ARG = 1;
 constexpr size_t VIDEO_WIDTH_ARG = 2;
@@ -40,11 +40,27 @@ constexpr size_t AUDIO_SAMPLE_RATE_ARG = 12;
 constexpr size_t AUDIO_CHANNEL_COUNT_ARG = 13;
 constexpr size_t AUDIO_BITRATE_ARG = 14;
 constexpr size_t AUDIO_LATENCY_MODE_ARG = 15;
+constexpr size_t SECONDARY_OUTPUT_FD_ARG = 16;
+constexpr size_t DUAL_OUTPUT_ARG = 17;
+constexpr size_t PREPROC_MODE_ARG = 18;
+constexpr size_t DOWNSAMPLING_WIDTH_ARG = 19;
+constexpr size_t DOWNSAMPLING_HEIGHT_ARG = 20;
+constexpr size_t DROP_FRAME_RATE_ARG = 21;
+constexpr size_t CROP_LEFT_ARG = 22;
+constexpr size_t CROP_TOP_ARG = 23;
+constexpr size_t CROP_RIGHT_ARG = 24;
+constexpr size_t CROP_BOTTOM_ARG = 25;
+constexpr size_t SECONDARY_WIDTH_ARG = 26;
+constexpr size_t SECONDARY_HEIGHT_ARG = 27;
+constexpr size_t VIDEO_DUMP_ARG = 28;
+constexpr size_t VIDEO_DUMP_PATH_ARG = 29;
+constexpr size_t SECONDARY_VIDEO_DUMP_PATH_ARG = 30;
 constexpr size_t VIDEO_MIME_LENGTH = 20;
 constexpr int32_t AUDIO_SAMPLE_RATE = 48000;
 constexpr int32_t AUDIO_CHANNEL_COUNT = 2;
 constexpr int32_t AUDIO_BITRATE = 32000;
 constexpr double AUDIO_FRAME_DURATION_SECONDS = 0.02;
+constexpr size_t VIDEO_DUMP_PATH_BUFFER_SIZE = 1024;
 }
 
 struct AsyncCallbackInfo {
@@ -145,27 +161,28 @@ void NativeInit(void *data)
     SetCallBackResult(asyncCallbackInfo, AVCODEC_SAMPLE_ERR_OK);
 }
 
-static SampleInfo ParseSampleInfo(napi_env env, napi_value args[], size_t argc)
+static void ParseVideoInput(napi_env env, napi_value args[], SampleInfo &sampleInfo)
 {
-    SampleInfo sampleInfo;
-    napi_get_value_int32(env, args[OUTPUT_FD_ARG], &sampleInfo.output.outputFd);
     char videoCodecMime[VIDEO_MIME_LENGTH] = { 0 };
     size_t videoCodecMimeLength = 0;
     napi_get_value_string_utf8(env, args[VIDEO_MIME_ARG], videoCodecMime,
         VIDEO_MIME_LENGTH, &videoCodecMimeLength);
+    sampleInfo.video.videoCodecMime = videoCodecMime;
     napi_get_value_int32(env, args[VIDEO_WIDTH_ARG], &sampleInfo.video.videoWidth);
     napi_get_value_int32(env, args[VIDEO_HEIGHT_ARG], &sampleInfo.video.videoHeight);
     napi_get_value_double(env, args[FRAME_RATE_ARG], &sampleInfo.video.frameRate);
     napi_get_value_int32(env, args[HDR_VIVID_ARG], &sampleInfo.video.isHDRVivid);
     napi_get_value_int64(env, args[BITRATE_ARG], &sampleInfo.video.bitrate);
-
     int32_t format;
     if (napi_ok == napi_get_value_int32(env, args[PIXEL_FORMAT_ARG], &format)) {
         sampleInfo.video.pixelFormat = (format == RGBA) ? AV_PIXEL_FORMAT_RGBA : AV_PIXEL_FORMAT_NV12;
     }
-
     napi_get_value_int32(env, args[SYNC_MODE_ARG], &sampleInfo.codec.codecSyncMode);
     napi_get_value_int32(env, args[OUTPUT_FORMAT_ARG], &sampleInfo.output.outputFormat);
+}
+
+static void ParseOptionalCodecSettings(napi_env env, napi_value args[], size_t argc, SampleInfo &sampleInfo)
+{
     if (argc > BITRATE_MODE_ARG) {
         int32_t bitrateMode = CBR;
         napi_get_value_int32(env, args[BITRATE_MODE_ARG], &bitrateMode);
@@ -186,8 +203,88 @@ static SampleInfo ParseSampleInfo(napi_env env, napi_value args[], size_t argc)
     if (argc > AUDIO_LATENCY_MODE_ARG) {
         napi_get_value_int32(env, args[AUDIO_LATENCY_MODE_ARG], &sampleInfo.audio.audioLatencyMode);
     }
+}
 
-    sampleInfo.video.videoCodecMime = videoCodecMime;
+static void ParseOptionalDualOutput(napi_env env, napi_value args[], size_t argc, SampleInfo &sampleInfo)
+{
+    if (argc > SECONDARY_OUTPUT_FD_ARG) {
+        napi_get_value_int32(env, args[SECONDARY_OUTPUT_FD_ARG], &sampleInfo.output.secondaryOutputFd);
+    }
+    if (argc > DUAL_OUTPUT_ARG) {
+        int32_t enableDualOutput = 0;
+        napi_get_value_int32(env, args[DUAL_OUTPUT_ARG], &enableDualOutput);
+        sampleInfo.output.enableDualOutput = enableDualOutput != 0;
+    }
+    if (argc > SECONDARY_WIDTH_ARG) {
+        napi_get_value_int32(env, args[SECONDARY_WIDTH_ARG], &sampleInfo.output.secondaryVideoWidth);
+    }
+    if (argc > SECONDARY_HEIGHT_ARG) {
+        napi_get_value_int32(env, args[SECONDARY_HEIGHT_ARG], &sampleInfo.output.secondaryVideoHeight);
+    }
+}
+
+static void ParseOptionalVideoPreprocess(napi_env env, napi_value args[], size_t argc, SampleInfo &sampleInfo)
+{
+    if (argc > PREPROC_MODE_ARG) {
+        napi_get_value_int32(env, args[PREPROC_MODE_ARG], &sampleInfo.video.preprocMode);
+    }
+    if (argc > DOWNSAMPLING_WIDTH_ARG) {
+        napi_get_value_int32(env, args[DOWNSAMPLING_WIDTH_ARG], &sampleInfo.video.downsamplingWidth);
+    }
+    if (argc > DOWNSAMPLING_HEIGHT_ARG) {
+        napi_get_value_int32(env, args[DOWNSAMPLING_HEIGHT_ARG], &sampleInfo.video.downsamplingHeight);
+    }
+    if (argc > DROP_FRAME_RATE_ARG) {
+        napi_get_value_double(env, args[DROP_FRAME_RATE_ARG], &sampleInfo.video.dropToFrameRate);
+    }
+    if (argc > CROP_LEFT_ARG) {
+        napi_get_value_int32(env, args[CROP_LEFT_ARG], &sampleInfo.video.cropLeft);
+    }
+    if (argc > CROP_TOP_ARG) {
+        napi_get_value_int32(env, args[CROP_TOP_ARG], &sampleInfo.video.cropTop);
+    }
+    if (argc > CROP_RIGHT_ARG) {
+        napi_get_value_int32(env, args[CROP_RIGHT_ARG], &sampleInfo.video.cropRight);
+    }
+    if (argc > CROP_BOTTOM_ARG) {
+        napi_get_value_int32(env, args[CROP_BOTTOM_ARG], &sampleInfo.video.cropBottom);
+    }
+}
+
+static void ParseOptionalVideoDump(napi_env env, napi_value args[], size_t argc, SampleInfo &sampleInfo)
+{
+    if (argc > VIDEO_DUMP_ARG) {
+        int32_t enableVideoDump = 0;
+        napi_get_value_int32(env, args[VIDEO_DUMP_ARG], &enableVideoDump);
+        sampleInfo.output.enableVideoDump = enableVideoDump != 0;
+    }
+    if (argc > VIDEO_DUMP_PATH_ARG) {
+        char videoDumpPath[VIDEO_DUMP_PATH_BUFFER_SIZE] = { 0 };
+        size_t pathLength = 0;
+        if (napi_get_value_string_utf8(env, args[VIDEO_DUMP_PATH_ARG], videoDumpPath, sizeof(videoDumpPath),
+            &pathLength) == napi_ok) {
+            sampleInfo.output.videoDumpPath = videoDumpPath;
+        }
+    }
+    if (argc > SECONDARY_VIDEO_DUMP_PATH_ARG) {
+        char secondaryVideoDumpPath[VIDEO_DUMP_PATH_BUFFER_SIZE] = { 0 };
+        size_t pathLength = 0;
+        if (napi_get_value_string_utf8(env, args[SECONDARY_VIDEO_DUMP_PATH_ARG], secondaryVideoDumpPath,
+            sizeof(secondaryVideoDumpPath), &pathLength) == napi_ok) {
+            sampleInfo.output.secondaryVideoDumpPath = secondaryVideoDumpPath;
+        }
+    }
+}
+
+static SampleInfo ParseSampleInfo(napi_env env, napi_value args[], size_t argc)
+{
+    SampleInfo sampleInfo;
+    napi_get_value_int32(env, args[OUTPUT_FD_ARG], &sampleInfo.output.outputFd);
+    ParseVideoInput(env, args, sampleInfo);
+    ParseOptionalCodecSettings(env, args, argc, sampleInfo);
+    ParseOptionalDualOutput(env, args, argc, sampleInfo);
+    ParseOptionalVideoPreprocess(env, args, argc, sampleInfo);
+    ParseOptionalVideoDump(env, args, argc, sampleInfo);
     if (sampleInfo.video.isHDRVivid) {
         sampleInfo.video.hevcProfile = HEVC_PROFILE_MAIN_10;
     } else if (sampleInfo.video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_AVC) {
@@ -242,7 +339,7 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
     size_t argc = RECORDER_ARG_COUNT;
     napi_value args[RECORDER_ARG_COUNT] = { nullptr };
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-    
+
     // 只在 Native 边补齐未传入的音频默认值，界面显式传入的参数保持不变。
     SampleInfo sampleInfo = ParseSampleInfo(env, args, argc);
 
@@ -261,7 +358,7 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
     napi_value promise;
     napi_deferred deferred;
     napi_create_promise(env, &deferred, &promise);
-    
+
     auto *asyncInfo = CreateAsyncInfo(env, deferred, sampleInfo);
     (void)StartAsyncWork(env, asyncInfo, [](napi_env, void *data) { NativeInit(data); });
     return promise;

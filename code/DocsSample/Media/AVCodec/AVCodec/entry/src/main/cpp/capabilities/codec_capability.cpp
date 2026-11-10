@@ -109,10 +109,25 @@ bool ValidateVideoEncoderParameters(OH_AVCapability *capability, const VideoSamp
 } // 匿名命名空间
 
 namespace CodecCapability {
-OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t codecType)
+OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t codecType,
+    const std::string &codecName)
 {
     if (mime.empty()) {
         AVCODEC_SAMPLE_LOGE("Cannot query capability with an empty mime, encoder: %{public}d", isEncoder);
+        return nullptr;
+    }
+    if (!codecName.empty()) {
+        // 指定name时必须校验同一个实现，不能拿系统默认codec的能力替代。
+        uint32_t count = 0;
+        OH_AVCapability **list = OH_AVCodec_GetCapabilityList(isEncoder ?
+            OH_AVCODEC_TYPE_VIDEO_ENCODER : OH_AVCODEC_TYPE_VIDEO_DECODER, &count);
+        for (uint32_t index = 0; list != nullptr && index < count; ++index) {
+            const char *name = OH_AVCapability_GetName(list[index]);
+            const char *codecMime = OH_AVCapability_GetMimeType(list[index]);
+            if (name != nullptr && codecMime != nullptr && codecName == name && mime == codecMime) {
+                return list[index];
+            }
+        }
         return nullptr;
     }
     if (IsHardwareCodecType(codecType)) {
@@ -126,8 +141,9 @@ OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t 
 
 bool ValidateVideoConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
 {
-    // 能力对象由 codec 服务管理，仅在本次校验中读取，不能由应用释放。
-    OH_AVCapability *capability = GetCapability(sampleInfo.video.videoCodecMime, isEncoder, sampleInfo.codec.codecType);
+    // 能力对象由codec服务管理，仅在本次校验中读取，不能由应用释放。
+    OH_AVCapability *capability = GetCapability(sampleInfo.video.videoCodecMime, isEncoder,
+        sampleInfo.codec.codecType, sampleInfo.codec.codecName);
     if (capability == nullptr) {
         AVCODEC_SAMPLE_LOGE("No %{public}s capability for mime: %{public}s, codec type: %{public}d",
             isEncoder ? "encoder" : "decoder", sampleInfo.video.videoCodecMime.c_str(), sampleInfo.codec.codecType);
@@ -145,7 +161,8 @@ bool ValidateVideoFeatureConfiguration(const SampleInfo &sampleInfo)
     if (!sampleInfo.codec.enableLowLatency && !sampleInfo.codec.outputInDecodingOrder) {
         return true;
     }
-    OH_AVCapability *capability = GetCapability(sampleInfo.video.videoCodecMime, false, sampleInfo.codec.codecType);
+    OH_AVCapability *capability = GetCapability(sampleInfo.video.videoCodecMime, false,
+        sampleInfo.codec.codecType, sampleInfo.codec.codecName);
     if (capability == nullptr) {
         AVCODEC_SAMPLE_LOGE("No video decoder capability for feature query, mime: %{public}s",
             sampleInfo.video.videoCodecMime.c_str());
@@ -179,8 +196,8 @@ bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
     OH_AVErrCode ret = OH_AVCapability_GetAudioSupportedSampleRates(capability, &sampleRates, &sampleRateCount);
     if (ret != AV_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("Query supported audio sample rates failed, ret: %{public}d", ret);
-        // 部分解码器能力（尤其是 Vorbis 等容器型编解码器）不会提供完整采样率列表。
-        // 解码流程以 Configure 的结果为准，能力表不完整时不在此处拒绝。
+        // 部分解码器能力（尤其是Vorbis等容器型编解码器）不会提供完整采样率列表。
+        // 解码流程以Configure的结果为准，能力表不完整时不在此处拒绝。
         return !isEncoder;
     }
     if (!ContainsValue(sampleRates, sampleRateCount, sampleInfo.audio.audioSampleRate)) {
@@ -211,4 +228,4 @@ bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
     return true;
 }
 
-} // 命名空间 CodecCapability
+} // 命名空间CodecCapability

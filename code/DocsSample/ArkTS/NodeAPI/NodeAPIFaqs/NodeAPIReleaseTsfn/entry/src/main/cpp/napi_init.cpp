@@ -43,7 +43,7 @@ MyTsfnContext(napi_env env, napi_value workName)
     // 创建线程安全函数
     if (napi_create_threadsafe_function(env, nullptr, nullptr, workName, 1, 1, this,
                                         TsfnFinalize, this, TsfnCallJs, &tsfn_) != napi_ok) {
-        OH_LOG_INFO(LOG_APP, "tsfn is created failed");
+        OH_LOG_ERROR(LOG_APP, "tsfn is created failed");
         return;
     };
 };
@@ -122,7 +122,7 @@ static void TsfnCallJs(napi_env env, napi_value func, void *context, void *data)
 
 napi_value MyTsfnDemo(napi_env env, napi_callback_info info)
 {
-    OH_LOG_ERROR(LOG_APP, "MyTsfnDemo is called");
+    OH_LOG_INFO(LOG_APP, "MyTsfnDemo is called");
     napi_value workName = nullptr;
     napi_create_string_utf8(env, "MyTsfnWork", NAPI_AUTO_LENGTH, &workName);
     MyTsfnContext *myContext = new MyTsfnContext(env, workName);
@@ -133,7 +133,7 @@ napi_value MyTsfnDemo(napi_env env, napi_callback_info info)
     };
     char *data0 = new char[]{"Im call in ArkTS Thread"};
     if (!myContext->Call(data0)) {
-        OH_LOG_INFO(LOG_APP, "call tsfn failed");
+        OH_LOG_ERROR(LOG_APP, "call tsfn failed");
     };
 
     // 创建一个线程，模拟异步场景

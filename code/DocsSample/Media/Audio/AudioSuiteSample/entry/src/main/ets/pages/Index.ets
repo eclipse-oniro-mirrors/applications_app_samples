@@ -254,6 +254,7 @@ struct Index {
     this.deviceType = deviceInfo.productModel === 'emulator'
       ? this.getResStr($r('app.string.device_emulator'))
       : this.getResStr($r('app.string.device_real'));
+    DirInitHelper.setUIContext(this.getUIContext());
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let value = context.resourceManager.getRawFileContentSync("S16LE_2_48000.pcm");
     let myBuffer: ArrayBufferLike = value?.buffer;
@@ -270,7 +271,7 @@ struct Index {
         const nodeName: string = NODE_TYPE_NAMES[nodeType]
           ? this.getResStr(NODE_TYPE_NAMES[nodeType])
           : this.getResStr($r('app.string.alert_node_type_fallback'), nodeType);
-        AlertDialog.show({
+        this.getUIContext().showAlertDialog({
           title: $r('app.string.alert_node_not_supported_title'),
           message: this.getResStr($r('app.string.alert_node_not_supported_msg'), this.deviceType, nodeName),
           confirm: {

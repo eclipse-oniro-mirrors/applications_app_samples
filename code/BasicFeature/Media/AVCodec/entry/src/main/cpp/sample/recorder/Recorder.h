@@ -87,7 +87,7 @@ private:
     std::mutex videoEosMutex_;
     std::atomic<bool> isStarted_{false};
     int32_t isAudioEncFirstFrame_ = true;
-    std::atomic<bool> isVideoEncFirstSyncFrame_ = true;
+    std::atomic<bool> isVideoEncFirstSyncFrame_{true};
     int64_t videoFirstSyncFramePts_ = 0;
     std::unique_ptr<std::thread> encOutputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;

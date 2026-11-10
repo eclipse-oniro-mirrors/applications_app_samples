@@ -1,6 +1,7 @@
 {
   "src": [
     "pages/Index",
-    "recorder/pages/Recorder"
+    "recorder/pages/Recorder",
+    "recorder/pages/RecordingResult"
   ]
 }

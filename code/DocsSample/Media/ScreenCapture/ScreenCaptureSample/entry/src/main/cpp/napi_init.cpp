@@ -503,7 +503,7 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
 void virtualExtendedScreenConfig(OH_AVScreenCaptureConfig &config)
 {
     // [Start screenCapture_virtualExtendedScreen]
-    // 在config中配置录虚拟扩展屏幕的宽度、高度。
+    // 在config中配置待录制的虚拟扩展屏幕的宽度、高度。
     int32_t width = 1920;
     int32_t height = 1080;
     config.videoInfo.videoCapInfo.videoFrameWidth = width;

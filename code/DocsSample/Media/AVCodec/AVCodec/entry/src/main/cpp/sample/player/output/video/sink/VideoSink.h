@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #ifndef AVCODEC_SAMPLE_VIDEO_SINK_H
@@ -41,13 +51,13 @@ public:
     virtual ~VideoSink() = default;
     virtual int32_t Present(const VideoPresentRequest &request) = 0;
     virtual void BeginPlayback() {}
-    // 输出线程退出后、codec Flush/Destroy 前调用。GPU sink 先完成在途采样，
-    // 归还已获取的解码 Buffer，但此时仍保留 codec 使用的 NativeImage 窗口。
+    // 输出线程退出后、codec Flush/Destroy前调用。GPU sink先完成在途采样，
+    // 归还已获取的解码Buffer，但此时仍保留codec使用的NativeImage窗口。
     virtual bool Quiesce() { return true; }
-    // codec Flush 完成后清走旧时间轴的待消费帧，不销毁解码器的输出 Surface。
+    // codec Flush完成后清走旧时间轴的待消费帧，不销毁解码器的输出Surface。
     virtual void DiscardPendingFrames() {}
-    // 在配置解码器前给 sink 预创建 GPU 资源的机会。
-    // 返回非空表示解码器应使用该生产者 Surface。
+    // 在配置解码器前给sink预创建GPU资源的机会。
+    // 返回非空表示解码器应使用该生产者Surface。
     virtual OHNativeWindow *PrepareForPlayback(const SampleInfo &sampleInfo)
     {
         (void)sampleInfo;

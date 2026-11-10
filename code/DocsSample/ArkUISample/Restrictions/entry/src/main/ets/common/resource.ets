@@ -12,10 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { UIContext } from '@kit.ArkUI';
 
 export class P2PManager {
   public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+    try {
+      const resolvedUIContext = UIContext.resolveUIContext();
+      const context = resolvedUIContext.getHostContext();
+      return context?.resourceManager.getStringSync(resource.id) ?? '';
+    } catch (error) {
+      return '';
+    }
   }
 }
 

@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import { formatMediaTime } from '../model/PlaybackInfoModel';
@@ -19,7 +29,7 @@ export struct PlaybackProgressPanel {
   onProgressChange: (value: number, mode: SliderChangeMode) => void = () => {};
 
   private isPortraitPreview(): boolean {
-    // AVImageGenerator 已将容器旋转应用到返回帧；此处仅据此调整预览容器尺寸。
+    // AVImageGenerator已将容器旋转应用到返回帧；此处仅据此调整预览容器尺寸。
     return this.previewRotation === 90 || this.previewRotation === 270;
   }
 
@@ -37,12 +47,23 @@ export struct PlaybackProgressPanel {
 
   @Builder
   private seekPreview() {
-    if (this.model.isSeeking && this.model.seekPreviewFrame !== undefined) {
+    if (this.model.isSeeking && this.model.seekPreviewVisible) {
       Column() {
-        Image(this.model.seekPreviewFrame)
-          .width(this.isPortraitPreview() ? '90vp' : '160vp')
-          .height(this.isPortraitPreview() ? '160vp' : '90vp')
-          .objectFit(ImageFit.Contain)
+        Stack() {
+          if (this.model.seekPreviewFrame !== undefined) {
+            Image(this.model.seekPreviewFrame)
+              .width('100%')
+              .height('100%')
+              .objectFit(ImageFit.Contain)
+          } else if (this.model.seekPreviewFailed) {
+            Text($r('app.string.playback_seek_preview_unavailable'))
+              .fontSize('12fp').fontColor(Color.White).textAlign(TextAlign.Center)
+          } else {
+            LoadingProgress().width('24vp').height('24vp').color(Color.White)
+          }
+        }
+        .width(this.isPortraitPreview() ? '90vp' : '160vp')
+        .height(this.isPortraitPreview() ? '160vp' : '90vp')
         Text(formatMediaTime(this.model.seekPreviewUs)).fontSize('12fp').fontColor(Color.White).margin({ top: '4vp' })
       }
       .width(this.previewContainerWidth())

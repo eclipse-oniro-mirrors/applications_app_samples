@@ -14,6 +14,7 @@
  */
 // [Start message_authentication_code_calculated_as_fragmented_hmac_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 function genSymKeyByData(symKeyData: Uint8Array) {
@@ -25,19 +26,24 @@ function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 function doHmacBySync() {
-  // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节
-  let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
-  let key = genSymKeyByData(keyData);
-  let macAlgName = 'SHA256'; // 摘要算法名
-  let message = 'hmacTestMessage'; // 待进行HMAC的数据
-  let mac = cryptoFramework.createMac(macAlgName);
-  mac.initSync(key);
-  // 数据量较少时，可以只做一次update，将数据全部传入，接口未对入参长度做限制
-  mac.updateSync({ data: new Uint8Array(buffer.from(message, 'utf-8').buffer) });
-  let macResult = mac.doFinalSync();
-  console.info('[Sync]HMAC result: ' + macResult.data);
-  let macLen = mac.getMacLength();
-  console.info('HMAC len: ' + macLen);
+  try {
+    // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节
+    let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
+    let key = genSymKeyByData(keyData);
+    let macAlgName = 'SHA256'; // 摘要算法名
+    let message = 'hmacTestMessage'; // 待进行HMAC的数据
+    let mac = cryptoFramework.createMac(macAlgName);
+    mac.initSync(key);
+    // 数据量较少时，可以只做一次update，将数据全部传入，接口未对入参长度做限制
+    mac.updateSync({ data: new Uint8Array(buffer.from(message, 'utf-8').buffer) });
+    let macResult = mac.doFinalSync();
+    console.info('[Sync]HMAC result: ' + macResult.data);
+    let macLen = mac.getMacLength();
+    console.info('HMAC len: ' + macLen);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+  }
 }
 
 // [End message_authentication_code_calculated_as_fragmented_hmac_sync]

@@ -87,6 +87,10 @@
     {
       "name": "fixed_frame_rate",
       "value": "Fixed Frame Rate"
+    },
+    {
+      "name": "camera_api_label",
+      "value": "Camera API"
     }
   ]
 }

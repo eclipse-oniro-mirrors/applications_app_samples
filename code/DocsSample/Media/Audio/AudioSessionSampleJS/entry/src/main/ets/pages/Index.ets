@@ -45,7 +45,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude print_session_info]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
 // [EndExclude print_session_info]
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 // [StartExclude print_session_info]
 
 // 全局UI更新回调
@@ -85,8 +85,8 @@ let writeDataCallback: audio.AudioRendererWriteDataCallback;
 let readDataCallback: Callback<ArrayBuffer> = (_buffer: ArrayBuffer) => {};
 // [EndExclude renderer_interrupt]
 
-let isPlaying: boolean; // 是否正在播放，实际开发中，对应与音频播放状态相关的模块。
-let isDucked: boolean; // 是否降低音量，实际开发中，对应与音频音量相关的模块。
+let isPlaying: boolean; // 是否正在播放，实际开发中，对应于音频播放状态相关的模块。
+let isDucked: boolean; // 是否降低音量，实际开发中，对应于音频音量相关的模块。
 let started: boolean; // 标识符，记录“开始播放（start）”操作是否成功。
 
 async function onAudioInterrupt(): Promise<void> {
@@ -173,7 +173,7 @@ async function initArguments(context: common.UIAbilityContext) {
       return audio.AudioDataCallbackResult.INVALID;
     }
     try {
-      let bufferLength = fs.readSync(file.fd, buffer, options);
+      let bufferLength = fileIo.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
       if (bufferSize > file.length) {
         let view = new DataView(buffer);
@@ -738,10 +738,10 @@ async function printAudioSessionInfo(context: common.UIAbilityContext){
 
   // fd 文件描述符，实际使用时请根据具体情况获取
   let filePath = context.filesDir + '/audio_session_info.txt';
-  let fd = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC).fd;
+  let fd = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC).fd;
   // 输出到文件。
   audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
-  fs.closeSync(fd);
+  fileIo.closeSync(fd);
   // [End print_session_info]
   console.info('print audio session info filePath: ' + filePath);
 }

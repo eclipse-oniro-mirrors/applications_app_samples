@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DRM Kit C API 示例。"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "DrmNDK entry ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DrmNDK"
+    },
+    {
+      "name": "page_title",
+      "value": "DRM Kit C API 示例"
+    },
+    {
+      "name": "c_api_section_title",
+      "value": "C API 演示"
+    },
+    {
+      "name": "result_section_title",
+      "value": "运行结果"
+    },
+    {
+      "name": "result_hint",
+      "value": "点击按钮运行示例，DRM解决方案名称：%s"
+    },
+    {
+      "name": "c_query_if_supported",
+      "value": "C API：查询是否支持"
+    },
+    {
+      "name": "c_query_supported_list",
+      "value": "C API：查询支持列表"
+    },
+    {
+      "name": "c_query_support_level",
+      "value": "C API：查询支持级别"
+    },
+    {
+      "name": "c_media_key_system_flow",
+      "value": "C API：MediaKeySystem流程"
+    },
+    {
+      "name": "c_media_key_session_flow",
+      "value": "C API：MediaKeySession流程"
+    },
+    {
+      "name": "oh_is_supported_result",
+      "value": "OH_MediaKeySystem_IsSupported：%s"
+    }
+  ]
+}

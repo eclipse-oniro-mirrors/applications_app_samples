@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import player from 'libplayer.so';
@@ -64,8 +74,11 @@ export class PlaybackViewModel {
   public speed: number;
   public hasAudio: boolean;
   public videoOutputFps: number;
+  public hasVideoOutputFpsSample: boolean;
   public videoDropRatePercent: number;
   public seekPreviewFrame: PixelMap | undefined;
+  public seekPreviewVisible: boolean = false;
+  public seekPreviewFailed: boolean = false;
   public seekPreviewRotation: number;
   public onPlaybackPositionChanged: ((positionUs: number) => void) | undefined;
   private updateTimer: number;
@@ -107,8 +120,11 @@ export class PlaybackViewModel {
     this.speed = 1.0;
     this.hasAudio = false;
     this.videoOutputFps = 0;
+    this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewVisible = false;
+    this.seekPreviewFailed = false;
     this.seekPreviewRotation = 0;
     this.onPlaybackPositionChanged = undefined;
     this.updateTimer = 0;
@@ -174,7 +190,11 @@ export class PlaybackViewModel {
     const nowMs: number = Date.now();
     if (this.lastStatsTimeMs > 0 && nowMs > this.lastStatsTimeMs) {
       const elapsedSeconds: number = (nowMs - this.lastStatsTimeMs) / 1000;
-      this.videoOutputFps = Math.max(0, (info.videoOutputFrames - this.lastOutputFrames) / elapsedSeconds);
+      const frameDelta: number = info.videoOutputFrames - this.lastOutputFrames;
+      if (frameDelta > 0) {
+        this.videoOutputFps = frameDelta / elapsedSeconds;
+        this.hasVideoOutputFpsSample = true;
+      }
     }
     const totalVideoFrames: number = info.videoOutputFrames;
     this.videoDropRatePercent = totalVideoFrames > 0 ?
@@ -274,8 +294,11 @@ export class PlaybackViewModel {
     this.speed = 1.0;
     this.hasAudio = false;
     this.videoOutputFps = 0;
+    this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewVisible = false;
+    this.seekPreviewFailed = false;
     this.seekPreviewRotation = 0;
     this.lastStatsTimeMs = 0;
     this.lastOutputFrames = 0;

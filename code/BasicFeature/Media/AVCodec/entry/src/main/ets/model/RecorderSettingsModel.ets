@@ -18,7 +18,7 @@ import { CameraDataModel } from './CameraDataModel';
 
 export class RecorderSettingsModel {
   applyPickerValues(values: string[], cameraData: CameraDataModel): boolean {
-    if (values.length < Const.RECORDER_INFO.length) {
+    if (values.length < Const.RECORDER_REQUIRED_SETTING_COUNT) {
       return false;
     }
     const outputFormatIndex = Const.OUTPUT_FORMAT.indexOf(values[0]);
@@ -34,9 +34,13 @@ export class RecorderSettingsModel {
     const audioBitrateIndex = Const.AUDIO_BITRATE.indexOf(values[10]);
     const audioLatencyIndex = Const.AUDIO_CAPTURE_LATENCY_MODE.indexOf(values[11]);
     const stabilizationIndex = Const.VIDEO_STABILIZATION_MODE.indexOf(values[12]);
+    const preprocIndex = values.length > 13 ? Const.VIDEO_PREPROC_MODE.indexOf(values[13]) : 0;
+    const dropFrameIndex = values.length > 14 ? Const.VIDEO_DROP_FRAME_RATE.indexOf(values[14]) : 0;
+    const dualOutputIndex = values.length > 15 ? Const.DUAL_OUTPUT_MODE.indexOf(values[15]) : 0;
     if (outputFormatIndex < 0 || codecIndex < 0 || resolutionIndex < 0 || frameRateIndex < 0 || syncModeIndex < 0 ||
       bitrateIndex < 0 || bitrateModeIndex < 0 || iFrameIntervalIndex < 0 || audioSampleRateIndex < 0 ||
-      audioChannelIndex < 0 || audioBitrateIndex < 0 || audioLatencyIndex < 0 || stabilizationIndex < 0) {
+      audioChannelIndex < 0 || audioBitrateIndex < 0 || audioLatencyIndex < 0 || stabilizationIndex < 0 ||
+      preprocIndex < 0 || dropFrameIndex < 0 || dualOutputIndex < 0) {
       return false;
     }
     cameraData.outputFormat = outputFormatIndex === 0 ? Const.FORMAT_MP4 : Const.FORMAT_FLV;
@@ -57,7 +61,28 @@ export class RecorderSettingsModel {
       Const.AUDIO_CAPTURE_LATENCY_NORMAL : Const.AUDIO_CAPTURE_LATENCY_LOW;
     cameraData.videoStabilizationMode = stabilizationIndex === 0 ?
       Const.VIDEO_STABILIZATION_DISABLED : Const.VIDEO_STABILIZATION_AUTO;
+    cameraData.preprocMode = preprocIndex;
+    cameraData.dropToFrameRate = dropFrameIndex === 1 && cameraData.frameRate > Const.FRAMERATE_VIDEO_30FPS ?
+      Const.FRAMERATE_VIDEO_30FPS : 0;
+    cameraData.enableDualOutput = dualOutputIndex === 1;
+    cameraData.downsamplingWidth = cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
+      Const.VIDEO_WIDTH_720P : cameraData.cameraWidth;
+    cameraData.downsamplingHeight = cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
+      Const.VIDEO_HEIGHT_720P : cameraData.cameraHeight;
+    this.applyCenterCrop(cameraData);
     return true;
+  }
+
+  private applyCenterCrop(cameraData: CameraDataModel): void {
+    // YUV 4:2:0 裁剪的起点和尺寸需要按 2 对齐；对齐后与画面中心最多相差 1 像素。
+    const cropWidth: number = Math.floor(cameraData.cameraWidth * 3 / 4 / 2) * 2;
+    const cropHeight: number = Math.floor(cameraData.cameraHeight * 3 / 4 / 2) * 2;
+    const centerLeft: number = Math.floor((cameraData.cameraWidth - cropWidth) / 2);
+    const centerTop: number = Math.floor((cameraData.cameraHeight - cropHeight) / 2);
+    cameraData.cropLeft = centerLeft - (centerLeft % 2);
+    cameraData.cropTop = centerTop - (centerTop % 2);
+    cameraData.cropRight = cameraData.cropLeft + cropWidth - 1;
+    cameraData.cropBottom = cameraData.cropTop + cropHeight - 1;
   }
 
   private getAudioBitrate(index: number): number {

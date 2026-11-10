@@ -64,7 +64,7 @@ export default class EntryAbility extends UIAbility {
         sub_windowClass.setUIContent('pages/Index', (err: BusinessError) => {
           let errCode: number = err.code;
           if (errCode) {
-            hilog.info(DOMAIN, TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
+            hilog.error(DOMAIN, TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
             return;
           }
           hilog.info(DOMAIN, TAG, `Succeeded in loading the content.`);
@@ -91,7 +91,7 @@ export default class EntryAbility extends UIAbility {
       hilog.error(DOMAIN, TAG, `sub_windowClass is null`);
       return;
     }
-    // 5.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 5.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
     sub_windowClass.destroyWindow((err: BusinessError) => {
       let errCode: number = err.code;
       if (errCode) {

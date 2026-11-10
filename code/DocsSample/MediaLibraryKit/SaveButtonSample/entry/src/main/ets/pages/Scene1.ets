@@ -73,7 +73,7 @@ export struct Scene1 {
 async function example(phAccessHelper: photoAccessHelper.PhotoAccessHelper): Promise<string> {
   try {
     let outputText = 'Supported formats:\n';
-    // The value 1 means the supported image formats, and 2 means the supported video formats.
+    // 参数为1表示支持图片，2表示支持视频。
     let imageFormat = await phAccessHelper.getSupportedPhotoFormats(photoAccessHelper.PhotoType.IMAGE);
     let result = '';
     for (let i = 0; i < imageFormat.length; i++) {

@@ -21,7 +21,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 export struct ActionMenuAfterMigrate {
   private presenter: DialogPresenter = this.getUIContext().getDialogPresenter();
-  @State result: string = '';
+  @State result: ResourceStr = '';
 
   build() {
     NavDestination() {
@@ -36,7 +36,7 @@ export struct ActionMenuAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考 js-apis-promptAction.md';
+              this.result = $r('app.string.OldInterfacePromptActionShowActionMenuOnClick');
             })
 
           Button('新接口：DialogPresenter.present（操作菜单）')

@@ -8,6 +8,7 @@ AVCodecSample is an API 26 sample for video and audio playback, camera recording
 
 - Playback pipeline: media file -> demuxer -> audio/video decoder -> graphics/audio output.
 - Recording pipeline: camera and microphone capture -> audio/video encoder -> MP4 or FLV muxer.
+- On API 26 devices, recording can also preprocess frames on the encoder Surface (downsampling, center crop, and target-rate dropping), or drive Primary and Secondary video encoders from one camera input to create two files.
 
 Choose playback settings for the problem being investigated:
 
@@ -86,13 +87,30 @@ Alongside the basic codec APIs, the sample connects file selection, validation, 
 |---|---|---|
 | Camera preview and page navigation | Initializes the encoder Surface on the home page, passes its SurfaceId to the recording page, and creates preview/recording streams | [Camera capture and recording](#camera-recording) |
 | Video encoding | Camera frames are sent directly to the encoder Surface; H.264/H.265, sync/async output, bitrate, bitrate mode, and key-frame interval are configurable | [Video encoding](#video-encoding) |
+| Encoded video stream dump | Optionally saves the encoder's raw H.264/H.265 output to the app's private files directory; dual-output recording saves each video stream separately | [Video encoding](#video-encoding) |
+| Encoder preprocessing | API 26+ downsampling, center crop, and target-rate frame dropping; downsampling and crop are exclusive, while frame dropping can combine with either | [Encoder preprocessing](#video-preprocessing) |
+| One input, dual output | One Primary Surface drives the primary and secondary video encoders; each file has its own muxer and finalization, and the current secondary path defaults to 720P | [One input, dual output](#dual-output) |
 | Audio capture and encoding | AudioCapturer collects PCM, AudioCodec encodes AAC, and the result is written to the muxer; sample rate, channel count, and AAC bitrate are configurable | [Audio capture and encoding](#audio-encoding) |
 | HDR Vivid recording | Selects P010 and the corresponding color space when device capabilities support HDR recording | [Camera capture and recording](#camera-recording) |
 | MP4/FLV muxing | Concurrently writes encoded audio and video; MP4 also stores rotation metadata | [Muxing](#muxing) |
 | Recording finalization | Waits for CameraKit, encoder EOS, muxer release, and output-fd closure before returning | [Recording stop flow](#recording-stop) |
 | Automated and device tests | Hypium covers deterministic logic; device tests cover codecs, output, synchronization, recording, and errors | [Testing](#testing) |
 
-Encoder configuration is capability-driven. B-frames are optional and remain disabled by default; this sample neither queries nor writes `VIDEO_ENCODER_B_FRAME`, so devices that do not expose the optional feature do not emit an unnecessary warning or reject the default recording path.
+Recording settings use a draft-then-apply flow. Pickers edit temporary values only. **Apply** writes the complete set to `CameraDataModel` and then runs the CameraKit profile check, while **Cancel** discards the draft. This keeps the value shown in the sheet aligned with the configuration that will be passed to Native when resolution, frame rate, or preprocessing is changed.
+
+Encoder configuration is capability-driven. B-frames are optional and remain disabled by default; this sample neither queries nor writes `VIDEO_ENCODER_B_FRAME`, so devices that do not expose the optional feature do not emit an unnecessary warning or reject the default recording path. The API 26 preprocessing and one-input-dual-output options use the same two-stage gate: the settings page checks the system version, then Native checks runtime symbols and codec capability again. A visible option therefore does not imply that every device can run it.
+
+Recording settings follow this path into Native:
+
+| UI option | ArkTS draft value | `SampleInfo` field | Native configuration point |
+|---|---|---|---|
+| Preprocessing mode | `preprocMode` | `video.preprocMode` | `VideoEncoder::ValidateVideoFeatureConfiguration()`, followed by the downsampling or crop keys |
+| Drop target frame rate | `dropToFrameRate` | `video.dropToFrameRate` | `OH_MD_KEY_VIDEO_ENCODER_PREPROC_DROP_TO_FRAME_RATE` |
+| Save encoded video stream | `enableVideoDump` | `output.enableVideoDump`, `output.videoDumpPath` | `Recorder::DumpVideoOutput()` before muxer write |
+| One input, dual output | `enableDualOutput` | `output.enableDualOutput` | Creates Primary, Secondary, and the second `Muxer` |
+| Secondary output fd | Second media-library fd | `output.secondaryOutputFd` | `secondaryMuxer_->Create()` |
+
+Preprocessing changes the encoded frame dimensions. `Muxer::AddVideoTrack()` therefore registers the effective downsampled or cropped size instead of copying the camera profile dimensions. Dual output creates separate tracks and files for the two video encoders. Audio is encoded once, written to both muxers in sequence, and returned to the audio encoder only after both writes finish.
 
 ### Playback Capability Summary
 
@@ -147,11 +165,15 @@ hdc shell mediatool send /storage/media/100/local/files/xx.mp4
 
 #### Recording
 
-1. Optionally open recording **Settings** and configure container format, encoder, resolution, frame rate, codec mode, video bitrate, CBR/VBR bitrate mode, key-frame interval, AAC sample rate, channel count, and bitrate.
+1. Optionally open recording **Settings** and configure container format, encoder, resolution, frame rate, codec mode, video bitrate, CBR/VBR bitrate mode, key-frame interval, AAC sample rate, channel count, and bitrate. Turn on **Save encoded video stream** to write a raw H.264/H.265 bitstream alongside the recording. On API 26 devices, the **Encoder preprocessing** group also provides downsampling, center crop, and a target frame rate. **One input, dual output** creates a primary file and a smaller secondary file from the same camera Surface.
 2. Tap **Record**.
 3. Select the output location and tap **Save**.
 4. Tap **Start Recording**.
 5. Tap **Stop Recording** and wait for the recording page to return after the file has been finalized.
+
+With preprocessing enabled, check the output track dimensions rather than assuming they match the camera profile. With dual output enabled, wait for both media-library assets to finish before opening either file; the primary and secondary files are finalized together.
+
+The stream dump is separate from the MP4/FLV recording: it contains encoded video only, without audio or a container index. AVC is saved as `.h264` and HEVC as `.h265` under the app's private files directory. The file names follow `recording_<timestamp>_primary.<extension>` and, for dual output, `recording_<timestamp>_secondary.<extension>`. Turn the option off during ordinary recording when the extra file is not needed.
 
 #### Suggested Media
 
@@ -592,9 +614,11 @@ This direct Surface path cannot read decoded pixels, so it normally cannot dump 
 
 **Vulkan.** Vulkan first creates `OH_ConsumerSurface_Create()` and passes the NativeImage producer `OHNativeWindow` to `OH_VideoDecoder_SetSurface()`. The decoder therefore writes frames to the Surface instead of returning readable pixel buffers. The NativeImage callback only records pending frames; the presentation worker calls `OH_NativeImage_AcquireLatestNativeWindowBuffer()`, waits for the acquire fence, and converts the window buffer to an `OH_NativeBuffer`.
 
-For every frame, `vkGetNativeBufferPropertiesOHOS()` supplies the external format, allocation size, and compatible memory types. `VkImportNativeBufferInfoOHOS`, `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OHOS_NATIVE_BUFFER_BIT_OHOS`, and a dedicated allocation bind that NativeBuffer to a Vulkan image. YUV external formats use the device's suggested `VkSamplerYcbcrConversion`; the sampler and descriptor layout are reused for one playback session, while the external image, image view, and NativeBuffer reference live only until the corresponding GPU submission completes. The image is sampled in the swapchain render pass. The NativeImage Buffer matrix, which includes crop and stride transforms, is copied to the uniform buffer so portrait video does not become cropped or stretched.
+For every frame, `vkGetNativeBufferPropertiesOHOS()` supplies the external format, allocation size, and compatible memory types. `VkImportNativeBufferInfoOHOS`, `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OHOS_NATIVE_BUFFER_BIT_OHOS`, and a dedicated allocation bind that NativeBuffer to a Vulkan image. YUV external formats use the device's suggested `VkSamplerYcbcrConversion`; the sampler and descriptor layout are reused for one playback session. A bounded four-entry cache reuses the image, memory, image view, and an explicit NativeBuffer reference by `OH_NativeBuffer_GetSeqNum()`; cache entries are replaced only after the previous submission fence completes. The image is sampled in the swapchain render pass. The NativeImage Buffer matrix, which includes crop and stride transforms, is copied to the uniform buffer so portrait video does not become cropped or stretched.
 
-Resource teardown is ordered: wait for the previous submission, destroy the external image, return the NativeBuffer, unregister the NativeImage callback after decoder release, then destroy the swapchain, device, and window lease. The old BufferRenderer path is used only when Surface setup or external-memory import is unavailable; it is not selected on every frame after a Surface path has succeeded. This path avoids CPU RGBA conversion and is useful for validating Vulkan external textures, although actual throughput still depends on device Vulkan external-memory, YCbCr, and display-refresh support.
+The performance diagnostics panel reports the average time spent waiting for a NativeImage frame, acquiring the NativeWindowBuffer and its fence, importing or reusing the external image, waiting for the previous GPU submission, recording commands, and submitting/presenting the swapchain frame. It also reports cache hits and misses. These values measure application-side stages, not display-compositor refresh latency.
+
+Resource teardown is ordered: wait for the previous submission, destroy all cached external images and release their NativeBuffer references, return the current NativeImage slot, unregister the NativeImage callback after decoder release, then destroy the swapchain, device, and window lease. The old BufferRenderer path is used only when Surface setup or external-memory import is unavailable; it is not selected on every frame after a Surface path has succeeded. This path avoids CPU RGBA conversion and is useful for validating Vulkan external textures, although actual throughput still depends on device Vulkan external-memory, YCbCr, and display-refresh support.
 
 <a id="hdr-vivid-output"></a>
 
@@ -788,7 +812,7 @@ XComponent does not expose an `objectFit` attribute. The current NativeWindow pa
 
 #### Playback Diagnostics
 
-The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode, OpenGL, and Vulkan it also reports presentation count, average duration, and failures. Timing covers `VideoSink::Present()`: Buffer destination request and copy, GPU external-image import and present, or the decoder-buffer fallback. Dropped frames only return their decoder buffer and do not enter the presentation-duration metric.
+The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode, OpenGL, and Vulkan it also reports presentation count, average duration, and failures. Vulkan Surface additionally reports the NativeImage wait, buffer/fence acquire, import/cache, previous-GPU wait, command recording, and submit stages. Timing covers `VideoSink::Present()`: Buffer destination request and copy, GPU external-image import and present, or the decoder-buffer fallback. Dropped frames only return their decoder buffer and do not enter the presentation-duration metric.
 
 The extended snapshot includes A/V sync-decision offset, mean and maximum offset magnitude, queued PCM duration, AudioRenderer device-pending duration, silence-fill callbacks, sync-policy drops, interruption count/latest hint/current state, and seek processing/target-output timing. Offset is sampled before the video worker waits or drops a frame; a positive value means the video PTS is ahead of the audio master clock. It is a scheduling estimate, not a physical screen-to-speaker latency measurement. A presentation submission only confirms that the application submitted a frame to Surface or NativeWindow. `PlaybackDiagnostics` aggregates short-lived values under a Native lock; PCM water level and underruns use atomics. Structured `getPlaybackInfo()` copies the read-only snapshot every 250 ms and does not change scheduling or output order. A new task, stop, failure, or seek resets statistics that no longer describe the active timeline.
 
@@ -907,6 +931,135 @@ For supported HDR recording configurations, the sample selects P010 output and t
 
 The camera and XComponent own their Surface objects. Native code stores non-owning window references where necessary and releases only objects created by the sample itself.
 
+<a id="video-preprocessing"></a>
+
+##### Encoder Preprocessing
+
+The **Encoder preprocessing** settings use the API 26 video encoder preprocessor. The settings page exposes downsampling to 720P, a center crop of about 75% of the frame, and optional target-rate frame dropping. These operations run on the encoder's camera Surface; the application does not pull every camera frame into CPU memory first. The preprocessor applies the configured frame dropping, downsampling, or crop before encoding. Downsampling and crop are mutually exclusive, while frame dropping can be combined with either one:
+
+```text
+CameraKit VideoOutput
+        |
+        v
+OH_VideoEncoder_CreatePrimaryWithPreproc
+        |-- dropToFrameRate
+        |-- downsampling(width, height)  <exclusive>  crop(left, top, right, bottom)
+        v
+       Encoded output
+```
+
+`VideoEncoder::ValidateVideoFeatureConfiguration()` validates the target rate, crop rectangle, and output dimensions before querying `OH_AVCapability_IsFeatureSupported()` for `VIDEO_ENCODER_PREPROC_DOWNSAMPLING` or `VIDEO_ENCODER_PREPROC_CROP`. Only after the capability check succeeds does `SetOptionalFormatFeatures()` add the `OH_MD_KEY_VIDEO_ENCODER_PREPROC_*` keys to the configure format. Disabled preprocessing writes no such key. API 26 symbols are resolved at runtime, so an older system reports an unsupported option without affecting the ordinary single-output path.
+
+The three modes have different contracts:
+
+- With no preprocessing, no preprocessing key is written and the encoder follows the camera dimensions and frame rate.
+- Downsampling writes both target dimensions; they must be positive, no larger than the camera input, and supported by the encoder capability query.
+- Crop writes `left/top/right/bottom`. For YUV 4:2:0 input, the top-left coordinates and crop width/height must be even. The settings model aligns the center-crop rectangle, and Native validation checks it again for callers outside the UI.
+- The drop-frame target must be lower than the camera input frame rate. The setting is disabled for 30 fps input, and the settings model normalizes an invalid combination to “No frame drop”.
+
+The effective dimensions are also used when the muxer adds the video track. If a 1920x1080 primary stream is cropped to 1440x810, the track is registered as 1440x810. Changing only the encoder key while keeping the source dimensions in the container would leave players with inconsistent metadata.
+
+The recording settings page gates these API 26 features with `deviceInfo.sdkApiVersion`. On older systems, preprocessing, frame dropping, and one-input-dual-output remain visible for discoverability but are disabled; applying settings also forces them back to the off state. If any Native initialization step fails, `Recorder` runs one common cleanup path for already-created encoders, muxers, capturer, and callback contexts, so the user can retry without restarting the application.
+
+<a id="dual-output"></a>
+
+##### One Input, Dual Output
+
+The **One input, dual output** option creates two independent files from one camera input. It is intended for a high-quality archive plus a smaller preview or sharing file, without creating a second CameraKit recording output. The primary encoder is created by `OH_VideoEncoder_CreatePrimaryWithPreproc()` and owns the only CameraKit encoder Surface. The secondary encoder is created by `OH_VideoEncoder_CreateSecondaryFromPrimary()`, shares frames from the primary, and does not request another camera input Surface. Each encoder has its own callback context, output worker, video track, and `Muxer`. The current UI shares most recording settings between the two paths; the secondary output size is the main difference, set to 720P when the camera profile is at least 1080P:
+
+```text
+CameraKit VideoOutput -> Primary encoder (input Surface)
+                         |              \
+                         |               +-> Primary Muxer -> primary.mp4/flv
+                         +-> Secondary encoder -> Secondary Muxer -> secondary.mp4/flv
+Microphone -> one AAC encoder --(same encoded audio buffer)------------^ ^
+```
+
+The secondary encoder keeps `OH_MD_KEY_WIDTH`/`OH_MD_KEY_HEIGHT` set to the shared input-frame dimensions and specifies its smaller output dimensions through its own downsampling parameters. The muxer track records the effective post-downsampling dimensions, keeping the input contract, encoded output, and container description distinct. The current settings page does not expose independent codec, bitrate, or frame-rate settings for the secondary path; both encoders inherit those values from the selected recording configuration.
+
+Audio is encoded only once. Before returning an AAC output Buffer, the audio worker writes that Buffer to both muxers in sequence; the muxers do not take ownership, so the audio encoder still receives the original index back immediately afterwards. Finalization stops CameraKit first, sends EOS to both video encoders, and waits for both output workers to consume EOS. After all workers are joined, both muxers are finalized, then codecs and capture resources are released in **Secondary -> Primary -> Audio Encoder -> Audio Capturer** order. The primary encoder therefore stays alive until its secondary is destroyed, preventing a late callback from using a destroyed shared input.
+
+The secondary track uses the effective post-preprocessing dimensions. Video-track creation and optional preprocessing writes check their return values, and a secondary EOS failure enters the same abort-and-drain path used by other stop failures instead of leaving a pending stop operation.
+
+The two files also have separate media-library assets and file descriptors. The primary asset keeps the existing recording resource; dual-output mode creates a second asset for the secondary file. The UI closes both descriptors only after both muxers have finalized, so a primary success cannot make an unfinished secondary file look complete.
+
+Dual output requires API 26 Surface asynchronous encoding. A secondary encoder cannot be created on its own or call `GetSurface()`. The lifecycle is fixed as **create Primary -> create Secondary -> get the Primary Surface -> start both -> release Secondary first -> release Primary**. The settings page disables the option on older systems and Native checks the capability again before initialization.
+
+If API 26, camera, or codec capability is missing, initialization returns an unsupported-configuration result and does not leave a partial session running. Both media-library file descriptors stay open until Native EOS handling and muxer finalization have written the container index or trailer.
+
+##### How Recording Settings Reach the Two Encoding Paths
+
+The recording sheet exposes user-facing choices, while Native translates them into codec formats. ArkTS does not assemble `OH_AVFormat` directly. The same validation can therefore be applied to the page entry and to the NAPI entry, and the recording page does not need to know how Primary and Secondary are represented internally.
+
+One recording session is prepared in this order:
+
+```text
+Draft recording settings
+        | Apply and validate
+        v
+CameraDataModel
+        | recorder.initNative(...)
+        v
+RecorderNative::ParseSampleInfo
+        v
+SampleInfo (source size, preprocessing, output fds)
+        v
+VideoEncoder::Configure + Muxer::Config
+```
+
+Video width, height, and frame rate describe the source frames delivered by CameraKit to the encoder Surface. Preprocessing produces a separate effective size: downsampling uses `downsamplingWidth/Height`, while crop uses `cropRight - cropLeft + 1` and `cropBottom - cropTop + 1`. The encoder Configure format keeps the source dimensions; the muxer video track records the effective output dimensions. This keeps the input contract and container display size from being mistaken for the same value.
+
+Frame dropping has a similarly small contract. A target of zero disables it. A positive target must be lower than the CameraKit input rate. The settings page does not offer a useful drop target for 30 fps input, and switching back to 30 fps resets the draft to **No frame drop**. The Native check remains in place for callers outside the page.
+
+##### Starting, Writing, and Finalizing Dual Output
+
+Dual output does not create two unrelated CameraKit recording outputs. CameraKit writes to one Primary Surface, and the codec service derives the Secondary from that Primary. Recorder keeps two codec contexts and two output workers, but only one camera encoder Surface:
+
+1. Create the primary muxer and add its audio and video tracks. In dual mode, create and configure the secondary muxer as well.
+2. Create, configure, and prepare Primary. Its `Config()` obtains the one encoder Surface.
+3. Copy `SampleInfo` for Secondary and create it from Primary. Its Configure still describes the shared input dimensions; the smaller output is expressed through the secondary downsampling keys.
+4. Configure and prepare Secondary without requesting another Surface, then pass Primary's SurfaceId to the recording page's CameraKit `VideoOutput`.
+5. Start both muxers before starting the video encoders, so the first encoded sample always has an initialized destination track.
+6. Let each output worker process its own video buffers, timestamps, EOS, and `FreeOutputBuffer()` calls.
+
+Stopping drains the pipeline before releasing anything:
+
+```text
+Stop CameraKit VideoOutput
+        |
+        v
+Send video EOS to Primary and Secondary
+        |
+        v
+End the audio input worker and send AAC EOS
+        |
+        v
+Wait for both video workers and the audio worker
+        |
+        v
+Destroy both muxers
+        |
+        v
+Release Secondary, then Primary
+        |
+        v
+Release AudioEncoder, AudioCapturer, and callback contexts
+```
+
+The important rule is drain before destroy. An encoder cannot be destroyed while an output worker still holds one of its buffers, and Primary must outlive Secondary because Secondary uses its shared input. `Muxer::Release()` now calls `OH_AVMuxer_Destroy()` directly; it does not call `OH_AVMuxer_Stop()` first. The recording page still owns and closes the file descriptors supplied to Native.
+
+##### Why Dual Output Uses One Audio Encoder
+
+One-input-dual-output duplicates the video path only. There is one audio capturer and one AAC encoder. The audio worker receives one encoded AAC `OH_AVBuffer`, writes it to the primary muxer and then to the secondary muxer, and returns the original `bufferIndex` only after both writes finish. `Muxer::WriteSample()` reads the Buffer but does not take ownership, so sequential writes can consume the same encoded result.
+
+This ownership rule has three consequences: the Buffer cannot be returned after the first muxer write; a failure from either muxer must enter the common abort path; and both files use the same AAC timestamps instead of recalculating the secondary timeline. If a later device implementation cannot read the same Buffer twice, add an explicit copy/fan-out layer rather than letting two muxers retain an encoder-owned Buffer concurrently.
+
+##### Partial Initialization and Retry
+
+Initialization can fail after only part of a session exists, for example after the primary muxer is created or after Primary is prepared but Secondary configuration fails. Recorder handles these cases through one cleanup path: stop new input, cancel queue waits, join any started output workers, then release resources in ownership order, `Muxer -> Secondary -> Primary -> AudioEncoder -> AudioCapturer -> CodecUserData`. ArkTS closes the primary and secondary fds only after Native cleanup completes.
+
+For device testing, keep single-output and dual-output results separate. Check that both files play, that each video track has the effective output size, that audio starts at the same time, and that another recording can start after Stop. Cover Async and Sync modes, MP4 and FLV, H.264 and H.265, 30 and 60 fps, HDR Vivid, and systems below API 26. This separates an unsupported codec feature from a file-finalization or fd-lifetime problem.
+
 <a id="recording-stop"></a>
 
 ##### Recording Stop Flow
@@ -941,6 +1094,8 @@ Camera -> encoder Surface -> OH_VideoEncoder
 ```
 
 Output starts from the first sync frame so the resulting file begins with a decodable sample. When temporal-layer support is enabled, `OH_AVBuffer_GetParameter()` is used to read `OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID`. If an older Native SDK does not define the key, disable `AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID` in CMake.
+
+When **Save encoded video stream** is enabled, `Recorder::DumpVideoOutput()` writes the valid byte range of each encoded video buffer before that buffer is passed to `Muxer::WriteSample()` and returned to the encoder. It checks the buffer address, offset, and size against the buffer capacity first. In dual-output mode, each encoder worker writes to its own file. A dump open or write failure is logged and closes only the affected dump file; the muxer path continues. These are raw elementary streams, not additional MP4/FLV recordings, and they do not include AAC audio.
 
 <a id="audio-encoding"></a>
 

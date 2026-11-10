@@ -53,7 +53,7 @@ public:
     }
 
 protected:
-   // 处理List相关事件。
+    // 处理List相关事件。
     void OnNodeEvent(ArkUI_NodeEvent *event) override
     {
         auto eventType = OH_ArkUI_NodeEvent_GetEventType(event);

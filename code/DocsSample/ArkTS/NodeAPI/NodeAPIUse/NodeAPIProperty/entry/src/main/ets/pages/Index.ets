@@ -243,14 +243,14 @@ struct Index {
                     testNapi.defineMethodProperties()
                       .defineMethodPropertiesExample());
                   // 定义string类型的属性
-                  hilog.info(0x0000, 'testTag', 'Test Node-API define_string_properties::%{public}s ',
+                  hilog.info(0x0000, 'testTag', 'Test Node-API define_string_properties:%{public}s ',
                     testNapi.defineStringProperties()
                       .defineStringPropertiesExample);
                   // getter和setter
-                  hilog.info(0x0000, 'testTag', 'Test Node-API get::%{public}s ',
+                  hilog.info(0x0000, 'testTag', 'Test Node-API get:%{public}s ',
                     testNapi.createStringWithGetterSetter()
                       .getterCallback());
-                  hilog.info(0x0000, 'testTag', 'Test Node-API setter::%{public}s ',
+                  hilog.info(0x0000, 'testTag', 'Test Node-API setter:%{public}s ',
                     testNapi.createStringWithGetterSetter()
                       .setterCallback('set data'));
                   // [End ark_napi_define_properties]

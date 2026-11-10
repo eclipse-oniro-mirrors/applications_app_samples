@@ -6,6 +6,8 @@
 
 1. [接入ArkTS页面](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/ndk-access-the-arkts-page.md)
 
+2. [设置自定义节点跨语言属性](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-user-defined-arktsNode-crossLanguage.md)
+
 ### 效果预览
 
 | 首页                        | 
@@ -15,6 +17,8 @@
 ### 使用说明
 
 1. 在主界面，点击按钮，会出现多行文本组件，且该界面可以滑动。
+
+2. 在主界面，点击CrossLanguage按钮进入跨语言属性设置页面，先点击setCrossLanguageOptions按钮开启跨语言属性设置，再点击Native侧的scrollBarColor和scrollBarWidth按钮，可观察ArkTS侧Scroll组件的滚动条颜色和宽度被Native侧修改。
 
 ### 工程目录
 ```
@@ -32,12 +36,14 @@ entry/src/main/cpp/
 |---NativeEntry.h                         //桥接方法的Native侧定义。
 |---NativeModule.h                          
 |---NormalTextListExample.h                    //示例代码文件。
+|---CrossLanguageExample.h                    //跨语言属性设置示例代码文件。
 
 entry/src/main/ets/
 |---entryability
 |---entrybackupability
 |---pages
 |   |---index.ets                             //应用启动页，加载承载Native的容器。  
+|   |---CrossLanguage.ets                     //跨语言属性设置示例页面。
 entry/src/ohosTest/
 |---ets
 |   |---index.test.ets                       // 对应页面测试代码
@@ -60,6 +66,12 @@ entry/src/ohosTest/
 2. 列表项批量创建：循环生成30个ListItem，每个ListItem中创建TextNode，设置文本内容（std::to_string(i)）、字体大小（16）、颜色（0xFFff00ff）、背景色（0xFFfffacd）等属性；
 3. 组件树组装：将TextNode插入ListItem，再将ListItem添加到List，形成完整列表树；
 4. 挂载到ArkTS：返回List组件实例，通过NativeEntry::SetRootNode将其添加到NodeContent，完成Native组件挂载。
+
+四、跨语言属性设置示例（CrossLanguage页面）
+1. ArkTS侧命令式节点创建：通过NodeController的makeNode创建FrameNode根节点，使用typeNode.createNode创建Scroll类型节点并设置id（"scroll"），通过BuilderNode挂载声明式内容；
+2. ArkTS侧跨语言配置：点击setCrossLanguageOptions按钮，调用FrameNode的setCrossLanguageOptions开启跨语言属性设置，并通过getCrossLanguageOptions获取当前配置；
+3. Native侧节点创建：在CrossLanguageExample.h中创建Native侧Scroll、Column、Text、Row和Button组件树，按钮分别用于修改滚动条颜色和宽度；
+4. Native侧跨语言属性修改：按钮点击回调中，通过OH_ArkUI_NodeUtils_GetAttachedNodeHandleById获取ArkTS侧创建的Scroll节点，再通过setAttribute修改其滚动条颜色（NODE_SCROLL_BAR_COLOR）和宽度（NODE_SCROLL_BAR_WIDTH）；若ArkTS侧未开启跨语言属性设置，修改会失败并返回错误码。
 
 ### 相关权限
 

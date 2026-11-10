@@ -121,7 +121,24 @@ export interface PlaybackInfo {
   bufferPresentFrames: number;
   bufferPresentFailures: number;
   bufferPresentAverageUs: number;
+  videoSinkDiagnostics: VideoSinkDiagnostics;
   diagnostics: PlaybackDiagnostics;
+}
+
+export interface VideoSinkDiagnostics {
+  available: boolean;
+  frames: number;
+  failures: number;
+  cacheHits: number;
+  cacheMisses: number;
+  averageFrameUs: number;
+  averageNativeImageWaitUs: number;
+  averageNativeImageAcquireUs: number;
+  averageAcquireFenceWaitUs: number;
+  averageImportUs: number;
+  averageGpuWaitUs: number;
+  averageCommandRecordUs: number;
+  averageSubmitUs: number;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo

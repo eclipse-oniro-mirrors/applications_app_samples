@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #ifndef AVCODEC_SAMPLE_VULKAN_VIDEO_SINK_H
@@ -201,7 +211,7 @@ private:
     void ResetContextState();
     void DestroySwapchain();
 
-    // VkSurfaceKHR 的生命周期依赖 NativeWindow；销毁 Vulkan Surface 前持续持有窗口引用。
+    // VkSurfaceKHR的生命周期依赖NativeWindow；销毁Vulkan Surface前持续持有窗口引用。
     NativeXComponentSample::PluginManager::PluginWindowLease windowLease_;
     OH_NativeImage *nativeImage_ = nullptr;
     OHNativeWindow *decoderWindow_ = nullptr;
@@ -228,7 +238,7 @@ private:
     VkCommandPool commandPool_ = VK_NULL_HANDLE;
     VkCommandBuffer commandBuffer_ = VK_NULL_HANDLE;
     VkSemaphore imageAvailable_ = VK_NULL_HANDLE;
-    // 图像再次 acquire 后，才能确定上一次 present 已消费其等待信号量。
+    // 图像再次acquire后，才能确定上一次present已消费其等待信号量。
     std::vector<VkSemaphore> renderFinishedSemaphores_;
     VkFence frameFence_ = VK_NULL_HANDLE;
     VkRenderPass externalRenderPass_ = VK_NULL_HANDLE;
@@ -299,12 +309,12 @@ private:
     bool initialized_ = false;
     bool surfaceOutputRequested_ = false;
     bool surfaceDecoderReady_ = false;
-    // HDR Surface 输出需要 10-bit swapchain；该提示来自解码后的轨道配置，
-    // 首帧 NativeBuffer 元数据到达后还会再次同步窗口元数据。
+    // HDR Surface输出需要10-bit swapchain；该提示来自解码后的轨道配置，
+    // 首帧NativeBuffer元数据到达后还会再次同步窗口元数据。
     bool preferHdrSwapchain_ = false;
-    // 设备可能声明了 HDR 轨道，但 XComponent 不一定提供 HDR 色彩空间。
-    // 该标记记录实际创建成功的 swapchain 格式，避免窗口仍按 10-bit 配置而
-    // swapchain 已回退到 8-bit，造成色彩错误或画面不送显。
+    // 设备可能声明了HDR轨道，但XComponent不一定提供HDR色彩空间。
+    // 该标记记录实际创建成功的swapchain格式，避免窗口仍按10-bit配置而
+    // swapchain已回退到8-bit，造成色彩错误或画面不送显。
     bool hdrSwapchainActive_ = false;
     bool outputMetadataInitialized_ = false;
     bool metadataWarningLogged_ = false;

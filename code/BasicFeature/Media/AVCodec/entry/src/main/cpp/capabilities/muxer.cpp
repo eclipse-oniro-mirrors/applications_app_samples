@@ -94,12 +94,22 @@ int32_t Muxer::AddVideoTrack(SampleInfo &sampleInfo)
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
 
     // 添加视频轨：用OH_AVFormat_CreateVideoFormat创建format。
+    int32_t encodedWidth = sampleInfo.video.videoWidth;
+    int32_t encodedHeight = sampleInfo.video.videoHeight;
+    if (sampleInfo.video.preprocMode == VIDEO_PREPROC_DOWNSAMPLING) {
+        encodedWidth = sampleInfo.video.downsamplingWidth;
+        encodedHeight = sampleInfo.video.downsamplingHeight;
+    } else if (sampleInfo.video.preprocMode == VIDEO_PREPROC_CROP) {
+        encodedWidth = sampleInfo.video.cropRight - sampleInfo.video.cropLeft + 1;
+        encodedHeight = sampleInfo.video.cropBottom - sampleInfo.video.cropTop + 1;
+    }
     OH_AVFormat *formatVideo = OH_AVFormat_CreateVideoFormat(sampleInfo.video.videoCodecMime.data(),
-        sampleInfo.video.videoWidth, sampleInfo.video.videoHeight);
+        encodedWidth, encodedHeight);
+    CHECK_AND_RETURN_RET_LOG(formatVideo != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create video format failed");
 
     OH_AVFormat_SetDoubleValue(formatVideo, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
-    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_WIDTH, sampleInfo.video.videoWidth);
-    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_HEIGHT, sampleInfo.video.videoHeight);
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_WIDTH, encodedWidth);
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_HEIGHT, encodedHeight);
     OH_AVFormat_SetStringValue(formatVideo, OH_MD_KEY_CODEC_MIME, sampleInfo.video.videoCodecMime.data());
     // HDR Vivid视频需要设置色彩信息相关key，选填。
     if (sampleInfo.video.isHDRVivid) {

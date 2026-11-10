@@ -19,7 +19,7 @@ import pasteboard from '@ohos.pasteboard';
 import { BusinessError } from '@ohos.base';
 // [StartExclude get_pasteboard_data]
 
-// 设备A复制数据，写入剪贴板服务。
+// 设备A复制数据，写入剪贴板服务
 export async function setPasteDataTest(): Promise<void> {
   let text: string = 'hello world';
   let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);

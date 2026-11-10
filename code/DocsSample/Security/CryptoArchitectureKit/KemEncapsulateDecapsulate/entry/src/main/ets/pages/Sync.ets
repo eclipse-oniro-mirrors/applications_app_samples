@@ -15,6 +15,7 @@
 
 // [Start kem_encapsulate_decapsulate_sync_test]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 namespace Kem {
   export function kemDecapsulateSync() {

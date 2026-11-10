@@ -8,6 +8,7 @@
 
 - 视频播放的主要流程是将媒体文件解封装、解码，再送显和播放音频。
 - 视频录制的主要流程是相机和麦克风采集、编码，再封装为 MP4 或 FLV 文件。
+- API 26 设备上的录制还可以在编码器 Surface 前启用降采样、中心裁剪和目标帧率丢帧，或用一个相机输入驱动 Primary/Secondary 两路视频编码器并生成两个文件。
 
 播放设置按排查目标选择即可。常用场景可按下表选择：
 
@@ -86,13 +87,30 @@
 |---|---|---|
 | 相机预览与页面跳转 | 主页面初始化编码 Surface，携带 SurfaceId 和配置跳转录制页；录制页创建预览和录像输出流 | [相机采集与录制](#camera-recording) |
 | 视频编码 | 相机直接向编码器 Surface 送帧，支持 H.264/H.265、Sync/Async 输出，并可配置码率、码率模式和关键帧间隔 | [视频编码](#video-encoding) |
+| 编码视频码流 Dump | 可选将编码器输出的 H.264/H.265 原始码流保存到应用私有目录；双路录制时主、副路分别保存 | [视频编码](#video-encoding) |
+| 编码前处理 | API 26+ 支持降采样、中心裁剪和目标帧率丢帧；降采样与裁剪互斥，丢帧可与其中一种组合 | [编码前处理](#video-preprocessing) |
+| 一入二出 | 一个 Primary Surface 驱动主、副视频编码器，分别写入两个文件；当前副路默认降到 720P | [一入二出](#dual-output) |
 | 音频采集与编码 | AudioCapturer 采集 PCM，AudioCodec 编码 AAC 后写入封装器；可配置采样率、声道数与 AAC 码率 | [音频采集与编码](#audio-encoding) |
 | HDR Vivid 录制 | 根据设备能力选择 P010 和对应色彩空间，配置 HDR 视频编码参数 | [相机采集与录制](#camera-recording) |
 | MP4/FLV 封装 | 将音视频编码输出并发写入 Muxer，MP4 同时写入旋转信息 | [封装](#muxing) |
 | 停止与文件收尾 | 等待 CameraKit、编码 EOS、Muxer 释放和文件 fd 关闭后再返回主页面 | [录制停止流程](#recording-stop) |
 | 自动化与真机测试 | Hypium 覆盖纯逻辑，真机用例覆盖编解码、送显、同步、录制及异常场景 | [测试](#testing) |
 
-录制编码器配置会先查询设备能力。B 帧属于可选特性，本示例默认不启用，也不查询或下发 `VIDEO_ENCODER_B_FRAME`；这样在未暴露该能力的设备上不会产生无关告警，也不会影响默认录制初始化。
+录制设置采用“先编辑、后应用”的方式。页面里的选择器只修改草稿值，点击“应用”时才一次性写入 `CameraDataModel`，随后再执行 CameraKit profile 检查。这样切换分辨率、帧率或前处理方式时，界面显示的值和即将传给 Native 的值保持一致；点击“取消”不会留下半套配置。
+
+录制编码器配置会先查询设备能力。B 帧属于可选特性，本示例默认不启用，也不查询或下发 `VIDEO_ENCODER_B_FRAME`；设备未暴露该能力时，不会因此产生告警或影响默认录制初始化。API 26 的前处理和一入二出先由设置页按系统版本门控；Native 再解析对应接口。前处理会继续查询 codec 是否支持降采样或裁剪，双路创建则以 API 调用及编码器配置结果作为最终判断。
+
+录制设置项会沿着下面的路径传到 Native：
+
+| 页面选项 | ArkTS 草稿值 | `SampleInfo` 字段 | Native 配置位置 |
+|---|---|---|---|
+| 前处理方式 | `preprocMode` | `video.preprocMode` | `VideoEncoder::ValidateVideoFeatureConfiguration()`，再写入降采样或裁剪 Key |
+| 丢帧目标帧率 | `dropToFrameRate` | `video.dropToFrameRate` | `OH_MD_KEY_VIDEO_ENCODER_PREPROC_DROP_TO_FRAME_RATE` |
+| 保存编码视频码流 | `enableVideoDump` | `output.enableVideoDump`、`output.videoDumpPath` | `Recorder::DumpVideoOutput()`，在写入封装器前执行 |
+| 一入二出 | `enableDualOutput` | `output.enableDualOutput` | 创建 Primary、Secondary 和第二个 `Muxer` |
+| 副路文件描述符 | 媒体库创建的第二个 fd | `output.secondaryOutputFd` | `secondaryMuxer_->Create()` |
+
+前处理改变了编码后的有效画面尺寸，所以 `Muxer::AddVideoTrack()` 不直接照抄相机 profile 的宽高，而是根据降采样尺寸或裁剪矩形重新登记视频轨道。双路模式则为每一路分别创建轨道和文件；音频仍只编码一次，再在归还音频 Buffer 前依次写入两个封装器。
 
 ### 播放支持的原子能力规格
 
@@ -141,7 +159,7 @@
 
 #### 录制
 
-1. （可选）在录制区域点击“设置”，配置封装格式、编码格式、分辨率、帧率、同步模式、视频码率、码率模式、关键帧间隔、AAC 音频采样率、声道数和码率
+1. （可选）在录制区域点击“设置”，配置封装格式、编码格式、分辨率、帧率、同步模式、视频码率、码率模式、关键帧间隔、AAC 音频采样率、声道数和码率。打开“保存编码视频码流”后，会额外保存一份 H.264/H.265 原始码流。API 26 设备还可以在“编码前处理”中选择降采样、中心裁剪和丢帧目标帧率；打开“一入二出”后，同一份相机输入会生成主文件和较小的副文件。
 
 2. 点击“录制”
 
@@ -150,6 +168,10 @@
 4. 点击“开始录制”
 
 5. 点击“停止录制”
+
+启用前处理时，应按实际输出轨道尺寸检查文件，不要直接假设它仍等于相机 profile 的宽高。启用一入二出时，两个媒体库资源都完成封装后再打开文件；主、副文件会一起收尾。
+
+码流 Dump 与 MP4/FLV 录像是两份不同的输出：Dump 文件只包含编码后的视频数据，不含 AAC 音频，也没有容器索引。AVC 文件扩展名为 `.h264`，HEVC 为 `.h265`，保存在应用私有文件目录中。文件名为 `recording_<时间戳>_primary.<扩展名>`；双路录制还会生成 `recording_<时间戳>_secondary.<扩展名>`。日常录制不需要排查码流时，可以关闭此开关。
 
 #### 建议素材
 
@@ -631,9 +653,11 @@ OpenGL 这条直连 Surface 路径不能读取解码输出像素，因此普通�
 
 **Vulkan。** Vulkan 模式首先创建 `OH_ConsumerSurface_Create()` 得到 NativeImage，并把 NativeImage 的 producer `OHNativeWindow` 传给 `OH_VideoDecoder_SetSurface()`；因此 decoder 不再把可读像素 Buffer 交给应用。NativeImage 的帧回调只记录待消费帧，送显线程使用 `OH_NativeImage_AcquireLatestNativeWindowBuffer()` 取最新槽位，等待 acquire fence 后通过 `OH_NativeBuffer_FromNativeWindowBuffer()` 得到 NativeBuffer。
 
-每帧 NativeBuffer 都通过 `vkGetNativeBufferPropertiesOHOS()` 查询外部格式、分配大小和内存类型，使用 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OHOS_NATIVE_BUFFER_BIT_OHOS`、`VkImportNativeBufferInfoOHOS` 和专用分配把它导入 Vulkan 图像。YUV 外部格式使用设备建议的 `VkSamplerYcbcrConversion`，采样器和描述符布局在一次播放会话内复用；外部图像、图像视图和 NativeBuffer 引用只保留到对应提交完成。随后 Vulkan 在 swapchain render pass 中采样外部图像并呈现，NativeImage 的 Buffer 矩阵（包含 crop/stride 变换）写入 uniform buffer，避免竖屏视频被裁剪或拉伸。
+每帧 NativeBuffer 都通过 `vkGetNativeBufferPropertiesOHOS()` 查询外部格式、分配大小和内存类型，使用 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OHOS_NATIVE_BUFFER_BIT_OHOS`、`VkImportNativeBufferInfoOHOS` 和专用分配把它导入 Vulkan 图像。YUV 外部格式使用设备建议的 `VkSamplerYcbcrConversion`，采样器和描述符布局在一次播放会话内复用。送显链路维护一个最多四项的导入缓存，以 `OH_NativeBuffer_GetSeqNum()` 匹配图形 Buffer，复用 image、memory、image view 和显式持有的 NativeBuffer 引用；只有上一提交的 fence 完成后才会淘汰旧项。随后 Vulkan 在 swapchain render pass 中采样外部图像并呈现，NativeImage 的 Buffer 矩阵（包含 crop/stride 变换）写入 uniform buffer，避免竖屏视频被裁剪或拉伸。
 
-Surface、NativeImage、Vulkan 图像和 fence 的释放顺序是固定的：先等待上一提交完成，再销毁外部图像并归还 NativeBuffer，停止解码器后注销 NativeImage 回调，最后销毁 swapchain、device 和窗口 lease。只有 Surface 建链或外部内存导入不具备条件时才回退到旧的 BufferRenderer 路径；回退不会在成功建立 Surface 后每帧触发。该链路不做 CPU RGBA 转换，适合验证 Vulkan 外部纹理和高分辨率视频，但仍受设备 Vulkan 外部内存、YCbCr 和显示刷新能力影响。
+性能诊断面板会分别统计 NativeImage 等待、获取 NativeWindowBuffer 与 fence、外部图像导入或缓存命中、上一帧 GPU 等待、命令录制以及 swapchain 提交/呈现的平均耗时，并显示缓存命中和未命中次数。这些数据反映应用侧送显阶段，不等同于显示合成器的刷新延迟。
+
+Surface、NativeImage、Vulkan 图像和 fence 的释放顺序是固定的：先等待上一提交完成，再销毁缓存中的外部图像并释放对应 NativeBuffer 引用，归还当前 NativeImage 槽位，停止解码器后注销 NativeImage 回调，最后销毁 swapchain、device 和窗口 lease。只有 Surface 建链或外部内存导入不具备条件时才回退到旧的 BufferRenderer 路径；回退不会在成功建立 Surface 后每帧触发。该链路不做 CPU RGBA 转换，适合验证 Vulkan 外部纹理和高分辨率视频，但仍受设备 Vulkan 外部内存、YCbCr 和显示刷新能力影响。
 
 <a id="hdr-vivid-output"></a>
 
@@ -905,7 +929,7 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 
 #### *播放性能诊断*
 
-开启“性能诊断”后，播放窗口显示当前状态、位置/总时长、倍速、解码输出 Buffer 数、送显提交数、丢帧数、近似输出帧率、累计丢帧率、音频输出 Buffer 数、智能流畅/HDR Vivid 状态和软件解码回退状态。Buffer、OpenGL 和 Vulkan 模式还会显示送显次数、平均耗时和失败次数。计时范围包围 `VideoSink::Present()`，包括 Buffer 拷贝、OpenGL 绘制，或 Vulkan 外部 NativeBuffer 导入与提交；被丢弃帧只归还 Decoder Buffer，不计入送显耗时。
+开启“性能诊断”后，播放窗口显示当前状态、位置/总时长、倍速、解码输出 Buffer 数、送显提交数、丢帧数、近似输出帧率、累计丢帧率、音频输出 Buffer 数、智能流畅/HDR Vivid 状态和软件解码回退状态。Buffer、OpenGL 和 Vulkan 模式还会显示送显次数、平均耗时和失败次数。Vulkan Surface 会进一步显示 NativeImage 等待、Buffer/fence 获取、导入/缓存、上一帧 GPU 等待、命令录制和提交阶段。计时范围包围 `VideoSink::Present()`，包括 Buffer 拷贝、OpenGL 绘制，或 Vulkan 外部 NativeBuffer 导入与提交；被丢弃帧只归还 Decoder Buffer，不计入送显耗时。
 
 诊断快照还包含音画同步决策偏差及其均值/最大值、PCM 队列时长、AudioRenderer 设备待播时长、补静音回调次数、同步策略丢帧次数、系统音频中断次数/最近 Hint/当前状态，以及 Seek 处理完成和目标帧提交耗时。偏差在视频线程决定等待或丢帧前采样，正值表示视频 PTS 领先音频主时钟。它反映调度估计，不代表屏幕到扬声器的物理延迟。送显提交数同样只表示应用已向 Surface 或 NativeWindow 提交。`PlaybackDiagnostics` 在 Native 侧加锁聚合短期统计，PCM 水位和欠载次数使用原子变量；`getPlaybackInfo()` 每 250 ms 复制只读快照，不改变调度或送显顺序。开始新任务、停止、失败或新的 Seek 会重置不再适用的统计。
 
@@ -1067,6 +1091,127 @@ recorder.startNative()
 - “编码控制”分组可选择关闭或自动视频防抖；自动模式先查询 `VideoSession` 是否支持 `AUTO`，仅在支持时设置，设备不支持不会阻断录制。
 - 预览页支持双指缩放，通过 `PinchGesture` 调用 `videoSession.setZoomRatio()` 调节相机 zoom。
 
+<a id="video-preprocessing"></a>
+
+##### *编码前处理*
+
+编码前处理对应 API 26 的视频编码预处理器。当前设置页提供降采样到 720P、中心裁剪到约 75% 画幅和目标帧率丢帧。它们作用在编码器收到的相机 Surface 帧上，应用不需要先把每帧拉回 CPU 再处理。预处理器按配置在编码前完成丢帧、降采样或裁剪；降采样与裁剪互斥，丢帧可以和其中一种组合。
+
+```text
+CameraKit VideoOutput
+        |
+        v
+OH_VideoEncoder_CreatePrimaryWithPreproc
+        |-- dropToFrameRate
+        |-- downsampling(width, height)  <互斥>  crop(left, top, right, bottom)
+        v
+       Encoded output
+```
+
+`VideoEncoder::ValidateVideoFeatureConfiguration()` 先校验目标帧率、裁剪矩形和输出尺寸，再用 `OH_AVCapability_IsFeatureSupported()` 查询 `VIDEO_ENCODER_PREPROC_DOWNSAMPLING` 或 `VIDEO_ENCODER_PREPROC_CROP`。通过后，`SetOptionalFormatFeatures()` 才把 `OH_MD_KEY_VIDEO_ENCODER_PREPROC_*` 写入 Configure 格式；关闭前处理时不写这些 Key。API 26 符号通过运行时查询获取，旧系统会报告能力不可用，不会影响未启用前处理的普通单路录制。
+
+三种配置的边界不一样：
+
+- 原始画面不设置预处理 Key，编码器按相机输入尺寸和帧率工作。
+- 降采样同时设置目标宽度和高度，目标尺寸不能大于相机输入尺寸，并且设备能力查询必须通过。
+- 裁剪设置 `left/top/right/bottom` 四个坐标。YUV 4:2:0 输入要求左上坐标和裁剪宽高为偶数。设置模型生成中心裁剪矩形时会自动对齐，Native 侧也会校验，拒绝不符合对齐要求的裁剪区域。
+- 丢帧目标帧率必须低于相机输入帧率。输入为 30fps 时，设置页会禁用丢帧选项；设置模型也会把无效组合归一为“不丢帧”。
+
+预处理后的尺寸会继续传到 Muxer 的视频轨道描述。比如主路输入是 1920x1080，裁剪区域是 1440x810，那么轨道登记的也是 1440x810；不能只改编码器 Key 而继续把原始尺寸写进容器，否则播放器会按错误的画面尺寸解释码流。
+
+录制设置页根据 `deviceInfo.sdkApiVersion` 对 API 26 能力做前置门控。低于 API 26 时，编码前处理、丢帧和一入二出三项保持可见但置灰，提交设置时也会强制恢复为关闭状态；这样旧系统不会因为误传新 Key 而进入失败的初始化流程。Native 初始化的任一步骤失败都会统一销毁已经创建的编码器、Muxer、采集器和回调上下文，下一次录制不需要重启应用即可重试。
+
+<a id="dual-output"></a>
+
+##### *一入二出*
+
+“一入二出”由同一相机输入生成两个独立文件。它适合同时保存高质量归档文件和低分辨率预览文件，用户只需要配置一次相机输入，不需要创建两路 CameraKit 录像输出。主编码器通过 `OH_VideoEncoder_CreatePrimaryWithPreproc()` 创建并取得唯一的 CameraKit 编码 Surface；副编码器通过 `OH_VideoEncoder_CreateSecondaryFromPrimary()` 创建，复用主路帧，不申请第二个相机输入 Surface。每路编码器都有自己的回调上下文、输出线程、视频轨和 `Muxer`。当前设置页让两路共享大部分录制参数，副路主要改变输出尺寸：相机 profile 至少为 1080P 时，副路默认使用 720P：
+
+```text
+CameraKit VideoOutput -> Primary encoder (input Surface)
+                         |              \
+                         |               +-> Primary Muxer -> primary.mp4/flv
+                         +-> Secondary encoder -> Secondary Muxer -> secondary.mp4/flv
+Microphone -> one AAC encoder --(same encoded audio buffer)------------^ ^
+```
+
+副编码器的 `OH_MD_KEY_WIDTH`/`OH_MD_KEY_HEIGHT` 仍配置共享输入帧的尺寸，较小的输出尺寸写在副路自己的降采样参数中；Muxer 视频轨道则登记降采样后的实际输出尺寸。这样输入契约、编码输出和容器轨道描述不会混为一谈。当前设置页还没有提供副路独立的编码格式、码率或帧率，两路会继承本次录制的公共配置。
+
+音频只编码一次。音频输出线程在归还 AAC Buffer 前，按顺序将同一个 Buffer 写入两个 Muxer；Muxer 不接管 Buffer，写入后仍由音频编码器归还原索引。停止时先停止 CameraKit，再向两路视频编码器发送 EOS，等待两路都消费 EOS 并退出输出线程。所有工作线程 join 后再结束两个 Muxer，之后按 **Secondary → Primary → Audio Encoder → Audio Capturer** 释放 codec 和采集器。主编码器在副编码器销毁前始终存活，避免副路回调访问失效的共享输入。
+
+副路的轨道尺寸取预处理后的有效尺寸，创建视频轨道和设置预处理参数都会检查返回值。副路 EOS 发送失败会进入统一的中止收尾路径，同时取消等待中的队列，避免停止按钮一直等待。
+
+两路的文件名和 fd 也彼此独立。主文件沿用当前录制资源，副文件由媒体库再创建一个资源；只有两路都完成封装后，UI 才关闭两个 fd 并返回录制页。这样主路成功而副路失败时，不会把一个尚未写完索引的文件当成完整录像交给媒体库。
+
+这项能力只支持 API 26 的 Surface 异步编码。Secondary 不能单独创建，也不能调用 `GetSurface()`；创建和释放顺序必须保持 **Primary 创建 → Secondary 创建 → Primary 获取 Surface → 两路启动 → Secondary 先释放 → Primary 后释放**。设置页因此会在旧系统上置灰双路入口，并在提交前再次检查设备和编码器能力。
+
+API 26、相机或编码器能力缺失时，初始化返回不支持当前录制配置，不会留下运行中的半成品会话。两个媒体库 fd 都在 Native 收尾和封装器写完索引后才关闭。
+
+#### *录制配置怎样落到两条编码路径*
+
+录制设置页只保留用户真正需要做的选择，Native 侧再把这些选择翻译成 codec 能理解的格式。这样做有两个好处：ArkTS 不需要直接拼接 `OH_AVFormat`，同一套校验可以覆盖页面入口和 NAPI 入口；录制页也只关心“当前选择什么”，不需要知道 Primary、Secondary 的内部对象。
+
+一次录制初始化的大致顺序如下：
+
+```text
+录制设置草稿
+    ↓ 应用时统一校验
+CameraDataModel
+    ↓ recorder.initNative(...)
+RecorderNative::ParseSampleInfo
+    ↓
+SampleInfo（源尺寸、前处理参数、输出 fd）
+    ↓
+VideoEncoder::Configure + Muxer::Config
+```
+
+视频宽高和帧率描述的是 CameraKit 送入编码 Surface 的源帧。前处理产生的有效尺寸另行计算：降采样使用 `downsamplingWidth/Height`，裁剪使用 `cropRight - cropLeft + 1` 和 `cropBottom - cropTop + 1`。编码器的 Configure 格式保留源帧宽高，Muxer 的视频轨道则写有效输出宽高，避免编码输入约束和容器显示尺寸混成一组值。
+
+丢帧设置也有明确边界。目标帧率为 0 表示关闭；大于 0 时必须小于相机输入帧率。当前设置页在 30 fps 输入时不提供可用的丢帧目标，切换回 30 fps 会把草稿值恢复为“不丢帧”，因此不会出现“页面显示可选、提交后又被 Native 拒绝”的情况。
+
+#### *一入二出的启动、输出和收尾*
+
+双路模式不是创建两个互不相关的 CameraKit 录像输出，而是只让 CameraKit 把帧写入 Primary 的一个 Surface，再由 codec 服务从 Primary 派生 Secondary。Recorder 保存两套编码上下文和两套输出线程，但只保存一个相机编码 Surface：
+
+1. 创建主 `Muxer`，添加主音视频轨。
+2. 根据主配置创建 Primary；如果开启双路，再从 Primary 创建 Secondary。
+3. 为副路复制一份 `SampleInfo`。副路的 Configure 仍使用共享输入尺寸，较小的输出尺寸通过副路降采样 Key 表达。
+4. 只从 Primary 调用 `GetSurface()`，把得到的 SurfaceId 交给录制页的 CameraKit `VideoOutput`。
+5. 分别 Configure、Prepare、Start 两个编码器和两个 Muxer。
+6. 主、副输出线程分别处理自己的 video Buffer、PTS、EOS 和 `FreeOutputBuffer()`。
+
+停止顺序与启动顺序相反，但会先排空数据：
+
+```text
+停止 CameraKit VideoOutput
+        ↓
+Primary / Secondary 视频 EOS
+        ↓
+音频输入线程结束，AAC EOS
+        ↓
+等待两个视频线程和音频线程退出
+        ↓
+Destroy 两个 Muxer
+        ↓
+释放 Secondary，再释放 Primary
+        ↓
+释放 AudioEncoder、AudioCapturer 和回调上下文
+```
+
+这里的关键是“先排空，后销毁”。输出线程仍可能持有 codec Buffer 时不能销毁编码器；Secondary 还依赖 Primary 的共享输入时也不能提前释放 Primary。当前 `Muxer::Release()` 直接调用 `OH_AVMuxer_Destroy()`，不再先调用 `OH_AVMuxer_Stop()`；fd 的关闭仍由录制页负责，Native 不会关闭调用方传入的文件描述符。
+
+#### *双路音频为什么只创建一个编码器*
+
+一入二出只复制视频编码路径，音频没有第二个采集器或 AAC 编码器。音频输出线程拿到一个 AAC `OH_AVBuffer` 后，先写入主 Muxer，再写入副 Muxer，两个写入都成功后才按原 `bufferIndex` 归还给 AudioEncoder。`Muxer::WriteSample()` 只读取并写入 Buffer，不接管其所有权，因此两个目标可以在同一线程中顺序消费这一份编码结果。
+
+这个约定决定了三个限制：不能在第一个 Muxer 写完后立即归还 Buffer；任一 Muxer 写入失败都必须进入统一中止流程；两个输出文件的音频时间戳来自同一份 AAC 数据，不在副路重新计算。若后续要支持异步音频分发或设备不允许重复读取同一 Buffer，应增加复制层，而不是让两个 Muxer 并发持有编码器 Buffer。
+
+#### *失败时怎样避免留下半成品会话*
+
+初始化阶段任何一步失败都可能只创建了部分资源，例如主 Muxer 已创建、副 Muxer 尚未加轨，或者 Primary 已准备而 Secondary 配置失败。Recorder 不让调用方逐项猜测当前创建到了哪一步，而是统一唤醒收尾线程：停止新输入，取消队列等待，等待已经创建的输出线程退出，然后按 `Muxer -> Secondary -> Primary -> AudioEncoder -> AudioCapturer -> CodecUserData` 的拥有关系释放。ArkTS 只有在 Native 收尾完成后才关闭主、副 fd。
+
+真机验证时建议把单路和双路分开记录：检查主、副文件是否都能播放，视频轨宽高是否等于各自有效输出尺寸，两个文件的音频是否从同一时间点开始，停止后是否还能重新创建下一次录制。再分别覆盖 Async/Sync、MP4/FLV、H.264/H.265、30/60 fps、HDR Vivid 和 API 26 以下设备。这样可以区分“编码能力不支持”和“文件收尾或 fd 管理错误”。
+
 <a id="video-encoding"></a>
 
 #### *视频编码*
@@ -1094,6 +1239,8 @@ OH_VideoEncoder_FreeOutputBuffer
 ASYNC 模式通过 `SampleCallback` 把编码输出 Buffer 放入队列，`VideoEncOutputAsyncThread()` 消费；SYNC 模式由 `VideoEncOutputSyncThread()` 调用 `OH_VideoEncoder_QueryOutputBuffer()` 和 `OH_VideoEncoder_GetOutputBuffer()` 主动查询。两条路径都从第一个同步帧开始归一化 PTS，写入视频轨后及时归还输出 Buffer。
 
 停止时，CameraKit 先停止继续生产相机帧，随后 Native 调用 `OH_VideoEncoder_NotifyEndOfStream()`。输出线程收到带 `AVCODEC_BUFFER_FLAGS_EOS` 的 Buffer 后通知停止流程，最终等待输出线程退出，再释放编码器 Surface 和 `VideoEncoder`。
+
+开启“保存编码视频码流”后，`Recorder::DumpVideoOutput()` 会在调用 `Muxer::WriteSample()` 前，将编码输出 Buffer 中有效的 `offset/size` 字节写入文件，随后仍按原索引归还编码器。写入前会检查 Buffer 地址、偏移和长度是否落在容量范围内。双路模式下，主、副编码器各写各的文件。若 Dump 文件无法打开或写入失败，只记录错误并关闭对应文件，不会因此停止 Muxer 的正常封装。Dump 是裸视频码流，不是另一份 MP4/FLV，也不包含 AAC。
 
 <a id="audio-encoding"></a>
 
@@ -1144,7 +1291,7 @@ Muxer 写入音频 track
 - 输入线程从 cache 中读取 `audioMaxInputSize` 大小的 PCM，调用 `OH_AVBuffer_SetBufferAttr()` 后 `OH_AudioCodec_PushInputBuffer()`。
 - 输出线程拿到编码后的 AAC buffer 后调用 `muxer_->WriteSample(muxer_->GetAudioTrackId(), ...)` 写入封装器。
 
-停止录制时，`AudioEncoder::NotifyEndOfStream()` 会获取一个输入 buffer，设置 `AVCODEC_BUFFER_FLAGS_EOS` 后推给编码器，使输出线程能收到 EOS 并退出。
+停止录制时，`AudioEncoder::NotifyEndOfStream()` 会获取一个输入 buffer，设置 `AVCODEC_BUFFER_FLAGS_EOS` 后推给编码器，使输出线程能收到 EOS 并退出。单路时 AAC 写入主 Muxer；双路时同一个 AAC 输出先后写入主、副 Muxer，再按原索引归还给 AudioEncoder。
 
 <a id="muxing"></a>
 
@@ -1177,7 +1324,7 @@ muxer_->WriteSample(muxer_->GetAudioTrackId(), buffer, attr);
 
 `WriteSample()` 内部会先调用 `OH_AVBuffer_SetBufferAttr(buffer, &attr)`，再调用 `OH_AVMuxer_WriteSampleBuffer()`。由于音频和视频输出线程可能并发写入，本示例使用 `writeMutex_` 保护 muxer 写入，避免多线程同时操作封装器。
 
-停止录制后，编码器输出 EOS，`Recorder::Release()` 再释放 muxer。最终文件由系统媒体库资源对应的 fd 承载，UI 侧已通过 `photoAccessHelper.createAsset()` 创建该资源。Native 完成封装收尾后，UI 才关闭 fd 并释放相机资源。
+停止录制后，编码器输出 EOS，输出线程排空并退出，`Recorder::Release()` 再调用 `OH_AVMuxer_Destroy()` 完成封装收尾。双路模式要等两个视频输出线程和音频输出线程都结束，再销毁两个 Muxer。最终文件由系统媒体库资源对应的 fd 承载，UI 侧通过 `photoAccessHelper.createAsset()` 创建资源；Native 收尾完成后，UI 才关闭 fd 并释放相机资源。
 
 停止流程不能直接销毁编码器。相机可能刚向编码 Surface 提交最后一帧，音频采集回调也可能还持有未填满一个 encoder 输入 Buffer 的 PCM。页面先停止相机录像输出并等待 frame-end，再让视频编码器和音频链路分别收到 EOS；两个输出线程都消费到 EOS 后，Muxer 才停止并写入容器收尾信息。等待条件使用完成状态谓词，而不是只等待一次通知，因此即使 EOS 在页面开始等待前已经到达，也不会让录制页长期卡住。最后关闭 fd，避免媒体库看到一个尚未完成收尾的容器文件。
 
@@ -1226,7 +1373,7 @@ muxer_->WriteSample(muxer_->GetAudioTrackId(), buffer, attr);
     private display = display.getDefaultDisplaySync()
     @State xcomponentHeight: number | string | Resource = 1
     @State xcomponentWidth: number | string | Resource = 1
-    
+
     if (data.videoWidth / data.videoHeight > this.display.width / this.display.height) {
       this.xcomponentHeight = (this.display.width * data.videoHeight / data.videoWidth) + 'px';
       this.xcomponentWidth = this.display.width + 'px';

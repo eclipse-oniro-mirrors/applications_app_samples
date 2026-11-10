@@ -34,8 +34,8 @@ export struct StartLiveRenderView {
       })
         .onLoad(() => {
           this.xComponentSurfaceId = this.xComponentController.getXComponentSurfaceId();
-          this.cameraController.createRecorder();
           this.cameraController.startNative(this.xComponentSurfaceId);
+          this.cameraController.createRecorder();
         })
         .width('100%')
         .height('100%')

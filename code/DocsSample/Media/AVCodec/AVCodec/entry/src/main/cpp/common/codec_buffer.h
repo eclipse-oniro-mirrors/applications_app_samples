@@ -25,11 +25,11 @@
 #include <multimedia/player_framework/native_avbuffer.h>
 
 // [Start codec_buffer_info]
-// 回调buffer的信息。
+// buffer信息。
 struct CodecBufferInfo {
-     // 回调buffer。
+    // buffer。
     OH_AVBuffer *buffer = nullptr;
-    // 回调buffer对应的bufferIndex。
+    // buffer对应的bufferIndex。
     uint32_t bufferIndex = 0;
     // buffer的输入尺寸（size）、偏移量（offset）、时间戳（pts）、缓冲区标记（flags）信息。
     OH_AVCodecBufferAttr attr = {0, 0, 0, AVCODEC_BUFFER_FLAGS_NONE};
@@ -39,7 +39,7 @@ struct CodecBufferInfo {
     CodecBufferInfo(uint32_t index, OH_AVBuffer *avBuffer)
         : buffer(avBuffer), bufferIndex(index)
     {
-        // 获取回调buffer的attr信息。
+        // 获取buffer的attr信息。
         if (buffer != nullptr) {
             (void)OH_AVBuffer_GetBufferAttr(buffer, &attr);
         }
@@ -54,7 +54,7 @@ public:
     void Enqueue(const std::shared_ptr<CodecBufferInfo> bufferInfo)
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        // 队列只共享描述对象，不取得 OH_AVBuffer 的所有权。消费者必须按所属编解码器归还bufferIndex。
+        // 队列只共享描述对象，不取得OH_AVBuffer的所有权。消费者必须按所属编解码器归还bufferIndex。
         bufferQueue_.push(bufferInfo);
         cond_.notify_all();
     }
@@ -77,7 +77,7 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
         // 清空回调buffer队列。
-        // 调用方需先与 codec 的 Flush/Stop 及工作线程完成同步，避免在其他线程仍访问 Buffer 时清空队列。
+        // 调用方需先与codec的Flush/Stop及工作线程完成同步，避免在其他线程仍访问buffer时清空队列。
         while (!bufferQueue_.empty()) {
             bufferQueue_.pop();
         }
@@ -86,12 +86,12 @@ public:
     void CancelWait()
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        // 取消状态会一直保持到 Reset，确保 Stop/Seek 后新旧工作线程都不会继续消费旧队列。
+        // 取消状态会一直保持到Reset，确保Stop/Seek后新旧工作线程都不会继续消费旧队列。
         cancelled_ = true;
         cond_.notify_all();
     }
 
-    // Stop 或 Seek 时通过 CancelWait 唤醒等待中的工作线程。原位切换音轨会复用 codec 上下文，
+    // Stop或Seek时通过CancelWait唤醒等待中的工作线程。原位切换音轨会复用codec上下文，
     // 因而在替换工作线程启动前必须显式重新打开队列，避免新线程立即因已取消而退出。
     void Reset()
     {

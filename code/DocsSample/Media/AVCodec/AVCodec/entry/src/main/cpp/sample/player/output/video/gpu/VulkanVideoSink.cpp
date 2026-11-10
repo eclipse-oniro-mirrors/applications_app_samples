@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "VulkanVideoSink.h"
@@ -47,8 +57,8 @@ constexpr size_t RGBA_BLUE_COMPONENT_OFFSET = 2;
 constexpr size_t RGBA_ALPHA_COMPONENT_OFFSET = 3;
 constexpr size_t RGBA_BYTES_PER_PIXEL = 4;
 constexpr uint32_t EXTERNAL_VERTEX_COUNT = 4;
-// 资源 shader 使用 vec2 位置 + vec2 纹理坐标。两组坐标各自占用两个 float，
-// 避免把顶点位置和纹理坐标复用同一内存，防止部分 GPU 读取到错误的裁剪范围。
+// 资源shader使用vec2位置 + vec2纹理坐标。两组坐标各自占用两个float，
+// 避免把顶点位置和纹理坐标复用同一内存，防止部分GPU读取到错误的裁剪范围。
 constexpr uint32_t EXTERNAL_VERTEX_COMPONENTS = 4;
 constexpr uint32_t EXTERNAL_DESCRIPTOR_COUNT = 2;
 constexpr uint32_t EXTERNAL_TEXCOORD_COMPONENT_OFFSET = 2;
@@ -184,13 +194,13 @@ bool VulkanVideoSink::CreateInstance()
     applicationInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     applicationInfo.apiVersion = VK_API_VERSION_1_0;
     std::vector<const char *> instanceExtensions = { VK_KHR_SURFACE_EXTENSION_NAME, VK_OHOS_SURFACE_EXTENSION_NAME };
-    // HDR 色彩空间枚举属于实例扩展。未启用该扩展时，即使设备支持 HDR，
-    // vkGetPhysicalDeviceSurfaceFormatsKHR 也不会返回 HDR10/PQ 色彩空间。
+    // HDR色彩空间枚举属于实例扩展。未启用该扩展时，即使设备支持HDR，
+    // vkGetPhysicalDeviceSurfaceFormatsKHR也不会返回HDR10/PQ色彩空间。
     if (ContainsExtension(extensions, VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME)) {
         instanceExtensions.push_back(VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME);
     }
     if (ContainsExtension(extensions, VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME)) {
-        // Vulkan 1.0 实例通过该扩展查询 YCbCr 特性；Vulkan 1.1 设备则使用同名核心入口。
+        // Vulkan 1.0实例通过该扩展查询YCbCr特性；Vulkan 1.1设备则使用同名核心入口。
         instanceExtensions.push_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
     }
     VkInstanceCreateInfo createInfo{};
@@ -240,8 +250,8 @@ bool VulkanVideoSink::IsDeviceSuitable(VkPhysicalDevice device, uint32_t &queueF
     vkGetPhysicalDeviceProperties(device, &deviceProperties);
     const bool supportsCoreYcbcr = VK_VERSION_MAJOR(deviceProperties.apiVersion) > 1 ||
         (VK_VERSION_MAJOR(deviceProperties.apiVersion) == 1 && VK_VERSION_MINOR(deviceProperties.apiVersion) >= 1);
-    // NativeBuffer 导入依赖 VK_OHOS_external_memory；只有交换链扩展而没有该扩展时，
-    // 只能创建普通 Vulkan 窗口，不能完成 Surface 到外部纹理的送显。
+    // NativeBuffer导入依赖VK_OHOS_external_memory；只有交换链扩展而没有该扩展时，
+    // 只能创建普通Vulkan窗口，不能完成Surface到外部纹理的送显。
     if (!ContainsExtension(extensions, DEVICE_SWAPCHAIN_EXTENSION) ||
         !ContainsExtension(extensions, EXTERNAL_MEMORY_EXTENSION) ||
         (!ContainsExtension(extensions, YCBCR_EXTENSION) && !supportsCoreYcbcr)) {
@@ -458,8 +468,8 @@ bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
         return false;
     }
     if (preferHdrSwapchain_) {
-        // HDR Surface 使用 10-bit UNORM 承载解码器输出的 PQ 数值。窗口元数据在首帧
-        // 读取后再同步为 HDR Vivid，避免把容器声明误当成真实 HDR 内容。
+        // HDR Surface使用10-bit UNORM承载解码器输出的PQ数值。窗口元数据在首帧
+        // 读取后再同步为HDR Vivid，避免把容器声明误当成真实HDR内容。
         auto hdrFormatIt = std::find_if(formats.begin(), formats.end(), [](const VkSurfaceFormatKHR &format) {
             return (format.format == VK_FORMAT_A2B10G10R10_UNORM_PACK32 ||
                 format.format == VK_FORMAT_A2R10G10B10_UNORM_PACK32) &&
@@ -476,7 +486,7 @@ bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
         AVCODEC_SAMPLE_LOGW("HDR Vulkan surface format is unavailable, use 8-bit output");
     }
     hdrSwapchainActive_ = false;
-    // 同时支持两种格式时使用 RGBA，可避免每次上传前在 CPU 上完整交换红蓝通道。
+    // 同时支持两种格式时使用RGBA，可避免每次上传前在CPU上完整交换红蓝通道。
     auto formatIt = std::find_if(formats.begin(), formats.end(), [](const VkSurfaceFormatKHR &format) {
         return format.format == VK_FORMAT_R8G8B8A8_UNORM;
     });
@@ -839,7 +849,7 @@ bool VulkanVideoSink::UploadStagingData(const std::vector<uint8_t> &uploadData)
     if (vkMapMemory(device_, stagingMemory_, 0, uploadData.size(), 0, &mapped) != VK_SUCCESS || mapped == nullptr) {
         return false;
     }
-    // mapped 指针只在 vkMapMemory 与 vkUnmapMemory 之间有效，拷贝后立即解除映射。
+    // mapped指针只在vkMapMemory与vkUnmapMemory之间有效，拷贝后立即解除映射。
     std::copy_n(uploadData.data(), uploadData.size(), static_cast<uint8_t *>(mapped));
     vkUnmapMemory(device_, stagingMemory_);
     return true;
@@ -937,9 +947,9 @@ bool VulkanVideoSink::UpdateExternalTransform()
         AVCODEC_SAMPLE_LOGW("Vulkan NativeBuffer is unavailable for transform");
         return false;
     }
-    // Vulkan 使用 AcquireLatestNativeWindowBuffer 消费 NativeImage。该接口不能与
-    // UpdateSurfaceImage/GetBufferMatrix 混用，因此裁剪信息从当前 acquired Buffer 的
-    // 配置计算，而不是读取可能属于另一帧的 last-flushed 矩阵。
+    // Vulkan使用AcquireLatestNativeWindowBuffer消费NativeImage。该接口不能与
+    // UpdateSurfaceImage/GetBufferMatrix混用，因此裁剪信息从当前acquired Buffer的
+    // 配置计算，而不是读取可能属于另一帧的last-flushed矩阵。
     OH_NativeBuffer_Config config{};
     OH_NativeBuffer_GetConfig(currentNativeBuffer_, &config);
     const int32_t bufferWidth = config.width > 0 ? config.width : externalVideoWidth_;
@@ -951,7 +961,7 @@ bool VulkanVideoSink::UpdateExternalTransform()
             "%{public}d x %{public}d", bufferWidth, bufferHeight, externalVideoWidth_, externalVideoHeight_);
         return false;
     }
-    // decoder rotation 固定为 0，容器方向在裁剪之前应用一次，避免生产端再次旋转。
+    // decoder rotation固定为0，容器方向在裁剪之前应用一次，避免生产端再次旋转。
     externalTransform_ = VideoPresentationGeometry::RotateTextureMatrix(contentMatrix, externalVideoRotation_);
     std::copy(externalTransform_.begin(), externalTransform_.end(), static_cast<float *>(externalUniformMapped_));
     return true;
@@ -1048,7 +1058,7 @@ bool VulkanVideoSink::EnsureBlackFramebuffers()
     if (externalRenderPass_ != VK_NULL_HANDLE && framebuffersMatch) {
         return true;
     }
-    // Framebuffer 绑定具体的 swapchain image，重建交换链后必须一并更新。
+    // Framebuffer绑定具体的swapchain image，重建交换链后必须一并更新。
     if (externalRenderPass_ != VK_NULL_HANDLE || !externalFramebuffers_.empty()) {
         DestroyExternalFramebuffers();
         if (externalRenderPass_ != VK_NULL_HANDLE) {
@@ -1102,7 +1112,7 @@ bool VulkanVideoSink::RecordAndSubmitBlackFrame(uint32_t imageIndex)
 
 void VulkanVideoSink::RecordBlackClearPass(uint32_t imageIndex)
 {
-    // 使用颜色附件清屏；HDR packed 格式不能用 RGBA8888 整数值代替黑色。
+    // 使用颜色附件清屏；HDR packed格式不能用RGBA8888整数值代替黑色。
     VkClearValue clearValue{};
     clearValue.color = BLACK;
     VkRenderPassBeginInfo passInfo{};
@@ -1128,9 +1138,9 @@ bool VulkanVideoSink::Quiesce()
     }
     frameInFlight_ = false;
     ReleaseCurrentNativeBuffer();
-    // Quiesce 只负责让 GPU 和当前 NativeImage buffer 达到静止状态。
-    // 交换链尺寸变化和 Seek 都可能紧接着销毁 framebuffer，清屏必须由
-    // Reset/新播放阶段执行，避免在过期交换链上重复 Acquire/Present。
+    // Quiesce只负责让GPU和当前NativeImage buffer达到静止状态。
+    // 交换链尺寸变化和Seek都可能紧接着销毁framebuffer，清屏必须由
+    // Reset/新播放阶段执行，避免在过期交换链上重复Acquire/Present。
     return true;
 }
 
@@ -1139,8 +1149,8 @@ void VulkanVideoSink::DiscardPendingFrames()
     if (nativeImage_ == nullptr) {
         return;
     }
-    // 此时 codec 已 Flush，应用输出线程也已退出，不会继续提交旧时间轴的帧。
-    // 不等待生产者 fence、不采样，直接把 fence 随 Buffer 交回队列即可。
+    // 此时codec已Flush，应用输出线程也已退出，不会继续提交旧时间轴的帧。
+    // 不等待生产者fence、不采样，直接把fence随Buffer交回队列即可。
     availableFrameCount_.exchange(0);
     OHNativeWindowBuffer *buffer = nullptr;
     int fenceFd = -1;
@@ -1178,8 +1188,8 @@ bool VulkanVideoSink::EnsureContext(NativeXComponentSample::PluginManager::Plugi
         return true;
     }
     if (initialized_) {
-        // 尺寸未变的 XComponent 刷新也可能保留 NativeWindow 地址却替换底层 Surface。此时必须新建 Vulkan
-        // Surface；只重建 swapchain 会保留旧 extent，使视频在当前 XComponent 内发生偏移。
+        // 尺寸未变的XComponent刷新也可能保留NativeWindow地址却替换底层Surface。此时必须新建Vulkan
+        // Surface；只重建swapchain会保留旧extent，使视频在当前XComponent内发生偏移。
         ReleaseVulkanResources();
     }
     if (!ConfigureWindowForGpu(window, width, height, preferHdrSwapchain_)) {
@@ -1188,7 +1198,7 @@ bool VulkanVideoSink::EnsureContext(NativeXComponentSample::PluginManager::Plugi
     if (!Initialize(window, width, height)) {
         return false;
     }
-    // VkSurfaceKHR 会在整个播放期间访问该 NativeWindow；成功创建后由 sink 接管窗口租约。
+    // VkSurfaceKHR会在整个播放期间访问该NativeWindow；成功创建后由sink接管窗口租约。
     windowLease_ = std::move(windowLease);
     windowGeneration_ = generation;
     return true;
@@ -1206,8 +1216,8 @@ bool VulkanVideoSink::RecreateSwapchain(int32_t width, int32_t height)
         !externalFramebuffers_.empty()) {
         DestroyExternalRenderResources();
     }
-    // XComponent 配置变化时，选中的 Surface 格式也可能改变。
-    // 需连同 swapchain 一起重建上传图像，确保两者格式一致。
+    // XComponent配置变化时，选中的Surface格式也可能改变。
+    // 需连同swapchain一起重建上传图像，确保两者格式一致。
     ReleaseUploadImage();
     DestroySwapchain();
     DestroyFrameResources();
@@ -1221,16 +1231,16 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
 {
     const auto frameStartedAt = std::chrono::steady_clock::now();
     if (!surfaceDecoderReady_) {
-        // Vulkan 链路固定使用 Surface 输出。异常情况下只归还 codec Buffer，
-        // 不能让旧的 BufferRenderer 接管当前播放。
+        // Vulkan链路固定使用Surface输出。异常情况下只归还codec Buffer，
+        // 不能让旧的BufferRenderer接管当前播放。
         const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, false);
         AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is unavailable, skip frame");
         return freeRet == AVCODEC_SAMPLE_ERR_OK ? AVCODEC_SAMPLE_ERR_ERROR : freeRet;
     }
     externalVideoWidth_ = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
     externalVideoHeight_ = request.context.height > 0 ? request.context.height : request.sampleInfo.video.videoHeight;
-    // 解码器只负责把帧提交到 NativeImage 生产者；Vulkan 消费者在归还 codec Buffer 后
-    // 获取同一帧的 NativeWindowBuffer，并通过 OHOS 外部内存导入到 Vulkan 图像。
+    // 解码器只负责把帧提交到NativeImage生产者；Vulkan消费者在归还codec Buffer后
+    // 获取同一帧的NativeWindowBuffer，并通过OHOS外部内存导入到Vulkan图像。
     const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, request.render,
         request.renderTimestamp);
     if (freeRet != AVCODEC_SAMPLE_ERR_OK || !request.render) {
@@ -1248,13 +1258,13 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
 
 OHNativeWindow *VulkanVideoSink::PrepareForPlayback(const SampleInfo &sampleInfo)
 {
-    // Surface 解码和 Vulkan Buffer 渲染不能同时占用同一个 XComponent 窗口。
-    // 切换到 Surface 前先清理上一轮 Vulkan 生产者，避免旧 swapchain 持有窗口或残留最后一帧。
+    // Surface解码和Vulkan Buffer渲染不能同时占用同一个XComponent窗口。
+    // 切换到Surface前先清理上一轮Vulkan生产者，避免旧swapchain持有窗口或残留最后一帧。
     if (initialized_ || windowLease_) {
         PresentBlackFrame();
         ReleaseVulkanResources();
     }
-    // 解码器输出先进入 NativeImage consumer，再由 Vulkan 以 OHOS 外部内存方式采样。
+    // 解码器输出先进入NativeImage consumer，再由Vulkan以OHOS外部内存方式采样。
     surfaceOutputRequested_ = true;
     surfaceDecoderReady_ = false;
     preferHdrSwapchain_ = (sampleInfo.video.hdrVividContainerSignaled || sampleInfo.video.isHDRVivid != 0) &&
@@ -1331,7 +1341,7 @@ void VulkanVideoSink::ReleaseVulkanResources()
         vkDestroyInstance(instance_, nullptr);
         instance_ = VK_NULL_HANDLE;
     }
-    // 所有依赖 NativeWindow 的 Vulkan 对象均已销毁，随后才解除窗口引用。
+    // 所有依赖NativeWindow的Vulkan对象均已销毁，随后才解除窗口引用。
     windowLease_ = {};
     ResetContextState();
 }
@@ -1447,7 +1457,7 @@ VideoSinkDiagnostics VulkanVideoSink::GetDiagnostics() const
 
 void VulkanVideoSink::Reset()
 {
-    // Surface 解码器由 Player 在此之前销毁；此时才能解除 decoder 使用的窗口租约。
+    // Surface解码器由Player在此之前销毁；此时才能解除decoder使用的窗口租约。
     surfaceDecoderReady_ = false;
     PresentBlackFrame();
     ReleaseVulkanResources();
@@ -1471,7 +1481,7 @@ void VulkanVideoSink::Reset()
 
 void VulkanVideoSink::BeginPlayback()
 {
-    // Vulkan 设备有意跨任务保留，但 BufferRenderer 回退状态只属于前一条已解码流，
+    // Vulkan设备有意跨任务保留，但BufferRenderer回退状态只属于前一条已解码流，
     // 不能影响下一个文件。
     if (initialized_ || windowLease_) {
         PresentBlackFrame();

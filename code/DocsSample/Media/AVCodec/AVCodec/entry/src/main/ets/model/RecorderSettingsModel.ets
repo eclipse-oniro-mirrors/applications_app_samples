@@ -15,6 +15,7 @@
 
 import { CommonConstants as Const } from '../common/CommonConstants';
 import { CameraDataModel } from './CameraDataModel';
+import { RecorderPreprocessModel } from './RecorderPreprocessModel';
 
 export class RecorderSettingsModel {
   applyPickerValues(values: string[], cameraData: CameraDataModel): boolean {
@@ -65,24 +66,8 @@ export class RecorderSettingsModel {
     cameraData.dropToFrameRate = dropFrameIndex === 1 && cameraData.frameRate > Const.FRAMERATE_VIDEO_30FPS ?
       Const.FRAMERATE_VIDEO_30FPS : 0;
     cameraData.enableDualOutput = dualOutputIndex === 1;
-    cameraData.downsamplingWidth = cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
-      Const.VIDEO_WIDTH_720P : cameraData.cameraWidth;
-    cameraData.downsamplingHeight = cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
-      Const.VIDEO_HEIGHT_720P : cameraData.cameraHeight;
-    this.applyCenterCrop(cameraData);
+    RecorderPreprocessModel.apply(cameraData);
     return true;
-  }
-
-  private applyCenterCrop(cameraData: CameraDataModel): void {
-    // YUV 4:2:0 裁剪的起点和尺寸需要按 2 对齐；对齐后与画面中心最多相差 1 像素。
-    const cropWidth: number = Math.floor(cameraData.cameraWidth * 3 / 4 / 2) * 2;
-    const cropHeight: number = Math.floor(cameraData.cameraHeight * 3 / 4 / 2) * 2;
-    const centerLeft: number = Math.floor((cameraData.cameraWidth - cropWidth) / 2);
-    const centerTop: number = Math.floor((cameraData.cameraHeight - cropHeight) / 2);
-    cameraData.cropLeft = centerLeft - (centerLeft % 2);
-    cameraData.cropTop = centerTop - (centerTop % 2);
-    cameraData.cropRight = cameraData.cropLeft + cropWidth - 1;
-    cameraData.cropBottom = cameraData.cropTop + cropHeight - 1;
   }
 
   private getAudioBitrate(index: number): number {

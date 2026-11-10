@@ -25,6 +25,9 @@ static napi_value Init(napi_env env, napi_value exports)
         {"createNativeRoot", nullptr,
          NativeModule::CreateNativeRoot, nullptr, nullptr,
          nullptr, napi_default, nullptr},
+        {"createCrossLanguageRoot", nullptr,
+         NativeModule::CreateCrossLanguageRoot, nullptr, nullptr,
+         nullptr, napi_default, nullptr},
         {"destroyNativeRoot", nullptr,
          NativeModule::DestroyNativeRoot, nullptr, nullptr,
          nullptr, napi_default, nullptr}};

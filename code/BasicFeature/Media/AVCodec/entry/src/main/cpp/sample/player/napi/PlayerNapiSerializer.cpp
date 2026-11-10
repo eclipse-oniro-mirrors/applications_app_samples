@@ -87,6 +87,30 @@ bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnost
 
 bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
 {
+    napi_value sinkDiagnostics = nullptr;
+    if (napi_create_object(env, &sinkDiagnostics) != napi_ok ||
+        !SetBoolProperty(env, sinkDiagnostics, "available", info.videoSinkDiagnostics.available) ||
+        !SetInt64Property(env, sinkDiagnostics, "frames", static_cast<int64_t>(info.videoSinkDiagnostics.frames)) ||
+        !SetInt64Property(env, sinkDiagnostics, "failures", static_cast<int64_t>(info.videoSinkDiagnostics.failures)) ||
+        !SetInt64Property(env, sinkDiagnostics, "cacheHits",
+            static_cast<int64_t>(info.videoSinkDiagnostics.cacheHits)) ||
+        !SetInt64Property(env, sinkDiagnostics, "cacheMisses",
+            static_cast<int64_t>(info.videoSinkDiagnostics.cacheMisses)) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageFrameUs", info.videoSinkDiagnostics.averageFrameUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageNativeImageWaitUs",
+            info.videoSinkDiagnostics.averageNativeImageWaitUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageNativeImageAcquireUs",
+            info.videoSinkDiagnostics.averageNativeImageAcquireUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageAcquireFenceWaitUs",
+            info.videoSinkDiagnostics.averageAcquireFenceWaitUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageImportUs", info.videoSinkDiagnostics.averageImportUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageGpuWaitUs", info.videoSinkDiagnostics.averageGpuWaitUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageCommandRecordUs",
+            info.videoSinkDiagnostics.averageCommandRecordUs) ||
+        !SetDoubleProperty(env, sinkDiagnostics, "averageSubmitUs", info.videoSinkDiagnostics.averageSubmitUs) ||
+        napi_set_named_property(env, object, "videoSinkDiagnostics", sinkDiagnostics) != napi_ok) {
+        return false;
+    }
     return SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&
         SetDoubleProperty(env, object, "speed", info.speed) &&
         SetInt64Property(env, object, "durationUs", info.durationUs) &&

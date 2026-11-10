@@ -38,6 +38,7 @@
 #include "ohcamera/video_output.h"
 #include "napi/native_api.h"
 #include "ohcamera/camera_manager.h"
+#include "ohcamera/camera_device.h"
 #include <window_manager/oh_display_info.h>
 #include <window_manager/oh_display_manager.h>
 
@@ -78,6 +79,7 @@ class NDKCamera {
     Camera_ErrorCode PhotoOutputRelease(void);
     void GetProfiles(void);
     Camera_ErrorCode HasFlashFn(uint32_t mode);
+    void SetExposureModeFn(uint32_t mode, Camera_CaptureSession *captureSession);
     Camera_ErrorCode IsVideoStabilizationModeSupportedFn(uint32_t mode);
     Camera_ErrorCode setZoomRatioFn(uint32_t zoomRatio);
     Camera_ErrorCode SessionFlowFn(void);
@@ -145,6 +147,29 @@ class NDKCamera {
     VideoOutput_Callbacks *GetVideoOutputListener(void);
     MetadataOutput_Callbacks *GetMetadataOutputListener(void);
     CaptureSession_Callbacks *GetCaptureSessionRegister(void);
+    
+    // For sample
+    void CreateAndOpenCamera();
+    Camera_ErrorCode CreateCameraManager(Camera_Manager** cameraManager);
+    Camera_ErrorCode GetSupportedCameras(Camera_Manager* cameraManager, Camera_Device** cameras, uint32_t &size);
+    Camera_ErrorCode GetCameraDevices(Camera_Manager* cameraManager, Camera_Device** cameras, uint32_t &size);
+    Camera_ErrorCode RegisterCameraStatusCallback(Camera_Manager &cameraManager);
+    bool IsSupportedSceneMode(Camera_Manager* cameraManager, Camera_Device camera, Camera_SceneMode sceneMode);
+    Camera_OutputCapability* GetSupportedCameraOutputCapability(Camera_Manager* cameraManager, Camera_Device &camera);
+    Camera_CaptureSession* CreateCaptureSession(Camera_Manager* cameraManager);
+    Camera_ErrorCode SetSessionMode(Camera_CaptureSession* captureSession);
+    Camera_ErrorCode BeginConfig(Camera_CaptureSession* captureSession);
+    Camera_ErrorCode StartSession(Camera_CaptureSession* captureSession, Camera_Input* cameraInput,
+        Camera_PreviewOutput* previewOutput, Camera_PhotoOutput* photoOutput);
+    Camera_ErrorCode ReloadSession(Camera_CaptureSession* captureSession, Camera_PhotoOutput* photoOutput,
+        Camera_VideoOutput* videoOutput);
+    void GetSupportedCamerasForConcurrent(Camera_Manager *cameraManager);
+    void GetSupportedOutputCapabilityForConcurrent(Camera_Manager *cameraManager, Camera_Device *cameras);
+    Camera_ErrorCode CreatePreviewOutputForConcurrent(Camera_Manager *cameraManager,
+        Camera_ConcurrentInfo* cameraConcurrentInfo, Camera_PreviewOutput** previewOutput, char* previewSurfaceId);
+    void CameraInputOpenForConcurrent(Camera_Manager *cameraManager, Camera_Device *cameras);
+    void SessionFlowForConcurrentFn(Camera_CaptureSession *captureSession,
+        Camera_Input *cameraInput, Camera_PreviewOutput *previewOutput);
 
   private:
     NDKCamera(const NDKCamera &) = delete;

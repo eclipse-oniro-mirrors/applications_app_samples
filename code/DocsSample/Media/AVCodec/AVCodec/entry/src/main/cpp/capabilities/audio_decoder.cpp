@@ -16,6 +16,15 @@
 
 #include "audio_decoder.h"
 #include "codec_capability.h"
+// [Start AudioDecoder::IncludeDrmHeaders]
+#include <multimedia/drm_framework/native_mediakeysystem.h>
+#include <multimedia/drm_framework/native_mediakeysession.h>
+#include <multimedia/drm_framework/native_drm_err.h>
+#include <multimedia/drm_framework/native_drm_common.h>
+// [End AudioDecoder::IncludeDrmHeaders]
+// [Start AudioDecoder::IncludeCencHeaders]
+#include <multimedia/player_framework/native_cencinfo.h>
+// [End AudioDecoder::IncludeCencHeaders]
 
 #undef LOG_TAG
 #define LOG_TAG "AudioDecoder"
@@ -64,6 +73,33 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End AudioDecoder::SetCallback]
+
+// [Start AudioDecoder::SetDecryptionConfig]
+int32_t AudioDecoder::SetDecryptionConfig()
+{
+    // 根据DRM信息创建指定的DRM系统, 以创建"com.clearplay.drm"为例。
+    MediaKeySystem *system = nullptr;
+    int32_t ret = OH_MediaKeySystem_Create("com.clearplay.drm", &system);
+    CHECK_AND_RETURN_RET_LOG(ret == DRM_ERR_OK && system != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Create media key system failed, ret: %{public}d", ret);
+    
+    // 创建解密会话。
+    MediaKeySession *session = nullptr;
+    DRM_ContentProtectionLevel contentProtectionLevel = CONTENT_PROTECTION_LEVEL_SW_CRYPTO;
+    ret = OH_MediaKeySystem_CreateMediaKeySession(system, &contentProtectionLevel, &session);
+    CHECK_AND_RETURN_RET_LOG(ret == DRM_ERR_OK && session != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Create media key session failed, ret: %{public}d", ret);
+    
+    // 获取许可证请求、设置许可证响应等。
+    // 设置解密配置, 即将解密会话、安全通路标志(当前音频解密不支持安全通路，应设置为false)设置到解码器中。
+    bool secureAudio = false;
+    ret = OH_AudioCodec_SetDecryptionConfig(decoder_, session, secureAudio);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Set decryption config failed, ret: %{public}d", ret);
+
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End AudioDecoder::SetDecryptionConfig]
 
 // [Start AudioDecoder::Configure]
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
@@ -178,19 +214,11 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(decoder_, info.bufferIndex);
-    if (outputBuf == nullptr) {
-        // 已取得输出索引，后续取Buffer失败也必须归还，避免占满codec的输出队列。
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer failed, free ret: %{public}d", freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(outputBuf != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get output buffer failed");
 
     ret = OH_AVBuffer_GetBufferAttr(outputBuf, &info.attr);
-    if (ret != AV_ERR_OK) {
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer attr failed, ret: %{public}d, free ret: %{public}d", ret, freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get output buffer attr failed, ret: %{public}d", ret);
     info.buffer = outputBuf;
     if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
         // EOS输出也必须归还，之后不再访问outputBuf或该索引。
@@ -214,6 +242,62 @@ int32_t AudioDecoder::Start()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End AudioDecoder::Start]
+
+// [Start AudioDecoder::SetAVBuffer]
+void AudioDecoder::SetAVBuffer(OH_AVBuffer *buffer)
+{
+    uint32_t keyIdLen = DRM_KEY_ID_SIZE;
+    uint8_t keyId[] = {
+        0xd4, 0xb2, 0x01, 0xe4, 0x61, 0xc8, 0x98, 0x96,
+        0xcf, 0x05, 0x22, 0x39, 0x8d, 0x09, 0xe6, 0x28};
+    uint32_t ivLen = DRM_KEY_IV_SIZE;
+    uint8_t iv[] = {
+        0xbf, 0x77, 0xed, 0x51, 0x81, 0xde, 0x36, 0x3e,
+        0x52, 0xf7, 0x20, 0x4f, 0x72, 0x14, 0xa3, 0x95};
+    uint32_t encryptedBlockCount = 0;
+    uint32_t skippedBlockCount = 0;
+    uint32_t firstEncryptedOffset = 0;
+    uint32_t subsampleCount = 1;
+    DrmSubsample subsamples[1] = { { .clearHeaderLen = 0x10, .payLoadLen = 0x16 } };
+    // 创建CencInfo实例。
+    OH_AVCencInfo *cencInfo = OH_AVCencInfo_Create();
+    if (cencInfo == nullptr) {
+        // 异常处理。
+    }
+    // 设置解密算法。
+    OH_AVErrCode errNo = OH_AVCencInfo_SetAlgorithm(cencInfo, DRM_ALG_CENC_AES_CTR);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 设置KeyId和Iv。
+    errNo = OH_AVCencInfo_SetKeyIdAndIv(cencInfo, keyId, keyIdLen, iv, ivLen);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 设置Sample信息。
+    errNo = OH_AVCencInfo_SetSubsampleInfo(cencInfo, encryptedBlockCount, skippedBlockCount, firstEncryptedOffset,
+        subsampleCount, subsamples);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 设置模式：KeyId、Iv和SubSamples已被设置。
+    errNo = OH_AVCencInfo_SetMode(cencInfo, DRM_CENC_INFO_KEY_IV_SUBSAMPLES_SET);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 将CencInfo设置到AVBuffer中。
+    errNo = OH_AVCencInfo_SetAVBuffer(cencInfo, buffer);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    // 销毁CencInfo实例。
+    errNo = OH_AVCencInfo_Destroy(cencInfo);
+    if (errNo != AV_ERR_OK) {
+        // 异常处理。
+    }
+    cencInfo = nullptr;
+}
+// [End AudioDecoder::SetAVBuffer]
 
 // [Start AudioDecoder::PushInputBuffer]
 int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &info)

@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "NativePlayerContext.h"
@@ -71,7 +81,7 @@ napi_value SeekToAsync(napi_env env, napi_callback_info info)
         RejectSeek(env, work->deferred);
         return promise;
     }
-    // 完成回调接管 work 的所有权，并在工作线程结束前保持 Player 存活。
+    // 完成回调接管work的所有权，并在工作线程结束前保持Player存活。
     work.release();
     return promise;
 }

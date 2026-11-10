@@ -14,4 +14,4 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 
 add_library(entry SHARED napi_init.cpp NativeEntry.cpp)
 
-target_link_libraries(entry PUBLIC libace_napi.z.so libace_ndk.z.so)
+target_link_libraries(entry PUBLIC libace_napi.z.so libace_ndk.z.so hilog_ndk.z.so)

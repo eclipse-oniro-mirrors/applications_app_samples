@@ -26,6 +26,11 @@ export enum PlayerState {
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
 
 export interface PlayOptions {
+  videoCodecName?: string;
+  /** Dump文件大小上限（MiB）；0表示不限。 */
+  dumpMaxMiB?: number;
+  /** Dump写入时长上限（秒）；0表示不限。 */
+  dumpMaxSeconds?: number;
   inputFileFd: number;
   inputFileOffset: number;
   inputFileSize: number;
@@ -42,7 +47,7 @@ export interface PlayOptions {
   audioVolume?: number;
   /** 创建播放任务的音频渲染器时生效。 */
   enableAudioLowLatency?: boolean;
-  /** 容器中的音轨索引；-1 表示选择第一条音轨。 */
+  /** 容器中的音轨索引；-1表示选择第一条音轨。 */
   audioTrackIndex?: number;
 }
 
@@ -85,7 +90,22 @@ export const selectAudioTrack: (trackIndex: number) => boolean
 
 export const getState: () => PlayerState
 
+export interface PlaybackTimelineEvent {
+  sequence: number;
+  seekId: number;
+  elapsedUs: number;
+  mediaUs: number;
+  stage: string;
+}
+
 export interface PlaybackDiagnostics {
+  sessionId: string;
+  requestedConfiguration: string;
+  observedConfiguration: string;
+  events: PlaybackTimelineEvent[];
+  presentCallP95Us: number;
+  presentCallMaxUs: number;
+  presentCallSamples: number;
   syncAvailable: boolean;
   avOffsetUs: number;
   averageAbsoluteOffsetUs: number;
@@ -103,7 +123,36 @@ export interface PlaybackDiagnostics {
   backgroundPaused: boolean;
 }
 
+export interface PlaybackFailure {
+  stage: string;
+  code: number;
+  message: string;
+  mime: string;
+  codecName: string;
+  runMode: number;
+}
+
+export interface VideoCapabilityRequest {
+  codecName: string;
+  mimeType: string;
+  codecType: number;
+  width: number;
+  height: number;
+  frameRate: number;
+}
+
+export interface VideoCapabilityCheck {
+  supported: boolean;
+  sizeSupported: boolean;
+  frameRateRangeAvailable: boolean;
+  frameRateRange: DeviceCodecCapabilityRange;
+  reason: string;
+}
+
+export const checkVideoCapability: (request: VideoCapabilityRequest) => VideoCapabilityCheck
+
 export interface PlaybackInfo {
+  failure: PlaybackFailure;
   state: PlayerState;
   speed: number;
   durationUs: number;
@@ -142,6 +191,7 @@ export interface VideoSinkDiagnostics {
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
+export const getCompletedPlaybackInfo: () => PlaybackInfo
 
 export interface VideoMediaInfo {
   codecMime: string;
@@ -198,6 +248,39 @@ export interface MediaInfo {
 
 export const getMediaInfo: () => MediaInfo
 
+/** 返回系统公布的编解码能力；该查询不会创建编解码器实例。 */
+export interface DeviceCodecCapabilityRange {
+  min: number;
+  max: number;
+}
+
+export interface DeviceCodecProfileLevels {
+  profile: number;
+  levels: number[];
+}
+
+export interface DeviceCodecCapability {
+  codecType: number;
+  codecName: string;
+  mimeType: string;
+  hardware: boolean;
+  maxInstances: number;
+  videoWidthRange?: DeviceCodecCapabilityRange;
+  videoHeightRange?: DeviceCodecCapabilityRange;
+  videoFrameRateRange?: DeviceCodecCapabilityRange;
+  videoWidthAlignment?: number;
+  videoHeightAlignment?: number;
+  videoPixelFormats: number[];
+  profiles: number[];
+  profileLevels: DeviceCodecProfileLevels[];
+  audioSampleRates: number[];
+  audioSampleRateRanges: DeviceCodecCapabilityRange[];
+  audioChannelCountRange?: DeviceCodecCapabilityRange;
+  encoderBitrateRange?: DeviceCodecCapabilityRange;
+}
+
+export const getDeviceCodecCapabilities: () => DeviceCodecCapability[]
+
 export const isSmartFluencyAvailable: () => boolean
 
 export const setPlaybackSpeed: (
@@ -225,5 +308,5 @@ export const onThermalLevelRecovered: () => void
 /** 设置应用进入后台后是否继续播放。 */
 export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
 
-/** 通知 Native 播放器 Ability 前后台状态变化。 */
+/** 通知Native播放器Ability前后台状态变化。 */
 export const setAppBackground: (background: boolean) => void

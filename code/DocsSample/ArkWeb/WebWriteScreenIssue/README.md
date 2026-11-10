@@ -61,6 +61,36 @@
 
 1. 通过设置允许跨域访问的本地路径列表，使WebView中的网页能够通过XMLHttpRequest使用file协议安全地访问指定目录下的本地资源文件。
 
+### 拦截特殊协议(如 tel:)避免白屏
+
+#### 介绍
+
+1. 当 Web 页面中包含 `tel:`、`mailto:` 等特殊协议链接时，Web 组件默认会尝试将其当作 URL 加载，由于无法解析导致白屏。本示例通过 `onInterceptRequest` 拦截 `tel:` 协议，调用系统拨号能力 `call.makeCall`，并返回非空 `WebResourceResponse` 阻止默认加载行为。
+
+#### 效果预览
+<img src="./screenshots/img_3.png" width="200" />
+
+#### 使用说明
+
+1. 页面加载包含 `<a href="tel:123456">` 的本地 HTML，点击链接时触发 `onInterceptRequest`。
+2. 在拦截回调中识别 `tel:` 协议，提取号码并调用 `@kit.TelephonyKit` 的 `call.makeCall` 拉起系统拨号界面。
+3. 返回带 404 状态码的 `WebResourceResponse`，阻止 Web 组件继续加载该 URL，避免白屏。
+
+### 设置渲染进程模式与缓存模式
+
+#### 介绍
+
+1. 在 Tablet/PC/2in1 设备上，Web 组件默认多进程模式下加载 iframe 可能出现白屏，通过 `webview.WebviewController.setRenderProcessMode(RenderProcessMode.SINGLE)` 设置单进程模式解决。
+2. 部分服务器在缓存协商时返回 412 状态码导致页面白屏，通过 `.cacheMode(CacheMode.Online)` 设置缓存模式绕过协商校验。
+
+#### 效果预览
+<img src="./screenshots/img_4.png" width="200" />
+
+#### 使用说明
+
+1. 在页面 `aboutToAppear` 生命周期调用静态方法 `setRenderProcessMode` 设置单进程渲染模式（全局生效，只需调用一次）。
+2. 在 Web 组件上通过 `.cacheMode(CacheMode.Online)` 属性设置缓存模式为 Online，优先使用网络资源。
+
 ### 工程目录
 
 ```
@@ -72,7 +102,9 @@ entry/src/main/
 |---|---|---ChangeUserAgent.ets
 |---|---|---CrossDomainIntercept.ets
 |---|---|---Index.ets						// 首页
+|---|---|---InterceptTelScheme.ets
 |---|---|---OpenPermissions.ets
+|---|---|---RenderAndCacheMode.ets
 |---resources								// 静态资源
 |---ohosTest
 |---|---ets
@@ -104,6 +136,8 @@ entry2/src/main/
 ### 相关权限
 
 [ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
+
+> 注:`call.makeCall` 拉起系统拨号 UI，无需额外声明 `ohos.permission.PLACE_CALL` 权限。若运行环境提示权限不足，可在 `module.json5` 的 `requestPermissions` 中追加该权限。
 
 ### 依赖
 

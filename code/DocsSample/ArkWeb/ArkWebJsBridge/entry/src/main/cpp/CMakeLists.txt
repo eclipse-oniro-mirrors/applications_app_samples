@@ -1,3 +1,4 @@
+# [Start cmake_lists]
 # entry/src/main/cpp/CMakeLists.txt
 # the minimum version of CMake.
 cmake_minimum_required(VERSION 3.5.0)
@@ -23,3 +24,4 @@ find_library(
 )
 
 target_link_libraries(entry PUBLIC libace_napi.z.so ${hilog-lib} libohweb.so)
+# [End cmake_lists]

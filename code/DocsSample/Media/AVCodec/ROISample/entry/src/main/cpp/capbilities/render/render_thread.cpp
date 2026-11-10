@@ -208,7 +208,13 @@ RenderThread::RenderThread()
 
 RenderThread::~RenderThread() noexcept
 {
-    running_ = false;
+    // The camera may already be stopped, so no new frame will wake this thread.
+    // Change the wait predicate under its mutex to avoid a lost wake-up.
+    {
+        std::lock_guard<std::mutex> lock(wakeUpMutex_);
+        running_ = false;
+    }
+    wakeUpCond_.notify_all();
     if (thread_.joinable()) {
         thread_.join();
     }
@@ -592,7 +598,10 @@ void RenderThread::ThreadMainLoop()
         {
             OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", "Waiting for vsync.");
             std::unique_lock<std::mutex> lock(wakeUpMutex_);
-            wakeUpCond_.wait(lock, [this]() { return wakeUp_ || availableFrameCnt_ > 0; });
+            wakeUpCond_.wait(lock, [this]() { return !running_ || wakeUp_ || availableFrameCnt_ > 0; });
+            if (!running_) {
+                break;
+            }
             wakeUp_ = false;
         }
 

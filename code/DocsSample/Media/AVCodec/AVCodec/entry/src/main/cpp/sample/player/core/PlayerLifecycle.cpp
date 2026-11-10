@@ -14,6 +14,7 @@
  */
 
 #include "Player.h"
+#include "SessionReport.h"
 
 #include "output/video/gpu/OpenGLVideoSink.h"
 #include "output/video/gpu/VulkanVideoSink.h"
@@ -30,7 +31,7 @@
 int32_t Player::CreateAudioDecoder()
 {
     if (sampleInfo_.audio.audioCodecMime.empty()) {
-        // 无音轨是合法输入；音频上下文为空时 Start() 只启动视频流水线。
+        // 无音轨是合法输入；音频上下文为空时Start() 只启动视频流水线。
         audioDecoder_.reset();
         audioDecContext_.reset();
         isAudioDone.store(true);
@@ -42,37 +43,26 @@ int32_t Player::CreateAudioDecoder()
     AVCODEC_SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audio.audioCodecMime.c_str());
     int32_t ret = audioDecoder_->Create(sampleInfo_.audio.audioCodecMime);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("audio.decoder.create", ret, "创建音频解码器失败");
         isAudioDone.store(true);
         AVCODEC_SAMPLE_LOGE("Create audio decoder failed, mime:%{public}s",
             sampleInfo_.audio.audioCodecMime.c_str());
         return ret;
     }
-    if (audioDecContext_ == nullptr) {
-        audioDecContext_ = std::make_unique<CodecUserData>();
-    }
-    audioDecContext_->isDestroyed = false;
-    audioDecContext_->runningFlag = &audioWorkerRunning_;
-    audioDecContext_->playbackFailure = &playbackFailed_;
-    audioDecContext_->pausedFlag = &paused_;
-    audioDecContext_->audioInterrupted = &audioInterrupted_;
-    audioDecContext_->audioResumePending = &audioResumePending_;
-    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
-    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
-    audioDecContext_->audioVolume = &audioVolume_;
-    audioDecContext_->audioDucked = &audioDucked_;
-    audioDecContext_->pauseCond = &pauseCond_;
-    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
-    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
-    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
-    audioDecContext_->sampleInfo = &sampleInfo_;
+    InitializeAudioDecoderContext();
     ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("audio.decoder.configure", ret, "音频解码器配置失败");
         AVCODEC_SAMPLE_LOGE("Audio Decoder config failed, mime:%{public}s, ret:%{public}d",
             sampleInfo_.audio.audioCodecMime.c_str(), ret);
         audioDecoder_->Release();
         return ret;
     }
-    return CreateAudioRenderer();
+    ret = CreateAudioRenderer();
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("audio.renderer.create", ret, "创建音频输出流失败");
+    }
+    return ret;
 }
 
 bool Player::CanConfigureAudioTrack(const AudioSampleInfo &audioInfo) const
@@ -166,9 +156,10 @@ int32_t Player::CreateVideoDecoder()
     }
     int32_t ret = CreateVideoDecoderForType(activeVideoDecoderType_);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
+        diagnostics_.RecordEvent("video.decoder.ready");
         return ret;
     }
-    if (requestedVideoDecoderType_ != AUTO || activeVideoDecoderType_ != AUTO) {
+    if (!sampleInfo_.codec.codecName.empty() || requestedVideoDecoderType_ != AUTO || activeVideoDecoderType_ != AUTO) {
         isVideoDone.store(true);
         return ret;
     }
@@ -188,8 +179,10 @@ int32_t Player::CreateVideoDecoder()
     }
     ret = CreateVideoDecoderForType(VIDEO_SW_DECODER);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
         activeVideoDecoderType_ = VIDEO_SW_DECODER;
         softwareDecoderFallbackUsed_.store(true);
+        diagnostics_.RecordEvent("video.decoder.software.fallback");
         AVCODEC_SAMPLE_LOGI("Software video decoder fallback succeeded, mime: %{public}s",
             sampleInfo_.video.videoCodecMime.c_str());
         return AVCODEC_SAMPLE_ERR_OK;
@@ -203,6 +196,15 @@ int32_t Player::CreateVideoDecoder()
 int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
 {
     ReleaseVideoDecoder();
+    if (!sampleInfo_.codec.codecName.empty()) {
+        OH_AVCapability *capability = CodecCapability::GetCapability(sampleInfo_.video.videoCodecMime,
+            false, decoderType, sampleInfo_.codec.codecName);
+        if (capability == nullptr) {
+            failure_.Record("decoder.capability", AVCODEC_SAMPLE_ERR_ERROR, "指定解码器不存在或 MIME 不匹配");
+            return AVCODEC_SAMPLE_ERR_ERROR;
+        }
+        decoderType = OH_AVCapability_IsHardware(capability) ? VIDEO_HW_DECODER : VIDEO_SW_DECODER;
+    }
     // 保留用户请求的解码器类型，不把本次的软件回退带到下一次重播。
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
         decoderWindowLease_ = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
@@ -213,36 +215,35 @@ int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
     SampleInfo configureInfo = sampleInfo_;
     configureInfo.codec.codecType = decoderType;
     if (sampleInfo_.codec.codecRunMode == VULKAN && videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder()) {
-        // Vulkan 直接采样原始 NativeBuffer；容器旋转由纹理坐标统一完成。
-        // 保留 sampleInfo_ 中的原始角度供显示区域和媒体信息使用，避免生产端再次旋转。
+        // Vulkan直接采样原始NativeBuffer；容器旋转由纹理坐标统一完成。
+        // 保留sampleInfo_ 中的原始角度供显示区域和媒体信息使用，避免生产端再次旋转。
         configureInfo.video.rotation = 0;
     }
     videoDecoder_ = std::make_unique<VideoDecoder>();
     AVCODEC_SAMPLE_LOGI("Create video decoder, mime: %{public}s, type: %{public}d",
         sampleInfo_.video.videoCodecMime.c_str(), decoderType);
-    int32_t ret = videoDecoder_->Create(sampleInfo_.video.videoCodecMime, decoderType);
+    int32_t ret = sampleInfo_.codec.codecName.empty() ?
+        videoDecoder_->Create(sampleInfo_.video.videoCodecMime, decoderType) :
+        videoDecoder_->CreateByName(sampleInfo_.codec.codecName);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("decoder.create", ret, "创建视频解码器失败");
         ReleaseVideoDecoder();
         return ret;
     }
-    videoDecContext_ = std::make_unique<CodecUserData>();
-    videoDecContext_->runningFlag = &isStarted_;
-    videoDecContext_->playbackFailure = &playbackFailed_;
-    videoDecContext_->sampleInfo = &sampleInfo_;
-    videoDecContext_->isDecFirstFrame = true;
-    videoDecContext_->outputPixelFormat = configureInfo.video.pixelFormat;
-    ret = videoDecoder_->Config(configureInfo, videoDecContext_.get());
+    ret = ConfigureVideoDecoder(configureInfo, decoderType);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGW("Video decoder configuration failed, type: %{public}d", decoderType);
-        ReleaseVideoDecoder();
         return ret;
     }
     activeVideoDecoderType_ = decoderType;
+    diagnostics_.RecordEvent("video.chain." + std::to_string(sampleInfo_.codec.codecRunMode) +
+        (configureInfo.video.window == nullptr ? ".buffer" : ".surface"));
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
 int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
 {
+    diagnostics_.RecordEvent("playback.initialize.failed");
+    failure_.Record("playback.initialize", AVCODEC_SAMPLE_ERR_ERROR, "初始化播放链路失败，请结合日志检查");
     playbackFailed_ = true;
     stateMachine_.BeginStop();
     {
@@ -262,7 +263,12 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
 void Player::ResetPlaybackState()
 {
     mediaInfo_ = {};
+    completedPlaybackInfo_ = {};
+    dumpLayoutKey_ = 0;
+    failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
     diagnostics_.Reset();
+    sampleInfo_.output.sessionId = CreateCodecSessionId("playback");
+    diagnostics_.SetSession(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, false));
     playbackFailed_ = false;
     audioInterrupted_ = false;
     audioResumePending_ = false;
@@ -282,15 +288,7 @@ void Player::ResetPlaybackState()
     discardVideoUntilSeekTarget_ = false;
     discardAudioUntilSeekTarget_ = false;
     speed.store(1.0f);
-    playbackPositionUs_.store(0);
-    playbackDurationUs_.store(0);
-    videoOutputFrames_.store(0);
-    videoRenderedFrames_.store(0);
-    videoDroppedFrames_.store(0);
-    audioOutputBuffers_.store(0);
-    bufferPresentFrames_.store(0);
-    bufferPresentFailures_.store(0);
-    bufferPresentDurationNs_.store(0);
+    ResetPlaybackCounters();
     {
         std::lock_guard<std::mutex> diagnosticsLock(videoSinkDiagnosticsMutex_);
         videoSinkDiagnostics_ = {};
@@ -313,32 +311,32 @@ void Player::ResetPlaybackState()
 void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
-    // Surface 解码器 Configure() 前不修改 XComponent NativeWindow。
-    // HDR Vivid 转 BT.709 在 Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
+    // Surface解码器Configure() 前不修改XComponent NativeWindow。
+    // HDR Vivid转BT.709在Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
     transformHint = NATIVEBUFFER_ROTATE_NONE;
     if (videoSink_ != nullptr && videoSinkRunMode_ != sampleInfo_.codec.codecRunMode) {
-        // 新解码器绑定共享窗口前释放上一运行模式的 GPU sink，清除旧的显示资源和几何状态。
+        // 新解码器绑定共享窗口前释放上一运行模式的GPU sink，清除旧的显示资源和几何状态。
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     } else if (videoSink_ != nullptr) {
         videoSink_->BeginPlayback();
     }
-    // Demuxer::Create 填充实际视频尺寸。GPU sink 解析后再创建 NativeImage；0x0 尺寸会回退为 Buffer 输出。
+    // Demuxer::Create填充实际视频尺寸。GPU sink解析后再创建NativeImage；0x0尺寸会回退为Buffer输出。
     ResetPlaybackState();
 }
 
 bool Player::PrepareVideoSinkForPlayback()
 {
-    // 音频-only 媒体没有视频输出链路，不需要创建 GPU sink。
+    // 音频-only媒体没有视频输出链路，不需要创建GPU sink。
     if (sampleInfo_.video.videoCodecMime.empty()) {
         return true;
     }
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
         return true;
     }
-    // Surface 窗口只属于当前一次解码器配置。非 Surface 模式必须先清空旧租约留下的指针，
-    // 否则本轮 GPU 建链失败时可能把已释放的 NativeWindow 误传给新的 decoder。
+    // Surface窗口只属于当前一次解码器配置。非Surface模式必须先清空旧租约留下的指针，
+    // 否则本轮GPU建链失败时可能把已释放的NativeWindow误传给新的decoder。
     sampleInfo_.video.window = nullptr;
     if (videoSink_ == nullptr) {
         switch (sampleInfo_.codec.codecRunMode) {
@@ -365,7 +363,7 @@ bool Player::PrepareVideoSinkForPlayback()
         return true;
     }
     if (sampleInfo_.codec.codecRunMode == OPENGL) {
-        // OpenGL 保留已有的 Buffer fallback，避免 EGL/NativeImage 不可用时影响普通播放。
+        // OpenGL保留已有的Buffer fallback，避免EGL/NativeImage不可用时影响普通播放。
         if (sampleInfo_.video.window == nullptr) {
             AVCODEC_SAMPLE_LOGW("OpenGL NativeImage surface unavailable, using decoder Buffer output");
         }
@@ -451,15 +449,18 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
 {
     int32_t ret = demuxer_->Create(sampleInfo_);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("demuxer.create", ret, "打开媒体源或解析轨道失败");
         AVCODEC_SAMPLE_LOGE("Create demuxer failed");
         return HandleInitError(lock);
     }
+    failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
     if (!PrepareVideoSinkForPlayback()) {
+        failure_.Record("sink.prepare", AVCODEC_SAMPLE_ERR_ERROR, "初始化视频送显链路失败");
         return HandleInitError(lock);
     }
     const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
     if (sampleInfo_.codec.codecRunMode == VULKAN && (!usesSurfaceDecoder || sampleInfo_.video.window == nullptr)) {
-        // Vulkan 只支持 Surface -> NativeImage -> Vulkan 外部纹理链路，不回退到 decoder Buffer 输出。
+        // Vulkan只支持Surface -> NativeImage -> Vulkan外部纹理链路，不回退到decoder Buffer输出。
         AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is not ready, abort initialization");
         return HandleInitError(lock);
     }
@@ -483,6 +484,8 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
     hasAudioTrack_.store(audioDecContext_ != nullptr);
     UpdateMediaInfoSnapshot();
     isReleased_ = false;
+    CapturePlaybackConfiguration();
+    AVCODEC_SAMPLE_LOGI("Playback session: %{public}s", sampleInfo_.output.sessionId.c_str());
     if (!stateMachine_.MarkReady()) {
         AVCODEC_SAMPLE_LOGE("Failed to enter ready state");
         return HandleInitError(lock);
@@ -514,6 +517,7 @@ int32_t Player::StartVideoDecoder()
         "Video threads already running");
     int32_t ret = videoDecoder_->Start();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("decoder.start", ret, "启动视频解码器失败");
         AVCODEC_SAMPLE_LOGE("Video Decoder start failed");
         return ret;
     }
@@ -547,6 +551,7 @@ int32_t Player::StartAudioDecoder()
     int32_t ret = audioDecoder_->Start();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         audioWorkerRunning_ = false;
+        failure_.Record("audio.decoder.start", ret, "启动音频解码器失败");
         AVCODEC_SAMPLE_LOGE("Audio Decoder start failed");
         return ret;
     }
@@ -622,6 +627,7 @@ int32_t Player::StartPlaybackDecoders(bool &videoStarted)
 {
     int32_t ret = demuxer_->Seek(0);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("demuxer.seek", ret, "播放开始前定位到文件起点失败");
         AVCODEC_SAMPLE_LOGE("Seek failed");
         return ret;
     }
@@ -645,4 +651,70 @@ int32_t Player::StartPlaybackDecoders(bool &videoStarted)
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     return AVCODEC_SAMPLE_ERR_OK;
+}
+
+void Player::InitializeAudioDecoderContext()
+{
+    if (audioDecContext_ == nullptr) {
+        audioDecContext_ = std::make_unique<CodecUserData>();
+    }
+    audioDecContext_->isDestroyed = false;
+    audioDecContext_->runningFlag = &audioWorkerRunning_;
+    audioDecContext_->playbackFailure = &playbackFailed_;
+    audioDecContext_->failureDetails = &failure_;
+    audioDecContext_->pausedFlag = &paused_;
+    audioDecContext_->audioInterrupted = &audioInterrupted_;
+    audioDecContext_->audioResumePending = &audioResumePending_;
+    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
+    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
+    audioDecContext_->audioVolume = &audioVolume_;
+    audioDecContext_->audioDucked = &audioDucked_;
+    audioDecContext_->pauseCond = &pauseCond_;
+    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
+    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
+    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
+    audioDecContext_->sampleInfo = &sampleInfo_;
+}
+
+int32_t Player::ConfigureVideoDecoder(const SampleInfo &configureInfo, int32_t decoderType)
+{
+    videoDecContext_ = std::make_unique<CodecUserData>();
+    videoDecContext_->runningFlag = &isStarted_;
+    videoDecContext_->playbackFailure = &playbackFailed_;
+    videoDecContext_->sampleInfo = &sampleInfo_;
+    videoDecContext_->failureDetails = &failure_;
+    videoDecContext_->isDecFirstFrame = true;
+    videoDecContext_->outputPixelFormat = configureInfo.video.pixelFormat;
+    int32_t ret = videoDecoder_->Config(configureInfo, videoDecContext_.get());
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("decoder.configure/prepare", ret, "视频解码器配置或准备失败；请核对规格、输出链路和可选特性");
+        AVCODEC_SAMPLE_LOGW("Video decoder configuration failed, type: %{public}d", decoderType);
+        ReleaseVideoDecoder();
+        return ret;
+    }
+    return ret;
+}
+
+void Player::ResetPlaybackCounters()
+{
+    playbackPositionUs_.store(0);
+    playbackDurationUs_.store(0);
+    videoOutputFrames_.store(0);
+    videoRenderedFrames_.store(0);
+    videoDroppedFrames_.store(0);
+    audioOutputBuffers_.store(0);
+    bufferPresentFrames_.store(0);
+    bufferPresentFailures_.store(0);
+    bufferPresentDurationNs_.store(0);
+}
+
+void Player::CapturePlaybackConfiguration()
+{
+    diagnostics_.SetObservedConfiguration("mime=" + sampleInfo_.video.videoCodecMime +
+        "; decoderType=" + std::to_string(activeVideoDecoderType_) +
+        "; runMode=" + std::to_string(sampleInfo_.codec.codecRunMode) +
+        "; decoderBufferOutput=" + std::to_string(isBufferMode_.load()) +
+        "; softwareFallback=" + std::to_string(softwareDecoderFallbackUsed_.load()) +
+        "; size=" + std::to_string(sampleInfo_.video.videoWidth) + "x" +
+        std::to_string(sampleInfo_.video.videoHeight));
 }

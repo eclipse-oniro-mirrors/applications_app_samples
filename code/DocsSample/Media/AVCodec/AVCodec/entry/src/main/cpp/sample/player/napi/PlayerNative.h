@@ -17,6 +17,7 @@
 #define VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 
 #include "napi/native_api.h"
+#include "DeviceCodecCapabilityNative.h"
 
 class PlayerNative {
 public:
@@ -29,6 +30,7 @@ public:
     static napi_value SelectAudioTrack(napi_env env, napi_callback_info info);
     static napi_value GetState(napi_env env, napi_callback_info info);
     static napi_value GetPlaybackInfo(napi_env env, napi_callback_info info);
+    static napi_value GetCompletedPlaybackInfo(napi_env env, napi_callback_info info);
     static napi_value GetMediaInfo(napi_env env, napi_callback_info info);
     static napi_value IsSmartFluencyAvailable(napi_env env, napi_callback_info info);
     static napi_value SetPlaybackSpeed(napi_env env, napi_callback_info info);

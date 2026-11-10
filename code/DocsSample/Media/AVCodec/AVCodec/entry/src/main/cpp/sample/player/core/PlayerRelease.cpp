@@ -16,6 +16,7 @@
 #include "Player.h"
 
 #include "av_codec_sample_log.h"
+#include "dfx/error/av_codec_sample_error.h"
 
 #undef LOG_TAG
 #define LOG_TAG "samplePlayer"
@@ -75,16 +76,18 @@ void Player::ReleaseVideoDecoder()
 {
     OHNativeWindow *decoderWindow = decoderWindowLease_.GetWindow();
     if (videoDecoder_ != nullptr) {
+        // [StartExclude player_release]
         if (videoSink_ != nullptr && !videoSink_->Quiesce()) {
             AVCODEC_SAMPLE_LOGW("Wait video presentation before decoder release failed");
         }
+        // [EndExclude player_release]
         videoDecoder_->Release();
         videoDecoder_.reset();
     }
     if (sampleInfo_.video.window == decoderWindow) {
         sampleInfo_.video.window = nullptr;
     }
-    // OH_VideoDecoder_Destroy() 完成后，codec 不再访问输出 Surface，才能解除窗口引用。
+    // OH_VideoDecoder_Destroy()完成后，codec不再访问输出surface，才能解除窗口引用。
     decoderWindowLease_ = {};
     if (videoDecContext_ != nullptr) {
         std::unique_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
@@ -150,16 +153,21 @@ void Player::ReleasePlaybackResources()
         demuxer_->Release();
         demuxer_.reset();
     }
-    // 先销毁 codec。OpenGL 的 NativeImage 和直连 XComponent Surface 仍是其输出端，
-    // 必须等 codec 完全释放后才能拆除 sink。
+    // 先销毁codec。OpenGL的NativeImage和直连XComponent surface仍是其输出端，
+    // 必须等codec完全释放后才能拆除sink。
     ReleaseVideoDecoder();
-    // 每个 sink 持有当前解码器和 XComponent 的送显资源。全部释放后再创建新的 Surface 解码器。
+    // 每个sink持有当前解码器和XComponent的送显资源。全部释放后再创建新的Surface解码器。
     if (videoSink_ != nullptr) {
+        completedPlaybackInfo_.videoSinkDiagnostics = videoSink_->GetDiagnostics();
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     }
     ReleaseAudioDecoder();
+    if (outputFile_ != nullptr && outputFile_->is_open()) {
+        outputFile_->close();
+        dumpSession_.Stop(outputFile_->fail() ? "write_failed" : "completed");
+    }
     outputFile_ = nullptr;
     if (builder_ != nullptr) {
         OH_AudioStreamBuilder_Destroy(builder_);
@@ -184,6 +192,15 @@ void Player::Release()
     JoinWorkerThreads();
     bool playbackSucceeded = false;
     const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
+    diagnostics_.RecordEvent(completionReason == PlaybackCompletionReason::ERROR ? "playback.failed" :
+        (completionReason == PlaybackCompletionReason::STOPPED ? "playback.stopped" : "playback.completed"),
+        playbackPositionUs_.load());
+    if (completionReason == PlaybackCompletionReason::ERROR) {
+        failure_.Record("playback.output", AVCODEC_SAMPLE_ERR_ERROR,
+            "播放未产生有效输出或工作线程异常结束；详细原因请结合日志检查");
+    }
+    // 完成回调在资源释放后到达ArkTS；先保存计数，避免结束报告读取到重置后的零值。
+    completedPlaybackInfo_ = GetPlaybackInfo();
     ReleasePlaybackResources();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;

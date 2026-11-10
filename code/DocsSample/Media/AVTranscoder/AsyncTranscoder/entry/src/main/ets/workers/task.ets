@@ -53,7 +53,7 @@ async function doSome(context: common.Context) {
     let transcoder = await media.createAVTranscoder();
     
     // [Start transcoderCompleteCallback]
-    // 转码完成回调函数
+    // 转码完成回调函数。
     transcoder.on('complete', async () => {
       console.info(`transcode complete`);
       await transcoder?.release()
@@ -78,16 +78,16 @@ async function doSome(context: common.Context) {
         fs.closeSync(transcoder.fdSrc.fd);
       }
     })
-    // 转码进度更新
+    // 转码进度更新回调函数。
     transcoder.on('progressUpdate', (progress: number) => {
       console.info(`AVTranscoder progressUpdate = ${progress}`);
       workerPort.postMessage(progress);
     })
 
     try {
-      // 获取输入文件fd，3.mkv为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
+      // 获取输入文件fd，H264_AAC.mp4为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
       let fileDescriptor = await context.resourceManager.getRawFd('H264_AAC.mp4');
-      transcoder.fdSrc = fileDescriptor;
+      transcoder.fdSrc = fileDescriptor; // 设置fdSrc。
     } catch (error) {
       console.error('Failed to get the file descriptor, please check the resource and path.');
     }
@@ -98,10 +98,10 @@ async function doSome(context: common.Context) {
     transcoder.fdDst = file.fd;
 
     let config: media.AVTranscoderConfig = {
-      fileFormat: media.ContainerFormatType.CFT_MPEG_4,
-      audioCodec: media.CodecMimeType.AUDIO_AAC,
-      videoCodec: media.CodecMimeType.VIDEO_AVC,
-      videoBitrate: 200000,
+      fileFormat: media.ContainerFormatType.CFT_MPEG_4, // 封装格式。
+      audioCodec: media.CodecMimeType.AUDIO_AAC, // 音频编码格式。
+      videoCodec: media.CodecMimeType.VIDEO_AVC, // 视频编码格式。
+      videoBitrate: 200000, // 视频比特率。
     }
     await transcoder?.prepare(config);
     await transcoder?.start();

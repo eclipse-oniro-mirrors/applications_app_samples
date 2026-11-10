@@ -174,6 +174,7 @@ Camera_ErrorCode NDKCamera::SessionRelease(void)
 
 // [StartExclude camera_recording_case]
 // [StartExclude camera_shooting_case]
+// [Start set_video_stabilization_mode]
 Camera_ErrorCode NDKCamera::IsVideoStabilizationModeSupportedFn(uint32_t mode)
 {
     Camera_VideoStabilizationMode videoMode = static_cast<Camera_VideoStabilizationMode>(mode);
@@ -206,6 +207,7 @@ Camera_ErrorCode NDKCamera::IsVideoStabilizationModeSupportedFn(uint32_t mode)
     }
     return ret;
 }
+// [End set_video_stabilization_mode]
 // [EndExclude camera_recording_case]
 // [EndExclude camera_shooting_case]
 
@@ -947,6 +949,7 @@ void NDKCamera::SetIsControl(bool isControlCenter)
     EnableControlCenter(isControl);
 }
 
+// [Start set_color_space]
 // 设置色彩空间
 Camera_ErrorCode NDKCamera::SetColorSpace(OH_NativeBuffer_ColorSpace colorSpace)
 {
@@ -962,9 +965,9 @@ Camera_ErrorCode NDKCamera::SetColorSpace(OH_NativeBuffer_ColorSpace colorSpace)
         return CAMERA_INVALID_ARGUMENT;
     }
     OH_LOG_ERROR(LOG_APP, "SetColorSpace: this color space is %{public}d", getMode);
-
     return ret;
 }
+// [End set_color_space]
 
 // [Start set_focus_point]
 Camera_ErrorCode NDKCamera::IsFocusPoint(float x, float y)
@@ -1078,20 +1081,6 @@ Camera_ErrorCode NDKCamera::TakePicture(int32_t degree)
 }
 // [End capture]
 
-// CameraManager Callback
-void CameraManagerStatusCallback(Camera_Manager *cameraManager, Camera_StatusInfo *status)
-{
-    OH_LOG_INFO(LOG_APP, "CameraManagerStatusCallback");
-}
-
-CameraManager_Callbacks *NDKCamera::GetCameraManagerListener(void)
-{
-    static CameraManager_Callbacks cameraManagerListener = {
-        .onCameraStatus = CameraManagerStatusCallback
-    };
-    return &cameraManagerListener;
-}
-
 Camera_ErrorCode NDKCamera::CameraManagerRegisterCallback(void)
 {
     ret_ = OH_CameraManager_RegisterCallback(cameraManager_, GetCameraManagerListener());
@@ -1099,20 +1088,6 @@ Camera_ErrorCode NDKCamera::CameraManagerRegisterCallback(void)
         OH_LOG_ERROR(LOG_APP, "OH_CameraManager_RegisterCallback failed.");
     }
     return ret_;
-}
-
-// CameraInput Callback
-void OnCameraInputError(const Camera_Input *cameraInput, Camera_ErrorCode errorCode)
-{
-    OH_LOG_INFO(LOG_APP, "OnCameraInput errorCode = %{public}d", errorCode);
-}
-
-CameraInput_Callbacks *NDKCamera::GetCameraInputListener(void)
-{
-    static CameraInput_Callbacks cameraInputCallbacks = {
-        .onError = OnCameraInputError
-    };
-    return &cameraInputCallbacks;
 }
 
 Camera_ErrorCode NDKCamera::CameraInputRegisterCallback(void)
@@ -1614,4 +1589,508 @@ void NDKCamera::InitPreviewRotation()
         OH_LOG_INFO(LOG_APP, "OH_PreviewOutput_SetPreviewRotation failed.");
     }
 }
+
+// [Start get_camera_manager]
+Camera_ErrorCode NDKCamera::CreateCameraManager(Camera_Manager** cameraManager)
+{
+    // 创建CameraManager对象。
+    Camera_ErrorCode ret = OH_Camera_GetCameraManager(cameraManager);
+    if (*cameraManager == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_Camera_GetCameraManager failed.");
+    }
+    return ret;
+}
+// [End get_camera_manager]
+
+// [Start get_supported_cameras]
+Camera_ErrorCode NDKCamera::GetSupportedCameras(Camera_Manager* cameraManager, Camera_Device** cameras, uint32_t &size)
+{
+    // 获取相机列表。
+    Camera_ErrorCode ret = OH_CameraManager_GetSupportedCameras(cameraManager, cameras, &size);
+    if (*cameras == nullptr || size == 0 || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetSupportedCameras failed.");
+        return ret;
+    }
+    // 在不使用cameras时，需要调用OH_CameraManager_DeleteSupportedCameras()方法释放相机列表并置空指针防止内存泄漏。
+    for (uint32_t index = 0; index < size; index++) {
+        OH_LOG_INFO(LOG_APP, "cameraId  =  %{public}s ", (*cameras)[index].cameraId);              // 获取相机ID。
+        OH_LOG_INFO(LOG_APP, "cameraPosition  =  %{public}d ", (*cameras)[index].cameraPosition);  // 获取相机位置。
+        OH_LOG_INFO(LOG_APP, "cameraType  =  %{public}d ", (*cameras)[index].cameraType);          // 获取相机类型。
+        OH_LOG_INFO(LOG_APP, "connectionType  =  %{public}d ", (*cameras)[index].connectionType);  // 获取相机连接类型。
+    }
+    return ret;
+}
+// [End get_supported_cameras]
+
+// [Start get_camera_devices]
+Camera_ErrorCode NDKCamera::GetCameraDevices(Camera_Manager* cameraManager, Camera_Device** cameras, uint32_t &size)
+{
+    // 获取相机列表。
+    Camera_Type type[5] = {
+        Camera_Type::CAMERA_TYPE_DEFAULT,
+        Camera_Type::CAMERA_TYPE_TELEPHOTO,
+        Camera_Type::CAMERA_TYPE_TRUE_DEPTH,
+        Camera_Type::CAMERA_TYPE_ULTRA_WIDE,
+        Camera_Type::CAMERA_TYPE_WIDE_ANGLE};
+    Camera_DeviceQueryInfo deviceInfo = {};
+    deviceInfo.cameraType = type;
+    deviceInfo.cameraTypeSize = sizeof(type) / sizeof(type[0]);
+    deviceInfo.cameraPosition = Camera_Position::CAMERA_POSITION_BACK;
+    deviceInfo.connectionType = Camera_Connection::CAMERA_CONNECTION_BUILT_IN;
+    Camera_ErrorCode ret = OH_CameraManager_GetCameraDevices(cameraManager, &deviceInfo, &size, cameras);
+    if (*cameras == nullptr || size == 0 || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetCameraDevices failed.");
+        return ret;
+    }
+    // 在不使用cameras时，需要调用OH_CameraManager_DeleteSupportedCameras()方法释放相机列表并置空指针防止内存泄漏。
+    for (uint32_t index = 0; index < size; index++) {
+        OH_LOG_INFO(LOG_APP, "cameraId = %{public}s ", (*cameras)[index].cameraId);              // 获取相机ID。
+        OH_LOG_INFO(LOG_APP, "cameraPosition = %{public}d ", (*cameras)[index].cameraPosition);  // 获取相机位置。
+        OH_LOG_INFO(LOG_APP, "cameraType = %{public}d ", (*cameras)[index].cameraType);          // 获取相机类型。
+        OH_LOG_INFO(LOG_APP, "connectionType = %{public}d ", (*cameras)[index].connectionType);  // 获取相机连接类型。
+        bool isLogical = false;
+        ret = OH_CameraDevice_IsLogicalCamera(cameras[index], &isLogical);
+        if (ret != CAMERA_OK) {
+            OH_LOG_ERROR(LOG_APP, "OH_CameraDevice_IsLogicalCamera failed.");
+            continue;
+        }
+        OH_LOG_INFO(LOG_APP, "cameraId: %{public}s is logical: %{public}d.", (*cameras)[index].cameraId, isLogical);
+    }
+    return CAMERA_OK;
+}
+// [End get_camera_devices]
+
+// [Start register_camera_status_callback]
+void CameraStatusCallback(Camera_Manager* cameraManager, Camera_StatusInfo* status)
+{
+    OH_LOG_INFO(LOG_APP, "CameraStatusCallback is called");
+}
+CameraManager_Callbacks* GetCameraManagerListener()
+{
+    static CameraManager_Callbacks cameraManagerListener = {.onCameraStatus = CameraStatusCallback};
+    return &cameraManagerListener;
+}
+
+Camera_ErrorCode NDKCamera::RegisterCameraStatusCallback(Camera_Manager &cameraManager)
+{
+    Camera_ErrorCode ret = OH_CameraManager_RegisterCallback(&cameraManager, GetCameraManagerListener());
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_RegisterCallback failed.");
+    }
+    return ret;
+}
+// [End register_camera_status_callback]
+
+// [Start create_camera_input]
+// 监听cameraInput错误信息。
+void OnCameraInputError(const Camera_Input *cameraInput, Camera_ErrorCode errorCode)
+{
+    OH_LOG_INFO(LOG_APP, "OnCameraInput errorCode = %{public}d", errorCode);
+}
+
+CameraInput_Callbacks *NDKCamera::GetCameraInputListener(void)
+{
+    static CameraInput_Callbacks cameraInputCallbacks = {
+        .onError = OnCameraInputError
+    };
+    return &cameraInputCallbacks;
+}
+
+// 监听cameraStatus信息。
+void CameraManagerStatusCallback(Camera_Manager *cameraManager, Camera_StatusInfo *status)
+{
+    OH_LOG_INFO(LOG_APP, "CameraManagerStatusCallback");
+}
+
+CameraManager_Callbacks* NDKCamera::GetCameraManagerListener(void)
+{
+    static CameraManager_Callbacks cameraManagerListener = {
+        .onCameraStatus = CameraManagerStatusCallback
+    };
+    return &cameraManagerListener;
+}
+
+void NDKCamera::CreateAndOpenCamera()
+{
+    Camera_Manager* cameraManager = nullptr;
+    Camera_Input* cameraInput = nullptr;
+    Camera_Device* cameras = nullptr;
+    uint32_t size = 0;
+    uint32_t cameraDeviceIndex = 0;
+    // 创建CameraManager对象。
+    Camera_ErrorCode ret = OH_Camera_GetCameraManager(&cameraManager);
+    if (cameraManager == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_Camera_GetCameraManager failed.");
+        return;
+    }
+    // 监听相机状态变化。
+    ret = OH_CameraManager_RegisterCallback(cameraManager, GetCameraManagerListener());
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_RegisterCallback failed.");
+    }
+    // 获取相机列表。
+    ret = OH_CameraManager_GetSupportedCameras(cameraManager, &cameras, &size);
+    if (cameras == nullptr || size == 0 || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetSupportedCameras failed.");
+        return;
+    }
+    // 创建相机输入流。
+    ret = OH_CameraManager_CreateCameraInput(cameraManager, &cameras[cameraDeviceIndex], &cameraInput);
+    if (cameraInput == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_CreateCameraInput failed.");
+        return;
+    }
+    ret = OH_CameraInput_RegisterCallback(cameraInput, GetCameraInputListener());
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraInput_RegisterCallback failed.");
+    }
+    // 打开相机。
+    ret = OH_CameraInput_Open(cameraInput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraInput_Open failed.");
+        return;
+    }
+}
+// [End create_camera_input]
+
+// [Start get_supported_scene_mode]
+bool NDKCamera::IsSupportedSceneMode(Camera_Manager* cameraManager, Camera_Device camera, Camera_SceneMode sceneMode)
+{
+    Camera_SceneMode* sceneModes = nullptr;
+    uint32_t sceneModeSize = 0;
+    Camera_ErrorCode ret = OH_CameraManager_GetSupportedSceneModes(&camera, &sceneModes, &sceneModeSize);
+    if (ret != CAMERA_OK || sceneModes == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetSupportedSceneModes failed.");
+        return false;
+    }
+    bool isSupported = false;
+    for (uint32_t index = 0; index < sceneModeSize; index++) {
+        OH_LOG_INFO(LOG_APP, "scene mode = %{public}u ", sceneModes[index]);    // 获取相机指定模式。
+        if (sceneModes[index] == sceneMode) {
+            isSupported = true;
+            break;
+        }
+    }
+    // 使用完毕后释放场景模式列表，防止内存泄漏。
+    OH_CameraManager_DeleteSceneModes(cameraManager, sceneModes);
+    return isSupported;
+}
+// [End get_supported_scene_mode]
+
+// [Start get_supported_camera_output_capability]
+Camera_OutputCapability* NDKCamera::GetSupportedCameraOutputCapability(Camera_Manager* cameraManager,
+    Camera_Device &camera)
+{
+    Camera_OutputCapability* cameraOutputCapability = nullptr;
+    // 示例代码以NORMAL_PHOTO模式为例，查询NORMAL_PHOTO在camera中是否支持。
+    bool isSupported = IsSupportedSceneMode(cameraManager, camera, Camera_SceneMode::NORMAL_PHOTO);
+    if (!isSupported) {
+        OH_LOG_ERROR(LOG_APP, "NORMAL_PHOTO is not supported.");
+        return cameraOutputCapability;
+    }
+    // 获取相机设备支持的输出流能力。
+    const Camera_Profile* previewProfile = nullptr;
+    const Camera_Profile* photoProfile = nullptr;
+    Camera_ErrorCode ret = OH_CameraManager_GetSupportedCameraOutputCapabilityWithSceneMode(cameraManager, &camera,
+        Camera_SceneMode::NORMAL_PHOTO, &cameraOutputCapability);
+    if (cameraOutputCapability == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetSupportedCameraOutputCapability failed.");
+        return cameraOutputCapability;
+    }
+    // 以NORMAL_PHOTO模式为例，需要添加预览流、拍照流。
+    if (cameraOutputCapability->previewProfiles == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "previewProfiles == null");
+    } else {
+        // 根据所需从cameraOutputCapability->previewProfiles中选择合适的预览分辨率。
+        previewProfile = cameraOutputCapability->previewProfiles[0];
+    }
+    if (cameraOutputCapability->photoProfiles == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "photoProfiles == null");
+    } else {
+        // 根据所需从cameraOutputCapability->photoProfiles中选择合适的拍照分辨率。
+        photoProfile = cameraOutputCapability->photoProfiles[0];
+    }
+    return cameraOutputCapability;
+}
+// [End get_supported_camera_output_capability]
+
+// [Start create_capture_session_func]
+Camera_CaptureSession* NDKCamera::CreateCaptureSession(Camera_Manager* cameraManager)
+{
+    Camera_CaptureSession* captureSession = nullptr;
+    if (cameraManager == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "cameraManager is nullptr.");
+        return captureSession;
+    }
+    Camera_ErrorCode ret = OH_CameraManager_CreateCaptureSession(cameraManager, &captureSession);
+    if (captureSession == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_CreateCaptureSession failed.");
+    }
+    return captureSession;
+}
+// [End create_capture_session_func]
+
+// [Start set_session_mode]
+Camera_ErrorCode NDKCamera::SetSessionMode(Camera_CaptureSession* captureSession)
+{
+    Camera_ErrorCode ret = OH_CaptureSession_SetSessionMode(captureSession, NORMAL_VIDEO);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_SetSessionMode failed.");
+    }
+    return ret;
+}
+// [End set_session_mode]
+
+// [Start begin_config]
+Camera_ErrorCode NDKCamera::BeginConfig(Camera_CaptureSession* captureSession)
+{
+    Camera_ErrorCode ret = OH_CaptureSession_BeginConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_BeginConfig failed.");
+    }
+    return ret;
+}
+// [End begin_config]
+
+// [Start start_session]
+Camera_ErrorCode NDKCamera::StartSession(Camera_CaptureSession* captureSession, Camera_Input* cameraInput,
+    Camera_PreviewOutput* previewOutput, Camera_PhotoOutput* photoOutput)
+{
+    // 向会话中添加相机输入流。
+    Camera_ErrorCode ret = OH_CaptureSession_AddInput(captureSession, cameraInput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddInput failed.");
+        return ret;
+    }
+
+    // 向会话中添加预览输出流。
+    ret = OH_CaptureSession_AddPreviewOutput(captureSession, previewOutput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddPreviewOutput failed.");
+        return ret;
+    }
+
+    // 向会话中添加拍照输出流。
+    ret = OH_CaptureSession_AddPhotoOutput(captureSession, photoOutput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddPhotoOutput failed.");
+        return ret;
+    }
+
+    // 提交会话配置。
+    ret = OH_CaptureSession_CommitConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_CommitConfig failed.");
+        return ret;
+    }
+
+    // 启动会话。
+    ret = OH_CaptureSession_Start(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_Start failed.");
+    }
+    return ret;
+}
+// [End start_session]
+
+// [Start reload_session]
+Camera_ErrorCode NDKCamera::ReloadSession(Camera_CaptureSession* captureSession, Camera_PhotoOutput* photoOutput,
+    Camera_VideoOutput* videoOutput)
+{
+    Camera_ErrorCode ret = OH_CaptureSession_Stop(captureSession);
+    if (ret == CAMERA_OK) {
+        OH_LOG_INFO(LOG_APP, "OH_CaptureSession_Stop success ");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_Stop failed. %d ", ret);
+    }
+    ret = OH_CaptureSession_BeginConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_BeginConfig failed.");
+        return ret;
+    }
+    // 从会话中移除拍照输出流。
+    ret = OH_CaptureSession_RemovePhotoOutput(captureSession, photoOutput);
+    if (ret == CAMERA_OK) {
+        OH_LOG_INFO(LOG_APP, "OH_CaptureSession_RemovePhotoOutput success ");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_RemovePhotoOutput failed. %d ", ret);
+    }
+    // 释放photoOutput。
+    ret = OH_PhotoOutput_Release(photoOutput);
+    if (ret == CAMERA_OK) {
+        OH_LOG_INFO(LOG_APP, "OH_PhotoOutput_Release success ");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "OH_PhotoOutput_Release failed. %d ", ret);
+    }
+    // 向会话中添加视频输出流。
+    ret = OH_CaptureSession_AddVideoOutput(captureSession, videoOutput);
+    if (ret == CAMERA_OK) {
+        OH_LOG_INFO(LOG_APP, "OH_CaptureSession_AddVideoOutput success ");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddVideoOutput failed. %d ", ret);
+        return ret;
+    }
+    // 提交会话配置。
+    ret = OH_CaptureSession_CommitConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_CommitConfig failed.");
+        return ret;
+    }
+
+    // 启动会话。
+    ret = OH_CaptureSession_Start(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_Start failed.");
+    }
+    return ret;
+}
+// [End reload_session]
+
+/**
+ * 以下为多摄同开能力
+ */
+// [Start get_supported_cameras_for_concurrent]
+void NDKCamera::GetSupportedCamerasForConcurrent(Camera_Manager *cameraManager)
+{
+    Camera_Device *cameras = nullptr;
+    uint32_t size = 0;
+    Camera_ErrorCode ret = OH_CameraManager_GetSupportedCameras(cameraManager, &cameras, &size);
+    int32_t concurrentDeviceSize = 2;
+    if (ret != CAMERA_OK || cameras == nullptr || size < concurrentDeviceSize) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetSupportedCameras failed.");
+        return;
+    }
+    // 获取后置相机。
+    ret = OH_CameraManager_GetCameraDevice(cameraManager, Camera_Position::CAMERA_POSITION_BACK,
+        Camera_Type::CAMERA_TYPE_DEFAULT, &cameras[0]);
+    // 获取前置相机。
+    ret = OH_CameraManager_GetCameraDevice(cameraManager, Camera_Position::CAMERA_POSITION_FRONT,
+        Camera_Type::CAMERA_TYPE_DEFAULT, &cameras[1]);
+    // 使用完毕后释放相机列表并置空指针，防止内存泄漏。
+    OH_CameraManager_DeleteSupportedCameras(cameraManager, cameras, size);
+    cameras = nullptr;
+}
+// [End get_supported_cameras_for_concurrent]
+// [Start get_supported_capability_for_concurrent]
+void NDKCamera::GetSupportedOutputCapabilityForConcurrent(Camera_Manager *cameraManager, Camera_Device *cameras)
+{
+    Camera_ConcurrentInfo* cameraConcurrentInfo = nullptr;
+    uint32_t infoSize = 0;
+    Camera_ErrorCode ret = OH_CameraManager_GetCameraConcurrentInfos(cameraManager, cameras, 2,
+        &cameraConcurrentInfo, &infoSize);
+    if (ret != CAMERA_OK || cameraConcurrentInfo == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_GetCameraConcurrentInfos failed.");
+        return;
+    }
+    if (cameraConcurrentInfo->outputCapabilities == nullptr
+        || cameraConcurrentInfo->outputCapabilities->previewProfiles == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "outputCapabilities or previewProfiles is nullptr.");
+    }
+}
+// [End get_supported_capability_for_concurrent]
+// [Start create_previewOutput_for_concurrent]
+Camera_ErrorCode NDKCamera::CreatePreviewOutputForConcurrent(Camera_Manager *cameraManager,
+    Camera_ConcurrentInfo* cameraConcurrentInfo, Camera_PreviewOutput** previewOutput, char* previewSurfaceId)
+{
+    if (cameraManager == nullptr || cameraConcurrentInfo == nullptr || previewOutput == nullptr ||
+        cameraConcurrentInfo->outputCapabilities == nullptr ||
+        cameraConcurrentInfo->outputCapabilities->previewProfiles == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "invalid parameter.");
+        return CAMERA_INVALID_ARGUMENT;
+    }
+    Camera_Profile *profile = cameraConcurrentInfo->outputCapabilities->previewProfiles[0];
+    if (profile == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "previewProfiles[0] is nullptr.");
+        return CAMERA_INVALID_ARGUMENT;
+    }
+    Camera_ErrorCode ret = OH_CameraManager_CreatePreviewOutput(cameraManager, profile,
+        previewSurfaceId, previewOutput);
+    if (*previewOutput == nullptr || ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraManager_CreatePreviewOutput failed.");
+        return ret;
+    }
+    return ret;
+}
+// [End create_previewOutput_for_concurrent]
+// [Start open_camera_for_concurrent]
+void NDKCamera::CameraInputOpenForConcurrent(Camera_Manager *cameraManager, Camera_Device *cameras)
+{
+    Camera_Input *cameraInput = nullptr;
+    Camera_ErrorCode ret = OH_CameraManager_CreateCameraInput(cameraManager, &cameras[0], &cameraInput);
+    if (cameraInput == nullptr || ret != CAMERA_OK) {
+        return;
+    }
+    // 当前版本只支持CAMERA_CONCURRENT_TYPE_LIMITED_CAPABILITY模式并发打开。
+    ret = OH_CameraInput_OpenConcurrentCameras(cameraInput,
+        Camera_ConcurrentType::CAMERA_CONCURRENT_TYPE_LIMITED_CAPABILITY);
+    if (ret != CAMERA_OK) {
+        return;
+    }
+}
+// [End open_camera_for_concurrent]
+// [Start session_flow_for_concurrent]
+void NDKCamera::SessionFlowForConcurrentFn(Camera_CaptureSession *captureSession,
+    Camera_Input *cameraInput, Camera_PreviewOutput *previewOutput)
+{
+    // 开始配置会话。
+    Camera_ErrorCode ret = OH_CaptureSession_BeginConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_BeginConfig failed.");
+        return;
+    }
+    // 向会话中添加相机输入流。
+    ret = OH_CaptureSession_AddInput(captureSession, cameraInput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddInput failed.");
+        return;
+    }
+    // 向会话中添加预览输出流。
+    ret = OH_CaptureSession_AddPreviewOutput(captureSession, previewOutput);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_AddPreviewOutput failed.");
+        return;
+    }
+    // 提交配置信息。
+    ret = OH_CaptureSession_CommitConfig(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_CommitConfig failed.");
+        return;
+    }
+    // 开始会话。
+    ret = OH_CaptureSession_Start(captureSession);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_Start failed.");
+    }
+}
+// [End session_flow_for_concurrent]
+
+// [Start set_exposure_mode]
+// 曝光。
+void NDKCamera::SetExposureModeFn(uint32_t mode, Camera_CaptureSession *captureSession)
+{
+    Camera_ExposureMode exposureMode = static_cast<Camera_ExposureMode>(mode);
+    bool isExposureModeSupported = false;
+    Camera_ErrorCode ret =
+        OH_CaptureSession_IsExposureModeSupported(captureSession, exposureMode, &isExposureModeSupported);
+    if (isExposureModeSupported == false || ret != CAMERA_OK) {
+        return;
+    }
+    ret = OH_CaptureSession_SetExposureMode(captureSession, exposureMode);
+    if (ret != CAMERA_OK) {
+        return;
+    }
+    Camera_ExposureMode curMode = static_cast<Camera_ExposureMode>(0);
+    ret = OH_CaptureSession_GetExposureMode(captureSession, &curMode);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CaptureSession_GetExposureMode failed.");
+        return;
+    }
+    if (curMode == exposureMode) {
+        OH_LOG_INFO(LOG_APP, "setExposureMode success.");
+    } else {
+        OH_LOG_ERROR(LOG_APP, "setExposureMode failed.");
+    }
+}
+// [End set_exposure_mode]
+
 } // namespace OHOS_CAMERA_SAMPLE

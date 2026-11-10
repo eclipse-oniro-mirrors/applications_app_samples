@@ -7,6 +7,7 @@
 - 直播端视频录制的主要流程是相机采集->OpenGL旋转->ROI区域提取与配置->编码->封装成mp4文件。
 - 录制场景在相机和编码之间加了OpenGL渲染管线，开发者可参考该流程加上对应的Shader，如直播场景加上美颜、滤镜等算子。
 - 本示例展示了三种ROI编码通路：NativeBuffer元数据配置、参数回调配置、Buffer帧数据配置。
+- 相机采集支持ArkTS和Native（C/C++）两种接口，默认使用ArkTS。两种接口均在会话提交配置后查询并开启相机ROI信息随帧输出，共用后续ROI编码流程。
 
 ### 录制支持的原子能力规格
 
@@ -28,7 +29,7 @@
 
 ### 开直播
 
-1. 选择ROI编码配置方式（NativeBuffer元数据配置、参数回调配置或Buffer帧数据配置），点击相应按钮。
+1. 选择相机接口方式（ArkTS或Native），再选择ROI编码配置方式（NativeBuffer元数据配置、参数回调配置或Buffer帧数据配置），点击相应按钮。
 
 2. 确认允许录制文件保存到分布式文件。
 
@@ -39,6 +40,9 @@
 ```   
 ├──entry/src/main/cpp                 // Native层
 │  ├──capbilities                     // 能力接口和实现
+│  │  ├──camera                       // Native相机采集、ROI随帧开关和资源释放
+│  │  │  ├──NativeCamera.h
+│  │  │  └──NativeCamera.cpp
 │  │  ├──render                       // 送显模块接口和实现
 │  │  │  ├──include                   // 送显模块接口
 │  │  │  │  ├──egl_render_context.h   // EGL渲染上下文接口
@@ -152,8 +156,8 @@
 
 1. 本示例仅支持标准系统上运行，支持设备：default（手机）、tablet（平板）。
 
-2. OpenHarmony API版本：API 26及以上。
+2. OpenHarmony API版本：API 26.0.1及以上。
 
 3. DevEco Studio版本：DevEco Studio 5.0.5 Release及以上。
 
-4. OpenHarmony SDK版本：OpenHarmony SDK 26.0.0及以上。
+4. OpenHarmony SDK版本：OpenHarmony SDK 26.0.1及以上，需包含相机ROI信息随帧输出的ArkTS和C/C++接口；设备系统也需包含对应实现。设备不支持该能力时会记录日志，无法从相机帧中获取ROI。

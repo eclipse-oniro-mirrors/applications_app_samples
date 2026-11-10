@@ -48,6 +48,7 @@ entry/src/
  │   │       ├── ResidentTaskGuide.ets               // 常驻任务开发指导
  │   │       ├── SyncTaskDevelopment.ets		     // 同步任务开发指导
  │   │       ├── write.ets                           // I/O密集型任务开发指导
+ │   │       ├── WorkerManager.ets                   // Worker单用例开发指导
  │   │   ├── pages
  │   │       ├── Index.ets                           // 首页
  │   │   ├── util

@@ -19,7 +19,9 @@
 #include "multimedia/player_framework/native_averrors.h"
 #include <string>
 #include <ace/xcomponent/native_interface_xcomponent.h>
+// [Start hilog]
 #include <hilog/log.h>
+// [End hilog]
 
 #define LOG_MSG_TAG "AVPlayerNDK"
 

@@ -45,8 +45,11 @@ set(BASE_LIBRARY
     libnative_media_avmuxer.so
     libohaudio.so
     libdl.so
+    libnative_drm.so
+    libnative_media_avcencinfo.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
+                          sample/player/napi/DeviceCodecCapabilityNative.cpp
                           sample/player/napi/PlayerAsyncSeek.cpp
                           sample/player/napi/PlayerNapiParser.cpp
                           sample/player/napi/PlayerNapiSerializer.cpp
@@ -77,16 +80,23 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           capabilities/audio_decoder.cpp
                           render/plugin_render.cpp
                           render/plugin_manager.cpp
+                          common/SessionReport.cpp
                           common/sample_callback.cpp
 )
 
 add_library(recorder SHARED sample/recorder/RecorderNative.cpp
+                            sample/recorder/RecorderOptionsParser.cpp
                             sample/recorder/Recorder.cpp
+                            sample/recorder/RecorderVideoSession.cpp
+                            sample/recorder/RecorderVideoInput.cpp
+                            sample/recorder/RecorderFrameReceiver.cpp
+                            sample/recorder/RecorderFrameCopy.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
                             capabilities/audio_capturer.cpp
                             capabilities/audio_encoder.cpp
+                            common/SessionReport.cpp
                             common/sample_callback.cpp
 )
 
@@ -99,4 +109,19 @@ if(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID)
 endif()
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
-target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
+target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} libimage_receiver.so libohimage.so)
+
+add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
+                              sample/transcoder/TranscodeAudioPipeline.cpp
+                              sample/transcoder/TranscodeJob.cpp
+                              sample/transcoder/TranscodeCodecCallbacks.cpp
+                              sample/transcoder/TranscodeCodecIO.cpp
+                              sample/transcoder/TranscodeInspection.cpp
+                              sample/transcoder/TranscodeOutputValidation.cpp
+                              sample/transcoder/TranscodeSampleValidator.cpp
+                              sample/transcoder/TranscodeTimeRange.cpp
+                              sample/transcoder/TranscodeOperations.cpp
+                              sample/transcoder/TranscodeGpuProcessor.cpp
+                              common/graphics/EglWindowContext.cpp
+                              sample/transcoder/TranscodeFrameProcessor.cpp)
+target_link_libraries(transcoder PUBLIC ${BASE_LIBRARY})

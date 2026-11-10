@@ -16,7 +16,11 @@
 import display from '@ohos.display';
 import emitter from '@ohos.events.emitter';
 import { common } from '@kit.AbilityKit';
-import media from '@ohos.multimedia.media';
+// [Start createAVPlayer]
+import { media } from '@kit.MediaKit';
+// [StartExclude createAVPlayer]
+import { fileIo as fs } from '@kit.CoreFileKit';
+import audio from '@ohos.multimedia.audio';
 
 const PROPORTION = 0.99; // 占屏幕比例
 const SURFACE_W = 0.9; // 表面宽比例
@@ -108,8 +112,10 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
+    // [EndExclude createAVPlayer]
     // 创建avPlayer实例对象
     this.avPlayer = await media.createAVPlayer();
+    // [End createAVPlayer]
 
     // 创建状态机变化回调函数
     await this.setAVPlayerCallback((avPlayer: media.AVPlayer) => {
@@ -127,7 +133,45 @@ struct Index {
     this.avPlayer.fdSrc = avFileDescriptor;
   }
 
+  async setFdPath() {
+    // [Start setFdPath]
+    let fdPath = 'fd://'; // 此处仅为示意，请替换为真实资源文件URL。
+    let path : string = `${this.context?.filesDir}/${this.fileName}`; // 此处仅为示意，请替换为真实的应用沙箱文件路径。
+    let file = await fs.open(path);
+    try {
+      fdPath = fdPath + file.fd;
+      this.avPlayer = await media.createAVPlayer();
+      this.avPlayer.url = fdPath;
+    } finally {
+      fs.closeSync(file);
+    }
+    // [End setFdPath]
+  }
+
+  setUrl() {
+    // [Start setUrl]
+    let url = ''; // 此处仅为示意，请替换为真实资源文件URL。
+    if (this.avPlayer == null) {
+      return;
+    }
+    this.avPlayer.url = url;
+    // [End setUrl]
+  }
+
+  setSurfaceId(surfaceId: string): void {
+    // [Start setSurfaceId]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.surfaceId = this.xComponentController.getXComponentSurfaceId();
+      } catch (e) {
+        console.error(`${this.tag}: setSurfaceId = ${JSON.stringify(e)}`);
+      }
+    }
+    // [End setSurfaceId]
+  }
+
   avPlay(): void {
+    // [Start avPlay]
     if (this.avPlayer) {
       try {
         this.avPlayer.play();
@@ -135,9 +179,11 @@ struct Index {
         console.error(`${this.tag}: avPlay = ${JSON.stringify(e)}`);
       }
     }
+    // [End avPlay]
   }
 
   avPause(): void {
+    // [Start avPause]
     if (this.avPlayer) {
       try {
         this.avPlayer.pause();
@@ -146,9 +192,11 @@ struct Index {
         console.error(`${this.tag}: avPause== ${JSON.stringify(e)}`);
       }
     }
+    // [End avPause]
   }
 
   async avSeek(seekTime: number, mode: SliderChangeMode): Promise<void> {
+    // [Start avSeek]
     if (this.avPlayer) {
       try {
         console.info(`${this.tag}: videoSeek  seekTime== ${seekTime}`);
@@ -158,6 +206,67 @@ struct Index {
         console.error(`${this.tag}: videoSeek== ${JSON.stringify(e)}`);
       }
     }
+    // [End avSeek]
+  }
+
+  avStop(): void {
+    // [Start avStop]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.stop();
+        console.info(`${this.tag}: avStop==`);
+      } catch (e) {
+        console.error(`${this.tag}: avStop== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avStop]
+  }
+
+  avPrepare(): void {
+    // [Start avPrepare]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.prepare();
+        console.info(`${this.tag}: avPrepare==`);
+      } catch (e) {
+        console.error(`${this.tag}: avPrepare== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avPrepare]
+  }
+
+  avReset() {
+    // [Start avReset]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.reset();
+      } catch (e) {
+        console.error(`${this.tag}: reset== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avReset]
+  }
+
+  changeUrl() {
+    // [Start changeUrl]
+    // 更换url。
+    let url = '';
+    if (this.avPlayer == null) {
+      return;
+    }
+    this.avPlayer.url = url;
+    // [End changeUrl]
+  }
+
+  setAudioRendererInfo() {
+    // [Start audioRendererInfo]
+    if (this.avPlayer) {
+      this.avPlayer.audioRendererInfo = {
+        usage: audio.StreamUsage.STREAM_USAGE_MOVIE,
+        rendererFlags: 0
+      }
+    }
+    // [End audioRendererInfo]
   }
 
   avSetSpeed(speed: number): void {
@@ -171,9 +280,10 @@ struct Index {
     }
   }
 
-  // 注册avplayer回调函数
+  // 注册avplayer回调函数。
   async setAVPlayerCallback(callback: (avPlayer: media.AVPlayer) => void, vType?: number): Promise<void> {
     // seek操作结果回调函数
+    // [Start setAVPlayerCallback]
     if (this.avPlayer == null) {
       console.error(`${this.tag}: avPlayer has not init!`);
       return;
@@ -184,7 +294,19 @@ struct Index {
     this.avPlayer.on('speedDone', (speed) => {
       console.info(`${this.tag}: setAVPlayerCallback AVPlayer speedDone, speed is ${speed}`);
     });
-    // error回调监听函数,当avPlayer在操作过程中出现错误时调用reset接口触发重置流程
+    this.avPlayer.on('durationUpdate', (duration: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer durationUpdate, duration is ${duration}`);
+    });
+    this.avPlayer.on('volumeChange', (vol: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer volumeChange, vol is ${vol}`);
+    });
+    this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer bufferingUpdate, vol is ${infoType}, value is ${value}`);
+    });
+    this.avPlayer.on('audioInterrupt', (info: audio.InterruptEvent) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer audioInterrupt, info is ${info}`);
+    });
+    // error回调监听函数，当avPlayer在操作过程中出现错误时调用reset接口触发重置流程。
     this.avPlayer.on('error', (err) => {
       console.error(`${this.tag}: setAVPlayerCallback Invoke avPlayer failed ${JSON.stringify(err)}`);
       if (this.avPlayer == null) {
@@ -193,32 +315,32 @@ struct Index {
       }
       this.avPlayer.reset();
     });
-    // 状态机变化回调函数
+    // 状态机变化回调函数。
     this.avPlayer.on('stateChange', async (state, reason) => {
       if (this.avPlayer == null) {
         console.info(`${this.tag}: avPlayer has not init on state change`);
         return;
       }
       switch (state) {
-        case 'idle': // 成功调用reset接口后触发该状态机上报
+        case 'idle': // 成功调用reset接口后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state idle called.`);
           break;
-        case 'initialized': // avplayer 设置播放源后触发该状态上报
+        case 'initialized': // avplayer 设置播放源后触发该状态上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state initialized called.`);
           if (this.surfaceId) {
-            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面，当播放的资源为纯音频时无需设置
+            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面，当播放的资源为纯音频时无需设置。
             console.info(`${this.tag}: setAVPlayerCallback this.avPlayer.surfaceId = ${this.avPlayer.surfaceId}`);
             this.avPlayer.prepare();
           }
           break;
-        case 'prepared': // prepare调用成功后上报该状态机
+        case 'prepared': // prepare调用成功后上报该状态机。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state prepared called.`);
           this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
             console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}}`);
           })
           this.durationTime = this.avPlayer.duration;
           this.currentTime = this.avPlayer.currentTime;
-          this.avPlayer.play(); // 调用播放接口开始播放
+          this.avPlayer.play(); // 调用播放接口开始播放。
           console.info(`${this.tag}:
             setAVPlayerCallback speedSelect: ${this.speedSelect}, duration: ${this.durationTime}`);
           if (this.speedSelect != -1) {
@@ -239,13 +361,13 @@ struct Index {
           }
           callback(this.avPlayer);
           break;
-        case 'playing': // play成功调用后触发该状态机上报
+        case 'playing': // play成功调用后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state playing called.`);
           if (this.count !== 0) {
             if (this.intervalID != -1) {
               clearInterval(this.intervalID)
             }
-            this.intervalID = setInterval(() => { // 更新当前时间
+            this.intervalID = setInterval(() => { // 更新当前时间。
               AppStorage.setOrCreate('durationTime', this.durationTime);
               AppStorage.setOrCreate('currentTime', this.currentTime);
             }, 100);
@@ -267,7 +389,7 @@ struct Index {
           }
           this.count++;
           break;
-        case 'completed': // 播放结束后触发该状态机上报
+        case 'completed': // 播放结束后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state completed called.`);
           let eventDataFalse: emitter.EventData = {
             data: {
@@ -306,10 +428,11 @@ struct Index {
           break;
       }
     });
-    // 时间上报监听函数
+    // 时间上报监听函数。
     this.avPlayer.on('timeUpdate', (time: number) => {
       this.currentTime = time;
     });
+    // [End setAVPlayerCallback]
   }
 
   aboutToAppear() {
@@ -326,6 +449,7 @@ struct Index {
       console.info(`${this.tag}: avPlayer has not init aboutToDisappear`);
       return;
     }
+    // [Start release]
     this.avPlayer.release((err) => {
       if (err == null) {
         console.info(`${this.tag}: videoRelease release success`);
@@ -333,6 +457,7 @@ struct Index {
         console.error(`${this.tag}: videoRelease release failed, error message is = ${JSON.stringify(err.message)}`);
       }
     });
+    // [End release]
     emitter.off(innerEventFalse.eventId);
   }
 

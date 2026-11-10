@@ -19,7 +19,7 @@ import { webNativeMessagingExtensionManager } from '@kit.ArkWeb'
 class ConnectionCallback implements webNativeMessagingExtensionManager.WebExtensionConnectionCallback {
   onConnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
     // connected
-    console.error(`onConnect id ${connection.connectionId} is connected`);
+    console.info(`onConnect id ${connection.connectionId} is connected`);
   }
   onDisconnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
     // disconnect
@@ -47,7 +47,7 @@ function connectNative(abilityContext: common.UIAbilityContext, bundleName: stri
     let connectId = webNativeMessagingExtensionManager.connectNative(abilityContext, wantInfo, options);
     console.info(`innerWebNativeMessageManager  connectionId : ${connectId}` );
   } catch (error) {
-    console.info(`inner callback error Message: ${JSON.stringify(error)}`);
+    console.error(`inner callback error Message: ${JSON.stringify(error)}`);
   }
 }
 // [End ConnectNative]

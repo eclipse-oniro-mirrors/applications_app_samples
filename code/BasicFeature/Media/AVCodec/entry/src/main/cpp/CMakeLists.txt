@@ -44,6 +44,7 @@ set(BASE_LIBRARY
     libnative_media_avsource.so
     libnative_media_avmuxer.so
     libohaudio.so
+    libdl.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/napi/PlayerAsyncSeek.cpp

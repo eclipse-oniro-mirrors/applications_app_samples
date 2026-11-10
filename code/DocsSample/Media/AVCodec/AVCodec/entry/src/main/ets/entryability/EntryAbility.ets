@@ -18,9 +18,11 @@ import { BusinessError } from '@kit.BasicServicesKit'
 import { window } from '@kit.ArkUI'
 import Logger from '../common/utils/Logger'
 import player from 'libplayer.so'
+import { LocalizedText } from '../common/LocalizedText'
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    LocalizedText.bind(this.context.resourceManager);
     Logger.info('Ability onCreate');
     globalThis.context = this.context;
   }
@@ -79,13 +81,13 @@ export default class EntryAbility extends UIAbility {
   }
 
   onForeground(): void {
-    // 通知 Native 播放器进入前台。
+    // 通知Native播放器进入前台。
     Logger.info('Ability onForeground');
     player.setAppBackground(false);
   }
 
   onBackground(): void {
-    // 通知 Native 播放器进入后台。
+    // 通知Native播放器进入后台。
     Logger.info('Ability onBackground');
     player.setAppBackground(true);
   }

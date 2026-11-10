@@ -19,6 +19,17 @@ import { CommonConstants as Const } from '../common/CommonConstants';
 @Observed
 export class CameraDataModel {
   public outputId: string = '';
+  public primaryDumpPath: string = '';
+  public secondaryDumpPath: string = '';
+  public stopOnLowSpace: boolean = false;
+  public segmentSeconds: number = 0;
+  public segmentMiB: number = 0;
+  public recordingGroupId: string = '';
+  public segmentIndex: number = 1;
+  public videoCodecName: string = '';
+  public outputUri: string = '';
+  public outputTitle: string = '';
+  public secondaryOutputUri: string = '';
   public cameraWidth: number = Const.DEFAULT_WIDTH;
   public cameraHeight: number = Const.DEFAULT_HEIGHT;
   public isHDRVivid: number = Const.DEFAULT_VALUE;
@@ -36,11 +47,15 @@ export class CameraDataModel {
   public videoStabilizationMode: number = Const.VIDEO_STABILIZATION_AUTO;
   public format: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
   public isSync: number = 0;
+  public bufferInput: boolean = false;
   public outputFormat: number = Const.FORMAT_MP4;
   public enableDualOutput: boolean = false;
   public enableVideoDump: boolean = false;
   public secondaryOutputfd: number = -1;
   public preprocMode: number = Const.VIDEO_PREPROC_NONE;
+  public cropPercent: number = 75;
+  public downsamplingTargetHeight: number = 720;
+  public secondaryTargetHeight: number = 720;
   public dropToFrameRate: number = 0;
   public downsamplingWidth: number = 1280;
   public downsamplingHeight: number = 720;

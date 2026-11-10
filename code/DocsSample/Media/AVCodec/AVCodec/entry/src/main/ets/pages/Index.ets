@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,33 +13,38 @@
  * limitations under the License.
  */
 
+import { LocalizedText } from '../common/LocalizedText';
+import { RecorderSettingsController } from '../controller/RecorderSettingsController';
+import { MediaSettingsLabels } from '../model/MediaSettingsLabels';
 import { fileIo, picker } from '@kit.CoreFileKit'
 import { PiPWindow, window } from '@kit.ArkUI'
 import { camera } from '@kit.CameraKit'
 import { photoAccessHelper } from '@kit.MediaLibraryKit'
-import { media } from '@kit.MediaKit'
 import { deviceInfo, thermal } from '@kit.BasicServicesKit'
-import player, { MediaInfo, MediaTrackInfo } from 'libplayer.so'
+import player, { DeviceCodecCapability, MediaInfo, MediaTrackInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
 import Logger from '../common/utils/Logger'
 import DateTimeUtil from '../common/utils/DateTimeUtil'
 import { CommonConstants as Const } from '../common/CommonConstants'
 import { CameraDataModel } from '../model/CameraDataModel'
 import { PlayerSettingsModel } from '../model/PlayerSettingsModel'
-import { RecorderSettingsModel } from '../model/RecorderSettingsModel'
+import { PlayerSettingsDraft, RecorderSettingsDraft } from '../model/SettingsDraftModels'
+import { RecorderPreprocessModel } from '../model/RecorderPreprocessModel'
 import { buildMediaInfoSections, MediaInfoSection } from '../model/MediaInfoModel'
 import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel'
-import { formatMediaTime } from '../model/PlaybackInfoModel'
 import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '../model/PlaybackHistoryModel'
-import { findSubtitleText, parseSrt, SubtitleCue } from '../model/SubtitleModel'
-import { PlaybackMode, nextPlaybackIndex } from '../model/PlaybackModeModel'
+import { findSubtitleText, parseSubtitle, SubtitleCue } from '../model/SubtitleModel'
+import { PlaybackMode } from '../model/PlaybackModeModel'
 import { PlaybackRecoveryModel, PlaybackRecoverySnapshot, PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
 import { SubtitleStyleModel } from '../model/SubtitleStyleModel'
+import { PlaybackQueueController } from '../controller/PlaybackQueueController'
+import { RecorderLaunchController } from '../controller/RecorderLaunchController'
+import { SeekPreviewController } from '../controller/SeekPreviewController'
 import { SeekRequestController, SeekRequestResult } from '../controller/SeekRequestController'
+import { PlayerPictureInPictureController } from '../controller/PlayerPictureInPictureController'
 import { PlaybackSessionCallbacks, PlaybackSessionController, PlaybackSessionMedia } from
   '../controller/PlaybackSessionController'
 import { SubtitleSettingsPanel } from '../components/SubtitleSettingsPanel'
-import { AvDiagnosticsPanel } from '../components/AvDiagnosticsPanel'
 import { MediaInfoPanel as MediaInfoPanelComponent } from '../components/MediaInfoPanel'
 import { PlaybackProgressPanel as PlaybackProgressPanelComponent } from '../components/PlaybackProgressPanel'
 import { RecorderPage } from './RecorderPage'
@@ -50,20 +55,32 @@ import { PlayerStatusOverlay } from '../components/player/PlayerStatusOverlay'
 import { PlayerControlBar as PlayerControlBarComponent } from '../components/player/PlayerControlBar'
 import { PlayerQueueSheet } from '../components/player/PlayerQueueSheet'
 import { MainTabsPage } from './MainTabsPage'
+import { PlaybackDiagnosticsOverlay } from '../components/player/PlaybackDiagnosticsOverlay'
+import { PlaybackMoreActionsPanel, PlaybackMoreAction } from '../components/player/PlaybackMoreActionsPanel'
+import { PlayerSettingsPanel, PlayerSettingsOption } from '../components/player/PlayerSettingsPanel'
+import { RecorderSettingsPanel, RecorderSettingsOption } from '../components/recorder/RecorderSettingsPanel'
+import { RecorderSaveAuthorizationPanel } from '../components/recorder/RecorderSaveAuthorizationPanel'
 import { PlayerPage as PlayerPageShell } from './PlayerPage'
 import { LibraryPage } from './LibraryPage'
-import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
+import { DeviceDiagnosticsPage } from './DeviceDiagnosticsPage'
+import { TranscodePage } from './TranscodePage'
+import { TranscodeModel } from '../model/TranscodeModel'
+import { bufferProfileCameraCheck, encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
   getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
 } from '../common/utils/MediaUtils'
 import { common } from '@kit.AbilityKit'
+import { ConfigurationStore, ConfigurationSnapshot } from '../model/ConfigurationStore'
+import { UserConfiguration } from '../model/UserConfiguration'
+import { ConfigurationFeedback } from '../model/ConfigurationFeedback'
+import { MediaFileActivity } from '../model/MediaFileActivity'
+import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
+import { MediaReports } from '../model/MediaSessionReport';
+import { MediaSessionStore } from '../model/MediaSessionStore';
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
-const SEEK_PREVIEW_INTERVAL_MS: number = 100;
-const SEEK_PREVIEW_WIDTH: number = 320;
-const SEEK_PREVIEW_HEIGHT: number = 180;
 const PLAYBACK_CONTROLS_HIDE_DELAY_MS: number = 5000;
 const PICKER_LAYOUT_SETTLE_DELAY_MS: number = 100;
 const VISIBLE_SYSTEM_BARS: ('status' | 'navigation')[] = ['navigation', 'status'];
@@ -77,7 +94,13 @@ const BLACK_SYSTEM_BAR_PROPERTIES: window.SystemBarProperties = {
 @Entry
 @Component
 export struct Player {
+  @State configurationReady: boolean = false;
+  @State configurationNotice: string = '';
+  @State configurationRevision: number = 0;
+  @State recorderCapabilityHint: string = LocalizedText.get($r('app.string.configuration_recorder_requirements'));
+  private configurationTouched: boolean = false;
   @State activeMainTab: number = 0;
+  @State transcodeModel: TranscodeModel = new TranscodeModel();
   @State buttonEnabled: boolean = true;
   @State isShow: boolean = false;
   @State isSmartFluencySupported: boolean = false;
@@ -96,26 +119,21 @@ export struct Player {
   @State isFullscreen: boolean = false;
   @State isPlaybackControlsVisible: boolean = true;
   @State displayScaleMode: number = 0;
+  @State playbackFailureText: string = '';
+  @State selectedDecoderName: string = '';
+  @State selectedEncoderName: string = '';
+  @State videoSourceWidth: number = 0;
+  @State videoSourceHeight: number = 0;
+  @State videoSourceRotation: number = 0;
   @State recentEntries: PlaybackHistoryEntry[] = [];
   @State queueEntries: string[] = [];
-  @State draftPlayerDecoderType: number = 0;
-  @State draftPlayerRunMode: number = 0;
-  @State draftPlayerSyncMode: number = 0;
-  @State draftPlayerDump: boolean = false;
-  @State draftPlayerRetainLastFrame: boolean = true;
-  @State draftPlayerLowLatency: boolean = false;
-  @State draftPlayerOutputInDecodingOrder: boolean = false;
-  @State draftPlayerConvertHdrVividToBt709: boolean = false;
-  @State draftPlayerAudioVolume: number = 100;
-  @State draftPlayerAudioLowLatency: boolean = false;
-  @State draftPlayerAudioTrackIndex: number = -1;
-  @State draftPlayerAutoHideControls: boolean = true;
   @State abLoopStartUs: number = -1;
   @State abLoopEndUs: number = -1;
   @State isAbLoopEnabled: boolean = false;
   @State isPipActive: boolean = false;
   @State isBackgroundPlaybackEnabled: boolean = false;
   @State subtitleText: string = '';
+  @State subtitleFileName: string = '';
   @State subtitleDelayIndex: number = 1;
   @State subtitleStyle: SubtitleStyleModel = new SubtitleStyleModel();
   @State isSubtitleSettingsVisible: boolean = false;
@@ -126,55 +144,35 @@ export struct Player {
   private playbackSessionController: PlaybackSessionController = new PlaybackSessionController();
   private recovery: PlaybackRecoveryModel = new PlaybackRecoveryModel();
   private playbackSession: number = 0;
+  private playbackLease: MediaTaskLease | undefined = undefined;
   private seekRequestId: number = 0;
   private sliderDragging: boolean = false;
   private pageActive: boolean = true;
   private requestedSpeed: number = 1;
+  private seekPreview: SeekPreviewController = new SeekPreviewController(this.playbackViewModel,
+    (): string | null => this.selectFilePath, (): MediaInfo | undefined => this.currentMediaInfo);
   private currentMediaInfo: MediaInfo | undefined = undefined;
   @State audioMuted: boolean = false;
-  @State draftRecorderCodec: number = 1;
-  @State draftRecorderOutputFormat: number = 0;
-  @State draftRecorderResolution: number = 1;
-  @State draftRecorderFrameRate: number = 0;
-  @State draftRecorderSyncMode: number = 0;
-  @State draftRecorderBitrate: number = 1;
-  @State draftRecorderBitrateMode: number = 0;
-  @State draftRecorderIFrameInterval: number = 0;
-  @State draftRecorderAudioSampleRate: number = 1;
-  @State draftRecorderAudioChannelCount: number = 1;
-  @State draftRecorderAudioBitrate: number = 0;
-  @State draftRecorderAudioLatency: number = 0;
-  @State draftRecorderStabilization: number = 1;
-  @State draftRecorderPreprocMode: number = 0;
-  @State draftRecorderDropFrameRate: number = 0;
-  @State draftRecorderDualOutput: number = 0;
-  @State draftRecorderVideoDump: boolean = false;
   @State mediaInfoSections: MediaInfoSection[] = [];
-  private transformType: number = 0;
+  @State recordingHistoryRevision: number = 0;
+  @State private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
-  private recorderSettings: RecorderSettingsModel = new RecorderSettingsModel();
+  @State playerDraft: PlayerSettingsDraft = new PlayerSettingsDraft();
+  @State @Watch('onRecorderDraftChanged') recorderDraft: RecorderSettingsDraft = new RecorderSettingsDraft();
   @State cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
-  private seekPreviewTimer: number = 0;
-  private seekPreviewRequestId: number = 0;
-  private seekPreviewGeneration: number = 0;
-  private seekPreviewFetchRunning: boolean = false;
   private subtitleCues: SubtitleCue[] = [];
   private volumeBeforeMute: number = 100;
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
-  private queuePaths: string[] = [];
-  private queueIndex: number = -1;
-  private pendingQueueIndex: number = -1;
+  @State playbackQueue: PlaybackQueueController = new PlaybackQueueController();
+  private recorderLaunch: RecorderLaunchController = new RecorderLaunchController();
   private lastHistoryPositionUs: number = -1;
   private resumeSeekTimer: number = 0;
-  private seekPreviewLastFetchTimeMs: number = 0;
   private playbackControlsTimer: number = 0;
   private playbackWindowWidth: number = 0;
   private abLoopTimer: number = 0;
   private abLoopSeekPending: boolean = false;
-  private pipController: PiPWindow.PiPController | undefined;
-  private lastPiPSyncedPlaybackState: number = -1;
-  private resumePlaybackAfterPipStart: boolean = false;
+  private pictureInPictureController: PlayerPictureInPictureController | undefined = undefined;
   private readonly xComponentController: XComponentController = new XComponentController();
   private sourcePath: string[] =
     [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
@@ -182,10 +180,14 @@ export struct Player {
 
   aboutToAppear(): void {
     this.pageActive = true;
+    this.transcodeModel.activate();
+    void this.loadConfiguration();
+    this.ensurePictureInPictureController();
     this.prepareVulkanShaders();
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     this.loadPlaybackHistory();
+    this.recordingHistoryRevision++;
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
       this.updatePictureInPicturePlaybackState();
       this.updateSubtitle(positionUs);
@@ -204,7 +206,7 @@ export struct Player {
     this.isAdvancedRecorderSupported = apiVersion >= 26;
     if (this.isSmartFluencySupported) {
       player.setSmartFluencyEnabled(true);
-      // 注册温控回调，当设备过热时自动切入 UNIFORM 低比例模式降低负载
+      // 注册温控回调，当设备过热时自动切入UNIFORM低比例模式降低负载
       thermal.registerThermalLevelCallback((level: number) => {
         if (level >= thermal.ThermalLevel.OVERHEATED) {
           this.thermalWarningActive = true;
@@ -220,10 +222,81 @@ export struct Player {
     Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
   }
 
+  private async loadConfiguration(): Promise<void> {
+    if (this.configurationReady) {
+      return;
+    }
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return;
+    }
+    try {
+      await ConfigurationStore.open(context);
+      const saved = await ConfigurationStore.load();
+      if (this.pageActive && !this.configurationTouched && this.buttonEnabled &&
+        player.getState() === player.PlayerState.IDLE && !recorder.getDiagnostics().active &&
+        !this.isPlayerSettingsVisible && !this.isRecorderSettingsVisible) {
+        UserConfiguration.restore(saved, this.playerSettings, this.cameraData);
+        this.configurationRevision++;
+      }
+      this.configurationReady = true;
+    } catch (_error) {
+      this.configurationReady = true;
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_load_default'));
+    }
+  }
+
+  private async persistConfiguration(custom: boolean = false): Promise<void> {
+    this.configurationTouched = true;
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return;
+    }
+    const snapshot = UserConfiguration.capture(this.playerSettings, this.cameraData);
+    try {
+      await ConfigurationStore.open(context);
+      await ConfigurationStore.save(snapshot, custom);
+      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) :
+        LocalizedText.get($r('app.string.configuration_saved'));
+    } catch (_error) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_save_failed'));
+    }
+  }
+
+  private async selectConfiguration(index: number): Promise<void> {
+    if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_wait_idle'));
+      return;
+    }
+    this.configurationTouched = true;
+    try {
+      const snapshot: ConfigurationSnapshot = index < 0 ? await ConfigurationStore.load(true) :
+        UserConfiguration.preset(index);
+      if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+        return;
+      }
+      if (snapshot.player.length === 0) {
+        this.configurationNotice = LocalizedText.get($r('app.string.configuration_custom_missing'));
+        return;
+      }
+      UserConfiguration.restore(snapshot, this.playerSettings, this.cameraData);
+      this.configurationRevision++;
+      this.playerSettings.videoCodecName = '';
+      this.cameraData.videoCodecName = '';
+      this.selectedDecoderName = '';
+      this.selectedEncoderName = '';
+      this.preparePlayerSettings();
+      this.prepareRecorderSettings();
+      await this.persistConfiguration();
+    } catch (_error) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_load_failed'));
+    }
+  }
+
   /**
-   * 将 Vulkan 管线需要的 SPIR-V 文件写入应用沙箱。
-   * Native 层没有 ResourceManager，不能直接读取 rawfile；这里在页面初始化时把资源复制到
-   * files/rawfile，VulkanVideoSink 再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧 shader。
+   * 将Vulkan管线需要的SPIR-V文件写入应用沙箱。
+   * Native层没有ResourceManager，不能直接读取rawfile；这里在页面初始化时把资源复制到
+   * files/rawfile，VulkanVideoSink再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧shader。
    */
   private prepareVulkanShaders(): void {
     const hostContext: common.Context | undefined = this.getUIContext().getHostContext();
@@ -291,12 +364,13 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
-    // 进入系统 PiP 时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
-    if (this.isPipActive || this.resumePlaybackAfterPipStart) {
+    // 进入系统PiP时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
+    if (this.isPictureInPictureHoldingPlayback()) {
       this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
       return;
     }
     this.pageActive = false;
+    this.transcodeModel.dispose();
     this.recovery.cancel();
     this.seekRequests.cancel();
     void this.playbackSessionController.stop();
@@ -315,7 +389,17 @@ export struct Player {
     this.playbackViewModel.isHdrVividConfirmed = false;
     this.subtitleCues = [];
     this.subtitleText = '';
+    this.subtitleFileName = '';
     this.resetAbLoop();
+  }
+
+  onPageShow(): void {
+    this.recordingHistoryRevision++;
+    const recordingUri: string = AppStorage.get<string>('recordingResultPlayback') ?? '';
+    if (recordingUri.length > 0) {
+      AppStorage.delete('recordingResultPlayback');
+      this.playRecording(recordingUri);
+    }
   }
 
   startPlaybackInfoUpdates(): void {
@@ -334,6 +418,15 @@ export struct Player {
     }
   }
 
+  private playRecording(uri: string): void {
+    this.activeMainTab = 0;
+    this.selectFilePath = uri;
+    this.playbackQueue.paths = [uri];
+    this.playbackQueue.index = 0;
+    this.queueEntries = this.playbackQueue.paths.slice();
+    this.startSelectedFilePlayback(uri);
+  }
+
   private async persistPlaybackProgress(positionUs: number, durationUs: number, force: boolean = false): Promise<void> {
     if (this.selectFilePath === null || durationUs <= 0 || positionUs < 0) {
       return;
@@ -341,7 +434,7 @@ export struct Player {
     if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
       return;
     }
-    // 常规进度按 2 秒粒度落盘；停止和后台等收尾场景通过 force 写入最后位置，
+    // 常规进度按2秒粒度落盘；停止和后台等收尾场景通过force写入最后位置，
     // 避免高频持久化影响播放期间的界面响应。
     this.lastHistoryPositionUs = positionUs;
     await this.playbackHistory.update(this.selectFilePath, getPlaybackTitle(this.selectFilePath),
@@ -353,36 +446,34 @@ export struct Player {
     if (path.length === 0) {
       return;
     }
-    if (this.queuePaths.indexOf(path) < 0) {
-      this.queuePaths.push(path);
-    }
-    this.queueEntries = this.queuePaths.slice();
+    this.playbackQueue.append(path);
+    this.queueEntries = this.playbackQueue.paths.slice();
   }
 
   private playQueueEntry(index: number): void {
-    if (index < 0 || index >= this.queuePaths.length) {
+    if (index < 0 || index >= this.playbackQueue.paths.length) {
       return;
     }
-    const path: string = this.queuePaths[index];
+    const path: string = this.playbackQueue.paths[index];
     if (path.length === 0) {
       return;
     }
     this.activeMainTab = 0;
     this.isQueueVisible = false;
-    if (index === this.queueIndex && !this.buttonEnabled) {
+    if (index === this.playbackQueue.index && !this.buttonEnabled) {
       return;
     }
     if (this.buttonEnabled) {
-      this.queueIndex = index;
+      this.playbackQueue.index = index;
       this.selectFilePath = path;
-      this.queueEntries = this.queuePaths.slice();
+      this.queueEntries = this.playbackQueue.paths.slice();
       this.play(0);
       return;
     }
     if (this.isStopping) {
       return;
     }
-    this.pendingQueueIndex = index;
+    this.playbackQueue.pendingIndex = index;
     void this.stopPlayback();
   }
 
@@ -399,8 +490,8 @@ export struct Player {
         this.enqueueSelectedPath(uri);
       }
       if (this.buttonEnabled) {
-        this.queueIndex = this.queueIndex < 0 ? 0 : this.queueIndex;
-        this.selectFilePath = this.queuePaths[this.queueIndex];
+        this.playbackQueue.index = this.playbackQueue.index < 0 ? 0 : this.playbackQueue.index;
+        this.selectFilePath = this.playbackQueue.paths[this.playbackQueue.index];
         this.play(0);
       }
     } catch (error) {
@@ -416,9 +507,9 @@ export struct Player {
   private playRecentEntry(entry: PlaybackHistoryEntry): void {
     this.activeMainTab = 0;
     this.selectFilePath = entry.uri;
-    this.queuePaths = [entry.uri];
-    this.queueIndex = 0;
-    this.queueEntries = this.queuePaths.slice();
+    this.playbackQueue.paths = [entry.uri];
+    this.playbackQueue.index = 0;
+    this.queueEntries = this.playbackQueue.paths.slice();
     this.play();
     this.isQueueVisible = false;
   }
@@ -447,15 +538,15 @@ export struct Player {
       return;
     }
     const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
-    const queueTitles: string[] = this.queuePaths.map((path: string): string => getPlaybackTitle(path));
+    const queueTitles: string[] = this.playbackQueue.paths.map((path: string): string => getPlaybackTitle(path));
     const media: PlaybackSessionMedia = {
-      assetId: 'queue-' + Math.max(0, this.queueIndex).toString(),
+      assetId: 'queue-' + Math.max(0, this.playbackQueue.index).toString(),
       title: getPlaybackTitle(this.selectFilePath),
       queueTitle: this.getSettingText($r('app.string.playback_queue_sheet_title')),
       durationMs: Math.max(0, Math.round(mediaInfo.durationUs / 1000)),
       hasVideo: mediaInfo.video.width > 0 && mediaInfo.video.height > 0,
       queueTitles,
-      queueIndex: Math.max(0, this.queueIndex)
+      queueIndex: Math.max(0, this.playbackQueue.index)
     };
     void this.playbackSessionController.start(hostContext as common.UIAbilityContext, media,
       this.createPlaybackSessionCallbacks());
@@ -498,39 +589,31 @@ export struct Player {
   }
 
   private requestQueueSwitch(direction: number): void {
-    if (this.buttonEnabled || this.isStopping || this.queuePaths.length < 2) {
+    if (this.buttonEnabled || this.isStopping || this.playbackQueue.paths.length < 2) {
       return;
     }
     const targetIndex = this.getAdjacentQueueIndex(direction);
-    if (targetIndex < 0 || targetIndex === this.queueIndex) {
+    if (targetIndex < 0 || targetIndex === this.playbackQueue.index) {
       return;
     }
-    this.pendingQueueIndex = targetIndex;
+    this.playbackQueue.pendingIndex = targetIndex;
     void this.stopPlayback();
   }
 
   private getAdjacentQueueIndex(direction: number): number {
-    const count: number = this.queuePaths.length;
-    if (this.queueIndex < 0 || this.queueIndex >= count || direction === 0) {
-      return -1;
-    }
-    let targetIndex = this.queueIndex + (direction > 0 ? 1 : -1);
-    if (this.playbackMode === PlaybackMode.REPEAT_ALL) {
-      targetIndex = (targetIndex + count) % count;
-    }
-    return targetIndex >= 0 && targetIndex < count ? targetIndex : -1;
+    return this.playbackQueue.adjacent(direction, this.playbackMode);
   }
 
   private async continuePendingQueuePlayback(): Promise<void> {
-    const targetIndex = this.pendingQueueIndex;
-    this.pendingQueueIndex = -1;
-    if (targetIndex < 0 || targetIndex >= this.queuePaths.length || !this.pageActive) {
+    const targetIndex = this.playbackQueue.pendingIndex;
+    this.playbackQueue.pendingIndex = -1;
+    if (targetIndex < 0 || targetIndex >= this.playbackQueue.paths.length || !this.pageActive) {
       return;
     }
     await this.playbackSessionController.stop();
-    this.queueIndex = targetIndex;
-    this.queueEntries = this.queuePaths.slice();
-    await this.continuePlayback(this.playbackSession, this.queuePaths[targetIndex], 0);
+    this.playbackQueue.index = targetIndex;
+    this.queueEntries = this.playbackQueue.paths.slice();
+    await this.continuePlayback(this.playbackSession, this.playbackQueue.paths[targetIndex], 0);
   }
 
   private toggleFullscreen(): void {
@@ -695,17 +778,26 @@ export struct Player {
   async selectSubtitleFile(): Promise<void> {
     try {
       const options = new picker.DocumentSelectOptions();
-      options.fileSuffixFilters = ['SRT|.srt'];
+      options.fileSuffixFilters = ['SRT|.srt', 'WebVTT|.vtt'];
       const result = await new picker.DocumentViewPicker().select(options);
       if (result.length === 0) {
         return;
       }
       const content = await fileIo.readText(result[0], { encoding: 'UTF-8' });
-      this.subtitleCues = parseSrt(content);
+      const subtitleNameParts: string[] = result[0].split('/');
+      const subtitleName: string = subtitleNameParts[subtitleNameParts.length - 1];
+      const cues: SubtitleCue[] = parseSubtitle(content, subtitleName);
+      if (cues.length === 0) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.playback_subtitle_empty'), duration: Const.DURATION, bottom: Const.BOTTOM
+        });
+        return;
+      }
+      this.subtitleCues = cues;
+      this.subtitleFileName = subtitleName;
       this.updateSubtitle(this.playbackViewModel.positionUs);
       this.getUIContext().getPromptAction().showToast({
-        message: this.subtitleCues.length > 0 ? $r('app.string.playback_subtitle_loaded') :
-          $r('app.string.playback_subtitle_empty'),
+        message: $r('app.string.playback_subtitle_loaded'),
         duration: Const.DURATION,
         bottom: Const.BOTTOM
       });
@@ -715,6 +807,12 @@ export struct Player {
         message: $r('app.string.playback_subtitle_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
       });
     }
+  }
+
+  private clearSubtitle(): void {
+    this.subtitleCues = [];
+    this.subtitleText = '';
+    this.subtitleFileName = '';
   }
 
   private selectSubtitleDelay(): void {
@@ -804,7 +902,8 @@ export struct Player {
           const switched = player.selectAudioTrack(tracks[selected].index);
           if (!switched) {
             this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.playback_audio_track_unsupported'), duration: Const.DURATION,
+              message: $r('app.string.playback_audio_track_unsupported'),
+              duration: Const.DURATION,
               bottom: Const.BOTTOM
             });
             return;
@@ -836,151 +935,11 @@ export struct Player {
   }
 
   resetPlaybackProgress(): void {
-    this.seekPreviewGeneration++;
-    this.cancelSeekPreviewRequest();
-    this.releaseSeekPreviewFrame();
+    this.seekPreview.reset();
     this.currentMediaInfo = undefined;
     this.mediaInfoSections = [];
     this.playbackViewModel.reset();
     this.isPlaybackProgressVisible = false;
-    this.seekPreviewLastFetchTimeMs = 0;
-  }
-
-  releaseSeekPreviewFrame(): void {
-    if (this.playbackViewModel.seekPreviewFrame === undefined) {
-      return;
-    }
-    const frame = this.playbackViewModel.seekPreviewFrame;
-    this.playbackViewModel.seekPreviewFrame = undefined;
-    frame.release((error) => {
-      if (error !== undefined) {
-        Logger.error(TAG, 'Release seek preview frame failed: ' + JSON.stringify(error));
-      }
-    });
-  }
-
-  cancelSeekPreviewRequest(): void {
-    this.seekPreviewRequestId++;
-    if (this.seekPreviewTimer !== 0) {
-      clearTimeout(this.seekPreviewTimer);
-      this.seekPreviewTimer = 0;
-    }
-  }
-
-  scheduleSeekPreview(): void {
-    if (!this.playbackViewModel.hasVideo || this.selectFilePath === null) {
-      return;
-    }
-    this.seekPreviewRequestId++;
-    if (this.seekPreviewTimer !== 0 || this.seekPreviewFetchRunning) {
-      return;
-    }
-    const elapsedMs = Date.now() - this.seekPreviewLastFetchTimeMs;
-    const delayMs = Math.max(0, SEEK_PREVIEW_INTERVAL_MS - elapsedMs);
-    this.seekPreviewTimer = setTimeout(() => {
-      this.seekPreviewTimer = 0;
-      this.seekPreviewLastFetchTimeMs = Date.now();
-      this.fetchSeekPreview(this.playbackViewModel.seekPreviewUs, this.seekPreviewRequestId,
-        this.seekPreviewGeneration);
-    }, delayMs);
-  }
-
-  async fetchSeekPreview(targetUs: number, requestId: number, generation: number): Promise<void> {
-    if (this.seekPreviewFetchRunning || this.selectFilePath === null) {
-      return;
-    }
-    this.seekPreviewFetchRunning = true;
-    let previewFile: fileIo.File | undefined = undefined;
-    let imageGenerator: media.AVImageGenerator | undefined = undefined;
-    let fetchedFrame: PixelMap | undefined = undefined;
-    try {
-      try {
-        const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
-        const rotation = mediaInfo.video.rotation % 360;
-        const normalizedRotation = rotation < 0 ? rotation + 360 : rotation;
-        const hasVideoGeometry: boolean = mediaInfo.video.width > 0 && mediaInfo.video.height > 0;
-        const isRotatedPortrait: boolean = (normalizedRotation === 90 || normalizedRotation === 270) &&
-          (!hasVideoGeometry || mediaInfo.video.width >= mediaInfo.video.height);
-        const isNativePortrait: boolean = normalizedRotation === 0 &&
-          mediaInfo.video.height > mediaInfo.video.width;
-        let previewRotation: number = 0;
-        if (isRotatedPortrait) {
-          previewRotation = normalizedRotation;
-        } else if (isNativePortrait) {
-          // 原生竖屏视频没有旋转信息时，仍按竖屏预览。
-          previewRotation = 90;
-        } else if (normalizedRotation === 180) {
-          previewRotation = 180;
-        }
-        this.playbackViewModel.seekPreviewRotation = previewRotation;
-      } catch (error) {
-        // 预览旋转信息缺失时按 0° 生成。
-        Logger.info(TAG, 'Seek preview rotation unavailable: ' + JSON.stringify(error));
-        this.playbackViewModel.seekPreviewRotation = 0;
-      }
-      previewFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
-      const previewFileState = fileIo.statSync(previewFile.fd);
-      imageGenerator = await media.createAVImageGenerator();
-      imageGenerator.fdSrc = {
-        fd: previewFile.fd,
-        offset: Const.DEFAULT_VALUE,
-        length: previewFileState.size
-      };
-      const isPortraitPreview = this.playbackViewModel.seekPreviewRotation === 90 ||
-        this.playbackViewModel.seekPreviewRotation === 270;
-      const frame: PixelMap = await imageGenerator.fetchFrameByTime(targetUs,
-        media.AVImageQueryOptions.AV_IMAGE_QUERY_CLOSEST_SYNC, {
-          // 竖屏预览交换请求宽高，以匹配最终显示方向。
-          width: isPortraitPreview ? SEEK_PREVIEW_HEIGHT : SEEK_PREVIEW_WIDTH,
-          height: isPortraitPreview ? SEEK_PREVIEW_WIDTH : SEEK_PREVIEW_HEIGHT
-        });
-      fetchedFrame = frame;
-      // 生成器已应用旋转，不能再次旋转 PixelMap。
-      if (!this.playbackViewModel.isSeeking || generation !== this.seekPreviewGeneration) {
-        frame.release((error) => {
-          if (error !== undefined) {
-            Logger.error(TAG, 'Release stale seek preview frame failed: ' + JSON.stringify(error));
-          }
-        });
-        fetchedFrame = undefined;
-        return;
-      }
-      this.releaseSeekPreviewFrame();
-      this.playbackViewModel.seekPreviewFrame = frame;
-      fetchedFrame = undefined;
-    } catch (error) {
-      if (this.playbackViewModel.isSeeking && generation === this.seekPreviewGeneration) {
-        Logger.error(TAG, 'Fetch seek preview failed: ' + JSON.stringify(error));
-      }
-      if (fetchedFrame !== undefined) {
-        fetchedFrame.release((releaseError) => {
-          if (releaseError !== undefined) {
-            Logger.error(TAG, 'Release failed seek preview frame failed: ' + JSON.stringify(releaseError));
-          }
-        });
-        fetchedFrame = undefined;
-      }
-    } finally {
-      if (imageGenerator !== undefined) {
-        try {
-          await imageGenerator.release();
-        } catch (error) {
-          Logger.error(TAG, 'Release image generator failed: ' + JSON.stringify(error));
-        }
-      }
-      if (previewFile !== undefined) {
-        try {
-          fileIo.closeSync(previewFile);
-        } catch (error) {
-          Logger.error(TAG, 'Close seek preview file failed: ' + JSON.stringify(error));
-        }
-      }
-      this.seekPreviewFetchRunning = false;
-      if (this.playbackViewModel.isSeeking && (generation !== this.seekPreviewGeneration ||
-        requestId !== this.seekPreviewRequestId)) {
-        this.scheduleSeekPreview();
-      }
-    }
   }
 
   handlePlaybackProgressChange(value: number, mode: SliderChangeMode): void {
@@ -988,7 +947,7 @@ export struct Player {
     if (mode === SliderChangeMode.Begin || mode === SliderChangeMode.Moving) {
       this.sliderDragging = true;
       this.playbackViewModel.isSeeking = true;
-      this.scheduleSeekPreview();
+      this.seekPreview.scheduleSeekPreview();
       return;
     }
     if (mode !== SliderChangeMode.End && mode !== SliderChangeMode.Click) {
@@ -996,8 +955,8 @@ export struct Player {
     }
 
     this.sliderDragging = false;
-    this.cancelSeekPreviewRequest();
-    this.releaseSeekPreviewFrame();
+    this.seekPreview.cancelSeekPreviewRequest();
+    this.seekPreview.releaseSeekPreviewFrame();
     this.requestSeek(targetUs);
   }
 
@@ -1096,7 +1055,7 @@ export struct Player {
 
   private startAbLoopMonitor(): void {
     this.stopAbLoopMonitor();
-    // 每 50 ms 检查 A-B 点，避免界面刷新间隔越过 B 点。
+    // 每50 ms检查A-B点，避免界面刷新间隔越过B点。
     this.abLoopTimer = setInterval(() => {
       if (this.isAbLoopEnabled) {
         this.checkAbLoop(this.currentPlaybackPositionUs());
@@ -1118,16 +1077,16 @@ export struct Player {
     if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
-    // A-B 循环以 Native 状态和时钟为准，避免 ViewModel 刷新延迟漏掉 B 点。
+    // A-B循环以Native状态和时钟为准，避免ViewModel刷新延迟漏掉B点。
     const info = player.getPlaybackInfo();
     if (info.state !== player.PlayerState.PLAYING) {
       return;
     }
-    // 回调位置可能过期，使用 Native 时钟。
+    // 回调位置可能过期，使用Native时钟。
     positionUs = Math.max(0, Math.min(info.durationUs, info.positionUs));
     const toleranceUs = 150000;
     if (this.abLoopSeekPending) {
-      // 跳转可能落在同步帧后，回到 A-B 区间即清除待跳转标记。
+      // 跳转可能落在同步帧后，回到A-B区间即清除待跳转标记。
       if (positionUs + toleranceUs < this.abLoopEndUs) {
         this.abLoopSeekPending = false;
       }
@@ -1179,6 +1138,29 @@ export struct Player {
     }
   }
 
+  private ensurePictureInPictureController(): PlayerPictureInPictureController {
+    if (this.pictureInPictureController === undefined) {
+      this.pictureInPictureController = new PlayerPictureInPictureController({
+        onActiveChanged: (active: boolean): void => {
+          this.isPipActive = active;
+        },
+        onPlaybackChanged: (): void => {
+          this.playbackViewModel.update();
+        },
+        onSeekBySeconds: (seconds: number): void => {
+          this.seekBySeconds(seconds);
+        },
+        isBackgroundPlaybackEnabled: (): boolean => this.isBackgroundPlaybackEnabled
+      });
+    }
+    return this.pictureInPictureController;
+  }
+
+  private isPictureInPictureHoldingPlayback(): boolean {
+    return this.pictureInPictureController !== undefined &&
+      this.pictureInPictureController.shouldKeepPlaybackOnPageDisappear;
+  }
+
   private async togglePictureInPicture(): Promise<void> {
     if (this.rejectWhileSeeking()) {
       return;
@@ -1190,144 +1172,34 @@ export struct Player {
       this.showControlToast($r('app.string.playback_pip_unsupported'));
       return;
     }
-    try {
-      if (this.pipController === undefined) {
-        const hostContext = this.getUIContext().getHostContext();
-        if (hostContext === undefined) {
-          return;
-        }
-        const mediaInfo = player.getMediaInfo();
-        const width = mediaInfo.video.width > 0 ? mediaInfo.video.width : 16;
-        const height = mediaInfo.video.height > 0 ? mediaInfo.video.height : 9;
-        this.pipController = await PiPWindow.create({
-          context: hostContext,
-          componentController: this.xComponentController,
-          templateType: PiPWindow.PiPTemplateType.VIDEO_PLAY,
-          contentWidth: width,
-          contentHeight: height
-        });
-        this.pipController.on('stateChange', (state: PiPWindow.PiPState) => {
-          this.isPipActive = state === PiPWindow.PiPState.STARTED;
-          if (this.isPipActive) {
-            // PiP 启动回调可能晚于 Ability 的后台回调；若这段间隙已触发后台暂停，
-            // 这里重新启用后台续播，让 Native 播放状态与小窗控件状态保持一致。
-            player.setBackgroundPlaybackEnabled(true);
-            this.resumePiPPlaybackIfNeeded();
-            this.lastPiPSyncedPlaybackState = -1;
-            this.playbackViewModel.update();
-            this.updatePictureInPicturePlaybackState();
-          }
-          if (state === PiPWindow.PiPState.STOPPED) {
-            this.isPipActive = false;
-            this.lastPiPSyncedPlaybackState = -1;
-            this.resumePlaybackAfterPipStart = false;
-            player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-          }
-        });
-        this.pipController.on('controlEvent', (event: PiPWindow.ControlEventParam) => {
-          if (event.controlType === PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE) {
-            const playbackState: number = player.getState();
-            // status 表示 PiP 控件请求切换到的播放状态；按目标状态执行可避免重复事件反复切换。
-            if (event.status === PiPWindow.PiPControlStatus.PLAY &&
-              playbackState === player.PlayerState.PAUSED) {
-              if (!player.resume()) {
-                Logger.warn(TAG, 'PiP resume was rejected, state: ' + playbackState);
-              }
-            } else if (event.status === PiPWindow.PiPControlStatus.PAUSE &&
-              playbackState === player.PlayerState.PLAYING) {
-              if (!player.pause()) {
-                Logger.warn(TAG, 'PiP pause was rejected, state: ' + playbackState);
-              }
-            }
-            this.playbackViewModel.update();
-            this.updatePictureInPicturePlaybackState();
-          } else if (event.controlType === PiPWindow.PiPControlType.FAST_FORWARD) {
-            this.seekBySeconds(15);
-          } else if (event.controlType === PiPWindow.PiPControlType.FAST_BACKWARD) {
-            this.seekBySeconds(-15);
-          }
-        });
-      }
-      const playbackStateBeforePip: number = player.getState();
-      this.resumePlaybackAfterPipStart = playbackStateBeforePip === player.PlayerState.PLAYING;
-      this.isPipActive = true;
-      // 小窗显示期间继续保持解码；否则后台回调会暂停播放器，但 PiP 控件仍显示旧状态。
-      player.setBackgroundPlaybackEnabled(true);
-      this.lastPiPSyncedPlaybackState = -1;
-      await this.pipController.startPiP();
-      this.pipController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
-      this.resumePiPPlaybackIfNeeded();
-      this.playbackViewModel.update();
-      this.updatePictureInPicturePlaybackState();
-    } catch (error) {
-      this.isPipActive = false;
-      this.lastPiPSyncedPlaybackState = -1;
-      this.resumePlaybackAfterPipStart = false;
-      player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-      Logger.error(TAG, 'Start picture-in-picture failed: ' + JSON.stringify(error));
+    const hostContext = this.getUIContext().getHostContext();
+    if (hostContext === undefined) {
+      return;
+    }
+    const started: boolean = await this.ensurePictureInPictureController().start(hostContext,
+      this.xComponentController);
+    if (!started) {
       this.showControlToast($r('app.string.playback_pip_failed'));
     }
   }
 
-  private resumePiPPlaybackIfNeeded(): void {
-    if (!this.resumePlaybackAfterPipStart) {
-      return;
-    }
-    const playbackState: number = player.getState();
-    if (playbackState === player.PlayerState.PAUSED) {
-      if (!player.resume()) {
-        Logger.warn(TAG, 'PiP startup resume was rejected, state: ' + playbackState);
-        return;
-      }
-    } else if (playbackState !== player.PlayerState.PLAYING) {
-      return;
-    }
-    this.resumePlaybackAfterPipStart = false;
-  }
-
   private updatePictureInPicturePlaybackState(): void {
-    if (!this.isPipActive || this.pipController === undefined) {
-      return;
-    }
-    const playbackState: number = player.getState();
-    if (playbackState !== player.PlayerState.PLAYING && playbackState !== player.PlayerState.PAUSED) {
-      return;
-    }
-    if (playbackState === this.lastPiPSyncedPlaybackState) {
-      return;
-    }
-    // status 要与播放器的实际状态一致；PiP 根据它显示播放或暂停控件。
-    const pipStatus: PiPWindow.PiPControlStatus = playbackState === player.PlayerState.PLAYING
-      ? PiPWindow.PiPControlStatus.PLAY
-      : PiPWindow.PiPControlStatus.PAUSE;
-    try {
-      this.pipController.updatePiPControlStatus(PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE, pipStatus);
-      this.lastPiPSyncedPlaybackState = playbackState;
-    } catch (error) {
-      Logger.warn(TAG, 'Update PiP playback status failed: ' + JSON.stringify(error));
+    if (this.pictureInPictureController !== undefined) {
+      this.pictureInPictureController.syncPlaybackState();
     }
   }
 
   private async stopPictureInPicture(): Promise<void> {
-    if (this.pipController === undefined) {
-      return;
+    if (this.pictureInPictureController !== undefined) {
+      await this.pictureInPictureController.stop();
     }
-    try {
-      if (await this.pipController.isPiPActive()) {
-        await this.pipController.stopPiP();
-      }
-    } catch (error) {
-      Logger.error(TAG, 'Stop picture-in-picture failed: ' + JSON.stringify(error));
-    }
-    this.isPipActive = false;
-    this.lastPiPSyncedPlaybackState = -1;
-    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
   }
 
   private async toggleBackgroundPlayback(): Promise<void> {
     this.isBackgroundPlaybackEnabled = !this.isBackgroundPlaybackEnabled;
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-    if (this.isBackgroundPlaybackEnabled && this.pipController === undefined) {
+    if (this.isBackgroundPlaybackEnabled &&
+      (this.pictureInPictureController === undefined || !this.pictureInPictureController.isCreated)) {
       await this.togglePictureInPicture();
       if (!this.isPipActive) {
         this.isBackgroundPlaybackEnabled = false;
@@ -1335,8 +1207,8 @@ export struct Player {
         return;
       }
     }
-    if (this.pipController !== undefined) {
-      this.pipController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
+    if (this.pictureInPictureController !== undefined) {
+      this.pictureInPictureController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
     }
     this.showControlToast(this.isBackgroundPlaybackEnabled ?
       $r('app.string.playback_background_enabled') : $r('app.string.playback_background_disabled'));
@@ -1373,9 +1245,18 @@ export struct Player {
   updateMediaInfo(): void {
     if (!this.seekRequests.isBusy()) {
       this.currentMediaInfo = player.getMediaInfo();
+      this.videoSourceWidth = this.currentMediaInfo.video.width;
+      this.videoSourceHeight = this.currentMediaInfo.video.height;
+      this.videoSourceRotation = this.currentMediaInfo.video.rotation;
     }
-    if (this.currentMediaInfo !== undefined) {
-      this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo);
+    const context = this.getUIContext().getHostContext();
+    if (this.currentMediaInfo !== undefined && context !== undefined) {
+      try {
+        this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo, context.resourceManager,
+          this.selectFilePath === null ? '' : getPlaybackTitle(this.selectFilePath));
+      } catch (error) {
+        Logger.error(TAG, 'Build media info sections failed: ' + JSON.stringify(error));
+      }
     }
   }
 
@@ -1397,7 +1278,7 @@ export struct Player {
   }
 
   private startSelectedFilePlayback(selectedPath: string): void {
-    // 等待 XComponent 布局稳定后再创建 Native 输出目标。
+    // 等待XComponent布局稳定后再创建Native输出目标。
     setTimeout((): void => {
       if (this.selectFilePath === selectedPath) {
         this.play();
@@ -1417,9 +1298,9 @@ export struct Player {
       }
       const selectedPath = documentSelectResult[0];
       this.selectFilePath = selectedPath;
-      this.queuePaths = [selectedPath];
-      this.queueIndex = 0;
-      this.queueEntries = this.queuePaths.slice();
+      this.playbackQueue.paths = [selectedPath];
+      this.playbackQueue.index = 0;
+      this.queueEntries = this.playbackQueue.paths.slice();
       Logger.info(TAG, 'Document selected, start playback, URI: ' + this.selectFilePath);
       this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
@@ -1446,9 +1327,9 @@ export struct Player {
       }
       const selectedPath = photoSelectResult.photoUris[0];
       this.selectFilePath = selectedPath;
-      this.queuePaths = [selectedPath];
-      this.queueIndex = 0;
-      this.queueEntries = this.queuePaths.slice();
+      this.playbackQueue.paths = [selectedPath];
+      this.playbackQueue.index = 0;
+      this.queueEntries = this.playbackQueue.paths.slice();
       Logger.info(TAG, 'Album file selected, start playback, URI: ' + this.selectFilePath);
       this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
@@ -1474,6 +1355,7 @@ export struct Player {
       return;
     }
     player.setTransform(transformHint);
+    this.transformType = transformHint;
   }
 
   async stopPlayback(): Promise<void> {
@@ -1481,6 +1363,7 @@ export struct Player {
       return;
     }
     this.isStopping = true;
+    if (this.playbackLease !== undefined) { MediaTaskCoordinator.cancelling(this.playbackLease); }
     this.sliderDragging = false;
     this.recovery.cancel();
     this.seekRequests.cancel();
@@ -1500,7 +1383,20 @@ export struct Player {
     }
   }
 
+  private capturePlaybackFailure(): void {
+    const failure = player.getPlaybackInfo().failure;
+    this.playbackFailureText = failure.stage.length > 0 ?
+      failure.stage + ' · ' + failure.code + '\n' + failure.message +
+      '\n' + failure.mime + ' · ' + (failure.codecName ||
+        LocalizedText.get($r('app.string.configuration_auto_select'))) :
+      LocalizedText.get($r('app.string.playback_failed_hint'));
+  }
+
   play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
+    if (MediaFileActivity.isTranscoding()) {
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
+      return;
+    }
     if (!this.buttonEnabled || this.seekRequests.isBusy() || !this.pageActive || this.isStopping) {
       return;
     }
@@ -1513,7 +1409,7 @@ export struct Player {
       return;
     }
 
-    const session = ++this.playbackSession;
+    this.playbackFailureText = '';
     const playbackPath = this.selectFilePath;
     if (recoverySnapshot === undefined) {
       this.recovery.reset();
@@ -1527,6 +1423,23 @@ export struct Player {
       this.resumeSeekTimer = 0;
     }
 
+    if (!MediaFileActivity.beginLaunch()) {
+      this.getUIContext().getPromptAction().showToast({
+        message: LocalizedText.get($r('app.string.playback_cleanup_busy'))
+      });
+      return;
+    }
+    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('playback');
+    if (lease === undefined) { MediaFileActivity.endLaunch(); return; }
+    const session: number = ++this.playbackSession;
+    this.playbackLease = lease;
+    const reportContext = this.getUIContext().getHostContext();
+    if (reportContext !== undefined) {
+      void MediaSessionStore.begin(reportContext, { id: lease.id, operation: 'playback', startedAt: lease.startedAt })
+        .catch((error: Error): void => Logger.warn(TAG, 'Session journal: ' + error.message));
+    }
+    let nativeOwnsLease: boolean = false;
+    this.configurationTouched = true;
     try {
       const inputFile = fileIo.openSync(playbackPath, fileIo.OpenMode.READ_ONLY);
       let inputFileClosed = false;
@@ -1564,6 +1477,7 @@ export struct Player {
         this.lastHistoryPositionUs = -1;
         this.playbackViewModel.isHdrVividConfirmed = false;
         this.resetPlaybackProgress();
+        this.transformType = 0;
         let failurePromptShown = false;
         const started: boolean = player.play(this.playerSettings.createPlayOptions({
           inputFileFd: inputFile.fd,
@@ -1573,9 +1487,22 @@ export struct Player {
         }), (result) => {
           Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
           closeInputFile();
+          try {
+            if (reportContext !== undefined && MediaTaskCoordinator.owns(lease)) {
+              void MediaSessionStore.finish(reportContext, lease.id,
+                MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), result.reason))
+                .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
+            }
+          } catch (error) {
+            Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+          } finally {
+            MediaTaskCoordinator.release(lease);
+          }
           if (session !== this.playbackSession) {
             return;
           }
+          this.playbackLease = undefined;
+          if (result.reason === 'error') { this.capturePlaybackFailure(); }
           const retry = result.reason === 'error' && this.autoRecoveryEnabled &&
             !this.isStopping && this.pageActive ? this.recovery.takeRetry() : undefined;
           if (result.reason === 'error' && retry !== undefined) {
@@ -1593,7 +1520,7 @@ export struct Player {
           }
           this.playbackSessionController.updateState(player.PlayerState.STOPPING,
             this.requestedSpeed, completedPositionUs, completedDurationUs);
-          const requestedQueueIndex = this.pendingQueueIndex;
+          const requestedQueueIndex = this.playbackQueue.pendingIndex;
           this.buttonEnabled = true;
           this.isStopping = false;
           this.playbackViewModel.isSmartFluencyAvailable = false;
@@ -1622,7 +1549,7 @@ export struct Player {
             void this.continuePendingQueuePlayback();
             return;
           }
-          // 切换音轨触发的 stop() 不视为播放失败。
+          // 切换音轨触发的stop() 不视为播放失败。
           if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
             failurePromptShown = true;
             this.getUIContext().getPromptAction().showToast({
@@ -1632,19 +1559,25 @@ export struct Player {
             });
           }
           const nextIndex = result.reason === 'completed' ?
-            nextPlaybackIndex(this.playbackMode, this.queueIndex, this.queuePaths.length) : -1;
+            this.playbackQueue.next(this.playbackMode) : -1;
           if (nextIndex >= 0) {
-            this.queueIndex = nextIndex;
-            this.queueEntries = this.queuePaths.slice();
-            this.continuePlayback(session, this.queuePaths[nextIndex], 0);
+            this.playbackQueue.index = nextIndex;
+            this.queueEntries = this.playbackQueue.paths.slice();
+            this.continuePlayback(session, this.playbackQueue.paths[nextIndex], 0);
           } else {
             void this.playbackSessionController.stop();
           }
         });
-        // 启动成功后回调接管文件描述符；失败时由 finally 关闭。
-        closeInCallback = started;
+        // A failed initialization may still be draining Native resources asynchronously.
+        nativeOwnsLease = started || player.getState() !== player.PlayerState.IDLE;
+        closeInCallback = nativeOwnsLease;
+        if (started) {
+          MediaTaskCoordinator.running(lease);
+        } else if (nativeOwnsLease) {
+          MediaTaskCoordinator.cancelling(lease);
+        }
         if (!started) {
-          this.buttonEnabled = true;
+          this.buttonEnabled = !nativeOwnsLease;
           this.playbackViewModel.isSmartFluencyAvailable = false;
           this.playbackViewModel.isHdrVividConfirmed = false;
           if (recoverySnapshot !== undefined) {
@@ -1652,6 +1585,7 @@ export struct Player {
           }
           this.resetPlaybackProgress();
           failurePromptShown = true;
+          this.capturePlaybackFailure();
           Logger.error(TAG, 'Player initialization or startup failed');
           this.getUIContext().getPromptAction().showToast({
             message: $r('app.string.media_file_invalid'),
@@ -1716,6 +1650,23 @@ export struct Player {
         duration: Const.DURATION,
         bottom: Const.BOTTOM
       });
+    } finally {
+      if (!nativeOwnsLease) {
+        try {
+          if (reportContext !== undefined) {
+            const report = MediaReports.base(lease.id, 'playback', 'failed');
+            report.error = MediaReports.error('playback.prepare', -1, 'Playback preparation did not complete');
+            void MediaSessionStore.finish(reportContext, lease.id, report)
+              .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
+          }
+        } catch (error) {
+          Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+        } finally {
+          MediaTaskCoordinator.release(lease);
+        }
+        if (this.playbackLease?.id === lease.id) { this.playbackLease = undefined; }
+      }
+      MediaFileActivity.endLaunch();
     }
   }
 
@@ -1730,6 +1681,11 @@ export struct Player {
   }
 
   async prepareRecording(): Promise<void> {
+    if (MediaFileActivity.isTranscoding()) {
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
+      return;
+    }
+    this.configurationTouched = true;
     const context = this.getUIContext().getHostContext();
     if (context === undefined || !await requestRecordPermissions(context)) {
       this.getUIContext().getPromptAction().showToast({
@@ -1749,6 +1705,14 @@ export struct Player {
       Logger.error(TAG, 'camera.getCameraManager error!');
     }
 
+    if (this.cameraData.bufferInput) {
+      if (bufferProfileCameraCheck(cameraManager, this.cameraData) === undefined) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.recorder_buffer_profile_unavailable'), duration: 5000
+        });
+      }
+      return;
+    }
     let encoderProfile = await encoderProfileCameraCheck(cameraManager, this.cameraData);
     if (!encoderProfile) {
       Logger.error(TAG, 'encoderProfile is not found');
@@ -1787,48 +1751,18 @@ export struct Player {
   }
 
   private preparePlayerSettings(): void {
-    this.draftPlayerDecoderType = this.playerSettings.videoDecoderType;
-    this.draftPlayerRunMode = this.playerSettings.videoDecoderRunMode;
-    this.draftPlayerSyncMode = this.playerSettings.videoDecoderSyncMode;
-    this.draftPlayerDump = this.playerSettings.enableVideoDump;
-    this.draftPlayerRetainLastFrame = this.playerSettings.retainLastFrame;
-    this.draftPlayerLowLatency = this.playerSettings.enableLowLatency;
-    this.draftPlayerOutputInDecodingOrder = this.playerSettings.outputInDecodingOrder;
-    this.draftPlayerConvertHdrVividToBt709 = this.playerSettings.convertHdrVividToBt709 &&
-      this.isHdrVividToBt709Supported(this.draftPlayerRunMode);
-    this.draftPlayerAudioVolume = Math.round(this.playerSettings.audioVolume);
-    this.draftPlayerAudioLowLatency = this.playerSettings.enableAudioLowLatency;
-    this.draftPlayerAudioTrackIndex = this.playerSettings.audioTrackIndex;
-    this.draftPlayerAutoHideControls = this.playerSettings.autoHideControls;
+    this.playerDraft.load(this.playerSettings);
   }
 
   private prepareRecorderSettings(): void {
-    this.draftRecorderOutputFormat = this.cameraData.outputFormat === Const.FORMAT_FLV ? 1 : 0;
-    this.draftRecorderCodec = this.cameraData.isHDRVivid === Const.TRUE ? 0 :
-      this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 1 : 2;
-    this.draftRecorderResolution = this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_4K ? 0 :
-      this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ? 1 : 2;
-    this.draftRecorderFrameRate = this.cameraData.frameRate >= Const.FRAMERATE_VIDEO_60FPS ? 1 : 0;
-    this.draftRecorderSyncMode = this.cameraData.isSync;
-    this.draftRecorderBitrate = this.cameraData.bitRate <= Const.BITRATE_VIDEO_10M ? 0 :
-      this.cameraData.bitRate >= Const.BITRATE_VIDEO_30M ? 2 : 1;
-    this.draftRecorderBitrateMode = this.cameraData.bitrateMode === Const.VIDEO_BITRATE_MODE_VBR ? 1 : 0;
-    this.draftRecorderIFrameInterval = this.cameraData.iFrameInterval <= Const.I_FRAME_INTERVAL_100_MS ? 0 :
-      this.cameraData.iFrameInterval <= Const.I_FRAME_INTERVAL_1_S ? 1 : 2;
-    this.draftRecorderAudioSampleRate = this.cameraData.audioSampleRate <= Const.AUDIO_SAMPLE_RATE_44100 ? 0 : 1;
-    this.draftRecorderAudioChannelCount = this.cameraData.audioChannelCount === Const.AUDIO_CHANNEL_COUNT_MONO ? 0 : 1;
-    this.draftRecorderAudioBitrate = this.cameraData.audioBitRate <= Const.AUDIO_BITRATE_32K ? 0 :
-      this.cameraData.audioBitRate >= Const.AUDIO_BITRATE_128K ? 2 : 1;
-    this.draftRecorderAudioLatency =
-      this.cameraData.audioCaptureLatencyMode === Const.AUDIO_CAPTURE_LATENCY_LOW ?
-      1 : 0;
-    this.draftRecorderStabilization =
-      this.cameraData.videoStabilizationMode === Const.VIDEO_STABILIZATION_DISABLED ?
-      0 : 1;
-    this.draftRecorderPreprocMode = this.isAdvancedRecorderSupported ? this.cameraData.preprocMode : 0;
-    this.draftRecorderDropFrameRate = this.isAdvancedRecorderSupported && this.cameraData.dropToFrameRate > 0 ? 1 : 0;
-    this.draftRecorderDualOutput = this.isAdvancedRecorderSupported && this.cameraData.enableDualOutput ? 1 : 0;
-    this.draftRecorderVideoDump = this.cameraData.enableVideoDump;
+    this.recorderDraft.load(this.cameraData, this.isAdvancedRecorderSupported);
+    this.onRecorderDraftChanged();
+  }
+
+  private onRecorderDraftChanged(): void {
+    const data = this.recorderDraft.toCamera(this.cameraData.videoCodecName);
+    const reason: string = ConfigurationFeedback.recordingConstraint(data, deviceInfo.sdkApiVersion);
+    this.recorderCapabilityHint = reason || LocalizedText.get($r('app.string.configuration_updated_hint'));
   }
 
   private getSettingText(resource: Resource): string {
@@ -1844,121 +1778,18 @@ export struct Player {
     }
   }
 
-  private getDecoderTypeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_decoder_auto')),
-      this.getSettingText($r('app.string.setting_decoder_hardware')),
-      this.getSettingText($r('app.string.setting_decoder_software'))
-    ];
-  }
-
-  private getRenderModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_render_direct')),
-      this.getSettingText($r('app.string.setting_render_buffer')),
-      this.getSettingText($r('app.string.setting_render_opengl')),
-      this.getSettingText($r('app.string.setting_render_vulkan'))
-    ];
-  }
-
   private isHdrVividToBt709Supported(runMode: number): boolean {
     return runMode === Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT;
   }
 
   private selectPlayerRenderMode(index: number): void {
-    this.draftPlayerRunMode = index;
-    if (!this.isHdrVividToBt709Supported(index)) {
-      this.draftPlayerConvertHdrVividToBt709 = false;
+    this.playerDraft.runMode = index;
+    if (index !== Const.VIDEO_DECODER_RUN_MODE_BUFFER) {
+      this.playerDraft.dump = false;
     }
-  }
-
-  private getSyncModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_mode_async')),
-      this.getSettingText($r('app.string.setting_mode_sync'))
-    ];
-  }
-
-  private getRecorderCodecLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_codec_hdr_vivid')),
-      this.getSettingText($r('app.string.setting_codec_h264')),
-      this.getSettingText($r('app.string.setting_codec_h265'))
-    ];
-  }
-
-  private getResolutionLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_resolution_4k')),
-      this.getSettingText($r('app.string.setting_resolution_1080p')),
-      this.getSettingText($r('app.string.setting_resolution_720p'))
-    ];
-  }
-
-  private getFrameRateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_fps_30')),
-      this.getSettingText($r('app.string.setting_fps_60'))
-    ];
-  }
-
-  private getRecorderBitrateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_bitrate_10m')),
-      this.getSettingText($r('app.string.setting_bitrate_20m')),
-      this.getSettingText($r('app.string.setting_bitrate_30m'))
-    ];
-  }
-
-  private getRecorderBitrateModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_bitrate_mode_cbr')),
-      this.getSettingText($r('app.string.setting_bitrate_mode_vbr'))
-    ];
-  }
-
-  private getRecorderIFrameIntervalLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_i_frame_interval_100ms')),
-      this.getSettingText($r('app.string.setting_i_frame_interval_1s')),
-      this.getSettingText($r('app.string.setting_i_frame_interval_2s'))
-    ];
-  }
-
-  private getRecorderAudioSampleRateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_sample_rate_44100')),
-      this.getSettingText($r('app.string.setting_audio_sample_rate_48000'))
-    ];
-  }
-
-  private getRecorderAudioChannelCountLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_channel_mono')),
-      this.getSettingText($r('app.string.setting_audio_channel_stereo'))
-    ];
-  }
-
-  private getRecorderAudioBitrateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_bitrate_32k')),
-      this.getSettingText($r('app.string.setting_audio_bitrate_64k')),
-      this.getSettingText($r('app.string.setting_audio_bitrate_128k'))
-    ];
-  }
-
-  private getRecorderAudioLatencyLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_latency_normal')),
-      this.getSettingText($r('app.string.setting_audio_latency_low'))
-    ];
-  }
-
-  private getRecorderStabilizationLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_stabilization_disabled')),
-      this.getSettingText($r('app.string.setting_stabilization_auto'))
-    ];
+    if (!this.isHdrVividToBt709Supported(index)) {
+      this.playerDraft.convertHdrVividToBt709 = false;
+    }
   }
 
   private showSettingPicker(range: string[], selected: number, onSelected: (index: number) => void): void {
@@ -1990,26 +1821,16 @@ export struct Player {
   }
 
   private applyPlayerSettings(): void {
-    const values: string[] = [
-      Const.VIDEO_DECODE_TYPE[this.draftPlayerDecoderType],
-      Const.VIDEO_DECODER_RUN_MODE[this.draftPlayerRunMode],
-      Const.VIDEO_DECODER_SYNC_MODE[this.draftPlayerSyncMode],
-      this.draftPlayerDump ? Const.VIDEO_DUMP_MODE[1] : Const.VIDEO_DUMP_MODE[0],
-      this.draftPlayerRetainLastFrame ? Const.VIDEO_LAST_FRAME_MODE[0] : Const.VIDEO_LAST_FRAME_MODE[1],
-      this.draftPlayerLowLatency ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerOutputInDecodingOrder ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerConvertHdrVividToBt709 ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerAudioLowLatency ? Const.AUDIO_RENDERER_LATENCY_MODE[1] : Const.AUDIO_RENDERER_LATENCY_MODE[0]
-    ];
-    if (!this.playerSettings.applyPickerValues(values, this.draftPlayerAudioVolume)) {
-      Logger.error(TAG, 'Invalid player settings: ' + JSON.stringify(values));
+    if (!this.playerDraft.apply(this.playerSettings)) {
+      Logger.error(TAG, 'Invalid player settings');
       return;
     }
     this.isPlayerSettingsVisible = false;
     player.setVolume(this.playerSettings.audioVolume / 100);
     this.audioMuted = false;
     this.volumeBeforeMute = this.playerSettings.audioVolume;
-    this.playerSettings.autoHideControls = this.draftPlayerAutoHideControls;
+    this.playerSettings.autoHideControls = this.playerDraft.autoHideControls;
+    void this.persistConfiguration();
     if (this.playerSettings.autoHideControls) {
       this.showPlaybackControls();
     } else {
@@ -2027,467 +1848,151 @@ export struct Player {
     }
   }
 
+  private checkRecorderDraftCapabilities(): void {
+    const draft = this.recorderDraft.toCamera(this.cameraData.videoCodecName);
+    this.recorderCapabilityHint = ConfigurationFeedback.recording(draft, deviceInfo.sdkApiVersion);
+  }
+
   private applyRecorderSettings(): void {
     if (!this.isAdvancedRecorderSupported) {
-      this.draftRecorderPreprocMode = 0;
-      this.draftRecorderDropFrameRate = 0;
-      this.draftRecorderDualOutput = 0;
+      this.recorderDraft.preprocMode = 0;
+      this.recorderDraft.dropFrameRate = 0;
+      this.recorderDraft.dualOutput = 0;
     }
-    const values: string[] = [
-      Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
-      Const.VIDEO_MIMETYPE[this.draftRecorderCodec],
-      Const.VIDEO_RESOLUTION[this.draftRecorderResolution],
-      Const.VIDEO_FRAMERATE[this.draftRecorderFrameRate],
-      Const.VIDEO_DECODER_SYNC_MODE[this.draftRecorderSyncMode],
-      Const.VIDEO_BITRATE[this.draftRecorderBitrate],
-      Const.VIDEO_BITRATE_MODE[this.draftRecorderBitrateMode],
-      Const.VIDEO_I_FRAME_INTERVAL[this.draftRecorderIFrameInterval],
-      Const.AUDIO_SAMPLE_RATE[this.draftRecorderAudioSampleRate],
-      Const.AUDIO_CHANNEL_COUNT[this.draftRecorderAudioChannelCount],
-      Const.AUDIO_BITRATE[this.draftRecorderAudioBitrate],
-      Const.AUDIO_CAPTURE_LATENCY_MODE[this.draftRecorderAudioLatency],
-      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization],
-      Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
-      Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
-      Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput]
-    ];
-    if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
-      Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
+    if (!this.recorderDraft.apply(this.cameraData)) {
+      Logger.error(TAG, 'Invalid recorder settings');
       return;
     }
-    this.cameraData.enableVideoDump = this.draftRecorderVideoDump;
+    // 相机查询会让出执行权；先标记用户已应用，防止启动时的异步读取覆盖刚改的设置。
+    this.configurationTouched = true;
     this.isRecorderSettingsVisible = false;
-    this.checkIsProfileSupport();
+    void this.checkIsProfileSupport().then((): void => { void this.persistConfiguration(); })
+      .catch((_error: Error): void => {
+        this.configurationNotice = LocalizedText.get($r('app.string.configuration_camera_query_failed'));
+      });
   }
 
-  @Builder
-  SettingOptionRow(title: Resource, value: string, onClick: () => void, enabled: boolean = true) {
-    Row() {
-      Text(title)
-        .fontSize('16fp')
-        .fontColor('#202124')
-        .maxLines(1)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-        .layoutWeight(1)
-      Text(value)
-        .fontSize('14fp')
-        .fontColor('#5F6368')
-        .maxLines(1)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-      Text('›')
-        .fontSize('24fp')
-        .fontColor('#8A8A8A')
-        .margin({ left: '8vp' })
+  private choosePlayerOption(option: PlayerSettingsOption): void {
+    if (option === PlayerSettingsOption.DECODER_TYPE) {
+      this.showSettingPicker(MediaSettingsLabels.getDecoderTypeLabels(), this.playerDraft.decoderType,
+        (index: number): void => { this.playerDraft.decoderType = index; });
+    } else if (option === PlayerSettingsOption.RUN_MODE) {
+      this.showSettingPicker(MediaSettingsLabels.getRenderModeLabels(), this.playerDraft.runMode,
+        (index: number): void => this.selectPlayerRenderMode(index));
+    } else if (option === PlayerSettingsOption.SYNC_MODE) {
+      this.showSettingPicker(MediaSettingsLabels.getSyncModeLabels(), this.playerDraft.syncMode,
+        (index: number): void => { this.playerDraft.syncMode = index; });
     }
-      .width('100%')
-      .height('56vp')
-      .padding({ left: '4vp', right: '4vp' })
-      .enabled(enabled)
-      .opacity(enabled ? 1 : 0.45)
-      .onClick(onClick)
   }
 
-  @Builder
-  SettingGroupHeader(title: Resource) {
-    Row() {
-      Text(title)
-        .fontSize('13fp')
-        .fontColor('#5F6368')
-        .fontWeight(FontWeight.Medium)
-    }
-      .width('100%')
-      .height('36vp')
-      .padding({ left: '4vp', right: '4vp', top: '10vp', bottom: '4vp' })
+  private resetPlayerSettingsDraft(): void {
+    this.isAdvancedPlayerSettingsExpanded = false;
+    this.playerDraft = new PlayerSettingsDraft();
   }
 
-  @Builder
-  SettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
-    Row({ space: '8vp' }) {
-      Button($r('app.string.setting_restore_defaults'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onReset)
-      Button($r('app.string.setting_cancel'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onCancel)
-      Button($r('app.string.setting_apply'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#0A59F7')
-        .fontColor(Color.White)
-        .onClick(onApply)
-    }
-      .width('100%')
-      .padding({ top: '12vp', bottom: '8vp' })
+  private resetRecorderSettingsDraft(): void {
+    this.recorderDraft = new RecorderSettingsDraft();
   }
 
-  @Builder
-  PlayerSettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
-    Row({ space: '6vp' }) {
-      Button($r('app.string.setting_restore_defaults'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onReset)
-      Button($r('app.string.setting_cancel'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onCancel)
-      Button($r('app.string.setting_apply'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#0A59F7')
-        .fontColor(Color.White)
-        .onClick(onApply)
-    }
-      .width('100%')
-      .height('44vp')
-      .padding({ top: '8vp', bottom: '6vp' })
+  private chooseRecorderOption(option: RecorderSettingsOption): void {
+    RecorderSettingsController.choose(option, this.recorderDraft,
+      (labels: string[], selected: number, onSelected: (index: number) => void): void =>
+        this.showSettingPicker(labels, selected, onSelected));
   }
 
   @Builder
   PlayerSettingsSheet() {
-    this.PlayerSettingsSheetContent()
-  }
-
-  @Builder
-  PlayerSettingsSheetContent() {
-    Column() {
-      Scroll() {
-        Column() {
-          this.SettingOptionRow($r('app.string.setting_decoder_type'),
-            this.getDecoderTypeLabels()[this.draftPlayerDecoderType], () => {
-              this.showSettingPicker(this.getDecoderTypeLabels(), this.draftPlayerDecoderType,
-                (index: number) => this.draftPlayerDecoderType = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_run_mode'),
-            this.getRenderModeLabels()[this.draftPlayerRunMode], () => {
-              this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
-                (index: number) => this.selectPlayerRenderMode(index));
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_sync_mode'),
-            this.getSyncModeLabels()[this.draftPlayerSyncMode], () => {
-              this.showSettingPicker(this.getSyncModeLabels(), this.draftPlayerSyncMode,
-                (index: number) => this.draftPlayerSyncMode = index);
-            })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_dump'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
-              .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
-          }
-            .width('100%')
-            .height('56vp')
-            .padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Column() {
-            Row() {
-              Text($r('app.string.setting_audio_volume'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Text(this.draftPlayerAudioVolume.toFixed(0) + '%')
-                .fontSize('14fp').fontColor('#5F6368')
-            }.width('100%')
-            Slider({ value: this.draftPlayerAudioVolume, min: 0, max: 100, step: 1 })
-              .width('100%').blockColor('#0A59F7').selectedColor('#5DA9FF')
-              .onChange((value: number) => this.draftPlayerAudioVolume = value)
-          }
-            .width('100%').padding({ top: '8vp', bottom: '8vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_advanced'))
-              .fontSize('14fp')
-              .fontWeight(FontWeight.Medium)
-              .fontColor('#5F6368')
-              .layoutWeight(1)
-            Text(this.isAdvancedPlayerSettingsExpanded ? '−' : '+')
-              .fontSize('20fp')
-              .fontColor('#5F6368')
-          }
-            .width('100%')
-            .height('48vp')
-            .padding({ left: '4vp', right: '4vp' })
-            .onClick(() => this.isAdvancedPlayerSettingsExpanded = !this.isAdvancedPlayerSettingsExpanded)
-          if (this.isAdvancedPlayerSettingsExpanded) {
-            Row() {
-              Text($r('app.string.setting_dump'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
-                .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_audio_latency'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAudioLowLatency })
-                .onChange((isOn: boolean) => this.draftPlayerAudioLowLatency = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_auto_hide_controls'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAutoHideControls })
-                .onChange((isOn: boolean) => this.draftPlayerAutoHideControls = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_retain_last_frame'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerRetainLastFrame })
-                .enabled(this.draftPlayerRunMode === 0)
-                .onChange((isOn: boolean) => this.draftPlayerRetainLastFrame = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_low_latency'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerLowLatency })
-                .onChange((isOn: boolean) => this.draftPlayerLowLatency = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_decoding_order_output'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerOutputInDecodingOrder })
-                .onChange((isOn: boolean) => this.draftPlayerOutputInDecodingOrder = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Column() {
-                Text($r('app.string.setting_hdr_vivid_to_bt709'))
-                  .fontSize('16fp')
-                  .fontColor(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '#202124' : '#8A8A8A')
-                if (!this.isHdrVividToBt709Supported(this.draftPlayerRunMode)) {
-                  Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
-                    .fontSize('12fp')
-                    .fontColor('#8A8A8A')
-                    .maxLines(1)
-                    .textOverflow({ overflow: TextOverflow.Ellipsis })
-                }
-              }
-                .alignItems(HorizontalAlign.Start)
-                .layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerConvertHdrVividToBt709 })
-                .enabled(this.isHdrVividToBt709Supported(this.draftPlayerRunMode))
-                .onChange((isOn: boolean) => this.draftPlayerConvertHdrVividToBt709 = isOn)
-            }
-              .width('100%')
-              .height(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '56vp' : '68vp')
-              .padding({ left: '4vp', right: '4vp' })
-          }
-        }
-          .width('100%')
-      }
-        .layoutWeight(1)
-        .scrollBar(BarState.Auto)
-      this.PlayerSettingSheetFooter(
-        () => this.isPlayerSettingsVisible = false,
-        () => {
-          this.isAdvancedPlayerSettingsExpanded = false;
-          this.draftPlayerDecoderType = 0;
-          this.draftPlayerRunMode = 0;
-          this.draftPlayerSyncMode = 0;
-          this.draftPlayerDump = false;
-          this.draftPlayerRetainLastFrame = true;
-          this.draftPlayerLowLatency = false;
-          this.draftPlayerOutputInDecodingOrder = false;
-          this.draftPlayerConvertHdrVividToBt709 = false;
-          this.draftPlayerAudioVolume = 100;
-          this.draftPlayerAudioLowLatency = false;
-          this.draftPlayerAutoHideControls = true;
-        },
-        () => this.applyPlayerSettings()
-      )
-    }
-      .width('100%')
-      .height('100%')
-      .padding({ left: '20vp', right: '20vp' })
-      .backgroundColor('#F8F9FA')
+    PlayerSettingsPanel({
+      capabilityHint: ConfigurationFeedback.playback(this.playerDraft.runMode, deviceInfo.sdkApiVersion),
+      decoderTypeText: MediaSettingsLabels.getDecoderTypeLabels()[this.playerDraft.decoderType],
+      runModeText: MediaSettingsLabels.getRenderModeLabels()[this.playerDraft.runMode],
+      syncModeText: MediaSettingsLabels.getSyncModeLabels()[this.playerDraft.syncMode],
+      dumpEnabled: this.playerDraft.dump,
+      dumpAvailable: this.playerDraft.runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER,
+      volumePercent: this.playerDraft.audioVolume,
+      advancedExpanded: this.isAdvancedPlayerSettingsExpanded,
+      audioLowLatencyEnabled: this.playerDraft.audioLowLatency,
+      autoHideControlsEnabled: this.playerDraft.autoHideControls,
+      retainLastFrameEnabled: this.playerDraft.retainLastFrame,
+      retainLastFrameAvailable: this.playerDraft.runMode === 0,
+      lowLatencyEnabled: this.playerDraft.lowLatency,
+      decodingOrderOutputEnabled: this.playerDraft.outputInDecodingOrder,
+      hdrVividConversionEnabled: this.playerDraft.convertHdrVividToBt709,
+      hdrVividConversionAvailable: this.isHdrVividToBt709Supported(this.playerDraft.runMode),
+      onChooseOption: (option: PlayerSettingsOption): void => this.choosePlayerOption(option),
+      onDumpChanged: (enabled: boolean): void => {
+        this.playerDraft.dump = enabled && this.playerDraft.runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER;
+      },
+      onVolumeChanged: (volume: number): void => { this.playerDraft.audioVolume = volume; },
+      onAdvancedExpandedChanged: (expanded: boolean): void => {
+        this.isAdvancedPlayerSettingsExpanded = expanded;
+      },
+      onAudioLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.audioLowLatency = enabled; },
+      onAutoHideControlsChanged: (enabled: boolean): void => { this.playerDraft.autoHideControls = enabled; },
+      onRetainLastFrameChanged: (enabled: boolean): void => { this.playerDraft.retainLastFrame = enabled; },
+      onLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.lowLatency = enabled; },
+      onDecodingOrderOutputChanged: (enabled: boolean): void => {
+        this.playerDraft.outputInDecodingOrder = enabled;
+      },
+      onHdrVividConversionChanged: (enabled: boolean): void => {
+        this.playerDraft.convertHdrVividToBt709 = enabled;
+      },
+      onCancel: (): void => { this.isPlayerSettingsVisible = false; },
+      onRestoreDefaults: (): void => this.resetPlayerSettingsDraft(),
+      onApply: (): void => this.applyPlayerSettings()
+    })
   }
 
   @Builder
   RecorderSettingsSheet() {
-    this.RecorderSettingsSheetContent()
-  }
-
-  @Builder
-  RecorderSettingsSheetContent() {
-    Column() {
-      Scroll() {
-        Column() {
-          this.SettingGroupHeader($r('app.string.setting_group_output'))
-          Row() {
-            Text($r('app.string.setting_recorder_dump'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftRecorderVideoDump })
-              .onChange((isOn: boolean) => this.draftRecorderVideoDump = isOn)
-          }
-            .width('100%')
-            .height('52vp')
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_output_format'),
-            Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat], () => {
-              this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
-                (index: number) => this.draftRecorderOutputFormat = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_video'))
-          this.SettingOptionRow($r('app.string.setting_codec'),
-            this.getRecorderCodecLabels()[this.draftRecorderCodec], () => {
-              this.showSettingPicker(this.getRecorderCodecLabels(), this.draftRecorderCodec,
-                (index: number) => this.draftRecorderCodec = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_resolution'),
-            this.getResolutionLabels()[this.draftRecorderResolution], () => {
-              this.showSettingPicker(this.getResolutionLabels(), this.draftRecorderResolution,
-                (index: number) => this.draftRecorderResolution = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_frame_rate'),
-            this.getFrameRateLabels()[this.draftRecorderFrameRate], () => {
-              this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate,
-                (index: number) => {
-                  this.draftRecorderFrameRate = index;
-                  if (index === 0) {
-                    this.draftRecorderDropFrameRate = 0;
-                  }
-                });
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_video_bitrate'),
-            this.getRecorderBitrateLabels()[this.draftRecorderBitrate], () => {
-              this.showSettingPicker(this.getRecorderBitrateLabels(), this.draftRecorderBitrate,
-                (index: number) => this.draftRecorderBitrate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_bitrate_mode'),
-            this.getRecorderBitrateModeLabels()[this.draftRecorderBitrateMode], () => {
-              this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.draftRecorderBitrateMode,
-                (index: number) => this.draftRecorderBitrateMode = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_i_frame_interval'),
-            this.getRecorderIFrameIntervalLabels()[this.draftRecorderIFrameInterval], () => {
-              this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.draftRecorderIFrameInterval,
-                (index: number) => this.draftRecorderIFrameInterval = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_audio'))
-          this.SettingOptionRow($r('app.string.setting_audio_sample_rate'),
-            this.getRecorderAudioSampleRateLabels()[this.draftRecorderAudioSampleRate], () => {
-              this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.draftRecorderAudioSampleRate,
-                (index: number) => this.draftRecorderAudioSampleRate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_channel_count'),
-            this.getRecorderAudioChannelCountLabels()[this.draftRecorderAudioChannelCount], () => {
-              this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.draftRecorderAudioChannelCount,
-                (index: number) => this.draftRecorderAudioChannelCount = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_bitrate'),
-            this.getRecorderAudioBitrateLabels()[this.draftRecorderAudioBitrate], () => {
-              this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.draftRecorderAudioBitrate,
-                (index: number) => this.draftRecorderAudioBitrate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_capture_latency'),
-            this.getRecorderAudioLatencyLabels()[this.draftRecorderAudioLatency], () => {
-              this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.draftRecorderAudioLatency,
-                (index: number) => this.draftRecorderAudioLatency = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_control'))
-          this.SettingOptionRow($r('app.string.setting_sync_mode'),
-            this.getSyncModeLabels()[this.draftRecorderSyncMode], () => {
-              this.showSettingPicker(this.getSyncModeLabels(), this.draftRecorderSyncMode,
-                (index: number) => this.draftRecorderSyncMode = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_video_stabilization'),
-            this.getRecorderStabilizationLabels()[this.draftRecorderStabilization], () => {
-              this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
-                (index: number) => this.draftRecorderStabilization = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_preproc'))
-          this.SettingOptionRow($r('app.string.setting_video_preproc'),
-            Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode], () => {
-              this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
-                (index: number) => this.draftRecorderPreprocMode = index);
-            }, this.isAdvancedRecorderSupported)
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_drop_frame_rate'),
-            Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate], () => {
-              this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
-                (index: number) => this.draftRecorderDropFrameRate = index);
-            }, this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0)
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_dual_output'),
-            Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput], () => {
-              this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
-                (index: number) => this.draftRecorderDualOutput = index);
-            }, this.isAdvancedRecorderSupported)
-        }
-          .width('100%')
-      }
-        .layoutWeight(1)
-        .scrollBar(BarState.Auto)
-      this.SettingSheetFooter(
-        () => this.isRecorderSettingsVisible = false,
-        () => {
-          this.draftRecorderOutputFormat = 0;
-          this.draftRecorderCodec = 1;
-          this.draftRecorderResolution = 1;
-          this.draftRecorderFrameRate = 0;
-          this.draftRecorderSyncMode = 0;
-          this.draftRecorderBitrate = 1;
-          this.draftRecorderBitrateMode = 0;
-          this.draftRecorderIFrameInterval = 0;
-          this.draftRecorderAudioSampleRate = 1;
-          this.draftRecorderAudioChannelCount = 1;
-          this.draftRecorderAudioBitrate = 0;
-          this.draftRecorderAudioLatency = 0;
-          this.draftRecorderStabilization = 1;
-          this.draftRecorderPreprocMode = 0;
-          this.draftRecorderDropFrameRate = 0;
-          this.draftRecorderDualOutput = 0;
-          this.draftRecorderVideoDump = false;
-        },
-        () => this.applyRecorderSettings()
-      )
-    }
-      .width('100%')
-      .height('100%')
-      .padding({ left: '20vp', right: '20vp' })
-      .backgroundColor('#F8F9FA')
+    RecorderSettingsPanel({
+      draft: this.recorderDraft,
+      capabilityHint: this.recorderCapabilityHint,
+      onCheckCapabilities: (): void => this.checkRecorderDraftCapabilities(),
+      videoDumpEnabled: this.recorderDraft.videoDump,
+      stopOnLowSpace: this.recorderDraft.stopOnLowSpace,
+      onStorageProtectionChanged: (enabled: boolean): void => { this.recorderDraft.stopOnLowSpace = enabled; },
+      advancedOptionsSupported: this.isAdvancedRecorderSupported && this.recorderDraft.inputMode === 0,
+      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.recorderDraft.inputMode === 0 &&
+        this.recorderDraft.frameRate > 0,
+      outputFormatText: Const.OUTPUT_FORMAT[this.recorderDraft.outputFormat],
+      videoCodecText: MediaSettingsLabels.getRecorderCodecLabels()[this.recorderDraft.codec],
+      videoResolutionText: MediaSettingsLabels.getResolutionLabels()[this.recorderDraft.resolution],
+      videoFrameRateText: MediaSettingsLabels.getFrameRateLabels()[this.recorderDraft.frameRate],
+      syncModeText: MediaSettingsLabels.getSyncModeLabels()[this.recorderDraft.syncMode],
+      videoBitrateText: MediaSettingsLabels.getRecorderBitrateLabels()[this.recorderDraft.bitrate],
+      bitrateModeText: MediaSettingsLabels.getRecorderBitrateModeLabels()[this.recorderDraft.bitrateMode],
+      iFrameIntervalText: MediaSettingsLabels.getRecorderIFrameIntervalLabels()[this.recorderDraft.iFrameInterval],
+      audioSampleRateText: MediaSettingsLabels.getRecorderAudioSampleRateLabels()[this.recorderDraft.audioSampleRate],
+      audioChannelCountText:
+        MediaSettingsLabels.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
+      audioBitrateText: MediaSettingsLabels.getRecorderAudioBitrateLabels()[this.recorderDraft.audioBitrate],
+      audioCaptureLatencyText: MediaSettingsLabels.getRecorderAudioLatencyLabels()[this.recorderDraft.audioLatency],
+      videoStabilizationText: MediaSettingsLabels.getRecorderStabilizationLabels()[this.recorderDraft.stabilization],
+      videoPreprocessingText: this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_CROP ?
+        LocalizedText.get($r('app.string.preprocess_center_crop_prefix')) + this.recorderDraft.cropPercent + '%）' :
+        (this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_DOWNSAMPLING ?
+          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) +
+            this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
+      preprocessMode: this.recorderDraft.preprocMode,
+      sourceWidth: this.recorderDraft.resolution === 0 ? Const.VIDEO_WIDTH_4K :
+        (this.recorderDraft.resolution === 1 ? Const.VIDEO_WIDTH_1080P : Const.VIDEO_WIDTH_720P),
+      sourceHeight: this.recorderDraft.resolution === 0 ? Const.VIDEO_HEIGHT_4K :
+        (this.recorderDraft.resolution === 1 ? Const.VIDEO_HEIGHT_1080P : Const.VIDEO_HEIGHT_720P),
+      sourceFrameRate: this.recorderDraft.frameRate === 0 ? 30 : 60,
+      cropPercent: this.recorderDraft.cropPercent,
+      targetHeight: this.recorderDraft.downsamplingHeight,
+      secondaryHeight: this.recorderDraft.secondaryHeight,
+      secondaryEnabled: this.recorderDraft.dualOutput === 1,
+      dropToFrameRate: this.recorderDraft.dropFrameRate === 1 ? 30 : 0,
+      dropFrameRateText: Const.VIDEO_DROP_FRAME_RATE[this.recorderDraft.dropFrameRate],
+      dualOutputText: Const.DUAL_OUTPUT_MODE[this.recorderDraft.dualOutput],
+      onVideoDumpChanged: (enabled: boolean): void => { this.recorderDraft.videoDump = enabled; },
+      onChooseOption: (option: RecorderSettingsOption): void => this.chooseRecorderOption(option),
+      onCancel: (): void => { this.isRecorderSettingsVisible = false; },
+      onRestoreDefaults: (): void => this.resetRecorderSettingsDraft(),
+      onApply: (): void => this.applyRecorderSettings()
+    })
   }
 
   @Builder
@@ -2539,105 +2044,15 @@ export struct Player {
 
   @Builder
   Authorized() {
-    Column() {
-      Text($r('app.string.saveButtonNote'))
-        .width('100%')
-        .fontSize('16vp')
-        .margin({ bottom: '12vp' })
+    RecorderSaveAuthorizationPanel({
+      onCancel: (): void => { this.isShow = false; },
+      onSave: async (): Promise<void> => { await this.saveRecorderOutput(); }
+    })
+  }
 
-      Row() {
-        Button($r('app.string.saveButtonCancel'))
-          .onClick(() => {
-            this.isShow = false
-          })
-          .width('48%')
-
-        Blank()
-
-        SaveButton({ text: SaveDescription.SAVE })
-          .onClick(async () => {
-            const context = this.getUIContext().getHostContext();
-            let helper = photoAccessHelper.getPhotoAccessHelper(context);
-            let fileExt = this.cameraData.outputFormat === Const.FORMAT_FLV ? 'flv' : 'mp4';
-            let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-              title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
-            });
-            let secondaryFile: fileIo.File | undefined = undefined;
-            if (this.cameraData.enableDualOutput) {
-              const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-                title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
-              });
-              secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-            }
-            await this.checkIsProfileSupport();
-            let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-            this.cameraData.outputfd = file.fd;
-            this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
-            const dumpTimestamp: number = Date.now();
-            const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
-            const dumpDirectory: string = context === undefined ? '' : context.filesDir;
-            const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
-              `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
-            const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
-              dumpDirectory.length > 0 ?
-              `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
-            if (this.cameraData.outputfd !== null) {
-              recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
-                this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
-                this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
-                this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
-                this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
-                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
-                this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
-                this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
-                this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
-                this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
-                this.cameraData.cropBottom,
-                this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
-                  Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
-                this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
-                  Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
-                this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
-                if (data.code === 0 && data.outputId !== null) {
-                  this.cameraData.outputId = data.outputId;
-                  this.getUIContext().getRouter().pushUrl({
-                    url: 'recorder/pages/Recorder',
-                    params: this.cameraData
-                  });
-                } else {
-                  Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
-                  try {
-                    fileIo.close(file);
-                    if (secondaryFile !== undefined) {
-                      fileIo.close(secondaryFile);
-                    }
-                  } catch (error) {
-                    Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
-                  }
-                  this.getUIContext().getPromptAction().showToast({
-                    message: $r('app.string.recorder_configuration_unsupported'),
-                    duration: Const.DURATION,
-                    bottom: Const.BOTTOM
-                  });
-                }
-              })
-            } else {
-              Logger.error(TAG, 'get outputfd failed!');
-            }
-          })
-          .width('48%')
-          .height('40vp')
-      }
-      .justifyContent(FlexAlign.SpaceAround)
-      .alignItems(VerticalAlign.Bottom)
-      .margin({ bottom: '44vp' })
-      .width('100%')
-      .height('52vp')
-    }
-    .justifyContent(FlexAlign.End)
-    .padding({ left: '16vp', right: '16vp' })
-    .width('100%')
-    .height('100%')
+  private async saveRecorderOutput(): Promise<void> {
+    await this.checkIsProfileSupport();
+    await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
   }
 
   @Builder
@@ -2650,7 +2065,7 @@ export struct Player {
     LibraryPage({
       recentEntries: this.recentEntries,
       queueEntries: this.queueEntries,
-      queueIndex: this.queueIndex,
+      queueIndex: this.playbackQueue.index,
       buttonEnabled: this.buttonEnabled,
       recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
       recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
@@ -2662,8 +2077,8 @@ export struct Player {
         void this.selectQueueFiles();
       },
       onClearQueue: (): void => {
-        this.queuePaths = [];
-        this.queueIndex = -1;
+        this.playbackQueue.paths = [];
+        this.playbackQueue.index = -1;
         this.queueEntries = [];
       },
       onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
@@ -2679,13 +2094,15 @@ export struct Player {
         cameraHeight: this.cameraData.cameraHeight,
         frameRate: this.cameraData.frameRate,
         buttonEnabled: this.buttonEnabled,
+        refreshToken: this.recordingHistoryRevision,
         onOpenSettings: (): void => {
           this.prepareRecorderSettings();
           this.isRecorderSettingsVisible = true;
         },
         onStartRecording: (): void => {
           void this.prepareRecording();
-        }
+      },
+      onPlayRecording: (uri: string): void => this.playRecording(uri)
       })
       Column()
         .width(1)
@@ -2710,6 +2127,51 @@ export struct Player {
   }
 
   @Builder
+  TranscodeHomePage() {
+    TranscodePage({ model: this.transcodeModel, quality: this.transcodeModel.quality,
+      onPlayResult: (uri: string): void => this.playRecording(uri) })
+  }
+
+  @Builder
+  DeviceDiagnosticsHomePage() {
+    DeviceDiagnosticsPage({
+      configurationReady: this.configurationReady,
+      configurationNotice: this.configurationNotice,
+      configurationRevision: this.configurationRevision,
+      onPreset: (index: number): void => { void this.selectConfiguration(index); },
+      onSaveConfiguration: (): void => { void this.persistConfiguration(true); },
+      onLoadConfiguration: (): void => { void this.selectConfiguration(-1); },
+      onDumpPolicyChanged: (): void => { void this.persistConfiguration(); },
+      model: this.playbackViewModel,
+      cameraData: this.cameraData,
+      selectedDecoder: this.selectedDecoderName,
+      selectedEncoder: this.selectedEncoderName,
+      onChooseCodec: (item: DeviceCodecCapability): void => {
+        if (item.codecType === 1) {
+          this.selectedDecoderName = item.codecName;
+          this.playerSettings.videoCodecName = item.codecName;
+        } else if (item.codecType === 0) {
+          if (this.cameraData.preprocMode !== 0 || this.cameraData.enableDualOutput ||
+            this.cameraData.dropToFrameRate > 0) {
+            this.getUIContext().getPromptAction().showToast({
+              message: LocalizedText.get($r('app.string.configuration_special_codec_name'))
+            });
+            return;
+          }
+          this.selectedEncoderName = item.codecName;
+          this.cameraData.videoCodecName = item.codecName;
+        }
+      },
+      onClearCodecs: (): void => {
+        this.selectedDecoderName = '';
+        this.selectedEncoderName = '';
+        this.playerSettings.videoCodecName = '';
+        this.cameraData.videoCodecName = '';
+      }
+    })
+  }
+
+  @Builder
   BottomNavigation() {
     MainBottomNavigation({
       activeIndex: this.activeMainTab,
@@ -2723,7 +2185,7 @@ export struct Player {
   QueuePanel() {
     PlayerQueueSheet({
       queueEntries: this.queueEntries,
-      queueIndex: this.queueIndex,
+      queueIndex: this.playbackQueue.index,
       recentEntries: this.recentEntries,
       playbackMode: this.playbackMode,
       autoRecoveryEnabled: this.autoRecoveryEnabled,
@@ -2734,8 +2196,8 @@ export struct Player {
       onRecoveryChanged: (enabled: boolean): void => { this.autoRecoveryEnabled = enabled; },
       onAddQueue: (): void => { void this.selectQueueFiles(); },
       onClearQueue: (): void => {
-        this.queuePaths = [];
-        this.queueIndex = -1;
+        this.playbackQueue.paths = [];
+        this.playbackQueue.index = -1;
         this.queueEntries = [];
       },
       onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
@@ -2745,289 +2207,94 @@ export struct Player {
 
   @Builder
   PlaybackToolsPanel() {
-    Scroll() {
-    Column({ space: '8vp' }) {
-      Text($r('app.string.playback_section_controls'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      Row({ space: '8vp' }) {
-        Button($r('app.string.playback_queue'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .onClick(() => {
-            this.closePlaybackTools();
-            setTimeout(() => {
-              this.isQueueVisible = true;
-            }, 300);
-          })
-      }
-      .height('44vp')
-      if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.adjust_playback_speed'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.showPlaybackSpeedPicker();
-            })
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_display_scale'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectDisplayScaleMode();
-            })
-          if (this.playbackViewModel.hasAudio) {
-            Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
-              .layoutWeight(1)
-              .height('30vp')
-              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-              .fontSize('10fp')
-              .onClick(() => {
-                this.toggleMute();
-                this.closePlaybackTools();
-              })
-          } else {
-            Blank().layoutWeight(1)
+    PlaybackMoreActionsPanel({
+      buttonEnabled: this.buttonEnabled,
+      isStopping: this.isStopping,
+      hasVideo: this.playbackViewModel.hasVideo,
+      hasAudio: this.playbackViewModel.hasAudio,
+      audioMuted: this.audioMuted,
+      isPlayerSettingsVisible: this.isPlayerSettingsVisible,
+      abLoopStartUs: this.abLoopStartUs,
+      abLoopEndUs: this.abLoopEndUs,
+      isAbLoopEnabled: this.isAbLoopEnabled,
+      isBackgroundPlaybackEnabled: this.isBackgroundPlaybackEnabled,
+      isPipActive: this.isPipActive,
+      subtitleFileName: this.subtitleFileName,
+      onClearSubtitle: (): void => this.clearSubtitle(),
+      onAction: (action: PlaybackMoreAction): Promise<void> => this.handlePlaybackMoreAction(action)
+    })
+  }
+
+  private async handlePlaybackMoreAction(action: PlaybackMoreAction): Promise<void> {
+    if (action === PlaybackMoreAction.OPEN_QUEUE) {
+      this.closePlaybackTools()
+      setTimeout(() => this.isQueueVisible = true, 300)
+    } else if (action === PlaybackMoreAction.CHANGE_SPEED) {
+      this.closePlaybackTools()
+      this.showPlaybackSpeedPicker()
+    } else if (action === PlaybackMoreAction.DISPLAY_SCALE) {
+      this.closePlaybackTools()
+      this.selectDisplayScaleMode()
+    } else if (action === PlaybackMoreAction.TOGGLE_MUTE) {
+      this.toggleMute()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.CHOOSE_TRANSFORM) {
+      this.getUIContext().showTextPickerDialog({
+        range: Const.getTransformTypes(),
+        canLoop: false,
+        onAccept: (value: TextPickerResult): void => {
+          const transformIndex: number = getPickerSelectedIndex(value.index)
+          if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
+            this.setTransform(transformIndex)
           }
         }
-        .height('44vp')
-      } else if (this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.toggleMute();
-              this.closePlaybackTools();
-            })
-          Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row() {
-          Button($r('app.string.playback_transform'))
-            .width('100%')
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.getUIContext().showTextPickerDialog({
-                range: Const.getTransformTypes(),
-                canLoop: false,
-                onAccept: (value: TextPickerResult) => {
-                  const transformIndex = getPickerSelectedIndex(value.index);
-                  if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
-                    this.transformType = transformIndex;
-                    this.setTransform(this.transformType);
-                  }
-                }
-              });
-            })
-        }
-        .height('44vp')
-      }
-      Divider().color('#E5E7EB')
-      Text($r('app.string.playback_section_media'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      if (this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_audio_track'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectAudioTrack();
-            })
-          if (this.playbackViewModel.hasVideo) {
-            Button($r('app.string.playback_subtitle'))
-              .layoutWeight(1)
-              .height('30vp')
-              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-              .fontSize('10fp')
-              .onClick(() => {
-                this.closePlaybackTools();
-                this.selectSubtitleFile();
-              })
-          } else {
-            Blank().layoutWeight(1)
-          }
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo && !this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_subtitle'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleFile();
-            })
-          Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_subtitle_sync'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleDelay();
-            })
-          Button($r('app.string.playback_subtitle_style'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleStyle();
-            })
-        }
-        .height('44vp')
-      }
-      Divider().color('#E5E7EB')
-      Text($r('app.string.playback_section_pipeline'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      Row({ space: '8vp' }) {
-        Button($r('app.string.setting'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .onClick(() => {
-            this.closePlaybackTools();
-            setTimeout(() => {
-              this.preparePlayerSettings();
-              this.isPlayerSettingsVisible = true;
-            }, 300);
-          })
-          .enabled(!this.isPlayerSettingsVisible)
-      }
-      .height('44vp')
-      Row({ space: '8vp' }) {
-        Button(this.abLoopStartUs >= 0 ? $r('app.string.playback_ab_set_start_done') :
-          $r('app.string.playback_ab_set_start'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(() => {
-            this.setAbLoopStart();
-            this.closePlaybackTools();
-          })
-        Button(this.isAbLoopEnabled ? $r('app.string.playback_ab_set_end_done') :
-          $r('app.string.playback_ab_set_end'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping && this.abLoopStartUs >= 0)
-          .onClick(() => {
-            this.setAbLoopEnd();
-            this.closePlaybackTools();
-          })
-        Button($r('app.string.playback_ab_clear'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(this.abLoopStartUs >= 0 || this.abLoopEndUs >= 0)
-          .onClick(() => {
-            this.resetAbLoop();
-            this.closePlaybackTools();
-          })
-      }
-      .height('44vp')
-      Row({ space: '8vp' }) {
-        Button(this.isBackgroundPlaybackEnabled ? $r('app.string.playback_background_on') :
-          $r('app.string.playback_background_off'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(async () => {
-            await this.toggleBackgroundPlayback();
-            this.closePlaybackTools();
-          })
-        Blank().layoutWeight(1)
-        Blank().layoutWeight(1)
-      }
-      .height('44vp')
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-        Button(this.isPipActive ? $r('app.string.playback_pip_exit') : $r('app.string.playback_pip_enter'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(async () => {
-            if (this.isPipActive) {
-              await this.stopPictureInPicture();
-            } else {
-              await this.togglePictureInPicture();
-            }
-            this.closePlaybackTools();
-          })
-        if (this.isAbLoopEnabled) {
-          Text(this.formatHistoryPosition(this.abLoopStartUs) + ' - ' +
-            this.formatHistoryPosition(this.abLoopEndUs))
-            .layoutWeight(1)
-            .fontSize('12fp')
-            .fontColor('#5F6368')
-            .textAlign(TextAlign.Center)
-        } else {
-          Blank().layoutWeight(1)
-        }
-        Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
+      })
+    } else if (action === PlaybackMoreAction.SELECT_AUDIO_TRACK) {
+      this.closePlaybackTools()
+      this.selectAudioTrack()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_FILE) {
+      this.closePlaybackTools()
+      this.selectSubtitleFile()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_DELAY) {
+      this.closePlaybackTools()
+      this.selectSubtitleDelay()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_STYLE) {
+      this.closePlaybackTools()
+      this.selectSubtitleStyle()
+    } else if (action === PlaybackMoreAction.OPEN_PLAYER_SETTINGS) {
+      this.closePlaybackTools()
+      setTimeout(() => {
+        this.preparePlayerSettings()
+        this.isPlayerSettingsVisible = true
+      }, 300)
+    } else if (action === PlaybackMoreAction.SET_AB_LOOP_START) {
+      this.setAbLoopStart()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.SET_AB_LOOP_END) {
+      this.setAbLoopEnd()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.CLEAR_AB_LOOP) {
+      this.resetAbLoop()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.TOGGLE_BACKGROUND_PLAYBACK) {
+      await this.toggleBackgroundPlayback()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.EXIT_PIP) {
+      await this.stopPictureInPicture()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.ENTER_PIP) {
+      await this.togglePictureInPicture()
+      this.closePlaybackTools()
     }
-    .width('100%')
-    .padding({ left: '12vp', right: '12vp', top: '6vp', bottom: '6vp' })
-    }
-    .scrollBar(BarState.Auto)
   }
 
   private formatHistoryPosition(positionUs: number): string {
-    const totalSeconds = Math.floor(Math.max(0, positionUs) / 1000000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    const totalSeconds: number = Math.floor(Math.max(0, positionUs) / 1000000)
+    const minutes: number = Math.floor(totalSeconds / 60)
+    const seconds: number = totalSeconds % 60
+    return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds
   }
+
 
   private showPlaybackSpeedPicker(): void {
     TextPickerDialog.show({
@@ -3066,123 +2333,15 @@ export struct Player {
   }
 
   @Builder
-  DiagnosticsPanel() {
-    if (this.isDiagnosticsVisible) {
-      Column({ space: '6vp' }) {
-        Text($r('app.string.playback_diagnostics')).fontSize('13fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_state')) + this.playbackViewModel.infoText)
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_position')) +
-          formatMediaTime(this.playbackViewModel.positionUs) + ' / ' +
-          formatMediaTime(this.playbackViewModel.durationUs) +
-          this.getSettingText($r('app.string.playback_diagnostics_speed')) +
-          this.playbackViewModel.speed.toFixed(1))
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        if (this.playbackViewModel.hasVideo) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_output')) +
-            this.playbackViewModel.videoOutputFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_rendered')) +
-            this.playbackViewModel.videoRenderedFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_dropped')) +
-            this.playbackViewModel.videoDroppedFrames)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_output_fps')) +
-            this.playbackViewModel.videoOutputFps.toFixed(1) + ' fps' +
-            this.getSettingText($r('app.string.playback_diagnostics_drop_rate')) +
-            this.playbackViewModel.videoDropRatePercent.toFixed(1) + '%')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasAudio) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_audio_buffers')) +
-            this.playbackViewModel.audioOutputBuffers)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo && this.playbackViewModel.isBufferMode) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_buffer_present')) +
-            this.playbackViewModel.bufferPresentFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_buffer_average')) +
-            this.playbackViewModel.bufferPresentAverageUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_buffer_failures')) +
-            this.playbackViewModel.bufferPresentFailures)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo && this.playbackViewModel.sinkDiagnosticsAvailable) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_present')) +
-            this.playbackViewModel.sinkFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_frame')) +
-            this.playbackViewModel.sinkFailures +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_failures')) +
-            this.getSettingText($r('app.string.playback_diagnostics_average')) +
-            this.playbackViewModel.sinkAverageFrameUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_wait')) +
-            this.playbackViewModel.sinkAverageNativeImageWaitUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_acquire')) +
-            this.playbackViewModel.sinkAverageNativeImageAcquireUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_fence')) +
-            this.playbackViewModel.sinkAverageAcquireFenceWaitUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_import')) +
-            this.playbackViewModel.sinkAverageImportUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_gpu')) +
-            this.playbackViewModel.sinkAverageGpuWaitUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_record')) +
-            this.playbackViewModel.sinkAverageCommandRecordUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_submit')) +
-            this.playbackViewModel.sinkAverageSubmitUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_cache')) +
-            this.playbackViewModel.sinkCacheHits + '/' + this.playbackViewModel.sinkCacheMisses)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
-            (this.playbackViewModel.isSmartFluencyAvailable ?
-              this.getSettingText($r('app.string.playback_diagnostics_available')) :
-              this.getSettingText($r('app.string.playback_diagnostics_unavailable'))) +
-            this.getSettingText($r('app.string.playback_diagnostics_hdr_vivid')) +
-            (this.playbackViewModel.isHdrVividConfirmed ?
-              this.getSettingText($r('app.string.playback_diagnostics_confirmed')) :
-              this.getSettingText($r('app.string.playback_diagnostics_unconfirmed'))))
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_software_fallback')) +
-            (this.playbackViewModel.isSoftwareDecoderFallbackUsed ?
-              this.getSettingText($r('app.string.playback_diagnostics_used')) :
-              this.getSettingText($r('app.string.playback_diagnostics_not_used'))))
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        Text(this.getSettingText($r('app.string.playback_diagnostics_recovery')) +
-          (this.playbackViewModel.recoveryStatus === 0 ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_idle')) :
-            this.playbackViewModel.recoveryStatus === 1 ?
-              this.getSettingText($r('app.string.playback_diagnostics_recovery_pending')) :
-              this.playbackViewModel.recoveryStatus === 2 ?
-                this.getSettingText($r('app.string.playback_diagnostics_recovery_succeeded')) :
-                this.getSettingText($r('app.string.playback_diagnostics_recovery_failed'))) +
-          (this.playbackViewModel.recoveryAttemptCount > 0 ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt')) +
-            this.playbackViewModel.recoveryAttemptCount +
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt_suffix')) : '') +
-          (this.playbackViewModel.recoveryReason === PlaybackRecoveryReason.RUNTIME_ERROR ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_reason')) : ''))
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        AvDiagnosticsPanel({ model: this.playbackViewModel })
-      }
-      .width('100%')
-      .padding({ left: '12vp', right: '12vp', top: '10vp', bottom: '10vp' })
-      .backgroundColor('#99101820')
-      .borderRadius('12vp')
-      .margin({ top: '48vp', left: '16vp' })
-      .align(Alignment.TopStart)
-      .hitTestBehavior(HitTestMode.None)
-    }
-  }
-
-  @Builder
   Window() {
     Stack({ alignContent: Alignment.TopEnd }) {
       PlayerSurface({
         controller: this.xComponentController,
+        sourceWidth: this.videoSourceWidth,
+        sourceHeight: this.videoSourceHeight,
+        sourceRotation: this.videoSourceRotation,
+        transformType: this.transformType,
+        displayMode: this.displayScaleMode,
         onAreaChanged: (_oldArea: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea)
       })
       PlayerStatusOverlay({
@@ -3197,7 +2356,15 @@ export struct Player {
         subtitleBackgroundColor: this.subtitleStyle.backgroundColor(),
         subtitleAtBottom: this.subtitleStyle.positionIndex === 0
       })
-      this.DiagnosticsPanel()
+      if (this.playbackFailureText.length > 0) {
+        Text(this.playbackFailureText).fontSize(12).fontColor('#FDA29B')
+          .width('100%').padding(12).backgroundColor('#CC101828')
+      }
+      PlaybackDiagnosticsOverlay({
+        model: this.playbackViewModel,
+        diagnosticsVisible: this.isDiagnosticsVisible,
+        textForResource: (resource: Resource): string => this.getSettingText(resource)
+      })
     }
     .width(Const.FULL_SIZE)
     .height('auto')
@@ -3305,7 +2472,7 @@ export struct Player {
     })
   }
 
-  // 页面插槽使用具名 Builder 方法，确保 ArkUI 按 Builder 上下文创建自定义组件。
+  // 页面插槽使用具名Builder方法，确保ArkUI按Builder上下文创建自定义组件。
   @Builder
   PlayerPageContent() {
     PlayerPageShell({
@@ -3329,6 +2496,8 @@ export struct Player {
         playerContent: (): void => this.PlayerPageContent(),
         libraryContent: (): void => this.MediaLibraryPage(),
         recorderContent: (): void => this.RecorderHomePage(),
+        transcodeContent: (): void => this.TranscodeHomePage(),
+        deviceContent: (): void => this.DeviceDiagnosticsHomePage(),
         navigationContent: (): void => this.MainNavigationContent()
       })
     }

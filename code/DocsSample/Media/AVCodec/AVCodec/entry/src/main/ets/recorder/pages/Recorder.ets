@@ -13,505 +13,261 @@
  * limitations under the License.
  */
 
-import { camera } from '@kit.CameraKit';
-import { fileIo } from '@kit.CoreFileKit';
+import { common } from '@kit.AbilityKit';
 import { display } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
 import recorder from 'librecorder.so';
-import Logger from '../../common/utils/Logger';
+import { LocalizedText } from '../../common/LocalizedText';
 import { dateTime } from '../../common/utils/DateTimeUtil';
-import { CommonConstants as Const } from '../../common/CommonConstants';
 import { CameraDataModel } from '../../model/CameraDataModel';
-import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../../common/utils/CameraCheck';
-import { colorSpaceManager } from '@kit.ArkGraphics2D';
-
-const TAG: string = 'Sample_Recorder';
-const FRAME_END_TIMEOUT_MS: number = 5000;
-
-const context = AppStorage.get('context') as UIContext;
-const params: CameraDataModel = context.getRouter().getParams() as CameraDataModel;
-
-let cameraInput: camera.CameraInput;
-let xComponentPreviewOutput: camera.PreviewOutput;
-let encoderVideoOutput: camera.VideoOutput;
-let videoSession: camera.VideoSession;
-
-// 查询是否支持视频防抖。HDR录像需要支持视频防抖。
-function isVideoStabilizationModeSupported(session: camera.VideoSession, mode: camera.VideoStabilizationMode): boolean {
-  let isSupported: boolean = false;
-  try {
-    isSupported = session.isVideoStabilizationModeSupported(mode);
-  } catch (error) {
-    // 防抖属于可选能力。查询不可用时安全降级为不启用防抖，不影响录制流程。
-    let err = error as BusinessError;
-    Logger.info(TAG, `Video stabilization is unavailable; continue without stabilization. code: ${err.code}`);
-  }
-  return isSupported;
-}
-
-// 设置视频防抖。
-function setVideoStabilizationMode(session: camera.VideoSession, enabled: boolean): boolean {
-  let mode: camera.VideoStabilizationMode = enabled ? camera.VideoStabilizationMode.AUTO :
-    camera.VideoStabilizationMode.OFF;
-  // 查询是否支持视频防抖
-  let isSupported: boolean = isVideoStabilizationModeSupported(session, mode);
-  if (isSupported) {
-    Logger.info(TAG, `setVideoStabilizationMode: ${mode}`);
-    // 设置视频防抖
-    session.setVideoStabilizationMode(mode);
-    let activeVideoStabilizationMode = session.getActiveVideoStabilizationMode();
-    Logger.info(TAG, `activeVideoStabilizationMode: ${activeVideoStabilizationMode}`);
-  } else {
-    Logger.info(TAG, `videoStabilizationMode: ${mode} is not support`);
-  }
-  return isSupported;
-}
-
-// 查询支持的色彩空间。
-function getSupportedColorSpaces(session: camera.VideoSession): colorSpaceManager.ColorSpace[] {
-  let colorSpaces: colorSpaceManager.ColorSpace[] = [];
-  try {
-    colorSpaces = session.getSupportedColorSpaces();
-  } catch (error) {
-    let err = error as BusinessError;
-    Logger.error(TAG, `The getSupportedColorSpaces call failed. error code: ${err.code}`);
-  }
-  return colorSpaces;
-}
-
-// 设置色彩空间。
-function setColorSpaceBeforeCommitConfig(session: camera.VideoSession, isHdr: number): void {
-  let colorSpace: colorSpaceManager.ColorSpace =
-    isHdr ? colorSpaceManager.ColorSpace.BT2020_HLG_LIMIT : colorSpaceManager.ColorSpace.BT709_LIMIT;
-  let colorSpaces: colorSpaceManager.ColorSpace[] = getSupportedColorSpaces(session);
-  let isSupportedColorSpaces = colorSpaces.indexOf(colorSpace) >= 0;
-  if (isSupportedColorSpaces) {
-    Logger.info(TAG, `setColorSpace: ${colorSpace}`);
-    session.setColorSpace(colorSpace);
-    let activeColorSpace: colorSpaceManager.ColorSpace = session.getActiveColorSpace();
-    Logger.info(TAG, `activeColorSpace: ${activeColorSpace}`);
-  } else {
-    Logger.info(TAG, `colorSpace: ${colorSpace} is not support`);
-  }
-}
+import { RecordingHistoryModel } from '../../model/RecordingHistoryModel';
+import { RecordingPhase, RecordingResultInfo, RecordingSessionController } from '../../controller/RecordingSessionController';
+import { CameraSessionController } from '../../controller/CameraSessionController';
+import { RecorderDiagnosticsController } from '../../controller/RecorderDiagnosticsController';
+import { RecorderSegmentController } from '../../controller/RecorderSegmentController';
+import { RecorderLaunchController } from '../../controller/RecorderLaunchController';
+import { RecorderLiveParameters } from '../../components/recorder/RecorderLiveParameters';
+import { RecorderDiagnosticsPanel } from '../../components/recorder/RecorderDiagnosticsPanel';
+import Logger from '../../common/utils/Logger';
 
 @Entry
 @Component
-export struct Recorder {
-  private START_RECORDER: string =
-    globalThis.context.resourceManager.getStringSync($r('app.string.start_recording').id);
-  private STOP_RECORDER: string = globalThis.context.resourceManager.getStringSync($r('app.string.end_recording').id);
-  @State isRecorderTimeTextHide: boolean = true;
-  @State buttonText: string = this.START_RECORDER;
-  @State buttonEnabled: boolean = true;
-  @State videoRecorderTimeText: string = '00:00';
-  @State fov: number = 1;
-  private xComponentSurfaceId: string = '-1';
-  private cameraWidth: number = Const.DEFAULT_WIDTH;
-  private cameraHeight: number = Const.DEFAULT_HEIGHT;
-  private xComponentController: XComponentController = new XComponentController();
-  private display = display.getDefaultDisplaySync();
-  private heightPx = (this.display.width * this.cameraWidth / this.cameraHeight) + 'px';
-  private timer: number = Const.DEFAULT_VALUE;
-  private seconds: number = Const.DEFAULT_VALUE;
-  private isRecording: boolean = false;
-  private isOutputFdClosed: boolean = false;
-  private isCameraReleased: boolean = false;
-  private isNavigatingBack: boolean = false;
-  private releaseTask: Promise<void> | undefined = undefined;
-  private frameEndResolver: (() => void) | undefined = undefined;
-  private frameEndTimer: number = Const.DEFAULT_VALUE;
-  private range: number[] = [];
+struct Recorder {
+  @State private phase: RecordingPhase = RecordingPhase.PREPARING;
+  @State private elapsed: number = 0;
+  @State private compact: string = '';
+  @State private details: string = '';
+  private data: CameraDataModel = new CameraDataModel();
+  private session: RecordingSessionController = new RecordingSessionController();
+  private camera: CameraSessionController = new CameraSessionController();
+  private diagnostics: RecorderDiagnosticsController = new RecorderDiagnosticsController();
+  private segments: RecorderSegmentController = new RecorderSegmentController();
+  private launch: RecorderLaunchController = new RecorderLaunchController();
+  private switchingTask: Promise<void> | undefined = undefined;
+  private ending: boolean = false;
+  private showResultOnFinish: boolean = true;
+  private segmentFailed: boolean = false;
+  private currentFinalized: boolean = false;
+  private previewController: XComponentController = new XComponentController();
+  private finishTask: Promise<void> | undefined = undefined;
+  private result: RecordingResultInfo | undefined = undefined;
+  private startedAt: number = 0;
+  private canNavigate: boolean = true;
+  private navigating: boolean = false;
+  private zoom: number = 1;
 
-  onBackPress(): boolean {
-    this.stopAndNavigateBack().catch((error: Object) => {
-      Logger.error(TAG, `Failed to stop recording on back press. error: ${JSON.stringify(error)}`);
-    });
-    return true;
+  aboutToAppear(): void {
+    this.data = this.getUIContext().getRouter().getParams() as CameraDataModel;
   }
 
+  onBackPress(): boolean { void this.finish(false); return true; }
   onPageHide(): void {
-    if (!this.isNavigatingBack) {
-      // 页面隐藏时停止录制并释放相机、编码器资源。
-      this.stopAndNavigateBack().catch((error: Object) => {
-        Logger.error(TAG, `Failed to stop recording when page hides. error: ${JSON.stringify(error)}`);
-      });
+    if (!this.navigating) { this.canNavigate = false; void this.finish(false); }
+  }
+  onPageShow(): void {
+    this.canNavigate = true;
+    if (this.finishTask !== undefined) { void this.finishTask.then((): void => this.navigate(false)); }
+  }
+  aboutToDisappear(): void { this.canNavigate = false; this.diagnostics.stop(); void this.finish(false); }
+
+  private async prepare(): Promise<void> {
+    try {
+      await this.camera.prepare(this.getUIContext(), this.data, this.previewController.getXComponentSurfaceId());
+      this.session.ready();
+      if (this.session.phase === RecordingPhase.READY) { this.phase = RecordingPhase.READY; }
+    } catch (error) {
+      this.session.mark('camera.failed', 'prepare_failed');
+      this.compact = LocalizedText.get($r('app.string.recorder_start_failed'));
+      if (this.data.bufferInput) {
+        this.getUIContext().getPromptAction().showToast({
+          message: LocalizedText.get($r('app.string.recorder_buffer_combination_unavailable')), duration: 5000
+        });
+      }
+      Logger.error('Recorder', JSON.stringify(error));
+      await this.finish(true);
     }
   }
 
-  setTimer(): void {
-    this.buttonEnabled = false;
-    setTimeout(async () => {
-      this.buttonEnabled = true;
-    }, 1000);
+  private async start(): Promise<void> {
+    if (this.phase !== RecordingPhase.READY) { return; }
+    this.phase = RecordingPhase.PREPARING;
+    try {
+      await this.beginCapture();
+    } catch (error) {
+      this.session.mark('camera.failed', 'start_failed');
+      Logger.error('Recorder', JSON.stringify(error));
+      await this.finish(true);
+    }
   }
 
-  private waitForVideoFrameEnd(): Promise<void> {
-    return new Promise<void>((resolve: () => void) => {
-      this.frameEndResolver = resolve;
-      // frameEnd 未到时超时继续释放，避免停止流程挂起。
-      this.frameEndTimer = setTimeout(() => {
-        Logger.warn(TAG, 'Timed out waiting for the video frameEnd event; continue stopping the recorder.');
-        this.resolveVideoFrameEnd();
-      }, FRAME_END_TIMEOUT_MS);
+  private async beginCapture(): Promise<void> {
+    if (!this.session.start()) { throw new Error('Native recorder start failed'); }
+    await this.camera.start();
+    this.session.mark('camera.started');
+    if (this.ending) { return; }
+    this.phase = RecordingPhase.RECORDING;
+    this.startedAt = Date.now();
+    this.segments.started(this.startedAt);
+    this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
+      (compact: string, details: string): void => {
+        this.compact = compact; this.details = details;
+        this.elapsed = Math.floor((Date.now() - this.startedAt) / 1000);
+        if (this.segments.due(this.data, recorder.getDiagnostics(), Date.now())) { this.rotateSegment(); }
+      }, (): void => {
+        if (this.data.stopOnLowSpace && recorder.getDiagnostics().active &&
+          recorder.getDiagnostics().failure.stage.length === 0) { this.session.mark('storage.stop_requested'); }
+        void this.finish(true);
+      });
+  }
+
+  private rotateSegment(): void {
+    if (this.switchingTask !== undefined || this.ending || this.phase !== RecordingPhase.RECORDING) { return; }
+    this.phase = RecordingPhase.FINALIZING;
+    this.diagnostics.stop();
+    this.compact = LocalizedText.get($r('app.string.rec_segments_switching'));
+    this.switchingTask = this.switchSegment();
+    void this.switchingTask.finally((): void => {
+      this.switchingTask = undefined;
+      if (this.ending) { void this.finish(this.showResultOnFinish); }
     });
   }
 
-  private resolveVideoFrameEnd(): void {
-    if (this.frameEndResolver === undefined) {
-      return;
-    }
-    clearTimeout(this.frameEndTimer);
-    const resolve = this.frameEndResolver;
-    this.frameEndResolver = undefined;
-    resolve();
+  private async finalizeSegment(): Promise<void> {
+    if (this.currentFinalized) { return; }
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const result = await this.session.finish(context, this.data,
+      (): Promise<void> => this.stopCamera(), (): Promise<void> => this.camera.release());
+    this.currentFinalized = true;
+    this.segments.add(result);
+    if (result?.complete !== true) { this.segmentFailed = true; this.ending = true; }
   }
 
-  private onVideoFrameEnd(err?: BusinessError): void {
-    if (err && err.code) {
-      Logger.error(TAG, `Video frameEnd failed. errorCode: ${err.code}`);
-    } else {
-      Logger.info(TAG, 'Video frame ended');
-    }
-    this.resolveVideoFrameEnd();
-  }
-
-  private async closeOutputFile(): Promise<void> {
-    if (this.isOutputFdClosed || (params.outputfd < 0 && params.secondaryOutputfd < 0)) {
-      return;
-    }
-    this.isOutputFdClosed = true;
+  private async switchSegment(): Promise<void> {
     try {
-      if (params.outputfd >= 0) {
-        await fileIo.close(params.outputfd);
+      await this.finalizeSegment();
+      if (this.ending || !this.canNavigate) { return; }
+      if (!this.segments.canContinue()) {
+        this.ending = true;
+        this.getUIContext().getPromptAction().showToast({
+          message: LocalizedText.get($r('app.string.rec_segments_limit_reached'))
+        });
+        return;
       }
-      params.outputfd = -1;
-      if (params.secondaryOutputfd >= 0) {
-        await fileIo.close(params.secondaryOutputfd);
+      this.data.segmentIndex++;
+      const launched: boolean = await this.launch.launch(this.getUIContext(), this.data, false);
+      if (launched || recorder.getDiagnostics().active) {
+        this.currentFinalized = false;
+        this.session = new RecordingSessionController();
+        this.camera = new CameraSessionController();
       }
-      params.secondaryOutputfd = -1;
-      Logger.info(TAG, 'Recorder output file closed');
+      if (!launched) { throw new Error('Unable to initialize the next recording segment'); }
+      if (this.ending) { return; }
+      await this.camera.prepare(this.getUIContext(), this.data, this.previewController.getXComponentSurfaceId());
+      this.session.ready();
+      if (!this.ending) { await this.beginCapture(); }
     } catch (error) {
-      Logger.error(TAG, `Failed to close the recorder output file. error: ${JSON.stringify(error)}`);
+      this.segmentFailed = true; this.ending = true;
+      Logger.error('Recorder', 'Segment switch failed: ' + JSON.stringify(error));
     }
   }
 
-  private async releaseCamera(): Promise<void> {
-    if (this.isCameraReleased) {
-      return;
-    }
-    this.isCameraReleased = true;
-
+  private async stopCamera(): Promise<void> {
+    let timer: number = -1;
+    let complete: (() => void) | undefined = undefined;
+    const frameEnd = new Promise<void>((resolve: () => void): void => { complete = resolve; });
+    timer = setTimeout((): void => {
+      this.session.mark('camera.frame_end_timeout', 'timeout');
+      complete?.();
+    }, 5000);
     try {
-      await videoSession.stop();
-    } catch (error) {
-      Logger.error(TAG, `Failed to stop the video session. error: ${JSON.stringify(error)}`);
-    }
-    try {
-      await cameraInput.close();
-    } catch (error) {
-      Logger.error(TAG, `Failed to close the camera input. error: ${JSON.stringify(error)}`);
-    }
-    try {
-      await xComponentPreviewOutput.release();
-    } catch (error) {
-      Logger.error(TAG, `Failed to release the preview output. error: ${JSON.stringify(error)}`);
-    }
-    try {
-      await encoderVideoOutput.release();
-    } catch (error) {
-      Logger.error(TAG, `Failed to release the video output. error: ${JSON.stringify(error)}`);
-    }
-    try {
-      await videoSession.release();
-    } catch (error) {
-      Logger.error(TAG, `Failed to release the video session. error: ${JSON.stringify(error)}`);
-    }
-  }
-
-  private async stopVideoOutput(): Promise<void> {
-    if (!this.isRecording) {
-      return;
-    }
-    const frameEndTask = this.waitForVideoFrameEnd();
-    try {
-      encoderVideoOutput.on('frameEnd', (err?: BusinessError) => {
-        this.onVideoFrameEnd(err);
+      const waiting: boolean = await this.camera.stop((): void => {
+        this.session.mark('camera.frame_end'); complete?.();
       });
-    } catch (error) {
-      Logger.error(TAG, `Failed to register the video frameEnd event. error: ${JSON.stringify(error)}`);
-      this.resolveVideoFrameEnd();
-    }
-    try {
-      await encoderVideoOutput.stop();
-      Logger.info(TAG, 'Encoder video output stopped');
-    } catch (error) {
-      Logger.error(TAG, `Failed to stop the encoder video output. error: ${JSON.stringify(error)}`);
-      this.resolveVideoFrameEnd();
-    }
-    try {
-      const stopBeginResult = await recorder.stopBeginNative();
-      if (stopBeginResult.code !== 0) {
-        Logger.error(TAG, `stopBeginNative failed. code: ${stopBeginResult.code}`);
-      }
-    } catch (error) {
-      Logger.error(TAG, `Failed to begin stopping the native recorder. error: ${JSON.stringify(error)}`);
-    }
-    await frameEndTask;
+      if (waiting) { await frameEnd; }
+    } catch (_error) {
+      this.session.mark('camera.failed', 'stop_failed');
+      await this.camera.release();
+    } finally { clearTimeout(timer); }
   }
 
-  private async stopRecorder(): Promise<void> {
-    clearInterval(this.timer);
-    this.seconds = 0;
-    this.videoRecorderTimeText = '00:00';
-    this.buttonText = this.START_RECORDER;
-
-    try {
-      await this.stopVideoOutput();
-      const stopEndResult = await recorder.stopEndNative();
-      if (stopEndResult.code !== 0) {
-        Logger.error(TAG, `stopEndNative failed. code: ${stopEndResult.code}`);
-      }
-    } catch (error) {
-      Logger.error(TAG, `Failed to finalize the native recorder. error: ${JSON.stringify(error)}`);
-    } finally {
-      this.resolveVideoFrameEnd();
-      if (encoderVideoOutput !== undefined) {
-        try {
-          encoderVideoOutput.off('frameEnd');
-        } catch (error) {
-          Logger.error(TAG, `Failed to unregister the video frameEnd event. error: ${JSON.stringify(error)}`);
-        }
-      }
-      // Native 完成 EOS 和 Muxer 释放后再关闭 fd，媒体库才能及时确认文件写入完成。
-      await this.closeOutputFile();
-      await this.releaseCamera();
-      this.isRecording = false;
+  private async finish(showResult: boolean): Promise<void> {
+    this.ending = true;
+    // A Back/hide request wins over an automatic failure result during segment switching.
+    this.showResultOnFinish = this.showResultOnFinish && showResult;
+    this.diagnostics.stop();
+    if (this.finishTask === undefined) {
+      this.phase = RecordingPhase.FINALIZING;
+      this.finishTask = this.finalize();
     }
+    await this.finishTask;
   }
 
-  async release(): Promise<void> {
-    if (this.releaseTask === undefined) {
-      this.releaseTask = this.stopRecorder();
+  private async finalize(): Promise<void> {
+    try {
+      if (this.switchingTask !== undefined) { await this.switchingTask; }
+      await this.finalizeSegment();
+      this.result = this.segments.result(this.data.recordingGroupId, this.segmentFailed);
+      this.phase = this.result?.complete === true ? RecordingPhase.FINISHED : RecordingPhase.FAILED;
+    } catch (error) {
+      this.result = this.segments.result(this.data.recordingGroupId, true);
+      this.phase = RecordingPhase.FAILED;
+      this.compact = LocalizedText.get($r('app.string.recorder_finalize_failed'));
+      Logger.error('Recorder', JSON.stringify(error));
     }
-    await this.releaseTask;
+    if (this.result?.complete === false) {
+      try {
+        const history = new RecordingHistoryModel();
+        await history.load(this.getUIContext().getHostContext() as common.UIAbilityContext);
+        await history.markIncomplete(this.data.recordingGroupId);
+      } catch (error) { Logger.warn('Recorder', 'History update failed: ' + JSON.stringify(error)); }
+    }
+    this.navigate(this.showResultOnFinish);
   }
 
-  private async stopAndNavigateBack(): Promise<void> {
-    this.buttonEnabled = false;
-    await this.release();
-    if (!this.isNavigatingBack) {
-      this.isNavigatingBack = true;
-      this.getUIContext().getRouter().back();
-    }
-  }
-
-  getRecordTime(): void {
-    this.timer = setInterval(() => {
-      this.seconds += 1;
-      this.videoRecorderTimeText = dateTime(this.seconds);
-    }, 1000);
-  }
-
-  async createRecorder(): Promise<void> {
-    let cameraManager = camera.getCameraManager(this.getUIContext().getHostContext());
-    if (!cameraManager) {
-      Logger.error(TAG, 'camera.getCameraManager error');
-      return;
-    }
-
-    let cameraDevices: camera.CameraDevice[] = cameraManager.getSupportedCameras();
-    if (cameraDevices !== undefined && cameraDevices.length <= 0) {
-      Logger.error(TAG, 'cameraManager.getSupportedCameras error!');
-      return;
-    }
-
-    // 获取支持的模式类型
-    let sceneModes: camera.SceneMode[] = cameraManager.getSupportedSceneModes(cameraDevices[0]);
-    let isSupportVideoMode: boolean = sceneModes.indexOf(camera.SceneMode.NORMAL_VIDEO) >= 0;
-    if (!isSupportVideoMode) {
-      Logger.error('video mode not support');
-      return;
-    }
-
-    let encoderProfile = encoderProfileCameraCheck(cameraManager, params);
-    if (!encoderProfile) {
-      Logger.error(TAG, 'encoderProfile is not found!');
-      return;
-    }
-
-    let xComponentPreviewProfile: camera.Profile | undefined = previewProfileCameraCheck(cameraManager, params);
-    if (xComponentPreviewProfile === undefined) {
-      Logger.error(TAG, 'XComponentPreviewProfile is not found');
-      return;
-    }
-
-    encoderVideoOutput = cameraManager.createVideoOutput(encoderProfile, params.outputId);
-    if (encoderVideoOutput === undefined) {
-      Logger.error(TAG, 'encoderVideoOutput is undefined');
-      return;
-    }
-    Logger.info(TAG, 'encoderVideoOutput  success');
-
-    xComponentPreviewOutput = cameraManager.createPreviewOutput(xComponentPreviewProfile, this.xComponentSurfaceId);
-    if (xComponentPreviewOutput === undefined) {
-      Logger.error(TAG, 'XComponentPreviewOutput is undefined');
-      return;
-    }
-
-    try {
-      cameraInput = cameraManager.createCameraInput(cameraDevices[0]);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to createCameraInput. error: ${JSON.stringify(err)}`);
-    }
-    if (cameraInput === undefined) {
-      Logger.error(TAG, 'cameraInput is undefined');
-      return;
-    }
-
-    // 相机打开完成后才能配置会话。
-    try {
-      await cameraInput.open();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to open cameraInput. error: ${JSON.stringify(err)}`);
-    }
-
-    // 一个录像会话同时连接预览和编码输出。
-    try {
-      videoSession = cameraManager.createSession(camera.SceneMode.NORMAL_VIDEO) as camera.VideoSession;
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to create the session instance. error: ${JSON.stringify(err)}`);
-    }
-    if (videoSession === undefined) {
-      Logger.error(TAG, 'videoSession is undefined');
-      return;
-    }
-
-    // 输入和输出必须在 beginConfig 与 commitConfig 之间添加。
-    try {
-      videoSession.beginConfig();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to beginConfig. error: ${JSON.stringify(err)}`);
-    }
-
-    try {
-      videoSession.addInput(cameraInput);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to add cameraInput. error: ${JSON.stringify(err)}`);
-    }
-
-    try {
-      videoSession.addOutput(xComponentPreviewOutput);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to add XcomponentPreviewOutput. error: ${JSON.stringify(err)}`);
-    }
-
-    try {
-      videoSession.addOutput(encoderVideoOutput);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to add encoderVideoOutput. error: ${JSON.stringify(err)}`);
-    }
-
-    // 防抖和色彩空间必须在 commitConfig 前设置。
-    setVideoStabilizationMode(videoSession, params.videoStabilizationMode !== Const.VIDEO_STABILIZATION_DISABLED);
-    setColorSpaceBeforeCommitConfig(videoSession, params.isHDRVivid);
-
-    try {
-      await videoSession.commitConfig();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `videoSession commitConfig error: ${JSON.stringify(err)}`);
-    }
-
-    // start 完成后才会向预览和编码输出缓冲区送帧。
-    try {
-      await videoSession.start();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `videoSession start error: ${JSON.stringify(err)}`);
-    }
+  private navigate(showResult: boolean): void {
+    if (!this.canNavigate || this.navigating) { return; }
+    this.navigating = true;
+    if (showResult && this.result !== undefined) {
+      void this.getUIContext().getRouter().replaceUrl({ url: 'recorder/pages/RecordingResult',
+        params: this.result }).catch((): void => {
+          this.navigating = false;
+          this.getUIContext().getRouter().back();
+        });
+    } else { this.getUIContext().getRouter().back(); }
   }
 
   build() {
-    Column() {
-      Stack() {
-        XComponent({
-          id: 'recorderXComponent',
-          type: XComponentType.SURFACE,
-          controller: this.xComponentController
-        })
-          .onLoad(async () => {
-            this.xComponentSurfaceId = this.xComponentController.getXComponentSurfaceId();
-            await this.createRecorder();
-          })
-          .width(Const.FULL_SIZE)
-          .height(this.heightPx)
-          .gesture(
-            PinchGesture()
-              .onActionUpdate((event: GestureEvent) => {
-                if (videoSession) {
-                  let currentFov = this.fov * event.scale;
-                  if (currentFov > this.range[1]) {
-                    currentFov = this.range[1];
-                  }
-                  if (currentFov < this.range[0]) {
-                    currentFov = this.range[0];
-                  }
-                  videoSession.setZoomRatio(currentFov);
-                }
-              })
-              .onActionEnd((event: GestureEvent) => {
-                if (videoSession) {
-                  this.fov = videoSession.getZoomRatio();
-                }
-              })
-          )
-
-        if (!this.isRecorderTimeTextHide) {
-          Text(this.videoRecorderTimeText)
-            .fontFamily('HarmonyHeilTi-Light')
-            .width(100)
-            .height(40)
-            .fontSize(27)
-            .fontColor(Color.White)
-            .margin({ bottom: 500 })
-        }
-
-        Button(this.buttonText)
-          .backgroundColor('#E67E22')
-          .fontColor(Color.White)
-          .onClick(async () => {
-            if (this.buttonText == this.START_RECORDER) {
-              this.buttonText = this.STOP_RECORDER;
-              this.setTimer()
-              // 启动录像输出流
-              encoderVideoOutput.start((err: BusinessError) => {
-                if (err) {
-                  Logger.error(TAG, `Failed to start the encoder video output. error: ${JSON.stringify(err)}`)
-                  return
-                }
-                Logger.info(TAG, 'Callback invoked to indicate the encoder video output start success.')
-              });
-              recorder.startNative();
-              this.isRecording = true;
-              this.isRecorderTimeTextHide = false;
-              this.getRecordTime();
-            } else {
-              await this.stopAndNavigateBack();
-            }
-          })
-          .enabled(this.buttonEnabled)
-          .margin({ top: 500 })
-      }
-    }
-    .justifyContent(FlexAlign.SpaceEvenly)
-    .height(Const.FULL_SIZE)
+    Stack({ alignContent: Alignment.Center }) {
+      XComponent({ id: 'recorderXComponent', type: 0, controller: this.previewController })
+        .onLoad((): void => { void this.prepare(); })
+        .width('100%')
+        .height((display.getDefaultDisplaySync().width * this.data.cameraWidth / this.data.cameraHeight) + 'px')
+        .gesture(PinchGesture()
+          .onActionUpdate((event: GestureEvent): void => this.camera.zoom(this.zoom * event.scale))
+          .onActionEnd((): void => { this.zoom = this.camera.zoomRatio(); }))
+      Column() {
+        Column({ space: 8 }) {
+          if (this.phase === RecordingPhase.RECORDING) {
+            Text(dateTime(this.elapsed)).fontSize(27).fontColor(Color.White)
+          }
+          if (this.compact.length > 0) {
+            RecorderDiagnosticsPanel({ compactText: this.compact, detailText: this.details,
+              detailHeight: Math.min(220, this.getUIContext().px2vp(display.getDefaultDisplaySync().height) * 0.24) })
+          }
+        }.width('100%').hitTestBehavior(HitTestMode.Transparent)
+        Column({ space: 8 }) {
+          if (this.phase === RecordingPhase.RECORDING) {
+            RecorderLiveParameters({ recording: true, dualOutput: this.data.enableDualOutput })
+          }
+          Button(this.phase === RecordingPhase.RECORDING ? $r('app.string.end_recording') :
+            this.phase === RecordingPhase.FINALIZING ? $r('app.string.rec_result_finalizing') : $r('app.string.start_recording'))
+            .backgroundColor('#E67E22').fontColor(Color.White)
+            .enabled(this.phase === RecordingPhase.READY || this.phase === RecordingPhase.RECORDING)
+            .onClick((): void => {
+              if (this.phase === RecordingPhase.READY) { void this.start(); } else { void this.finish(true); }
+            })
+        }.width('100%')
+      }.width('100%').height('100%').padding({ left: 12, right: 12, top: 16, bottom: 24 })
+        .justifyContent(FlexAlign.SpaceBetween).hitTestBehavior(HitTestMode.Transparent)
+    }.width('100%').height('100%').backgroundColor(Color.Black)
   }
 }

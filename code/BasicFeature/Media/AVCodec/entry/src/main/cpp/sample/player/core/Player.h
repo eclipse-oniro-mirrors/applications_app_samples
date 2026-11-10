@@ -66,6 +66,7 @@ struct PlaybackInfo {
     uint64_t bufferPresentFrames = 0;
     uint64_t bufferPresentFailures = 0;
     double bufferPresentAverageUs = 0.0;
+    VideoSinkDiagnostics videoSinkDiagnostics;
     PlaybackDiagnosticsInfo diagnostics;
 };
 
@@ -303,6 +304,8 @@ private:
     std::atomic<uint64_t> bufferPresentFrames_ { 0 };
     std::atomic<uint64_t> bufferPresentFailures_ { 0 };
     std::atomic<uint64_t> bufferPresentDurationNs_ { 0 };
+    mutable std::mutex videoSinkDiagnosticsMutex_;
+    VideoSinkDiagnostics videoSinkDiagnostics_;
     int32_t requestedVideoDecoderType_ = AUTO;
     int32_t activeVideoDecoderType_ = AUTO;
     std::atomic<bool> softwareDecoderFallbackUsed_ { false };

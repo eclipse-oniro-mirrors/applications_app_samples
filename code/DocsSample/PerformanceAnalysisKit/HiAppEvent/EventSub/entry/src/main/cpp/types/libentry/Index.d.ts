@@ -14,7 +14,9 @@
  */
 
 // [Start EventSub_Index.d.ts_All]
+// [Start resourceleak_events_Index.d.ts_1]
 export const registerWatcher: () => void;
+// [End resourceleak_events_Index.d.ts_1]
 // [Start AppEvent_C++_Index.d.ts]
 export const registerWatcherCrash: () => void;
 export const registerWatcherClick: () => void;
@@ -31,14 +33,18 @@ export const TestHiCollieTimerNdk: () => void;
 // [End test_hicollie_timer_Index.d.ts]
 // [Start AsanEvent_Index.d.ts]
 export const registerSanitizerReceiveWatcher: () => void;
+// [Start address_sanitizer_events_arkts_4]
 export const addressSanitizerTest: () => void;
+// [End address_sanitizer_events_arkts_4]
 // [End AsanEvent_Index.d.ts]
 // [Start PssLeakEvent_Index.d.ts]
 export const registerLeakReceiveWatcher: () => void;
 // [End PssLeakEvent_Index.d.ts]
 // [Start AppKillEvent_Index.d.ts]
-export const registerAppKillReceiveWatcher: () => void;
+export const registerAppKillWatcher: () => void;
+// [Start AppKillEvent_ArkTS_Index.d.ts]
 export const leak: () => void;
+// [End AppKillEvent_ArkTS_Index.d.ts]
 // [End AppKillEvent_Index.d.ts]
 // [Start Pss_Leak_Index.d.ts]
 export const leakMB: (size: number) => void;
@@ -53,3 +59,22 @@ export const RegisterAppHicollieWatcherT: () => void;
 // [Start Sys_Native_Crash_Event_C++_Index.d.ts]
 export const testNullptr: () => void;
 // [End Sys_Native_Crash_Event_C++_Index.d.ts]
+export const testStackOverflow: () => void;
+export const testSigpipeCrash: () => void;
+// [Start test_hicollie_set_timer_Index.d.ts]
+export const HiCollieTestTimerNdk: () => void;
+// [End test_hicollie_set_timer_Index.d.ts]
+// [Start MainThreadJank_Index.d.ts]
+export const RegisterMainThreadJankWatcher: () => void;
+// [End MainThreadJank_Index.d.ts]
+// [Start Freeze_Index.d.ts]
+export const RegisterFreezeWatcherR: () => void;
+export const RegisterFreezeWatcherT: () => void;
+// [End Freeze_Index.d.ts]
+// [Start AppFreezeWarning_Index.d.ts]
+export const registerAppFreezeWarningReceiveWatcher: () => void;
+export const registerAppFreezeWarningTriggerWatcher: () => void;
+// [End AppFreezeWarning_Index.d.ts]
+// [Start ExternalLog_Index.d.ts]
+export const registerExternalLogMgr: () => void;
+// [End ExternalLog_Index.d.ts]
