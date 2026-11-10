@@ -14,14 +14,13 @@
  */
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import avPlayerNDK from 'libentry.so';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import { application, common } from '@kit.AbilityKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
 const driver: Driver = Driver.create();
-const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context;
+
 
 
 export default function subtitleSwitchCallbackBehaviorTest() {

@@ -20,6 +20,7 @@ import { application, common } from '@kit.AbilityKit';
 let context: common.Context;
 
 
+
 export default function nativeSetupBehaviorTest() {
   describe('nativeSetupBehaviorTest', () => {
   beforeAll(async () => {

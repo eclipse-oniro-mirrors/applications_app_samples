@@ -15,15 +15,14 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 
 export default function abilityTest(): void {
   const TAG = '[Sample_AVPlayerArkTS]';
   const DOMAIN = 0xF811;
   const driver = Driver.create();
-  const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-  const bundleName = AbilityDelegatorRegistry.getArguments().bundleName;
+  const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 
   describe('AVPlayerNDKSubtitleTest', () => {
 
@@ -50,7 +49,7 @@ export default function abilityTest(): void {
       }
 
       await driver.delayMs(3000);
-      let topAbility = await abilityDelegator.getCurrentTopAbility();
+      const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       done();
       console.info(TAG, 'testAVPlayerNDKSubtitleStart0001 end');
@@ -70,16 +69,16 @@ export default function abilityTest(): void {
 
       await driver.delayMs(2000);
       await driver.assertComponentExist(ON.type('Image'));
-      let stack = await driver.findComponent(ON.type('Image'));
-      let topAbility = await abilityDelegator.getCurrentTopAbility();
+      const stack: Component = await driver.findComponent(ON.type('Image'));
+      const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
 
       await stack.click();
       await driver.delayMs(3000);
 
       await driver.assertComponentExist(ON.id('Slider'));
-      let Slider = await driver.findComponent(ON.id('Slider'));
-      let point = await Slider.getBoundsCenter();
+      const Slider: Component = await driver.findComponent(ON.id('Slider'));
+      const point = await Slider.getBoundsCenter();
       await driver.drag(point.x - 50, point.y, point.x + 50, point.y, 800);
       await driver.delayMs(1000);
 
@@ -105,8 +104,8 @@ export default function abilityTest(): void {
 
       await driver.delayMs(8000);
       await driver.assertComponentExist(ON.type('Image'));
-      let stack = await driver.findComponent(ON.type('Image'));
-      let topAbility = await abilityDelegator.getCurrentTopAbility();
+      const stack: Component = await driver.findComponent(ON.type('Image'));
+      const topAbility = await abilityDelegator.getCurrentTopAbility();
       expect(topAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       await stack.click();
       await driver.delayMs(2000);

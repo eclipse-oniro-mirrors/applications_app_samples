@@ -14,6 +14,7 @@
  */
 import { describe, it, expect } from '@ohos/hypium';
 
+
 export default function syncState8wTest() {
   describe('syncState8wTest', () => {
     /**

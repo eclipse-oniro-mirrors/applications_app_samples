@@ -15,6 +15,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { display } from '@kit.ArkUI';
 
+
 export default function windowDisplayBehaviorTest() {
   describe('windowDisplayBehaviorTest', () => {
     /**

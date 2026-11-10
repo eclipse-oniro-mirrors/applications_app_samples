@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
-import { Component, DisplayRotation, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, DisplayRotation, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 
 const driver: Driver = Driver.create();
-const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = AbilityDelegatorRegistry.getArguments().bundleName;
+const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+
 
 
 export default function uiRotationBehaviorTest() {

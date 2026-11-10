@@ -14,6 +14,7 @@
  */
 import { describe, it, expect } from '@ohos/hypium';
 
+
 export default function nativeArgument8wTest() {
   describe('nativeArgument8wTest', () => {
     /**
