@@ -42,7 +42,7 @@ export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchP
 // [End restore_launch]
 
 // [Start blob_save]
-/** 超大数据落盘：数据本体写入沙箱文件，返回文件名，want.parameters 只保存文件名。 */
+/** 超大数据保存到文件：数据本体写入沙箱文件，返回文件名，want.parameters 只保存文件名。 */
 export function saveBlob(context: common.Context, key: string, data: string): string {
   const fileName = BLOB_FILE_PREFIX + key + '.txt';
   const file = context.filesDir + '/' + fileName;
@@ -57,7 +57,7 @@ export function saveBlob(context: common.Context, key: string, data: string): st
 // [End blob_save]
 
 // [Start blob_load]
-/** 按文件名读回落盘数据；读不到（如设备重启后不还原）返回 null，调用方按空数据降级。 */
+/** 按文件名读回保存到文件的数据；读不到（如设备重启后不还原）返回 null，调用方按空数据降级。 */
 export function loadBlob(context: common.Context, fileName: string): string | null {
   try {
     const file = context.filesDir + '/' + fileName;
@@ -73,7 +73,7 @@ export function loadBlob(context: common.Context, fileName: string): string | nu
 }
 // [End blob_load]
 
-/** 非恢复启动时清理超过 7 天的历史落盘文件。 */
+/** 非恢复启动时清理超过 7 天的历史数据文件。 */
 export function cleanupBlob(context: common.Context): void {
   try {
     const names = fs.listFileSync(context.filesDir);
