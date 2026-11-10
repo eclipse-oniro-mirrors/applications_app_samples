@@ -70,7 +70,7 @@ No other samples or third-party runtime dependencies are required.
 
 ## Testing
 
-The project includes 363 automated test cases across 30 test suites:
+The project includes 363 automated test cases across 30 test files:
 
 - **AnnotationApi.test.ets**: 15 API functional tests
 - **Ability.test.ets**: 8 UI interaction tests
@@ -95,10 +95,10 @@ The project includes 363 automated test cases across 30 test suites:
 - **AnnotationIntegrationExt.test.ets**: 8 integration extension tests
 - **AnnotationConstantDeep.test.ets**: 12 constant deep tests
 - **AnnotationSecurityDeep.test.ets**: 10 security deep tests
-- **AnnotationUIDeep.test.ets**: 10 UI deep tests
+- **AnnotationUIDeep.test.ets**: 10 service call sequence and return value tests
 - **AnnotationMonitor.test.ets**: 10 monitor tests
-- **AnnotationConcurrency.test.ets**: 9 concurrency tests
-- **AnnotationMemory.test.ets**: 10 memory tests
+- **AnnotationConcurrency.test.ets**: 9 sequential repeated-call and array isolation tests
+- **AnnotationMemory.test.ets**: 10 array independence and repeated-call stability tests
 - **AnnotationErrorBoundary.test.ets**: 12 error boundary tests
 - **AnnotationRuleEngine.test.ets**: 10 rule engine tests
 - **AnnotationRegression.test.ets**: 12 regression tests

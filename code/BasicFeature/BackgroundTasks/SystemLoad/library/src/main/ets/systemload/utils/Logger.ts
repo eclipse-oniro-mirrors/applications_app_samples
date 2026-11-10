@@ -16,7 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** 日志域ID，用于标识日志来源模块 */
-const DOMAIN: number = 0xFF00;
+const DOMAIN: number = 0xF811;
 /** 日志前缀，用于过滤和识别日志来源 */
 const PREFIX: string = '[Sample_SystemLoad]';
 

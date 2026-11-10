@@ -34,9 +34,9 @@ Annotation
 │       │   └── module.json5
 │       └── ohosTest
 │           └── ets
-│               ├── test（30 个测试套件及 List.test.ets）
+│               ├── test（30 个测试文件、31 个 describe 及 List.test.ets）
 │               ├── testability
-│               └── TestRunner
+│               └── testrunner
 └── library
     ├── Index.ets
     └── src/main/ets/annotation
@@ -77,7 +77,7 @@ Annotation
 
 ## 测试
 
-本工程包含 363 个自动化测试用例，分布在 30 个测试套件中：
+本工程包含 363 个自动化测试用例，分布在 30 个测试文件中：
 
 - **AnnotationApi.test.ets**：15 个 API 功能测试
 - **Ability.test.ets**：8 个 UI 交互测试
@@ -102,10 +102,10 @@ Annotation
 - **AnnotationIntegrationExt.test.ets**：8 个集成扩展测试
 - **AnnotationConstantDeep.test.ets**：12 个常量深度测试
 - **AnnotationSecurityDeep.test.ets**：10 个安全深度测试
-- **AnnotationUIDeep.test.ets**：10 个 UI 深度测试
+- **AnnotationUIDeep.test.ets**：10 个服务调用序列与返回值测试
 - **AnnotationMonitor.test.ets**：10 个监控测试
-- **AnnotationConcurrency.test.ets**：9 个并发测试
-- **AnnotationMemory.test.ets**：10 个内存测试
+- **AnnotationConcurrency.test.ets**：9 个同步顺序重复调用与数组隔离测试
+- **AnnotationMemory.test.ets**：10 个数组独立性与重复调用稳定性测试
 - **AnnotationErrorBoundary.test.ets**：12 个错误边界测试
 - **AnnotationRuleEngine.test.ets**：10 个规则引擎测试
 - **AnnotationRegression.test.ets**：12 个回归测试

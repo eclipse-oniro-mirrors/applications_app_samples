@@ -2,7 +2,6 @@
 /local.properties
 /.idea
 **/build
-**/BuildProfile.ets
 **/oh-package-lock.json5
 /.hvigor
 .cxx

@@ -55,7 +55,20 @@ SystemLoad
     ├── Index.ets
     └── src/main/ets/systemload
         ├── feature/SystemLoadService.ets
-        └── utils/Logger.ts
+        └── utils
+            ├── AppEventUtils.ets
+            ├── ClipboardUtils.ets
+            ├── CryptoUtils.ets
+            ├── DateUtils.ets
+            ├── DeviceUtils.ets
+            ├── Logger.ts
+            ├── NetworkUtils.ets
+            ├── ObjectHelper.ts
+            ├── PermissionUtils.ets
+            ├── RandomUtils.ets
+            ├── StorageUtils.ets
+            ├── StringUtils.ets
+            └── ValidationUtils.ets
 ```
 
 ## Implementation
@@ -63,14 +76,14 @@ SystemLoad
 1. [SystemLoadService.ets](library/src/main/ets/systemload/feature/SystemLoadService.ets) wraps `getLevel()`, `on('systemLoadChange')`, targeted `off()`, and parameterless `off()` directly, preserving the original SDK errors so that callers and XTS can verify the API contract.
 2. [SystemLoadPage.ets](entry/src/main/ets/systemload/SystemLoadPage.ets) maps all eight levels to localized descriptions and application recommendations. It guards against duplicate UI operations, switches data sources, records two callbacks, and cleans up listeners during lifecycle changes.
 3. A request ID prevents stale asynchronous query results from overwriting a newer user selection.
-4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides twenty-one test cases for UI interactions and mock data. [SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twenty real SDK cases with valid-level and exact error-code assertions. [Utils.test.ets](entry/src/ohosTest/ets/test/Utils.test.ets) provides thirty-eight utility function test cases. [Extended.test.ets](entry/src/ohosTest/ets/test/Extended.test.ets) provides ten advanced test cases covering concurrency and edge cases. [SkillCompletion.test.ets](entry/src/ohosTest/ets/test/SkillCompletion.test.ets) provides twelve skill-based test cases covering lifecycle, error recovery, data consistency, and listener state management. [Level3Extended.test.ets](entry/src/ohosTest/ets/test/Level3Extended.test.ets) provides twenty-one Level 3 test cases covering concurrency, performance, stress testing, boundary values, page state, and UI state. [Level2Extended.test.ets](entry/src/ohosTest/ets/test/Level2Extended.test.ets) provides eight Level 2 test cases covering error handling and resource cleanup. [UIInteraction.test.ets](entry/src/ohosTest/ets/test/UIInteraction.test.ets) provides nine Level 3 test cases covering UI interaction and data source management. [Comprehensive.test.ets](entry/src/ohosTest/ets/test/Comprehensive.test.ets) provides fifty-two comprehensive test cases covering state machine, boundary values, empty data, duplicate operations, lifecycle, and data source switching. [PerformanceSecurity.test.ets](entry/src/ohosTest/ets/test/PerformanceSecurity.test.ets) provides eighteen test cases covering performance, stability, security, permissions, compatibility, and localization. [CallbackDataValidation.test.ets](entry/src/ohosTest/ets/test/CallbackDataValidation.test.ets) provides seven test cases covering callback data validation, page state synchronization, and request ID anti-duplication. [ListenerStateManagement.test.ets](entry/src/ohosTest/ets/test/ListenerStateManagement.test.ets) provides eight test cases covering listener subscription state, callback record management, and level mapping. [UIComponentState.test.ets](entry/src/ohosTest/ets/test/UIComponentState.test.ets) provides nine test cases covering UI component state, mock data cycling, and data source switching. [ConcurrencySafety.test.ets](entry/src/ohosTest/ets/test/ConcurrencySafety.test.ets) provides four test cases covering concurrent safety and exception recovery. [I18nTheme.test.ets](entry/src/ohosTest/ets/test/I18nTheme.test.ets) provides four test cases covering internationalization and theme adaptation. [AccessiblePerf.test.ets](entry/src/ohosTest/ets/test/AccessiblePerf.test.ets) provides five test cases covering accessible UI features and performance baselines. [BoundaryExtensionPart1-4.test.ets](entry/src/ohosTest/ets/test/BoundaryExtensionPart1.test.ets) provide four test cases covering boundary conditions and API extension coverage across four partitions.
+4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides twenty-five test cases for UI interactions and mock data. [SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twenty real SDK cases with valid-level and exact error-code assertions. [Utils.test.ets](entry/src/ohosTest/ets/test/Utils.test.ets) provides thirty-seven utility function test cases. [Extended.test.ets](entry/src/ohosTest/ets/test/Extended.test.ets) provides ten advanced test cases covering concurrency and edge cases. [SkillCompletion.test.ets](entry/src/ohosTest/ets/test/SkillCompletion.test.ets) provides twelve skill-based test cases covering lifecycle, error recovery, data consistency, and listener state management. [Level3Extended.test.ets](entry/src/ohosTest/ets/test/Level3Extended.test.ets) provides twenty-one Level 3 test cases covering concurrency, performance, stress testing, boundary values, page state, and UI state. [Level2Extended.test.ets](entry/src/ohosTest/ets/test/Level2Extended.test.ets) provides eight Level 2 test cases covering error handling and resource cleanup. [UIInteraction.test.ets](entry/src/ohosTest/ets/test/UIInteraction.test.ets) provides nine Level 3 test cases covering UI interaction and data source management. [Comprehensive.test.ets](entry/src/ohosTest/ets/test/Comprehensive.test.ets) provides fifty-two comprehensive test cases covering state machine, boundary values, empty data, duplicate operations, lifecycle, and data source switching. [PerformanceSecurity.test.ets](entry/src/ohosTest/ets/test/PerformanceSecurity.test.ets) provides eighteen test cases covering performance, stability, security, permissions, compatibility, and localization. [CallbackDataValidation.test.ets](entry/src/ohosTest/ets/test/CallbackDataValidation.test.ets) provides seven test cases covering callback data validation, page state synchronization, and request ID anti-duplication. [ListenerStateManagement.test.ets](entry/src/ohosTest/ets/test/ListenerStateManagement.test.ets) provides eight test cases covering listener subscription state, callback record management, and level mapping. [UIComponentState.test.ets](entry/src/ohosTest/ets/test/UIComponentState.test.ets) provides seven test cases covering UI component state, mock data cycling, and data source switching. [ConcurrencySafety.test.ets](entry/src/ohosTest/ets/test/ConcurrencySafety.test.ets) provides four test cases covering concurrent safety and exception recovery. [I18nTheme.test.ets](entry/src/ohosTest/ets/test/I18nTheme.test.ets) provides four test cases covering internationalization and theme adaptation. [AccessiblePerf.test.ets](entry/src/ohosTest/ets/test/AccessiblePerf.test.ets) provides five test cases covering accessible UI features and performance baselines. [BoundaryExtensionPart1-4.test.ets](entry/src/ohosTest/ets/test/BoundaryExtensionPart1.test.ets) provide twenty-five test cases covering boundary conditions and API extension coverage across four partitions.
 
 ## Tests
 
-The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers 248 test cases across twenty test suites:
+The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers 272 test cases across twenty test suites:
 - **Real SDK Suite** (20 cases): Tests real system API calls with valid-level and exact error-code assertions
 - **UI/Mock Suite** (25 cases): Tests UI interactions and mock data functionality
-- **Utils Suite** (38 cases): Tests utility functions for string, date, validation, random, and device operations
+- **Utils Suite** (37 cases): Tests utility functions for string, date, validation, random, and device operations
 - **Extended Suite** (10 cases): Tests advanced scenarios including concurrency and edge cases
 - **Skill Completion Suite** (12 cases): Tests lifecycle management, error recovery, data consistency, and listener state
 - **Level 3 Extended Suite** (21 cases): Tests concurrency, performance, stress testing, boundary values, page state, and UI state
@@ -80,11 +93,11 @@ The default [List.test.ets](entry/src/ohosTest/ets/test/List.test.ets) registers
 - **Performance & Security Suite** (18 cases): Tests performance, stability, security, permissions, compatibility, and localization
 - **Callback Data Validation Suite** (7 cases): Tests callback data validation, page state synchronization, and request ID anti-duplication
 - **Listener State Management Suite** (8 cases): Tests listener subscription state, callback record management, and level mapping
-- **UI Component State Suite** (9 cases): Tests UI component state, mock data cycling, and data source switching
+- **UI Component State Suite** (7 cases): Tests UI component state, mock data cycling, and data source switching
 - **Concurrency Safety Suite** (4 cases): Tests concurrent safety and exception recovery
 - **I18n & Theme Suite** (4 cases): Tests internationalization and theme adaptation
 - **Accessible & Performance Suite** (5 cases): Tests accessible UI features and performance baselines
-- **Boundary Extension Part 1-4 Suites** (4 cases): Tests boundary conditions and API extension coverage across four partitions
+- **Boundary Extension Part 1-4 Suites** (25 cases): Tests boundary conditions and API extension coverage across four partitions
 
 The real SDK suite runs first so that page listeners cannot interfere with the unregister-all coverage. Do not run the real suite on a system that does not support `SystemCapability.ResourceSchedule.SystemLoad`.
 
