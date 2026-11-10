@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -122,7 +123,7 @@ export default function themeVariationTest() {
 
     it('dialog_should_display_correctly_in_light_theme', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_light_theme skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_light_theme skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -138,7 +139,7 @@ export default function themeVariationTest() {
 
     it('dialog_should_display_correctly_in_dark_theme', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_dark_theme skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_dark_theme skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -157,7 +158,7 @@ export default function themeVariationTest() {
 
     it('dialog_should_display_correctly_in_high_contrast_theme', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_high_contrast_theme skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_high_contrast_theme skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -176,7 +177,7 @@ export default function themeVariationTest() {
 
     it('dialog_should_display_correctly_in_custom_theme', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_custom_theme skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_custom_theme skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -195,7 +196,7 @@ export default function themeVariationTest() {
     // 验证dialog theme状态正确：确保TV设备records timestamps should be chronological符合预期
     it('dialog_theme_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_theme_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_theme_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -231,7 +232,7 @@ export default function themeVariationTest() {
     // 验证dialog should处理能力：确保TV设备在handle all themes下功能正常
     it('dialog_should_handle_all_themes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_themes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_themes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -249,7 +250,7 @@ export default function themeVariationTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain consistency across themes下性能不降低
     it('dialog_should_maintain_consistency_across_themes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_consistency_across_themes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_consistency_across_themes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -271,7 +272,7 @@ export default function themeVariationTest() {
     // 验证dialog should处理能力：确保TV设备在handle rapid theme changes下功能正常
     it('dialog_should_handle_rapid_theme_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_theme_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_theme_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -290,7 +291,7 @@ export default function themeVariationTest() {
 
     it('dialog_should_track_theme_transitions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_track_theme_transitions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_track_theme_transitions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -307,7 +308,7 @@ export default function themeVariationTest() {
     // 综合comprehensive theme场景测试：验证完整操作流程中功能正确
     it('comprehensive_theme_variation_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_theme_variation_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_theme_variation_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

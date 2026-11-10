@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -493,7 +494,7 @@ export default function dialogStateManagementTest() {
 
     it('dialog_should_start_in_opened_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_start_in_opened_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_start_in_opened_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -506,7 +507,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain state during navigation下性能不降低
     it('dialog_should_maintain_state_during_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_state_during_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_state_during_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -524,7 +525,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle back key transition下功能正常
     it('dialog_should_handle_back_key_transition', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_back_key_transition skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_back_key_transition skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -540,7 +541,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog state状态正确：确保TV设备history should be complete符合预期
     it('dialog_state_history_should_be_complete', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_history_should_be_complete skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_history_should_be_complete skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -567,7 +568,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle rapid state changes下功能正常
     it('dialog_should_handle_rapid_state_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_state_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_state_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -586,7 +587,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog state具备特性：确保TV设备transitions should have correct triggers满足设计要求
     it('dialog_state_transitions_should_have_correct_triggers', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_transitions_should_have_correct_triggers skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_transitions_should_have_correct_triggers skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -607,7 +608,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should持久：确保TV设备persist state after operations状态保持
     it('dialog_should_persist_state_after_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_persist_state_after_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_persist_state_after_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -625,7 +626,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog state状态正确：确保TV设备timestamps should be chronological符合预期
     it('dialog_state_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -645,7 +646,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle multiple open close cycles下功能正常
     it('dialog_should_handle_multiple_open_close_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_multiple_open_close_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_multiple_open_close_cycles skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -670,7 +671,7 @@ export default function dialogStateManagementTest() {
 
     it('dialog_state_validation_should_detect_invalid_transitions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_validation_should_detect_invalid_transitions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_validation_should_detect_invalid_transitions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -689,7 +690,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain consistency during long session下性能不降低
     it('dialog_should_maintain_consistency_during_long_session', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_consistency_during_long_session skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_consistency_during_long_session skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -715,7 +716,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog state状态正确：确保TV设备should be queryable at any time符合预期
     it('dialog_state_should_be_queryable_at_any_time', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_should_be_queryable_at_any_time skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_should_be_queryable_at_any_time skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -733,7 +734,7 @@ export default function dialogStateManagementTest() {
 
     it('dialog_state_history_should_support_filtering', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_history_should_support_filtering skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_history_should_support_filtering skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -757,7 +758,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle state recovery after error下功能正常
     it('dialog_should_handle_state_recovery_after_error', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_state_recovery_after_error skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_state_recovery_after_error skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -778,7 +779,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog state状态正确：确保TV设备transitions should be atomic符合预期
     it('dialog_state_transitions_should_be_atomic', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_transitions_should_be_atomic skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_transitions_should_be_atomic skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -798,7 +799,7 @@ export default function dialogStateManagementTest() {
 
     it('dialog_should_track_all_state_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_track_all_state_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_track_all_state_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -836,7 +837,7 @@ export default function dialogStateManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle concurrent state requests下功能正常
     it('dialog_should_handle_concurrent_state_requests', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_concurrent_state_requests skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_concurrent_state_requests skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -857,7 +858,7 @@ export default function dialogStateManagementTest() {
 
     it('dialog_state_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -879,7 +880,7 @@ export default function dialogStateManagementTest() {
     // 综合comprehensive dialog场景测试：验证完整操作流程中功能正确
     it('comprehensive_dialog_state_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_dialog_state_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_dialog_state_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

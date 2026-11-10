@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -126,7 +127,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should状态：确保TV设备be correctly positioned at center符合预期
     it('dialog_should_be_correctly_positioned_at_center', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_be_correctly_positioned_at_center skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_be_correctly_positioned_at_center skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框居中显示：确保TV设备对话框在屏幕中心位置，符合用户视觉习惯
@@ -144,7 +145,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should状态：确保TV设备be correctly positioned at top left符合预期
     it('dialog_should_be_correctly_positioned_at_top_left', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_be_correctly_positioned_at_top_left skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_be_correctly_positioned_at_top_left skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框左上角定位：确保TV设备在特定场景下能正确定位到左上角
@@ -165,7 +166,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should状态：确保TV设备be correctly positioned at top right符合预期
     it('dialog_should_be_correctly_positioned_at_top_right', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_be_correctly_positioned_at_top_right skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_be_correctly_positioned_at_top_right skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框右上角定位：确保TV设备在特定场景下能正确定位到右上角
@@ -186,7 +187,7 @@ export default function dialogPositioningTest() {
     // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
     it('dialog_position_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_position_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_position_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证位置记录时间戳按时间顺序排列，确保测试数据的时间有效
@@ -223,7 +224,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should处理：确保TV设备在handle all positions下功能正常
     it('dialog_should_handle_all_positions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_positions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_positions skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有位置类型都能正确处理，确保对话框定位功能完整覆盖
@@ -245,7 +246,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should稳定：确保TV设备在maintain positioning accuracy下性能不降低
     it('dialog_should_maintain_positioning_accuracy', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_positioning_accuracy skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_positioning_accuracy skipped: input method is not enabled on this device');
         return;
       }
  // 验证定位精度在操作期间保持稳定，确保TV设备布局不随操作偏移
@@ -267,7 +268,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should处理：确保TV设备在handle rapid position changes下功能正常
     it('dialog_should_handle_rapid_position_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_position_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_position_changes skipped: input method is not enabled on this device');
         return;
       }
  // 验证快速位置变化处理能力，确保TV设备在频繁操作下定位不丢失
@@ -289,7 +290,7 @@ export default function dialogPositioningTest() {
     // 验证dialog should特性：确保TV设备have optimal positioning accuracy满足设计要求
     it('dialog_should_have_optimal_positioning_accuracy', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_optimal_positioning_accuracy skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_optimal_positioning_accuracy skipped: input method is not enabled on this device');
         return;
       }
  // 验证定位精度处于最优水平，确保整体布局表现良好
@@ -310,7 +311,7 @@ export default function dialogPositioningTest() {
     it('comprehensive_positioning_scenario_should_demonstrate_full_functionality', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('comprehensive_positioning_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_positioning_scenario_should_demonstrate_full_functionality skipped: input method is not enabled on this device');
           return;
         }
  // 综合定位场景测试：验证完整操作流程中各项定位指标均达标

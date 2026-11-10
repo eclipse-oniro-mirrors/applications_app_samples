@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -53,8 +54,8 @@ class KeyboardConsistencyModel {
 
   constructor() {
     this.options.push(new KeyboardOptionModel('ABC', KeyOperationType.IMEOPERATION_SUSPEND, false));
-    this.options.push(new KeyboardOptionModel('中文', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
-    this.options.push(new KeyboardOptionModel('符号', KeyOperationType.IMEOPERATION_REBOOT, false));
+    this.options.push(new KeyboardOptionModel('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
+    this.options.push(new KeyboardOptionModel('Symbol', KeyOperationType.IMEOPERATION_REBOOT, false));
   }
 
   public getTotalCount(): number {
@@ -391,23 +392,23 @@ class SequenceValidator {
 class ConsistencyReportGenerator {
   public formatResult(result: ConsistencyResult): string {
     if (result === ConsistencyResult.PASS) {
-      return '通过';
+      return 'Pass';
     }
     if (result === ConsistencyResult.FAIL) {
-      return '失败';
+      return 'Fail';
     }
-    return '跳过';
+    return 'Skip';
   }
 
   public formatCheck(check: ConsistencyCheckRecord): string {
-    return `类型=${check.type}, 描述=${check.description}, 结果=${this.formatResult(check.result)}`;
+    return `Type=${check.type}, Description=${check.description}, Result=${this.formatResult(check.result)}`;
   }
 
   public summarize(recorder: ConsistencyCheckRecorder): string {
     const total = recorder.getCheckCount();
     const passed = recorder.getPassedCount();
     const failed = recorder.getFailedCount();
-    return `总计=${total}, 通过=${passed}, 失败=${failed}`;
+    return `Total=${total}, Passed=${passed}, Failed=${failed}`;
   }
 }
 
@@ -434,8 +435,8 @@ export default function keyboardConsistencyTest() {
     it('get_data_within_bounds_should_return_valid_data', 0, async () => {
       const model = new KeyboardConsistencyModel();
       expect(model.getData(0)?.name).assertEqual('ABC');
-      expect(model.getData(1)?.name).assertEqual('中文');
-      expect(model.getData(2)?.name).assertEqual('符号');
+      expect(model.getData(1)?.name).assertEqual('Chinese');
+      expect(model.getData(2)?.name).assertEqual('Symbol');
       expect(model.getData(100)).assertEqual(null);
     });
 
@@ -510,7 +511,7 @@ export default function keyboardConsistencyTest() {
     // 集成：真实对话框状态一致性
     it('real_dialog_state_should_be_consistent', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('real_dialog_state_should_be_consistent skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'real_dialog_state_should_be_consistent skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

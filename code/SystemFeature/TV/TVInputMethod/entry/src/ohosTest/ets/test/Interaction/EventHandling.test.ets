@@ -549,7 +549,7 @@ export default function eventHandlingTest() {
     // 验证arrow key触发：确保TV设备events should trigger focus navigation机制有效
     it('arrow_key_events_should_trigger_focus_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('arrow_key_events_should_trigger_focus_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'arrow_key_events_should_trigger_focus_navigation skipped: input method is not enabled on this device');
         return;
       }
  // 验证方向键事件触发焦点导航：确保TV遥控器左右键能正确移动焦点
@@ -580,7 +580,7 @@ export default function eventHandlingTest() {
     // 验证enter key触发：确保TV设备event should trigger ime operation机制有效
     it('enter_key_event_should_trigger_ime_operation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('enter_key_event_should_trigger_ime_operation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'enter_key_event_should_trigger_ime_operation skipped: input method is not enabled on this device');
         return;
       }
  // 验证ENTER键触发电源操作：确保确认键能正确启动电源功能
@@ -597,7 +597,7 @@ export default function eventHandlingTest() {
 
     it('back_key_event_should_close_dialog_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('back_key_event_should_close_dialog_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'back_key_event_should_close_dialog_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证BACK键正确关闭对话框：确保返回键能安全退出对话框
@@ -614,7 +614,7 @@ export default function eventHandlingTest() {
     // 验证touch events处理：确保TV设备在should handle focus changes下功能正常
     it('touch_events_should_handle_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_events_should_handle_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_events_should_handle_focus_changes skipped: input method is not enabled on this device');
         return;
       }
  // 验证触摸事件处理焦点变化：确保触摸操作能正确影响焦点状态
@@ -632,7 +632,7 @@ export default function eventHandlingTest() {
     // 验证event response状态：确保TV设备time should be within limits符合预期
     it('event_response_time_should_be_within_limits', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('event_response_time_should_be_within_limits skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'event_response_time_should_be_within_limits skipped: input method is not enabled on this device');
         return;
       }
  // 验证事件响应时间在限制内：确保TV设备用户操作反馈及时
@@ -655,7 +655,7 @@ export default function eventHandlingTest() {
     // 验证concurrent events状态：确保TV设备should be handled correctly符合预期
     it('concurrent_events_should_be_handled_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_events_should_be_handled_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_events_should_be_handled_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证并发事件正确处理：确保TV设备在快速按键时不丢失事件
@@ -678,7 +678,7 @@ export default function eventHandlingTest() {
 
     it('event_type_recognition_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('event_type_recognition_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'event_type_recognition_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证事件类型识别正确：确保系统能区分按键和触摸事件
@@ -704,7 +704,7 @@ export default function eventHandlingTest() {
 
     it('event_propagation_mechanism_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('event_propagation_mechanism_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'event_propagation_mechanism_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证事件传播机制正确：确保事件能按预期在组件间传播
@@ -724,7 +724,7 @@ export default function eventHandlingTest() {
 
     it('event_error_handling_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('event_error_handling_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'event_error_handling_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证事件错误处理正确：确保无效事件不会导致系统异常
@@ -739,7 +739,7 @@ export default function eventHandlingTest() {
 
     it('event_priority_handling_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('event_priority_handling_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'event_priority_handling_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证事件优先级处理正确：确保并发事件按优先级顺序处理

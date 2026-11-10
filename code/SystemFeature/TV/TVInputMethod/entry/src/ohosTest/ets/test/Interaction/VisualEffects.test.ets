@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -424,7 +425,7 @@ export default function visualEffectsTest() {
     // 验证dialog should具备特性：确保TV设备have background overlay满足设计要求
     it('dialog_should_have_background_overlay', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_background_overlay skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_background_overlay skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -437,7 +438,7 @@ export default function visualEffectsTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain visual consistency下性能不降级
     it('dialog_should_maintain_visual_consistency', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_visual_consistency skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_visual_consistency skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -454,7 +455,7 @@ export default function visualEffectsTest() {
 
     it('dialog_should_render_all_visual_elements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_render_all_visual_elements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_render_all_visual_elements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -477,7 +478,7 @@ export default function visualEffectsTest() {
     // 验证visual effects持久：确保TV设备should persist during navigation状态保持
     it('visual_effects_should_persist_during_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_persist_during_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_persist_during_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -497,7 +498,7 @@ export default function visualEffectsTest() {
     // 验证dialog should具备特性：确保TV设备have correct component hierarchy满足设计要求
     it('dialog_should_have_correct_component_hierarchy', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_have_correct_component_hierarchy skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_have_correct_component_hierarchy skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -519,7 +520,7 @@ export default function visualEffectsTest() {
     // 验证visual effects状态正确：确保TV设备timestamps should be chronological符合预期
     it('visual_effects_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -540,7 +541,7 @@ export default function visualEffectsTest() {
     // 验证visual effects处理能力：确保TV设备在should handle focus changes下功能正常
     it('visual_effects_should_handle_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_handle_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_handle_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -560,7 +561,7 @@ export default function visualEffectsTest() {
     // 验证visual effects维持稳定：确保TV设备在should maintain dialog stability下性能不降级
     it('visual_effects_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -577,7 +578,7 @@ export default function visualEffectsTest() {
     // 验证visual effects处理能力：确保TV设备在should handle rapid updates下功能正常
     it('visual_effects_should_handle_rapid_updates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_handle_rapid_updates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_handle_rapid_updates skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -613,7 +614,7 @@ export default function visualEffectsTest() {
     // 验证visual effects处理能力：确保TV设备在should handle all effect types下功能正常
     it('visual_effects_should_handle_all_effect_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_handle_all_effect_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_handle_all_effect_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -634,7 +635,7 @@ export default function visualEffectsTest() {
     // 验证visual effects状态正确：确保TV设备intensity should be within range符合预期
     it('visual_effects_intensity_should_be_within_range', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_intensity_should_be_within_range skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_intensity_should_be_within_range skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -651,7 +652,7 @@ export default function visualEffectsTest() {
 
     it('visual_effects_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -674,7 +675,7 @@ export default function visualEffectsTest() {
     // 验证visual effects处理能力：确保TV设备在should handle edge cases下功能正常
     it('visual_effects_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('visual_effects_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'visual_effects_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -694,7 +695,7 @@ export default function visualEffectsTest() {
     // 综合comprehensive visual场景测试：验证完整操作流程中功能正确
     it('comprehensive_visual_effects_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_visual_effects_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_visual_effects_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

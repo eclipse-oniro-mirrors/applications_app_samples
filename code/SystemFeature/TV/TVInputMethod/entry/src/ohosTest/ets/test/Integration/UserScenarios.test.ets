@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -495,7 +496,7 @@ export default function userScenariosTest() {
 
     it('user_should_be_able_to_quickly_shutdown', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_quickly_shutdown skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_quickly_shutdown skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -508,12 +509,12 @@ export default function userScenariosTest() {
       await driver.delayMs(DELAY_AFTER_IME_OP);
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, executionTime);
     });
 
     it('user_should_be_able_to_schedule_suspend', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_schedule_suspend skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_schedule_suspend skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -529,14 +530,14 @@ export default function userScenariosTest() {
       await driver.delayMs(DELAY_AFTER_IME_OP);
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.SCHEDULED_SUSPEND, '定时休眠', 4, 4, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.SCHEDULED_SUSPEND, 'ScheduledSuspend', 4, 4, true, executionTime);
 
       expect(scenariosTracker.hasExecutedScenario(UserScenarioType.SCHEDULED_SUSPEND)).assertTrue();
     });
 
     it('user_should_be_able_to_handle_accidental_open', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_handle_accidental_open skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_handle_accidental_open skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -548,14 +549,14 @@ export default function userScenariosTest() {
       await driver.delayMs(DELAY_AFTER_IME_OP);
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, '误触打开', 1, 1, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, 'AccidentalOpen', 1, 1, true, executionTime);
 
       expect(scenariosTracker.hasExecutedScenario(UserScenarioType.ACCIDENTAL_OPEN)).assertTrue();
     });
 
     it('user_should_be_able_to_browse_all_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_browse_all_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_browse_all_options skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -572,14 +573,14 @@ export default function userScenariosTest() {
       expect(componentCount).assertLargerOrEqual(1);
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '浏览所有选项', 4, 4, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'BrowseAllOptions', 4, 4, true, executionTime);
 
       expect(scenariosTracker.hasExecutedScenario(UserScenarioType.MULTI_OPTION_BROWSE)).assertTrue();
     });
 
     it('user_should_be_able_to_perform_rapid_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_perform_rapid_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_perform_rapid_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -593,14 +594,14 @@ export default function userScenariosTest() {
       }
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, '快速操作', 10, 10, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, 'RapidOperation', 10, 10, true, executionTime);
 
       expect(scenariosTracker.hasExecutedScenario(UserScenarioType.RAPID_OPERATION)).assertTrue();
     });
 
     it('user_should_be_able_to_handle_distractions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_should_be_able_to_handle_distractions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_should_be_able_to_handle_distractions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -618,25 +619,25 @@ export default function userScenariosTest() {
       expect(componentCount).assertLargerOrEqual(1);
 
       const executionTime = Date.now() - startTime;
-      scenariosTracker.recordScenario(UserScenarioType.DISTRACTED_USER, '分心用户操作', 3, 3, true, executionTime);
+      scenariosTracker.recordScenario(UserScenarioType.DISTRACTED_USER, 'DistractedUserOperation', 3, 3, true, executionTime);
 
       expect(scenariosTracker.hasExecutedScenario(UserScenarioType.DISTRACTED_USER)).assertTrue();
     });
 
     it('user_scenarios_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       scenariosTracker.resetTracker();
 
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '场景测试', 2, 2, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'ScenarioTest', 2, 2, true, 100);
       await driver.delayMs(100);
-      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, '场景测试', 1, 1, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, 'ScenarioTest', 1, 1, true, 100);
       await driver.delayMs(100);
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '场景测试', 4, 4, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'ScenarioTest', 4, 4, true, 100);
 
       const history = scenariosTracker.getScenarioHistory();
       expect(history[0].timestamp).assertLessOrEqual(history[1].timestamp);
@@ -645,19 +646,19 @@ export default function userScenariosTest() {
 
     it('user_scenarios_should_track_all_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_should_track_all_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_should_track_all_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       scenariosTracker.resetTracker();
 
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 100);
-      scenariosTracker.recordScenario(UserScenarioType.SCHEDULED_SUSPEND, '定时休眠', 4, 4, true, 200);
-      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, '误触打开', 1, 1, true, 50);
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '浏览所有选项', 4, 4, true, 150);
-      scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, '快速操作', 10, 10, true, 300);
-      scenariosTracker.recordScenario(UserScenarioType.DISTRACTED_USER, '分心用户操作', 3, 3, true, 500);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.SCHEDULED_SUSPEND, 'ScheduledSuspend', 4, 4, true, 200);
+      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, 'AccidentalOpen', 1, 1, true, 50);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'BrowseAllOptions', 4, 4, true, 150);
+      scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, 'RapidOperation', 10, 10, true, 300);
+      scenariosTracker.recordScenario(UserScenarioType.DISTRACTED_USER, 'DistractedUserOperation', 3, 3, true, 500);
 
       expect(scenariosTracker.getTotalScenarios()).assertEqual(6);
       expect(scenariosTracker.getSuccessfulScenarios()).assertEqual(6);
@@ -670,7 +671,7 @@ export default function userScenariosTest() {
       expect(tracker1 === tracker2).assertTrue();
 
       tracker1.resetTracker();
-      tracker1.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 100);
+      tracker1.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 100);
 
       expect(tracker2.getTotalScenarios()).assertEqual(1);
       expect(tracker2.getSuccessfulScenarios()).assertEqual(1);
@@ -678,32 +679,32 @@ export default function userScenariosTest() {
 
     it('user_scenarios_should_handle_failures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_should_handle_failures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_should_handle_failures skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       scenariosTracker.resetTracker();
 
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 100);
-      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, '误触打开', 1, 0, false, 100);
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '浏览所有选项', 4, 4, true, 200);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, 'AccidentalOpen', 1, 0, false, 100);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'BrowseAllOptions', 4, 4, true, 200);
 
       expect(scenariosTracker.getScenarioSuccessRate()).assertEqual(2 / 3);
     });
 
     it('user_scenarios_should_track_execution_times', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_should_track_execution_times skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_should_track_execution_times skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       scenariosTracker.resetTracker();
 
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 100);
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 200);
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '快速中文', 2, 2, true, 300);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 100);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 200);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'QuickChinese', 2, 2, true, 300);
 
       const avgTime = scenariosTracker.getAverageExecutionTime(UserScenarioType.QUICK_SHUTDOWN);
       expect(avgTime).assertEqual(200);
@@ -711,7 +712,7 @@ export default function userScenariosTest() {
 
     it('user_scenarios_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -721,7 +722,7 @@ export default function userScenariosTest() {
       const startTime = Date.now();
 
       for (let i = 0; i < 50; i++) {
-        scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, `快速操作${i}`, 10, 10, true, 50);
+        scenariosTracker.recordScenario(UserScenarioType.RAPID_OPERATION, `Rapid operation ${i}`, 10, 10, true, 50);
       }
 
       const endTime = Date.now();
@@ -733,23 +734,23 @@ export default function userScenariosTest() {
 
     it('user_scenarios_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       scenariosTracker.resetTracker();
 
-      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, '边界测试', 0, 0, true, 0);
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '大量步骤测试', 100, 100, true, 5000);
-      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, '误触打开', 1, 1, true, 50);
+      scenariosTracker.recordScenario(UserScenarioType.QUICK_SHUTDOWN, 'BoundaryTest', 0, 0, true, 0);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'ManyStepsTest', 100, 100, true, 5000);
+      scenariosTracker.recordScenario(UserScenarioType.ACCIDENTAL_OPEN, 'AccidentalOpen', 1, 1, true, 50);
 
       expect(scenariosTracker.getTotalScenarios()).assertEqual(3);
     });
 
     it('user_scenarios_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('user_scenarios_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'user_scenarios_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -767,12 +768,12 @@ export default function userScenariosTest() {
 
       expect(Math.abs(finalCount - initialCount)).assertLessOrEqual(2);
 
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '对话框稳定性测试', 3, 3, true, 1000);
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'DialogStabilityTest', 3, 3, true, 1000);
     });
 
     it('comprehensive_user_scenarios_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_user_scenarios_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_user_scenarios_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -796,7 +797,7 @@ export default function userScenariosTest() {
       const scenarioEnd = Date.now();
       const scenarioDuration = scenarioEnd - scenarioStart;
 
-      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, '综合用户场景测试', 4, 4, true,
+      scenariosTracker.recordScenario(UserScenarioType.MULTI_OPTION_BROWSE, 'ComprehensiveUserScenarioTest', 4, 4, true,
         scenarioDuration);
 
       expect(scenariosTracker.getTotalScenarios()).assertEqual(1);

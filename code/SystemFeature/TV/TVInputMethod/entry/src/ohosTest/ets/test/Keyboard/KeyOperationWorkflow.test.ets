@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -430,7 +431,7 @@ export default function keyOperationWorkflowTest() {
     // 适配 Browse_Select_Delete_Flow：完整休眠流程
     it('suspend_workflow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('suspend_workflow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'suspend_workflow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -446,7 +447,7 @@ export default function keyOperationWorkflowTest() {
     // 适配 Browse_Select_Delete_Flow：完整中文流程
     it('shutdown_workflow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('shutdown_workflow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'shutdown_workflow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -461,7 +462,7 @@ export default function keyOperationWorkflowTest() {
     // 适配 Browse_Select_Delete_Flow：完整符号流程
     it('reboot_workflow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('reboot_workflow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'reboot_workflow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -500,7 +501,7 @@ export default function keyOperationWorkflowTest() {
     // 适配 Rename_Workflow：操作后状态保持一致
     it('operation_state_should_persist_after_execution', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_state_should_persist_after_execution skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_state_should_persist_after_execution skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -514,7 +515,7 @@ export default function keyOperationWorkflowTest() {
     // 适配 Dialog_FileList_Interaction：确认操作后对话框仍可用
     it('dialog_should_remain_responsive_after_operation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_remain_responsive_after_operation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_remain_responsive_after_operation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -635,9 +636,9 @@ export default function keyOperationWorkflowTest() {
     // 适配 Workflow_Step_Executor：按顺序执行工作流步骤
     it('workflow_step_executor_should_execute_steps_in_order', 0, async () => {
       const executor = new WorkflowStepExecutor();
-      executor.addStep('打开');
-      executor.addStep('选择');
-      executor.addStep('执行');
+      executor.addStep('Open');
+      executor.addStep('Select');
+      executor.addStep('Execute');
       expect(executor.getStepCount()).assertEqual(3);
       expect(executor.executeNext()).assertTrue();
       expect(executor.getCompletedCount()).assertEqual(1);

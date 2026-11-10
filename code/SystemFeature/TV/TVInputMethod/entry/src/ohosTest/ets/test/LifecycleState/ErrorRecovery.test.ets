@@ -189,27 +189,27 @@ class RecoveryStrategyRecommender {
       errorType: ErrorType.FOCUS_LOST,
       strategy: RecoveryStrategy.RETRY,
       priority: 1,
-      description: '重新请求焦点'
+      description: 'RequestFocusAgain'
     }, {
       errorType: ErrorType.TIMEOUT,
       strategy: RecoveryStrategy.RESET,
       priority: 2,
-      description: '重置操作并重试'
+      description: 'ResetAndRetry'
     }, {
       errorType: ErrorType.RENDER_FAILURE,
       strategy: RecoveryStrategy.FALLBACK,
       priority: 3,
-      description: '回退到默认渲染'
+      description: 'FallbackToDefaultRender'
     }, {
       errorType: ErrorType.STATE_INCONSISTENCY,
       strategy: RecoveryStrategy.RESET,
       priority: 4,
-      description: '重置状态管理器'
+      description: 'ResetStateManager'
     }, {
       errorType: ErrorType.COMPONENT_NOT_FOUND,
       strategy: RecoveryStrategy.FALLBACK,
       priority: 5,
-      description: '回退到最小组件集合'
+      description: 'FallbackToMinComponents'
     }];
   }
 
@@ -404,20 +404,20 @@ class RecoveryPlanGenerator {
   private buildSteps(errorType: ErrorType): string[] {
     const steps: string[] = [];
     if (errorType === ErrorType.FOCUS_LOST) {
-      steps.push('检测焦点丢失');
-      steps.push('重新请求焦点');
-      steps.push('校验焦点状态');
+      steps.push('DetectFocusLoss');
+      steps.push('RequestFocusAgain');
+      steps.push('VerifyFocusState');
     } else if (errorType === ErrorType.TIMEOUT) {
-      steps.push('检测超时');
-      steps.push('重置计时器');
-      steps.push('重新执行操作');
+      steps.push('DetectTimeout');
+      steps.push('ResetTimer');
+      steps.push('ReExecuteOperation');
     } else if (errorType === ErrorType.RENDER_FAILURE) {
-      steps.push('检测渲染失败');
-      steps.push('回退默认渲染');
-      steps.push('重新渲染组件');
+      steps.push('DetectRenderFailure');
+      steps.push('FallbackDefaultRender');
+      steps.push('ReRenderComponent');
     } else {
-      steps.push('检测错误');
-      steps.push('执行恢复');
+      steps.push('DetectError');
+      steps.push('ExecuteRecovery');
     }
     return steps;
   }
@@ -550,7 +550,7 @@ export default function errorRecoveryTest() {
 
     it('dialog_should_recover_from_focus_loss', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recover_from_focus_loss skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recover_from_focus_loss skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -569,7 +569,7 @@ export default function errorRecoveryTest() {
 
     it('dialog_should_recover_from_component_render_failure', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recover_from_component_render_failure skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recover_from_component_render_failure skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -599,7 +599,7 @@ export default function errorRecoveryTest() {
     // 验证dialog should处理能力：确保TV设备在handle timeout gracefully下功能正常
     it('dialog_should_handle_timeout_gracefully', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_timeout_gracefully skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_timeout_gracefully skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -616,7 +616,7 @@ export default function errorRecoveryTest() {
 
     it('dialog_should_recover_from_state_inconsistency', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recover_from_state_inconsistency skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recover_from_state_inconsistency skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -633,7 +633,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery维持稳定：确保TV设备在should maintain dialog stability下性能不降低
     it('error_recovery_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -654,7 +654,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery状态正确：确保TV设备statistics should be accurate符合预期
     it('error_recovery_statistics_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_statistics_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_statistics_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -673,7 +673,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery处理能力：确保TV设备在should handle multiple errors下功能正常
     it('error_recovery_should_handle_multiple_errors', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_handle_multiple_errors skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_handle_multiple_errors skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -698,7 +698,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery状态正确：确保TV设备time should be within limit符合预期
     it('error_recovery_time_should_be_within_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_time_should_be_within_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_time_should_be_within_limit skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -717,7 +717,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery处理能力：确保TV设备在should handle rapid errors下功能正常
     it('error_recovery_should_handle_rapid_errors', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_handle_rapid_errors skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_handle_rapid_errors skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -736,7 +736,7 @@ export default function errorRecoveryTest() {
 
     it('error_recovery_should_preserve_dialog_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_preserve_dialog_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_preserve_dialog_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -758,7 +758,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery状态正确：确保TV设备timestamps should be chronological符合预期
     it('error_recovery_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -779,7 +779,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery处理能力：确保TV设备在should handle all error types下功能正常
     it('error_recovery_should_handle_all_error_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_handle_all_error_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_handle_all_error_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -817,7 +817,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery处理能力：确保TV设备在should handle concurrent errors下功能正常
     it('error_recovery_should_handle_concurrent_errors', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_handle_concurrent_errors skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_handle_concurrent_errors skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -838,7 +838,7 @@ export default function errorRecoveryTest() {
 
     it('error_recovery_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -862,7 +862,7 @@ export default function errorRecoveryTest() {
     // 验证error recovery处理能力：确保TV设备在should handle edge cases下功能正常
     it('error_recovery_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -883,7 +883,7 @@ export default function errorRecoveryTest() {
 
     it('error_recovery_should_validate_recovery_success', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('error_recovery_should_validate_recovery_success skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'error_recovery_should_validate_recovery_success skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -902,7 +902,7 @@ export default function errorRecoveryTest() {
     // 综合comprehensive error场景测试：验证完整操作流程中功能正确
     it('comprehensive_error_recovery_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_error_recovery_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_error_recovery_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

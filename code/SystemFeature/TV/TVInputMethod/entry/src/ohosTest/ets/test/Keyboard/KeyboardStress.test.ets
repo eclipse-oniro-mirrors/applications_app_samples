@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -47,7 +48,7 @@ export default function keyboardStressTest() {
     // 高频焦点切换：30 次左右切换后对话框仍可渲染/可见（慢速TV设备高频压测负载适中，保证确定性）
     it('rapid_focus_toggle_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('rapid_focus_toggle_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'rapid_focus_toggle_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -63,7 +64,7 @@ export default function keyboardStressTest() {
     // 高频设备切换：50 次连续右键后对话框仍可见、组件数正常
     it('rapid_device_switch_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('rapid_device_switch_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'rapid_device_switch_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -78,7 +79,7 @@ export default function keyboardStressTest() {
     // 大数据量场景：重复查询真实组件树并验证对话框持续可见（替代内存对象模拟）
     it('repeated_component_tree_query_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('repeated_component_tree_query_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'repeated_component_tree_query_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -92,7 +93,7 @@ export default function keyboardStressTest() {
     // 高频导航响应：30 次往返导航后对话框仍可见、组件数正常
     it('rapid_navigation_should_keep_dialog_responsive', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('rapid_navigation_should_keep_dialog_responsive skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'rapid_navigation_should_keep_dialog_responsive skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -107,7 +108,7 @@ export default function keyboardStressTest() {
     // 深层导航循环：30 轮左右往返后对话框未崩溃、仍可见
     it('deep_navigation_cycle_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('deep_navigation_cycle_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'deep_navigation_cycle_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -123,7 +124,7 @@ export default function keyboardStressTest() {
     // 长时运行稳定性：60 次往返导航后对话框仍可渲染/可见（慢速TV设备高频压测负载适中，保证确定性）
     it('long_running_operation_should_maintain_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('long_running_operation_should_maintain_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'long_running_operation_should_maintain_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -140,7 +141,7 @@ export default function keyboardStressTest() {
     // 高频操作无状态损坏：20 次右键后对话框仍可渲染/可见（慢速TV设备高频压测负载适中，保证确定性）
     it('high_frequency_operations_should_not_corrupt_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('high_frequency_operations_should_not_corrupt_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'high_frequency_operations_should_not_corrupt_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -536,7 +536,7 @@ export default function keyboardErrorRecoveryTest() {
     // 适配 Path_Traversal_Prevention：合法名称通过
     it('safe_name_should_pass_validation', 0, async () => {
       expect(NameSafetyValidator.isSafeName('ABC')).assertTrue();
-      expect(NameSafetyValidator.isSafeName('中文')).assertTrue();
+      expect(NameSafetyValidator.isSafeName('Chinese')).assertTrue();
     });
 
     // 适配 runTask_Promise_AllSettled：失败不阻断后续操作

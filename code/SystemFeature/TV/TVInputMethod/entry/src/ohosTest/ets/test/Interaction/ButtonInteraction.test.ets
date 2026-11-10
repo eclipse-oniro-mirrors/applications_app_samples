@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -521,7 +522,7 @@ export default function buttonInteractionTest() {
     // 验证button should响应：确保TV设备respond to focus交互流畅
     it('button_should_respond_to_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_respond_to_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_respond_to_focus skipped: input method is not enabled on this device');
         return;
       }
  // 验证按钮焦点响应：确保TV遥控器导航时按钮能正确获取焦点
@@ -540,7 +541,7 @@ export default function buttonInteractionTest() {
     // 验证button should响应：确保TV设备respond to press交互流畅
     it('button_should_respond_to_press', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_respond_to_press skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_respond_to_press skipped: input method is not enabled on this device');
         return;
       }
  // 验证按钮按下响应：确保TV遥控器确认键能正确触发按钮按下状态
@@ -560,7 +561,7 @@ export default function buttonInteractionTest() {
     // 验证button should返回：确保TV设备return to normal after release结果正确
     it('button_should_return_to_normal_after_release', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_return_to_normal_after_release skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_return_to_normal_after_release skipped: input method is not enabled on this device');
         return;
       }
  // 验证按钮释放后恢复：确保TV设备按钮在操作完成后能正确回到正常状态
@@ -582,7 +583,7 @@ export default function buttonInteractionTest() {
     // 验证button should处理：确保TV设备在handle disabled state下功能正常
     it('button_should_handle_disabled_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_handle_disabled_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_handle_disabled_state skipped: input method is not enabled on this device');
         return;
       }
  // 验证禁用状态处理：确保TV设备在按钮不可用时正确显示禁用状态
@@ -598,7 +599,7 @@ export default function buttonInteractionTest() {
     // 验证button should处理：确保TV设备在handle all buttons下功能正常
     it('button_should_handle_all_buttons', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_handle_all_buttons skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_handle_all_buttons skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有按钮处理：确保TV设备对话框中所有按钮都能正常交互
@@ -620,7 +621,7 @@ export default function buttonInteractionTest() {
     // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
     it('button_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证时间戳顺序：确保按钮记录按时间顺序存储，便于后续分析
@@ -661,7 +662,7 @@ export default function buttonInteractionTest() {
     // 验证button should处理：确保TV设备在handle all states下功能正常
     it('button_should_handle_all_states', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_handle_all_states skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_handle_all_states skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有状态处理：确保TV设备按钮能正确切换各种状态
@@ -680,7 +681,7 @@ export default function buttonInteractionTest() {
     // 验证button should稳定：确保TV设备在maintain responsiveness下性能不降低
     it('button_should_maintain_responsiveness', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_maintain_responsiveness skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_maintain_responsiveness skipped: input method is not enabled on this device');
         return;
       }
  // 验证响应稳定性：确保TV设备在频繁操作下按钮响应不降底
@@ -704,10 +705,10 @@ export default function buttonInteractionTest() {
     // 验证button should处理：确保TV设备在handle rapid interactions下功能正常
     it('button_should_handle_rapid_interactions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('button_should_handle_rapid_interactions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'button_should_handle_rapid_interactions skipped: input method is not enabled on this device');
         return;
       }
- // 验证快速交互处理：确保TV设备在快速操作时按钮系统不崩溃
+ // 验证快速交互处理：确保TV设备在Rapid operation时按钮系统不崩溃
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       buttonTracker.resetTracker();
@@ -727,7 +728,7 @@ export default function buttonInteractionTest() {
     // 综合comprehensive button场景：验证完整操作流程中功能正确
     it('comprehensive_button_interaction_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_button_interaction_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_button_interaction_scenario skipped: input method is not enabled on this device');
         return;
       }
  // 综合按钮交互场景：验证完整操作流程中按钮状态转换正确
@@ -761,16 +762,16 @@ export default function buttonInteractionTest() {
 
     // 验证按钮描述模型：确保校验与克隆功能正确
     it('button_descriptor_model_should_validate_and_clone', 0, async () => {
-      const descriptor = new ButtonDescriptorModel(1, '中文', ButtonPosition.CENTER, true);
+      const descriptor = new ButtonDescriptorModel(1, 'Chinese', ButtonPosition.CENTER, true);
       expect(descriptor.getButtonId()).assertEqual(1);
-      expect(descriptor.getLabel()).assertEqual('中文');
+      expect(descriptor.getLabel()).assertEqual('Chinese');
       expect(descriptor.getPosition()).assertEqual(ButtonPosition.CENTER);
       expect(descriptor.isInteractive()).assertTrue();
       expect(descriptor.hasValidLabel()).assertTrue();
       const cloned = descriptor.clone();
       expect(cloned.equals(descriptor)).assertTrue();
       const text = descriptor.toString();
-      expect(text.indexOf('中文')).assertLargerOrEqual(0);
+      expect(text.indexOf('Chinese')).assertLargerOrEqual(0);
     });
 
     // 验证按钮交互事件模型：确保响应评估与动作分类正确
@@ -798,7 +799,7 @@ export default function buttonInteractionTest() {
     // 验证按钮交互校验器：确保描述合法性校验正确
     it('button_interaction_validator_should_check_descriptor', 0, async () => {
       const validator = new ButtonInteractionValidator();
-      const valid = new ButtonDescriptorModel(0, '符号', ButtonPosition.LEFT, true);
+      const valid = new ButtonDescriptorModel(0, 'Symbol', ButtonPosition.LEFT, true);
       const invalid = new ButtonDescriptorModel(-1, '', ButtonPosition.RIGHT, true);
       expect(validator.isValidDescriptor(valid)).assertTrue();
       expect(validator.isValidDescriptor(invalid)).assertFalse();
@@ -858,8 +859,8 @@ export default function buttonInteractionTest() {
     it('button_interaction_validator_should_check_event_target', 0, async () => {
       const validator = new ButtonInteractionValidator();
       const descriptors: ButtonDescriptorModel[] = [
-        new ButtonDescriptorModel(0, '中文', ButtonPosition.LEFT, true),
-        new ButtonDescriptorModel(1, '符号', ButtonPosition.CENTER, false)
+        new ButtonDescriptorModel(0, 'Chinese', ButtonPosition.LEFT, true),
+        new ButtonDescriptorModel(1, 'Symbol', ButtonPosition.CENTER, false)
       ];
       const validEvent = new ButtonInteractionEventModel(1, 0, ButtonAction.CLICK, ButtonState.PRESSED, 50);
       const disabledEvent = new ButtonInteractionEventModel(2, 1, ButtonAction.CLICK, ButtonState.PRESSED, 50);
@@ -871,7 +872,7 @@ export default function buttonInteractionTest() {
 
     // 验证按钮描述切换：确保启用状态可动态切换
     it('button_descriptor_model_should_toggle_enabled_state', 0, async () => {
-      const descriptor = new ButtonDescriptorModel(2, '待机', ButtonPosition.RIGHT, true);
+      const descriptor = new ButtonDescriptorModel(2, 'Standby', ButtonPosition.RIGHT, true);
       expect(descriptor.isEnabled()).assertTrue();
       descriptor.setEnabled(false);
       expect(descriptor.isEnabled()).assertFalse();

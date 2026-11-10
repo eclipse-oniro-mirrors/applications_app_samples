@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -507,7 +508,7 @@ export default function focusRingBehaviorTest() {
     // 验证focus ring状态：确保TV设备should be visible on dialog open符合预期
     it('focus_ring_should_be_visible_on_dialog_open', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_be_visible_on_dialog_open skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_be_visible_on_dialog_open skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框打开时焦点环可见，确保用户能立即识别当前焦点位置
@@ -524,7 +525,7 @@ export default function focusRingBehaviorTest() {
 
     it('focus_ring_should_move_on_left_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_move_on_left_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_move_on_left_navigation skipped: input method is not enabled on this device');
         return;
       }
  // 验证向左导航时焦点环正确移动，确保焦点移动视觉反馈连贯
@@ -544,7 +545,7 @@ export default function focusRingBehaviorTest() {
 
     it('focus_ring_should_move_on_right_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_move_on_right_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_move_on_right_navigation skipped: input method is not enabled on this device');
         return;
       }
  // 验证向右导航时焦点环正确移动，确保焦点移动视觉反馈连贯
@@ -564,7 +565,7 @@ export default function focusRingBehaviorTest() {
 
     it('focus_ring_should_highlight_on_enter', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_highlight_on_enter skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_highlight_on_enter skipped: input method is not enabled on this device');
         return;
       }
  // 验证按下ENTER键时焦点环高亮显示，确保用户确认操作有明确视觉反馈
@@ -583,7 +584,7 @@ export default function focusRingBehaviorTest() {
 
     it('focus_ring_should_hide_on_dialog_close', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_hide_on_dialog_close skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_hide_on_dialog_close skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框关闭时焦点环隐藏，确保焦点环不会残留在屏幕上
@@ -603,7 +604,7 @@ export default function focusRingBehaviorTest() {
     // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
     it('focus_ring_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证焦点环记录时间戳按时间顺序排列，确保测试数据的时间有效性
@@ -640,7 +641,7 @@ export default function focusRingBehaviorTest() {
     // 验证focus ring处理：确保TV设备在should handle all states下功能正常
     it('focus_ring_should_handle_all_states', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_handle_all_states skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_handle_all_states skipped: input method is not enabled on this device');
         return;
       }
  // 验证焦点环能正确处理所有状态，确保状态机完整覆盖
@@ -661,7 +662,7 @@ export default function focusRingBehaviorTest() {
     // 验证focus ring稳定：确保TV设备在should maintain visibility during navigation下性能不降低
     it('focus_ring_should_maintain_visibility_during_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_maintain_visibility_during_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_maintain_visibility_during_navigation skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航期间焦点环保持可见，确保用户始终能识别当前焦点位置
@@ -683,7 +684,7 @@ export default function focusRingBehaviorTest() {
     // 验证focus ring处理：确保TV设备在should handle rapid navigation下功能正常
     it('focus_ring_should_handle_rapid_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_ring_should_handle_rapid_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_ring_should_handle_rapid_navigation skipped: input method is not enabled on this device');
         return;
       }
  // 验证快速导航时焦点环响应正常，确保高频操作下视觉反馈不丢失
@@ -705,7 +706,7 @@ export default function focusRingBehaviorTest() {
     // 综合comprehensive focus场景：验证完整操作流程中功能正确
     it('comprehensive_focus_ring_behavior_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_focus_ring_behavior_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_focus_ring_behavior_scenario skipped: input method is not enabled on this device');
         return;
       }
  // 综合焦点环行为场景测试：验证完整操作流程中焦点环行为正确

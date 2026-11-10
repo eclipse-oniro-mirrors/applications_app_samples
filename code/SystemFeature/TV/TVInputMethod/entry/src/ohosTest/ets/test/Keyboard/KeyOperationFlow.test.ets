@@ -319,7 +319,7 @@ class OperationFlowReport {
 
   public buildSuccessRateText(): string {
     const rate = this.analyzer.getSuccessRate();
-    return `成功率: ${(rate * 100).toFixed(2)}%`;
+    return `Success rate: ${(rate * 100).toFixed(2)}%`;
   }
 
   public isHealthy(): boolean {
@@ -328,9 +328,9 @@ class OperationFlowReport {
 
   public getHealthDescription(): string {
     if (!this.analyzer.hasAnyOperation()) {
-      return '无操作记录';
+      return 'NoOperationRecord';
     }
-    return this.isHealthy() ? '健康' : '异常';
+    return this.isHealthy() ? 'Healthy' : 'Exception';
   }
 }
 
@@ -450,7 +450,7 @@ export default function keyOperationFlowTest() {
     // 验证suspend operation完成：确保TV设备flow should complete correctly在规定时间内
     it('suspend_operation_flow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('suspend_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'suspend_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -473,7 +473,7 @@ export default function keyOperationFlowTest() {
     // 验证shutdown operation完成：确保TV设备flow should complete correctly在规定时间内
     it('shutdown_operation_flow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('shutdown_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'shutdown_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -496,7 +496,7 @@ export default function keyOperationFlowTest() {
     // 验证reboot operation完成：确保TV设备flow should complete correctly在规定时间内
     it('reboot_operation_flow_should_complete_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('reboot_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'reboot_operation_flow_should_complete_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -519,7 +519,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow取消操作：确保TV设备should handle cancellation功能正常
     it('operation_flow_should_handle_cancellation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_cancellation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_cancellation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -537,7 +537,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow状态准确：确保TV设备statistics should be accurate符合预期
     it('operation_flow_statistics_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_statistics_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_statistics_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -561,7 +561,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow多操作处理：确保TV设备should handle multiple operations功能正常
     it('operation_flow_should_handle_multiple_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_multiple_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_multiple_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -585,7 +585,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow状态准确：确保TV设备execution time should be within limit符合预期
     it('operation_flow_execution_time_should_be_within_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_execution_time_should_be_within_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_execution_time_should_be_within_limit skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -605,7 +605,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow保持稳定：确保TV设备should maintain dialog stability性能表现
     it('operation_flow_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -624,7 +624,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow快速选择处理：确保TV设备should handle rapid selections功能正常
     it('operation_flow_should_handle_rapid_selections', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_rapid_selections skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_rapid_selections skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -644,7 +644,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow状态准确：确保TV设备focus verification should be accurate符合预期
     it('operation_flow_focus_verification_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_focus_verification_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_focus_verification_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -668,7 +668,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow记录数据：确保TV设备should record all attempts追踪
     it('operation_flow_should_record_all_attempts', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_record_all_attempts skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_record_all_attempts skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -702,7 +702,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow返回导航处理：确保TV设备should handle back navigation功能正常
     it('operation_flow_should_handle_back_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_back_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_back_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -725,7 +725,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow状态准确：确保TV设备timestamps should be chronological符合预期
     it('operation_flow_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -752,7 +752,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow三操作处理：确保TV设备should handle all three operations功能正常
     it('operation_flow_should_handle_all_three_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_all_three_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_all_three_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -783,7 +783,7 @@ export default function keyOperationFlowTest() {
 
     it('operation_flow_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -807,7 +807,7 @@ export default function keyOperationFlowTest() {
     // 验证operation flow边界情况处理：确保TV设备should handle edge cases功能正常
     it('operation_flow_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -831,7 +831,7 @@ export default function keyOperationFlowTest() {
 
     it('operation_flow_should_provide_complete_tracking', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('operation_flow_should_provide_complete_tracking skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'operation_flow_should_provide_complete_tracking skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -854,7 +854,7 @@ export default function keyOperationFlowTest() {
     // 综合comprehensive ime操作测试：验证电源操作流程所有功能正确
     it('comprehensive_ime_operation_flow_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_ime_operation_flow_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_ime_operation_flow_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -1007,7 +1007,7 @@ export default function keyOperationFlowTest() {
       expect(summary.includes('total: 3')).assertTrue();
       expect(report.buildSuccessRateText().includes('100.00%')).assertTrue();
       expect(report.isHealthy()).assertTrue();
-      expect(report.getHealthDescription()).assertEqual('健康');
+      expect(report.getHealthDescription()).assertEqual('Healthy');
     });
 
     // 适配 ExecutionTime_Threshold：阈值违规统计

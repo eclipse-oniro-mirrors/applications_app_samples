@@ -240,10 +240,10 @@ class KeyOperationValidator {
   public validateRequest(request: OperationRequest): string[] {
     const violations: string[] = [];
     if (!this.isValidKind(request.kind)) {
-      violations.push('未知操作类别');
+      violations.push('UnknownOperationCategory');
     }
     if (!this.isReasonValid(request.kind, request.reason)) {
-      violations.push('缺少操作原因');
+      violations.push('MissingOperationReason');
     }
     return violations;
   }
@@ -331,7 +331,7 @@ class OperationIdGenerator {
 // 操作日志格式化器：将操作日志格式化为可读文本
 class OperationLogFormatter {
   public formatEntry(entry: string): string {
-    return `[操作] ${entry}`;
+    return `[Operation] ${entry}`;
   }
 
   public formatLog(log: string[]): string {
@@ -383,7 +383,7 @@ export default function keyOperationsTest() {
     }); // 验证screen out触发：确保TV设备operation should trigger suspend correctly机制有效
     it('screen_out_operation_should_trigger_suspend_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('screen_out_operation_should_trigger_suspend_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'screen_out_operation_should_trigger_suspend_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证息屏操作能正确触发休眠功能，确保电源管理功能正常
@@ -401,7 +401,7 @@ export default function keyOperationsTest() {
     }); // 验证reboot operation触发：确保TV设备should trigger reboot correctly机制有效
     it('reboot_operation_should_trigger_reboot_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('reboot_operation_should_trigger_reboot_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'reboot_operation_should_trigger_reboot_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证符号操作能正确触发符号功能，确保电源管理功能正常
@@ -419,7 +419,7 @@ export default function keyOperationsTest() {
     }); // 验证shutdown operation触发：确保TV设备should trigger shutdown correctly机制有效
     it('shutdown_operation_should_trigger_shutdown_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('shutdown_operation_should_trigger_shutdown_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'shutdown_operation_should_trigger_shutdown_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证中文操作能正确触发中文功能，确保电源管理功能正常
@@ -436,7 +436,7 @@ export default function keyOperationsTest() {
     });
     it('multiple_ime_operations_should_execute_in_correct_order', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('multiple_ime_operations_should_execute_in_correct_order skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'multiple_ime_operations_should_execute_in_correct_order skipped: input method is not enabled on this device');
         return;
       }
  // 验证多次电源操作按正确顺序执行，确保操作队列管理正确
@@ -460,7 +460,7 @@ export default function keyOperationsTest() {
     }); // 验证ime operations完成：确保TV设备should complete within time limit在规定时间内
     it('ime_operations_should_complete_within_time_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operations_should_complete_within_time_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operations_should_complete_within_time_limit skipped: input method is not enabled on this device');
         return;
       }
  // 验证电源操作在时间限制内完成，确保操作响应性能达标
@@ -475,7 +475,7 @@ export default function keyOperationsTest() {
     });
     it('ime_operation_cancellation_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operation_cancellation_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operation_cancellation_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证电源操作取消功能正常工作，确保用户能中断操作
@@ -491,7 +491,7 @@ export default function keyOperationsTest() {
     });
     it('ime_operation_error_handling_should_work_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operation_error_handling_should_work_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operation_error_handling_should_work_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证电源操作错误处理功能正常，确保异常情况下的稳定性
@@ -501,7 +501,7 @@ export default function keyOperationsTest() {
     }); // 验证concurrent ime状态正确：确保TV设备operations should be properly handled符合预期
     it('concurrent_ime_operations_should_be_properly_handled', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('concurrent_ime_operations_should_be_properly_handled skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'concurrent_ime_operations_should_be_properly_handled skipped: input method is not enabled on this device');
         return;
       }
  // 验证并发电源操作被正确处理，确保操作互斥机制有效
@@ -516,7 +516,7 @@ export default function keyOperationsTest() {
     }); // 验证ime operation持久：确保TV设备state should persist correctly状态保持
     it('ime_operation_state_should_persist_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operation_state_should_persist_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operation_state_should_persist_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证电源操作状态正确持久化，确保操作后状态一致性
@@ -529,7 +529,7 @@ export default function keyOperationsTest() {
     }); // 验证ime operation状态正确：确保TV设备parameters should be correct符合预期
     it('ime_operation_parameters_should_be_correct', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_operation_parameters_should_be_correct skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_operation_parameters_should_be_correct skipped: input method is not enabled on this device');
         return;
       }
  // 验证电源操作参数正确传递，确保操作执行上下文完整
@@ -694,7 +694,7 @@ export default function keyOperationsTest() {
     it('operation_validator_should_validate_requests', 0, async () => {
       const validator = new KeyOperationValidator();
       const valid = new OperationRequestBuilder().withRequestId('v1').withKind(KeyOperationKind.KIND_REBOOT)
-        .withReason('原因').build();
+        .withReason('Reason').build();
       expect(validator.isRequestValid(valid)).assertTrue();
       const invalid = new OperationRequestBuilder().withRequestId('v2').withKind(KeyOperationKind.KIND_REBOOT)
         .withReason('').build();
@@ -706,10 +706,10 @@ export default function keyOperationsTest() {
     // 适配 Operation_Request_Builder：构建完整请求
     it('operation_request_builder_should_build_complete_request', 0, async () => {
       const built = new OperationRequestBuilder().withRequestId('b1').withKind(KeyOperationKind.KIND_SHUTDOWN)
-        .withReason('中文原因').withStatus(OperationStatus.STATUS_RUNNING).build();
+        .withReason('ChineseReason').withStatus(OperationStatus.STATUS_RUNNING).build();
       expect(built.requestId).assertEqual('b1');
       expect(built.kind).assertEqual(KeyOperationKind.KIND_SHUTDOWN);
-      expect(built.reason).assertEqual('中文原因');
+      expect(built.reason).assertEqual('ChineseReason');
       expect(built.status).assertEqual(OperationStatus.STATUS_RUNNING);
       expect(built.createdAt).assertLargerOrEqual(0);
     });
@@ -731,7 +731,7 @@ export default function keyOperationsTest() {
     // 适配 Operation_Log_Formatter：格式化与关键词统计
     it('operation_log_formatter_should_format_and_count', 0, async () => {
       const formatter = new OperationLogFormatter();
-      expect(formatter.formatEntry('suspend called')).assertEqual('[操作] suspend called');
+      expect(formatter.formatEntry('suspend called')).assertEqual('[Operation] suspend called');
       const log: string[] = ['suspend called', 'reboot called with reason: x'];
       const text = formatter.formatLog(log);
       expect(text.includes('suspend called')).assertTrue();

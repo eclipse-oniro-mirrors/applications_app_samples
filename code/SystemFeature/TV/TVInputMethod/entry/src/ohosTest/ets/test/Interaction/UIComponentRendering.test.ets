@@ -471,7 +471,7 @@ export default function uiComponentRenderingTest() {
 
     it('all_image_components_should_render_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_image_components_should_render_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_image_components_should_render_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -483,7 +483,7 @@ export default function uiComponentRenderingTest() {
 
     it('all_text_components_should_render_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_text_components_should_render_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_text_components_should_render_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -495,7 +495,7 @@ export default function uiComponentRenderingTest() {
 
     it('all_row_components_should_render_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_row_components_should_render_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_row_components_should_render_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -507,7 +507,7 @@ export default function uiComponentRenderingTest() {
 
     it('all_column_components_should_render_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_column_components_should_render_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_column_components_should_render_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -520,7 +520,7 @@ export default function uiComponentRenderingTest() {
     // 验证component count状态正确：确保TV设备should be stable符合预期
     it('component_count_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_count_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_count_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -537,7 +537,7 @@ export default function uiComponentRenderingTest() {
 
     it('all_option_labels_should_be_visible', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_option_labels_should_be_visible skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_option_labels_should_be_visible skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -547,7 +547,7 @@ export default function uiComponentRenderingTest() {
 
     it('components_should_render_after_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('components_should_render_after_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'components_should_render_after_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -565,7 +565,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering状态正确：确保TV设备should be complete符合预期
     it('component_rendering_should_be_complete', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_should_be_complete skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_should_be_complete skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -590,7 +590,7 @@ export default function uiComponentRenderingTest() {
     // 验证components should具备特性：确保TV设备have correct ids满足设计要求
     it('components_should_have_correct_ids', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('components_should_have_correct_ids skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'components_should_have_correct_ids skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -617,7 +617,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering处理能力：确保TV设备在should handle focus changes下功能正常
     it('component_rendering_should_handle_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_should_handle_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_should_handle_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -637,7 +637,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering状态正确：确保TV设备performance should be acceptable符合预期
     it('component_rendering_performance_should_be_acceptable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_performance_should_be_acceptable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_performance_should_be_acceptable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -657,7 +657,7 @@ export default function uiComponentRenderingTest() {
 
     it('components_should_render_with_correct_hierarchy', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('components_should_render_with_correct_hierarchy skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'components_should_render_with_correct_hierarchy skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -675,7 +675,7 @@ export default function uiComponentRenderingTest() {
     // 验证component visibility持久：确保TV设备should persist状态保持
     it('component_visibility_should_persist', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_visibility_should_persist skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_visibility_should_persist skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -690,7 +690,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering处理能力：确保TV设备在should handle rapid updates下功能正常
     it('component_rendering_should_handle_rapid_updates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_should_handle_rapid_updates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_should_handle_rapid_updates skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -712,7 +712,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering状态正确：确保TV设备should be consistent across cycles符合预期
     it('component_rendering_should_be_consistent_across_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_should_be_consistent_across_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_should_be_consistent_across_cycles skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -738,7 +738,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering状态正确：确保TV设备timestamps should be chronological符合预期
     it('component_rendering_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -765,7 +765,7 @@ export default function uiComponentRenderingTest() {
     // 验证component rendering处理能力：确保TV设备在should handle edge cases下功能正常
     it('component_rendering_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('component_rendering_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'component_rendering_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -797,7 +797,7 @@ export default function uiComponentRenderingTest() {
     // 综合comprehensive component场景测试：验证完整操作流程中功能正确
     it('comprehensive_component_rendering_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_component_rendering_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_component_rendering_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

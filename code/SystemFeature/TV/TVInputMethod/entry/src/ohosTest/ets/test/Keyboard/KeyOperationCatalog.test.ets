@@ -50,14 +50,14 @@ class KeyOperationCatalog {
     id: 'reboot',
     icon: 'app.media.reboot',
     focusIcon: 'app.media.reboot_focus',
-    name: '符号',
+    name: 'Symbol',
     operationType: KeyOperationType.IMEOPERATION_REBOOT
   };
   public static readonly SHUTDOWN: KeyOperationDef = {
     id: 'shutdown',
     icon: 'app.media.shutdown',
     focusIcon: 'app.media.shutdown_focus',
-    name: '中文',
+    name: 'Chinese',
     operationType: KeyOperationType.IMEOPERATION_SHUTDOWN
   };
 
@@ -187,12 +187,12 @@ class OperationNameResolver {
 
   public resolveById(id: string): string {
     const def = this.catalog.find((item: KeyOperationDef) => item.id === id);
-    return def === undefined ? '未知操作' : def.name;
+    return def === undefined ? 'UnknownOperation' : def.name;
   }
 
   public resolveByOperationType(operationType: number): string {
     const def = this.catalog.find((item: KeyOperationDef) => item.operationType === operationType);
-    return def === undefined ? '未知操作' : def.name;
+    return def === undefined ? 'UnknownOperation' : def.name;
   }
 
   public resolveAllNames(): string[] {
@@ -579,7 +579,7 @@ export default function keyOperationCatalogTest() {
         sourceId: 'suspend',
         targetId: 'reboot',
         mutuallyExclusive: true,
-        description: 'ABC与符号互斥'
+        description: 'ABCAndSymbolExclusive'
       };
       graph.addRelationship(rel);
       expect(graph.getRelationshipCount()).assertEqual(1);
@@ -593,7 +593,7 @@ export default function keyOperationCatalogTest() {
         sourceId: 'reboot',
         targetId: 'shutdown',
         mutuallyExclusive: false,
-        description: '符号与中文可共存'
+        description: 'SymbolAndChineseCoexist'
       };
       graph.addRelationship(rel);
       expect(graph.areMutuallyExclusive('reboot', 'shutdown')).assertFalse();
@@ -606,13 +606,13 @@ export default function keyOperationCatalogTest() {
         sourceId: 'suspend',
         targetId: 'reboot',
         mutuallyExclusive: true,
-        description: '互斥'
+        description: 'Exclusive'
       });
       graph.addRelationship({
         sourceId: 'suspend',
         targetId: 'shutdown',
         mutuallyExclusive: true,
-        description: '互斥'
+        description: 'Exclusive'
       });
       const targets: string[] = graph.getTargetsOf('suspend');
       expect(targets.length).assertEqual(2);
@@ -628,7 +628,7 @@ export default function keyOperationCatalogTest() {
         sourceId: 'suspend',
         targetId: 'suspend',
         mutuallyExclusive: true,
-        description: '自环'
+        description: 'SelfLoop'
       });
       expect(graph.hasCycle()).assertTrue();
     });
@@ -640,7 +640,7 @@ export default function keyOperationCatalogTest() {
         sourceId: 'suspend',
         targetId: 'reboot',
         mutuallyExclusive: true,
-        description: '互斥'
+        description: 'Exclusive'
       });
       graph.clear();
       expect(graph.getRelationshipCount()).assertEqual(0);
@@ -654,14 +654,14 @@ export default function keyOperationCatalogTest() {
         sourceId: 'reboot',
         targetId: 'shutdown',
         mutuallyExclusive: true,
-        description: '互斥'
+        description: 'Exclusive'
       });
       const copy: OperationRelationship[] = graph.getRelationships();
       copy.push({
         sourceId: 'suspend',
         targetId: 'reboot',
         mutuallyExclusive: true,
-        description: '互斥'
+        description: 'Exclusive'
       });
       expect(graph.getRelationshipCount()).assertEqual(1);
     });
@@ -670,28 +670,28 @@ export default function keyOperationCatalogTest() {
     it('name_resolver_should_resolve_name_by_id', 0, async () => {
       const resolver = new OperationNameResolver(KeyOperationCatalog.getAll());
       expect(resolver.resolveById('suspend')).assertEqual('ABC');
-      expect(resolver.resolveById('reboot')).assertEqual('符号');
-      expect(resolver.resolveById('shutdown')).assertEqual('中文');
+      expect(resolver.resolveById('reboot')).assertEqual('Symbol');
+      expect(resolver.resolveById('shutdown')).assertEqual('Chinese');
     });
 
     // 适配 OperationNameResolver：未知 id 返回默认文案
     it('name_resolver_should_return_default_for_unknown_id', 0, async () => {
       const resolver = new OperationNameResolver(KeyOperationCatalog.getAll());
-      expect(resolver.resolveById('unknown')).assertEqual('未知操作');
+      expect(resolver.resolveById('unknown')).assertEqual('UnknownOperation');
     });
 
     // 适配 OperationNameResolver：按操作类型解析名称
     it('name_resolver_should_resolve_name_by_type', 0, async () => {
       const resolver = new OperationNameResolver(KeyOperationCatalog.getAll());
       expect(resolver.resolveByOperationType(0)).assertEqual('ABC');
-      expect(resolver.resolveByOperationType(1)).assertEqual('符号');
-      expect(resolver.resolveByOperationType(2)).assertEqual('中文');
+      expect(resolver.resolveByOperationType(1)).assertEqual('Symbol');
+      expect(resolver.resolveByOperationType(2)).assertEqual('Chinese');
     });
 
     // 适配 OperationNameResolver：未知类型返回默认文案
     it('name_resolver_should_return_default_for_unknown_type', 0, async () => {
       const resolver = new OperationNameResolver(KeyOperationCatalog.getAll());
-      expect(resolver.resolveByOperationType(99)).assertEqual('未知操作');
+      expect(resolver.resolveByOperationType(99)).assertEqual('UnknownOperation');
     });
 
     // 适配 OperationNameResolver：解析全部名称
@@ -700,8 +700,8 @@ export default function keyOperationCatalogTest() {
       const names: string[] = resolver.resolveAllNames();
       expect(names.length).assertEqual(3);
       expect(names.includes('ABC')).assertTrue();
-      expect(names.includes('符号')).assertTrue();
-      expect(names.includes('中文')).assertTrue();
+      expect(names.includes('Symbol')).assertTrue();
+      expect(names.includes('Chinese')).assertTrue();
     });
 
     // 适配 OperationNameResolver：可解析数量与可解析性
@@ -735,7 +735,7 @@ export default function keyOperationCatalogTest() {
     // 适配 CatalogStatistics：最短名称长度
     it('catalog_statistics_should_report_shortest_name', 0, async () => {
       const stats = new CatalogStatistics(KeyOperationCatalog.getAll());
-      expect(stats.getShortestNameLength()).assertEqual(2);
+      expect(stats.getShortestNameLength()).assertEqual(3);
     });
 
     // 适配 CatalogStatistics：空目录统计为零
@@ -801,7 +801,7 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationCatalogSearcher：按名称关键字搜索
     it('catalog_searcher_should_search_by_name_keyword', 0, async () => {
       const searcher = new OperationCatalogSearcher(KeyOperationCatalog.getAll());
-      const results: KeyOperationDef[] = searcher.searchByName('中');
+      const results: KeyOperationDef[] = searcher.searchByName('Chinese');
       expect(results.length).assertEqual(1);
       expect(results[0].id).assertEqual('shutdown');
     });
@@ -817,7 +817,7 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationCatalogSearcher：精确名称查找
     it('catalog_searcher_should_find_exact_name', 0, async () => {
       const searcher = new OperationCatalogSearcher(KeyOperationCatalog.getAll());
-      const match: KeyOperationDef | null = searcher.findExactName('符号');
+      const match: KeyOperationDef | null = searcher.findExactName('Symbol');
       expect(match === null).assertFalse();
       expect(match?.id).assertEqual('reboot');
     });
@@ -825,7 +825,7 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationCatalogSearcher：不存在的名称返回 null
     it('catalog_searcher_should_return_null_for_unknown_name', 0, async () => {
       const searcher = new OperationCatalogSearcher(KeyOperationCatalog.getAll());
-      const match: KeyOperationDef | null = searcher.findExactName('不存在的操作');
+      const match: KeyOperationDef | null = searcher.findExactName('NonExistentOperation');
       expect(match === null).assertTrue();
     });
 
@@ -953,7 +953,7 @@ export default function keyOperationCatalogTest() {
     it('dependency_graph_should_track_non_exclusive_targets', 0, async () => {
       const graph = new OperationDependencyGraph();
       graph.addRelationship({
-        sourceId: 'suspend', targetId: 'shutdown', mutuallyExclusive: false, description: '非互斥'
+        sourceId: 'suspend', targetId: 'shutdown', mutuallyExclusive: false, description: 'NonExclusive'
       });
       const targets: string[] = graph.getTargetsOf('suspend');
       expect(targets.length).assertEqual(1);
@@ -965,7 +965,7 @@ export default function keyOperationCatalogTest() {
     it('dependency_graph_should_detect_cycles_after_clear', 0, async () => {
       const graph = new OperationDependencyGraph();
       graph.addRelationship({
-        sourceId: 'reboot', targetId: 'reboot', mutuallyExclusive: true, description: '自环'
+        sourceId: 'reboot', targetId: 'reboot', mutuallyExclusive: true, description: 'SelfLoop'
       });
       expect(graph.hasCycle()).assertTrue();
       graph.clear();
@@ -976,8 +976,8 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationNameResolver：空目录解析行为确定
     it('name_resolver_should_handle_empty_catalog', 0, async () => {
       const resolver = new OperationNameResolver([]);
-      expect(resolver.resolveById('suspend')).assertEqual('未知操作');
-      expect(resolver.resolveByOperationType(0)).assertEqual('未知操作');
+      expect(resolver.resolveById('suspend')).assertEqual('UnknownOperation');
+      expect(resolver.resolveByOperationType(0)).assertEqual('UnknownOperation');
       expect(resolver.getResolvableCount()).assertEqual(0);
       expect(resolver.isResolvable(1)).assertFalse();
     });
@@ -998,7 +998,7 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationCatalogSearcher：中文关键字精确匹配
     it('catalog_searcher_should_match_chinese_keyword', 0, async () => {
       const searcher = new OperationCatalogSearcher(KeyOperationCatalog.getAll());
-      const results: KeyOperationDef[] = searcher.searchByName('符号');
+      const results: KeyOperationDef[] = searcher.searchByName('Symbol');
       expect(results.length).assertEqual(1);
       expect(results[0].id).assertEqual('reboot');
     });
@@ -1006,9 +1006,9 @@ export default function keyOperationCatalogTest() {
     // 适配 OperationCatalogSearcher：无匹配返回空列表
     it('catalog_searcher_should_return_empty_for_no_match', 0, async () => {
       const searcher = new OperationCatalogSearcher(KeyOperationCatalog.getAll());
-      expect(searcher.searchByName('不存在的操作').length).assertEqual(0);
+      expect(searcher.searchByName('NonExistentOperation').length).assertEqual(0);
       expect(searcher.searchByIdPrefix('zz').length).assertEqual(0);
-      expect(searcher.findExactName('不存在的操作') === null).assertTrue();
+      expect(searcher.findExactName('NonExistentOperation') === null).assertTrue();
     });
 
     // 适配 OperationCatalogSearcher：排序不改变原始目录顺序

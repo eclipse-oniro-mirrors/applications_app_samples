@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -60,8 +61,8 @@ class KeyboardMenuModel {
 
   constructor() {
     this.options.push(new KeyboardOption('ABC', KeyOperationType.IMEOPERATION_SUSPEND, false));
-    this.options.push(new KeyboardOption('中文', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
-    this.options.push(new KeyboardOption('符号', KeyOperationType.IMEOPERATION_REBOOT, false));
+    this.options.push(new KeyboardOption('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
+    this.options.push(new KeyboardOption('Symbol', KeyOperationType.IMEOPERATION_REBOOT, false));
   }
 
   public getOptions(): KeyboardOption[] {
@@ -215,8 +216,8 @@ class MenuOptionFactory {
   public static createStandardOptions(): KeyboardOption[] {
     const options: KeyboardOption[] = [];
     options.push(new KeyboardOption('ABC', KeyOperationType.IMEOPERATION_SUSPEND, false));
-    options.push(new KeyboardOption('中文', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
-    options.push(new KeyboardOption('符号', KeyOperationType.IMEOPERATION_REBOOT, false));
+    options.push(new KeyboardOption('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN, true));
+    options.push(new KeyboardOption('Symbol', KeyOperationType.IMEOPERATION_REBOOT, false));
     return options;
   }
 
@@ -233,13 +234,13 @@ class MenuOptionFactory {
       icon: 'screenout'
     });
     descriptors.push({
-      name: '中文',
+      name: 'Chinese',
       operationType: KeyOperationType.IMEOPERATION_SHUTDOWN,
       isDefault: true,
       icon: 'shutdown'
     });
     descriptors.push({
-      name: '符号',
+      name: 'Symbol',
       operationType: KeyOperationType.IMEOPERATION_REBOOT,
       isDefault: false,
       icon: 'reboot'
@@ -458,8 +459,8 @@ export default function keyboardMenuConfigurationTest() {
       const menu = new KeyboardMenuModel();
       const options = menu.getOptions();
       expect(options[0].name).assertEqual('ABC');
-      expect(options[1].name).assertEqual('中文');
-      expect(options[2].name).assertEqual('符号');
+      expect(options[1].name).assertEqual('Chinese');
+      expect(options[2].name).assertEqual('Symbol');
     });
 
     // 适配 Menu_State_Transitions：初始焦点落在中文选项
@@ -467,7 +468,7 @@ export default function keyboardMenuConfigurationTest() {
       const menu = new KeyboardMenuModel();
       const focused = menu.getFocusedOption();
       expect(focused === null).assertFalse();
-      expect(focused?.name).assertEqual('中文');
+      expect(focused?.name).assertEqual('Chinese');
     });
 
     // 适配 Menu_State_Transitions：焦点在选项间切换
@@ -476,9 +477,9 @@ export default function keyboardMenuConfigurationTest() {
       menu.moveFocusPrev();
       expect(menu.getFocusedOption()?.name).assertEqual('ABC');
       menu.moveFocusNext();
-      expect(menu.getFocusedOption()?.name).assertEqual('中文');
+      expect(menu.getFocusedOption()?.name).assertEqual('Chinese');
       menu.moveFocusNext();
-      expect(menu.getFocusedOption()?.name).assertEqual('符号');
+      expect(menu.getFocusedOption()?.name).assertEqual('Symbol');
     });
 
     // 适配 MultiSelect_Mode：选择模式下仅一个选项获得焦点
@@ -499,8 +500,8 @@ export default function keyboardMenuConfigurationTest() {
     it('enter_key_should_not_change_focus', 0, async () => {
       const menu = new KeyboardMenuModel();
       const before = menu.getFocusedOption()?.name;
-      expect(before).assertEqual('中文'); // 确认操作不改变焦点
-      expect(menu.getFocusedOption()?.name).assertEqual('中文');
+      expect(before).assertEqual('Chinese'); // 确认操作不改变焦点
+      expect(menu.getFocusedOption()?.name).assertEqual('Chinese');
     });
 
     // 适配 Copy_Mode / Move_Mode：模式可进入并退出
@@ -532,7 +533,7 @@ export default function keyboardMenuConfigurationTest() {
     // 集成：真实对话框三选项渲染验证
     it('real_dialog_should_render_three_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('real_dialog_should_render_three_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'real_dialog_should_render_three_options skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -611,14 +612,14 @@ export default function keyboardMenuConfigurationTest() {
       const options: KeyboardOption[] = MenuOptionFactory.createStandardOptions();
       expect(options.length).assertEqual(3);
       expect(options[0].name).assertEqual('ABC');
-      expect(options[1].name).assertEqual('中文');
+      expect(options[1].name).assertEqual('Chinese');
       expect(options[1].isFocus).assertTrue();
     });
 
     // 适配 MenuOption_Factory：创建单个选项
     it('option_factory_should_create_single_option', 0, async () => {
-      const option: KeyboardOption = MenuOptionFactory.createSingle('测试项', KeyOperationType.IMEOPERATION_REBOOT);
-      expect(option.name).assertEqual('测试项');
+      const option: KeyboardOption = MenuOptionFactory.createSingle('TestItem', KeyOperationType.IMEOPERATION_REBOOT);
+      expect(option.name).assertEqual('TestItem');
       expect(option.operationType).assertEqual(KeyOperationType.IMEOPERATION_REBOOT);
       expect(option.isFocus).assertFalse();
     });
@@ -627,7 +628,7 @@ export default function keyboardMenuConfigurationTest() {
     it('option_factory_should_create_descriptors', 0, async () => {
       const descriptors: MenuItemDescriptor[] = MenuOptionFactory.createDescriptors();
       expect(descriptors.length).assertEqual(3);
-      const shutdownDescriptor = descriptors.find((d: MenuItemDescriptor) => d.name === '中文');
+      const shutdownDescriptor = descriptors.find((d: MenuItemDescriptor) => d.name === 'Chinese');
       expect(shutdownDescriptor === undefined).assertFalse();
       expect(shutdownDescriptor?.isDefault).assertTrue();
     });
@@ -712,16 +713,16 @@ export default function keyboardMenuConfigurationTest() {
     it('option_manager_should_find_by_name', 0, async () => {
       const manager = new MenuOptionManager();
       manager.addAll(MenuOptionFactory.createStandardOptions());
-      const found: KeyboardOption | null = manager.getByName('中文');
+      const found: KeyboardOption | null = manager.getByName('Chinese');
       expect(found === null).assertFalse();
       expect(found?.operationType).assertEqual(KeyOperationType.IMEOPERATION_SHUTDOWN);
-      expect(manager.getByName('不存在的项') === null).assertTrue();
+      expect(manager.getByName('NonExistentItem') === null).assertTrue();
     });
 
     // 适配 MenuOptionManager：清空后状态复位
     it('option_manager_should_reset_after_clear', 0, async () => {
       const manager = new MenuOptionManager();
-      manager.add(MenuOptionFactory.createSingle('测试', KeyOperationType.IMEOPERATION_SUSPEND));
+      manager.add(MenuOptionFactory.createSingle('Test', KeyOperationType.IMEOPERATION_SUSPEND));
       manager.clear();
       expect(manager.getOptionCount()).assertEqual(0);
       expect(manager.getOptions().length).assertEqual(0);
@@ -797,9 +798,9 @@ export default function keyboardMenuConfigurationTest() {
       const menu = new KeyboardMenuModel();
       menu.setFocusToIndex(0);
       menu.moveFocusNext();
-      expect(menu.getFocusedOption()?.name).assertEqual('中文');
+      expect(menu.getFocusedOption()?.name).assertEqual('Chinese');
       menu.moveFocusNext();
-      expect(menu.getFocusedOption()?.name).assertEqual('符号');
+      expect(menu.getFocusedOption()?.name).assertEqual('Symbol');
       menu.moveFocusPrev();
       menu.moveFocusPrev();
       expect(menu.getFocusedOption()?.name).assertEqual('ABC');
@@ -821,7 +822,7 @@ export default function keyboardMenuConfigurationTest() {
     it('menu_model_should_keep_single_focus_after_set', 0, async () => {
       const menu = new KeyboardMenuModel();
       expect(menu.setFocusToIndex(2)).assertTrue();
-      expect(menu.getFocusedOption()?.name).assertEqual('符号');
+      expect(menu.getFocusedOption()?.name).assertEqual('Symbol');
       expect(menu.getFocusedCount()).assertEqual(1);
     });
 
@@ -841,7 +842,7 @@ export default function keyboardMenuConfigurationTest() {
         expect(descriptor.icon.length).assertLarger(0);
         expect(descriptor.name.length).assertLarger(0);
       });
-      const shutdown = descriptors.find((descriptor: MenuItemDescriptor) => descriptor.name === '中文');
+      const shutdown = descriptors.find((descriptor: MenuItemDescriptor) => descriptor.name === 'Chinese');
       expect(shutdown === undefined).assertFalse();
       expect(shutdown?.isDefault).assertTrue();
       expect(shutdown?.icon).assertEqual('shutdown');
@@ -885,12 +886,12 @@ export default function keyboardMenuConfigurationTest() {
     // 适配 MenuOptionManager：单个选项添加与查询
     it('menu_option_manager_should_add_and_query_single', 0, async () => {
       const manager = new MenuOptionManager();
-      manager.add(MenuOptionFactory.createSingle('测试项', KeyOperationType.IMEOPERATION_REBOOT));
+      manager.add(MenuOptionFactory.createSingle('TestItem', KeyOperationType.IMEOPERATION_REBOOT));
       expect(manager.getOptionCount()).assertEqual(1);
-      const found = manager.getByName('测试项');
+      const found = manager.getByName('TestItem');
       expect(found === null).assertFalse();
       expect(found?.operationType).assertEqual(KeyOperationType.IMEOPERATION_REBOOT);
-      expect(manager.getByName('未知') === null).assertTrue();
+      expect(manager.getByName('Unknown') === null).assertTrue();
     });
 
     // 适配 MenuLayoutCalculator：单选项布局尺寸
@@ -936,7 +937,7 @@ export default function keyboardMenuConfigurationTest() {
     // 适配 Remote_Navigation：遥控器方向键导航保持对话框稳定
     it('ime_dialog_should_support_remote_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_dialog_should_support_remote_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_dialog_should_support_remote_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

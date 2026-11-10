@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -600,7 +601,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle null reference exception下功能正常
     it('dialog_should_handle_null_reference_exception', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_null_reference_exception skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_null_reference_exception skipped: input method is not enabled on this device');
         return;
       }
  // 验证空引用异常处理：确保TV设备在对象未初始化时不会崩溃
@@ -620,7 +621,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle invalid state exception下功能正常
     it('dialog_should_handle_invalid_state_exception', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_invalid_state_exception skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_invalid_state_exception skipped: input method is not enabled on this device');
         return;
       }
  // 验证无效状态异常处理：确保TV设备在状态转换错误时能正确恢复
@@ -646,7 +647,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle resource not found exception下功能正常
     it('dialog_should_handle_resource_not_found_exception', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_resource_not_found_exception skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_resource_not_found_exception skipped: input method is not enabled on this device');
         return;
       }
  // 验证资源未找到异常处理：确保TV设备在资源缺失时不影响核心功能
@@ -670,7 +671,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle timeout exception下功能正常
     it('dialog_should_handle_timeout_exception', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_timeout_exception skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_timeout_exception skipped: input method is not enabled on this device');
         return;
       }
  // 验证超时异常处理：确保TV设备在操作超时时能正确响应
@@ -692,7 +693,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle network error exception下功能正常
     it('dialog_should_handle_network_error_exception', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_network_error_exception skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_network_error_exception skipped: input method is not enabled on this device');
         return;
       }
  // 验证网络错误异常处理：确保TV设备在网络异常时不影响本地功能
@@ -716,7 +717,7 @@ export default function exceptionHandlingTest() {
     // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
     it('dialog_exception_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_exception_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_exception_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证异常记录时间戳按时间顺序排列，确保测试数据的时间有效性
@@ -754,7 +755,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle all exception types下功能正常
     it('dialog_should_handle_all_exception_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_exception_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_exception_types skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有异常类型都能被正确处理，确保异常处理机制完整覆盖
@@ -781,7 +782,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should稳定：确保TV设备在maintain high catch rate下性能不降低
     it('dialog_should_maintain_high_catch_rate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_high_catch_rate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_high_catch_rate skipped: input method is not enabled on this device');
         return;
       }
  // 验证异常捕获率保持高位，确保TV设备异常不会泄漏到系统层
@@ -801,7 +802,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should稳定：确保TV设备在maintain high recovery rate下性能不降低
     it('dialog_should_maintain_high_recovery_rate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_high_recovery_rate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_high_recovery_rate skipped: input method is not enabled on this device');
         return;
       }
  // 验证异常恢复率保持高位，确保TV设备从异常中快速恢复
@@ -821,7 +822,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should处理：确保TV设备在handle rapid exceptions下功能正常
     it('dialog_should_handle_rapid_exceptions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_exceptions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_exceptions skipped: input method is not enabled on this device');
         return;
       }
  // 验证快速异常处理能力，确保TV设备在高频异常下不会崩溃
@@ -844,7 +845,7 @@ export default function exceptionHandlingTest() {
     // 验证dialog should稳定：确保TV设备在maintain stability during exceptions下性能不降低
     it('dialog_should_maintain_stability_during_exceptions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_stability_during_exceptions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_stability_during_exceptions skipped: input method is not enabled on this device');
         return;
       }
  // 验证异常期间系统稳定性，确保TV设备组件数量不因异常而泄漏
@@ -866,7 +867,7 @@ export default function exceptionHandlingTest() {
     // 综合comprehensive exception场景：验证完整操作流程中功能正确
     it('comprehensive_exception_handling_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_exception_handling_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_exception_handling_scenario skipped: input method is not enabled on this device');
         return;
       }
  // 综合异常处理场景测试：验证完整操作流程中异常处理正确

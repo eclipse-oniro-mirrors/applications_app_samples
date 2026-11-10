@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -140,7 +141,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_integrate_with_ime_manager', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_ime_manager skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_ime_manager skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -164,7 +165,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_integrate_with_ui_extension', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_ui_extension skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_ui_extension skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -181,7 +182,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_integrate_with_system_events', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_system_events skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_system_events skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -198,7 +199,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_integrate_with_window_manager', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_window_manager skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_window_manager skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -218,7 +219,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_integrate_with_focus_manager', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_focus_manager skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_focus_manager skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -239,7 +240,7 @@ export default function systemIntegrationTest() {
     // 验证dialog should处理能力：确保TV设备在handle all integration types下功能正常
     it('dialog_should_handle_all_integration_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_integration_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_integration_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -259,7 +260,7 @@ export default function systemIntegrationTest() {
     // 验证dialog integration状态正确：确保TV设备timestamps should be chronological符合预期
     it('dialog_integration_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_integration_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_integration_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -295,7 +296,7 @@ export default function systemIntegrationTest() {
     // 验证dialog should处理能力：确保TV设备在handle integration failures下功能正常
     it('dialog_should_handle_integration_failures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_integration_failures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_integration_failures skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -311,7 +312,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_integration_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_integration_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_integration_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -333,7 +334,7 @@ export default function systemIntegrationTest() {
 
     it('dialog_should_track_integration_response_times', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_track_integration_response_times skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_track_integration_response_times skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -351,7 +352,7 @@ export default function systemIntegrationTest() {
     // 验证dialog should处理能力：确保TV设备在handle mixed integration operations下功能正常
     it('dialog_should_handle_mixed_integration_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_mixed_integration_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_mixed_integration_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -373,7 +374,7 @@ export default function systemIntegrationTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain stability during integration下性能不降级
     it('dialog_should_maintain_stability_during_integration', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_stability_during_integration skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_stability_during_integration skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -394,7 +395,7 @@ export default function systemIntegrationTest() {
     // 综合comprehensive system场景测试：验证完整操作流程中功能正确
     it('comprehensive_system_integration_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_system_integration_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_system_integration_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

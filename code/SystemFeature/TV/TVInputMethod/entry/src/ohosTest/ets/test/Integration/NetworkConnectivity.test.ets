@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -48,7 +49,7 @@ export default function networkConnectivityTest() {
     // 联网状态下导航：对话框仍可见、组件数正常（焦点索引查询在部分TV设备不可靠，改用真实渲染状态）
     it('dialog_should_handle_online_status', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_online_status skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_online_status skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -61,7 +62,7 @@ export default function networkConnectivityTest() {
     // 离线状态下导航：对话框仍可见、组件数正常
     it('dialog_should_handle_offline_status', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_offline_status skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_offline_status skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -74,7 +75,7 @@ export default function networkConnectivityTest() {
     // 连接中状态下对话框可正常渲染
     it('dialog_should_handle_connecting_status', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_connecting_status skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_connecting_status skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -86,7 +87,7 @@ export default function networkConnectivityTest() {
     // 断开状态下导航：对话框仍可见、组件数正常
     it('dialog_should_handle_disconnecting_status', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_disconnecting_status skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_disconnecting_status skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -99,7 +100,7 @@ export default function networkConnectivityTest() {
     // 网络状态持续变化期间对话框保持稳定：以真实组件数为断言
     it('dialog_should_maintain_stability_during_network_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_stability_during_network_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_stability_during_network_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -119,7 +120,7 @@ export default function networkConnectivityTest() {
     // 综合场景：完整操作流程后对话框可见、组件数正常
     it('comprehensive_network_connectivity_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_network_connectivity_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_network_connectivity_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -465,8 +466,8 @@ export default function keyboardInputInteractionTest() {
     });
 
     it('valid_name_should_pass_validation', 0, async () => {
-      expect(InputValidator.isValidName('中文')).assertTrue();
-      expect(InputValidator.isValidName('符号')).assertTrue();
+      expect(InputValidator.isValidName('Chinese')).assertTrue();
+      expect(InputValidator.isValidName('Symbol')).assertTrue();
     });
 
     it('overlong_name_should_be_rejected', 0, async () => {
@@ -483,13 +484,13 @@ export default function keyboardInputInteractionTest() {
     });
 
     it('special_characters_should_be_detected', 0, async () => {
-      expect(InputValidator.hasSpecialChars('中文*')).assertTrue();
-      expect(InputValidator.hasSpecialChars('符号')).assertFalse();
+      expect(InputValidator.hasSpecialChars('Chinese*')).assertTrue();
+      expect(InputValidator.hasSpecialChars('Symbol')).assertFalse();
     });
 
     it('injection_characters_should_be_detected', 0, async () => {
       expect(InputValidator.containsInjection('<script>')).assertTrue();
-      expect(InputValidator.containsInjection('正常')).assertFalse();
+      expect(InputValidator.containsInjection('Normal')).assertFalse();
     });
 
     it('length_range_should_be_validated', 0, async () => {
@@ -500,7 +501,7 @@ export default function keyboardInputInteractionTest() {
 
     it('alphanumeric_check_should_work', 0, async () => {
       expect(InputValidator.isAlphanumeric('abc123')).assertTrue();
-      expect(InputValidator.isAlphanumeric('中文')).assertFalse();
+      expect(InputValidator.isAlphanumeric('abc-123')).assertFalse();
     });
 
     // ===== 防重复提交 =====
@@ -521,7 +522,7 @@ export default function keyboardInputInteractionTest() {
 
     // ===== 表单校验 =====
     it('required_field_should_be_validated', 0, async () => {
-      expect(FormValidator.validateRequired('中文')).assertTrue();
+      expect(FormValidator.validateRequired('Chinese')).assertTrue();
       expect(FormValidator.validateRequired('')).assertFalse();
     });
 
@@ -536,14 +537,14 @@ export default function keyboardInputInteractionTest() {
     });
 
     it('consistency_field_should_be_validated', 0, async () => {
-      expect(FormValidator.validateConsistency('中文', '中文')).assertTrue();
-      expect(FormValidator.validateConsistency('中文', '符号')).assertFalse();
+      expect(FormValidator.validateConsistency('Chinese', 'Chinese')).assertTrue();
+      expect(FormValidator.validateConsistency('Chinese', 'Symbol')).assertFalse();
     });
 
     // ===== 交互 =====
     it('back_key_should_work_without_deadlock', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('back_key_should_work_without_deadlock skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'back_key_should_work_without_deadlock skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -554,7 +555,7 @@ export default function keyboardInputInteractionTest() {
 
     it('focus_interaction_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_interaction_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_interaction_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -574,7 +575,7 @@ export default function keyboardInputInteractionTest() {
     });
 
     it('consistency_mismatch_should_be_detected', 0, async () => {
-      expect(FormValidator.validateConsistency('中文', '符号')).assertFalse();
+      expect(FormValidator.validateConsistency('Chinese', 'Symbol')).assertFalse();
     });
 
     it('range_exact_boundary_should_pass', 0, async () => {

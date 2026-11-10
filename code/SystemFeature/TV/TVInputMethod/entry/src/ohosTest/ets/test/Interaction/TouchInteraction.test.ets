@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -467,7 +468,7 @@ export default function touchInteractionTest() {
     // 验证touch on触发：确保TV设备screen out option should trigger focus机制有效
     it('touch_on_screen_out_option_should_trigger_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_on_screen_out_option_should_trigger_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_on_screen_out_option_should_trigger_focus skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -480,7 +481,7 @@ export default function touchInteractionTest() {
     // 验证touch on触发：确保TV设备shutdown option should trigger focus机制有效
     it('touch_on_shutdown_option_should_trigger_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_on_shutdown_option_should_trigger_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_on_shutdown_option_should_trigger_focus skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -492,7 +493,7 @@ export default function touchInteractionTest() {
     // 验证touch on触发：确保TV设备reboot option should trigger focus机制有效
     it('touch_on_reboot_option_should_trigger_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_on_reboot_option_should_trigger_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_on_reboot_option_should_trigger_focus skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -504,7 +505,7 @@ export default function touchInteractionTest() {
     // 验证multiple touch状态正确：确保TV设备events should be recorded符合预期
     it('multiple_touch_events_should_be_recorded', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('multiple_touch_events_should_be_recorded skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'multiple_touch_events_should_be_recorded skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -531,7 +532,7 @@ export default function touchInteractionTest() {
 
     it('touch_focus_should_match_keyboard_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_focus_should_match_keyboard_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_focus_should_match_keyboard_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -550,7 +551,7 @@ export default function touchInteractionTest() {
     // 验证touch coordinates状态正确：确保TV设备should be recorded accurately符合预期
     it('touch_coordinates_should_be_recorded_accurately', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_coordinates_should_be_recorded_accurately skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_coordinates_should_be_recorded_accurately skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -577,7 +578,7 @@ export default function touchInteractionTest() {
     // 验证rapid touch状态正确：确保TV设备events should be handled符合预期
     it('rapid_touch_events_should_be_handled', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('rapid_touch_events_should_be_handled skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'rapid_touch_events_should_be_handled skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -599,7 +600,7 @@ export default function touchInteractionTest() {
 
     it('touch_outside_dialog_should_not_change_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_outside_dialog_should_not_change_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_outside_dialog_should_not_change_focus skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -614,7 +615,7 @@ export default function touchInteractionTest() {
     // 验证touch should触发：确保TV设备trigger correct focus state机制有效
     it('touch_should_trigger_correct_focus_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_should_trigger_correct_focus_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_should_trigger_correct_focus_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -631,7 +632,7 @@ export default function touchInteractionTest() {
     // 验证touch interaction状态正确：确保TV设备statistics should be accurate符合预期
     it('touch_interaction_statistics_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_interaction_statistics_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_interaction_statistics_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -658,7 +659,7 @@ export default function touchInteractionTest() {
     // 验证touch response状态正确：确保TV设备time should be within limit符合预期
     it('touch_response_time_should_be_within_limit', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_response_time_should_be_within_limit skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_response_time_should_be_within_limit skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -675,7 +676,7 @@ export default function touchInteractionTest() {
 
     it('touch_should_work_after_keyboard_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_should_work_after_keyboard_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_should_work_after_keyboard_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -690,7 +691,7 @@ export default function touchInteractionTest() {
 
     it('keyboard_should_work_after_touch_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('keyboard_should_work_after_touch_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'keyboard_should_work_after_touch_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -706,7 +707,7 @@ export default function touchInteractionTest() {
     // 验证touch history状态正确：确保TV设备timestamps should be chronological符合预期
     it('touch_history_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_history_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_history_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -733,7 +734,7 @@ export default function touchInteractionTest() {
     // 验证touch should处理能力：确保TV设备在handle boundary coordinates下功能正常
     it('touch_should_handle_boundary_coordinates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_should_handle_boundary_coordinates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_should_handle_boundary_coordinates skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -755,7 +756,7 @@ export default function touchInteractionTest() {
     // 验证touch focus持久：确保TV设备should persist after delay状态保持
     it('touch_focus_should_persist_after_delay', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_focus_should_persist_after_delay skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_focus_should_persist_after_delay skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -772,7 +773,7 @@ export default function touchInteractionTest() {
 
     it('touch_interaction_with_mixed_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_interaction_with_mixed_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_interaction_with_mixed_options skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -797,7 +798,7 @@ export default function touchInteractionTest() {
 
     it('touch_should_not_crash_with_invalid_coordinates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_should_not_crash_with_invalid_coordinates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_should_not_crash_with_invalid_coordinates skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -816,7 +817,7 @@ export default function touchInteractionTest() {
     // 综合comprehensive touch场景测试：验证完整操作流程中功能正确
     it('comprehensive_touch_interaction_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_touch_interaction_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_touch_interaction_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

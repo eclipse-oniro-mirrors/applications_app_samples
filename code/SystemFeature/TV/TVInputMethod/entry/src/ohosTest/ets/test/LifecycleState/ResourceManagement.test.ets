@@ -135,7 +135,7 @@ export default function resourceManagementTest() {
 
     it('dialog_should_load_all_image_resources', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_load_all_image_resources skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_load_all_image_resources skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -161,7 +161,7 @@ export default function resourceManagementTest() {
 
     it('dialog_should_load_all_string_resources', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_load_all_string_resources skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_load_all_string_resources skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -179,7 +179,7 @@ export default function resourceManagementTest() {
     // 验证resource loading状态正确：确保TV设备should be efficient符合预期
     it('resource_loading_should_be_efficient', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_should_be_efficient skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_should_be_efficient skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -202,7 +202,7 @@ export default function resourceManagementTest() {
     // 验证resources should持久：确保TV设备persist during navigation状态保持
     it('resources_should_persist_during_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resources_should_persist_during_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resources_should_persist_during_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -223,7 +223,7 @@ export default function resourceManagementTest() {
     // 验证resource loading状态正确：确保TV设备timestamps should be chronological符合预期
     it('resource_loading_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -248,7 +248,7 @@ export default function resourceManagementTest() {
     // 验证dialog should处理能力：确保TV设备在handle resource loading failures下功能正常
     it('dialog_should_handle_resource_loading_failures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_resource_loading_failures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_resource_loading_failures skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -280,7 +280,7 @@ export default function resourceManagementTest() {
     // 验证resources should处理能力：确保TV设备在handle multiple types下功能正常
     it('resources_should_handle_multiple_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resources_should_handle_multiple_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resources_should_handle_multiple_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -300,7 +300,7 @@ export default function resourceManagementTest() {
 
     it('resource_loading_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -323,7 +323,7 @@ export default function resourceManagementTest() {
     // 验证resources should状态正确：确保TV设备be reusable符合预期
     it('resources_should_be_reusable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resources_should_be_reusable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resources_should_be_reusable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -341,7 +341,7 @@ export default function resourceManagementTest() {
     // 验证resource loading处理能力：确保TV设备在should handle edge cases下功能正常
     it('resource_loading_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -359,7 +359,7 @@ export default function resourceManagementTest() {
     // 验证resources should维持稳定：确保TV设备在maintain dialog stability下性能不降级
     it('resources_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resources_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resources_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -378,7 +378,7 @@ export default function resourceManagementTest() {
 
     it('resource_loading_should_track_all_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('resource_loading_should_track_all_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'resource_loading_should_track_all_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -396,7 +396,7 @@ export default function resourceManagementTest() {
     // 综合comprehensive resource场景测试：验证完整操作流程中功能正确
     it('comprehensive_resource_management_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_resource_management_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_resource_management_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

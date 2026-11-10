@@ -145,7 +145,7 @@ export default function configurationChangesTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain stability during config changes下性能不降低
     it('dialog_should_maintain_stability_during_config_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_stability_during_config_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_stability_during_config_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -162,7 +162,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle language changes下功能正常
     it('dialog_should_handle_language_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_language_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_language_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -183,7 +183,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle theme changes下功能正常
     it('dialog_should_handle_theme_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_theme_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_theme_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -203,7 +203,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle font size changes下功能正常
     it('dialog_should_handle_font_size_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_font_size_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_font_size_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -226,7 +226,7 @@ export default function configurationChangesTest() {
     // 验证configuration changes状态正确：确保TV设备timestamps should be chronological符合预期
     it('configuration_changes_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('configuration_changes_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'configuration_changes_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -248,7 +248,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle multiple config changes下功能正常
     it('dialog_should_handle_multiple_config_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_multiple_config_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_multiple_config_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -268,7 +268,7 @@ export default function configurationChangesTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain focus during config changes下性能不降低
     it('dialog_should_maintain_focus_during_config_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_focus_during_config_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_focus_during_config_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -306,7 +306,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle config change failures下功能正常
     it('dialog_should_handle_config_change_failures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_config_change_failures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_config_change_failures skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -324,7 +324,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle rapid config changes下功能正常
     it('dialog_should_handle_rapid_config_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_config_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_config_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -345,7 +345,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle display density changes下功能正常
     it('dialog_should_handle_display_density_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_display_density_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_display_density_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -365,7 +365,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle orientation changes下功能正常
     it('dialog_should_handle_orientation_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_orientation_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_orientation_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -384,7 +384,7 @@ export default function configurationChangesTest() {
 
     it('configuration_changes_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('configuration_changes_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'configuration_changes_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -408,7 +408,7 @@ export default function configurationChangesTest() {
     // 验证dialog should处理能力：确保TV设备在handle edge case config changes下功能正常
     it('dialog_should_handle_edge_case_config_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_edge_case_config_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_edge_case_config_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -427,7 +427,7 @@ export default function configurationChangesTest() {
     // 综合comprehensive configuration场景测试：验证完整操作流程中功能正确
     it('comprehensive_configuration_changes_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_configuration_changes_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_configuration_changes_scenario skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);

@@ -93,13 +93,13 @@ class KeyInfoModel {
   public getOperationTypeDescription(): string {
     switch (this.operationType) {
       case KeyOperationType.IMEOPERATION_SUSPEND:
-        return '休眠操作';
+        return 'SuspendOperation';
       case KeyOperationType.IMEOPERATION_REBOOT:
-        return '符号操作';
+        return 'SymbolOperation';
       case KeyOperationType.IMEOPERATION_SHUTDOWN:
-        return '中文操作';
+        return 'ChineseOperation';
       default:
-        return '未知操作';
+        return 'UnknownOperation';
     }
   }
 
@@ -321,26 +321,26 @@ class KeyInfoDescriptorFactory {
   public static getCategoryName(category: ItemCategory): string {
     switch (category) {
       case ItemCategory.PRIMARY:
-        return '主选项';
+        return 'PrimaryOption';
       case ItemCategory.SECONDARY:
-        return '次选项';
+        return 'SecondaryOption';
       case ItemCategory.DANGER:
-        return '危险选项';
+        return 'DangerOption';
       default:
-        return '未知分类';
+        return 'UnknownCategory';
     }
   }
 
   public static getThemeName(theme: IconTheme): string {
     switch (theme) {
       case IconTheme.LIGHT:
-        return '浅色主题';
+        return 'LightTheme';
       case IconTheme.DARK:
-        return '深色主题';
+        return 'DarkTheme';
       case IconTheme.HIGH_CONTRAST:
-        return '高对比主题';
+        return 'HighContrastTheme';
       default:
-        return '未知主题';
+        return 'UnknownTheme';
     }
   }
 }
@@ -351,9 +351,9 @@ class KeyInfoFactory {
     const items: KeyInfoModel[] = [];
     items.push(new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, 'ABC',
       KeyOperationType.IMEOPERATION_SUSPEND));
-    items.push(new KeyInfoModel('app.media.reboot', 'app.media.reboot_focus', false, '符号',
+    items.push(new KeyInfoModel('app.media.reboot', 'app.media.reboot_focus', false, 'Symbol',
       KeyOperationType.IMEOPERATION_REBOOT));
-    items.push(new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, '中文',
+    items.push(new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, 'Chinese',
       KeyOperationType.IMEOPERATION_SHUTDOWN));
     return items;
   }
@@ -361,7 +361,7 @@ class KeyInfoFactory {
   public static createCount(count: number): KeyInfoModel[] {
     const items: KeyInfoModel[] = [];
     for (let i = 0; i < count; i++) {
-      items.push(new KeyInfoModel('icon' + i, 'focus' + i, false, '选项' + i, i % 3));
+      items.push(new KeyInfoModel('icon' + i, 'focus' + i, false, 'Option' + i, i % 3));
     }
     return items;
   }
@@ -455,12 +455,12 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Construction：带参构造正确提取字段
     it('constructor_with_params_should_extract_fields_correctly', 0, async () => {
-      const item = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, '中文',
+      const item = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, 'Chinese',
         KeyOperationType.IMEOPERATION_SHUTDOWN);
       expect(item.icon).assertEqual('app.media.shutdown');
       expect(item.onFocusIcon).assertEqual('app.media.shutdown_focus');
       expect(item.isFocus).assertTrue();
-      expect(item.name).assertEqual('中文');
+      expect(item.name).assertEqual('Chinese');
       expect(item.operationType).assertEqual(KeyOperationType.IMEOPERATION_SHUTDOWN);
     });
 
@@ -483,14 +483,14 @@ export default function keyInfoModelTest() {
     // 适配 FileBean_Construction_Boundary：特殊字符名称
     it('special_characters_name_should_be_handled', 0, async () => {
       const item =
-        new KeyInfoModel('icon!@#', 'focus$%^', false, '特殊字符*()', KeyOperationType.IMEOPERATION_REBOOT);
-      expect(item.getDisplayName()).assertEqual('特殊字符*()');
+        new KeyInfoModel('icon!@#', 'focus$%^', false, 'specialChars*()', KeyOperationType.IMEOPERATION_REBOOT);
+      expect(item.getDisplayName()).assertEqual('specialChars*()');
       expect(item.getCurrentIcon()).assertEqual('icon!@#');
     });
 
     // 适配 FileBean_Type_Detection：isSuspend 识别
     it('is_suspend_should_return_true_for_suspend_type', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+      const item = new KeyInfoModel('a', 'b', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
       expect(item.isSuspend()).assertTrue();
       expect(item.isReboot()).assertFalse();
       expect(item.isShutdown()).assertFalse();
@@ -498,21 +498,21 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Type_Detection：isReboot 识别
     it('is_reboot_should_return_true_for_reboot_type', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '符号', KeyOperationType.IMEOPERATION_REBOOT);
+      const item = new KeyInfoModel('a', 'b', false, 'Symbol', KeyOperationType.IMEOPERATION_REBOOT);
       expect(item.isReboot()).assertTrue();
       expect(item.isSuspend()).assertFalse();
     });
 
     // 适配 FileBean_Type_Detection：isShutdown 识别
     it('is_shutdown_should_return_true_for_shutdown_type', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const item = new KeyInfoModel('a', 'b', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       expect(item.isShutdown()).assertTrue();
       expect(item.isReboot()).assertFalse();
     });
 
     // 适配 FileBean_Type_Detection：默认项不属于任何有效操作类型
     it('default_item_should_not_be_any_valid_operation_type', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '未知', -1);
+      const item = new KeyInfoModel('a', 'b', false, 'Unknown', -1);
       expect(item.isSuspend()).assertFalse();
       expect(item.isReboot()).assertFalse();
       expect(item.isShutdown()).assertFalse();
@@ -521,13 +521,13 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Type_Detection：默认 isFocus 为 false
     it('is_focus_should_be_false_by_default', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+      const item = new KeyInfoModel('a', 'b', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
       expect(item.isFocus).assertFalse();
     });
 
     // 适配 FileBean_Type_Detection：setFocusState 后 isFocus 为 true
     it('is_focus_should_be_true_after_set_focus_state', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+      const item = new KeyInfoModel('a', 'b', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
       item.setFocusState(true);
       expect(item.isFocus).assertTrue();
       expect(item.getCurrentIcon()).assertEqual('b');
@@ -542,7 +542,7 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Image_Dimensions：setIcon 更新图标
     it('set_icon_should_update_icon_value', 0, async () => {
-      const item = new KeyInfoModel('old', 'focus', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+      const item = new KeyInfoModel('old', 'focus', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
       item.setIcon('new_icon');
       expect(item.icon).assertEqual('new_icon');
       expect(item.getCurrentIcon()).assertEqual('new_icon');
@@ -550,7 +550,7 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Path_Operations：getCurrentIcon 反映焦点切换
     it('get_current_icon_should_reflect_focus_state', 0, async () => {
-      const item = new KeyInfoModel('normal', 'focus', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const item = new KeyInfoModel('normal', 'focus', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       expect(item.getCurrentIcon()).assertEqual('normal');
       item.setFocusState(true);
       expect(item.getCurrentIcon()).assertEqual('focus');
@@ -558,16 +558,16 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_toString：toString 包含关键字段
     it('to_string_should_contain_key_fields', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', true, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const item = new KeyInfoModel('a', 'b', true, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       const str: string = item.toString();
-      expect(str.includes('中文')).assertTrue();
+      expect(str.includes('Chinese')).assertTrue();
       expect(str.includes('2')).assertTrue();
       expect(str.includes('true')).assertTrue();
     });
 
     // 适配 FileBean_Immutability / Data_Consistency：名称与操作类型不可变
     it('name_and_operation_type_should_be_immutable', 0, async () => {
-      const item = new KeyInfoModel('a', 'b', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const item = new KeyInfoModel('a', 'b', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       const nameBefore: string = item.name;
       const typeBefore: number = item.operationType;
       item.setFocusState(true);
@@ -578,11 +578,11 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Integration_Scenarios：中文项链路正确
     it('shutdown_item_integration_chain_should_be_correct', 0, async () => {
-      const item = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, '中文',
+      const item = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, 'Chinese',
         KeyOperationType.IMEOPERATION_SHUTDOWN);
       expect(item.isShutdown()).assertTrue();
       expect(item.getCurrentIcon()).assertEqual('app.media.shutdown_focus');
-      expect(item.getOperationTypeDescription()).assertEqual('中文操作');
+      expect(item.getOperationTypeDescription()).assertEqual('ChineseOperation');
     });
 
     // 适配 FileBean_Integration_Scenarios：息屏项链路正确
@@ -591,7 +591,7 @@ export default function keyInfoModelTest() {
         KeyOperationType.IMEOPERATION_SUSPEND);
       expect(item.isSuspend()).assertTrue();
       expect(item.getCurrentIcon()).assertEqual('app.media.screenout');
-      expect(item.getOperationTypeDescription()).assertEqual('休眠操作');
+      expect(item.getOperationTypeDescription()).assertEqual('SuspendOperation');
     });
 
     // 适配 FileBean_Edge_Regression：空字符串名称
@@ -603,8 +603,8 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Sorting：按操作类型排序
     it('items_should_sort_by_operation_type', 0, async () => {
-      const reboot = new KeyInfoModel('r', 'rf', false, '符号', KeyOperationType.IMEOPERATION_REBOOT);
-      const shutdown = new KeyInfoModel('s', 'sf', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const reboot = new KeyInfoModel('r', 'rf', false, 'Symbol', KeyOperationType.IMEOPERATION_REBOOT);
+      const shutdown = new KeyInfoModel('s', 'sf', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       const suspend = new KeyInfoModel('p', 'pf', false, 'ABC', KeyOperationType.IMEOPERATION_SUSPEND);
       const sorted = KeyInfoSorter.sortByOperationType([shutdown, reboot, suspend]);
       expect(sorted[0].operationType).assertEqual(KeyOperationType.IMEOPERATION_SUSPEND);
@@ -614,7 +614,7 @@ export default function keyInfoModelTest() {
 
     // 适配 FileBean_Edge_Regression：克隆独立副本
     it('clone_should_create_independent_copy', 0, async () => {
-      const original = new KeyInfoModel('a', 'b', true, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const original = new KeyInfoModel('a', 'b', true, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       const cloned = original.clone();
       expect(original.equals(cloned)).assertTrue();
       cloned.setFocusState(false);
@@ -637,9 +637,9 @@ export default function keyInfoModelTest() {
 
     // 适配 ItemBuilder_Chain：构建器链式设置名称
     it('builder_should_set_name_via_chain', 0, async () => {
-      const item: KeyInfoModel = new KeyInfoBuilder().setName('中文').build();
-      expect(item.name).assertEqual('中文');
-      expect(item.getDisplayName()).assertEqual('中文');
+      const item: KeyInfoModel = new KeyInfoBuilder().setName('Chinese').build();
+      expect(item.name).assertEqual('Chinese');
+      expect(item.getDisplayName()).assertEqual('Chinese');
     });
 
     // 适配 ItemBuilder_Chain：构建器链式设置操作类型
@@ -672,7 +672,7 @@ export default function keyInfoModelTest() {
       const item: KeyInfoModel = new KeyInfoBuilder().setIcon('app.media.shutdown')
         .setOnFocusIcon('app.media.shutdown_focus')
         .setFocus(true)
-        .setName('中文')
+        .setName('Chinese')
         .setOperationType(KeyOperationType.IMEOPERATION_SHUTDOWN)
         .build();
       expect(item.isShutdown()).assertTrue();
@@ -719,14 +719,14 @@ export default function keyInfoModelTest() {
 
     // 适配 ItemValidator：非法操作类型导致不完整
     it('validator_should_reject_invalid_operation_type', 0, async () => {
-      const invalid = new KeyInfoModel('icon', 'focus', false, '未知', -1);
+      const invalid = new KeyInfoModel('icon', 'focus', false, 'Unknown', -1);
       expect(KeyInfoValidator.isComplete(invalid)).assertFalse();
     });
 
     // 适配 ItemComparator：按名称长度比较
     it('comparator_should_compare_by_name_length', 0, async () => {
-      const short = new KeyInfoModel('a', 'b', false, '短', KeyOperationType.IMEOPERATION_SUSPEND);
-      const long = new KeyInfoModel('a', 'b', false, '比较长的名称', KeyOperationType.IMEOPERATION_REBOOT);
+      const short = new KeyInfoModel('a', 'b', false, 'Short', KeyOperationType.IMEOPERATION_SUSPEND);
+      const long = new KeyInfoModel('a', 'b', false, 'a-very-long-name', KeyOperationType.IMEOPERATION_REBOOT);
       expect(KeyInfoComparator.compareByNameLength(short, long)).assertLessOrEqual(-1);
       expect(KeyInfoComparator.compareByNameLength(long, short)).assertLargerOrEqual(1);
     });
@@ -734,14 +734,14 @@ export default function keyInfoModelTest() {
     // 适配 ItemComparator：按操作类型比较
     it('comparator_should_compare_by_operation_type', 0, async () => {
       const suspend = new KeyInfoModel('a', 'b', false, 'ABC', KeyOperationType.IMEOPERATION_SUSPEND);
-      const shutdown = new KeyInfoModel('a', 'b', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const shutdown = new KeyInfoModel('a', 'b', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       expect(KeyInfoComparator.compareByOperationType(suspend, shutdown)).assertLessOrEqual(-1);
       expect(KeyInfoComparator.compareByOperationType(shutdown, suspend)).assertLargerOrEqual(1);
     });
 
     // 适配 ItemComparator：按焦点状态比较
     it('comparator_should_compare_by_focus', 0, async () => {
-      const focused = new KeyInfoModel('a', 'b', true, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+      const focused = new KeyInfoModel('a', 'b', true, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
       const unfocused = new KeyInfoModel('a', 'b', false, 'ABC', KeyOperationType.IMEOPERATION_SUSPEND);
       expect(KeyInfoComparator.compareByFocus(focused, unfocused)).assertEqual(-1);
       expect(KeyInfoComparator.compareByFocus(unfocused, focused)).assertEqual(1);
@@ -780,7 +780,7 @@ export default function keyInfoModelTest() {
       const focused: KeyInfoModel | null = collection.getFocusedItem();
       expect(focused === null).assertFalse();
       expect(focused?.isFocus).assertTrue();
-      expect(focused?.name).assertEqual('中文');
+      expect(focused?.name).assertEqual('Chinese');
     });
 
     // 适配 ItemCollection：无焦点项返回 null
@@ -835,7 +835,7 @@ export default function keyInfoModelTest() {
     // 适配 DescriptorFactory：中文项分类为危险
     it('descriptor_factory_should_categorize_shutdown_as_danger', 0, async () => {
       const descriptor: KeyInfoDescriptor =
-        KeyInfoDescriptorFactory.create('中文', KeyOperationType.IMEOPERATION_SHUTDOWN, IconTheme.DARK);
+        KeyInfoDescriptorFactory.create('Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN, IconTheme.DARK);
       expect(descriptor.category).assertEqual(ItemCategory.DANGER);
       expect(descriptor.operationType).assertEqual(KeyOperationType.IMEOPERATION_SHUTDOWN);
     });
@@ -851,23 +851,23 @@ export default function keyInfoModelTest() {
     // 适配 DescriptorFactory：符号项分类为次选项
     it('descriptor_factory_should_categorize_reboot_as_secondary', 0, async () => {
       const descriptor: KeyInfoDescriptor =
-        KeyInfoDescriptorFactory.create('符号', KeyOperationType.IMEOPERATION_REBOOT, IconTheme.HIGH_CONTRAST);
+        KeyInfoDescriptorFactory.create('Symbol', KeyOperationType.IMEOPERATION_REBOOT, IconTheme.HIGH_CONTRAST);
       expect(descriptor.category).assertEqual(ItemCategory.SECONDARY);
       expect(descriptor.theme).assertEqual(IconTheme.HIGH_CONTRAST);
     });
 
     // 适配 DescriptorFactory：分类名称映射
     it('descriptor_factory_should_map_category_names', 0, async () => {
-      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.PRIMARY)).assertEqual('主选项');
-      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.SECONDARY)).assertEqual('次选项');
-      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.DANGER)).assertEqual('危险选项');
+      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.PRIMARY)).assertEqual('PrimaryOption');
+      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.SECONDARY)).assertEqual('SecondaryOption');
+      expect(KeyInfoDescriptorFactory.getCategoryName(ItemCategory.DANGER)).assertEqual('DangerOption');
     });
 
     // 适配 DescriptorFactory：主题名称映射
     it('descriptor_factory_should_map_theme_names', 0, async () => {
-      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.LIGHT)).assertEqual('浅色主题');
-      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.DARK)).assertEqual('深色主题');
-      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.HIGH_CONTRAST)).assertEqual('高对比主题');
+      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.LIGHT)).assertEqual('LightTheme');
+      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.DARK)).assertEqual('DarkTheme');
+      expect(KeyInfoDescriptorFactory.getThemeName(IconTheme.HIGH_CONTRAST)).assertEqual('HighContrastTheme');
     });
 
     // 适配 ItemInfoFactory：标准集包含三个操作
@@ -883,8 +883,8 @@ export default function keyInfoModelTest() {
     it('item_factory_should_create_count_items', 0, async () => {
       const items: KeyInfoModel[] = KeyInfoFactory.createCount(5);
       expect(items.length).assertEqual(5);
-      expect(items[0].getDisplayName()).assertEqual('选项0');
-      expect(items[4].getDisplayName()).assertEqual('选项4');
+      expect(items[0].getDisplayName()).assertEqual('Option0');
+      expect(items[4].getDisplayName()).assertEqual('Option4');
     });
 
     // 适配 FieldExtractor：提取名称列表
@@ -892,8 +892,8 @@ export default function keyInfoModelTest() {
       const names: string[] = KeyInfoFieldExtractor.extractNames(KeyInfoFactory.createStandardSet());
       expect(names.length).assertEqual(3);
       expect(names.includes('ABC')).assertTrue();
-      expect(names.includes('符号')).assertTrue();
-      expect(names.includes('中文')).assertTrue();
+      expect(names.includes('Symbol')).assertTrue();
+      expect(names.includes('Chinese')).assertTrue();
     });
 
     // 适配 FieldExtractor：提取图标列表
@@ -916,7 +916,7 @@ export default function keyInfoModelTest() {
       const focused: KeyInfoModel[] =
         KeyInfoFieldExtractor.extractFocused(KeyInfoFactory.createStandardSet());
       expect(focused.length).assertEqual(1);
-      expect(focused[0].name).assertEqual('中文');
+      expect(focused[0].name).assertEqual('Chinese');
     });
 
     // 适配 SortManager：按操作类型排序

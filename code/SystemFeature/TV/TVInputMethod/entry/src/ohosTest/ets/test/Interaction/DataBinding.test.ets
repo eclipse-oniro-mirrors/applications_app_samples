@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -141,7 +142,7 @@ export default function dataBindingTest() {
 
     it('dialog_should_display_correct_option_labels', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correct_option_labels skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correct_option_labels skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -150,13 +151,13 @@ export default function dataBindingTest() {
       const componentCount = await keyboardComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(1);
 
-      const hasSuspend = await checkTextContent(driver, '息屏');
-      const hasShutdown = await checkTextContent(driver, '中文');
-      const hasReboot = await checkTextContent(driver, '符号');
+      const hasSuspend = await checkTextContent(driver, 'ScreenOff');
+      const hasShutdown = await checkTextContent(driver, 'Chinese');
+      const hasReboot = await checkTextContent(driver, 'Symbol');
       const hasAnyText = hasSuspend || hasShutdown || hasReboot;
 
       if (hasAnyText) {
-        bindingTracker.recordBinding('option_labels', '', '息屏, 中文, 符号', true);
+        bindingTracker.recordBinding('option_labels', '', 'ScreenOff, Chinese, Symbol', true);
       } else {
         bindingTracker.recordBinding('option_labels', '', 'dialog_shown', true);
       }
@@ -164,7 +165,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_update_on_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_update_on_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_update_on_navigation skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -184,7 +185,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_maintain_consistency', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_maintain_consistency skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_maintain_consistency skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -203,7 +204,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_handle_all_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_handle_all_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_handle_all_options skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -227,7 +228,7 @@ export default function dataBindingTest() {
 
     it('data_binding_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -248,7 +249,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_handle_rapid_updates', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_handle_rapid_updates skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_handle_rapid_updates skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -266,7 +267,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_preserve_dialog_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_preserve_dialog_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_preserve_dialog_state skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -301,7 +302,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_handle_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_handle_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_handle_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -327,7 +328,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_handle_multiple_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_handle_multiple_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_handle_multiple_cycles skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -350,7 +351,7 @@ export default function dataBindingTest() {
 
     it('data_binding_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -373,7 +374,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -393,7 +394,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_validate_sync_success', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_validate_sync_success skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_validate_sync_success skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -411,7 +412,7 @@ export default function dataBindingTest() {
 
     it('data_binding_should_track_all_binding_paths', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('data_binding_should_track_all_binding_paths skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'data_binding_should_track_all_binding_paths skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -430,7 +431,7 @@ export default function dataBindingTest() {
 
     it('comprehensive_data_binding_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_data_binding_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_data_binding_scenario skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);

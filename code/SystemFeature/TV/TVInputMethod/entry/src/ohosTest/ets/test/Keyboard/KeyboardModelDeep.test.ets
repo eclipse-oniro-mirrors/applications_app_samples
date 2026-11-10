@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -73,13 +74,13 @@ class KeyInfoModel {
   public getOperationTypeDescription(): string {
     switch (this.operationType) {
       case KeyOperationType.IMEOPERATION_SUSPEND:
-        return '休眠操作';
+        return 'SuspendOperation';
       case KeyOperationType.IMEOPERATION_REBOOT:
-        return '符号操作';
+        return 'SymbolOperation';
       case KeyOperationType.IMEOPERATION_SHUTDOWN:
-        return '中文操作';
+        return 'ChineseOperation';
       default:
-        return '未知操作';
+        return 'UnknownOperation';
     }
   }
 
@@ -197,13 +198,13 @@ class KeyInfoListManager {
   }
 
   private initializeDefaultItems(): void {
-    const suspendItem = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, '息屏',
+    const suspendItem = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, 'ScreenOff',
       KeyOperationType.IMEOPERATION_SUSPEND);
 
-    const shutdownItem = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, '中文',
+    const shutdownItem = new KeyInfoModel('app.media.shutdown', 'app.media.shutdown_focus', true, 'Chinese',
       KeyOperationType.IMEOPERATION_SHUTDOWN);
 
-    const rebootItem = new KeyInfoModel('app.media.reboot', 'app.media.reboot_focus', false, '符号',
+    const rebootItem = new KeyInfoModel('app.media.reboot', 'app.media.reboot_focus', false, 'Symbol',
       KeyOperationType.IMEOPERATION_REBOOT);
 
     this.items.push(suspendItem, shutdownItem, rebootItem);
@@ -423,16 +424,16 @@ class KeyboardModelDeepValidator {
   public collectViolations(): string[] {
     const violations: string[] = [];
     if (!this.hasNonEmptyName()) {
-      violations.push('名称为空');
+      violations.push('EmptyName');
     }
     if (!this.hasNonEmptyIcon()) {
-      violations.push('图标为空');
+      violations.push('EmptyIcon');
     }
     if (!this.hasNonEmptyFocusIcon()) {
-      violations.push('焦点图标为空');
+      violations.push('FocusIconEmpty');
     }
     if (!this.model.isValidOperationType()) {
-      violations.push('操作类型非法');
+      violations.push('InvalidOperationType');
     }
     return violations;
   }
@@ -491,23 +492,23 @@ class KeyboardModelFormatter {
   }
 
   public formatFocusState(model: KeyInfoModel): string {
-    return model.isFocus ? '获得焦点' : '未获得焦点';
+    return model.isFocus ? 'Focused' : 'NotFocused';
   }
 
   public formatCountSummary(manager: KeyInfoListManager): string {
     const stats = new KeyInfoStatistics(manager);
     const snapshot = stats.generateSnapshot();
-    return `总数=${snapshot.totalCount}, 焦点=${snapshot.focusedCount}, 有效=${snapshot.validCount}`;
+    return `Total=${snapshot.totalCount}, Focus=${snapshot.focusedCount}, Valid=${snapshot.validCount}`;
   }
 
   public formatDirection(direction: ImeFocusTransitionDirection): string {
     if (direction === ImeFocusTransitionDirection.DIRECTION_NEXT) {
-      return '后移';
+      return 'MoveBackward';
     }
     if (direction === ImeFocusTransitionDirection.DIRECTION_PREV) {
-      return '前移';
+      return 'MoveForward';
     }
-    return '跳转';
+    return 'Jump';
   }
 }
 
@@ -563,18 +564,18 @@ export default function keyboardModelDeepTest() {
       await serializedDelay(driver, 500);
     });
     it('ime_item_info_model_constructor_should_initialize_correctly', 0, async () => { // 验证电源项模型构造函数正确初始化，确保数据模型创建正确
-      const model = new KeyInfoModel('test_icon', 'test_focus_icon', false, '测试项',
+      const model = new KeyInfoModel('test_icon', 'test_focus_icon', false, 'TestItem',
         KeyOperationType.IMEOPERATION_SUSPEND);
 
       expect(model.icon).assertEqual('test_icon');
       expect(model.onFocusIcon).assertEqual('test_focus_icon');
       expect(model.isFocus).assertFalse();
-      expect(model.name).assertEqual('测试项');
+      expect(model.name).assertEqual('TestItem');
       expect(model.operationType).assertEqual(KeyOperationType.IMEOPERATION_SUSPEND);
     });
     it('ime_item_info_model_state_management_should_work_correctly', 0, async () => { // 验证电源项模型状态管理功能正常，确保焦点状态切换正确
       const model =
-        new KeyInfoModel('icon_normal', 'icon_focus', false, '符号', KeyOperationType.IMEOPERATION_REBOOT);
+        new KeyInfoModel('icon_normal', 'icon_focus', false, 'Symbol', KeyOperationType.IMEOPERATION_REBOOT);
       expect(model.getCurrentIcon()).assertEqual('icon_normal');
       expect(model.isFocus).assertFalse();
       model.setFocusState(true);
@@ -588,22 +589,22 @@ export default function keyboardModelDeepTest() {
     });
     it('ime_item_info_model_operation_type_validation_should_work', 0, async () => { // 验证电源项模型操作类型验证功能正常，确保操作类型有效
       const suspendModel =
-        new KeyInfoModel('icon', 'focus_icon', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+        new KeyInfoModel('icon', 'focus_icon', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
       const rebootModel =
-        new KeyInfoModel('icon', 'focus_icon', false, '符号', KeyOperationType.IMEOPERATION_REBOOT);
+        new KeyInfoModel('icon', 'focus_icon', false, 'Symbol', KeyOperationType.IMEOPERATION_REBOOT);
       const shutdownModel =
-        new KeyInfoModel('icon', 'focus_icon', false, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+        new KeyInfoModel('icon', 'focus_icon', false, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
 
       expect(suspendModel.isValidOperationType()).assertTrue();
       expect(rebootModel.isValidOperationType()).assertTrue();
       expect(shutdownModel.isValidOperationType()).assertTrue();
 
-      expect(suspendModel.getOperationTypeDescription()).assertEqual('休眠操作');
-      expect(rebootModel.getOperationTypeDescription()).assertEqual('符号操作');
-      expect(shutdownModel.getOperationTypeDescription()).assertEqual('中文操作');
+      expect(suspendModel.getOperationTypeDescription()).assertEqual('SuspendOperation');
+      expect(rebootModel.getOperationTypeDescription()).assertEqual('SymbolOperation');
+      expect(shutdownModel.getOperationTypeDescription()).assertEqual('ChineseOperation');
     });
     it('ime_item_info_model_clone_should_create_identical_copy', 0, async () => { // 验证电源项模型克隆功能创建相同副本，确保数据复制正确
-      const original = new KeyInfoModel('original_icon', 'original_focus', true, '中文',
+      const original = new KeyInfoModel('original_icon', 'original_focus', true, 'Chinese',
         KeyOperationType.IMEOPERATION_SHUTDOWN);
 
       const cloned = original.clone();
@@ -615,11 +616,11 @@ export default function keyboardModelDeepTest() {
     it('ime_item_info_model_equality_comparison_should_work_correctly', 0,
       async () => { // 验证电源项模型相等性比较功能正确，确保模型对比逻辑准确
         const model1 =
-          new KeyInfoModel('icon', 'focus', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+          new KeyInfoModel('icon', 'focus', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
         const model2 =
-          new KeyInfoModel('icon', 'focus', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+          new KeyInfoModel('icon', 'focus', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
         const model3 =
-          new KeyInfoModel('different_icon', 'focus', false, '息屏', KeyOperationType.IMEOPERATION_SUSPEND);
+          new KeyInfoModel('different_icon', 'focus', false, 'ScreenOff', KeyOperationType.IMEOPERATION_SUSPEND);
 
         expect(model1.equals(model2)).assertTrue();
         expect(model1.equals(model3)).assertFalse();
@@ -633,38 +634,38 @@ export default function keyboardModelDeepTest() {
 
         const items = manager.getAllItems();
         expect(items.length).assertEqual(3);
-        expect(items[0].name).assertEqual('息屏');
-        expect(items[1].name).assertEqual('中文');
-        expect(items[2].name).assertEqual('符号');
+        expect(items[0].name).assertEqual('ScreenOff');
+        expect(items[1].name).assertEqual('Chinese');
+        expect(items[2].name).assertEqual('Symbol');
       });
     it('ime_item_list_manager_focus_management_should_work_correctly', 0,
       async () => { // 验证电源项列表管理器焦点管理功能正常，确保焦点切换逻辑正确
         const manager = new KeyInfoListManager();
         const focusedItem = manager.getFocusedItem();
         expect(focusedItem === null).assertFalse();
-        expect(focusedItem?.name).assertEqual('中文');
+        expect(focusedItem?.name).assertEqual('Chinese');
 
         // 验证焦点后移功能，确保右键操作焦点正确移动
         manager.moveFocusNext();
         const nextFocused = manager.getFocusedItem();
-        expect(nextFocused?.name).assertEqual('符号');
+        expect(nextFocused?.name).assertEqual('Symbol');
 
         // 验证焦点前移功能，确保左键操作焦点正确移动
         manager.moveFocusPrev();
         const prevFocused = manager.getFocusedItem();
-        expect(prevFocused?.name).assertEqual('中文');
+        expect(prevFocused?.name).assertEqual('Chinese');
       });
     it('ime_item_list_manager_boundary_focus_management_should_handle_edges', 0,
       async () => { // 验证电源项列表管理器边界焦点管理处理边缘情况，确保焦点不越界
         const manager = new KeyInfoListManager();
         manager.setFocusToIndex(0);
-        expect(manager.getFocusedItem()?.name).assertEqual('息屏');
+        expect(manager.getFocusedItem()?.name).assertEqual('ScreenOff');
 
         // 验证焦点在最前项时前移失败，确保焦点不越界
         const movePrevResult = manager.moveFocusPrev();
         expect(movePrevResult).assertFalse();
         manager.setFocusToIndex(2);
-        expect(manager.getFocusedItem()?.name).assertEqual('符号');
+        expect(manager.getFocusedItem()?.name).assertEqual('Symbol');
 
         // 验证焦点在最后项时后移失败，确保焦点不越界
         const moveNextResult = manager.moveFocusNext();
@@ -676,24 +677,24 @@ export default function keyboardModelDeepTest() {
 
         // 验证按索引查询功能
         const item0 = manager.getItemByIndex(0);
-        expect(item0?.name).assertEqual('息屏');
+        expect(item0?.name).assertEqual('ScreenOff');
 
         const item1 = manager.getItemByIndex(1);
-        expect(item1?.name).assertEqual('中文');
+        expect(item1?.name).assertEqual('Chinese');
 
         const invalidItem = manager.getItemByIndex(10);
         expect(invalidItem).assertEqual(null);
 
         // 验证按名称查询功能
-        const suspendItem = manager.getItemByName('息屏');
+        const suspendItem = manager.getItemByName('ScreenOff');
         expect(suspendItem?.operationType).assertEqual(KeyOperationType.IMEOPERATION_SUSPEND);
 
-        const notFoundItem = manager.getItemByName('不存在');
+        const notFoundItem = manager.getItemByName('NotExist');
         expect(notFoundItem).assertEqual(null);
 
         // 验证按操作类型查询功能
         const rebootItem = manager.getItemByOperationType(KeyOperationType.IMEOPERATION_REBOOT);
-        expect(rebootItem?.name).assertEqual('符号');
+        expect(rebootItem?.name).assertEqual('Symbol');
       });
     it('ime_item_list_manager_add_remove_functions_should_work_correctly', 0,
       async () => { // 验证电源项列表管理器添加删除功能正常，确保列表修改操作正确
@@ -701,12 +702,12 @@ export default function keyboardModelDeepTest() {
         const initialLength = manager.getLength();
 
         // 验证添加项功能
-        const newItem = new KeyInfoModel('new_icon', 'new_focus_icon', false, '新选项',
+        const newItem = new KeyInfoModel('new_icon', 'new_focus_icon', false, 'NewOption',
           KeyOperationType.IMEOPERATION_SUSPEND);
         manager.addItem(newItem);
 
         expect(manager.getLength()).assertEqual(initialLength + 1);
-        expect(manager.getItemByName('新选项') === null).assertFalse();
+        expect(manager.getItemByName('NewOption') === null).assertFalse();
 
         // 验证删除项功能
         const removeResult = manager.removeItemByIndex(0);
@@ -727,22 +728,22 @@ export default function keyboardModelDeepTest() {
         expect(manager.validateListIntegrity()).assertFalse();
 
         // 验证添加单个项后完整性检查失败（缺少焦点项）
-        manager.addItem(new KeyInfoModel('icon', 'focus', false, '息屏',
+        manager.addItem(new KeyInfoModel('icon', 'focus', false, 'ScreenOff',
           KeyOperationType.IMEOPERATION_SUSPEND));
         expect(manager.validateListIntegrity()).assertFalse();
 
         // 验证添加焦点项后完整性检查通过
-        manager.addItem(new KeyInfoModel('icon', 'focus', true, '息屏',
+        manager.addItem(new KeyInfoModel('icon', 'focus', true, 'ScreenOff',
           KeyOperationType.IMEOPERATION_REBOOT));
         expect(manager.validateListIntegrity()).assertTrue();
       });
     it('ime_item_info_model_to_string_should_provide_readable_output', 0,
       async () => { // 验证电源项模型toString方法提供可读输出，确保调试信息清晰
         const model =
-          new KeyInfoModel('test_icon', 'test_focus', true, '中文', KeyOperationType.IMEOPERATION_SHUTDOWN);
+          new KeyInfoModel('test_icon', 'test_focus', true, 'Chinese', KeyOperationType.IMEOPERATION_SHUTDOWN);
 
         const strRepresentation = model.toString();
-        expect(strRepresentation.includes('中文')).assertTrue();
+        expect(strRepresentation.includes('Chinese')).assertTrue();
         expect(strRepresentation.includes('2')).assertTrue();
         expect(strRepresentation.includes('true')).assertTrue();
       });
@@ -764,43 +765,43 @@ export default function keyboardModelDeepTest() {
       });
     it('ime_item_info_model_should_handle_invalid_operation_types', 0, async () => { // 验证电源项模型处理无效操作类型，确保类型验证机制有效
       const validModel =
-        new KeyInfoModel('icon', 'focus', false, '休眠', KeyOperationType.IMEOPERATION_SUSPEND);
-      const invalidModel = new KeyInfoModel('icon', 'focus', false, '未知操作', -1);
-      const outOfRangeModel = new KeyInfoModel('icon', 'focus', false, '超出范围操作', 100);
+        new KeyInfoModel('icon', 'focus', false, 'Suspend', KeyOperationType.IMEOPERATION_SUSPEND);
+      const invalidModel = new KeyInfoModel('icon', 'focus', false, 'UnknownOperation', -1);
+      const outOfRangeModel = new KeyInfoModel('icon', 'focus', false, 'OutOfRangeOperation', 100);
 
       expect(validModel.isValidOperationType()).assertTrue();
       expect(invalidModel.isValidOperationType()).assertFalse();
       expect(outOfRangeModel.isValidOperationType()).assertFalse();
 
-      expect(validModel.getOperationTypeDescription()).assertEqual('休眠操作');
-      expect(invalidModel.getOperationTypeDescription()).assertEqual('未知操作');
-      expect(outOfRangeModel.getOperationTypeDescription()).assertEqual('未知操作');
+      expect(validModel.getOperationTypeDescription()).assertEqual('SuspendOperation');
+      expect(invalidModel.getOperationTypeDescription()).assertEqual('UnknownOperation');
+      expect(outOfRangeModel.getOperationTypeDescription()).assertEqual('UnknownOperation');
     });
     it('ime_item_list_manager_complex_operation_sequence_should_maintain_consistency', 0,
       async () => { // 验证列表管理器复杂操作序列保持一致性，确保数据完整性
         const manager = new KeyInfoListManager();
         manager.setFocusToIndex(0);
-        expect(manager.getFocusedItem()?.name).assertEqual('息屏');
+        expect(manager.getFocusedItem()?.name).assertEqual('ScreenOff');
 
         manager.moveFocusNext();
-        expect(manager.getFocusedItem()?.name).assertEqual('中文');
+        expect(manager.getFocusedItem()?.name).assertEqual('Chinese');
 
         manager.moveFocusNext();
-        expect(manager.getFocusedItem()?.name).assertEqual('符号');
+        expect(manager.getFocusedItem()?.name).assertEqual('Symbol');
 
         manager.moveFocusPrev();
-        expect(manager.getFocusedItem()?.name).assertEqual('中文');
+        expect(manager.getFocusedItem()?.name).assertEqual('Chinese');
 
         manager.setFocusToIndex(2);
-        expect(manager.getFocusedItem()?.name).assertEqual('符号');
+        expect(manager.getFocusedItem()?.name).assertEqual('Symbol');
         expect(manager.validateListIntegrity()).assertTrue();
         expect(manager.getLength()).assertEqual(3);
       });
     it('ime_item_info_model_data_consistency_should_be_maintained', 0, async () => { // 验证电源项模型数据一致性保持，确保状态同步正确
-      const model = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, '息屏',
+      const model = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, 'ScreenOff',
         KeyOperationType.IMEOPERATION_SUSPEND);
       expect(model.getCurrentIcon()).assertEqual('app.media.screenout');
-      expect(model.getDisplayName()).assertEqual('息屏');
+      expect(model.getDisplayName()).assertEqual('ScreenOff');
       expect(model.isValidOperationType()).assertTrue();
 
       // 验证焦点状态改变图标显示，确保UI响应正确
@@ -819,7 +820,7 @@ export default function keyboardModelDeepTest() {
       const queryStart: number = Date.now();
       for (let i = 0; i < 1000; i++) {
         manager.getItemByIndex(i % 3);
-        manager.getItemByName('息屏');
+        manager.getItemByName('ScreenOff');
         manager.getItemByOperationType(KeyOperationType.IMEOPERATION_SUSPEND);
       }
       const queryEnd: number = Date.now();
@@ -844,9 +845,9 @@ export default function keyboardModelDeepTest() {
       expect(emptyNameModel.getCurrentIcon()).assertEqual('');
 
       // 验证特殊字符名称处理，确保特殊字符不会导致异常
-      const specialCharModel = new KeyInfoModel('icon!@#', 'focus$%^', false, '特殊字符名称*()',
+      const specialCharModel = new KeyInfoModel('icon!@#', 'focus$%^', false, 'specialCharName*()',
         KeyOperationType.IMEOPERATION_REBOOT);
-      expect(specialCharModel.getDisplayName()).assertEqual('特殊字符名称*()');
+      expect(specialCharModel.getDisplayName()).assertEqual('specialCharName*()');
       expect(specialCharModel.getCurrentIcon()).assertEqual('icon!@#');
 
       // 验证长字符串处理，确保长名称不会导致性能问题
@@ -864,7 +865,7 @@ export default function keyboardModelDeepTest() {
         expect(manager.getFocusedItem()).assertEqual(null);
         expect(manager.validateListIntegrity()).assertFalse();
         expect(manager.getItemByIndex(0)).assertEqual(null);
-        expect(manager.getItemByName('不存在的项')).assertEqual(null);
+        expect(manager.getItemByName('NonExistentItem')).assertEqual(null);
         expect(manager.getItemByOperationType(0)).assertEqual(null);
         expect(manager.setFocusToIndex(0)).assertFalse();
         expect(manager.moveFocusNext()).assertFalse();
@@ -874,7 +875,7 @@ export default function keyboardModelDeepTest() {
       const manager = new KeyInfoListManager();
       const focusedItem = manager.getFocusedItem();
       expect(focusedItem === null).assertFalse();
-      expect(focusedItem?.name).assertEqual('中文');
+      expect(focusedItem?.name).assertEqual('Chinese');
 
       // 验证手动取消焦点破坏完整性，确保焦点必须存在
       focusedItem?.setFocusState(false);
@@ -885,8 +886,8 @@ export default function keyboardModelDeepTest() {
       expect(manager.validateListIntegrity()).assertTrue();
       const newFocusedItem = manager.getFocusedItem();
       expect(newFocusedItem?.isFocus).assertTrue();
-      expect(newFocusedItem?.name).assertEqual('中文');
-      const otherItems = manager.getAllItems().filter(item => item.name !== '中文');
+      expect(newFocusedItem?.name).assertEqual('Chinese');
+      const otherItems = manager.getAllItems().filter(item => item.name !== 'Chinese');
       otherItems.forEach(item => {
         expect(item.isFocus).assertFalse();
       });
@@ -923,8 +924,8 @@ export default function keyboardModelDeepTest() {
     // 适配 KeyInfo_Builder：流式构建自定义项
     it('ime_item_builder_should_build_custom_item', 0, async () => {
       const built = new KeyInfoBuilder().withIcon('icon_a').withOnFocusIcon('icon_a_focus').withFocusState(true)
-        .withName('自定义项').withOperationType(KeyOperationType.IMEOPERATION_REBOOT).build();
-      expect(built.name).assertEqual('自定义项');
+        .withName('CustomItem').withOperationType(KeyOperationType.IMEOPERATION_REBOOT).build();
+      expect(built.name).assertEqual('CustomItem');
       expect(built.icon).assertEqual('icon_a');
       expect(built.isFocus).assertTrue();
       expect(built.operationType).assertEqual(KeyOperationType.IMEOPERATION_REBOOT);
@@ -969,7 +970,7 @@ export default function keyboardModelDeepTest() {
 
     // 适配 KeyboardModel_Deep_Validator：完整模型校验通过
     it('ime_model_deep_validator_should_validate_complete_model', 0, async () => {
-      const model = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, '息屏',
+      const model = new KeyInfoModel('app.media.screenout', 'app.media.screenout_focus', false, 'ScreenOff',
         KeyOperationType.IMEOPERATION_SUSPEND);
       const validator = new KeyboardModelDeepValidator(model);
       expect(validator.hasNonEmptyName()).assertTrue();
@@ -987,9 +988,9 @@ export default function keyboardModelDeepTest() {
       expect(validator.validateAll()).assertFalse();
       const violations = validator.collectViolations();
       expect(violations.length).assertEqual(4);
-      expect(violations.includes('名称为空')).assertTrue();
-      expect(violations.includes('图标为空')).assertTrue();
-      expect(violations.includes('操作类型非法')).assertTrue();
+      expect(violations.includes('EmptyName')).assertTrue();
+      expect(violations.includes('EmptyIcon')).assertTrue();
+      expect(violations.includes('InvalidOperationType')).assertTrue();
     });
 
     // 适配 KeyInfo_Snapshot_Store：快照对比检测变化
@@ -1000,7 +1001,7 @@ export default function keyboardModelDeepTest() {
       store.capture(manager);
       expect(store.getSnapshotCount()).assertEqual(2);
       expect(store.areSnapshotsIdentical()).assertTrue();
-      manager.addItem(new KeyInfoModel('icon', 'focus', false, '新增项', 0));
+      manager.addItem(new KeyInfoModel('icon', 'focus', false, 'NewItem', 0));
       store.capture(manager);
       expect(store.areSnapshotsIdentical()).assertFalse();
     });
@@ -1026,12 +1027,12 @@ export default function keyboardModelDeepTest() {
       const focused = manager.getFocusedItem();
       expect(focused === null).assertFalse();
       const itemText = formatter.formatItem(manager.getItemByIndex(0) as KeyInfoModel);
-      expect(itemText.includes('息屏')).assertTrue();
-      expect(formatter.formatItemList(manager).includes('中文')).assertTrue();
-      expect(formatter.formatFocusState(focused as KeyInfoModel)).assertEqual('获得焦点');
-      expect(formatter.formatCountSummary(manager).includes('总数=3')).assertTrue();
-      expect(formatter.formatDirection(ImeFocusTransitionDirection.DIRECTION_NEXT)).assertEqual('后移');
-      expect(formatter.formatDirection(ImeFocusTransitionDirection.DIRECTION_JUMP)).assertEqual('跳转');
+      expect(itemText.includes('ScreenOff')).assertTrue();
+      expect(formatter.formatItemList(manager).includes('Chinese')).assertTrue();
+      expect(formatter.formatFocusState(focused as KeyInfoModel)).assertEqual('Focused');
+      expect(formatter.formatCountSummary(manager).includes('Total=3')).assertTrue();
+      expect(formatter.formatDirection(ImeFocusTransitionDirection.DIRECTION_NEXT)).assertEqual('MoveBackward');
+      expect(formatter.formatDirection(ImeFocusTransitionDirection.DIRECTION_JUMP)).assertEqual('Jump');
     });
 
     // 适配 ImeFocus_Transition_Recorder：方向记录与统计
@@ -1061,12 +1062,12 @@ export default function keyboardModelDeepTest() {
     // 适配 Ime_Dialog_Render：模型操作后对话框保持渲染
     it('ime_dialog_should_stay_rendered_after_model_use', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_dialog_should_stay_rendered_after_model_use skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_dialog_should_stay_rendered_after_model_use skipped: input method is not enabled on this device');
         return;
       }
       const manager = new KeyInfoListManager();
       manager.moveFocusNext();
-      expect(manager.getFocusedItem()?.name).assertEqual('符号');
+      expect(manager.getFocusedItem()?.name).assertEqual('Symbol');
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       const componentCount = await keyboardComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(1);

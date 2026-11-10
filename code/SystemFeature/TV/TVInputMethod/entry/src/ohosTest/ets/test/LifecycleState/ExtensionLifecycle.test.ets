@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_BACK,
@@ -563,7 +564,7 @@ export default function extensionLifecycleTest() {
     }); // 验证extension session状态正确：确保TV设备should be created successfully符合预期
     it('extension_session_should_be_created_successfully', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('extension_session_should_be_created_successfully skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'extension_session_should_be_created_successfully skipped: input method is not enabled on this device');
         return;
       }
       mockSession.createSession();
@@ -575,7 +576,7 @@ export default function extensionLifecycleTest() {
     });
     it('session_should_send_ready_signal_when_activated', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_send_ready_signal_when_activated skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_send_ready_signal_when_activated skipped: input method is not enabled on this device');
         return;
       }
  // 激活会话

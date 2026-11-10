@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -388,7 +389,7 @@ export default function keyboardUITest() {
 
     it('ime_dialog_should_render_all_components_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('ime_dialog_should_render_all_components_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'ime_dialog_should_render_all_components_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证对话框组件数量在合理范围内（1-10个），确保UI完整渲染且无多余元素
@@ -401,7 +402,7 @@ export default function keyboardUITest() {
     it('left_right_navigation_should_switch_focus_correctly', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('left_right_navigation_should_switch_focus_correctly skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'left_right_navigation_should_switch_focus_correctly skipped: input method is not enabled on this device');
           return;
         }
  // 验证左右导航焦点切换的正确性，TV设备用户主要通过方向键操作对话框 // 依次测试：初始焦点→右→左→左（边界），覆盖正常导航和边界场景
@@ -429,7 +430,7 @@ export default function keyboardUITest() {
     it('boundary_navigation_should_handle_edge_cases', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('boundary_navigation_should_handle_edge_cases skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'boundary_navigation_should_handle_edge_cases skipped: input method is not enabled on this device');
           return;
         }
  // 验证边界导航场景：连续按键3次确保焦点不会越界 // TV设备用户可能快速连续按键，需要确保焦点始终停留在有效范围内
@@ -452,7 +453,7 @@ export default function keyboardUITest() {
     // 验证touch events触发：确保TV设备should trigger focus changes机制有效
     it('touch_events_should_trigger_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('touch_events_should_trigger_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'touch_events_should_trigger_focus_changes skipped: input method is not enabled on this device');
         return;
       }
  // 验证触摸交互能正确触发焦点变化，TV设备虽以遥控器为主但仍需支持触摸操作
@@ -471,7 +472,7 @@ export default function keyboardUITest() {
     it('dialog_should_remain_stable_after_multiple_operations', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('dialog_should_remain_stable_after_multiple_operations skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_remain_stable_after_multiple_operations skipped: input method is not enabled on this device');
           return;
         }
  // 验证多次操作后对话框组件数量保持稳定，检测是否存在内存泄漏或组件异常销毁 // 5轮左右导航操作模拟用户正常使用场景，确保UI状态一致性
@@ -489,7 +490,7 @@ export default function keyboardUITest() {
     it('focus_state_should_persist_after_navigation_cycles', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('focus_state_should_persist_after_navigation_cycles skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'focus_state_should_persist_after_navigation_cycles skipped: input method is not enabled on this device');
           return;
         }
  // 验证焦点状态在完整导航周期后能正确保持在有效范围内 // 右→右→左→左形成一个完整的导航循环，确保焦点管理逻辑无状态泄漏
@@ -511,7 +512,7 @@ export default function keyboardUITest() {
     it('focus_switch_response_time_should_be_within_limit', 0,
       async () => {
         if (!isInputMethodEnabled()) {
-          console.info('focus_switch_response_time_should_be_within_limit skipped: input method is not enabled on this device');
+          hilog.info(0x0000, 'testTag', '%{public}s', 'focus_switch_response_time_should_be_within_limit skipped: input method is not enabled on this device');
           return;
         }
  // 验证焦点切换响应时间在500ms以内，确保TV设备用户操作流畅无卡顿 // 响应时间过长会导致用户体验下降，特别是老年用户对延迟更敏感

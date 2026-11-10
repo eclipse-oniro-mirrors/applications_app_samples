@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -61,7 +62,7 @@ export default function advancedScenariosTest() {
     // 验证多任务并发处理能力：确保TV设备在复杂交互场景下保持功能稳定，模拟真实用户操作
     it('multi_task_concurrent_scenario_should_handle_complex_interactions', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -94,7 +95,7 @@ export default function advancedScenariosTest() {
     // 验证性能极限场景处理能力：确保TV设备在极端操作频率下功能正常,验证系统响应能力
     it('performance_limit_scenario_should_handle_extreme_conditions', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -121,7 +122,7 @@ export default function advancedScenariosTest() {
     // 验证长时间运行稳定性：确保TV设备在持续操作下组件数量波动在可接受范围
     it('long_running_scenario_should_maintain_consistency', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -157,7 +158,7 @@ export default function advancedScenariosTest() {
     // 验证混合压力处理能力：确保TV设备在多种操作混合场景下保持功能稳定
     it('mixed_pressure_scenario_should_handle_complex_stress', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -191,7 +192,7 @@ export default function advancedScenariosTest() {
     // 验证边界极限处理能力：确保TV设备在极端边界条件下仍能保持焦点和组件状态正常
     it('boundary_limit_scenario_should_handle_extreme_boundaries', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -233,7 +234,7 @@ export default function advancedScenariosTest() {
     // 验证资源竞争处理能力：确保TV设备在并发操作竞争场景下保持组件状态稳定
     it('resource_contention_scenario_should_handle_competition', 0, async () => {
       if (!imeAvailable) {
-        console.info('AdvancedScenarios test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'AdvancedScenarios test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

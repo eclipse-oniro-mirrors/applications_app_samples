@@ -584,7 +584,7 @@ export default function focusNavigationTest() {
     // 验证initial focus状态正确：确保TV设备should be on shutdown option符合预期
     it('initial_focus_should_be_on_shutdown_option', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('initial_focus_should_be_on_shutdown_option skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'initial_focus_should_be_on_shutdown_option skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -599,7 +599,7 @@ export default function focusNavigationTest() {
 
     it('right_arrow_should_move_focus_to_reboot', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('right_arrow_should_move_focus_to_reboot skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'right_arrow_should_move_focus_to_reboot skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -615,7 +615,7 @@ export default function focusNavigationTest() {
 
     it('left_arrow_should_move_focus_to_screen_out', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('left_arrow_should_move_focus_to_screen_out skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'left_arrow_should_move_focus_to_screen_out skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -631,7 +631,7 @@ export default function focusNavigationTest() {
 
     it('focus_should_cycle_through_all_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_cycle_through_all_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_cycle_through_all_options skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -663,7 +663,7 @@ export default function focusNavigationTest() {
 
     it('focus_should_not_move_beyond_left_boundary', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_not_move_beyond_left_boundary skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_not_move_beyond_left_boundary skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -686,7 +686,7 @@ export default function focusNavigationTest() {
 
     it('focus_should_not_move_beyond_right_boundary', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_not_move_beyond_right_boundary skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_not_move_beyond_right_boundary skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -710,7 +710,7 @@ export default function focusNavigationTest() {
     // 验证rapid focus状态正确：确保TV设备changes should be handled correctly符合预期
     it('rapid_focus_changes_should_be_handled_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('rapid_focus_changes_should_be_handled_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'rapid_focus_changes_should_be_handled_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -732,7 +732,7 @@ export default function focusNavigationTest() {
     // 验证focus navigation状态正确：确保TV设备history should be complete符合预期
     it('focus_navigation_history_should_be_complete', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_history_should_be_complete skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_history_should_be_complete skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -762,7 +762,7 @@ export default function focusNavigationTest() {
     // 验证focus should返回：确保TV设备return to default after back and reopen结果正确
     it('focus_should_return_to_default_after_back_and_reopen', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_return_to_default_after_back_and_reopen skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_return_to_default_after_back_and_reopen skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -798,7 +798,7 @@ export default function focusNavigationTest() {
 
     it('focus_navigation_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -823,7 +823,7 @@ export default function focusNavigationTest() {
     // 验证focus state持久：确保TV设备should persist during idle状态保持
     it('focus_state_should_persist_during_idle', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_state_should_persist_during_idle skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_state_should_persist_during_idle skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -853,7 +853,7 @@ export default function focusNavigationTest() {
     // 验证focus navigation状态正确：确保TV设备to each option should be verified符合预期
     it('focus_navigation_to_each_option_should_be_verified', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_to_each_option_should_be_verified skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_to_each_option_should_be_verified skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -880,7 +880,7 @@ export default function focusNavigationTest() {
     // 验证focus should处理能力：确保TV设备在handle alternating directions下功能正常
     it('focus_should_handle_alternating_directions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_handle_alternating_directions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_handle_alternating_directions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -907,7 +907,7 @@ export default function focusNavigationTest() {
 
     it('focus_navigation_with_enter_should_not_change_focus', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_with_enter_should_not_change_focus skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_with_enter_should_not_change_focus skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -929,7 +929,7 @@ export default function focusNavigationTest() {
     // 验证focus should处理能力：确保TV设备在handle long press correctly下功能正常
     it('focus_should_handle_long_press_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_handle_long_press_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_handle_long_press_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -954,7 +954,7 @@ export default function focusNavigationTest() {
     // 验证focus navigation状态正确：确保TV设备statistics should be accurate符合预期
     it('focus_navigation_statistics_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_statistics_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_statistics_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -976,7 +976,7 @@ export default function focusNavigationTest() {
     // 验证focus should维持稳定：确保TV设备在maintain consistency after multiple cycles下性能不降低
     it('focus_should_maintain_consistency_after_multiple_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_maintain_consistency_after_multiple_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_maintain_consistency_after_multiple_cycles skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -1017,7 +1017,7 @@ export default function focusNavigationTest() {
     // 验证focus navigation处理能力：确保TV设备在should handle edge case transitions下功能正常
     it('focus_navigation_should_handle_edge_case_transitions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_should_handle_edge_case_transitions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_should_handle_edge_case_transitions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -1042,7 +1042,7 @@ export default function focusNavigationTest() {
     // 验证focus navigation状态正确：确保TV设备direction tracking should be accurate符合预期
     it('focus_navigation_direction_tracking_should_be_accurate', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_navigation_direction_tracking_should_be_accurate skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_navigation_direction_tracking_should_be_accurate skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -1067,7 +1067,7 @@ export default function focusNavigationTest() {
     // 综合comprehensive focus场景测试：验证完整操作流程中功能正确
     it('comprehensive_focus_navigation_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_focus_navigation_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_focus_navigation_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

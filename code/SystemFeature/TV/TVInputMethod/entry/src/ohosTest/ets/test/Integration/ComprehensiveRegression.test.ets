@@ -150,24 +150,24 @@ class RegressionTestRecorder {
     const performanceStats = this.getPerformanceStats('dialog_render');
 
     return `
-回归测试报告
+Regression Test Report
 ============
-测试统计:
-- 总测试数: ${stats.total}
-- 通过数: ${stats.passed}
-- 失败数: ${stats.failed}
-- 通过率: ${stats.passRate.toFixed(2)}%
+Test Statistics:
+- Total tests: ${stats.total}
+- Passed: ${stats.passed}
+- Failed: ${stats.failed}
+- Pass rate: ${stats.passRate.toFixed(2)}%
 
-性能统计:
-- 对话框渲染平均时间: ${performanceStats.avg.toFixed(2)}ms
-- 对话框渲染最短时间: ${performanceStats.min.toFixed(2)}ms
-- 对话框渲染最长时间: ${performanceStats.max.toFixed(2)}ms
+Performance Statistics:
+- Dialog average render time: ${performanceStats.avg.toFixed(2)}ms
+- Dialog minimum render time: ${performanceStats.min.toFixed(2)}ms
+- Dialog maximum render time: ${performanceStats.max.toFixed(2)}ms
 
-测试结果详情:
+Test result details:
 ${Array.from(this.testResults.entries()).map((entry) => {
       const id: string = entry[0];
       const result: TestResult = entry[1];
-      return `- ${id}: ${result.passed ? '通过' : '失败'} (${new Date(result.timestamp).toISOString()})`;
+      return `- ${id}: ${result.passed ? 'Pass' : 'Fail'} (${new Date(result.timestamp).toISOString()})`;
     }).join('\n')}
     `;
   }
@@ -219,20 +219,20 @@ export default function comprehensiveRegressionTest() {
         await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER); // 确保对话框完全渲染后再校验
         const componentCount = await keyboardComponentCount(driver);
         const hasScreenOutText = await checkTextContent(driver, 'ABC');
-        const hasShutdownText = await checkTextContent(driver, '中文');
-        const hasRebootText = await checkTextContent(driver, '符号');
+        const hasShutdownText = await checkTextContent(driver, 'Chinese');
+        const hasRebootText = await checkTextContent(driver, 'Symbol');
         const textChecked = hasScreenOutText && hasShutdownText && hasRebootText;
 
         const isVisible: boolean = await isKeyboardVisible(driver);
         const testPassed: boolean = componentCount >= 1 && textChecked && isVisible;
 
         regressionRecorder.recordTestResult(testId, testPassed,
-          `组件数: ${componentCount}, 文本检查: ${textChecked}, 可见性: ${isVisible}`);
+          `Components: ${componentCount}, Text checks: ${textChecked}, Visibility: ${isVisible}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -262,12 +262,12 @@ export default function comprehensiveRegressionTest() {
         const componentCount = await keyboardComponentCount(driver);
         const testPassed = rightNavPassed && leftNavPassed && boundaryNavPassed && componentCount >= 1;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `右键导航: ${rightNavPassed}, 左键导航: ${leftNavPassed}, 边界导航: ${boundaryNavPassed}`);
+          `Right navigation: ${rightNavPassed}, Left navigation: ${leftNavPassed}, Boundary navigation: ${boundaryNavPassed}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -293,12 +293,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = screenOutPassed && shutdownPassed && rebootPassed;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `息屏: ${screenOutPassed}, 中文: ${shutdownPassed}, 符号: ${rebootPassed}`);
+          `Screen off: ${screenOutPassed}, Chinese: ${shutdownPassed}, Symbol: ${rebootPassed}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -331,12 +331,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = renderPassed && navPassed;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `渲染时间: ${renderTime.toFixed(2)}ms, 导航时间: ${navTime.toFixed(2)}ms`);
+          `Render time: ${renderTime.toFixed(2)}ms, Navigation time: ${navTime.toFixed(2)}ms`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -361,12 +361,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = stabilityPassed && focusChecked;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `组件稳定性: ${stabilityPassed}, 焦点检查: ${focusChecked}`);
+          `Component stability: ${stabilityPassed}, Focus check: ${focusChecked}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -389,17 +389,17 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = errorHandlingPassed && recoveryPassed;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `错误处理: ${errorHandlingPassed}, 恢复验证: ${recoveryPassed}`);
+          `Error handling: ${errorHandlingPassed}, Recovery verification: ${recoveryPassed}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
 
-    // 测试7：边界条件回归 - 验证连续导航和快速操作下系统稳定
+    // 测试7：边界条件回归 - 验证连续导航和Rapid operation下系统稳定
     it('boundary_conditions_regression_should_pass', 0, async () => {
       const testId = 'boundary_conditions_regression';
       if (await skipIfKeyboardUnavailable(driver, 'boundary_conditions_regression_should_pass')) {
@@ -420,12 +420,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = leftBoundaryPassed && rightBoundaryPassed && fastOpPassed;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `左边界: ${leftBoundaryPassed}, 右边界: ${rightBoundaryPassed}, 快速操作: ${fastOpPassed}`);
+          `Left boundary: ${leftBoundaryPassed}, Right boundary: ${rightBoundaryPassed}, Rapid operation: ${fastOpPassed}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -450,12 +450,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = concurrencyPassed && focusChecked;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `并发处理: ${concurrencyPassed}, 焦点检查: ${focusChecked}`);
+          `Concurrency handling: ${concurrencyPassed}, Focus check: ${focusChecked}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -478,12 +478,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed = resourcePassed && focusChecked;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `资源管理: ${resourcePassed}, 焦点检查: ${focusChecked}`);
+          `Resource management: ${resourcePassed}, Focus check: ${focusChecked}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });
@@ -513,12 +513,12 @@ export default function comprehensiveRegressionTest() {
 
         const testPassed: boolean = timePassed && navFocusValid;
         regressionRecorder.recordTestResult(testId, testPassed,
-          `场景时间: ${scenarioTime.toFixed(2)}ms, 耗时检查: ${timePassed}`);
+          `Scenario time: ${scenarioTime.toFixed(2)}ms, Time check: ${timePassed}`);
 
         expect(testPassed).assertTrue();
       } catch (error) {
         const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
+        regressionRecorder.recordTestResult(testId, false, `Error message: ${errorMsg}`);
         throw new Error(errorMsg);
       }
     });

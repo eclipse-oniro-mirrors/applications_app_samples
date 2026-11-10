@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -170,7 +171,7 @@ export default function sessionManagementTest() {
     // 验证session should状态正确：确保TV设备be created successfully符合预期
     it('session_should_be_created_successfully', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_be_created_successfully skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_be_created_successfully skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -183,7 +184,7 @@ export default function sessionManagementTest() {
 
     it('session_should_transition_to_active_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_transition_to_active_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_transition_to_active_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -196,7 +197,7 @@ export default function sessionManagementTest() {
     // 验证session should处理能力：确保TV设备在handle data transfer下功能正常
     it('session_should_handle_data_transfer', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_handle_data_transfer skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_handle_data_transfer skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -209,7 +210,7 @@ export default function sessionManagementTest() {
 
     it('session_should_deactivate_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_deactivate_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_deactivate_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -221,7 +222,7 @@ export default function sessionManagementTest() {
 
     it('session_should_destroy_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_destroy_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_destroy_correctly skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -235,7 +236,7 @@ export default function sessionManagementTest() {
     // 验证session lifecycle状态正确：确保TV设备should be complete符合预期
     it('session_lifecycle_should_be_complete', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_lifecycle_should_be_complete skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_lifecycle_should_be_complete skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -257,7 +258,7 @@ export default function sessionManagementTest() {
     // 验证session should处理能力：确保TV设备在handle multiple lifecycle cycles下功能正常
     it('session_should_handle_multiple_lifecycle_cycles', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_handle_multiple_lifecycle_cycles skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_handle_multiple_lifecycle_cycles skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -276,7 +277,7 @@ export default function sessionManagementTest() {
 
     it('session_data_transfer_should_only_work_in_active_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_data_transfer_should_only_work_in_active_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_data_transfer_should_only_work_in_active_state skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -295,7 +296,7 @@ export default function sessionManagementTest() {
     // 验证session timestamps状态正确：确保TV设备should be chronological符合预期
     it('session_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -313,7 +314,7 @@ export default function sessionManagementTest() {
     // 验证session should处理能力：确保TV设备在handle rapid state changes下功能正常
     it('session_should_handle_rapid_state_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_handle_rapid_state_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_handle_rapid_state_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -332,7 +333,7 @@ export default function sessionManagementTest() {
     // 验证session should维持稳定：确保TV设备在maintain dialog stability下性能不降低
     it('session_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -359,7 +360,7 @@ export default function sessionManagementTest() {
     // 验证session should处理能力：确保TV设备在handle large data transfers下功能正常
     it('session_should_handle_large_data_transfers', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_handle_large_data_transfers skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_handle_large_data_transfers skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -374,7 +375,7 @@ export default function sessionManagementTest() {
 
     it('session_should_track_all_state_transitions', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_track_all_state_transitions skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_track_all_state_transitions skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -393,7 +394,7 @@ export default function sessionManagementTest() {
 
     it('session_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -414,7 +415,7 @@ export default function sessionManagementTest() {
     // 验证session should处理能力：确保TV设备在handle error recovery下功能正常
     it('session_should_handle_error_recovery', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_handle_error_recovery skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_handle_error_recovery skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -430,7 +431,7 @@ export default function sessionManagementTest() {
 
     it('session_should_validate_state_integrity', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('session_should_validate_state_integrity skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'session_should_validate_state_integrity skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -446,7 +447,7 @@ export default function sessionManagementTest() {
     // 综合comprehensive session场景测试：验证完整操作流程中功能正确
     it('comprehensive_session_management_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_session_management_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_session_management_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -497,7 +497,7 @@ export default function accessibilityNavigationTest() {
 
     it('all_options_should_be_focusable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('all_options_should_be_focusable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'all_options_should_be_focusable skipped: input method is not enabled on this device');
         return;
       }
  // 验证所有选项可聚焦，确保无障碍设备能访问所有功能
@@ -546,7 +546,7 @@ export default function accessibilityNavigationTest() {
 
     it('focus_order_should_be_logical', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_order_should_be_logical skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_order_should_be_logical skipped: input method is not enabled on this device');
         return;
       }
  // 验证焦点顺序逻辑合理，确保导航路径符合用户预期
@@ -554,11 +554,11 @@ export default function accessibilityNavigationTest() {
 
       accessibilityTracker.resetTracker();
 
-      accessibilityTracker.recordNavigation('shutdown', '中文', true);
+      accessibilityTracker.recordNavigation('shutdown', 'Chinese', true);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('screenOut', '息屏', true);
+      accessibilityTracker.recordNavigation('screenOut', 'ScreenOff', true);
       await pressAndWait(driver, KEY_RIGHT, 2, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('reboot', '符号', true);
+      accessibilityTracker.recordNavigation('reboot', 'Symbol', true);
 
       expect(accessibilityTracker.hasNavigatedTo('shutdown')).assertTrue();
       expect(accessibilityTracker.hasNavigatedTo('screenOut')).assertTrue();
@@ -567,10 +567,10 @@ export default function accessibilityNavigationTest() {
 
     it('dialog_should_handle_continuous_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_continuous_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_continuous_navigation skipped: input method is not enabled on this device');
         return;
       }
- // 验证对话框处理连续导航，确保快速操作不会导致异常
+ // 验证对话框处理连续导航，确保Rapid operation不会导致异常
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       // 首先验证对话框组件存在
@@ -581,7 +581,7 @@ export default function accessibilityNavigationTest() {
 
       for (let i = 0; i < 10; i++) {
         await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-        accessibilityTracker.recordNavigation('left', `连续导航第${i}次`, true);
+        accessibilityTracker.recordNavigation('left', `Continuous navigation ${i} times`, true);
 
         // 每次导航后验证组件仍然存在
         const currentComponentCount = await keyboardComponentCount(driver);
@@ -595,7 +595,7 @@ export default function accessibilityNavigationTest() {
 
     it('focus_should_cycle_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('focus_should_cycle_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'focus_should_cycle_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证焦点循环正确，确保边界导航不会越界
@@ -604,20 +604,20 @@ export default function accessibilityNavigationTest() {
       accessibilityTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('screenOut', '息屏', true);
+      accessibilityTracker.recordNavigation('screenOut', 'ScreenOff', true);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('shutdown', '中文', true);
+      accessibilityTracker.recordNavigation('shutdown', 'Chinese', true);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('reboot', '符号', true);
+      accessibilityTracker.recordNavigation('reboot', 'Symbol', true);
 
       expect(accessibilityTracker.getTotalNavigations()).assertEqual(3);
     });
 
     it('navigation_should_maintain_dialog_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_maintain_dialog_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_maintain_dialog_stability skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航维持对话框稳定性，确保频繁操作不影响UI状态
@@ -626,7 +626,7 @@ export default function accessibilityNavigationTest() {
 
       for (let i = 0; i < 20; i++) {
         await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-        accessibilityTracker.recordNavigation('mixed', `混合导航第${i}次`, true);
+        accessibilityTracker.recordNavigation('mixed', `Mixed navigation ${i} times`, true);
         await serializedDelay(driver, 50);
       }
 
@@ -636,7 +636,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航时间戳顺序正确，确保记录数据可追踪
@@ -644,11 +644,11 @@ export default function accessibilityNavigationTest() {
 
       accessibilityTracker.resetTracker();
 
-      accessibilityTracker.recordNavigation('start', '开始导航', true);
+      accessibilityTracker.recordNavigation('start', 'StartNavigation', true);
       await serializedDelay(driver, 100);
-      accessibilityTracker.recordNavigation('middle', '中间导航', true);
+      accessibilityTracker.recordNavigation('middle', 'MiddleNavigation', true);
       await serializedDelay(driver, 100);
-      accessibilityTracker.recordNavigation('end', '结束导航', true);
+      accessibilityTracker.recordNavigation('end', 'EndNavigation', true);
 
       const history = accessibilityTracker.getNavigationHistory();
       expect(history[0].timestamp).assertLessOrEqual(history[1].timestamp);
@@ -657,7 +657,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_should_handle_rapid_key_presses', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_handle_rapid_key_presses skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_handle_rapid_key_presses skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航处理快速按键，确保高频操作不会导致崩溃
@@ -671,7 +671,7 @@ export default function accessibilityNavigationTest() {
 
       for (let i = 0; i < 30; i++) {
         await pressAndWait(driver, KEY_LEFT, 1, 50); // 增加延迟确保稳定性
-        accessibilityTracker.recordNavigation('rapid', `快速按键第${i}次`, true);
+        accessibilityTracker.recordNavigation('rapid', `Rapid key press ${i} times`, true);
         await serializedDelay(driver, 50); // 增加延迟确保稳定性
 
         // 每5次操作验证一次组件状态
@@ -688,7 +688,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_should_preserve_component_visibility', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_preserve_component_visibility skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_preserve_component_visibility skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航保持组件可见性，确保UI元素不会意外消失
@@ -743,7 +743,7 @@ export default function accessibilityNavigationTest() {
 
 
         tracker1.resetTracker();
-        tracker1.recordNavigation('test', '测试导航', true);
+        tracker1.recordNavigation('test', 'TestNavigation', true);
 
         expect(tracker2.getTotalNavigations()).assertEqual(1);
         expect(tracker2.hasNavigatedTo('test')).assertTrue();
@@ -751,7 +751,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_should_handle_all_three_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_handle_all_three_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_handle_all_three_options skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航处理所有三个选项，确保完整覆盖电源对话框功能
@@ -760,13 +760,13 @@ export default function accessibilityNavigationTest() {
       accessibilityTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('screenOut', '息屏', true);
+      accessibilityTracker.recordNavigation('screenOut', 'ScreenOff', true);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      accessibilityTracker.recordNavigation('shutdown', '中文', true);
+      accessibilityTracker.recordNavigation('shutdown', 'Chinese', true);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('reboot', '符号', true);
+      accessibilityTracker.recordNavigation('reboot', 'Symbol', true);
 
       expect(accessibilityTracker.getNavigationCountForComponent('screenOut')).assertEqual(1);
       expect(accessibilityTracker.getNavigationCountForComponent('shutdown')).assertEqual(1);
@@ -775,7 +775,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_performance_should_meet_requirements', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_performance_should_meet_requirements skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_performance_should_meet_requirements skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航性能满足要求，确保30次导航在10秒内完成
@@ -791,7 +791,7 @@ export default function accessibilityNavigationTest() {
 
       for (let i = 0; i < 30; i++) { // 进一步减少迭代次数避免超时
         await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, 50); // 减少延迟时间
-        accessibilityTracker.recordNavigation('perf', `性能测试第${i}次`, true);
+        accessibilityTracker.recordNavigation('perf', `Performance test ${i} times`, true);
 
         // 每10次操作验证一次组件状态
         if (i % 10 === 0) {
@@ -814,7 +814,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_should_handle_back_key_correctly', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_handle_back_key_correctly skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_handle_back_key_correctly skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航正确处理返回键，确保返回操作不会破坏对话框状态
@@ -828,7 +828,7 @@ export default function accessibilityNavigationTest() {
       accessibilityTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('screenOut', '息屏', true);
+      accessibilityTracker.recordNavigation('screenOut', 'ScreenOff', true);
 
       // 添加超时保护，避免返回键操作无限等待
       const backKeyPromise = pressAndWait(driver, KEY_BACK, 1, DELAY_KEY_NAVIGATION);
@@ -868,7 +868,7 @@ export default function accessibilityNavigationTest() {
 
     it('navigation_should_validate_focus_state', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_validate_focus_state skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_validate_focus_state skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航验证焦点状态，确保每次导航后焦点位置正确
@@ -895,7 +895,7 @@ export default function accessibilityNavigationTest() {
       // 验证初始焦点状态
       const isInitialFocusable = await checkFocusState(driver, initialFocusIndex);
       expect(isInitialFocusable).assertTrue();
-      accessibilityTracker.recordNavigation('initial', '初始焦点', true);
+      accessibilityTracker.recordNavigation('initial', 'InitialFocus', true);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       const nextFocusIndex = await getCurrentFocusIndex(driver);
@@ -905,7 +905,7 @@ export default function accessibilityNavigationTest() {
         expect(nextFocusIndex).assertLargerOrEqual(0);
         const nextFocusState = await checkFocusState(driver, nextFocusIndex);
         expect(nextFocusState).assertTrue();
-        accessibilityTracker.recordNavigation('left', '左导航', true);
+        accessibilityTracker.recordNavigation('left', 'LeftNavigation', true);
       }
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -916,13 +916,13 @@ export default function accessibilityNavigationTest() {
         expect(finalFocusIndex).assertLargerOrEqual(0);
         const finalFocusState = await checkFocusState(driver, finalFocusIndex);
         expect(finalFocusState).assertTrue();
-        accessibilityTracker.recordNavigation('right', '右导航', true);
+        accessibilityTracker.recordNavigation('right', 'RightNavigation', true);
       }
     });
 
     it('navigation_should_handle_edge_cases', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('navigation_should_handle_edge_cases skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'navigation_should_handle_edge_cases skipped: input method is not enabled on this device');
         return;
       }
  // 验证导航处理边界情况，确保极端操作不会导致异常
@@ -935,10 +935,10 @@ export default function accessibilityNavigationTest() {
 
       // 减少操作次数避免超时，但保持边界测试特性
       await pressAndWait(driver, KEY_LEFT, 10, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('edge', '边界导航测试', true);
+      accessibilityTracker.recordNavigation('edge', 'BoundaryNavigationTest', true);
 
       await pressAndWait(driver, KEY_RIGHT, 10, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('edge', '边界导航测试', true);
+      accessibilityTracker.recordNavigation('edge', 'BoundaryNavigationTest', true);
 
       // 验证组件状态仍然正常
       const finalComponentCount = await keyboardComponentCount(driver);
@@ -955,7 +955,7 @@ export default function accessibilityNavigationTest() {
 
     it('comprehensive_screen_reader_navigation_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_screen_reader_navigation_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_screen_reader_navigation_scenario skipped: input method is not enabled on this device');
         return;
       }
  // 综合无障碍导航场景测试，验证完整操作流程中功能正常
@@ -964,16 +964,16 @@ export default function accessibilityNavigationTest() {
       const scenarioStart = Date.now();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('screenOut', '息屏', true);
+      accessibilityTracker.recordNavigation('screenOut', 'ScreenOff', true);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('shutdown', '中文', true);
+      accessibilityTracker.recordNavigation('shutdown', 'Chinese', true);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('reboot', '符号', true);
+      accessibilityTracker.recordNavigation('reboot', 'Symbol', true);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('shutdown', '中文', true);
+      accessibilityTracker.recordNavigation('shutdown', 'Chinese', true);
 
       await serializedDelay(driver, 200); // 减少延迟时间避免超时
 

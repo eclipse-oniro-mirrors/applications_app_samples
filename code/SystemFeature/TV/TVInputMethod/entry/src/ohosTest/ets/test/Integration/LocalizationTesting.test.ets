@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -481,7 +482,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_english', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_english skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_english skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -497,7 +498,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_chinese_simplified', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_chinese_simplified skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_chinese_simplified skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -516,7 +517,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_chinese_traditional', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_chinese_traditional skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_chinese_traditional skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -535,7 +536,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_japanese', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_japanese skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_japanese skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -553,7 +554,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_korean', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_korean skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_korean skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -572,7 +573,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_french', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_french skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_french skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -591,7 +592,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_german', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_german skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_german skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -609,7 +610,7 @@ export default function localizationTestingTest() {
 
     it('dialog_should_display_correctly_in_spanish', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_display_correctly_in_spanish skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_display_correctly_in_spanish skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -629,7 +630,7 @@ export default function localizationTestingTest() {
     // 验证dialog localization状态正确：确保TV设备records timestamps should be chronological符合预期
     it('dialog_localization_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_localization_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_localization_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -666,7 +667,7 @@ export default function localizationTestingTest() {
     // 验证dialog should处理能力：确保TV设备在handle all languages下功能正常
     it('dialog_should_handle_all_languages', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_languages skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_languages skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -686,7 +687,7 @@ export default function localizationTestingTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain layout across languages下性能不降低
     it('dialog_should_maintain_layout_across_languages', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_layout_across_languages skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_layout_across_languages skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -708,7 +709,7 @@ export default function localizationTestingTest() {
     // 综合comprehensive localization场景测试：验证完整操作流程中功能正确
     it('comprehensive_localization_testing_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_localization_testing_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_localization_testing_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

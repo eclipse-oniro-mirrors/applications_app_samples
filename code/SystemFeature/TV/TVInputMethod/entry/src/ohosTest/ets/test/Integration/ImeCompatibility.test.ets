@@ -407,12 +407,12 @@ class FontScaleValidator {
 
   public getScaleLevel(scale: number): string {
     if (scale <= 1.0) {
-      return '标准';
+      return 'Standard';
     }
     if (scale <= 1.5) {
-      return '较大';
+      return 'Large';
     }
-    return '特大';
+    return 'ExtraLarge';
   }
 }
 

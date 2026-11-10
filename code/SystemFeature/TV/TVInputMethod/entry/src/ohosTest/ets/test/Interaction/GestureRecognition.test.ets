@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -494,7 +495,7 @@ export default function gestureRecognitionTest() {
 
     it('dialog_should_recognize_tap_gesture', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recognize_tap_gesture skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recognize_tap_gesture skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -510,7 +511,7 @@ export default function gestureRecognitionTest() {
 
     it('dialog_should_recognize_swipe_left_gesture', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recognize_swipe_left_gesture skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recognize_swipe_left_gesture skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -529,7 +530,7 @@ export default function gestureRecognitionTest() {
 
     it('dialog_should_recognize_swipe_right_gesture', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recognize_swipe_right_gesture skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recognize_swipe_right_gesture skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -548,7 +549,7 @@ export default function gestureRecognitionTest() {
 
     it('dialog_should_recognize_long_press_gesture', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recognize_long_press_gesture skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recognize_long_press_gesture skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -566,7 +567,7 @@ export default function gestureRecognitionTest() {
 
     it('dialog_should_recognize_double_tap_gesture', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_recognize_double_tap_gesture skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_recognize_double_tap_gesture skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -585,7 +586,7 @@ export default function gestureRecognitionTest() {
     // 验证dialog gesture状态正确：确保TV设备records timestamps should be chronological符合预期
     it('dialog_gesture_records_timestamps_should_be_chronological', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_gesture_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_gesture_records_timestamps_should_be_chronological skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -621,7 +622,7 @@ export default function gestureRecognitionTest() {
     // 验证dialog should处理能力：确保TV设备在handle all gesture types下功能正常
     it('dialog_should_handle_all_gesture_types', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_all_gesture_types skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_all_gesture_types skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -642,7 +643,7 @@ export default function gestureRecognitionTest() {
     // 验证dialog should处理能力：确保TV设备在handle rapid gestures下功能正常
     it('dialog_should_handle_rapid_gestures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_gestures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_gestures skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -663,7 +664,7 @@ export default function gestureRecognitionTest() {
     // 验证dialog should维持稳定：确保TV设备在maintain stability during gestures下性能不降低
     it('dialog_should_maintain_stability_during_gestures', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_stability_during_gestures skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_stability_during_gestures skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -684,7 +685,7 @@ export default function gestureRecognitionTest() {
     // 综合comprehensive gesture场景测试：验证完整操作流程中功能正确
     it('comprehensive_gesture_recognition_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_gesture_recognition_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_gesture_recognition_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

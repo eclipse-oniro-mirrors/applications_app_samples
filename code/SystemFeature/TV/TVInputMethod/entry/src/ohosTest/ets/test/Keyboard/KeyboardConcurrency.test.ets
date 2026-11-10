@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -408,7 +409,7 @@ export default function keyboardConcurrencyTest() {
     // 适配 NavStack_Race_Conditions：并发按键处理
     it('dialog_should_handle_concurrent_key_presses', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_concurrent_key_presses skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_concurrent_key_presses skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -424,7 +425,7 @@ export default function keyboardConcurrencyTest() {
     // 适配 DataSource_Race_Conditions：并发操作保持状态
     it('dialog_should_maintain_state_during_concurrent_operations', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_maintain_state_during_concurrent_operations skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_maintain_state_during_concurrent_operations skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -455,7 +456,7 @@ export default function keyboardConcurrencyTest() {
     // 适配 SelectMode_Race：快速焦点切换
     it('dialog_should_handle_rapid_concurrent_focus_changes', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_handle_rapid_concurrent_focus_changes skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_handle_rapid_concurrent_focus_changes skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -521,7 +522,7 @@ export default function keyboardConcurrencyTest() {
     // 综合：并发场景完整验证
     it('comprehensive_concurrency_scenario', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('comprehensive_concurrency_scenario skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'comprehensive_concurrency_scenario skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

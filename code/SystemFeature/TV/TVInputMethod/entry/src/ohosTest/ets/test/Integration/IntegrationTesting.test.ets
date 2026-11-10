@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -321,7 +322,7 @@ export default function integrationTestingTest() {
     // 适配 Dialog_Ime_Integration：对话框集成电源服务
     it('dialog_should_integrate_with_ime_manager', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_ime_manager skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_ime_manager skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -335,7 +336,7 @@ export default function integrationTestingTest() {
     // 适配 Dialog_Focus_Integration：对话框支持焦点导航
     it('dialog_should_integrate_with_focus_navigation', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_integrate_with_focus_navigation skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_integrate_with_focus_navigation skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -349,7 +350,7 @@ export default function integrationTestingTest() {
     // 适配 Dialog_Integration_Stability：集成操作后对话框保持稳定
     it('dialog_should_remain_stable_after_integration_ops', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_remain_stable_after_integration_ops skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_remain_stable_after_integration_ops skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

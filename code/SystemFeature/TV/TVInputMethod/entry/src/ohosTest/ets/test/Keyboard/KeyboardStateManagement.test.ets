@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -515,7 +516,7 @@ export default function keyboardStateManagementTest() {
     // 集成：真实对话框状态渲染验证
     it('real_dialog_state_should_be_stable', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('real_dialog_state_should_be_stable skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'real_dialog_state_should_be_stable skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

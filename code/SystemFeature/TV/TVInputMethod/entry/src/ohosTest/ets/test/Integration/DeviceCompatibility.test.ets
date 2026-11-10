@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -50,7 +51,7 @@ export default function deviceCompatibilityTest() {
     // 删除伪造的方向/分辨率/语言测试，仅保留真实配置下的验证
     it('dialog_should_render_correctly_in_current_config', 0, async () => {
       if (!imeAvailable) {
-        console.info('DeviceCompatibility test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'DeviceCompatibility test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -61,7 +62,7 @@ export default function deviceCompatibilityTest() {
 
     it('dialog_should_maintain_stability_across_configurations', 0, async () => {
       if (!imeAvailable) {
-        console.info('DeviceCompatibility test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'DeviceCompatibility test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -82,7 +83,7 @@ export default function deviceCompatibilityTest() {
     // 综合comprehensive device场景测试：验证完整操作流程中功能正确
     it('comprehensive_device_compatibility_scenario', 0, async () => {
       if (!imeAvailable) {
-        console.info('DeviceCompatibility test skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'DeviceCompatibility test skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);

@@ -15,6 +15,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   getDriver,
   KEY_LEFT,
@@ -406,7 +407,7 @@ export default function keyboardEndToEndTest() {
     // 适配 Full_Application_Startup：冷启动后对话框渲染
     it('cold_start_should_render_dialog', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('cold_start_should_render_dialog skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'cold_start_should_render_dialog skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -423,7 +424,7 @@ export default function keyboardEndToEndTest() {
     // 适配 Full_Application_Startup：对话框渲染三个选项
     it('dialog_should_render_all_three_options', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_should_render_all_three_options skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_should_render_all_three_options skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -434,7 +435,7 @@ export default function keyboardEndToEndTest() {
     // 适配 File_Browse_Scenarios：浏览到中文选项
     it('browse_to_shutdown_option_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('browse_to_shutdown_option_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'browse_to_shutdown_option_should_work skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -445,7 +446,7 @@ export default function keyboardEndToEndTest() {
     // 适配 File_Browse_Scenarios：浏览到符号选项
     it('browse_to_reboot_option_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('browse_to_reboot_option_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'browse_to_reboot_option_should_work skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -457,7 +458,7 @@ export default function keyboardEndToEndTest() {
     // 适配 File_Browse_Scenarios：浏览到ABC选项
     it('browse_to_suspend_option_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('browse_to_suspend_option_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'browse_to_suspend_option_should_work skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -469,7 +470,7 @@ export default function keyboardEndToEndTest() {
     // 适配 Navigation_BackPress_Scenarios：返回键关闭对话框
     it('back_press_should_close_dialog', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('back_press_should_close_dialog skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'back_press_should_close_dialog skipped: input method is not enabled on this device');
         return;
       }
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
@@ -482,7 +483,7 @@ export default function keyboardEndToEndTest() {
     // 适配 EndToEnd_Scenarios：冷启动到浏览到退出完整流程
     it('cold_start_to_browse_to_exit_should_work', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('cold_start_to_browse_to_exit_should_work skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'cold_start_to_browse_to_exit_should_work skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -498,7 +499,7 @@ export default function keyboardEndToEndTest() {
     // 适配 USB_Lifecycle_Scenarios：对话框重新打开保持稳定
     it('dialog_reopen_should_maintain_stability', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_reopen_should_maintain_stability skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_reopen_should_maintain_stability skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
@@ -513,7 +514,7 @@ export default function keyboardEndToEndTest() {
     // 适配 Data_Refresh_Scenarios：返回导航后对话框状态刷新
     it('dialog_state_should_refresh_after_reopen', 0, async () => {
       if (!isInputMethodEnabled()) {
-        console.info('dialog_state_should_refresh_after_reopen skipped: input method is not enabled on this device');
+        hilog.info(0x0000, 'testTag', '%{public}s', 'dialog_state_should_refresh_after_reopen skipped: input method is not enabled on this device');
         return;
       }
       await triggerKeyboard(driver);
