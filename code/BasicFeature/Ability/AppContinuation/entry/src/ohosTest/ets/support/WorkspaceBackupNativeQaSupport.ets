@@ -46,7 +46,7 @@ class NativeWorkspaceDependencies implements LearningDependencies {
 export class WorkspaceBackupNativeQaFixture {
   readonly context: common.ApplicationContext;
   readonly sceneNamespace: string;
-  readonly textNamespace: string;
+  public readonly textNamespace: string;
   private workbenches: SceneWorkbench[] = [];
   private controllers: LearningController[] = [];
   private dependencies: NativeWorkspaceDependencies[] = [];

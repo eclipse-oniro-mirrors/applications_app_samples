@@ -233,7 +233,7 @@ export function readinessRuleLines(): string[] {
 /** 规则表自检。 */
 export class ReadinessAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '准入规则表自洽' : this.findings.join('；');

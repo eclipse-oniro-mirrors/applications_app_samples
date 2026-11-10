@@ -44,7 +44,7 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0002', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(0, DeviceForm.WEARABLE, SystemFlavor.HARMONY_OS));
+      const evaluation = evaluateCapability(queryOf(0, DeviceForm.WEARABLE, SystemFlavor.COMMERCIAL));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0001');
       expect(canSetInApp(evaluation)).assertFalse();
@@ -62,7 +62,7 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0003', 0, (): void => {
-      const tv = evaluateCapability(queryOf(8, DeviceForm.TV, SystemFlavor.HARMONY_OS));
+      const tv = evaluateCapability(queryOf(8, DeviceForm.TV, SystemFlavor.COMMERCIAL));
       const tablet = evaluateCapability(queryOf(8, DeviceForm.TABLET, SystemFlavor.UNKNOWN));
       expect(tv.rule?.ruleId).assertEqual('CM-0001');
       expect(tablet.rule?.ruleId).assertEqual('CM-0001');
@@ -100,7 +100,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0005', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(11, DeviceForm.WEARABLE,
-        SystemFlavor.HARMONY_OS, false, false));
+        SystemFlavor.COMMERCIAL, false, false));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0002');
       expect(canSetInApp(evaluation)).assertFalse();
@@ -134,7 +134,7 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0007', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(11, DeviceForm.TV, SystemFlavor.HARMONY_OS));
+      const evaluation = evaluateCapability(queryOf(11, DeviceForm.TV, SystemFlavor.COMMERCIAL));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0003');
       expect(needsSettingsGuidance(evaluation)).assertTrue();
@@ -200,14 +200,14 @@ export default function capabilityMatrixCasesTest(): void {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXAPIBOUNDARYCASES_1100
      * @tc.name      testCapabilityMatrixApiBoundaryCases0011
-     * @tc.desc      Verify api9 phone harmony os without permission needs permission
+     * @tc.desc      Verify api9 phone commercial distribution without permission needs permission
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
     it('testCapabilityMatrixApiBoundaryCases0011', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.HARMONY_OS,
+      const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.COMMERCIAL,
         false, true));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0005');
@@ -220,14 +220,14 @@ export default function capabilityMatrixCasesTest(): void {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXAPIBOUNDARYCASES_1200
      * @tc.name      testCapabilityMatrixApiBoundaryCases0012
-     * @tc.desc      Verify api9 phone harmony os with permission keeps verdict
+     * @tc.desc      Verify api9 phone commercial distribution with permission keeps verdict
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
     it('testCapabilityMatrixApiBoundaryCases0012', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.HARMONY_OS,
+      const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.COMMERCIAL,
         true, true));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
       expect(evaluation.downgradedByPermission).assertFalse();
@@ -283,7 +283,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0015', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(13, DeviceForm.WEARABLE,
-        SystemFlavor.HARMONY_OS, true, true));
+        SystemFlavor.COMMERCIAL, true, true));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0006');
       expect(needsSettingsGuidance(evaluation)).assertFalse();
@@ -311,14 +311,14 @@ export default function capabilityMatrixCasesTest(): void {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXAPIBOUNDARYCASES_1700
      * @tc.name      testCapabilityMatrixApiBoundaryCases0017
-     * @tc.desc      Verify api12 tv harmony os without permission needs permission
+     * @tc.desc      Verify api12 tv commercial distribution without permission needs permission
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
     it('testCapabilityMatrixApiBoundaryCases0017', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(12, DeviceForm.TV, SystemFlavor.HARMONY_OS,
+      const evaluation = evaluateCapability(queryOf(12, DeviceForm.TV, SystemFlavor.COMMERCIAL,
         false, true));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0008');
@@ -348,14 +348,14 @@ export default function capabilityMatrixCasesTest(): void {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXAPIBOUNDARYCASES_1900
      * @tc.name      testCapabilityMatrixApiBoundaryCases0019
-     * @tc.desc      Verify api12 tablet harmony os with permission needs permission
+     * @tc.desc      Verify api12 tablet commercial distribution with permission needs permission
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
     it('testCapabilityMatrixApiBoundaryCases0019', 0, (): void => {
-      const evaluation = evaluateCapability(queryOf(12, DeviceForm.TABLET, SystemFlavor.HARMONY_OS,
+      const evaluation = evaluateCapability(queryOf(12, DeviceForm.TABLET, SystemFlavor.COMMERCIAL,
         true, true));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0010');
@@ -392,7 +392,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0021', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(17, DeviceForm.WEARABLE,
-        SystemFlavor.HARMONY_OS, false, false));
+        SystemFlavor.COMMERCIAL, false, false));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0011');
       expect(canSetInApp(evaluation)).assertFalse();
@@ -411,13 +411,13 @@ export default function capabilityMatrixCasesTest(): void {
     it('testCapabilityMatrixApiBoundaryCases0022', 0, (): void => {
       const openHarmony = evaluateCapability(queryOf(14, DeviceForm.TV,
         SystemFlavor.OPEN_HARMONY));
-      const harmony = evaluateCapability(queryOf(14, DeviceForm.TV, SystemFlavor.HARMONY_OS));
+      const commercial = evaluateCapability(queryOf(14, DeviceForm.TV, SystemFlavor.COMMERCIAL));
       expect(openHarmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(harmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
+      expect(commercial.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
       expect(openHarmony.rule?.ruleId).assertEqual('CM-0012');
-      expect(harmony.rule?.ruleId).assertEqual('CM-0012');
+      expect(commercial.rule?.ruleId).assertEqual('CM-0012');
       expect(canSetInApp(openHarmony)).assertTrue();
-      expect(canSetInApp(harmony)).assertTrue();
+      expect(canSetInApp(commercial)).assertTrue();
     });
 
     /**
@@ -432,11 +432,11 @@ export default function capabilityMatrixCasesTest(): void {
     it('testCapabilityMatrixApiBoundaryCases0023', 0, (): void => {
       const openHarmony = evaluateCapability(queryOf(15, DeviceForm.PHONE,
         SystemFlavor.OPEN_HARMONY));
-      const harmony = evaluateCapability(queryOf(15, DeviceForm.PHONE, SystemFlavor.HARMONY_OS));
+      const commercial = evaluateCapability(queryOf(15, DeviceForm.PHONE, SystemFlavor.COMMERCIAL));
       expect(openHarmony.rule?.ruleId).assertEqual('CM-0013');
-      expect(harmony.rule?.ruleId).assertEqual('CM-0013');
+      expect(commercial.rule?.ruleId).assertEqual('CM-0013');
       expect(openHarmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(harmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
+      expect(commercial.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
       expect(openHarmony.downgradedByEntry).assertFalse();
     });
 
@@ -451,7 +451,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0024', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(17, DeviceForm.TABLET,
-        SystemFlavor.HARMONY_OS, false, false));
+        SystemFlavor.COMMERCIAL, false, false));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0013');
       expect(canSetInApp(evaluation)).assertTrue();
@@ -491,7 +491,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0026', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(26, DeviceForm.WEARABLE,
-        SystemFlavor.HARMONY_OS, false, false));
+        SystemFlavor.COMMERCIAL, false, false));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0014');
       expect(canSetInApp(evaluation)).assertTrue();
@@ -529,7 +529,7 @@ export default function capabilityMatrixCasesTest(): void {
 
     it('testCapabilityMatrixApiBoundaryCases0028', 0, (): void => {
       const evaluation = evaluateCapability(queryOf(30, DeviceForm.TABLET,
-        SystemFlavor.HARMONY_OS));
+        SystemFlavor.COMMERCIAL));
       expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
       expect(evaluation.rule?.ruleId).assertEqual('CM-0015');
       expect(evaluation.developerHint().indexOf('API 26') > 0).assertTrue();
@@ -620,12 +620,12 @@ export default function capabilityMatrixCasesTest(): void {
         queryOf(10, DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY),
         queryOf(10, DeviceForm.TV, SystemFlavor.OPEN_HARMONY),
         queryOf(10, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY),
-        queryOf(10, DeviceForm.PHONE, SystemFlavor.HARMONY_OS),
+        queryOf(10, DeviceForm.PHONE, SystemFlavor.COMMERCIAL),
         queryOf(12, DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY),
         queryOf(12, DeviceForm.TV, SystemFlavor.OPEN_HARMONY),
-        queryOf(12, DeviceForm.TV, SystemFlavor.HARMONY_OS),
+        queryOf(12, DeviceForm.TV, SystemFlavor.COMMERCIAL),
         queryOf(12, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY),
-        queryOf(12, DeviceForm.PHONE, SystemFlavor.HARMONY_OS),
+        queryOf(12, DeviceForm.PHONE, SystemFlavor.COMMERCIAL),
         queryOf(15, DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY),
         queryOf(15, DeviceForm.TV, SystemFlavor.OPEN_HARMONY),
         queryOf(15, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY),
@@ -685,7 +685,7 @@ export default function capabilityMatrixCasesTest(): void {
       clone.deviceForm = DeviceForm.TABLET;
       expect(clone.key() === base.key()).assertFalse();
       clone.deviceForm = DeviceForm.PHONE;
-      clone.flavor = SystemFlavor.HARMONY_OS;
+      clone.flavor = SystemFlavor.COMMERCIAL;
       expect(clone.key() === base.key()).assertFalse();
       clone.flavor = SystemFlavor.OPEN_HARMONY;
       clone.permissionGranted = false;

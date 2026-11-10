@@ -224,7 +224,8 @@ export function scopedHistory(records: QueryRecord[], filter: HistoryFilter, now
   const before = beforeId > 0 ? scope.records.find((row: QueryRecord): boolean => row.id === beforeId) : scope.records[1];
   if (beforeId > 0 && before === undefined || afterId > 0 && after === undefined) {
     scope.comparisonText = ['选定记录已不在当前范围，请重选（不会引用范围外记录）'];
-  } else if (before !== undefined && after !== undefined && (before.id === after.id || before.timestamp > after.timestamp)) {
+  } else if (before !== undefined && after !== undefined &&
+    (before.id === after.id || before.timestamp > after.timestamp)) {
     scope.comparisonText = ['请选择不同记录，且“前”样本时间不得晚于“后”样本'];
   } else {
     const selected: QueryRecord[] = [];
@@ -251,7 +252,7 @@ export function detailLines(record: QueryRecord | undefined): string[] {
 /** 按天分组计数，用于快速判断哪几天有采样。 */
 export class DayCount {
   date: string = '';
-  count: number = 0;
+  public count: number = 0;
 
   constructor(date: string = '', count: number = 0) {
     this.date = date;

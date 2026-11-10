@@ -326,7 +326,7 @@ export function validateFields(data: PayloadData): ValidationResult {
 /** 规则表自检。 */
 export class ValidatorAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '校验规则表自洽' : this.findings.join('；');

@@ -36,7 +36,7 @@ export class DiagnosticReport {
   status: ProbeResult = new ProbeResult();
   consistent: boolean = false;
   headline: string = '尚未诊断';
-  advice: string = '';
+  public advice: string = '';
   clone(): DiagnosticReport {
     const copy = new DiagnosticReport();
     copy.query = this.query.clone(); copy.evaluation = this.evaluation;
@@ -156,8 +156,9 @@ export class CapabilityDiagnostic {
         finish(buildResult(ProbeStage.TIMEOUT, null, 'TIMEOUT', '系统响应超时；仍占用单飞位置至原生调用结束', this.clock() - started));
       }, this.timeoutMillis);
       let request: Promise<boolean>;
-      try { request = ability ? this.port.isSupported() : this.port.isEnabledForSelf(); }
-      catch (error) {
+      try {
+        request = ability ? this.port.isSupported() : this.port.isEnabledForSelf();
+      } catch (error) {
         this.pending = false;
         finish(this.failure(error as Object, this.clock() - started));
         this.notify();
@@ -181,7 +182,8 @@ export class CapabilityDiagnostic {
     const candidate = error as Record<string, Object>;
     const code = candidate === null || candidate === undefined || candidate['code'] === undefined ? 'UNKNOWN' : String(candidate['code']);
     const message = candidate === null || candidate === undefined || candidate['message'] === undefined ? '未提供错误信息' : String(candidate['message']);
-    return buildResult(isUnsupportedError(code) ? ProbeStage.UNSUPPORTED : ProbeStage.FAILED, null, code, message, elapsed);
+    return buildResult(isUnsupportedError(code) ? ProbeStage.UNSUPPORTED : ProbeStage.FAILED,
+      null, code, message, elapsed);
   }
   private assign(ability: boolean, result: ProbeResult): void {
     if (ability) { this.report.ability = result; } else { this.report.status = result; }
@@ -211,10 +213,15 @@ export class CapabilityDiagnostic {
 export function deriveQuery(apiLevel: number, deviceType: string, isOpenHarmony: boolean,
   permissionGranted: boolean, settingsEntryAvailable: boolean): CapabilityQuery {
   let form = DeviceForm.UNKNOWN;
-  if (deviceType === 'phone') { form = DeviceForm.PHONE; }
-  else if (deviceType === 'tablet') { form = DeviceForm.TABLET; }
-  else if (deviceType === 'tv') { form = DeviceForm.TV; }
-  else if (deviceType === 'wearable') { form = DeviceForm.WEARABLE; }
+  if (deviceType === 'phone') {
+    form = DeviceForm.PHONE;
+  } else if (deviceType === 'tablet') {
+    form = DeviceForm.TABLET;
+  } else if (deviceType === 'tv') {
+    form = DeviceForm.TV;
+  } else if (deviceType === 'wearable') {
+    form = DeviceForm.WEARABLE;
+  }
   return new CapabilityQuery(apiLevel, form, isOpenHarmony ? SystemFlavor.OPEN_HARMONY :
-    SystemFlavor.HARMONY_OS, permissionGranted, settingsEntryAvailable);
+    SystemFlavor.COMMERCIAL, permissionGranted, settingsEntryAvailable);
 }

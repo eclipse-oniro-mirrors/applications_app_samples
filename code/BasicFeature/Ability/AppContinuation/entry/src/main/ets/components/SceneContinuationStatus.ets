@@ -10,7 +10,9 @@ export struct SceneContinuationStatus {
   private unsubscribe: (() => void) | undefined = undefined;
   aboutToAppear(): void {
     this.unsubscribe?.();
-    this.unsubscribe = getLearningController()?.subscribe((snapshot: LearningSnapshot): void => { this.state = snapshot; });
+    this.unsubscribe = getLearningController()?.subscribe((snapshot: LearningSnapshot): void => {
+      this.state = snapshot;
+    });
   }
   aboutToDisappear(): void { this.unsubscribe?.(); this.unsubscribe = undefined; }
   build() {

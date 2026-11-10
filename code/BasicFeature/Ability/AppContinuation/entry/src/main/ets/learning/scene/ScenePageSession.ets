@@ -28,9 +28,12 @@ export class ScenePageSession {
     if (this.boundRequest >= 0) { this.controller?.leaveBusinessPage(this.boundRequest); }
     this.boundRequest = -1;
   }
-  snapshot(): SceneSnapshot { return this.controller === undefined ? new SceneSnapshot() : this.controller.sceneSnapshot(this.kind); }
+  snapshot(): SceneSnapshot {
+    return this.controller === undefined ? new SceneSnapshot() : this.controller.sceneSnapshot(this.kind);
+  }
   target(): ScenePositionTarget | undefined { return this.controller?.positionTarget(); }
   receipt(target: ScenePositionTarget, first: number, second: number, ok: boolean): void {
-    this.controller?.reportScenePosition(target.request, this.kind, target.document.documentId, target.document.revision, first, second, ok);
+    this.controller?.reportScenePosition(target.request, this.kind, target.document.documentId,
+      target.document.revision, first, second, ok);
   }
 }

@@ -78,7 +78,11 @@ struct FormScenePage {
             }.width('100%')
           }
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
-          .onAreaChange((_old, area): void => { if (Number(area.width) > 0 && Number(area.height) > 0) { this.positionRendered(); } })
+          .onAreaChange((_old, area): void => {
+            if (Number(area.width) > 0 && Number(area.height) > 0) {
+              this.positionRendered();
+            }
+          })
         Text(`本步校验：${this.view.formStepIssues.length > 0 ? this.view.formStepIssues.join('；') : '通过'}`)
           .fontSize(13).fontColor(LEARNING_INK).width('100%')
         Text(`整表待完善 ${this.view.formIssues.length} 项`).fontSize(12).fontColor(LEARNING_MUTED).width('100%')

@@ -279,7 +279,7 @@ export function summarizeScenarios(): ScenarioSummary {
 /** 场景自检。 */
 export class ScenarioAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '场景目录自洽' : this.findings.join('；');

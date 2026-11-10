@@ -276,7 +276,7 @@ export function feasibleCounts(provided: string[]): number[] {
 /** 证据链自检。 */
 export class ChainAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '证据链自洽' : this.findings.join('；');

@@ -315,7 +315,8 @@ export function stageScene(workspace: SceneWorkspace, document: SceneDocument, a
   }
   const matching = next.history.filter((item: SceneDocument): boolean => item.state.kind === document.state.kind);
   const keep = matching.slice(-5);
-  next.history = next.history.filter((item: SceneDocument): boolean => item.state.kind !== document.state.kind).concat(keep);
+  next.history = next.history
+    .filter((item: SceneDocument): boolean => item.state.kind !== document.state.kind).concat(keep);
   next.active = active;
   return next;
 }

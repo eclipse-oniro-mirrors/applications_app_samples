@@ -227,7 +227,7 @@ export function afterDontAskAgain(context: PermissionContext): PermissionContext
 /** 规则表自检：编号唯一、区间连续、说明非空。 */
 export class PermissionAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     if (this.ok) {

@@ -301,7 +301,7 @@ export class HistoryComparison {
   changed: boolean = false;
   beforeAt: number = 0;
   afterAt: number = 0;
-  deltaMillis: number = 0;
+  public deltaMillis: number = 0;
 }
 
 /** Compares the two newest samples so the UI can show a real before/after delta. */

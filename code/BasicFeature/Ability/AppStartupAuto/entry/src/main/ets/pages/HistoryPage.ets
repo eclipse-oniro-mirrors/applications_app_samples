@@ -201,7 +201,9 @@ struct HistoryPage {
             Text('时间').fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
             Flex({ wrap: FlexWrap.Wrap }) {
               ForEach(RANGE_OPTIONS, (option: RangeOption) => {
-                this.chip(option.label, this.filter.preset === option.preset, (): void => { this.chooseRange(option.preset); })
+                this.chip(option.label, this.filter.preset === option.preset, (): void => {
+                  this.chooseRange(option.preset);
+                })
               }, (option: RangeOption) => `range-${option.preset}`)
             }.width('100%')
             Button('重置筛选').height(44).fontSize(14).onClick((): void => this.resetFilter())

@@ -20,7 +20,8 @@ export default class EntryAbility extends UIAbility {
     autoStartupService.attachRecordSink(startupArchiveRepository);
     archiveLifecycle = archiveLifecycle.then(async (): Promise<void> => {
       if (archiveGeneration !== this.archiveGeneration) { return; }
-      startupArchiveRepository.setConnector((): Promise<StartupArchiveRdbStorage> => StartupArchiveRdbStorage.open(this.context));
+      startupArchiveRepository.setConnector((): Promise<StartupArchiveRdbStorage> =>
+        StartupArchiveRdbStorage.open(this.context));
       const attached = await startupArchiveRepository.reload();
       if (!attached || archiveGeneration !== this.archiveGeneration) { return; }
       // Queries can finish while RDB opens. Backfill only actual still-live evidence,

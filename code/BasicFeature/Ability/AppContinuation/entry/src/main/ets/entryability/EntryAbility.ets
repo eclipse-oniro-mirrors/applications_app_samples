@@ -45,8 +45,8 @@ export default class EntryAbility extends UIAbility {
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     const controller = this.ensureController();
-    const continuation = launchParam.launchReason === AbilityConstant.LaunchReason.PREPARE_CONTINUATION
-      || launchParam.launchReason === AbilityConstant.LaunchReason.CONTINUATION;
+    const continuation = launchParam.launchReason === AbilityConstant.LaunchReason.PREPARE_CONTINUATION ||
+      launchParam.launchReason === AbilityConstant.LaunchReason.CONTINUATION;
     const stage = this.stage;
     this.routing = true;
     try {

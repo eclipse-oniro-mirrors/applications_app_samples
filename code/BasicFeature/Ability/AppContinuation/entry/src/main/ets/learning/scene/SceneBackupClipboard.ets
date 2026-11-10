@@ -29,7 +29,7 @@ export enum SceneBackupCopyCode {
 export class SceneBackupCopyResult {
   code: SceneBackupCopyCode;
   copied: boolean;
-  message: string;
+  public message: string;
   constructor(code: SceneBackupCopyCode, message: string, copied: boolean = false) {
     this.code = code; this.message = message; this.copied = copied;
   }

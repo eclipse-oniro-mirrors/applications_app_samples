@@ -27,7 +27,7 @@ import { QueryOutcome, QueryPhase, QueryRecord, RefreshSource } from '../../../m
 
 const ALL_FORMS: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET, DeviceForm.TV,
   DeviceForm.WEARABLE, DeviceForm.UNKNOWN];
-const ALL_FLAVORS: SystemFlavor[] = [SystemFlavor.OPEN_HARMONY, SystemFlavor.HARMONY_OS,
+const ALL_FLAVORS: SystemFlavor[] = [SystemFlavor.OPEN_HARMONY, SystemFlavor.COMMERCIAL,
   SystemFlavor.UNKNOWN];
 
 function queryOf(api: number, form: DeviceForm, flavor: SystemFlavor, granted: boolean = true,
@@ -100,7 +100,7 @@ export default function rulesMatrixTests(): void {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXRULES_0300
      * @tc.name      testCapabilityMatrixRules0003
-     * @tc.desc      Verify api9 to11 harmony os requires permission
+     * @tc.desc      Verify api9 to11 commercial distribution requires permission
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
@@ -109,12 +109,12 @@ export default function rulesMatrixTests(): void {
     it('testCapabilityMatrixRules0003', 0, (): void => {
       for (let api = 9; api <= 11; api++) {
         const denied = evaluateCapability(
-          queryOf(api, DeviceForm.PHONE, SystemFlavor.HARMONY_OS, false, true));
+          queryOf(api, DeviceForm.PHONE, SystemFlavor.COMMERCIAL, false, true));
         expect(denied.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
         expect(denied.downgradedByPermission).assertTrue();
         expect(denied.rule !== undefined && denied.rule?.requiresPermission).assertTrue();
         const granted = evaluateCapability(
-          queryOf(api, DeviceForm.PHONE, SystemFlavor.HARMONY_OS, true, true));
+          queryOf(api, DeviceForm.PHONE, SystemFlavor.COMMERCIAL, true, true));
         expect(granted.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
         expect(granted.downgradedByPermission).assertFalse();
       }
@@ -158,8 +158,8 @@ export default function rulesMatrixTests(): void {
       for (let api = 12; api <= 13; api++) {
         const open = evaluateCapability(queryOf(api, DeviceForm.TV, SystemFlavor.OPEN_HARMONY));
         expect(open.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-        const harmony = evaluateCapability(queryOf(api, DeviceForm.TV, SystemFlavor.HARMONY_OS));
-        expect(harmony.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
+        const commercial = evaluateCapability(queryOf(api, DeviceForm.TV, SystemFlavor.COMMERCIAL));
+        expect(commercial.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
       }
     });
 

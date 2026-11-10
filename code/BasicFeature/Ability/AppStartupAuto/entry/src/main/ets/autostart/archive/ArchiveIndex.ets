@@ -797,7 +797,7 @@ export class ArchiveTrend {
   direction: TrendDirection = TrendDirection.UNKNOWN;
   /** 后半段与前半段的平均成功率差值（百分点）。 */
   deltaRate: number = 0;
-  sampleDays: number = 0;
+  public sampleDays: number = 0;
 
   text(): string {
     if (this.points.length === 0) {

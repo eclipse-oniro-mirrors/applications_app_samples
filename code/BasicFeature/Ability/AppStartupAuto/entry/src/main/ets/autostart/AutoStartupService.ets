@@ -14,7 +14,7 @@ class QueryAttempt {
   source: RefreshSource;
   startedAt: number;
   terminal: boolean = false;
-  revisitId: string = '';
+  public revisitId: string = '';
 
   constructor(id: number, source: RefreshSource, startedAt: number) {
     this.id = id;
@@ -256,7 +256,9 @@ export class AutoStartupService {
   /** Retry a failed read without discarding queries already collected in memory. */
   retryHistoryRead(): void {
     const store = this.historyStore;
-    if (store === undefined || this.attempt !== null || this.historyWritesPending > 0 || !this.historyReadFailed) { return; }
+    if (store === undefined || this.attempt !== null || this.historyWritesPending > 0 || !this.historyReadFailed) {
+      return;
+    }
     try {
       const loaded = parseHistory(store.read(), this.clock.now());
       const live = this.history.map((row: QueryRecord): QueryRecord => row.clone());
@@ -538,8 +540,11 @@ export class AutoStartupService {
     }
     const sink = this.recordSink;
     if (sink !== undefined) {
-      try { sink.capture(record.clone()); this.recordSinkNotice = ''; }
-      catch (_) { this.recordSinkNotice = '归档采集失败；实际查询仍可用，请查看live历史并重试保存'; }
+      try {
+        sink.capture(record.clone()); this.recordSinkNotice = '';
+      } catch (_) {
+        this.recordSinkNotice = '归档采集失败；实际查询仍可用，请查看live历史并重试保存';
+      }
     }
     this.history.unshift(record);
     if (this.history.length > 20) {

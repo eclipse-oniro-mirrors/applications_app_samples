@@ -333,7 +333,7 @@ export function planActions(faultIdsHit: string[]): FaultAction[] {
 /** 目录自检。 */
 export class FaultAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '故障目录自洽' : this.findings.join('；');

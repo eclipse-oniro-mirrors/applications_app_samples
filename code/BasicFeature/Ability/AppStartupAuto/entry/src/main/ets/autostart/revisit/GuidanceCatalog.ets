@@ -25,7 +25,7 @@ export class GuidanceEntry {
   flavors: SystemFlavor[] = [];
   title: string = '';
   summary: string = '';
-  steps: GuidanceStep[] = [];
+  public steps: GuidanceStep[] = [];
 
   constructor(entryId: string = '', kind: GuidanceKind = GuidanceKind.MANUAL_ONLY,
     minApi: number = 0, maxApi: number = 999, forms: DeviceForm[] = [],
@@ -69,7 +69,8 @@ export function guidanceCaption(entry: GuidanceEntry): string {
 }
 export function manualOnly(query: CapabilityQuery): boolean { return true; }
 export function guidanceIdsUnique(): boolean {
-  return new Set<string>(GUIDANCE_ENTRIES.map((entry: GuidanceEntry): string => entry.entryId)).size === GUIDANCE_ENTRIES.length;
+  return new Set<string>(GUIDANCE_ENTRIES.map((entry: GuidanceEntry): string => entry.entryId)).size ===
+    GUIDANCE_ENTRIES.length;
 }
 export function guidanceCoverage(): string[] {
   return GUIDANCE_ENTRIES.map((entry: GuidanceEntry): string => `${entry.entryId} 手动指引（不推断设备能力）`);

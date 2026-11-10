@@ -64,7 +64,7 @@ export class SceneSnapshot {
   revision: number = 0;
   historyCount: number = 0;
   notice: string = '';
-  error: string = '';
+  public error: string = '';
   text(): string {
     return this.active === 'reading' ? `阅读 r${this.revision}｜第 ${this.readingChapter + 1} 章 第 ${this.readingAnchor + 1} 段` :
       this.active === 'form' ? `表单 r${this.revision}｜${this.formStepLabel}｜${this.formDirty ? '未保存' : '已保留草稿'}` :
@@ -107,8 +107,13 @@ export class SceneWorkbench {
       else if (raw.length > 0) {
         this.durableRaw = raw;
         const decoded = decodeWorkspace(raw);
-        if (decoded === undefined) { this.frozen = true; this.error = '场景存档损坏，保留原值并冻结写入'; }
-        else { this.workspace = decoded; this.durable = cloneWorkspace(decoded); }
+        if (decoded === undefined) {
+          this.frozen = true;
+          this.error = '场景存档损坏，保留原值并冻结写入';
+        } else {
+          this.workspace = decoded;
+          this.durable = cloneWorkspace(decoded);
+        }
       }
     } catch (error) { this.frozen = true; this.error = '场景存储读取失败，磁盘状态未知，已冻结写入'; }
     ['note', 'reading', 'form'].forEach((kind: string): void => { this.ensureDocument(kind); });
@@ -173,8 +178,11 @@ export class SceneWorkbench {
       return true;
     } catch (error) {
       try {
-        if (this.durableRaw === undefined) { this.store.deleteSync(SCENE_STORE_KEY); }
-        else { this.store.putSync(SCENE_STORE_KEY, this.durableRaw); }
+        if (this.durableRaw === undefined) {
+          this.store.deleteSync(SCENE_STORE_KEY);
+        } else {
+          this.store.putSync(SCENE_STORE_KEY, this.durableRaw);
+        }
         this.store.flushSync();
         this.error = '场景保存失败，已补偿回原存档；编辑、修订与历史保持原样';
       } catch (rollbackError) {
@@ -192,7 +200,8 @@ export class SceneWorkbench {
     const retained = this.workspace.documents.filter((item: SceneDocument): boolean => item.state.kind !== document.state.kind);
     this.workspace = cloneWorkspace(next);
     retained.forEach((item: SceneDocument): void => {
-      this.workspace.documents = this.workspace.documents.filter((value: SceneDocument): boolean => value.state.kind !== item.state.kind);
+      this.workspace.documents = this.workspace.documents
+        .filter((value: SceneDocument): boolean => value.state.kind !== item.state.kind);
       this.workspace.documents.push(item);
     });
     this.workspace.active = document.state.kind;
@@ -223,8 +232,11 @@ export class SceneWorkbench {
     value.historyCount = this.workspace.history.length;
     const note = document.state.note;
     value.noteTitle = note.title; value.noteBody = note.body; value.noteSavedBody = note.savedBody;
-    value.noteSelectionStart = note.selectionStart; value.noteSelectionEnd = note.selectionEnd; value.noteDirty = preview === undefined ? this.isDirty('note') : note.body !== note.savedBody ||
-      note.title !== note.savedTitle || note.selectionStart !== note.savedSelectionStart || note.selectionEnd !== note.savedSelectionEnd;
+    value.noteSelectionStart = note.selectionStart;
+    value.noteSelectionEnd = note.selectionEnd;
+    value.noteDirty = preview === undefined ? this.isDirty('note') : note.body !== note.savedBody ||
+      note.title !== note.savedTitle || note.selectionStart !== note.savedSelectionStart ||
+      note.selectionEnd !== note.savedSelectionEnd;
     const reading = document.state.reading;
     value.readingChapter = reading.chapter; value.readingAnchor = reading.anchor; value.bookmarks = reading.bookmarks;
     value.readingChapterTitle = READING_CHAPTERS[reading.chapter].title;
@@ -294,8 +306,15 @@ export class SceneWorkbench {
     const limit: number | undefined = limits.get(field);
     if (limit === undefined || value.length > limit || !validUnicode(value)) { return this.reject('字段名、长度或Unicode无效'); }
     const form = this.ensureDocument('form').state.form;
-    if (field === 'name') { form.name = value; } else if (field === 'phone') { form.phone = value; }
-    else if (field === 'address') { form.address = value; } else { form.note = value; }
+    if (field === 'name') {
+      form.name = value;
+    } else if (field === 'phone') {
+      form.phone = value;
+    } else if (field === 'address') {
+      form.address = value;
+    } else {
+      form.note = value;
+    }
     form.confirmed = false; this.error = ''; this.publish(); return true;
   }
   gotoFormStep(step: number): boolean {
@@ -351,7 +370,8 @@ export class SceneWorkbench {
     return this.historyDocuments(kind).map((item: SceneDocument): string => `${item.state.kind} r${item.revision}｜${item.documentId}`);
   }
   historyDocuments(kind: string = ''): SceneDocument[] {
-    return this.workspace.history.filter((item: SceneDocument): boolean => kind.length === 0 || item.state.kind === kind)
+    return this.workspace.history
+      .filter((item: SceneDocument): boolean => kind.length === 0 || item.state.kind === kind)
       .map((item: SceneDocument): SceneDocument => cloneDocument(item));
   }
   restoreHistory(index: number, kind: string = ''): boolean {
@@ -441,11 +461,15 @@ export class SceneWorkbench {
     this.backupBusy = true;
     const next = cloneWorkspace(plan.workspace);
     let saved: boolean = false;
-    try { saved = this.write(next); }
-    finally { this.backupBusy = false; }
+    try {
+      saved = this.write(next);
+    } finally {
+      this.backupBusy = false;
+    }
     if (!saved) {
       this.publish();
-      return new SceneBackupRestoreResult(this.frozen ? SceneBackupCode.FROZEN : SceneBackupCode.WRITE_FAILED, this.error);
+      return new SceneBackupRestoreResult(
+        this.frozen ? SceneBackupCode.FROZEN : SceneBackupCode.WRITE_FAILED, this.error);
     }
     this.workspace = cloneWorkspace(plan.memory);
     this.backupResumeAllowed = selected.kinds.length < 3 && this.hasDirtyWork();

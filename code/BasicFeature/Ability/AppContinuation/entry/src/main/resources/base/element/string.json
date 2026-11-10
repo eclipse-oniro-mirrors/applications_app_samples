@@ -15,6 +15,10 @@
     {
       "name": "distributed_datasync_reason",
       "value": "用于跨设备应用接续，在设备之间同步当前业务状态"
+    },
+    {
+      "name": "official_doc_url",
+      "value": "https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md"
     }
   ]
 }

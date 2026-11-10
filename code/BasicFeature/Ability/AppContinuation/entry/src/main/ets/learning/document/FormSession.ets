@@ -148,7 +148,7 @@ export const BRANCH_RULES: BranchRule[] = [
 /** 表单快照：可序列化，用于接续与恢复。 */
 export class FormSnapshot {
   formId: string = '';
-  stage: FieldStage_Holder = new FieldStage_Holder();
+  stage: FieldStageHolder = new FieldStageHolder();
   fieldKeys: string[] = [];
   fieldValues: string[] = [];
   rowIds: string[] = [];
@@ -163,8 +163,8 @@ export class FormSnapshot {
 }
 
 /** 阶段持有者：把枚举包一层，避免快照直接持有界面对象。 */
-export class FieldStage_Holder {
-  stage: FormStage = FormStage.EDITING;
+export class FieldStageHolder {
+  public stage: FormStage = FormStage.EDITING;
 }
 
 /**

@@ -14,8 +14,8 @@ export class TestBusinessError extends Error implements BusinessError {
 
 class PendingQuery {
   readonly promise: Promise<boolean>;
-  resolve: (value: boolean) => void = (): void => {};
-  reject: (error: BusinessError) => void = (): void => {};
+  public resolve: (value: boolean) => void = (): void => {};
+  public reject: (error: BusinessError) => void = (): void => {};
 
   constructor() {
     this.promise = new Promise<boolean>((resolve, reject) => {
@@ -149,7 +149,7 @@ export class ManualQueryClock implements QueryClock {
 export class AutoStartupFixture {
   readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
   readonly clock: ManualQueryClock = new ManualQueryClock();
-  readonly service: AutoStartupService = new AutoStartupService(this.api, this.clock);
+  public readonly service: AutoStartupService = new AutoStartupService(this.api, this.clock);
 }
 
 export async function flushMicrotasks(): Promise<void> {

@@ -27,7 +27,7 @@ export class WaveSceneFixture implements LearningDependencies {
   readonly native: FakeContinueNative = new FakeContinueNative();
   readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
   readonly store: WaveSceneStore;
-  readonly controller: LearningController;
+  public readonly controller: LearningController;
   constructor(raw: string = '') {
     this.store = new WaveSceneStore(raw);
     this.controller = new LearningController(undefined, this);

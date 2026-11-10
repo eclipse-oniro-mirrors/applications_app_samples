@@ -111,7 +111,7 @@ export class WorkspaceAudit {
   /** 打开中的槽位数。 */
   active: number = 0;
   /** 归档槽位数。 */
-  archived: number = 0;
+  public archived: number = 0;
 
   ok(): boolean {
     return this.findings.length === 0;

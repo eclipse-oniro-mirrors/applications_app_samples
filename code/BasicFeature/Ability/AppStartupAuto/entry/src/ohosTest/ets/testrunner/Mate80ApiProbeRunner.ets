@@ -8,7 +8,7 @@ class ApiProbeResult {
   value: boolean | null;
   code: string;
   message: string;
-  durationMillis: number;
+  public durationMillis: number;
 
   constructor(api: string, success: boolean, value: boolean | null,
     code: string, message: string, durationMillis: number) {

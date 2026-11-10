@@ -83,7 +83,6 @@ export interface LearningSnapshot {
 export type LearningListener = (snapshot: LearningSnapshot) => void;
 
 export const OFF_CONTRACT_NOTE: string = '本机 SDK API 26 将 off 第三参数定义为注销结果回调。本示例使用独立完成回调更新注销状态。';
-export const OFFICIAL_DOC_URL: string = 'https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-continueManager.md';
 export const TEXT_PAYLOAD_KEY: string = 'com.example.appcontinuation.learning.text.v1';
 export const MAX_TEXT_LENGTH: number = 4096;
 

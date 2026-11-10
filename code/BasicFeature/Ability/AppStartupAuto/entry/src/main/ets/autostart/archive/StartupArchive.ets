@@ -21,9 +21,11 @@ export function archiveUtf8Bytes(text: string): number {
   let bytes = 0;
   for (let index = 0; index < text.length; index++) {
     const code = text.charCodeAt(index);
-    if (code < 128) { bytes++; }
-    else if (code < 2048) { bytes += 2; }
-    else if (code >= 0xD800 && code <= 0xDBFF && index + 1 < text.length &&
+    if (code < 128) {
+      bytes++;
+    } else if (code < 2048) {
+      bytes += 2;
+    } else if (code >= 0xD800 && code <= 0xDBFF && index + 1 < text.length &&
       text.charCodeAt(index + 1) >= 0xDC00 && text.charCodeAt(index + 1) <= 0xDFFF) {
       bytes += 4; index++;
     } else { bytes += 3; }
@@ -105,8 +107,11 @@ export function encodeArchive(document: ArchiveDocument): string {
 export function decodeArchive(text: string): ArchiveDocument {
   if (archiveUtf8Bytes(text) > ARCHIVE_MAX_BYTES) { throw new ArchiveFailure('CAPACITY'); }
   let raw: ArchiveDocument;
-  try { raw = JSON.parse(text) as ArchiveDocument; }
-  catch (_) { throw new ArchiveFailure('INVALID'); }
+  try {
+    raw = JSON.parse(text) as ArchiveDocument;
+  } catch (_) {
+    throw new ArchiveFailure('INVALID');
+  }
   const result = checkedDocument(raw);
   encodeArchive(result);
   return result;
@@ -175,7 +180,7 @@ export class ArchiveView {
 export class ArchiveCleanup {
   revision: number = 0;
   now: number = 0;
-  preview: CleanupPreview = new CleanupPreview();
+  public preview: CleanupPreview = new CleanupPreview();
 }
 
 let repositorySerial: number = 0;
@@ -298,16 +303,22 @@ export class StartupArchiveRepository implements QueryRecordSink {
 
   save(records: QueryRecord[]): Promise<ArchiveAction> {
     let input: QueryRecord[];
-    try { input = records.map((row: QueryRecord): QueryRecord => archiveRecord(row)); }
-    catch (_) { return Promise.resolve(this.failure(ArchiveActionCode.INVALID, '记录字段无效，未保存')); }
+    try {
+      input = records.map((row: QueryRecord): QueryRecord => archiveRecord(row));
+    } catch (_) {
+      return Promise.resolve(this.failure(ArchiveActionCode.INVALID, '记录字段无效，未保存'));
+    }
     if (input.length === 0) { return Promise.resolve(this.failure(ArchiveActionCode.INVALID, '当前范围没有可保存的记录')); }
     return this.mutate((candidate: ArchiveDocument): ArchiveAction => this.addRows(candidate, input));
   }
 
   async setAutomatic(enabled: boolean, seed: QueryRecord[] = []): Promise<ArchiveAction> {
     let input: QueryRecord[];
-    try { input = enabled ? seed.map((row: QueryRecord): QueryRecord => archiveRecord(row)) : []; }
-    catch (_) { return this.failure(ArchiveActionCode.INVALID, '记录字段无效，自动归档设置未改变'); }
+    try {
+      input = enabled ? seed.map((row: QueryRecord): QueryRecord => archiveRecord(row)) : [];
+    } catch (_) {
+      return this.failure(ArchiveActionCode.INVALID, '记录字段无效，自动归档设置未改变');
+    }
     const setting = ++this.settingSequence;
     this.disableRequested = !enabled; this.enabling = enabled && this.writable();
     const result = await this.mutate((candidate: ArchiveDocument): ArchiveAction => {
@@ -336,8 +347,9 @@ export class StartupArchiveRepository implements QueryRecordSink {
       this.rejectedCaptures++; this.notice = '自动归档已暂停；后续查询仍仅保留live最近20条'; this.notify(); return;
     }
     let copy: QueryRecord;
-    try { copy = archiveRecord(record); }
-    catch (_) {
+    try {
+      copy = archiveRecord(record);
+    } catch (_) {
       this.rejectedCaptures++; this.paused = true;
       this.notice = '新记录无效，自动归档已暂停；查询仍可用'; this.notify(); return;
     }
@@ -393,7 +405,8 @@ export class StartupArchiveRepository implements QueryRecordSink {
       }
       if (requested.join(',') !== this.cleanupIds.join(',')) { throw new ArchiveFailure('INVALID'); }
       const ids = new Set<number>(this.cleanupIds);
-      const result = new ArchiveAction(); result.removed = candidate.rows.filter((row: ArchivedQuery): boolean => ids.has(row.archiveId)).length;
+      const result = new ArchiveAction();
+      result.removed = candidate.rows.filter((row: ArchivedQuery): boolean => ids.has(row.archiveId)).length;
       candidate.rows = candidate.rows.filter((row: ArchivedQuery): boolean => !ids.has(row.archiveId));
       result.message = `已提交清理，删除 ${result.removed} 条`; return result;
     });
@@ -410,7 +423,8 @@ export class StartupArchiveRepository implements QueryRecordSink {
       view.notice = '日期须为yyyy-MM-dd，检索最多64字符';
     }
     const offset = localOffsetMinutes(this.clock());
-    const index = buildArchiveIndex(rows.map((row: ArchivedQuery) => archiveEntryOf(row.viewRecord())), new IndexBounds(), offset, this.clock());
+    const index = buildArchiveIndex(rows.map((row: ArchivedQuery) => archiveEntryOf(row.viewRecord())),
+      new IndexBounds(), offset, this.clock());
     view.dayLines = index.days.map((day): string => `${day.dayKey}：${day.total} 条`);
     const summary = summarizeHistory(rows.map((row: ArchivedQuery): QueryRecord => row.viewRecord()), this.clock());
     view.summary = `范围 ${summary.total} 条｜成功 ${summary.success}｜失败 ${summary.failure}｜不支持 ${summary.unsupported}｜超时 ${summary.timeout}｜未知 ${summary.unknown}`;
@@ -418,7 +432,8 @@ export class StartupArchiveRepository implements QueryRecordSink {
   }
 
   exportText(query: ArchiveQuery = new ArchiveQuery()): string {
-    if (this.stage === ArchiveStage.BLOCKED || this.stage === ArchiveStage.LOADING || this.stage === ArchiveStage.DETACHED || this.stage === ArchiveStage.CLOSED) {
+    if (this.stage === ArchiveStage.BLOCKED || this.stage === ArchiveStage.LOADING ||
+      this.stage === ArchiveStage.DETACHED || this.stage === ArchiveStage.CLOSED) {
       throw new ArchiveFailure('BLOCKED');
     }
     const rows = this.matching(query);
@@ -430,8 +445,11 @@ export class StartupArchiveRepository implements QueryRecordSink {
   async copy(query: ArchiveQuery, clipboard: ArchiveClipboardPort): Promise<ArchiveAction> {
     const sequence = ++this.copySequence; const epoch = this.epoch;
     let text: string;
-    try { text = this.exportText(query.clone()); }
-    catch (_) { return this.failure(ArchiveActionCode.INVALID, '当前范围不可导出，剪贴板未调用'); }
+    try {
+      text = this.exportText(query.clone());
+    } catch (_) {
+      return this.failure(ArchiveActionCode.INVALID, '当前范围不可导出，剪贴板未调用');
+    }
     try {
       await clipboard.writeText(text);
       const result = new ArchiveAction(); result.success = true; result.code = ArchiveActionCode.SAVED;
@@ -471,7 +489,8 @@ export class StartupArchiveRepository implements QueryRecordSink {
   }
 
   private addRows(candidate: ArchiveDocument, input: QueryRecord[]): ArchiveAction {
-    const action = new ArchiveAction(); const keys = new Set<string>(candidate.rows.map((row: ArchivedQuery): string => row.evidenceKey()));
+    const action = new ArchiveAction();
+    const keys = new Set<string>(candidate.rows.map((row: ArchivedQuery): string => row.evidenceKey()));
     input.forEach((record: QueryRecord): void => {
       const key = JSON.stringify(record);
       if (keys.has(key)) { action.duplicates++; return; }
@@ -513,8 +532,9 @@ export class StartupArchiveRepository implements QueryRecordSink {
           code === 'CAPACITY' ? '归档容量已满，请先预览清理；原归档未改变' : code === 'STALE' ? '记录已更新，请重新预览或确认' : '输入无效，原归档未改变');
       }
       if (epoch !== this.epoch || storage !== this.storage) { return this.failure(ArchiveActionCode.STALE, '旧存储操作已作废', false); }
-      try { await storage.commit(base.revision, candidate.clone()); }
-      catch (_) {
+      try {
+        await storage.commit(base.revision, candidate.clone());
+      } catch (_) {
         if (epoch !== this.epoch) { return this.failure(ArchiveActionCode.STALE, '旧存储完成结果已忽略', false); }
         try {
           const confirmed = checkedDocument(await storage.load());
@@ -562,11 +582,15 @@ export class StartupArchiveRepository implements QueryRecordSink {
   }
 
   private pendingByteCount(): number {
-    return this.pending.reduce((sum: number, row: QueryRecord): number => sum + archiveUtf8Bytes(JSON.stringify(row)), 0);
+    return this.pending.reduce((sum: number, row: QueryRecord): number =>
+      sum + archiveUtf8Bytes(JSON.stringify(row)), 0);
   }
   private writable(): boolean { return this.stage === ArchiveStage.READY || this.stage === ArchiveStage.WRITING; }
   private failure(code: ArchiveActionCode, message: string, publish: boolean = true): ArchiveAction {
-    const result = new ArchiveAction(); result.code = code; result.message = message; result.revision = this.document.revision;
+    const result = new ArchiveAction();
+    result.code = code;
+    result.message = message;
+    result.revision = this.document.revision;
     if (publish) { this.notice = message; this.notify(); }
     return result;
   }

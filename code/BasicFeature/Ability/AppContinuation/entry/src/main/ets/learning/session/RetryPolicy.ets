@@ -293,7 +293,7 @@ export function simulate(rule: RetryRule, failUntil: number): RetryTrace {
 /** 规则自检。 */
 export class RetryAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '重试规则表自洽' : this.findings.join('；');

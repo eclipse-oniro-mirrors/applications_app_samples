@@ -475,7 +475,7 @@ export class RetentionResult {
   missingIds: number[] = [];
   /** 预览之后才出现、因而被保留的序号。 */
   unseenIds: number[] = [];
-  executed: boolean = false;
+  public executed: boolean = false;
 
   /** 实际删除条数。 */
   deletedCount(): number {

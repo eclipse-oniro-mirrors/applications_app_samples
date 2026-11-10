@@ -87,8 +87,15 @@ export struct SceneWorkspaceBackup {
 
   private togglePanel(): void {
     this.bind();
-    if (this.expanded) { this.lifecycle++; this.clearSensitiveState(); this.detach(); this.expanded = false; }
-    else { this.expanded = true; this.bind(); }
+    if (this.expanded) {
+      this.lifecycle++;
+      this.clearSensitiveState();
+      this.detach();
+      this.expanded = false;
+    } else {
+      this.expanded = true;
+      this.bind();
+    }
   }
 
   private generate(): void {
@@ -116,10 +123,18 @@ export struct SceneWorkspaceBackup {
   }
 
   private changeScope(kind: string, selected: boolean): void {
-    if (kind === 'note') { if (this.scopeNote === selected) { return; } this.scopeNote = selected; }
-    else if (kind === 'reading') { if (this.scopeReading === selected) { return; } this.scopeReading = selected; }
-    else if (kind === 'form') { if (this.scopeForm === selected) { return; } this.scopeForm = selected; }
-    else { return; }
+    if (kind === 'note') {
+      if (this.scopeNote === selected) { return; }
+      this.scopeNote = selected;
+    } else if (kind === 'reading') {
+      if (this.scopeReading === selected) { return; }
+      this.scopeReading = selected;
+    } else if (kind === 'form') {
+      if (this.scopeForm === selected) { return; }
+      this.scopeForm = selected;
+    } else {
+      return;
+    }
     this.inputGeneration++; this.bound?.cancelSceneBackupPreview();
     this.preview = undefined; this.previewReady = false; this.summary = '';
     this.status = this.selectedScope().length === 0 ? '请至少选择一个恢复场景。' : '恢复范围已变更，请重新校验并预览。';
@@ -161,8 +176,12 @@ export struct SceneWorkspaceBackup {
           const result = current.restoreSceneBackup(preview.token, true, scope);
           this.status = result.message; this.preview = undefined; this.previewReady = false;
           if (result.ok) { this.importRaw = ''; this.summary = result.message; this.inputGeneration++; }
-        } catch (error) { this.status = '本地恢复未完成，当前状态请重新检查；未回显备份内容。'; }
-        finally { this.busy = false; this.refreshGate(); }
+        } catch (error) {
+          this.status = '本地恢复未完成，当前状态请重新检查；未回显备份内容。';
+        } finally {
+          this.busy = false;
+          this.refreshGate();
+        }
       }, (message: string): void => {
         if (this.mounted && generation === this.lifecycle) { this.status = message; }
       });
@@ -262,7 +281,8 @@ export struct SceneWorkspaceBackup {
             .enabled(this.canRestore && !this.busy && this.selectedScope().length > 0).onClick((): void => { this.inspect(); })
           Button('恢复备份', { type: ButtonType.Normal }).id('ACBackupApply').layoutWeight(1)
             .height(44).fontSize(14).fontColor('#FFFFFF').backgroundColor(LEARNING_BLUE).borderRadius(10)
-            .enabled(this.previewReady && this.canRestore && !this.busy && this.selectedScope().length > 0).onClick((): void => { this.confirmRestore(); })
+            .enabled(this.previewReady && this.canRestore && !this.busy && this.selectedScope().length > 0)
+            .onClick((): void => { this.confirmRestore(); })
           Button('取消预览', { type: ButtonType.Normal }).id('ACBackupCancel').layoutWeight(1)
             .height(44).fontSize(14).fontColor(LEARNING_MUTED).backgroundColor('#F5F7FA').borderRadius(10)
             .enabled(!this.busy).onClick((): void => { this.cancelPreview(); })

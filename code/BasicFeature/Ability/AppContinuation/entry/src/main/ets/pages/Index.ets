@@ -32,7 +32,7 @@ import {
   readinessRuleLines
 } from '../learning/rules/ContinuationRules';
 import {
-  emptyLearningSnapshot, LearningSnapshot, MAX_TEXT_LENGTH, OFFICIAL_DOC_URL, OperationRecord
+  emptyLearningSnapshot, LearningSnapshot, MAX_TEXT_LENGTH, OperationRecord
 } from '../learning/LearningTypes';
 import {
   confirmLearningAction, copyLearningText, learningError, LEARNING_BG, LEARNING_BLUE,
@@ -305,7 +305,8 @@ struct Index {
         this.message = '官方文档暂时无法打开，请稍后重试。';
         return;
       }
-      context.startAbility({ action: 'ohos.want.action.viewData', uri: OFFICIAL_DOC_URL })
+      const documentationUrl = context.resourceManager.getStringValue($r('app.string.official_doc_url').id);
+      context.startAbility({ action: 'ohos.want.action.viewData', uri: documentationUrl })
         .catch((error: BusinessError) => {
           this.message = `文档打开失败：${learningError(error)}`;
         });

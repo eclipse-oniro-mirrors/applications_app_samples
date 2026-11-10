@@ -60,7 +60,7 @@ export class ArchiveUiQaFixture {
   readonly clipboard: ArchiveQaClipboard = new ArchiveQaClipboard();
   readonly repository: StartupArchiveRepository = new StartupArchiveRepository((): number => this.now);
   liveRecords: QueryRecord[] = [];
-  gate: ArchiveQaSignal | undefined = undefined;
+  public gate: ArchiveQaSignal | undefined = undefined;
 
   async initialize(scenario: string): Promise<void> {
     if (scenario === 'readFailure') { this.storage.failLoad = true; }

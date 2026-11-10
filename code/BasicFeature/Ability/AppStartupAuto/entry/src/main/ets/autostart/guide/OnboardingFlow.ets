@@ -298,7 +298,7 @@ export function groupProgressLines(flow: OnboardingFlow): string[] {
 /** 流程自检。 */
 export class OnboardingAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '引导步骤表自洽' : this.findings.join('；');

@@ -209,7 +209,7 @@ export function migrationChain(version: number): PayloadMigration[] {
 /** 字段目录自检结论。 */
 export class PayloadAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '载荷字段目录自洽' : this.findings.join('；');

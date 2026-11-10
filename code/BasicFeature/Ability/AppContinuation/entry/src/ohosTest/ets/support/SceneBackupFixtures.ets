@@ -70,7 +70,9 @@ export function backupRoot(body: string = '备份笔记正文', revision: number
 
 export function backupRaw(body: string = '备份笔记正文', revision: number = 3): string { return encodeWorkspace(backupRoot(body, revision)); }
 
-export function reopenedBackup(store: BackupStore): SceneWorkbench { return new SceneWorkbench(new BackupStore(store.stored())); }
+export function reopenedBackup(store: BackupStore): SceneWorkbench {
+  return new SceneWorkbench(new BackupStore(store.stored()));
+}
 
 export class BackupClipboardReply {
   readonly promise: Promise<void>;
@@ -90,7 +92,7 @@ export class BackupClipboardReply {
 export class BackupClipboardPort implements SceneBackupClipboardPort {
   writes: string[] = [];
   replies: BackupClipboardReply[] = [];
-  throwBeforePromise: boolean = false;
+  public throwBeforePromise: boolean = false;
   writeLocalText(text: string): Promise<void> {
     this.writes.push(text);
     if (this.throwBeforePromise) { throw new Error('private clipboard platform message'); }

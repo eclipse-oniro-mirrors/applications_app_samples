@@ -354,7 +354,7 @@ export function buildCompaction(records: ArchiveRecord[], now: number): Compacti
 /** 策略自检。 */
 export class RetentionAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '保留策略自洽' : this.findings.join('；');

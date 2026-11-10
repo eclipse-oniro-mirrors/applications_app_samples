@@ -133,7 +133,7 @@ export default function diagnosticCoverage(): void {
 
     it('testGuidanceCatalogRules0004', 0, (): void => {
       const entry = selectGuidance(new CapabilityQuery(11, DeviceForm.PHONE,
-        SystemFlavor.HARMONY_OS));
+        SystemFlavor.COMMERCIAL));
       expect(entry.summary.indexOf('不直接开启') >= 0).assertTrue();
       expect(entry.summary.indexOf('不跳转系统设置') >= 0).assertTrue();
       entry.steps.forEach((step): void => {
@@ -357,7 +357,7 @@ export default function diagnosticCoverage(): void {
       expect(phone.flavor).assertEqual(SystemFlavor.OPEN_HARMONY);
       const tv = deriveQuery(18, 'tv', false, false, true);
       expect(tv.deviceForm).assertEqual(DeviceForm.TV);
-      expect(tv.flavor).assertEqual(SystemFlavor.HARMONY_OS);
+      expect(tv.flavor).assertEqual(SystemFlavor.COMMERCIAL);
       const unknown = deriveQuery(9, 'car', true, false, false);
       expect(unknown.deviceForm).assertEqual(DeviceForm.UNKNOWN);
       expect(evaluateCapability(unknown).rule !== undefined).assertTrue();

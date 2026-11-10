@@ -33,7 +33,7 @@ export class ServiceArchiveIntegrationFixture {
   readonly clock: ManualQueryClock = new ManualQueryClock();
   readonly api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
   repository: StartupArchiveRepository;
-  service: AutoStartupService;
+  public service: AutoStartupService;
   private gates: ServiceArchiveRdbGate[] = [];
 
   constructor(native: ArchiveNativeQaFixture, repository: StartupArchiveRepository) {
@@ -45,7 +45,8 @@ export class ServiceArchiveIntegrationFixture {
 
   advance(millis: number): void { this.clock.advance(millis); this.native.time = this.clock.now(); }
 
-  async query(value: boolean, source: RefreshSource = RefreshSource.MANUAL, awaitArchive: boolean = true): Promise<void> {
+  async query(value: boolean, source: RefreshSource = RefreshSource.MANUAL,
+    awaitArchive: boolean = true): Promise<void> {
     this.service.refresh(source); this.advance(7); this.api.resolveNext(value);
     await flushMicrotasks();
     if (awaitArchive) { await this.repository.whenIdle(); }
@@ -110,8 +111,8 @@ export class ServiceArchiveIntegrationFixture {
       await store.executeSql('CREATE TABLE IF NOT EXISTS sa_service_archive_audit (attempt INTEGER NOT NULL)');
       await store.executeSql('DELETE FROM sa_service_archive_audit');
       await store.executeSql(`CREATE TRIGGER sa_service_archive_fail BEFORE INSERT ON ${ARCHIVE_STATE_TABLE} ` +
-        "BEGIN INSERT INTO sa_service_archive_audit(attempt) VALUES(NEW.revision); " +
-        "SELECT RAISE(FAIL, 'integration-archive-write-failure'); END");
+        'BEGIN INSERT INTO sa_service_archive_audit(attempt) VALUES(NEW.revision); ' +
+        'SELECT RAISE(FAIL, \'integration-archive-write-failure\'); END');
     });
   }
 
@@ -133,7 +134,8 @@ export class ServiceArchiveIntegrationFixture {
     return counts[0];
   }
 
-  async replaceDocument(payload: string, revision: number, operation: string, allowBlocked: boolean = false): Promise<void> {
+  async replaceDocument(payload: string, revision: number, operation: string,
+    allowBlocked: boolean = false): Promise<void> {
     await this.repository.whenIdle(); await this.repository.close();
     await this.native.seedRaw(payload, revision, operation);
     this.native.time = this.clock.now();
@@ -155,7 +157,10 @@ export async function withServiceArchiveIntegration(
   await withArchiveNativeQa(async (native: ArchiveNativeQaFixture): Promise<void> => {
     const repository = await native.repository();
     const fixture = new ServiceArchiveIntegrationFixture(native, repository);
-    try { await body(fixture); }
-    finally { await fixture.finish(); }
+    try {
+      await body(fixture);
+    } finally {
+      await fixture.finish();
+    }
   });
 }

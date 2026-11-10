@@ -121,7 +121,8 @@ struct FaultPage {
     onboarding.push(`当前步骤：${flow.current() === undefined ? '无' : flow.current()?.stepId}`);
     onboarding.push(`阻塞步骤 ${flow.blocked().length} 个`);
     onboarding.push(auditOnboarding().summary());
-    this.onboardingLines = onboarding;  }
+    this.onboardingLines = onboarding;
+  }
 
   private copyAll(): void {
     const content: string = `${this.headline}\n\n${this.faultLinesState.join('\n')}\n\n` +

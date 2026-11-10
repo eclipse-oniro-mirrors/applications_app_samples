@@ -83,7 +83,11 @@ class PlatformLearningEnvironment implements LearningEnvironmentPort {
   }
 
   readPublic(): PublicEnvironment {
-    return { apiVersion: deviceInfo.sdkApiVersion, deviceType: deviceInfo.deviceType, osFullName: deviceInfo.osFullName };
+    return {
+      apiVersion: deviceInfo.sdkApiVersion,
+      deviceType: deviceInfo.deviceType,
+      osFullName: deviceInfo.osFullName
+    };
   }
 
   supportsMission(): boolean {
@@ -129,7 +133,7 @@ export class PlatformLearningStore implements LearningStore {
 class PlatformLearningDependencies implements LearningDependencies {
   readonly clock: LearningClock = new SystemLearningClock();
   readonly native: ContinueNativePort;
-  readonly environment: LearningEnvironmentPort;
+  public readonly environment: LearningEnvironmentPort;
   private readonly context: common.UIAbilityContext;
 
   constructor(context: common.UIAbilityContext) {

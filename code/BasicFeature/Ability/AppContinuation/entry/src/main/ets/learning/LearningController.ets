@@ -166,9 +166,9 @@ function decodePayload(raw: Object | undefined): PayloadRead {
     rejected.reason = '正文必须不超过 4096 个 UTF-16 单元且具有合法代理对。';
     return rejected;
   }
-  if (typeof start !== 'number' || typeof end !== 'number'
-    || !selectionBoundary(text as string, start as number) || !selectionBoundary(text as string, end as number)
-    || (start as number) > (end as number)) {
+  if (typeof start !== 'number' || typeof end !== 'number' ||
+    !selectionBoundary(text as string, start as number) || !selectionBoundary(text as string, end as number) ||
+    (start as number) > (end as number)) {
     rejected.reason = '选区须为正文内有序整数边界，并保持代理对完整。';
     return rejected;
   }
@@ -241,7 +241,7 @@ export class LearningController {
   private conflictCandidate: TextPayload | undefined = undefined;
   private conflictAccepted: boolean = false;
   private dirty: boolean = false;
-  readonly sceneWorkbench: SceneWorkbench;
+  public readonly sceneWorkbench: SceneWorkbench;
   private activeBusiness: string = 'text';
   private positionSerial: number = 0;
   private readonly backupClipboard: SceneBackupClipboard;
@@ -254,10 +254,12 @@ export class LearningController {
     this.value.canEdit = true;
     this.value.notice = '';
     this.openStore();
-    let sceneStore: SceneStorePort = sceneStoreOverride === undefined ? new SceneLearningStoreAdapter(this.store) : sceneStoreOverride;
+    let sceneStore: SceneStorePort = sceneStoreOverride === undefined ?
+      new SceneLearningStoreAdapter(this.store) : sceneStoreOverride;
     if (sceneStoreOverride === undefined && dependencies === undefined && context !== undefined) {
-      try { sceneStore = new PreferencesSceneStore(context); }
-      catch (error) {
+      try {
+        sceneStore = new PreferencesSceneStore(context);
+      } catch (error) {
         // Fail closed rather than redirecting scene writes into the legacy text Preferences.
         sceneStore = new SceneLearningStoreAdapter(undefined);
       }
@@ -374,7 +376,12 @@ export class LearningController {
 
   private event(record: OperationRecord, phase: string, level: string, message: string): void {
     const event: DiagnosticEvent = {
-      seq: ++this.eventSerial, time: this.nowText(), operationId: record.id, phase: phase, level: level, message: message
+      seq: ++this.eventSerial,
+      time: this.nowText(),
+      operationId: record.id,
+      phase: phase,
+      level: level,
+      message: message
     };
     record.stage = phase;
     record.events.push(event);
@@ -507,13 +514,20 @@ export class LearningController {
     try {
       const granted: number = this.dependencies.environment.checkPermission();
       const permission: EnvironmentItem = {
-        key: 'permission', label: '分布式数据同步权限', value: granted === 0 ? '已授权' : '未授权', status: '已检查',
+        key: 'permission',
+        label: '分布式数据同步权限',
+        value: granted === 0 ? '已授权' : '未授权',
+        status: '已检查',
         detail: '检查本应用分布式数据同步权限的授权状态。'
       };
       items.push(permission);
     } catch (error) {
       const permission: EnvironmentItem = {
-        key: 'permission', label: '分布式数据同步权限', value: '未知', status: '无法确认', detail: '请按需由用户主动申请。'
+        key: 'permission',
+        label: '分布式数据同步权限',
+        value: '未知',
+        status: '无法确认',
+        detail: '请按需由用户主动申请。'
       };
       items.push(permission);
     }
@@ -639,8 +653,8 @@ export class LearningController {
       if (this.probeRecordId !== record.id) {
         return;
       }
-    } else if (current === undefined || !current.active || current.quickSeen
-      || owner !== `session:${current.generation}`) {
+    } else if (current === undefined || !current.active || current.quickSeen ||
+      owner !== `session:${current.generation}`) {
       return;
     }
     record.rawResultState = event.rawState;
@@ -1028,7 +1042,8 @@ export class LearningController {
       this.startSession(true);
       const parameters = want.parameters;
       // 系统 PREPARE 启动：接收候选，并等待快速结果与页面就绪。
-      if (parameters !== undefined && (hasPayload(parameters[TEXT_PAYLOAD_KEY]) || hasPayload(parameters[SCENE_PAYLOAD_KEY]))) {
+      if (parameters !== undefined &&
+        (hasPayload(parameters[TEXT_PAYLOAD_KEY]) || hasPayload(parameters[SCENE_PAYLOAD_KEY]))) {
         this.acceptCandidate(readContinuation(want));
       }
       this.tryBindWaitingSession();
@@ -1241,8 +1256,8 @@ export class LearningController {
         this.sessionTimer = this.dependencies.clock.setTimeout((): void => {
           this.sessionTimer = -1;
           const current = this.session;
-          if (this.disposed || current === undefined || !current.active || current.generation !== generation
-            || current.waitingPhase !== phase) {
+          if (this.disposed || current === undefined || !current.active || current.generation !== generation ||
+            current.waitingPhase !== phase) {
             return;
           }
           const missing: string = phase === '快速结果' ? '未收到可用的系统快速结果通知'
@@ -1532,7 +1547,9 @@ export class LearningController {
   }
 
   cancelSceneBackupPreview(): void { this.sceneWorkbench.cancelBackupPreview(); }
-  isSceneBackupCurrent(epoch: number): boolean { return this.localBackupAvailable() && this.sceneWorkbench.isBackupCurrent(epoch); }
+  isSceneBackupCurrent(epoch: number): boolean {
+    return this.localBackupAvailable() && this.sceneWorkbench.isBackupCurrent(epoch);
+  }
 
   restoreSceneBackup(token: string, confirmDirty: boolean, scope?: string[]): SceneBackupRestoreResult {
     if (!this.localBackupAvailable()) {
@@ -1609,15 +1626,19 @@ export class LearningController {
     first: number, second: number, ok: boolean): void {
     const target = this.positionTarget();
     const session = this.session;
-    if (target === undefined || session === undefined || request !== target.request || target.document.state.kind !== kind ||
-      target.document.documentId !== documentId || target.document.revision !== revision) { return; }
+    if (target === undefined || session === undefined || request !== target.request ||
+      target.document.state.kind !== kind || target.document.documentId !== documentId ||
+      target.document.revision !== revision) {
+      return;
+    }
     const state = target.document.state;
     const matches: boolean = kind === 'note' ? first === state.note.selectionStart && second === state.note.selectionEnd :
       kind === 'reading' ? first === state.reading.chapter && second === state.reading.anchor : first === state.form.step;
     session.positionOk = ok && matches;
     this.value.businessPositionState = session.positionOk ? '业务定位已获实际页面回执' : '业务定位失败，候选未提交；可重试定位或停止';
-    if (session.positionOk) { this.advanceSession(); }
-    else {
+    if (session.positionOk) {
+      this.advanceSession();
+    } else {
       this.value.targetPage = 'pages/ProcessPage';
       this.value.positionRequest = ++this.positionSerial;
     }
@@ -1638,7 +1659,10 @@ export class LearningController {
 
   retryBusinessPosition(): void {
     const session = this.session;
-    if (session === undefined || !session.active || session.candidate === undefined || session.candidate.scene === undefined) { return; }
+    if (session === undefined || !session.active || session.candidate === undefined ||
+      session.candidate.scene === undefined) {
+      return;
+    }
     session.positionOk = false;
     session.waitingPhase = '';
     this.value.positionRequest = ++this.positionSerial;
@@ -1672,11 +1696,11 @@ export class LearningController {
       }
     }
     const record = this.startRecord('CONTINUE', '源端提供独立文本载荷', '向系统 Want 写入新版本文本载荷与显式页面恢复策略。');
-    if ((this.session !== undefined && this.session.active) || !validUnicode(this.value.text)
-      || this.value.text.length > MAX_TEXT_LENGTH
-      || !selectionBoundary(this.value.text, this.value.selectionStart)
-      || !selectionBoundary(this.value.text, this.value.selectionEnd)
-      || this.value.selectionStart > this.value.selectionEnd) {
+    if ((this.session !== undefined && this.session.active) || !validUnicode(this.value.text) ||
+      this.value.text.length > MAX_TEXT_LENGTH ||
+      !selectionBoundary(this.value.text, this.value.selectionStart) ||
+      !selectionBoundary(this.value.text, this.value.selectionEnd) ||
+      this.value.selectionStart > this.value.selectionEnd) {
       this.finish(record, '拒绝：本地恢复在途或正文/选区不合法', 'ERROR', '源端校验');
       this.publish();
       return AbilityConstant.OnContinueResult.REJECT;
@@ -1724,7 +1748,8 @@ export class LearningController {
     }
     this.value.windowState = '页面未就绪 / 已离开';
     const session = this.session;
-    if (session !== undefined && session.active && session.candidate !== undefined && session.candidate.scene !== undefined) {
+    if (session !== undefined && session.active && session.candidate !== undefined &&
+      session.candidate.scene !== undefined) {
       session.positionOk = false;
       this.value.positionRequest = ++this.positionSerial;
       this.value.businessPositionState = '新窗口代次，等待新的实际定位回执';

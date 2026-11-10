@@ -348,7 +348,7 @@ export function applyResolution(input: ConflictInput, decision: ConflictDecision
 /** 规则表自检。 */
 export class ConflictAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '冲突规则表自洽' : this.findings.join('；');

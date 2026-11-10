@@ -133,7 +133,7 @@ export class MergeResult {
   keys: string[] = [];
   values: string[] = [];
   /** 未决定的字段。 */
-  pending: string[] = [];
+  public pending: string[] = [];
 
   valueOf(key: string): string {
     const index: number = this.keys.indexOf(key);

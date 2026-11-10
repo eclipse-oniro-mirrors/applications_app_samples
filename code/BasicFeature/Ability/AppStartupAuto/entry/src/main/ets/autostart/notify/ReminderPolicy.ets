@@ -202,7 +202,7 @@ export function resetDaily(input: ReminderInput): ReminderInput {
 /** 配置自检。 */
 export class ReminderAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     if (this.ok) {

@@ -15,10 +15,10 @@ export enum DeviceForm {
   UNKNOWN = 'unknown'
 }
 
-/** 系统发行版。OpenHarmony 与 HarmonyOS 的自启能力开放节奏不同。 */
+/** 系统发行版。OpenHarmony 与商用发行版的自启能力开放节奏不同，规则分别匹配。 */
 export enum SystemFlavor {
   OPEN_HARMONY = 'OpenHarmony',
-  HARMONY_OS = 'HarmonyOS',
+  COMMERCIAL = 'Commercial',
   UNKNOWN = 'Unknown'
 }
 
@@ -116,7 +116,7 @@ export class CapabilityRule {
 
 const ALL_FORMS: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET, DeviceForm.TV,
   DeviceForm.WEARABLE, DeviceForm.UNKNOWN];
-const ALL_FLAVORS: SystemFlavor[] = [SystemFlavor.OPEN_HARMONY, SystemFlavor.HARMONY_OS,
+const ALL_FLAVORS: SystemFlavor[] = [SystemFlavor.OPEN_HARMONY, SystemFlavor.COMMERCIAL,
   SystemFlavor.UNKNOWN];
 const PHONE_TABLET: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET];
 
@@ -143,9 +143,9 @@ export const CAPABILITY_RULES: CapabilityRule[] = [
     CapabilityVerdict.SUPPORTED,
     'OpenHarmony API 9~11 仅开放状态查询，设置需跳系统页面。',
     '可以查看开机自启状态；开启需在系统设置中操作。', false),
-  new CapabilityRule('CM-0005', 9, 11, PHONE_TABLET, [SystemFlavor.HARMONY_OS],
+  new CapabilityRule('CM-0005', 9, 11, PHONE_TABLET, [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    'HarmonyOS API 9~11 查询状态需已授予自启相关权限。',
+    '商用发行版 API 9~11 查询状态需已授予自启相关权限。',
     '需要授予权限后才能查看开机自启状态。', true),
   new CapabilityRule('CM-0006', 12, 13, [DeviceForm.WEARABLE], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
@@ -155,17 +155,17 @@ export const CAPABILITY_RULES: CapabilityRule[] = [
     CapabilityVerdict.SUPPORTED,
     'OpenHarmony API 12 起 TV 形态开放查询与设置。',
     '可以查看并设置开机自启。', false),
-  new CapabilityRule('CM-0008', 12, 13, [DeviceForm.TV], [SystemFlavor.HARMONY_OS],
+  new CapabilityRule('CM-0008', 12, 13, [DeviceForm.TV], [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    'HarmonyOS TV 形态设置自启需系统签名权限。',
+    '商用发行版 TV 形态设置自启需系统签名权限。',
     '当前设备需要额外授权才能设置开机自启。', true),
   new CapabilityRule('CM-0009', 12, 13, PHONE_TABLET, [SystemFlavor.OPEN_HARMONY],
     CapabilityVerdict.SUPPORTED,
     'OpenHarmony API 12~13 手机与平板开放查询与设置。',
     '可以查看并设置开机自启。', false),
-  new CapabilityRule('CM-0010', 12, 13, PHONE_TABLET, [SystemFlavor.HARMONY_OS],
+  new CapabilityRule('CM-0010', 12, 13, PHONE_TABLET, [SystemFlavor.COMMERCIAL],
     CapabilityVerdict.NEED_PERMISSION,
-    'HarmonyOS 手机与平板需要用户授予自启权限。',
+    '商用发行版手机与平板需要用户授予自启权限。',
     '需要授予权限后才能设置开机自启。', true),
   new CapabilityRule('CM-0011', 14, 17, [DeviceForm.WEARABLE], ALL_FLAVORS,
     CapabilityVerdict.DEVICE_EXCLUDED,
@@ -209,7 +209,7 @@ export class CapabilityEvaluation {
   /** 结论是否因权限不足而降级。 */
   downgradedByPermission: boolean = false;
   /** 结论是否因系统入口缺失而降级。 */
-  downgradedByEntry: boolean = false;
+  public downgradedByEntry: boolean = false;
 
   summary(): string {
     const ruleId: string = this.rule === undefined ? '未命中规则' : this.rule.ruleId;

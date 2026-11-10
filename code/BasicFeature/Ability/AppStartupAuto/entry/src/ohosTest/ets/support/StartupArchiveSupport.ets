@@ -70,7 +70,7 @@ export class StartupArchiveFixture {
   api: ControlledAutoStartupApi = new ControlledAutoStartupApi();
   store: ArchiveMemoryStorage;
   repository: StartupArchiveRepository;
-  service: AutoStartupService;
+  public service: AutoStartupService;
   constructor(store: ArchiveMemoryStorage = new ArchiveMemoryStorage()) {
     this.store = store;
     this.repository = new StartupArchiveRepository((): number => this.clock.now());
@@ -91,6 +91,9 @@ export class StartupArchiveFixture {
 }
 
 export function archiveFailureCode(action: () => void): string {
-  try { action(); return 'NO_ERROR'; }
-  catch (error) { return error instanceof ArchiveFailure ? error.code : 'OTHER_ERROR'; }
+  try {
+    action(); return 'NO_ERROR';
+  } catch (error) {
+    return error instanceof ArchiveFailure ? error.code : 'OTHER_ERROR';
+  }
 }

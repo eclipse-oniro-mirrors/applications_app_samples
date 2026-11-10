@@ -150,7 +150,7 @@ class RevisitArchive {
   schema: number = 1;
   session: RevisitSession = new RevisitSession();
   sessions?: RevisitSession[];
-  serial?: number;
+  public serial?: number;
 }
 
 /** 回访协调器：只推进状态，不读写系统设置。 */
@@ -166,7 +166,9 @@ export class RevisitTracker {
 
   private archiveTerminal(now: number): void {
     const stage = this.session.stage;
-    if (stage !== RevisitStage.RECHECKED && stage !== RevisitStage.CANCELLED && stage !== RevisitStage.EXPIRED) { return; }
+    if (stage !== RevisitStage.RECHECKED && stage !== RevisitStage.CANCELLED && stage !== RevisitStage.EXPIRED) {
+      return;
+    }
     const id = this.session.sessionId;
     if (id.length === 0) { return; }
     this.sessions = this.sessions.filter((item: RevisitSession): boolean => item.sessionId !== id &&
@@ -369,7 +371,8 @@ export class RevisitTracker {
     const stored = JSON.parse(raw) as RevisitArchive;
     if (stored === null || typeof stored !== 'object' || stored.schema !== 1 ||
       (stored.sessions !== undefined && (!Array.isArray(stored.sessions) || stored.sessions.length > REVISIT_ARCHIVE_LIMIT)) ||
-      (stored.serial !== undefined && (!Number.isSafeInteger(stored.serial) || stored.serial < 0 || stored.serial >= Number.MAX_SAFE_INTEGER))) {
+      (stored.serial !== undefined && (!Number.isSafeInteger(stored.serial) || stored.serial < 0 ||
+        stored.serial >= Number.MAX_SAFE_INTEGER))) {
       throw new Error('Invalid revisit archive');
     }
     const current = this.decodeSession(stored.session, now);
@@ -454,7 +457,8 @@ export class RevisitTracker {
       copy.recheckedAt = Math.min(now, copy.leftAt + REVISIT_TIMEOUT_MS); // Legacy schema-1 expiry had no ended time.
     }
     copy.lastQueryId = item.lastQueryId === undefined ? item.expectedQueryId : item.lastQueryId;
-    if (!Number.isSafeInteger(copy.lastQueryId) || copy.lastQueryId < 0 || copy.lastQueryId >= Number.MAX_SAFE_INTEGER) {
+    if (!Number.isSafeInteger(copy.lastQueryId) || copy.lastQueryId < 0 ||
+      copy.lastQueryId >= Number.MAX_SAFE_INTEGER) {
       throw new Error('Invalid allocated revisit query');
     }
     copy.lastQueryId = Math.max(copy.lastQueryId, item.expectedQueryId);

@@ -44,7 +44,7 @@ export class WorkspaceBackupUiQaFixture implements LearningDependencies {
   readonly controller: LearningController;
   readonly incomingRaw: string;
   readonly baseline: string;
-  readonly baselineFlushes: number;
+  public readonly baselineFlushes: number;
 
   constructor(scenario: string) {
     this.store = new WorkspaceQaStore(scenario === 'frozen' ? '{' : '');
@@ -131,7 +131,9 @@ function requireBackupInputValue(observed: string, expected: string, phase: stri
   if (observed === expected) { return; }
   let difference: number = 0;
   const commonLength: number = Math.min(observed.length, expected.length);
-  while (difference < commonLength && observed.charCodeAt(difference) === expected.charCodeAt(difference)) { difference++; }
+  while (difference < commonLength && observed.charCodeAt(difference) === expected.charCodeAt(difference)) {
+    difference++;
+  }
   throw new Error(`Backup input mismatch ${phase}: requested=${expected.length}, observed=${observed.length}, firstDifference=${difference}, expectedUnit=${expected.charCodeAt(difference)}, observedUnit=${observed.charCodeAt(difference)}`);
 }
 async function readBackupInput(driver: Driver, session: WorkspaceBackupUiQaFixture): Promise<string> {
@@ -142,7 +144,8 @@ async function readBackupInput(driver: Driver, session: WorkspaceBackupUiQaFixtu
   requireBackupInputSession(session);
   return text;
 }
-async function requireBackupInputHost(driver: Driver, session: WorkspaceBackupUiQaFixture, phase: string): Promise<void> {
+async function requireBackupInputHost(driver: Driver, session: WorkspaceBackupUiQaFixture,
+  phase: string): Promise<void> {
   requireBackupInputSession(session);
   const top = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
   requireBackupInputSession(session);

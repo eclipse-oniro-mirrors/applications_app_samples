@@ -189,7 +189,7 @@ export function valuesOf(pairs: string[][]): Map<string, string> {
 /** 文案自检：键唯一、非空、模板占位符可闭合。 */
 export class MessageAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     if (this.ok) {

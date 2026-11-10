@@ -215,7 +215,11 @@ export struct StartupArchivePanel {
           .onClick((): void => { this.query.page = this.viewState.page - 1; this.query = this.query.clone(); this.refresh(); })
         Text(`${this.viewState.page + 1}/${this.viewState.pageCount}`).id('archive-page')
         Button('下一页').id('archive-next').constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.viewState.page + 1 < this.viewState.pageCount)
-          .onClick((): void => { this.query.page = this.viewState.page + 1; this.query = this.query.clone(); this.refresh(); })
+          .onClick((): void => {
+            this.query.page = this.viewState.page + 1;
+            this.query = this.query.clone();
+            this.refresh();
+          })
       }
       Text(this.details).id('archive-details').fontSize(12).width('100%')
       Text('按日期分布').fontSize(14)

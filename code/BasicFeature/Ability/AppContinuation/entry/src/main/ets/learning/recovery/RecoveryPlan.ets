@@ -115,7 +115,7 @@ export class RecoveryDecision {
   action: RecoveryAction = RecoveryAction.NONE;
   lossy: boolean = false;
   mustReread: boolean = false;
-  userText: string = '';
+  public userText: string = '';
 
   constructor(code: string = '', action: RecoveryAction = RecoveryAction.NONE,
     lossy: boolean = false, mustReread: boolean = false, userText: string = '') {

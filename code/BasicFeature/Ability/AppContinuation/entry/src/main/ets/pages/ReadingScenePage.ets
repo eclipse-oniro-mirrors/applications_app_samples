@@ -24,12 +24,16 @@ struct ReadingScenePage {
     const target = this.binding.target();
     if (target === undefined || target.document.state.kind !== 'reading' || target.request === this.receiptRequest) { return; }
     if (this.view.readingChapter !== target.document.state.reading.chapter ||
-      this.view.readingAnchor !== target.document.state.reading.anchor || this.view.readingParagraph.length === 0) { return; }
+      this.view.readingAnchor !== target.document.state.reading.anchor || this.view.readingParagraph.length === 0) {
+      return;
+    }
     this.receiptRequest = target.request;
     // This page renders exactly the selected paragraph, so a non-empty layout is its actual anchor receipt.
     this.binding.receipt(target, this.view.readingChapter, this.view.readingAnchor, true);
   }
-  private jump(chapter: number, anchor: number): void { getLearningController()?.sceneWorkbench.gotoParagraph(chapter, anchor); }
+  private jump(chapter: number, anchor: number): void {
+    getLearningController()?.sceneWorkbench.gotoParagraph(chapter, anchor);
+  }
   private backToWorkbench(): void {
     this.navigationMessage = '';
     openLearningTab(this.getUIContext(), 1, (message: string): void => { this.navigationMessage = message; });
@@ -49,7 +53,11 @@ struct ReadingScenePage {
         Column({ space: 12 }) {
           Text(this.view.readingChapterTitle).fontSize(18).fontWeight(FontWeight.Medium).fontColor(LEARNING_INK).width('100%')
           Text(this.view.readingParagraph).fontSize(15).lineHeight(27).fontColor(LEARNING_INK).width('100%')
-            .onAreaChange((_old, area): void => { if (Number(area.width) > 0 && Number(area.height) > 0) { this.positionRendered(); } })
+            .onAreaChange((_old, area): void => {
+              if (Number(area.width) > 0 && Number(area.height) > 0) {
+                this.positionRendered();
+              }
+            })
           Text(`第 ${this.view.readingAnchor + 1}/${this.view.readingParagraphCount} 段`).fontSize(12).fontColor(LEARNING_MUTED).width('100%')
         }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
         Row({ space: 10 }) {

@@ -251,7 +251,7 @@ export function describeValue(data: PayloadData, key: string): string {
 /** 字典自检。 */
 export class DictionaryAudit {
   ok: boolean = false;
-  findings: string[] = [];
+  public findings: string[] = [];
 
   summary(): string {
     return this.ok ? '字段字典自洽' : this.findings.join('；');

@@ -376,7 +376,7 @@ export function diffPayloads(left: PayloadData, right: PayloadData): PayloadDiff
 export class SizeReport {
   chars: number = 0;
   bytes: number = 0;
-  limit: number = PAYLOAD_LIMIT;
+  public limit: number = PAYLOAD_LIMIT;
 
   /** 占用比例，百分比一位小数。 */
   ratio(): number {

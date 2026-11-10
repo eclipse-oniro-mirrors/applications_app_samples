@@ -98,10 +98,10 @@ export class SceneBackupPlan {
 export class SceneBackupScope {
   ok: boolean = false;
   kinds: string[] = [];
-  message: string = '';
+  public message: string = '';
 }
 
-/** Scope is local UI intent, never a new field added to the workspace wire protocol. */
+/** Scope lists the scenes selected in the local UI; it is not a workspace wire-protocol field. */
 export function normalizeSceneBackupScope(scope?: string[]): SceneBackupScope {
   const result = new SceneBackupScope(); const kinds: string[] = ['note', 'reading', 'form'];
   if (scope === undefined) { result.ok = true; result.kinds = kinds; return result; }
@@ -168,7 +168,8 @@ export function sameBackupWorkspace(left: SceneWorkspace, right: SceneWorkspace)
     history: left.history.map((document: SceneDocument): string => comparableDocument(document)) };
   const b: ComparableWorkspace = { active: right.active,
     documents: right.documents.slice().sort((first: SceneDocument, second: SceneDocument): number =>
-      first.state.kind.localeCompare(second.state.kind)).map((document: SceneDocument): string => comparableDocument(document)),
+      first.state.kind.localeCompare(second.state.kind))
+      .map((document: SceneDocument): string => comparableDocument(document)),
     history: right.history.map((document: SceneDocument): string => comparableDocument(document)) };
   return JSON.stringify(a) === JSON.stringify(b);
 }
@@ -180,7 +181,8 @@ export function sceneBackupChangedFields(local: SceneState, incoming: SceneState
     if (local.note.body !== incoming.note.body) { fields.push('正文'); }
     if (local.note.selectionStart !== incoming.note.selectionStart || local.note.selectionEnd !== incoming.note.selectionEnd) { fields.push('选区'); }
     if (local.note.savedBody !== incoming.note.savedBody || local.note.savedTitle !== incoming.note.savedTitle ||
-      local.note.savedSelectionStart !== incoming.note.savedSelectionStart || local.note.savedSelectionEnd !== incoming.note.savedSelectionEnd) {
+      local.note.savedSelectionStart !== incoming.note.savedSelectionStart ||
+      local.note.savedSelectionEnd !== incoming.note.savedSelectionEnd) {
       fields.push('保存基线');
     }
   } else if (incoming.kind === 'reading') {
@@ -291,8 +293,11 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
   if (selected.kinds.length === kinds.length) {
     // Preserve the existing full-root semantics, including access to an imported dirty note.
     const note = findScene(next, 'note');
-    if (note !== undefined && noteHasBackupDraft(note.state)) { next.active = 'note'; }
-    else if (next.active === 'text') { next.active = 'note'; }
+    if (note !== undefined && noteHasBackupDraft(note.state)) {
+      next.active = 'note';
+    } else if (next.active === 'text') {
+      next.active = 'note';
+    }
     memory = next; stored = JSON.parse(JSON.stringify(next)) as SceneWorkspace;
   } else {
     // Unselected current edits must never leak into this write. Keep their durable and memory heads separate.
@@ -304,7 +309,8 @@ export function planSceneBackup(current: SceneWorkspace, incoming: SceneWorkspac
     // Active context is local for a partial operation; imported active does not steal an unselected page.
     memory.active = current.active;
   }
-  if (decodeWorkspace(encodeWorkspace(stored)) === undefined || decodeWorkspace(encodeWorkspace(memory)) === undefined) {
+  if (decodeWorkspace(encodeWorkspace(stored)) === undefined ||
+    decodeWorkspace(encodeWorkspace(memory)) === undefined) {
     preview.issues.push(new SceneBackupIssue('workspace', SceneBackupCode.INVALID, '恢复计划超过容量或不符合现有工作区格式。'));
     preview.message = '恢复计划无法通过完整工作区校验；未写入。';
     return plan;

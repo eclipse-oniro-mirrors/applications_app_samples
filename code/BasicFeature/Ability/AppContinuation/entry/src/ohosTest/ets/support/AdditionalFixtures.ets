@@ -54,7 +54,7 @@ export class ObservedLearningFixture implements LearningDependencies {
   readonly native: FakeContinueNative = new FakeContinueNative();
   readonly environment: FakeLearningEnvironment = new FakeLearningEnvironment();
   readonly store: ObservedLearningStore;
-  readonly controller: LearningController;
+  public readonly controller: LearningController;
 
   constructor(seed: Object | undefined = undefined) {
     this.store = new ObservedLearningStore(seed);

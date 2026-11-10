@@ -42,7 +42,7 @@ export async function archiveNativeFailure(action: () => Promise<void>): Promise
 export class ArchiveNativeQaFixture {
   readonly context: common.ApplicationContext;
   readonly name: string;
-  time: number = 1800000000000;
+  public time: number = 1800000000000;
   private storages: StartupArchiveRdbStorage[] = [];
   private repositories: StartupArchiveRepository[] = [];
 

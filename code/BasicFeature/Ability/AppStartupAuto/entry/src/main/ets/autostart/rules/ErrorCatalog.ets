@@ -172,7 +172,7 @@ export class ErrorTally {
   failed: number = 0;
   timeout: number = 0;
   succeeded: number = 0;
-  unknown: number = 0;
+  public unknown: number = 0;
 
   total(): number {
     return this.unsupported + this.failed + this.timeout + this.succeeded + this.unknown;

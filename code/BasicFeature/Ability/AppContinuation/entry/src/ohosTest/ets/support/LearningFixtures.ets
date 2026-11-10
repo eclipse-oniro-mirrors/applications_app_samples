@@ -294,7 +294,7 @@ export class LearningFixture implements LearningDependencies {
 export class ClientFixture {
   readonly clock: ManualLearningClock = new ManualLearningClock();
   readonly native: FakeContinueNative = new FakeContinueNative();
-  readonly client: ContinueClient = new ContinueClient(this.native, this.clock);
+  public readonly client: ContinueClient = new ContinueClient(this.native, this.clock);
 
   release(): void {
     this.client.dispose();

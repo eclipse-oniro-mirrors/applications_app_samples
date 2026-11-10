@@ -74,7 +74,7 @@ export class QueryRecord {
   errorCode: string = '';
   errorMessage: string = '';
   durationMillis: number = 0;
-  outcome: QueryOutcome = QueryOutcome.UNKNOWN;
+  public outcome: QueryOutcome = QueryOutcome.UNKNOWN;
 
   clone(): QueryRecord {
     const copy = new QueryRecord();
