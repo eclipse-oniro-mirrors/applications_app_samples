@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+
+const TAG: string = '[Sample_MotionLifecycleTest]';
+const DOMAIN: number = 0xF815;
 
 const SHOW_ID: string = 'show';
 const BUTTON_IDS: string[] = ['button1', 'button2', 'button3', 'button4', 'button5'];
@@ -89,6 +93,7 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0001 begin');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       let found: number = 0;
@@ -99,6 +104,7 @@ export default function MotionLifecycleTest() {
       }
       expect(found).assertEqual(BUTTON_IDS.length);
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0001 end');
     });
 
     /**
@@ -110,11 +116,13 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0002 begin');
       const driver: Driver = getDriver();
       expect(await clickButton(driver, 'button1')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED[0]);
       expect(await relaunch(driver)).assertTrue();
       expect(await driver.findComponent(ON.id('button1')) !== null).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0002 end');
     });
 
     /**
@@ -126,11 +134,13 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0003 begin');
       const driver: Driver = getDriver();
       for (let round = 0; round < 3; round++) {
         expect(await relaunch(driver)).assertTrue();
       }
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0003 end');
     });
 
     /**
@@ -142,10 +152,12 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0004 begin');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickButton(driver, 'button3')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED[2]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0004 end');
     });
 
     /**
@@ -157,11 +169,13 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0005 begin');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       for (const id of BUTTON_IDS) {
         expect(await driver.findComponent(ON.id(id)) !== null).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0005 end');
     });
 
     /**
@@ -173,10 +187,12 @@ export default function MotionLifecycleTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLife0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0006 begin');
       const driver: Driver = getDriver();
       expect(await relaunch(driver)).assertTrue();
       expect(await clickButton(driver, 'button5')).assertTrue();
       expect(await readShowText(driver)).assertEqual(EXPECTED[4]);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLife0006 end');
     });
   });
 }

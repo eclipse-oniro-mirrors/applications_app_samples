@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+
+const TAG: string = '[Sample_MotionUiLabelTest]';
+const DOMAIN: number = 0xF815;
 
 const SHOW_ID: string = 'show';
 const BUTTON_IDS: string[] = ['button1', 'button2', 'button3', 'button4', 'button5'];
@@ -75,10 +79,13 @@ export default function MotionUiLabelTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLabel0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0001 begin');
       const driver: Driver = getDriver();
       for (const id of BUTTON_IDS) {
         expect((await labelOf(driver, id)).length > 0).assertTrue();
       }
+      expect('testMotionLabel0001'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0001 end');
     });
 
     /**
@@ -90,12 +97,15 @@ export default function MotionUiLabelTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLabel0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0002 begin');
       const driver: Driver = getDriver();
       const labels: string[] = [];
       for (const id of BUTTON_IDS) {
         labels.push(await labelOf(driver, id));
       }
       expect(new Set<string>(labels).size).assertEqual(BUTTON_IDS.length);
+      expect('testMotionLabel0002'.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0002 end');
     });
 
     /**
@@ -107,11 +117,13 @@ export default function MotionUiLabelTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLabel0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0003 begin');
       const driver: Driver = getDriver();
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
       expect(await clickButton(driver, 'button1')).assertTrue();
       expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
       expect((await labelOf(driver, SHOW_ID)).length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0003 end');
     });
 
     /**
@@ -123,6 +135,7 @@ export default function MotionUiLabelTest() {
      * @tc.level LEVEL1
      */
     it('testMotionLabel0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0004 begin');
       const driver: Driver = getDriver();
       const order: string[] = ['button1', 'button3', 'button5'];
       for (const id of order) {
@@ -130,6 +143,7 @@ export default function MotionUiLabelTest() {
         expect(await driver.findComponent(ON.id(SHOW_ID)) !== null).assertTrue();
       }
       expect((await labelOf(driver, SHOW_ID)).length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testMotionLabel0004 end');
     });
   });
 }
