@@ -59,7 +59,7 @@ export async function click(id: string): Promise<void> {
   if (id === 'subscribeButton') {
     await waitForStatus('Subscription succeeded', 3000);
   } else {
-    await driver.delayMs(150);
+    await waitForStatus('Listening for volume events', 1000);
   }
 }
 
