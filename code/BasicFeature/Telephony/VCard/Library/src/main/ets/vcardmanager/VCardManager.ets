@@ -339,17 +339,17 @@ export class VCardManager {
   }
 
   private static errorCode(error: Error): number {
-    const err = error as BusinessError;
+    const err: BusinessError = error as BusinessError;
     return typeof err.code === 'number' ? err.code : CODE_UNKNOWN;
   }
 
   private static errorMessage(error: Error): string {
-    const err = error as BusinessError;
+    const err: BusinessError = error as BusinessError;
     return typeof err.message === 'string' ? err.message : '';
   }
 
   private static logError(action: string, error: Error): void {
-    const err = error as BusinessError;
+    const err: BusinessError = error as BusinessError;
     Logger.error('[VCardManager] ' + action + ' failed code=' + err.code + ' message=' + err.message);
   }
 }

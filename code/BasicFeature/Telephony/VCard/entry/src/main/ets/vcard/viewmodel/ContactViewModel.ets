@@ -283,20 +283,20 @@ export class ContactViewModel {
       entry.timestamp = Date.now();
       await VCardManager.appendHistory(context, entry);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.error('[ContactViewModel] appendHistory failed code=' + err.code + ' message=' + err.message);
     }
   }
 
   private recordError(action: string, error: Error): void {
-    const err = error as BusinessError;
+    const err: BusinessError = error as BusinessError;
     const code: number = typeof err.code === 'number' ? err.code : UNKNOWN_CODE;
     this.errorCode = code;
     Logger.error('[ContactViewModel] ' + action + ' failed code=' + code + ' message=' + err.message);
   }
 
   private errorMessage(error: Error): string {
-    const err = error as BusinessError;
+    const err: BusinessError = error as BusinessError;
     return typeof err.message === 'string' ? err.message : '';
   }
 

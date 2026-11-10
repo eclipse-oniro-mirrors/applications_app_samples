@@ -43,7 +43,7 @@ export class FileService {
         fileIo.mkdirSync(dirPath, true);
       }
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.warn('[FileService] ensureDir failed: ' + dirPath + ' code=' + err.code);
     }
   }
@@ -66,7 +66,7 @@ export class FileService {
       Logger.info('[FileService] pickDocument ok: ' + picked.name);
       return picked;
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       if (err.code === CANCEL_CODE) {
         Logger.info('[FileService] pickDocument canceled by user');
         return null;
@@ -111,7 +111,7 @@ export class FileService {
     try {
       return fileIo.statSync(filePath).size;
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.warn('[FileService] fileSize failed: ' + filePath + ' code=' + err.code);
       return 0;
     }
@@ -122,7 +122,7 @@ export class FileService {
       const bytes: Uint8Array = await context.resourceManager.getRawFileContent(VCardConstants.SAMPLE_FILE_NAME);
       return new util.TextDecoder('utf-8').decodeToString(bytes);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.error('[FileService] readSample failed code=' + err.code + ' message=' + err.message);
       return '';
     }
@@ -171,7 +171,7 @@ export class FileService {
       Logger.info('[FileService] saveAs ok: ' + uris[0]);
       return uris[0];
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       if (err.code === CANCEL_CODE) {
         Logger.info('[FileService] saveAs canceled by user');
         return '';
@@ -208,12 +208,12 @@ export class FileService {
             removed += 1;
           }
         } catch (error) {
-          const err = error as BusinessError;
+          const err: BusinessError = error as BusinessError;
           Logger.warn('[FileService] clean skip ' + target + ' code=' + err.code);
         }
       }
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.warn('[FileService] clean dir failed: ' + dirPath + ' code=' + err.code);
     }
     return removed;

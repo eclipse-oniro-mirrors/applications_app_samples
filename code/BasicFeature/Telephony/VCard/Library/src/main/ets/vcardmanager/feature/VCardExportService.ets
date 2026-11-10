@@ -50,7 +50,7 @@ export class VCardExportService {
       try {
         full = await FileService.readText(sourcePath);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         const code: number = typeof err.code === 'number' ? err.code : CODE_UNKNOWN;
         Logger.error('[VCardExportService] read exported file failed code=' + code + ' path=' + sourcePath);
         result.success = false;
@@ -69,7 +69,7 @@ export class VCardExportService {
       }
       Logger.info('[VCardExportService] export ok cards=' + result.cardCount + ' bytes=' + result.bytes);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.code = typeof err.code === 'number' ? err.code : CODE_UNKNOWN;
       result.message = err.message;
@@ -84,7 +84,7 @@ export class VCardExportService {
       try {
         content = await FileService.readText(result.filePath);
       } catch (error) {
-        const err = error as BusinessError;
+        const err: BusinessError = error as BusinessError;
         Logger.warn('[VCardExportService] saveAs fallback to preview content code=' + err.code);
       }
     }
@@ -128,7 +128,7 @@ export class VCardExportService {
       fileIo.copyFileSync(sourceFd, target);
       return target;
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.warn('[VCardExportService] copyToExport failed code=' + err.code);
       return '';
     } finally {

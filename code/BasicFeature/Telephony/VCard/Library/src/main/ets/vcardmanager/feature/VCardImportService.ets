@@ -42,7 +42,7 @@ export class VCardImportService {
       Logger.info('[VCardImportService] pick ready: ' + copied.name + ' size=' + copied.sizeBytes);
       return copied;
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.error('[VCardImportService] pick failed code=' + err.code + ' message=' + err.message);
       return null;
     }
@@ -71,7 +71,7 @@ export class VCardImportService {
       Logger.info('[VCardImportService] preview cards=' + preview.cardCount + ' error=' + preview.errorMessage);
       return preview;
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       Logger.error('[VCardImportService] preview failed code=' + err.code + ' message=' + err.message);
       empty.errorMessage = ERROR_READ_FAILED;
       return empty;
@@ -102,7 +102,7 @@ export class VCardImportService {
       result.code = 0;
       Logger.info('[VCardImportService] import ok cards=' + result.cardCount);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.code = typeof err.code === 'number' ? err.code : CODE_UNKNOWN;
       result.message = err.message;
@@ -128,7 +128,7 @@ export class VCardImportService {
       file.sizeBytes = content.length;
       return await VCardImportService.importFile(context, file);
     } catch (error) {
-      const err = error as BusinessError;
+      const err: BusinessError = error as BusinessError;
       result.success = false;
       result.code = typeof err.code === 'number' ? err.code : CODE_UNKNOWN;
       result.message = err.message;
