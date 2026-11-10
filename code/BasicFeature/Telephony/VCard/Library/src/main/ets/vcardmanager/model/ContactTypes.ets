@@ -22,24 +22,24 @@ export enum ContactLoadState {
 }
 
 export class ContactSummary {
-  id: number = -1;
-  key: string = '';
-  fullName: string = '';
-  initial: string = '#';
-  phones: string[] = [];
-  emails: string[] = [];
-  organization: string = '';
-  jobTitle: string = '';
-  addresses: string[] = [];
-  websites: string[] = [];
-  note: string = '';
+  public id: number = -1;
+  public key: string = '';
+  public fullName: string = '';
+  public initial: string = '#';
+  public phones: string[] = [];
+  public emails: string[] = [];
+  public organization: string = '';
+  public jobTitle: string = '';
+  public addresses: string[] = [];
+  public websites: string[] = [];
+  public note: string = '';
 }
 
 export class ContactDraft {
-  fullName: string = '';
-  phone: string = '';
-  email: string = '';
-  organization: string = '';
-  jobTitle: string = '';
-  note: string = '';
+  public fullName: string = '';
+  public phone: string = '';
+  public email: string = '';
+  public organization: string = '';
+  public jobTitle: string = '';
+  public note: string = '';
 }

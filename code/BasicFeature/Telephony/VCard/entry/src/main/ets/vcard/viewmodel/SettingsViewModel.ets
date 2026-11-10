@@ -23,13 +23,13 @@ import { Logger, PermissionState, VCardConstants, VCardManager, VCardSettings } 
  */
 @ObservedV2
 export class SettingsViewModel {
-  @Trace settings: VCardSettings = new VCardSettings();
-  @Trace permissionGranted: boolean = false;
-  @Trace permissionStates: PermissionState[] = [];
-  @Trace syscapOk: boolean = false;
-  @Trace apiLevel: number = 0;
-  @Trace bundleName: string = '';
-  @Trace ready: boolean = false;
+  @Trace public settings: VCardSettings = new VCardSettings();
+  @Trace public permissionGranted: boolean = false;
+  @Trace public permissionStates: PermissionState[] = [];
+  @Trace public syscapOk: boolean = false;
+  @Trace public apiLevel: number = 0;
+  @Trace public bundleName: string = '';
+  @Trace public ready: boolean = false;
 
   private context: common.Context | null = null;
 

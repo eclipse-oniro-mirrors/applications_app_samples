@@ -94,7 +94,7 @@ entry/src/ohosTest/ets/test/
 ### Library 能力封装
 
 - 对外门面是 `Library/src/main/ets/vcardmanager/VCardManager.ets`，页面只调用这里暴露的静态方法，不直接引用系统接口。
-- VCF 导入：`Library/src/main/ets/vcardmanager/feature/VCardImportService.ets` 使用 `picker.DocumentViewPicker` 选择文件，把 URI 复制到 `context.filesDir/vcard/import`，再以沙箱绝对路径调用 `vcard.importVCard`。导入前由 `Library/src/main/ets/vcardmanager/feature/VCardParser.ets` 自行解析文件，统计名片数与字段数量用于预览。
+- VCF 导入：`Library/src/main/ets/vcardmanager/feature/VCardImportService.ets` 使用 `picker.DocumentViewPicker` 选择文件，把 URI 复制到 `context.filesDir/vcard/import`，再以沙箱完整路径调用 `vcard.importVCard`。导入前由 `Library/src/main/ets/vcardmanager/feature/VCardParser.ets` 自行解析文件，统计名片数与字段数量用于预览。
 - VCF 导出：`Library/src/main/ets/vcardmanager/feature/VCardExportService.ets` 通过 `dataSharePredicates` 构造查询条件（全部联系人或 `predicates.in('id', ids)`），调用 `vcard.exportVCard` 生成 VCF，读取文本用于预览。另存为使用 `picker.DocumentViewPicker.save` 与 `fileIo.copyFile`。
 - 联系人读写：`Library/src/main/ets/vcardmanager/feature/ContactService.ets` 调用 `contact.queryContacts`，`contact.addContact`，`contact.updateContact`，`contact.deleteContact`。编辑时只更新主电话与主邮箱，其余号码保留。
 - 权限：`Library/src/main/ets/vcardmanager/feature/PermissionService.ets` 读取声明状态与授权状态，并通过 `abilityAccessCtrl` 申请 `ohos.permission.READ_CONTACTS` 与 `ohos.permission.WRITE_CONTACTS`。
@@ -118,7 +118,7 @@ entry/src/ohosTest/ets/test/
 
 ## 依赖
 
-本示例不依赖其他 Sample。`Library` 是本工程内的 HAR 模块，entry 通过 `"library": "file:../Library"` 依赖它。
+本示例不依赖其它 Sample。`Library` 是本工程内的 HAR 模块，entry 通过 `"library": "file:../Library"` 依赖它。
 
 ## 约束与限制
 

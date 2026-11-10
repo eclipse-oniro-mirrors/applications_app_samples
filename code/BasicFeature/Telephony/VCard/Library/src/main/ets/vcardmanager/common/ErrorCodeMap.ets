@@ -21,11 +21,11 @@ const CODE_UNKNOWN: number = 8300999;
 const CODE_FILE_NOT_FOUND: number = 13900002;
 
 export class ErrorExplain {
-  code: number;
-  severity: string;
-  title: ResourceStr;
-  reason: ResourceStr;
-  suggestion: ResourceStr;
+  public code: number;
+  public severity: string;
+  public title: ResourceStr;
+  public reason: ResourceStr;
+  public suggestion: ResourceStr;
 
   constructor(code: number, severity: string, title: ResourceStr, reason: ResourceStr, suggestion: ResourceStr) {
     this.code = code;

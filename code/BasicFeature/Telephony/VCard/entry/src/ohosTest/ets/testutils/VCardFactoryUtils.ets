@@ -185,8 +185,8 @@ export class VCardFactoryUtils {
   static foldedNoteV30(name: string, note: string, firstWidth: number): string {
     let card: string = VCardFactoryUtils.beginCard('3.0');
     card = card + VCardFactoryUtils.identityLines(name);
-    card = VCardFactoryUtils.appendLine(card, 'NOTE:'
-      + VCardFactoryUtils.foldNoteText(note, firstWidth));
+    card = VCardFactoryUtils.appendLine(card, 'NOTE:' +
+      VCardFactoryUtils.foldNoteText(note, firstWidth));
     card = card + VCardFactoryUtils.endCard();
     return card;
   }

@@ -33,15 +33,15 @@ const UNKNOWN_CODE: number = 0;
 
 @ObservedV2
 export class ContactViewModel {
-  @Trace state: ContactLoadState = ContactLoadState.IDLE;
-  @Trace contacts: ContactSummary[] = [];
-  @Trace keyword: string = '';
-  @Trace demoMode: boolean = false;
-  @Trace permissionGranted: boolean = false;
-  @Trace busy: boolean = false;
-  @Trace errorCode: number = UNKNOWN_CODE;
-  @Trace selected: ContactSummary | undefined = undefined;
-  @Trace draft: ContactDraft = new ContactDraft();
+  @Trace public state: ContactLoadState = ContactLoadState.IDLE;
+  @Trace public contacts: ContactSummary[] = [];
+  @Trace public keyword: string = '';
+  @Trace public demoMode: boolean = false;
+  @Trace public permissionGranted: boolean = false;
+  @Trace public busy: boolean = false;
+  @Trace public errorCode: number = UNKNOWN_CODE;
+  @Trace public selected: ContactSummary | undefined = undefined;
+  @Trace public draft: ContactDraft = new ContactDraft();
 
   private context: common.Context | undefined = undefined;
   private uiContext: UIContext | undefined = undefined;

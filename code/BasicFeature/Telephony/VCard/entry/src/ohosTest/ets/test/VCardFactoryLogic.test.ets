@@ -595,15 +595,15 @@ export default function vCardFactoryLogicTest() {
     it('testEscapedContact0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const TAG: string = 'testEscapedContact0005';
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' start');
-      const card: string = VCardFactoryUtils.escapedContactV30('Noah', 'Huawei');
-      expect(card).assertContain('ORG:Huawei');
+      const card: string = VCardFactoryUtils.escapedContactV30('Noah', 'Example');
+      expect(card).assertContain('ORG:Example');
       expect(card.indexOf('\\;')).assertEqual(-1);
       expect(card.indexOf('\\,')).assertEqual(-1);
       expect(card.indexOf('\\\\')).assertEqual(-1);
       const lines: string[] = card.split('\r\n');
       expect(lines.length).assertEqual(7);
-      expect(lines[4]).assertEqual('ORG:Huawei');
-      expect(countToken(card, 'Huawei')).assertEqual(1);
+      expect(lines[4]).assertEqual('ORG:Example');
+      expect(countToken(card, 'Example')).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', TAG + ' end');
     })
 

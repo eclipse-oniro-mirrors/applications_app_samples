@@ -73,8 +73,8 @@ export class DateNumberUtils {
    * readable.
    */
   private static isLongMonth(month: number): boolean {
-    return month === 1 || month === 3 || month === 5 || month === 7
-      || month === 8 || month === 10 || month === 12;
+    return month === 1 || month === 3 || month === 5 || month === 7 ||
+      month === 8 || month === 10 || month === 12;
   }
 
   /**
@@ -240,8 +240,8 @@ export class DateNumberUtils {
     const q: number = day;
     const k: number = y % 100;
     const j: number = Math.floor(y / 100);
-    const h: number = (q + Math.floor((13 * (m + 1)) / 5) + k
-      + Math.floor(k / 4) + Math.floor(j / 4) + 5 * j) % 7;
+    const h: number = (q + Math.floor((13 * (m + 1)) / 5) + k +
+      Math.floor(k / 4) + Math.floor(j / 4) + 5 * j) % 7;
     return (h + 6) % 7;
   }
 
@@ -256,9 +256,9 @@ export class DateNumberUtils {
    */
   static formatStamp(ms: number): string {
     const date: Date = new Date(ms);
-    return DateNumberUtils.padYear(date.getFullYear()) + '-' + DateNumberUtils.pad2(date.getMonth() + 1)
-      + '-' + DateNumberUtils.pad2(date.getDate()) + ' ' + DateNumberUtils.pad2(date.getHours())
-      + ':' + DateNumberUtils.pad2(date.getMinutes()) + ':' + DateNumberUtils.pad2(date.getSeconds());
+    return DateNumberUtils.padYear(date.getFullYear()) + '-' + DateNumberUtils.pad2(date.getMonth() + 1) +
+      '-' + DateNumberUtils.pad2(date.getDate()) + ' ' + DateNumberUtils.pad2(date.getHours()) +
+      ':' + DateNumberUtils.pad2(date.getMinutes()) + ':' + DateNumberUtils.pad2(date.getSeconds());
   }
 
   /**
@@ -323,7 +323,7 @@ export class DateNumberUtils {
    * years.
    */
   private static formatDate(year: number, month: number, day: number): string {
-    return DateNumberUtils.padYear(year) + '-' + DateNumberUtils.pad2(month)
-      + '-' + DateNumberUtils.pad2(day);
+    return DateNumberUtils.padYear(year) + '-' + DateNumberUtils.pad2(month) +
+      '-' + DateNumberUtils.pad2(day);
   }
 }

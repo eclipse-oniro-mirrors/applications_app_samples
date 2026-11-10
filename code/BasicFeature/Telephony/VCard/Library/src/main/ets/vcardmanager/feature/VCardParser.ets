@@ -26,9 +26,9 @@ const HEX_BASE: number = 16;
 const ADDRESS_INDEXES: number[] = [2, 3, 4, 5, 6];
 
 class VCardField {
-  name: string = '';
-  params: string = '';
-  value: string = '';
+  public name: string = '';
+  public params: string = '';
+  public value: string = '';
 }
 
 /**

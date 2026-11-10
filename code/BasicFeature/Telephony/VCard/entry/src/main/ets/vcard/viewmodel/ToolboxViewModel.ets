@@ -37,27 +37,27 @@ import {
  */
 @ObservedV2
 export class ToolboxViewModel {
-  @Trace permissionGranted: boolean = false;
-  @Trace permissionStates: PermissionState[] = [];
-  @Trace capabilities: CapabilityCheck[] = [];
-  @Trace preview: VCardPreview = new VCardPreview();
-  @Trace hasPreview: boolean = false;
-  @Trace canImport: boolean = false;
-  @Trace pickFailed: boolean = false;
-  @Trace importResult: ImportResult = new ImportResult();
-  @Trace hasImportResult: boolean = false;
-  @Trace importExplain: ErrorExplain = new ErrorExplain(0, '', '', '', '');
-  @Trace exportResult: ExportResult = new ExportResult();
-  @Trace hasExportResult: boolean = false;
-  @Trace exportExplain: ErrorExplain = new ErrorExplain(0, '', '', '', '');
-  @Trace scopeAll: boolean = true;
-  @Trace selectedIds: number[] = [];
-  @Trace showPicker: boolean = false;
-  @Trace contacts: ContactSummary[] = [];
-  @Trace version: number = 0;
-  @Trace charset: string = VCardConstants.CHARSET_UTF8;
-  @Trace busy: boolean = false;
-  @Trace settings: VCardSettings = new VCardSettings();
+  @Trace public permissionGranted: boolean = false;
+  @Trace public permissionStates: PermissionState[] = [];
+  @Trace public capabilities: CapabilityCheck[] = [];
+  @Trace public preview: VCardPreview = new VCardPreview();
+  @Trace public hasPreview: boolean = false;
+  @Trace public canImport: boolean = false;
+  @Trace public pickFailed: boolean = false;
+  @Trace public importResult: ImportResult = new ImportResult();
+  @Trace public hasImportResult: boolean = false;
+  @Trace public importExplain: ErrorExplain = new ErrorExplain(0, '', '', '', '');
+  @Trace public exportResult: ExportResult = new ExportResult();
+  @Trace public hasExportResult: boolean = false;
+  @Trace public exportExplain: ErrorExplain = new ErrorExplain(0, '', '', '', '');
+  @Trace public scopeAll: boolean = true;
+  @Trace public selectedIds: number[] = [];
+  @Trace public showPicker: boolean = false;
+  @Trace public contacts: ContactSummary[] = [];
+  @Trace public version: number = 0;
+  @Trace public charset: string = VCardConstants.CHARSET_UTF8;
+  @Trace public busy: boolean = false;
+  @Trace public settings: VCardSettings = new VCardSettings();
 
   private context: common.Context | null = null;
   private pickedFile: PickedFile | null = null;

@@ -18,7 +18,7 @@
  * write operations are carried by this subclass and read back as BusinessError.
  */
 export class VCardError extends Error {
-  code: number = 0;
+  public code: number = 0;
 
   constructor(code: number, message: string) {
     super(message);

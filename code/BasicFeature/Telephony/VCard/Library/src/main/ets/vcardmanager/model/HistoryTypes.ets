@@ -22,19 +22,19 @@ export enum HistoryAction {
 }
 
 export class HistoryEntry {
-  id: string = '';
-  action: number = HistoryAction.IMPORT;
-  target: string = '';
-  cardCount: number = 0;
-  success: boolean = false;
-  code: number = 0;
-  timestamp: number = 0;
+  public id: string = '';
+  public action: number = HistoryAction.IMPORT;
+  public target: string = '';
+  public cardCount: number = 0;
+  public success: boolean = false;
+  public code: number = 0;
+  public timestamp: number = 0;
 }
 
 export class HistoryStats {
-  total: number = 0;
-  importCount: number = 0;
-  exportCount: number = 0;
-  contactCount: number = 0;
-  successCount: number = 0;
+  public total: number = 0;
+  public importCount: number = 0;
+  public exportCount: number = 0;
+  public contactCount: number = 0;
+  public successCount: number = 0;
 }

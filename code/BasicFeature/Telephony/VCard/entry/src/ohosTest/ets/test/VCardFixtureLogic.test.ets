@@ -637,7 +637,7 @@ export default function vCardFixtureLogicTest() {
     /**
      * @tc.number    SUB_VCARD_LOGIC_FIXT_2500
      * @tc.name      testFixtureStructure0003
-     * @tc.desc      Verify the photo fixture line layout places the PHOTO
+     * @tc.desc      Verify the photo fixture line layout puts the PHOTO
      *               property after TEL and before END:VCARD.
      * @tc.size      SmallTest
      * @tc.type      Function

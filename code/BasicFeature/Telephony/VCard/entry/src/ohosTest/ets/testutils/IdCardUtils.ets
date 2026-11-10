@@ -314,8 +314,8 @@ export class IdCardUtils {
  * letter X survive unchanged.
  */
 export class IdCardParts {
-  region: string = '';
-  birthday: string = '';
-  seq: string = '';
-  check: string = '';
+  public region: string = '';
+  public birthday: string = '';
+  public seq: string = '';
+  public check: string = '';
 }

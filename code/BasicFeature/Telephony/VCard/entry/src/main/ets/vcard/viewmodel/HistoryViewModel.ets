@@ -27,11 +27,11 @@ export const HISTORY_FILTER_EXPORT: number = 2;
  */
 @ObservedV2
 export class HistoryViewModel {
-  @Trace entries: HistoryEntry[] = [];
-  @Trace stats: HistoryStats = new HistoryStats();
-  @Trace filter: number = HISTORY_FILTER_ALL;
-  @Trace loading: boolean = false;
-  @Trace loaded: boolean = false;
+  @Trace public entries: HistoryEntry[] = [];
+  @Trace public stats: HistoryStats = new HistoryStats();
+  @Trace public filter: number = HISTORY_FILTER_ALL;
+  @Trace public loading: boolean = false;
+  @Trace public loaded: boolean = false;
 
   private context: common.Context | null = null;
 

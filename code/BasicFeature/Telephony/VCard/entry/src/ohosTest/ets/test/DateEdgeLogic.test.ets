@@ -615,7 +615,7 @@ export default function dateEdgeLogicTest() {
     /**
      * @tc.number    SUB_VCARD_LOGIC_DTEX_2400
      * @tc.name      testFormatStamp0004
-     * @tc.desc      Verify formatStamp places separators exactly at offsets
+     * @tc.desc      Verify formatStamp puts separators exactly at offsets
      *               4, 7, 10, 13 and 16 inside the 19-character output.
      * @tc.size      SmallTest
      * @tc.type      Function

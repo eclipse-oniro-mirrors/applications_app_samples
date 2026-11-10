@@ -14,10 +14,10 @@
  */
 
 export class CapabilityCheck {
-  key: string;
-  name: ResourceStr;
-  supported: boolean;
-  detail: ResourceStr;
+  public key: string;
+  public name: ResourceStr;
+  public supported: boolean;
+  public detail: ResourceStr;
 
   constructor(key: string, name: ResourceStr, supported: boolean, detail: ResourceStr) {
     this.key = key;
@@ -28,75 +28,75 @@ export class CapabilityCheck {
 }
 
 export class PermissionState {
-  name: string = '';
-  declared: boolean = false;
-  granted: boolean = false;
+  public name: string = '';
+  public declared: boolean = false;
+  public granted: boolean = false;
 }
 
 export class VCardCard {
-  fullName: string = '';
-  phones: string[] = [];
-  emails: string[] = [];
-  organization: string = '';
-  jobTitle: string = '';
-  note: string = '';
-  addresses: string[] = [];
-  websites: string[] = [];
-  version: string = '';
+  public fullName: string = '';
+  public phones: string[] = [];
+  public emails: string[] = [];
+  public organization: string = '';
+  public jobTitle: string = '';
+  public note: string = '';
+  public addresses: string[] = [];
+  public websites: string[] = [];
+  public version: string = '';
 }
 
 export class VCardPreview {
-  fileName: string = '';
-  filePath: string = '';
-  content: string = '';
-  sizeBytes: number = 0;
-  versionText: string = '';
-  cardCount: number = 0;
-  phoneCount: number = 0;
-  emailCount: number = 0;
-  organizationCount: number = 0;
-  addressCount: number = 0;
-  cards: VCardCard[] = [];
-  errorMessage: string = '';
+  public fileName: string = '';
+  public filePath: string = '';
+  public content: string = '';
+  public sizeBytes: number = 0;
+  public versionText: string = '';
+  public cardCount: number = 0;
+  public phoneCount: number = 0;
+  public emailCount: number = 0;
+  public organizationCount: number = 0;
+  public addressCount: number = 0;
+  public cards: VCardCard[] = [];
+  public errorMessage: string = '';
 }
 
 export class PickedFile {
-  uri: string = '';
-  name: string = '';
-  sizeBytes: number = 0;
+  public uri: string = '';
+  public name: string = '';
+  public sizeBytes: number = 0;
 }
 
 export class ImportResult {
-  success: boolean = false;
-  code: number = 0;
-  message: string = '';
-  filePath: string = '';
-  fileName: string = '';
-  cardCount: number = 0;
+  public success: boolean = false;
+  public code: number = 0;
+  public message: string = '';
+  public filePath: string = '';
+  public fileName: string = '';
+  public cardCount: number = 0;
 }
 
 export class ExportResult {
-  success: boolean = false;
-  code: number = 0;
-  message: string = '';
-  filePath: string = '';
-  content: string = '';
-  bytes: number = 0;
-  cardCount: number = 0;
-  requestedCount: number = 0;
+  public success: boolean = false;
+  public code: number = 0;
+  public message: string = '';
+  public filePath: string = '';
+  public content: string = '';
+  public bytes: number = 0;
+  public cardCount: number = 0;
+  public requestedCount: number = 0;
 }
 
 export class VCardSettings {
-  defaultVersion: number = 0;
-  defaultCharset: string = 'UTF-8';
-  autoJumpToContacts: boolean = true;
-  historyLimit: number = 20;
+  public defaultVersion: number = 0;
+  public defaultCharset: string = 'UTF-8';
+  public autoJumpToContacts: boolean = true;
+  public historyLimit: number = 20;
 }
 
 export class VersionChoice {
-  value: number;
-  label: string;
-  description: ResourceStr;
+  public value: number;
+  public label: string;
+  public description: ResourceStr;
 
   constructor(value: number, label: string, description: ResourceStr) {
     this.value = value;

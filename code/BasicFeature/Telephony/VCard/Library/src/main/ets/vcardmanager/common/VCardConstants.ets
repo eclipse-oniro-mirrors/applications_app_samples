@@ -14,21 +14,21 @@
  */
 
 export class VCardConstants {
-  static readonly READ_CONTACTS: string = 'ohos.permission.READ_CONTACTS';
-  static readonly WRITE_CONTACTS: string = 'ohos.permission.WRITE_CONTACTS';
-  static readonly VCARD_SYSCAP: string = 'SystemCapability.Telephony.CoreService';
-  static readonly CHARSET_UTF8: string = 'UTF-8';
-  static readonly CHARSET_GBK: string = 'GBK';
-  static readonly DEFAULT_HISTORY_LIMIT: number = 20;
-  static readonly HISTORY_LIMIT_OPTIONS: number[] = [5, 10, 20, 50];
-  static readonly PREVIEW_CARD_LIMIT: number = 20;
-  static readonly PREVIEW_LINE_LIMIT: number = 24;
-  static readonly MAX_FILE_BYTES: number = 2 * 1024 * 1024;
-  static readonly VCARD_DIR: string = 'vcard';
-  static readonly IMPORT_DIR: string = 'import';
-  static readonly EXPORT_DIR: string = 'export';
-  static readonly SAMPLE_FILE_NAME: string = 'sample_contacts.vcf';
-  static readonly PREFERENCE_SETTINGS: string = 'vcard_settings';
-  static readonly PREFERENCE_HISTORY: string = 'vcard_history';
-  static readonly HISTORY_LIMIT_MAX: number = 100;
+  public static readonly READ_CONTACTS: string = 'ohos.permission.READ_CONTACTS';
+  public static readonly WRITE_CONTACTS: string = 'ohos.permission.WRITE_CONTACTS';
+  public static readonly VCARD_SYSCAP: string = 'SystemCapability.Telephony.CoreService';
+  public static readonly CHARSET_UTF8: string = 'UTF-8';
+  public static readonly CHARSET_GBK: string = 'GBK';
+  public static readonly DEFAULT_HISTORY_LIMIT: number = 20;
+  public static readonly HISTORY_LIMIT_OPTIONS: number[] = [5, 10, 20, 50];
+  public static readonly PREVIEW_CARD_LIMIT: number = 20;
+  public static readonly PREVIEW_LINE_LIMIT: number = 24;
+  public static readonly MAX_FILE_BYTES: number = 2 * 1024 * 1024;
+  public static readonly VCARD_DIR: string = 'vcard';
+  public static readonly IMPORT_DIR: string = 'import';
+  public static readonly EXPORT_DIR: string = 'export';
+  public static readonly SAMPLE_FILE_NAME: string = 'sample_contacts.vcf';
+  public static readonly PREFERENCE_SETTINGS: string = 'vcard_settings';
+  public static readonly PREFERENCE_HISTORY: string = 'vcard_history';
+  public static readonly HISTORY_LIMIT_MAX: number = 100;
 }
