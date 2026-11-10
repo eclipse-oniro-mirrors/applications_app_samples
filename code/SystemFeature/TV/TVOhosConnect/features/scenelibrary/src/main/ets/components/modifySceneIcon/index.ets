@@ -87,7 +87,7 @@ export struct modifySceneIcon {
             this.confirm && this.confirm(data);
           } else {
             promptAction.showToast({
-              message: '请选择场景图标',
+              message: $r('app.string.select_scene_icon_tip'),
               duration: 2000
             });
           }

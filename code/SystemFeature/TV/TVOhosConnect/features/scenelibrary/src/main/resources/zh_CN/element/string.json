@@ -191,6 +191,46 @@
     {
       "name": "select_scene_icon",
       "value": "选择场景图标"
+    },
+    {
+      "name": "placeholder_dialog_name",
+      "value": "请输入名称"
+    },
+    {
+      "name": "please_select",
+      "value": "请选择"
+    },
+    {
+      "name": "device_online",
+      "value": "在线"
+    },
+    {
+      "name": "device_offline",
+      "value": "离线"
+    },
+    {
+      "name": "demo_camera_1",
+      "value": "摄像头1"
+    },
+    {
+      "name": "demo_camera_2",
+      "value": "摄像头2"
+    },
+    {
+      "name": "demo_camera_3",
+      "value": "摄像头3"
+    },
+    {
+      "name": "custom_scene_prefix",
+      "value": "自定义场景"
+    },
+    {
+      "name": "select_prefix",
+      "value": "选择"
+    },
+    {
+      "name": "select_scene_icon_tip",
+      "value": "请选择场景图标"
     }
   ]
 }

@@ -23,11 +23,11 @@ import {
   EventActionUIInfoDataItem,
   TriggerCondition
 } from '../model/SceneCondition';
-import { mock } from '../res/Mock';
-import { profileEca } from '../res/ProfileEca';
+import { getMock } from '../res/Mock';
+import { getProfileEca } from '../res/ProfileEca';
 import PositionComputerUtil from '../util/PositionComputingUtil';
 import Point from './Point';
-import { mockEn } from '../res/MockEn';
+import { getMockEn } from '../res/MockEn';
 
 const TAG = 'DevicesModel';
 
@@ -48,7 +48,7 @@ export default class DevicesModel {
    * 获取所有设备数据
    */
   public async getDevice() {
-    let list: DeviceInfo[] = JSON.parse(mock).equipment;
+    let list: DeviceInfo[] = JSON.parse(getMock()).equipment;
     for (let i = 0; i < list.length; i++) {
       let item = new DeviceItem(list[i].devId, this.getDeviceIcon(list[i].devType), list[i].devName, list[i].devType);
       item.point.x = this.genPointByIndex(i).x;
@@ -61,7 +61,7 @@ export default class DevicesModel {
   // 获取所有自定义设备
   public async getAllCustomDevice() {
     let language: string = await PreferencesHelper.get(InternationalManager.CURRENT_LANGUAGE_KEY, '') as string;
-    let list: DeviceItem[] = language == 'EN' ? JSON.parse(mockEn).device : JSON.parse(mock).device;
+    let list: DeviceItem[] = language == 'EN' ? JSON.parse(getMockEn()).device : JSON.parse(getMock()).device;
     for (let i = 0; i < list.length; i++) {
       let item =
         new DeviceItem(list[i].deviceId, this.getDeviceIcon(list[i].deviceType), list[i].deviceName,
@@ -102,9 +102,9 @@ export default class DevicesModel {
     let language: string = await PreferencesHelper.get(InternationalManager.CURRENT_LANGUAGE_KEY, '') as string;
     let list: DeviceItem[] = [];
     if (type == 1) {
-      list = language == 'EN' ? JSON.parse(mockEn).triggersDevice : JSON.parse(mock).triggersDevice;
+      list = language == 'EN' ? JSON.parse(getMockEn()).triggersDevice : JSON.parse(getMock()).triggersDevice;
     } else {
-      list = language == 'EN' ? JSON.parse(mockEn).executeDevice : JSON.parse(mock).executeDevice;
+      list = language == 'EN' ? JSON.parse(getMockEn()).executeDevice : JSON.parse(getMock()).executeDevice;
     }
 
     for (let i = 0; i < list.length; i++) {
@@ -138,7 +138,7 @@ export default class DevicesModel {
    * 获取可执行行为事件/动作
    */
   public async getEventActionUiInfoData(type: number) {
-    let data = JSON.parse(profileEca) as object;
+    let data = JSON.parse(getProfileEca()) as object;
     this.eventActionUiInfoData =
       new EventActionUIInfoData(data['prodId'], data['deviceTypeId'], data['deviceName'], [], []);
 

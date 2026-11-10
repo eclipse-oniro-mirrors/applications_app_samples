@@ -77,7 +77,7 @@ struct SceneActionsDevicetItem {
           });
 
         Row() {
-          Text(this.contentItem.selectedName || '请选择')
+          Text(this.contentItem.selectedName || $r('app.string.please_select'))
             .fontSize($r('app.string.font_20'))
             .fontColor($r('app.color.default_text_color'))
             .padding({ right: '9vp' });

@@ -33,7 +33,7 @@ export default struct RenameAlertDialog {
         .width(CommonConstants.FULL_WIDTH_PERCENT);
 
       Row() {
-        TextInput({ placeholder: '我是提示文本', text: this.name })
+        TextInput({ placeholder: $r('app.string.placeholder_dialog_name'), text: this.name })
           .fontSize($r('app.string.font_16'))
           .maxLength(12)
           .backgroundColor(Color.Transparent)

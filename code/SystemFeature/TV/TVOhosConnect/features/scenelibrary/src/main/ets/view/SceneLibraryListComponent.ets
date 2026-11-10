@@ -190,16 +190,14 @@ export default struct SceneLibraryListComponent {
                 enableCallback: (value: boolean) => {
                 },
                 onClickEvent: () => {
-                  if ((item.scenarioCard.title == '智慧隧道' ||
-                    item.scenarioCard.title == 'Intelligent tunnel environment control') &&
+                  if (item.scenarioCard.scenarioCardId == '01' &&
                     item.scenarioCard.type == 'release') {
                     router.pushUrl({
                       url: 'pages/ovble/SmartTunnelScene'
                     }).catch((error: Error) => {
                       Logger.error(TAG, 'LauncherPage pushUrl error ' + JSON.stringify(error));
                     });
-                  } else if ((item.scenarioCard.title == '医嘱执行' ||
-                    item.scenarioCard.title == 'Execution of medical orders') && item.scenarioCard.type == 'release') {
+                  } else if (item.scenarioCard.scenarioCardId == '02' && item.scenarioCard.type == 'release') {
                     router.pushUrl({
                       url: 'pages/OrderExecution/Login'
                     }).catch((error: Error) => {

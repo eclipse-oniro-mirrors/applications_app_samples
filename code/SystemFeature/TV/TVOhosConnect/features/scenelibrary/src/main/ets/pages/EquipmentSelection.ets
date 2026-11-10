@@ -15,7 +15,7 @@
 
 import { ColorMetrics } from '@kit.ArkUI';
 import { LengthMetrics } from '@kit.ArkUI';
-import { CommonConstants } from '@ohos/common';
+import { CommonConstants, StringRes } from '@ohos/common';
 import { HMRouterMgr } from '@hadss/hmrouter';
 import { KeyCode } from '@kit.InputKit';
 import { PageViewUtils } from '@ohos/common';
@@ -32,14 +32,14 @@ struct DeviceItem {
 
   build() {
     Row() {
-      Text(this.deviceItem.name || '')
+      Text(this.deviceItem.name)
         .fontSize(this.fontsize)
         .fontColor(this.fontColor)
         .fontWeight(this.fontWeight ? FontWeight.Bold : FontWeight.Medium)
         .focusable(false);
       Row() {
         Row({ space: 6 }) {
-          Text(this.deviceItem.type == '1' ? '在线' : '离线')
+          Text(this.deviceItem.type == '1' ? $r('app.string.device_online') : $r('app.string.device_offline'))
             .fontSize($r('app.string.font_20'))
             .fontColor($r('app.color.default_text_color'))
             .fontWeight(FontWeight.Medium);
@@ -84,15 +84,15 @@ export struct EquipmentSelection {
   @State isLeftIcon: string | Resource = $r('app.media.ic_public_confirm');
   // 在线
   @State onLinedeviceList: Array<DeviceList> = [
-    new DeviceList('1', '摄像头1', '1', false),
-    new DeviceList('2', '摄像头2', '1', false),
-    new DeviceList('3', '摄像头3', '1', false),
+    new DeviceList('1', StringRes.get($r('app.string.demo_camera_1')), '1', false),
+    new DeviceList('2', StringRes.get($r('app.string.demo_camera_2')), '1', false),
+    new DeviceList('3', StringRes.get($r('app.string.demo_camera_3')), '1', false),
   ];
   // 离线
   @State offLinedeviceList: Array<DeviceList> = [
-    new DeviceList('1', '摄像头1', '0', false),
-    new DeviceList('2', '摄像头2', '0', false),
-    new DeviceList('3', '摄像头3', '0', false),
+    new DeviceList('1', StringRes.get($r('app.string.demo_camera_1')), '0', false),
+    new DeviceList('2', StringRes.get($r('app.string.demo_camera_2')), '0', false),
+    new DeviceList('3', StringRes.get($r('app.string.demo_camera_3')), '0', false),
   ];
 
   toast(msg: string | Resource) {

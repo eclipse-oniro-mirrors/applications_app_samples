@@ -471,6 +471,46 @@
     {
       "name": "scene_current_icon_height",
       "value": "60lpx"
+    },
+    {
+      "name": "placeholder_dialog_name",
+      "value": "Please enter a name"
+    },
+    {
+      "name": "please_select",
+      "value": "Please select"
+    },
+    {
+      "name": "device_online",
+      "value": "Online"
+    },
+    {
+      "name": "device_offline",
+      "value": "Offline"
+    },
+    {
+      "name": "demo_camera_1",
+      "value": "Camera 1"
+    },
+    {
+      "name": "demo_camera_2",
+      "value": "Camera 2"
+    },
+    {
+      "name": "demo_camera_3",
+      "value": "Camera 3"
+    },
+    {
+      "name": "custom_scene_prefix",
+      "value": "Custom scene "
+    },
+    {
+      "name": "select_prefix",
+      "value": "Select "
+    },
+    {
+      "name": "select_scene_icon_tip",
+      "value": "Please select a scene icon"
     }
   ]
 }

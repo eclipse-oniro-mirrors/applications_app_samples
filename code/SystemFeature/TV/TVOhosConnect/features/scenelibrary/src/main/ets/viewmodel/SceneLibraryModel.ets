@@ -14,8 +14,8 @@
  */
 import { Logger, PreferencesHelper, Scene } from '@ohos/common';
 import { InternationalManager } from '@ohos/mine';
-import { mock } from '../res/Mock';
-import { mockEn } from '../res/MockEn';
+import { getMock } from '../res/Mock';
+import { getMockEn } from '../res/MockEn';
 
 export class SceneLibraryModel {
   /**
@@ -25,7 +25,7 @@ export class SceneLibraryModel {
    */
   public async getSceneList(): Promise<Array<Scene>> {
     let language: string = await PreferencesHelper.get(InternationalManager.CURRENT_LANGUAGE_KEY, '') as string;
-    let list: Scene[] = language == 'EN' ? JSON.parse(mockEn).scenes : JSON.parse(mock).scenes;
+    let list: Scene[] = language == 'EN' ? JSON.parse(getMockEn()).scenes : JSON.parse(getMock()).scenes;
     let sceneDataList: Scene[] = [];
     list.forEach((item: Scene) => {
       sceneDataList.push(item);

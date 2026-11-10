@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonConstants, Flow, Logger, PageViewUtils, ScenarioCard, Scene } from '@ohos/common';
+import { CommonConstants, Flow, Logger, PageViewUtils, ScenarioCard, Scene, StringRes } from '@ohos/common';
 import { Actions, CustomIconList, TriggerCondition } from '../model/SceneCondition';
 import { promptAction } from '@kit.ArkUI';
 import SceneModel from '../viewmodel/SceneModel';
@@ -211,12 +211,12 @@ export struct AddScenePage {
   // 获取默认场景名称
   getDefaultName() {
     this.customIndex = SceneModel.getInstance().getDefaultKey('customKey');
-    this.customName = '自定义场景' + this.customIndex;
+    this.customName = StringRes.get($r('app.string.custom_scene_prefix')) + this.customIndex;
   }
 
   // 判断是否修改默认名称
   judgeChangeDefaultName(name: string) {
-    return name == '自定义场景' + this.customIndex;
+    return name == StringRes.get($r('app.string.custom_scene_prefix')) + this.customIndex;
   }
 
   // 查询我的场景列表

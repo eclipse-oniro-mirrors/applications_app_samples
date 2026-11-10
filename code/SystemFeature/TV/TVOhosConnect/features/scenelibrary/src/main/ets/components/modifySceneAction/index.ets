@@ -14,7 +14,7 @@
  */
 
 import { EventActionUIInfoDataItem, IUiInfo } from '../../model/SceneCondition';
-import { Logger } from '@ohos/common';
+import { Logger, StringRes } from '@ohos/common';
 
 const TAG = 'modifySceneAction';
 
@@ -30,7 +30,7 @@ struct TitleHeader {
         .fontColor('#0A59F7')
         .fontSize($r('app.string.font_14'))
         .onClick(() => this.cancel && this.cancel());
-      Text('选择' + this.title).fontColor('#000000').fontSize($r('app.string.font_16'));
+      Text(StringRes.get($r('app.string.select_prefix')) + this.title).fontColor('#000000').fontSize($r('app.string.font_16'));
       Text($r('app.string.button_text_confirm'))
         .fontColor('#0A59F7')
         .fontSize($r('app.string.font_14'))
