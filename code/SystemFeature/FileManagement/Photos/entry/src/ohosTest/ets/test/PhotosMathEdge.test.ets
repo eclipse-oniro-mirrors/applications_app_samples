@@ -7840,3 +7840,1939 @@ export default function PhotosMathEdgeTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0551', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 begin');
+      expect(MathUtils.clamp(1012000, -1012000, 1012000)).assertEqual(1012000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0551 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0552
+     * @tc.name      testPhotosMathEdge0552
+     * @tc.desc      Clamps extreme range sample 13. case 552
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0552', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 begin');
+      expect(MathUtils.clamp(1012001, -1012000, 1012000)).assertEqual(1012000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0552 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0553
+     * @tc.name      testPhotosMathEdge0553
+     * @tc.desc      Clamps extreme range sample 14. case 553
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0553', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 begin');
+      expect(MathUtils.clamp(-1013000, -1013000, 1013000)).assertEqual(-1013000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0553 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0554
+     * @tc.name      testPhotosMathEdge0554
+     * @tc.desc      Clamps extreme range sample 14. case 554
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0554', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 begin');
+      expect(MathUtils.clamp(0, -1013000, 1013000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0554 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0555
+     * @tc.name      testPhotosMathEdge0555
+     * @tc.desc      Clamps extreme range sample 14. case 555
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0555', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 begin');
+      expect(MathUtils.clamp(1013000, -1013000, 1013000)).assertEqual(1013000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0555 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0556
+     * @tc.name      testPhotosMathEdge0556
+     * @tc.desc      Clamps extreme range sample 14. case 556
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0556', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 begin');
+      expect(MathUtils.clamp(1013001, -1013000, 1013000)).assertEqual(1013000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0556 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0557
+     * @tc.name      testPhotosMathEdge0557
+     * @tc.desc      Clamps extreme range sample 15. case 557
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0557', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 begin');
+      expect(MathUtils.clamp(-1014000, -1014000, 1014000)).assertEqual(-1014000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0557 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0558
+     * @tc.name      testPhotosMathEdge0558
+     * @tc.desc      Clamps extreme range sample 15. case 558
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0558', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 begin');
+      expect(MathUtils.clamp(0, -1014000, 1014000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0558 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0559
+     * @tc.name      testPhotosMathEdge0559
+     * @tc.desc      Clamps extreme range sample 15. case 559
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0559', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 begin');
+      expect(MathUtils.clamp(1014000, -1014000, 1014000)).assertEqual(1014000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0559 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0560
+     * @tc.name      testPhotosMathEdge0560
+     * @tc.desc      Clamps extreme range sample 15. case 560
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0560', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 begin');
+      expect(MathUtils.clamp(1014001, -1014000, 1014000)).assertEqual(1014000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0560 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0561
+     * @tc.name      testPhotosMathEdge0561
+     * @tc.desc      Clamps extreme range sample 16. case 561
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0561', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 begin');
+      expect(MathUtils.clamp(-1015000, -1015000, 1015000)).assertEqual(-1015000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0561 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0562
+     * @tc.name      testPhotosMathEdge0562
+     * @tc.desc      Clamps extreme range sample 16. case 562
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0562', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 begin');
+      expect(MathUtils.clamp(0, -1015000, 1015000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0562 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0563
+     * @tc.name      testPhotosMathEdge0563
+     * @tc.desc      Clamps extreme range sample 16. case 563
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0563', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 begin');
+      expect(MathUtils.clamp(1015000, -1015000, 1015000)).assertEqual(1015000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0563 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0564
+     * @tc.name      testPhotosMathEdge0564
+     * @tc.desc      Clamps extreme range sample 16. case 564
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0564', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 begin');
+      expect(MathUtils.clamp(1015001, -1015000, 1015000)).assertEqual(1015000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0564 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0565
+     * @tc.name      testPhotosMathEdge0565
+     * @tc.desc      Clamps extreme range sample 17. case 565
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0565', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 begin');
+      expect(MathUtils.clamp(-1016000, -1016000, 1016000)).assertEqual(-1016000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0565 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0566
+     * @tc.name      testPhotosMathEdge0566
+     * @tc.desc      Clamps extreme range sample 17. case 566
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0566', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 begin');
+      expect(MathUtils.clamp(0, -1016000, 1016000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0566 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0567
+     * @tc.name      testPhotosMathEdge0567
+     * @tc.desc      Clamps extreme range sample 17. case 567
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0567', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 begin');
+      expect(MathUtils.clamp(1016000, -1016000, 1016000)).assertEqual(1016000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0567 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0568
+     * @tc.name      testPhotosMathEdge0568
+     * @tc.desc      Clamps extreme range sample 17. case 568
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0568', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 begin');
+      expect(MathUtils.clamp(1016001, -1016000, 1016000)).assertEqual(1016000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0568 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0569
+     * @tc.name      testPhotosMathEdge0569
+     * @tc.desc      Clamps extreme range sample 18. case 569
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0569', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 begin');
+      expect(MathUtils.clamp(-1017000, -1017000, 1017000)).assertEqual(-1017000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0569 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0570
+     * @tc.name      testPhotosMathEdge0570
+     * @tc.desc      Clamps extreme range sample 18. case 570
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0570', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 begin');
+      expect(MathUtils.clamp(0, -1017000, 1017000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0570 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0571
+     * @tc.name      testPhotosMathEdge0571
+     * @tc.desc      Clamps extreme range sample 18. case 571
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0571', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 begin');
+      expect(MathUtils.clamp(1017000, -1017000, 1017000)).assertEqual(1017000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0571 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0572
+     * @tc.name      testPhotosMathEdge0572
+     * @tc.desc      Clamps extreme range sample 18. case 572
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0572', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 begin');
+      expect(MathUtils.clamp(1017001, -1017000, 1017000)).assertEqual(1017000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0572 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0573
+     * @tc.name      testPhotosMathEdge0573
+     * @tc.desc      Clamps extreme range sample 19. case 573
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0573', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 begin');
+      expect(MathUtils.clamp(-1018000, -1018000, 1018000)).assertEqual(-1018000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0573 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0574
+     * @tc.name      testPhotosMathEdge0574
+     * @tc.desc      Clamps extreme range sample 19. case 574
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0574', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 begin');
+      expect(MathUtils.clamp(0, -1018000, 1018000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0574 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0575
+     * @tc.name      testPhotosMathEdge0575
+     * @tc.desc      Clamps extreme range sample 19. case 575
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0575', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 begin');
+      expect(MathUtils.clamp(1018000, -1018000, 1018000)).assertEqual(1018000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0575 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0576
+     * @tc.name      testPhotosMathEdge0576
+     * @tc.desc      Clamps extreme range sample 19. case 576
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0576', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 begin');
+      expect(MathUtils.clamp(1018001, -1018000, 1018000)).assertEqual(1018000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0576 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0577
+     * @tc.name      testPhotosMathEdge0577
+     * @tc.desc      Clamps extreme range sample 20. case 577
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0577', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 begin');
+      expect(MathUtils.clamp(-1019000, -1019000, 1019000)).assertEqual(-1019000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0577 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0578
+     * @tc.name      testPhotosMathEdge0578
+     * @tc.desc      Clamps extreme range sample 20. case 578
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0578', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 begin');
+      expect(MathUtils.clamp(0, -1019000, 1019000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0578 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0579
+     * @tc.name      testPhotosMathEdge0579
+     * @tc.desc      Clamps extreme range sample 20. case 579
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0579', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 begin');
+      expect(MathUtils.clamp(1019000, -1019000, 1019000)).assertEqual(1019000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0579 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0580
+     * @tc.name      testPhotosMathEdge0580
+     * @tc.desc      Clamps extreme range sample 20. case 580
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0580', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 begin');
+      expect(MathUtils.clamp(1019001, -1019000, 1019000)).assertEqual(1019000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0580 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0581
+     * @tc.name      testPhotosMathEdge0581
+     * @tc.desc      Clamps extreme range sample 21. case 581
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0581', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 begin');
+      expect(MathUtils.clamp(-1020000, -1020000, 1020000)).assertEqual(-1020000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0581 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0582
+     * @tc.name      testPhotosMathEdge0582
+     * @tc.desc      Clamps extreme range sample 21. case 582
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0582', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 begin');
+      expect(MathUtils.clamp(0, -1020000, 1020000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0582 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0583
+     * @tc.name      testPhotosMathEdge0583
+     * @tc.desc      Clamps extreme range sample 21. case 583
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0583', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 begin');
+      expect(MathUtils.clamp(1020000, -1020000, 1020000)).assertEqual(1020000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0583 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0584
+     * @tc.name      testPhotosMathEdge0584
+     * @tc.desc      Clamps extreme range sample 21. case 584
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0584', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 begin');
+      expect(MathUtils.clamp(1020001, -1020000, 1020000)).assertEqual(1020000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0584 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0585
+     * @tc.name      testPhotosMathEdge0585
+     * @tc.desc      Clamps extreme range sample 22. case 585
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0585', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 begin');
+      expect(MathUtils.clamp(-1021000, -1021000, 1021000)).assertEqual(-1021000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0585 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0586
+     * @tc.name      testPhotosMathEdge0586
+     * @tc.desc      Clamps extreme range sample 22. case 586
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0586', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 begin');
+      expect(MathUtils.clamp(0, -1021000, 1021000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0586 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0587
+     * @tc.name      testPhotosMathEdge0587
+     * @tc.desc      Clamps extreme range sample 22. case 587
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0587', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 begin');
+      expect(MathUtils.clamp(1021000, -1021000, 1021000)).assertEqual(1021000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0587 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0588
+     * @tc.name      testPhotosMathEdge0588
+     * @tc.desc      Clamps extreme range sample 22. case 588
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0588', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 begin');
+      expect(MathUtils.clamp(1021001, -1021000, 1021000)).assertEqual(1021000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0588 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0589
+     * @tc.name      testPhotosMathEdge0589
+     * @tc.desc      Clamps extreme range sample 23. case 589
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0589', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 begin');
+      expect(MathUtils.clamp(-1022000, -1022000, 1022000)).assertEqual(-1022000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0589 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0590
+     * @tc.name      testPhotosMathEdge0590
+     * @tc.desc      Clamps extreme range sample 23. case 590
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0590', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 begin');
+      expect(MathUtils.clamp(0, -1022000, 1022000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0590 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0591
+     * @tc.name      testPhotosMathEdge0591
+     * @tc.desc      Clamps extreme range sample 23. case 591
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0591', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 begin');
+      expect(MathUtils.clamp(1022000, -1022000, 1022000)).assertEqual(1022000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0591 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0592
+     * @tc.name      testPhotosMathEdge0592
+     * @tc.desc      Clamps extreme range sample 23. case 592
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0592', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 begin');
+      expect(MathUtils.clamp(1022001, -1022000, 1022000)).assertEqual(1022000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0592 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0593
+     * @tc.name      testPhotosMathEdge0593
+     * @tc.desc      Clamps extreme range sample 24. case 593
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0593', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 begin');
+      expect(MathUtils.clamp(-1023000, -1023000, 1023000)).assertEqual(-1023000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0593 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0594
+     * @tc.name      testPhotosMathEdge0594
+     * @tc.desc      Clamps extreme range sample 24. case 594
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0594', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 begin');
+      expect(MathUtils.clamp(0, -1023000, 1023000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0594 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0595
+     * @tc.name      testPhotosMathEdge0595
+     * @tc.desc      Clamps extreme range sample 24. case 595
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0595', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 begin');
+      expect(MathUtils.clamp(1023000, -1023000, 1023000)).assertEqual(1023000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0595 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0596
+     * @tc.name      testPhotosMathEdge0596
+     * @tc.desc      Clamps extreme range sample 24. case 596
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0596', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 begin');
+      expect(MathUtils.clamp(1023001, -1023000, 1023000)).assertEqual(1023000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0596 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0597
+     * @tc.name      testPhotosMathEdge0597
+     * @tc.desc      Clamps extreme range sample 25. case 597
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0597', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 begin');
+      expect(MathUtils.clamp(-1024000, -1024000, 1024000)).assertEqual(-1024000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0597 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0598
+     * @tc.name      testPhotosMathEdge0598
+     * @tc.desc      Clamps extreme range sample 25. case 598
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0598', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 begin');
+      expect(MathUtils.clamp(0, -1024000, 1024000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0598 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0599
+     * @tc.name      testPhotosMathEdge0599
+     * @tc.desc      Clamps extreme range sample 25. case 599
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0599', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 begin');
+      expect(MathUtils.clamp(1024000, -1024000, 1024000)).assertEqual(1024000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0599 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0600
+     * @tc.name      testPhotosMathEdge0600
+     * @tc.desc      Clamps extreme range sample 25. case 600
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0600', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 begin');
+      expect(MathUtils.clamp(1024001, -1024000, 1024000)).assertEqual(1024000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0600 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0601
+     * @tc.name      testPhotosMathEdge0601
+     * @tc.desc      Clamps extreme range sample 26. case 601
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0601', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 begin');
+      expect(MathUtils.clamp(-1025000, -1025000, 1025000)).assertEqual(-1025000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0601 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0602
+     * @tc.name      testPhotosMathEdge0602
+     * @tc.desc      Clamps extreme range sample 26. case 602
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0602', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 begin');
+      expect(MathUtils.clamp(0, -1025000, 1025000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0602 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0603
+     * @tc.name      testPhotosMathEdge0603
+     * @tc.desc      Clamps extreme range sample 26. case 603
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0603', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 begin');
+      expect(MathUtils.clamp(1025000, -1025000, 1025000)).assertEqual(1025000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0603 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0604
+     * @tc.name      testPhotosMathEdge0604
+     * @tc.desc      Clamps extreme range sample 26. case 604
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0604', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 begin');
+      expect(MathUtils.clamp(1025001, -1025000, 1025000)).assertEqual(1025000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0604 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0605
+     * @tc.name      testPhotosMathEdge0605
+     * @tc.desc      Clamps extreme range sample 27. case 605
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0605', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 begin');
+      expect(MathUtils.clamp(-1026000, -1026000, 1026000)).assertEqual(-1026000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0605 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0606
+     * @tc.name      testPhotosMathEdge0606
+     * @tc.desc      Clamps extreme range sample 27. case 606
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0606', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 begin');
+      expect(MathUtils.clamp(0, -1026000, 1026000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0606 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0607
+     * @tc.name      testPhotosMathEdge0607
+     * @tc.desc      Clamps extreme range sample 27. case 607
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0607', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 begin');
+      expect(MathUtils.clamp(1026000, -1026000, 1026000)).assertEqual(1026000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0607 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0608
+     * @tc.name      testPhotosMathEdge0608
+     * @tc.desc      Clamps extreme range sample 27. case 608
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0608', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 begin');
+      expect(MathUtils.clamp(1026001, -1026000, 1026000)).assertEqual(1026000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0608 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0609
+     * @tc.name      testPhotosMathEdge0609
+     * @tc.desc      Clamps extreme range sample 28. case 609
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0609', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 begin');
+      expect(MathUtils.clamp(-1027000, -1027000, 1027000)).assertEqual(-1027000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0609 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0610
+     * @tc.name      testPhotosMathEdge0610
+     * @tc.desc      Clamps extreme range sample 28. case 610
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0610', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 begin');
+      expect(MathUtils.clamp(0, -1027000, 1027000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0610 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0611
+     * @tc.name      testPhotosMathEdge0611
+     * @tc.desc      Clamps extreme range sample 28. case 611
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0611', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 begin');
+      expect(MathUtils.clamp(1027000, -1027000, 1027000)).assertEqual(1027000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0611 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0612
+     * @tc.name      testPhotosMathEdge0612
+     * @tc.desc      Clamps extreme range sample 28. case 612
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0612', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 begin');
+      expect(MathUtils.clamp(1027001, -1027000, 1027000)).assertEqual(1027000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0612 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0613
+     * @tc.name      testPhotosMathEdge0613
+     * @tc.desc      Clamps extreme range sample 29. case 613
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0613', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 begin');
+      expect(MathUtils.clamp(-1028000, -1028000, 1028000)).assertEqual(-1028000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0613 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0614
+     * @tc.name      testPhotosMathEdge0614
+     * @tc.desc      Clamps extreme range sample 29. case 614
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0614', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 begin');
+      expect(MathUtils.clamp(0, -1028000, 1028000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0614 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0615
+     * @tc.name      testPhotosMathEdge0615
+     * @tc.desc      Clamps extreme range sample 29. case 615
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0615', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 begin');
+      expect(MathUtils.clamp(1028000, -1028000, 1028000)).assertEqual(1028000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0615 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0616
+     * @tc.name      testPhotosMathEdge0616
+     * @tc.desc      Clamps extreme range sample 29. case 616
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0616', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 begin');
+      expect(MathUtils.clamp(1028001, -1028000, 1028000)).assertEqual(1028000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0616 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0617
+     * @tc.name      testPhotosMathEdge0617
+     * @tc.desc      Clamps extreme range sample 30. case 617
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0617', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 begin');
+      expect(MathUtils.clamp(-1029000, -1029000, 1029000)).assertEqual(-1029000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0617 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0618
+     * @tc.name      testPhotosMathEdge0618
+     * @tc.desc      Clamps extreme range sample 30. case 618
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0618', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 begin');
+      expect(MathUtils.clamp(0, -1029000, 1029000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0618 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0619
+     * @tc.name      testPhotosMathEdge0619
+     * @tc.desc      Clamps extreme range sample 30. case 619
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0619', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 begin');
+      expect(MathUtils.clamp(1029000, -1029000, 1029000)).assertEqual(1029000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0619 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0620
+     * @tc.name      testPhotosMathEdge0620
+     * @tc.desc      Clamps extreme range sample 30. case 620
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0620', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 begin');
+      expect(MathUtils.clamp(1029001, -1029000, 1029000)).assertEqual(1029000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0620 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0621
+     * @tc.name      testPhotosMathEdge0621
+     * @tc.desc      Clamps extreme range sample 31. case 621
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0621', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 begin');
+      expect(MathUtils.clamp(-1030000, -1030000, 1030000)).assertEqual(-1030000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0621 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0622
+     * @tc.name      testPhotosMathEdge0622
+     * @tc.desc      Clamps extreme range sample 31. case 622
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0622', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 begin');
+      expect(MathUtils.clamp(0, -1030000, 1030000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0622 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0623
+     * @tc.name      testPhotosMathEdge0623
+     * @tc.desc      Clamps extreme range sample 31. case 623
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0623', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 begin');
+      expect(MathUtils.clamp(1030000, -1030000, 1030000)).assertEqual(1030000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0623 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0624
+     * @tc.name      testPhotosMathEdge0624
+     * @tc.desc      Clamps extreme range sample 31. case 624
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0624', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 begin');
+      expect(MathUtils.clamp(1030001, -1030000, 1030000)).assertEqual(1030000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0624 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0625
+     * @tc.name      testPhotosMathEdge0625
+     * @tc.desc      Clamps extreme range sample 32. case 625
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0625', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 begin');
+      expect(MathUtils.clamp(-1031000, -1031000, 1031000)).assertEqual(-1031000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0625 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0626
+     * @tc.name      testPhotosMathEdge0626
+     * @tc.desc      Clamps extreme range sample 32. case 626
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0626', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 begin');
+      expect(MathUtils.clamp(0, -1031000, 1031000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0626 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0627
+     * @tc.name      testPhotosMathEdge0627
+     * @tc.desc      Clamps extreme range sample 32. case 627
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0627', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 begin');
+      expect(MathUtils.clamp(1031000, -1031000, 1031000)).assertEqual(1031000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0627 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0628
+     * @tc.name      testPhotosMathEdge0628
+     * @tc.desc      Clamps extreme range sample 32. case 628
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0628', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 begin');
+      expect(MathUtils.clamp(1031001, -1031000, 1031000)).assertEqual(1031000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0628 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0629
+     * @tc.name      testPhotosMathEdge0629
+     * @tc.desc      Clamps extreme range sample 33. case 629
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0629', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 begin');
+      expect(MathUtils.clamp(-1032000, -1032000, 1032000)).assertEqual(-1032000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0629 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0630
+     * @tc.name      testPhotosMathEdge0630
+     * @tc.desc      Clamps extreme range sample 33. case 630
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0630', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 begin');
+      expect(MathUtils.clamp(0, -1032000, 1032000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0630 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0631
+     * @tc.name      testPhotosMathEdge0631
+     * @tc.desc      Clamps extreme range sample 33. case 631
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0631', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 begin');
+      expect(MathUtils.clamp(1032000, -1032000, 1032000)).assertEqual(1032000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0631 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0632
+     * @tc.name      testPhotosMathEdge0632
+     * @tc.desc      Clamps extreme range sample 33. case 632
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0632', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 begin');
+      expect(MathUtils.clamp(1032001, -1032000, 1032000)).assertEqual(1032000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0632 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0633
+     * @tc.name      testPhotosMathEdge0633
+     * @tc.desc      Clamps extreme range sample 34. case 633
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0633', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 begin');
+      expect(MathUtils.clamp(-1033000, -1033000, 1033000)).assertEqual(-1033000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0633 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0634
+     * @tc.name      testPhotosMathEdge0634
+     * @tc.desc      Clamps extreme range sample 34. case 634
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0634', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 begin');
+      expect(MathUtils.clamp(0, -1033000, 1033000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0634 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0635
+     * @tc.name      testPhotosMathEdge0635
+     * @tc.desc      Clamps extreme range sample 34. case 635
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0635', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 begin');
+      expect(MathUtils.clamp(1033000, -1033000, 1033000)).assertEqual(1033000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0635 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0636
+     * @tc.name      testPhotosMathEdge0636
+     * @tc.desc      Clamps extreme range sample 34. case 636
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0636', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 begin');
+      expect(MathUtils.clamp(1033001, -1033000, 1033000)).assertEqual(1033000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0636 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0637
+     * @tc.name      testPhotosMathEdge0637
+     * @tc.desc      Clamps extreme range sample 35. case 637
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0637', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 begin');
+      expect(MathUtils.clamp(-1034000, -1034000, 1034000)).assertEqual(-1034000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0637 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0638
+     * @tc.name      testPhotosMathEdge0638
+     * @tc.desc      Clamps extreme range sample 35. case 638
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0638', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 begin');
+      expect(MathUtils.clamp(0, -1034000, 1034000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0638 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0639
+     * @tc.name      testPhotosMathEdge0639
+     * @tc.desc      Clamps extreme range sample 35. case 639
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0639', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 begin');
+      expect(MathUtils.clamp(1034000, -1034000, 1034000)).assertEqual(1034000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0639 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0640
+     * @tc.name      testPhotosMathEdge0640
+     * @tc.desc      Clamps extreme range sample 35. case 640
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0640', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 begin');
+      expect(MathUtils.clamp(1034001, -1034000, 1034000)).assertEqual(1034000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0640 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0641
+     * @tc.name      testPhotosMathEdge0641
+     * @tc.desc      Clamps extreme range sample 36. case 641
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0641', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 begin');
+      expect(MathUtils.clamp(-1035000, -1035000, 1035000)).assertEqual(-1035000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0641 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0642
+     * @tc.name      testPhotosMathEdge0642
+     * @tc.desc      Clamps extreme range sample 36. case 642
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0642', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 begin');
+      expect(MathUtils.clamp(0, -1035000, 1035000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0642 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0643
+     * @tc.name      testPhotosMathEdge0643
+     * @tc.desc      Clamps extreme range sample 36. case 643
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0643', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 begin');
+      expect(MathUtils.clamp(1035000, -1035000, 1035000)).assertEqual(1035000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0643 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0644
+     * @tc.name      testPhotosMathEdge0644
+     * @tc.desc      Clamps extreme range sample 36. case 644
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0644', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 begin');
+      expect(MathUtils.clamp(1035001, -1035000, 1035000)).assertEqual(1035000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0644 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0645
+     * @tc.name      testPhotosMathEdge0645
+     * @tc.desc      Clamps extreme range sample 37. case 645
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0645', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 begin');
+      expect(MathUtils.clamp(-1036000, -1036000, 1036000)).assertEqual(-1036000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0645 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0646
+     * @tc.name      testPhotosMathEdge0646
+     * @tc.desc      Clamps extreme range sample 37. case 646
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0646', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 begin');
+      expect(MathUtils.clamp(0, -1036000, 1036000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0646 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0647
+     * @tc.name      testPhotosMathEdge0647
+     * @tc.desc      Clamps extreme range sample 37. case 647
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0647', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 begin');
+      expect(MathUtils.clamp(1036000, -1036000, 1036000)).assertEqual(1036000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0647 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0648
+     * @tc.name      testPhotosMathEdge0648
+     * @tc.desc      Clamps extreme range sample 37. case 648
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0648', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 begin');
+      expect(MathUtils.clamp(1036001, -1036000, 1036000)).assertEqual(1036000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0648 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0649
+     * @tc.name      testPhotosMathEdge0649
+     * @tc.desc      Clamps extreme range sample 38. case 649
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0649', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 begin');
+      expect(MathUtils.clamp(-1037000, -1037000, 1037000)).assertEqual(-1037000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0649 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0650
+     * @tc.name      testPhotosMathEdge0650
+     * @tc.desc      Clamps extreme range sample 38. case 650
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0650', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 begin');
+      expect(MathUtils.clamp(0, -1037000, 1037000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0650 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0651
+     * @tc.name      testPhotosMathEdge0651
+     * @tc.desc      Clamps extreme range sample 38. case 651
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0651', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 begin');
+      expect(MathUtils.clamp(1037000, -1037000, 1037000)).assertEqual(1037000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0651 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0652
+     * @tc.name      testPhotosMathEdge0652
+     * @tc.desc      Clamps extreme range sample 38. case 652
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0652', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 begin');
+      expect(MathUtils.clamp(1037001, -1037000, 1037000)).assertEqual(1037000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0652 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0653
+     * @tc.name      testPhotosMathEdge0653
+     * @tc.desc      Clamps extreme range sample 39. case 653
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0653', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 begin');
+      expect(MathUtils.clamp(-1038000, -1038000, 1038000)).assertEqual(-1038000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0653 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0654
+     * @tc.name      testPhotosMathEdge0654
+     * @tc.desc      Clamps extreme range sample 39. case 654
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0654', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 begin');
+      expect(MathUtils.clamp(0, -1038000, 1038000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0654 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0655
+     * @tc.name      testPhotosMathEdge0655
+     * @tc.desc      Clamps extreme range sample 39. case 655
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0655', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 begin');
+      expect(MathUtils.clamp(1038000, -1038000, 1038000)).assertEqual(1038000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0655 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0656
+     * @tc.name      testPhotosMathEdge0656
+     * @tc.desc      Clamps extreme range sample 39. case 656
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0656', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 begin');
+      expect(MathUtils.clamp(1038001, -1038000, 1038000)).assertEqual(1038000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0656 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0657
+     * @tc.name      testPhotosMathEdge0657
+     * @tc.desc      Clamps extreme range sample 40. case 657
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0657', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 begin');
+      expect(MathUtils.clamp(-1039000, -1039000, 1039000)).assertEqual(-1039000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0657 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0658
+     * @tc.name      testPhotosMathEdge0658
+     * @tc.desc      Clamps extreme range sample 40. case 658
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0658', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 begin');
+      expect(MathUtils.clamp(0, -1039000, 1039000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0658 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0659
+     * @tc.name      testPhotosMathEdge0659
+     * @tc.desc      Clamps extreme range sample 40. case 659
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0659', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 begin');
+      expect(MathUtils.clamp(1039000, -1039000, 1039000)).assertEqual(1039000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0659 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0660
+     * @tc.name      testPhotosMathEdge0660
+     * @tc.desc      Clamps extreme range sample 40. case 660
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0660', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 begin');
+      expect(MathUtils.clamp(1039001, -1039000, 1039000)).assertEqual(1039000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0660 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0661
+     * @tc.name      testPhotosMathEdge0661
+     * @tc.desc      Clamps extreme range sample 41. case 661
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0661', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 begin');
+      expect(MathUtils.clamp(-1040000, -1040000, 1040000)).assertEqual(-1040000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0661 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0662
+     * @tc.name      testPhotosMathEdge0662
+     * @tc.desc      Clamps extreme range sample 41. case 662
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0662', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 begin');
+      expect(MathUtils.clamp(0, -1040000, 1040000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0662 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0663
+     * @tc.name      testPhotosMathEdge0663
+     * @tc.desc      Clamps extreme range sample 41. case 663
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0663', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 begin');
+      expect(MathUtils.clamp(1040000, -1040000, 1040000)).assertEqual(1040000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0663 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0664
+     * @tc.name      testPhotosMathEdge0664
+     * @tc.desc      Clamps extreme range sample 41. case 664
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0664', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 begin');
+      expect(MathUtils.clamp(1040001, -1040000, 1040000)).assertEqual(1040000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0664 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0665
+     * @tc.name      testPhotosMathEdge0665
+     * @tc.desc      Clamps extreme range sample 42. case 665
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0665', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 begin');
+      expect(MathUtils.clamp(-1041000, -1041000, 1041000)).assertEqual(-1041000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0665 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0666
+     * @tc.name      testPhotosMathEdge0666
+     * @tc.desc      Clamps extreme range sample 42. case 666
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0666', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 begin');
+      expect(MathUtils.clamp(0, -1041000, 1041000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0666 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0667
+     * @tc.name      testPhotosMathEdge0667
+     * @tc.desc      Clamps extreme range sample 42. case 667
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0667', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 begin');
+      expect(MathUtils.clamp(1041000, -1041000, 1041000)).assertEqual(1041000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0667 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0668
+     * @tc.name      testPhotosMathEdge0668
+     * @tc.desc      Clamps extreme range sample 42. case 668
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0668', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 begin');
+      expect(MathUtils.clamp(1041001, -1041000, 1041000)).assertEqual(1041000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0668 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0669
+     * @tc.name      testPhotosMathEdge0669
+     * @tc.desc      Clamps extreme range sample 43. case 669
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0669', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 begin');
+      expect(MathUtils.clamp(-1042000, -1042000, 1042000)).assertEqual(-1042000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0669 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0670
+     * @tc.name      testPhotosMathEdge0670
+     * @tc.desc      Clamps extreme range sample 43. case 670
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0670', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 begin');
+      expect(MathUtils.clamp(0, -1042000, 1042000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0670 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0671
+     * @tc.name      testPhotosMathEdge0671
+     * @tc.desc      Clamps extreme range sample 43. case 671
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0671', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 begin');
+      expect(MathUtils.clamp(1042000, -1042000, 1042000)).assertEqual(1042000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0671 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0672
+     * @tc.name      testPhotosMathEdge0672
+     * @tc.desc      Clamps extreme range sample 43. case 672
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0672', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 begin');
+      expect(MathUtils.clamp(1042001, -1042000, 1042000)).assertEqual(1042000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0672 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0673
+     * @tc.name      testPhotosMathEdge0673
+     * @tc.desc      Clamps extreme range sample 44. case 673
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0673', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 begin');
+      expect(MathUtils.clamp(-1043000, -1043000, 1043000)).assertEqual(-1043000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0673 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0674
+     * @tc.name      testPhotosMathEdge0674
+     * @tc.desc      Clamps extreme range sample 44. case 674
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0674', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 begin');
+      expect(MathUtils.clamp(0, -1043000, 1043000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0674 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0675
+     * @tc.name      testPhotosMathEdge0675
+     * @tc.desc      Clamps extreme range sample 44. case 675
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0675', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 begin');
+      expect(MathUtils.clamp(1043000, -1043000, 1043000)).assertEqual(1043000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0675 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0676
+     * @tc.name      testPhotosMathEdge0676
+     * @tc.desc      Clamps extreme range sample 44. case 676
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0676', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 begin');
+      expect(MathUtils.clamp(1043001, -1043000, 1043000)).assertEqual(1043000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0676 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0677
+     * @tc.name      testPhotosMathEdge0677
+     * @tc.desc      Clamps extreme range sample 45. case 677
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0677', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 begin');
+      expect(MathUtils.clamp(-1044000, -1044000, 1044000)).assertEqual(-1044000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0677 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0678
+     * @tc.name      testPhotosMathEdge0678
+     * @tc.desc      Clamps extreme range sample 45. case 678
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0678', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 begin');
+      expect(MathUtils.clamp(0, -1044000, 1044000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0678 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0679
+     * @tc.name      testPhotosMathEdge0679
+     * @tc.desc      Clamps extreme range sample 45. case 679
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0679', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 begin');
+      expect(MathUtils.clamp(1044000, -1044000, 1044000)).assertEqual(1044000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0679 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0680
+     * @tc.name      testPhotosMathEdge0680
+     * @tc.desc      Clamps extreme range sample 45. case 680
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0680', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 begin');
+      expect(MathUtils.clamp(1044001, -1044000, 1044000)).assertEqual(1044000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0680 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0681
+     * @tc.name      testPhotosMathEdge0681
+     * @tc.desc      Clamps extreme range sample 46. case 681
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0681', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 begin');
+      expect(MathUtils.clamp(-1045000, -1045000, 1045000)).assertEqual(-1045000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0681 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0682
+     * @tc.name      testPhotosMathEdge0682
+     * @tc.desc      Clamps extreme range sample 46. case 682
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0682', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 begin');
+      expect(MathUtils.clamp(0, -1045000, 1045000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0682 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0683
+     * @tc.name      testPhotosMathEdge0683
+     * @tc.desc      Clamps extreme range sample 46. case 683
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0683', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 begin');
+      expect(MathUtils.clamp(1045000, -1045000, 1045000)).assertEqual(1045000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0683 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0684
+     * @tc.name      testPhotosMathEdge0684
+     * @tc.desc      Clamps extreme range sample 46. case 684
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0684', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 begin');
+      expect(MathUtils.clamp(1045001, -1045000, 1045000)).assertEqual(1045000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0684 end');
+    })
+
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0685
+     * @tc.name      testPhotosMathEdge0685
+     * @tc.desc      Clamps extreme range sample 47. case 685
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0685', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 begin');
+      expect(MathUtils.clamp(-1046000, -1046000, 1046000)).assertEqual(-1046000);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0685 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0686
+     * @tc.name      testPhotosMathEdge0686
+     * @tc.desc      Clamps extreme range sample 47. case 686
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosMathEdge0686', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 begin');
+      expect(MathUtils.clamp(0, -1046000, 1046000)).assertEqual(0);
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosMathEdge0686 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_MATH_EDGE_0687
+     * @tc.name      testPhotosMathEdge0687
+     * @tc.desc      Clamps extreme range sample 47. case 687
+     * @tc.type      FUNCTION
