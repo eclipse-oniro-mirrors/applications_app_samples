@@ -5392,3 +5392,1939 @@ export default function PhotosUserFileDataItemStateTest(): void {
       expect(item.status).assertEqual(MediaConstants.TRASHED);
       expect(item.isLoad()).assertTrue();
       HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0316 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0317
+     * @tc.name      testPhotosUserFileDataItemState0317
+     * @tc.desc      Checks media item undefined state sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0317 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_79', ['state_arg_79'], 'state_device_79', 380);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('380');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0317 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0318
+     * @tc.name      testPhotosUserFileDataItemState0318
+     * @tc.desc      Checks media item partLoaded state sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0318 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_79', ['state_arg_79'], 'state_device_79', 380);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0318 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0319
+     * @tc.name      testPhotosUserFileDataItemState0319
+     * @tc.desc      Checks media item loaded state sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0319 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_79', ['state_arg_79'], 'state_device_79', 380);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0319 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0320
+     * @tc.name      testPhotosUserFileDataItemState0320
+     * @tc.desc      Checks media item trashed state sample 80.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0320 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_79', ['state_arg_79'], 'state_device_79', 380);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0320 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0321
+     * @tc.name      testPhotosUserFileDataItemState0321
+     * @tc.desc      Checks media item undefined state sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0321 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_80', ['state_arg_80'], 'state_device_80', 381);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('381');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0321 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0322
+     * @tc.name      testPhotosUserFileDataItemState0322
+     * @tc.desc      Checks media item partLoaded state sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0322 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_80', ['state_arg_80'], 'state_device_80', 381);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0322 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0323
+     * @tc.name      testPhotosUserFileDataItemState0323
+     * @tc.desc      Checks media item loaded state sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0323 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_80', ['state_arg_80'], 'state_device_80', 381);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0323 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0324
+     * @tc.name      testPhotosUserFileDataItemState0324
+     * @tc.desc      Checks media item trashed state sample 81.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0324 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_80', ['state_arg_80'], 'state_device_80', 381);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0324 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0325
+     * @tc.name      testPhotosUserFileDataItemState0325
+     * @tc.desc      Checks media item undefined state sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0325 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_81', ['state_arg_81'], 'state_device_81', 382);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('382');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0325 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0326
+     * @tc.name      testPhotosUserFileDataItemState0326
+     * @tc.desc      Checks media item partLoaded state sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0326 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_81', ['state_arg_81'], 'state_device_81', 382);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0326 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0327
+     * @tc.name      testPhotosUserFileDataItemState0327
+     * @tc.desc      Checks media item loaded state sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0327 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_81', ['state_arg_81'], 'state_device_81', 382);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0327 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0328
+     * @tc.name      testPhotosUserFileDataItemState0328
+     * @tc.desc      Checks media item trashed state sample 82.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0328 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_81', ['state_arg_81'], 'state_device_81', 382);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0328 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0329
+     * @tc.name      testPhotosUserFileDataItemState0329
+     * @tc.desc      Checks media item undefined state sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0329 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_82', ['state_arg_82'], 'state_device_82', 383);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('383');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0329 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0330
+     * @tc.name      testPhotosUserFileDataItemState0330
+     * @tc.desc      Checks media item partLoaded state sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0330 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_82', ['state_arg_82'], 'state_device_82', 383);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0330 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0331
+     * @tc.name      testPhotosUserFileDataItemState0331
+     * @tc.desc      Checks media item loaded state sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0331 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_82', ['state_arg_82'], 'state_device_82', 383);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0331 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0332
+     * @tc.name      testPhotosUserFileDataItemState0332
+     * @tc.desc      Checks media item trashed state sample 83.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0332 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_82', ['state_arg_82'], 'state_device_82', 383);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0332 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0333
+     * @tc.name      testPhotosUserFileDataItemState0333
+     * @tc.desc      Checks media item undefined state sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0333 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_83', ['state_arg_83'], 'state_device_83', 384);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('384');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0333 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0334
+     * @tc.name      testPhotosUserFileDataItemState0334
+     * @tc.desc      Checks media item partLoaded state sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0334 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_83', ['state_arg_83'], 'state_device_83', 384);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0334 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0335
+     * @tc.name      testPhotosUserFileDataItemState0335
+     * @tc.desc      Checks media item loaded state sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0335 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_83', ['state_arg_83'], 'state_device_83', 384);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0335 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0336
+     * @tc.name      testPhotosUserFileDataItemState0336
+     * @tc.desc      Checks media item trashed state sample 84.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0336 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_83', ['state_arg_83'], 'state_device_83', 384);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0336 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0337
+     * @tc.name      testPhotosUserFileDataItemState0337
+     * @tc.desc      Checks media item undefined state sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0337 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_84', ['state_arg_84'], 'state_device_84', 385);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('385');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0337 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0338
+     * @tc.name      testPhotosUserFileDataItemState0338
+     * @tc.desc      Checks media item partLoaded state sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0338 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_84', ['state_arg_84'], 'state_device_84', 385);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0338 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0339
+     * @tc.name      testPhotosUserFileDataItemState0339
+     * @tc.desc      Checks media item loaded state sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0339 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_84', ['state_arg_84'], 'state_device_84', 385);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0339 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0340
+     * @tc.name      testPhotosUserFileDataItemState0340
+     * @tc.desc      Checks media item trashed state sample 85.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0340 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_84', ['state_arg_84'], 'state_device_84', 385);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0340 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0341
+     * @tc.name      testPhotosUserFileDataItemState0341
+     * @tc.desc      Checks media item undefined state sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0341 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_85', ['state_arg_85'], 'state_device_85', 386);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('386');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0341 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0342
+     * @tc.name      testPhotosUserFileDataItemState0342
+     * @tc.desc      Checks media item partLoaded state sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0342 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_85', ['state_arg_85'], 'state_device_85', 386);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0342 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0343
+     * @tc.name      testPhotosUserFileDataItemState0343
+     * @tc.desc      Checks media item loaded state sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0343 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_85', ['state_arg_85'], 'state_device_85', 386);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0343 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0344
+     * @tc.name      testPhotosUserFileDataItemState0344
+     * @tc.desc      Checks media item trashed state sample 86.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0344 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_85', ['state_arg_85'], 'state_device_85', 386);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0344 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0345
+     * @tc.name      testPhotosUserFileDataItemState0345
+     * @tc.desc      Checks media item undefined state sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0345 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_86', ['state_arg_86'], 'state_device_86', 387);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('387');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0345 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0346
+     * @tc.name      testPhotosUserFileDataItemState0346
+     * @tc.desc      Checks media item partLoaded state sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0346 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_86', ['state_arg_86'], 'state_device_86', 387);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0346 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0347
+     * @tc.name      testPhotosUserFileDataItemState0347
+     * @tc.desc      Checks media item loaded state sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0347 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_86', ['state_arg_86'], 'state_device_86', 387);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0347 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0348
+     * @tc.name      testPhotosUserFileDataItemState0348
+     * @tc.desc      Checks media item trashed state sample 87.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0348 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_86', ['state_arg_86'], 'state_device_86', 387);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0348 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0349
+     * @tc.name      testPhotosUserFileDataItemState0349
+     * @tc.desc      Checks media item undefined state sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0349 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_87', ['state_arg_87'], 'state_device_87', 388);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('388');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0349 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0350
+     * @tc.name      testPhotosUserFileDataItemState0350
+     * @tc.desc      Checks media item partLoaded state sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0350 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_87', ['state_arg_87'], 'state_device_87', 388);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0350 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0351
+     * @tc.name      testPhotosUserFileDataItemState0351
+     * @tc.desc      Checks media item loaded state sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0351 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_87', ['state_arg_87'], 'state_device_87', 388);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0351 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0352
+     * @tc.name      testPhotosUserFileDataItemState0352
+     * @tc.desc      Checks media item trashed state sample 88.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0352 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_87', ['state_arg_87'], 'state_device_87', 388);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0352 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0353
+     * @tc.name      testPhotosUserFileDataItemState0353
+     * @tc.desc      Checks media item undefined state sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0353 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_88', ['state_arg_88'], 'state_device_88', 389);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('389');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0353 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0354
+     * @tc.name      testPhotosUserFileDataItemState0354
+     * @tc.desc      Checks media item partLoaded state sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0354 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_88', ['state_arg_88'], 'state_device_88', 389);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0354 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0355
+     * @tc.name      testPhotosUserFileDataItemState0355
+     * @tc.desc      Checks media item loaded state sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0355 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_88', ['state_arg_88'], 'state_device_88', 389);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0355 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0356
+     * @tc.name      testPhotosUserFileDataItemState0356
+     * @tc.desc      Checks media item trashed state sample 89.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0356 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_88', ['state_arg_88'], 'state_device_88', 389);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0356 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0357
+     * @tc.name      testPhotosUserFileDataItemState0357
+     * @tc.desc      Checks media item undefined state sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0357 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_89', ['state_arg_89'], 'state_device_89', 390);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('390');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0357 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0358
+     * @tc.name      testPhotosUserFileDataItemState0358
+     * @tc.desc      Checks media item partLoaded state sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0358 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_89', ['state_arg_89'], 'state_device_89', 390);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0358 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0359
+     * @tc.name      testPhotosUserFileDataItemState0359
+     * @tc.desc      Checks media item loaded state sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0359 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_89', ['state_arg_89'], 'state_device_89', 390);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0359 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0360
+     * @tc.name      testPhotosUserFileDataItemState0360
+     * @tc.desc      Checks media item trashed state sample 90.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0360 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_89', ['state_arg_89'], 'state_device_89', 390);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0360 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0361
+     * @tc.name      testPhotosUserFileDataItemState0361
+     * @tc.desc      Checks media item undefined state sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0361 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_90', ['state_arg_90'], 'state_device_90', 391);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('391');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0361 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0362
+     * @tc.name      testPhotosUserFileDataItemState0362
+     * @tc.desc      Checks media item partLoaded state sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0362 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_90', ['state_arg_90'], 'state_device_90', 391);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0362 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0363
+     * @tc.name      testPhotosUserFileDataItemState0363
+     * @tc.desc      Checks media item loaded state sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0363 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_90', ['state_arg_90'], 'state_device_90', 391);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0363 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0364
+     * @tc.name      testPhotosUserFileDataItemState0364
+     * @tc.desc      Checks media item trashed state sample 91.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0364 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_90', ['state_arg_90'], 'state_device_90', 391);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0364 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0365
+     * @tc.name      testPhotosUserFileDataItemState0365
+     * @tc.desc      Checks media item undefined state sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0365 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_91', ['state_arg_91'], 'state_device_91', 392);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('392');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0365 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0366
+     * @tc.name      testPhotosUserFileDataItemState0366
+     * @tc.desc      Checks media item partLoaded state sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0366 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_91', ['state_arg_91'], 'state_device_91', 392);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0366 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0367
+     * @tc.name      testPhotosUserFileDataItemState0367
+     * @tc.desc      Checks media item loaded state sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0367', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0367 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_91', ['state_arg_91'], 'state_device_91', 392);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0367 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0368
+     * @tc.name      testPhotosUserFileDataItemState0368
+     * @tc.desc      Checks media item trashed state sample 92.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0368', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0368 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_91', ['state_arg_91'], 'state_device_91', 392);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0368 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0369
+     * @tc.name      testPhotosUserFileDataItemState0369
+     * @tc.desc      Checks media item undefined state sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0369', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0369 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_92', ['state_arg_92'], 'state_device_92', 393);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('393');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0369 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0370
+     * @tc.name      testPhotosUserFileDataItemState0370
+     * @tc.desc      Checks media item partLoaded state sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0370', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0370 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_92', ['state_arg_92'], 'state_device_92', 393);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0370 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0371
+     * @tc.name      testPhotosUserFileDataItemState0371
+     * @tc.desc      Checks media item loaded state sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0371', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0371 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_92', ['state_arg_92'], 'state_device_92', 393);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0371 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0372
+     * @tc.name      testPhotosUserFileDataItemState0372
+     * @tc.desc      Checks media item trashed state sample 93.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0372', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0372 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_92', ['state_arg_92'], 'state_device_92', 393);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0372 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0373
+     * @tc.name      testPhotosUserFileDataItemState0373
+     * @tc.desc      Checks media item undefined state sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0373', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0373 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_93', ['state_arg_93'], 'state_device_93', 394);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('394');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0373 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0374
+     * @tc.name      testPhotosUserFileDataItemState0374
+     * @tc.desc      Checks media item partLoaded state sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0374', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0374 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_93', ['state_arg_93'], 'state_device_93', 394);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0374 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0375
+     * @tc.name      testPhotosUserFileDataItemState0375
+     * @tc.desc      Checks media item loaded state sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0375', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0375 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_93', ['state_arg_93'], 'state_device_93', 394);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0375 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0376
+     * @tc.name      testPhotosUserFileDataItemState0376
+     * @tc.desc      Checks media item trashed state sample 94.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0376', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0376 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_93', ['state_arg_93'], 'state_device_93', 394);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0376 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0377
+     * @tc.name      testPhotosUserFileDataItemState0377
+     * @tc.desc      Checks media item undefined state sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0377', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0377 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_94', ['state_arg_94'], 'state_device_94', 395);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('395');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0377 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0378
+     * @tc.name      testPhotosUserFileDataItemState0378
+     * @tc.desc      Checks media item partLoaded state sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0378', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0378 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_94', ['state_arg_94'], 'state_device_94', 395);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0378 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0379
+     * @tc.name      testPhotosUserFileDataItemState0379
+     * @tc.desc      Checks media item loaded state sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0379', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0379 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_94', ['state_arg_94'], 'state_device_94', 395);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0379 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0380
+     * @tc.name      testPhotosUserFileDataItemState0380
+     * @tc.desc      Checks media item trashed state sample 95.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0380', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0380 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_94', ['state_arg_94'], 'state_device_94', 395);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0380 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0381
+     * @tc.name      testPhotosUserFileDataItemState0381
+     * @tc.desc      Checks media item undefined state sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0381', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0381 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_95', ['state_arg_95'], 'state_device_95', 396);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('396');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0381 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0382
+     * @tc.name      testPhotosUserFileDataItemState0382
+     * @tc.desc      Checks media item partLoaded state sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0382', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0382 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_95', ['state_arg_95'], 'state_device_95', 396);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0382 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0383
+     * @tc.name      testPhotosUserFileDataItemState0383
+     * @tc.desc      Checks media item loaded state sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0383', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0383 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_95', ['state_arg_95'], 'state_device_95', 396);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0383 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0384
+     * @tc.name      testPhotosUserFileDataItemState0384
+     * @tc.desc      Checks media item trashed state sample 96.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0384', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0384 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_95', ['state_arg_95'], 'state_device_95', 396);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0384 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0385
+     * @tc.name      testPhotosUserFileDataItemState0385
+     * @tc.desc      Checks media item undefined state sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0385', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0385 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_96', ['state_arg_96'], 'state_device_96', 397);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('397');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0385 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0386
+     * @tc.name      testPhotosUserFileDataItemState0386
+     * @tc.desc      Checks media item partLoaded state sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0386', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0386 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_96', ['state_arg_96'], 'state_device_96', 397);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0386 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0387
+     * @tc.name      testPhotosUserFileDataItemState0387
+     * @tc.desc      Checks media item loaded state sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0387', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0387 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_96', ['state_arg_96'], 'state_device_96', 397);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0387 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0388
+     * @tc.name      testPhotosUserFileDataItemState0388
+     * @tc.desc      Checks media item trashed state sample 97.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0388', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0388 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_96', ['state_arg_96'], 'state_device_96', 397);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0388 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0389
+     * @tc.name      testPhotosUserFileDataItemState0389
+     * @tc.desc      Checks media item undefined state sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0389', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0389 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_97', ['state_arg_97'], 'state_device_97', 398);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('398');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0389 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0390
+     * @tc.name      testPhotosUserFileDataItemState0390
+     * @tc.desc      Checks media item partLoaded state sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0390', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0390 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_97', ['state_arg_97'], 'state_device_97', 398);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0390 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0391
+     * @tc.name      testPhotosUserFileDataItemState0391
+     * @tc.desc      Checks media item loaded state sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0391', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0391 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_97', ['state_arg_97'], 'state_device_97', 398);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0391 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0392
+     * @tc.name      testPhotosUserFileDataItemState0392
+     * @tc.desc      Checks media item trashed state sample 98.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0392', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0392 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_97', ['state_arg_97'], 'state_device_97', 398);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0392 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0393
+     * @tc.name      testPhotosUserFileDataItemState0393
+     * @tc.desc      Checks media item undefined state sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0393', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0393 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_98', ['state_arg_98'], 'state_device_98', 399);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('399');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0393 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0394
+     * @tc.name      testPhotosUserFileDataItemState0394
+     * @tc.desc      Checks media item partLoaded state sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0394', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0394 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_98', ['state_arg_98'], 'state_device_98', 399);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0394 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0395
+     * @tc.name      testPhotosUserFileDataItemState0395
+     * @tc.desc      Checks media item loaded state sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0395', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0395 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_98', ['state_arg_98'], 'state_device_98', 399);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0395 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0396
+     * @tc.name      testPhotosUserFileDataItemState0396
+     * @tc.desc      Checks media item trashed state sample 99.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0396', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0396 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_98', ['state_arg_98'], 'state_device_98', 399);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0396 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0397
+     * @tc.name      testPhotosUserFileDataItemState0397
+     * @tc.desc      Checks media item undefined state sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0397 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_99', ['state_arg_99'], 'state_device_99', 400);
+      expect(item.status).assertEqual(MediaConstants.UNDEFINED);
+      expect(item.isLoad()).assertFalse();
+      expect(item.getHashCode()).assertEqual('400');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0397 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0398
+     * @tc.name      testPhotosUserFileDataItemState0398
+     * @tc.desc      Checks media item partLoaded state sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0398 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_99', ['state_arg_99'], 'state_device_99', 400);
+      item.status = MediaConstants.PART_LOADED;
+      expect(item.status).assertEqual(MediaConstants.PART_LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0398 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0399
+     * @tc.name      testPhotosUserFileDataItemState0399
+     * @tc.desc      Checks media item loaded state sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0399 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_99', ['state_arg_99'], 'state_device_99', 400);
+      item.status = MediaConstants.LOADED;
+      expect(item.status).assertEqual(MediaConstants.LOADED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0399 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_STATE_0400
+     * @tc.name      testPhotosUserFileDataItemState0400
+     * @tc.desc      Checks media item trashed state sample 100.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemState0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0400 begin');
+      const item: UserFileDataItem = new UserFileDataItem('state_99', ['state_arg_99'], 'state_device_99', 400);
+      item.status = MediaConstants.TRASHED;
+      expect(item.status).assertEqual(MediaConstants.TRASHED);
+      expect(item.isLoad()).assertTrue();
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemState0400 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0001
+     * @tc.name      testPhotosUserFileDataItemHashState0001
+     * @tc.desc      Builds hash for PART_LOADED state sample 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0001 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_0', 401);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/0';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/01 270 true');
+      expect(item.getHashCode() === '401').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_0');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0001 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0002
+     * @tc.name      testPhotosUserFileDataItemHashState0002
+     * @tc.desc      Builds hash for LOADED state sample 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0002 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_1', 402);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/1';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/10 0 false');
+      expect(item.getHashCode() === '402').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_1');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0002 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0003
+     * @tc.name      testPhotosUserFileDataItemHashState0003
+     * @tc.desc      Builds hash for TRASHED state sample 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0003 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_2', 403);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/2';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/21 90 true');
+      expect(item.getHashCode() === '403').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_2');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0003 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0004
+     * @tc.name      testPhotosUserFileDataItemHashState0004
+     * @tc.desc      Builds hash for PART_LOADED state sample 4.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0004 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_3', 404);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/3';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/30 180 false');
+      expect(item.getHashCode() === '404').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_3');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0004 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0005
+     * @tc.name      testPhotosUserFileDataItemHashState0005
+     * @tc.desc      Builds hash for LOADED state sample 5.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0005 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_4', 405);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/4';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/41 270 true');
+      expect(item.getHashCode() === '405').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_4');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0005 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0006
+     * @tc.name      testPhotosUserFileDataItemHashState0006
+     * @tc.desc      Builds hash for TRASHED state sample 6.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0006 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_5', 406);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/5';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/50 0 false');
+      expect(item.getHashCode() === '406').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_5');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0006 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0007
+     * @tc.name      testPhotosUserFileDataItemHashState0007
+     * @tc.desc      Builds hash for PART_LOADED state sample 7.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0007 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_6', 407);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/6';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/61 90 true');
+      expect(item.getHashCode() === '407').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_6');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0007 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0008
+     * @tc.name      testPhotosUserFileDataItemHashState0008
+     * @tc.desc      Builds hash for LOADED state sample 8.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0008 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_7', 408);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/7';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/70 180 false');
+      expect(item.getHashCode() === '408').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_7');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0008 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0009
+     * @tc.name      testPhotosUserFileDataItemHashState0009
+     * @tc.desc      Builds hash for TRASHED state sample 9.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0009 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_8', 409);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/8';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/81 270 true');
+      expect(item.getHashCode() === '409').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_8');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0009 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0010
+     * @tc.name      testPhotosUserFileDataItemHashState0010
+     * @tc.desc      Builds hash for PART_LOADED state sample 10.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0010 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_9', 410);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/9';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/90 0 false');
+      expect(item.getHashCode() === '410').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_9');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0010 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0011
+     * @tc.name      testPhotosUserFileDataItemHashState0011
+     * @tc.desc      Builds hash for LOADED state sample 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0011 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_10', 411);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/10';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/101 90 true');
+      expect(item.getHashCode() === '411').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_10');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0011 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0012
+     * @tc.name      testPhotosUserFileDataItemHashState0012
+     * @tc.desc      Builds hash for TRASHED state sample 12.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0012 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_11', 412);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/11';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/110 180 false');
+      expect(item.getHashCode() === '412').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_11');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0012 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0013
+     * @tc.name      testPhotosUserFileDataItemHashState0013
+     * @tc.desc      Builds hash for PART_LOADED state sample 13.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0013 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_12', 413);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/12';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/121 270 true');
+      expect(item.getHashCode() === '413').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_12');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0013 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0014
+     * @tc.name      testPhotosUserFileDataItemHashState0014
+     * @tc.desc      Builds hash for LOADED state sample 14.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0014 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_13', 414);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/13';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/130 0 false');
+      expect(item.getHashCode() === '414').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_13');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0014 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0015
+     * @tc.name      testPhotosUserFileDataItemHashState0015
+     * @tc.desc      Builds hash for TRASHED state sample 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0015 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_14', 415);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/14';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/141 90 true');
+      expect(item.getHashCode() === '415').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_14');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0015 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0016
+     * @tc.name      testPhotosUserFileDataItemHashState0016
+     * @tc.desc      Builds hash for PART_LOADED state sample 16.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0016 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_15', 416);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/15';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/150 180 false');
+      expect(item.getHashCode() === '416').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_15');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0016 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0017
+     * @tc.name      testPhotosUserFileDataItemHashState0017
+     * @tc.desc      Builds hash for LOADED state sample 17.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0017 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_16', 417);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/16';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/161 270 true');
+      expect(item.getHashCode() === '417').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_16');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0017 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0018
+     * @tc.name      testPhotosUserFileDataItemHashState0018
+     * @tc.desc      Builds hash for TRASHED state sample 18.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0018 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_17', 418);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/17';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/170 0 false');
+      expect(item.getHashCode() === '418').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_17');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0018 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0019
+     * @tc.name      testPhotosUserFileDataItemHashState0019
+     * @tc.desc      Builds hash for PART_LOADED state sample 19.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0019 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_18', 419);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/18';
+      item.favouriteStatus = 1;
+      item.orientation = 90;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/181 90 true');
+      expect(item.getHashCode() === '419').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_18');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0019 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0020
+     * @tc.name      testPhotosUserFileDataItemHashState0020
+     * @tc.desc      Builds hash for LOADED state sample 20.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0020 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_19', 420);
+      item.status = MediaConstants.LOADED;
+      item.uri = 'file://media/state/19';
+      item.favouriteStatus = 0;
+      item.orientation = 180;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/190 180 false');
+      expect(item.getHashCode() === '420').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_19');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0020 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0021
+     * @tc.name      testPhotosUserFileDataItemHashState0021
+     * @tc.desc      Builds hash for TRASHED state sample 21.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0021 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_20', 421);
+      item.status = MediaConstants.TRASHED;
+      item.uri = 'file://media/state/20';
+      item.favouriteStatus = 1;
+      item.orientation = 270;
+      item.isSelect = true;
+      expect(item.getHashCode()).assertEqual('file://media/state/201 270 true');
+      expect(item.getHashCode() === '421').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_20');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0021 end');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_PHOTOS_LOGIC_ITEM_HASH_STATE_0022
+     * @tc.name      testPhotosUserFileDataItemHashState0022
+     * @tc.desc      Builds hash for PART_LOADED state sample 22.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testPhotosUserFileDataItemHashState0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0022 begin');
+      const item: UserFileDataItem = new UserFileDataItem('', [], 'state_device_21', 422);
+      item.status = MediaConstants.PART_LOADED;
+      item.uri = 'file://media/state/21';
+      item.favouriteStatus = 0;
+      item.orientation = 0;
+      item.isSelect = false;
+      expect(item.getHashCode()).assertEqual('file://media/state/210 0 false');
+      expect(item.getHashCode() === '422').assertFalse();
+      expect(item.isLoad()).assertTrue();
+      expect(item.deviceId).assertEqual('state_device_21');
+      HiLog.info(DOMAIN, TAG, '%{public}s', 'testPhotosUserFileDataItemHashState0022 end');
+    })
+
