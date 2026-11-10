@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -56,7 +57,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0001', 0, () => {
+    it('testFileCopy0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('one');
       const target: string = targetFor('one');
       try {
@@ -78,7 +79,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0002', 0, () => {
+    it('testFileCopy0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('64');
       const target: string = targetFor('64');
       const payload: string = repeatPayload(64, 'copy');
@@ -101,7 +102,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0003', 0, () => {
+    it('testFileCopy0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('1024');
       const target: string = targetFor('1024');
       const payload: string = repeatPayload(1024, 'abcdef');
@@ -124,7 +125,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0004', 0, () => {
+    it('testFileCopy0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('4096');
       const target: string = targetFor('4096');
       const payload: string = repeatPayload(4096, '0123456789');
@@ -147,7 +148,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0005', 0, () => {
+    it('testFileCopy0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('immutable');
       const target: string = targetFor('immutable');
       try {
@@ -170,7 +171,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0006', 0, () => {
+    it('testFileCopy0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('overwrite');
       const target: string = targetFor('overwrite');
       try {
@@ -194,7 +195,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0007', 0, () => {
+    it('testFileCopy0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('divergence');
       const target: string = targetFor('divergence');
       try {
@@ -219,7 +220,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0008', 0, () => {
+    it('testFileCopy0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('truncate_copy');
       const target: string = targetFor('truncate_copy');
       try {
@@ -244,7 +245,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0009', 0, () => {
+    it('testFileCopy0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('zero');
       try {
         writeTextFile(path, 'truncate-me');
@@ -265,7 +266,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0010', 0, () => {
+    it('testFileCopy0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('same_size');
       try {
         writeTextFile(path, 'same-size');
@@ -285,7 +286,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0011', 0, () => {
+    it('testFileCopy0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('half');
       try {
         writeTextFile(path, '0123456789');
@@ -305,7 +306,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0012', 0, () => {
+    it('testFileCopy0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('decreasing');
       try {
         writeTextFile(path, repeatPayload(1024, 'z'));
@@ -327,7 +328,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0013', 0, () => {
+    it('testFileCopy0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('utf8');
       const target: string = targetFor('utf8');
       const payload: string = repeatPayload(30, '音画sync');
@@ -352,7 +353,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0014', 0, () => {
+    it('testFileCopy0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('pipeline');
       const target: string = targetFor('pipeline');
       try {
@@ -377,7 +378,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0015', 0, () => {
+    it('testFileCopy0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = sourceFor('boundary');
       const target: string = targetFor('boundary');
       try {
@@ -402,7 +403,7 @@ export default function fileCopyTruncateMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileCopy0016', 0, () => {
+    it('testFileCopy0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('idempotent');
       try {
         writeTextFile(path, repeatPayload(100, 'idem'));

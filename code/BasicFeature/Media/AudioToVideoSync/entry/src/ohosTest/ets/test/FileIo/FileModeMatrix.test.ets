@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -60,7 +61,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0001', 0, () => {
+    it('testFileMode0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('create');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -80,7 +81,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0002', 0, () => {
+    it('testFileMode0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('create_existing');
       try {
         writeTextFile(path, 'preserved');
@@ -101,7 +102,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0003', 0, () => {
+    it('testFileMode0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('trunc');
       try {
         writeTextFile(path, 'will-be-cleared');
@@ -122,7 +123,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0004', 0, () => {
+    it('testFileMode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('create_trunc');
       try {
         const file: fileIo.File = fileIo.openSync(path,
@@ -144,7 +145,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0005', 0, () => {
+    it('testFileMode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append');
       try {
         writeTextFile(path, 'head');
@@ -166,7 +167,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0006', 0, () => {
+    it('testFileMode0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('append_twice');
       try {
         writeTextFile(path, 'a');
@@ -190,7 +191,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0007', 0, () => {
+    it('testFileMode0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('read_write');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -214,7 +215,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0008', 0, () => {
+    it('testFileMode0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('in_place');
       try {
         writeTextFile(path, 'ABCDEF');
@@ -237,7 +238,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0009', 0, () => {
+    it('testFileMode0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('read_only_write');
       try {
         writeTextFile(path, 'readonly');
@@ -262,7 +263,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0010', 0, () => {
+    it('testFileMode0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('write_only_read');
       try {
         writeTextFile(path, 'writeonly');
@@ -286,7 +287,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0011', 0, () => {
+    it('testFileMode0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('write_only_grow');
       try {
         writeTextFile(path, 'start');
@@ -308,7 +309,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0012', 0, () => {
+    it('testFileMode0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('trunc_append');
       try {
         writeTextFile(path, 'old-content');
@@ -331,7 +332,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0013', 0, () => {
+    it('testFileMode0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('shared_read');
       try {
         writeTextFile(path, 'first');
@@ -358,7 +359,7 @@ export default function fileModeMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileMode0014', 0, () => {
+    it('testFileMode0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('cycle');
       try {
         const file: fileIo.File = fileIo.openSync(path,

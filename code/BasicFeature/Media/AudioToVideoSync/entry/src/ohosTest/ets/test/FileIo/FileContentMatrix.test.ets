@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -86,7 +87,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0001', 0, () => {
+    it('testFileContent0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('empty');
       try {
         const written: number = writeTextFile(path, '');
@@ -108,7 +109,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0002', 0, () => {
+    it('testFileContent0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('single');
       try {
         expect(writeTextFile(path, 'a')).assertEqual(1);
@@ -127,7 +128,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0003', 0, () => {
+    it('testFileContent0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('spaces');
       try {
         const payload: string = '   ';
@@ -147,7 +148,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0004', 0, () => {
+    it('testFileContent0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('newline');
       try {
         const payload: string = '\n';
@@ -167,7 +168,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0005', 0, () => {
+    it('testFileContent0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('crlf');
       try {
         const payload: string = '\r\n';
@@ -187,7 +188,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0006', 0, () => {
+    it('testFileContent0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('json');
       try {
         const payload: string = '{"fps":30,"speed":2}';
@@ -208,7 +209,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0007', 0, () => {
+    it('testFileContent0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('cjk');
       try {
         const payload: string = '中文';
@@ -228,7 +229,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0008', 0, () => {
+    it('testFileContent0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('cjk4');
       try {
         const payload: string = '音画同步';
@@ -248,7 +249,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0009', 0, () => {
+    it('testFileContent0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('mixed');
       try {
         const payload: string = '音画sync同步1';
@@ -271,7 +272,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0010', 0, () => {
+    it('testFileContent0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('emoji');
       try {
         const payload: string = '🎬';
@@ -291,7 +292,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0011', 0, () => {
+    it('testFileContent0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('accent');
       try {
         const payload: string = 'café';
@@ -311,7 +312,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0012', 0, () => {
+    it('testFileContent0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('cyrillic');
       try {
         const payload: string = 'тест';
@@ -331,7 +332,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0013', 0, () => {
+    it('testFileContent0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < PAYLOAD_CASES.length; i++) {
         const sample: PayloadCase = PAYLOAD_CASES[i];
         const path: string = createTarget(sample.label);
@@ -355,7 +356,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0014', 0, () => {
+    it('testFileContent0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       for (let i = 0; i < PAYLOAD_CASES.length; i++) {
         const sample: PayloadCase = PAYLOAD_CASES[i];
         const path: string = createTarget(`rt_${sample.label}`);
@@ -378,7 +379,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0015', 0, () => {
+    it('testFileContent0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('overwrite');
       try {
         writeTextFile(path, 'first-payload');
@@ -399,7 +400,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0016', 0, () => {
+    it('testFileContent0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('append');
       try {
         writeTextFile(path, 'head');
@@ -422,7 +423,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0017', 0, () => {
+    it('testFileContent0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('truncate');
       try {
         writeTextFile(path, 'abcdefghij');
@@ -443,7 +444,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0018', 0, () => {
+    it('testFileContent0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('truncate0');
       try {
         writeTextFile(path, 'payload');
@@ -464,7 +465,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0019', 0, () => {
+    it('testFileContent0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('partial');
       try {
         writeTextFile(path, '0123456789');
@@ -484,7 +485,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0020', 0, () => {
+    it('testFileContent0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('fd');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
@@ -506,7 +507,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0021', 0, () => {
+    it('testFileContent0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('large');
       try {
         const payload: string = repeatPayload(8192, 'sync');
@@ -529,7 +530,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0022', 0, () => {
+    it('testFileContent0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const firstPath: string = createTarget('pairA');
       const secondPath: string = createTarget('pairB');
       try {
@@ -553,7 +554,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0023', 0, () => {
+    it('testFileContent0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = createTarget('copySrc');
       const target: string = createTarget('copyDst');
       try {
@@ -576,7 +577,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0024', 0, () => {
+    it('testFileContent0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = createTarget('renameSrc');
       const target: string = createTarget('renameDst');
       try {
@@ -600,7 +601,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0025', 0, () => {
+    it('testFileContent0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('unlink');
       writeTextFile(path, 'to-delete');
       fileIo.unlinkSync(path);
@@ -622,7 +623,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0026', 0, () => {
+    it('testFileContent0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const paths: string[] = [];
       try {
         for (let i = 0; i < PAYLOAD_CASES.length; i++) {
@@ -651,7 +652,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0027', 0, () => {
+    it('testFileContent0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('codepoints');
       try {
         const payload: string = '同步sync🎬';
@@ -674,7 +675,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0028', 0, () => {
+    it('testFileContent0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('smallbuf');
       try {
         writeTextFile(path, 'abcdefghijklmnop');
@@ -698,7 +699,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0029', 0, () => {
+    it('testFileContent0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('idempotent');
       try {
         const payload: string = repeatPayload(512, 'ab');
@@ -720,7 +721,7 @@ export default function fileContentMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileContent0030', 0, () => {
+    it('testFileContent0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = createTarget('chunks');
       try {
         const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY |

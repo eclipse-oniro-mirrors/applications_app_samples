@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { paceTurn } from '../Shared/TestPace';
@@ -38,7 +39,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0001
      * @tc.desc      Verify a new directory lists no entries
      */
-    it('testFileList0001', 0, () => {
+    it('testFileList0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('empty');
       try {
         fileIo.mkdirSync(dir);
@@ -53,7 +54,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0002
      * @tc.desc      Verify one created file appears exactly once in the listing
      */
-    it('testFileList0002', 0, () => {
+    it('testFileList0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('one');
       try {
         fileIo.mkdirSync(dir);
@@ -72,7 +73,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0003
      * @tc.desc      Verify five created files are all visible in the listing
      */
-    it('testFileList0003', 0, () => {
+    it('testFileList0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('five');
       try {
         fileIo.mkdirSync(dir);
@@ -97,7 +98,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0004
      * @tc.desc      Verify removing one file reduces the listing count by one
      */
-    it('testFileList0004', 0, () => {
+    it('testFileList0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('remove');
       try {
         fileIo.mkdirSync(dir);
@@ -120,7 +121,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0005
      * @tc.desc      Verify a hidden dot file is included in the directory listing
      */
-    it('testFileList0005', 0, () => {
+    it('testFileList0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('hidden');
       try {
         fileIo.mkdirSync(dir);
@@ -142,7 +143,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0006
      * @tc.desc      Verify a child directory is listed by name but its files are not
      */
-    it('testFileList0006', 0, () => {
+    it('testFileList0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('child');
       const child: string = `${dir}/child`;
       try {
@@ -164,7 +165,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0007
      * @tc.desc      Verify listing a regular file as a directory fails
      */
-    it('testFileList0007', 0, () => {
+    it('testFileList0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const file: string = pathInFiles(uniqueName('avs_list_file', '.txt'));
       try {
         writeTextFile(file, 'x');
@@ -185,7 +186,7 @@ export default function fileListMatrixTest() {
      * @tc.name      testFileList0008
      * @tc.desc      Verify twenty files are listed with the exact expected count
      */
-    it('testFileList0008', 0, () => {
+    it('testFileList0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const dir: string = dirFor('twenty');
       const count: number = 20;
       try {

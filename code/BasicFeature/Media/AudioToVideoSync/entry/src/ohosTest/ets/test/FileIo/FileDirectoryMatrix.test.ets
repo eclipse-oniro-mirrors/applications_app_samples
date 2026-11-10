@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -52,7 +53,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0001', 0, () => {
+    it('testFileDirectory0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('chain');
       const middle: string = `${root}/middle`;
       const leaf: string = `${middle}/leaf`;
@@ -77,7 +78,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0002', 0, () => {
+    it('testFileDirectory0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('nested_file');
       const child: string = `${root}/child`;
       const file: string = `${child}/payload.txt`;
@@ -104,7 +105,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0003', 0, () => {
+    it('testFileDirectory0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const source: string = dirFor('rename_src');
       const target: string = dirFor('rename_dst');
       const file: string = `${source}/inner/data.txt`;
@@ -132,7 +133,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0004', 0, () => {
+    it('testFileDirectory0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('remove_all');
       const nested: string = `${root}/a/b/c`;
       const file: string = `${nested}/file.txt`;
@@ -161,7 +162,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0005', 0, () => {
+    it('testFileDirectory0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('siblings');
       const count: number = 10;
       try {
@@ -190,7 +191,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0006', 0, () => {
+    it('testFileDirectory0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const parent: string = dirFor('space_parent');
       const child: string = `${parent}/with space`;
       try {
@@ -212,7 +213,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0007', 0, () => {
+    it('testFileDirectory0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const parent: string = dirFor('cjk_parent');
       const child: string = `${parent}/音画目录`;
       try {
@@ -234,7 +235,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0008', 0, () => {
+    it('testFileDirectory0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('non_recursive');
       const child: string = `${root}/child`;
       const grandChild: string = `${child}/grand`;
@@ -262,7 +263,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0009', 0, () => {
+    it('testFileDirectory0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('deep_write');
       const deep: string = `${root}/l1/l2/l3/l4`;
       const file: string = `${deep}/payload.txt`;
@@ -291,7 +292,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0010', 0, () => {
+    it('testFileDirectory0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('independent');
       const first: string = `${root}/first`;
       const second: string = `${root}/second`;
@@ -321,7 +322,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0011', 0, () => {
+    it('testFileDirectory0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const root: string = dirFor('sibling_remove');
       const keep: string = `${root}/keep`;
       const drop: string = `${root}/drop`;
@@ -352,7 +353,7 @@ export default function fileDirectoryMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileDirectory0012', 0, () => {
+    it('testFileDirectory0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const name: string = uniqueName('avs_dir_parent_visible', '');
       const dir: string = `${appContext().filesDir}/${name}`;
       try {

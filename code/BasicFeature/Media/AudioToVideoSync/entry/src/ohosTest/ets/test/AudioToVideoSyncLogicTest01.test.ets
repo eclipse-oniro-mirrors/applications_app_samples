@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, it, expect } from '@ohos/hypium';
 import hilog from '@ohos.hilog';
 import { CommonConstants } from '../../../main/ets/common/CommonConstants';
@@ -29,7 +30,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioToVideoSyncLogic01Chapter0001', 0, () => {
+    it('testAudioToVideoSyncLogic01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0001 start');
       hilog.info(DOMAIN, TAG, 'tag=%{public}s', CommonConstants.INDEX_TAG);
       expect(CommonConstants.INDEX_TAG).assertEqual('INDEX');
@@ -45,7 +46,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioToVideoSyncLogic01Chapter0002', 0, () => {
+    it('testAudioToVideoSyncLogic01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0002 start');
       expect(CommonConstants.DEFAULT_VALUE).assertEqual(0);
       expect(CommonConstants.DEFAULT_WIDTH).assertEqual(1920);
@@ -61,7 +62,7 @@ export default function AudioToVideoSyncLogic01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudioToVideoSyncLogic01Chapter0003', 0, () => {
+    it('testAudioToVideoSyncLogic01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0003 start');
       expect(CommonConstants.DURATION).assertEqual(2000);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioToVideoSyncLogic01Chapter0003 end');

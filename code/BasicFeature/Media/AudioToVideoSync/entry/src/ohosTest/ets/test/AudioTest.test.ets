@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { media } from '@kit.MediaKit';
@@ -45,7 +46,7 @@ export default function Audio01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudio01Chapter0001', 0, async () => {
+    it('testAudio01Chapter0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudio01Chapter0001 start');
       const player: media.AVPlayer = await media.createAVPlayer();
       try {
@@ -64,7 +65,7 @@ export default function Audio01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudio01Chapter0002', 0, async () => {
+    it('testAudio01Chapter0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudio01Chapter0002 start');
       const player: media.AVPlayer = await media.createAVPlayer();
       await player.release();
@@ -80,7 +81,7 @@ export default function Audio01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudio01Chapter0003', 0, async () => {
+    it('testAudio01Chapter0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudio01Chapter0003 start');
       const first: media.AVPlayer = await media.createAVPlayer();
       const second: media.AVPlayer = await media.createAVPlayer();
@@ -103,7 +104,7 @@ export default function Audio01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudio01Chapter0004', 0, async () => {
+    it('testAudio01Chapter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudio01Chapter0004 start');
       const volumeManager: audio.AudioVolumeManager = audio.getAudioManager().getVolumeManager();
       const minVolume: number = volumeManager.getMinVolumeByStream(audio.StreamUsage.STREAM_USAGE_MEDIA);
@@ -124,7 +125,7 @@ export default function Audio01Test() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testAudio01Chapter0005', 0, async () => {
+    it('testAudio01Chapter0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAudio01Chapter0005 start');
       const streamInfo: audio.AudioStreamInfo = {
         samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,

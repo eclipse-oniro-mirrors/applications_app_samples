@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TestType, Size, Level } from '@ohos/hypium';
 
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
@@ -60,7 +61,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0001', 0, () => {
+    it('testFileHandle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('distinct');
       writeTextFile(path, 'abcdef');
       try {
@@ -87,7 +88,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0002', 0, () => {
+    it('testFileHandle0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('visible');
       writeTextFile(path, 'initial');
       try {
@@ -114,7 +115,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0003', 0, () => {
+    it('testFileHandle0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('independent');
       writeTextFile(path, '0123456789');
       try {
@@ -142,7 +143,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0004', 0, () => {
+    it('testFileHandle0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('close_one');
       writeTextFile(path, 'abcdefgh');
       try {
@@ -168,7 +169,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0005', 0, () => {
+    it('testFileHandle0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('many');
       writeTextFile(path, '........');
       const handles: fileIo.File[] = [];
@@ -204,7 +205,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0006', 0, () => {
+    it('testFileHandle0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('reopen');
       writeTextFile(path, 'reopen-content');
       try {
@@ -231,7 +232,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0007', 0, () => {
+    it('testFileHandle0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('offset_isolation');
       writeTextFile(path, 'AAAAAAAAAA');
       try {
@@ -260,7 +261,7 @@ export default function fileHandleMatrixTest() {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testFileHandle0008', 0, () => {
+    it('testFileHandle0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const path: string = targetFor('commit');
       writeTextFile(path, '');
       try {

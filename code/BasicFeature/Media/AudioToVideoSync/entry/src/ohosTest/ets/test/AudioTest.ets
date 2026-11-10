@@ -1,3 +1,4 @@
+import { TestType, Size, Level } from '@ohos/hypium';
 import { describe, beforeAll, it, expect } from '@ohos/hypium'
 
 export default function AudioTest() {
@@ -6,19 +7,19 @@ export default function AudioTest() {
       console.info('Audio test setup')
     })
 
-    it('basicAudioTest', 0, () => {
+    it('basicAudioTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing basic audio functionality')
       expect(1 + 1).assertEqual(2)
     })
 
-    it('audioFormatValidation', 0, () => {
+    it('audioFormatValidation', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio format validation')
       const supportedFormats = ['mp3', 'wav', 'aac', 'm4a', 'ogg']
       const testFormat = 'mp3'
       expect(supportedFormats.indexOf(testFormat) >= 0).assertEqual(true)
     })
 
-    it('audioSampleRateTest', 0, () => {
+    it('audioSampleRateTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio sample rate')
       const standardSampleRates = [8000, 16000, 22050, 44100, 48000, 96000]
       const currentSampleRate = 44100
@@ -27,7 +28,7 @@ export default function AudioTest() {
       expect(currentSampleRate > 0).assertEqual(true)
     })
 
-    it('audioChannelsTest', 0, () => {
+    it('audioChannelsTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio channels')
       const mono = 1
       const stereo = 2
@@ -39,7 +40,7 @@ export default function AudioTest() {
       expect(currentChannels <= 8).assertEqual(true)
     })
 
-    it('audioBitrateTest', 0, () => {
+    it('audioBitrateTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio bitrate')
       const minBitrate = 32000  // 32 kbps
       const maxBitrate = 320000 // 320 kbps
@@ -50,7 +51,7 @@ export default function AudioTest() {
       expect(currentBitrate % 1000 === 0).assertEqual(true)
     })
 
-    it('audioDurationTest', 0, () => {
+    it('audioDurationTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio duration')
       const audioLengthInSeconds = 180 // 3 minutes
       const minLengthInSeconds = 1
@@ -61,7 +62,7 @@ export default function AudioTest() {
       expect(audioLengthInSeconds > 0).assertEqual(true)
     })
 
-    it('audioVolumeTest', 0, () => {
+    it('audioVolumeTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio volume control')
       const minVolume = 0
       const maxVolume = 100
@@ -73,7 +74,7 @@ export default function AudioTest() {
       expect(maxVolume === 100).assertEqual(true)
     })
 
-    it('audioCodecTest', 0, () => {
+    it('audioCodecTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio codec support')
       const supportedCodecs = ['MP3', 'AAC', 'FLAC', 'VORBIS', 'PCM']
       const currentCodec = 'MP3'
@@ -83,7 +84,7 @@ export default function AudioTest() {
       expect(supportedCodecs.length > 0).assertEqual(true)
     })
 
-    it('audioBufferSizeTest', 0, () => {
+    it('audioBufferSizeTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio buffer size')
       const bufferSize = 4096 // bytes
       const minBufferSize = 1024
@@ -94,7 +95,7 @@ export default function AudioTest() {
       expect(bufferSize % 2 === 0).assertEqual(true) // should be even number
     })
 
-    it('audioFrequencyTest', 0, () => {
+    it('audioFrequencyTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio frequency range')
       const humanHearingMin = 20 // Hz
       const humanHearingMax = 20000 // Hz
@@ -105,7 +106,7 @@ export default function AudioTest() {
       expect(humanHearingMax > humanHearingMin).assertEqual(true)
     })
 
-    it('audioQualityTest', 0, () => {
+    it('audioQualityTest', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       console.info('Testing audio quality settings')
       const qualityLevels = ['low', 'medium', 'high', 'ultra']
       const currentQuality = 'high'
