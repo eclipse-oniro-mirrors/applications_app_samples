@@ -1,0 +1,36 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "primary_color",
+      "value": "#007DFF"
+    },
+    {
+      "name": "success_color",
+      "value": "#4CAF50"
+    },
+    {
+      "name": "warning_color",
+      "value": "#FF9800"
+    },
+    {
+      "name": "error_color",
+      "value": "#F44336"
+    },
+    {
+      "name": "text_primary",
+      "value": "#333333"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#666666"
+    },
+    {
+      "name": "text_hint",
+      "value": "#999999"
+    }
+  ]
+}

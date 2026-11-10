@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "系统配置示例模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "系统配置 API 示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "系统配置"
+    },
+    {
+      "name": "permission_reason_get_dnd_state",
+      "value": "用于获取免打扰模式状态"
+    },
+    {
+      "name": "page_index_title",
+      "value": "系统配置示例"
+    },
+    {
+      "name": "page_custom_config",
+      "value": "定制配置"
+    },
+    {
+      "name": "page_intelligent_scene",
+      "value": "情景模式"
+    },
+    {
+      "name": "page_settings_lite",
+      "value": "设置信息"
+    },
+    {
+      "name": "desc_custom_config",
+      "value": "获取应用预置渠道号等定制配置信息"
+    },
+    {
+      "name": "desc_intelligent_scene",
+      "value": "查询免打扰模式状态和通知权限"
+    },
+    {
+      "name": "desc_settings_lite",
+      "value": "打开系统设置页面并查询快捷操作状态"
+    },
+    {
+      "name": "btn_get_channel_id",
+      "value": "获取渠道号"
+    },
+    {
+      "name": "btn_check_dnd",
+      "value": "查询免打扰状态"
+    },
+    {
+      "name": "btn_check_notify_allowed",
+      "value": "查询通知白名单"
+    },
+    {
+      "name": "btn_open_pin_settings",
+      "value": "打开 PIN 设置"
+    },
+    {
+      "name": "btn_open_nfc_settings",
+      "value": "打开 NFC 设置"
+    },
+    {
+      "name": "btn_open_double_click",
+      "value": "打开双击亮屏设置"
+    },
+    {
+      "name": "btn_check_double_click_app",
+      "value": "查询双击默认应用"
+    },
+    {
+      "name": "label_result",
+      "value": "结果"
+    },
+    {
+      "name": "label_status",
+      "value": "状态"
+    },
+    {
+      "name": "label_log",
+      "value": "运行日志"
+    }
+  ]
+}
