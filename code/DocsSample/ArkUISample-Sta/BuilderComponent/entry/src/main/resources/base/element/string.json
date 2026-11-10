@@ -91,6 +91,10 @@
     {
       "name": "builder_component_param_title",
       "value": "自定义组件拆分参数"
+    },
+    {
+      "name": "builder_class_title",
+      "value": "成员自定义构建函数"
     }
   ]
 }

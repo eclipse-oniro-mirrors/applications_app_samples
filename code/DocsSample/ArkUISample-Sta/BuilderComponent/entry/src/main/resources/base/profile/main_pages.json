@@ -23,6 +23,7 @@
     "pages/BuilderComponentParam",
     "pages/BuilderMutableBindingNoSetter",
     "pages/BuilderChangeVariableRight",
-    "pages/BuilderCallInWatch"
+    "pages/BuilderCallInWatch",
+	"pages/BuilderClassInterface"
   ]
 }
